@@ -36,29 +36,29 @@
             "h": 9,
             "name": "cardboard_box_small_idle_1",
             "w": 10,
-            "x": 1228,
-            "y": 450
+            "x": 153,
+            "y": 452
         },
         {
             "h": 12,
             "name": "cardboard_box_small_open_1",
             "w": 10,
-            "x": 1706,
-            "y": 436
+            "x": 311,
+            "y": 438
         },
         {
             "h": 11,
             "name": "cardboard_box_small_open_2",
             "w": 20,
-            "x": 1761,
-            "y": 436
+            "x": 438,
+            "y": 438
         },
         {
             "h": 9,
             "name": "cardboard_box_small_open_3",
             "w": 20,
-            "x": 1214,
-            "y": 437
+            "x": 12,
+            "y": 439
         }
     ],
     "frames_offsets": [

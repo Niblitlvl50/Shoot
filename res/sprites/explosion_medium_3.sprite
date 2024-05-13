@@ -24,78 +24,78 @@
             "h": 16,
             "name": "explosion_medium_3_idle_1",
             "w": 16,
-            "x": 689,
-            "y": 399
+            "x": 1370,
+            "y": 400
         },
         {
             "h": 16,
             "name": "explosion_medium_3_idle_2",
             "w": 16,
-            "x": 749,
-            "y": 399
+            "x": 1390,
+            "y": 400
         },
         {
             "h": 16,
             "name": "explosion_medium_3_idle_3",
             "w": 16,
-            "x": 669,
-            "y": 399
+            "x": 985,
+            "y": 400
         },
         {
             "h": 23,
             "name": "explosion_medium_3_idle_4",
             "w": 29,
-            "x": 1686,
-            "y": 324
+            "x": 488,
+            "y": 350
         },
         {
             "h": 26,
             "name": "explosion_medium_3_idle_5",
             "w": 31,
-            "x": 535,
+            "x": 637,
             "y": 320
         },
         {
             "h": 21,
             "name": "explosion_medium_3_idle_6",
             "w": 29,
-            "x": 780,
-            "y": 351
+            "x": 691,
+            "y": 352
         },
         {
             "h": 20,
             "name": "explosion_medium_3_idle_7",
             "w": 27,
-            "x": 2010,
-            "y": 375
+            "x": 1393,
+            "y": 376
         },
         {
             "h": 20,
             "name": "explosion_medium_3_idle_8",
             "w": 27,
-            "x": 1540,
-            "y": 375
+            "x": 1424,
+            "y": 376
         },
         {
             "h": 21,
             "name": "explosion_medium_3_idle_9",
             "w": 29,
-            "x": 813,
-            "y": 351
+            "x": 1642,
+            "y": 352
         },
         {
             "h": 28,
             "name": "explosion_medium_3_idle_10",
             "w": 32,
-            "x": 1840,
-            "y": 287
+            "x": 1110,
+            "y": 288
         },
         {
             "h": 31,
             "name": "explosion_medium_3_idle_11",
             "w": 31,
-            "x": 323,
-            "y": 257
+            "x": 383,
+            "y": 283
         }
     ],
     "frames_offsets": [

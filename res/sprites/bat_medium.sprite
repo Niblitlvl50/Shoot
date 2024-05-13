@@ -40,141 +40,141 @@
             "h": 8,
             "name": "bat_medium_attack_1",
             "w": 18,
-            "x": 341,
-            "y": 451
+            "x": 1166,
+            "y": 452
         },
         {
             "h": 9,
             "name": "bat_medium_attack_2",
             "w": 18,
-            "x": 1238,
-            "y": 437
+            "x": 36,
+            "y": 439
         },
         {
             "h": 12,
             "name": "bat_medium_attack_3",
             "w": 15,
-            "x": 1405,
-            "y": 436
+            "x": 1638,
+            "y": 437
         },
         {
             "h": 13,
             "name": "bat_medium_attack_4",
             "w": 13,
-            "x": 1644,
-            "y": 419
+            "x": 1764,
+            "y": 420
         },
         {
             "h": 14,
             "name": "bat_medium_attack_5",
             "w": 11,
-            "x": 1060,
-            "y": 419
+            "x": 1132,
+            "y": 420
         },
         {
             "h": 15,
             "name": "bat_medium_attack_6",
             "w": 12,
-            "x": 1968,
-            "y": 418
+            "x": 2,
+            "y": 420
         },
         {
             "h": 12,
             "name": "bat_medium_attack_7",
             "w": 17,
-            "x": 1267,
-            "y": 436
+            "x": 1473,
+            "y": 437
         },
         {
             "h": 10,
             "name": "bat_medium_attack_8",
             "w": 18,
-            "x": 768,
-            "y": 437
+            "x": 1061,
+            "y": 438
         },
         {
             "h": 9,
             "name": "bat_medium_attack_9",
             "w": 16,
-            "x": 1971,
-            "y": 437
+            "x": 80,
+            "y": 439
         },
         {
             "h": 8,
             "name": "bat_medium_attack_10",
             "w": 20,
-            "x": 64,
-            "y": 451
+            "x": 1097,
+            "y": 452
         },
         {
             "h": 8,
             "name": "bat_medium_idle_1",
             "w": 18,
-            "x": 319,
-            "y": 451
+            "x": 1144,
+            "y": 452
         },
         {
             "h": 10,
             "name": "bat_medium_idle_2",
             "w": 16,
-            "x": 832,
-            "y": 437
+            "x": 1145,
+            "y": 438
         },
         {
             "h": 11,
             "name": "bat_medium_idle_3",
             "w": 12,
-            "x": 579,
-            "y": 437
+            "x": 851,
+            "y": 438
         },
         {
             "h": 11,
             "name": "bat_medium_idle_4",
             "w": 14,
-            "x": 1918,
-            "y": 436
+            "x": 575,
+            "y": 438
         },
         {
             "h": 9,
             "name": "bat_medium_idle_5",
             "w": 18,
-            "x": 1949,
-            "y": 437
+            "x": 58,
+            "y": 439
         },
         {
             "h": 8,
             "name": "bat_medium_idle_6",
             "w": 20,
-            "x": 88,
-            "y": 451
+            "x": 1073,
+            "y": 452
         },
         {
             "h": 7,
             "name": "bat_medium_idle_7",
             "w": 21,
-            "x": 1853,
-            "y": 451
+            "x": 744,
+            "y": 453
         },
         {
             "h": 7,
             "name": "bat_medium_idle_8",
             "w": 17,
-            "x": 1899,
-            "y": 451
+            "x": 769,
+            "y": 453
         },
         {
             "h": 7,
             "name": "bat_medium_idle_9",
             "w": 17,
-            "x": 1878,
-            "y": 451
+            "x": 790,
+            "y": 453
         },
         {
             "h": 8,
             "name": "bat_medium_idle_10",
             "w": 19,
-            "x": 112,
-            "y": 451
+            "x": 1121,
+            "y": 452
         }
     ],
     "frames_offsets": [

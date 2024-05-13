@@ -130,6 +130,8 @@
         "res/sprites/hook.sprite",
         "res/sprites/imp.sprite",
         "res/sprites/japanese_banner.sprite",
+        "res/sprites/japanese_banner_mid_white.sprite",
+        "res/sprites/japanese_banner_mid_white_black.sprite",
         "res/sprites/japanese_banner_tall.sprite",
         "res/sprites/japanese_banner_tall_demon.sprite",
         "res/sprites/jellyfish.sprite",

@@ -40,141 +40,141 @@
             "h": 31,
             "name": "wizard_crazy_idle_1",
             "w": 16,
-            "x": 1395,
+            "x": 1270,
             "y": 284
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_2",
             "w": 16,
-            "x": 644,
-            "y": 279
+            "x": 118,
+            "y": 285
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_3",
             "w": 14,
-            "x": 394,
+            "x": 1164,
             "y": 285
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_4",
             "w": 14,
-            "x": 376,
+            "x": 1182,
             "y": 285
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_5",
             "w": 14,
-            "x": 358,
+            "x": 1200,
             "y": 285
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_6",
             "w": 15,
-            "x": 155,
+            "x": 42,
             "y": 285
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_7",
             "w": 16,
-            "x": 611,
-            "y": 283
+            "x": 1310,
+            "y": 284
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_8",
-            "w": 16,
-            "x": 1375,
-            "y": 284
-        },
-        {
-            "h": 31,
-            "name": "wizard_crazy_idle_9",
-            "w": 16,
-            "x": 1415,
-            "y": 284
-        },
-        {
-            "h": 31,
-            "name": "wizard_crazy_idle_10",
-            "w": 16,
-            "x": 644,
-            "y": 244
-        },
-        {
-            "h": 31,
-            "name": "wizard_crazy_run_1",
             "w": 16,
             "x": 2,
             "y": 285
         },
         {
             "h": 31,
+            "name": "wizard_crazy_idle_9",
+            "w": 16,
+            "x": 22,
+            "y": 285
+        },
+        {
+            "h": 31,
+            "name": "wizard_crazy_idle_10",
+            "w": 16,
+            "x": 1290,
+            "y": 284
+        },
+        {
+            "h": 31,
+            "name": "wizard_crazy_run_1",
+            "w": 16,
+            "x": 98,
+            "y": 285
+        },
+        {
+            "h": 31,
             "name": "wizard_crazy_run_2",
             "w": 15,
-            "x": 174,
+            "x": 659,
             "y": 285
         },
         {
             "h": 31,
             "name": "wizard_crazy_run_3",
             "w": 13,
-            "x": 1295,
-            "y": 285
+            "x": 207,
+            "y": 282
         },
         {
             "h": 31,
             "name": "wizard_crazy_run_4",
             "w": 15,
-            "x": 41,
+            "x": 640,
             "y": 285
         },
         {
             "h": 30,
             "name": "wizard_crazy_run_5",
             "w": 16,
-            "x": 110,
-            "y": 286
+            "x": 1432,
+            "y": 287
         },
         {
             "h": 31,
             "name": "wizard_crazy_run_6",
             "w": 17,
-            "x": 526,
-            "y": 281
+            "x": 358,
+            "y": 284
         },
         {
             "h": 31,
             "name": "wizard_crazy_run_7",
             "w": 19,
-            "x": 38,
-            "y": 250
+            "x": 421,
+            "y": 245
         },
         {
             "h": 31,
             "name": "wizard_crazy_run_8",
             "w": 18,
-            "x": 412,
+            "x": 421,
             "y": 280
         },
         {
             "h": 31,
             "name": "wizard_crazy_run_9",
             "w": 18,
-            "x": 1273,
-            "y": 280
+            "x": 38,
+            "y": 250
         },
         {
             "h": 30,
             "name": "wizard_crazy_run_10",
             "w": 16,
-            "x": 716,
-            "y": 286
+            "x": 1538,
+            "y": 287
         }
     ],
     "frames_offsets": [

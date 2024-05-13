@@ -49,36 +49,36 @@
             "h": 1,
             "name": "portal_green_begin_1",
             "w": 23,
-            "x": 1624,
-            "y": 452
+            "x": 202,
+            "y": 455
         },
         {
             "h": 3,
             "name": "portal_green_begin_2",
             "w": 27,
-            "x": 1455,
-            "y": 452
+            "x": 1846,
+            "y": 453
         },
         {
             "h": 8,
             "name": "portal_green_begin_3",
             "w": 27,
-            "x": 2,
-            "y": 451
+            "x": 1011,
+            "y": 452
         },
         {
             "h": 17,
             "name": "portal_green_begin_4",
             "w": 17,
-            "x": 1224,
-            "y": 398
+            "x": 1045,
+            "y": 399
         },
         {
             "h": 34,
             "name": "portal_green_begin_5",
             "w": 13,
-            "x": 526,
-            "y": 243
+            "x": 207,
+            "y": 244
         },
         {
             "h": 43,
@@ -91,113 +91,113 @@
             "h": 40,
             "name": "portal_green_begin_7",
             "w": 13,
-            "x": 1608,
-            "y": 242
+            "x": 602,
+            "y": 231
         },
         {
             "h": 41,
             "name": "portal_green_begin_8",
             "w": 13,
-            "x": 447,
+            "x": 446,
             "y": 190
         },
         {
             "h": 35,
             "name": "portal_green_end_1",
             "w": 29,
-            "x": 611,
-            "y": 244
+            "x": 350,
+            "y": 245
         },
         {
             "h": 17,
             "name": "portal_green_end_2",
             "w": 26,
-            "x": 994,
-            "y": 398
+            "x": 673,
+            "y": 399
         },
         {
             "h": 8,
             "name": "portal_green_end_3",
             "w": 27,
-            "x": 33,
-            "y": 451
+            "x": 1042,
+            "y": 452
         },
         {
             "h": 3,
             "name": "portal_green_end_4",
             "w": 27,
-            "x": 1424,
-            "y": 452
+            "x": 1815,
+            "y": 453
         },
         {
             "h": 1,
             "name": "portal_green_end_5",
             "w": 37,
-            "x": 1583,
-            "y": 452
+            "x": 1351,
+            "y": 454
         },
         {
             "h": 1,
             "name": "portal_green_end_6",
             "w": 43,
-            "x": 1536,
-            "y": 452
+            "x": 289,
+            "y": 454
         },
         {
             "h": 43,
             "name": "portal_green_idle_1",
             "w": 29,
-            "x": 972,
+            "x": 1048,
             "y": 242
         },
         {
             "h": 41,
             "name": "portal_green_idle_2",
             "w": 19,
-            "x": 1215,
-            "y": 242
+            "x": 579,
+            "y": 243
         },
         {
             "h": 43,
             "name": "portal_green_idle_3",
             "w": 25,
-            "x": 1005,
+            "x": 1081,
             "y": 242
         },
         {
             "h": 41,
             "name": "portal_green_idle_4",
             "w": 30,
-            "x": 1828,
-            "y": 242
+            "x": 545,
+            "y": 243
         },
         {
             "h": 42,
             "name": "portal_green_idle_5",
             "w": 25,
-            "x": 1186,
+            "x": 1509,
             "y": 242
         },
         {
             "h": 44,
             "name": "portal_green_idle_6",
             "w": 28,
-            "x": 1241,
-            "y": 241
+            "x": 290,
+            "y": 214
         },
         {
             "h": 40,
             "name": "portal_green_idle_7",
             "w": 17,
-            "x": 202,
-            "y": 243
+            "x": 143,
+            "y": 244
         },
         {
             "h": 41,
             "name": "portal_green_idle_8",
             "w": 19,
-            "x": 1912,
-            "y": 241
+            "x": 1010,
+            "y": 243
         }
     ],
     "frames_offsets": [
