@@ -17,29 +17,29 @@
             "h": 10,
             "name": "fire_bullet_shuriken_idle_1",
             "w": 10,
-            "x": 1953,
-            "y": 438
+            "x": 747,
+            "y": 461
         },
         {
             "h": 10,
             "name": "fire_bullet_shuriken_idle_2",
             "w": 10,
-            "x": 1967,
-            "y": 438
+            "x": 789,
+            "y": 461
         },
         {
             "h": 10,
             "name": "fire_bullet_shuriken_idle_3",
             "w": 10,
-            "x": 1995,
-            "y": 438
+            "x": 803,
+            "y": 461
         },
         {
             "h": 10,
             "name": "fire_bullet_shuriken_idle_4",
             "w": 10,
-            "x": 1981,
-            "y": 438
+            "x": 761,
+            "y": 461
         }
     ],
     "frames_offsets": [
