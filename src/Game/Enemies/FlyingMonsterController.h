@@ -9,6 +9,7 @@
 #include "StateMachine.h"
 #include "Weapons/WeaponFwd.h"
 #include "Behaviour/TrackingBehaviour.h"
+#include "Behaviour/HomingBehaviour.h"
 
 #include <memory>
 
@@ -31,6 +32,7 @@ namespace game
         {
             IDLE,
             TRACKING,
+            REPOSITION,
             ATTACK_ANTICIPATION,
             ATTACKING
         };
@@ -40,6 +42,9 @@ namespace game
 
         void ToTracking();
         void Tracking(const mono::UpdateContext& update_context);
+
+        void ToReposition();
+        void Reposition(const mono::UpdateContext& update_context);
 
         void ToAttackAnticipation();
         void AttackAnticipation(const mono::UpdateContext& update_context);
@@ -55,6 +60,7 @@ namespace game
 
         IWeaponPtr m_weapon;
         TrackingBehaviour m_tracking_movement;
+        HomingBehaviour m_homing_movement;
 
         float m_idle_timer_s;
         float m_attack_anticipation_timer_s;

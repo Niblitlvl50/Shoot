@@ -17,6 +17,7 @@
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Physics/PhysicsSystem.h"
+#include "Util/Random.h"
 
 #include <cmath>
 
@@ -24,11 +25,16 @@ namespace tweak_values
 {
     constexpr float idle_time_s = 1.5f;
     constexpr float attack_start_delay_s = 0.5f;
-    constexpr float attack_distance = 3.0f;
-    constexpr float max_attack_distance = 3.5f;
-    constexpr float track_to_player_distance = 5.0f;
-    constexpr float loose_interest_distance = 7.0f;
-    constexpr int bullets_to_emit = 3;
+
+    constexpr float move_speed = 0.5f;
+    constexpr float degrees_per_second = 360.0f;
+
+    constexpr float attack_distance = 1.5f;
+    constexpr float max_attack_distance = 2.25f;
+    constexpr float track_to_player_distance = 4.0f;
+    constexpr float loose_interest_distance = 5.0f;
+
+    constexpr int bullets_to_emit = 2;
 }
 
 using namespace game;
@@ -48,11 +54,16 @@ FlyingMonsterController::FlyingMonsterController(uint32_t entity_id, mono::Syste
     mono::IBody* entity_body = physics_system->GetBody(entity_id);
     m_tracking_movement.Init(entity_body, navigation_system);
 
+    m_homing_movement.SetBody(entity_body);
+    m_homing_movement.SetForwardVelocity(tweak_values::move_speed);
+    m_homing_movement.SetAngularVelocity(tweak_values::degrees_per_second);
+
     m_target_system = system_context->GetSystem<TargetSystem>();
 
     const FlyingMonsterStateMachine::StateTable& state_table = {
         FlyingMonsterStateMachine::MakeState(States::IDLE, &FlyingMonsterController::ToIdle, &FlyingMonsterController::Idle, this),
         FlyingMonsterStateMachine::MakeState(States::TRACKING, &FlyingMonsterController::ToTracking, &FlyingMonsterController::Tracking, this),
+        FlyingMonsterStateMachine::MakeState(States::REPOSITION, &FlyingMonsterController::ToReposition, &FlyingMonsterController::Reposition, this),
         FlyingMonsterStateMachine::MakeState(States::ATTACK_ANTICIPATION, &FlyingMonsterController::ToAttackAnticipation, &FlyingMonsterController::AttackAnticipation, this),
         FlyingMonsterStateMachine::MakeState(States::ATTACKING, &FlyingMonsterController::ToAttacking, &FlyingMonsterController::Attacking, this),
     };
@@ -66,19 +77,36 @@ void FlyingMonsterController::Update(const mono::UpdateContext& update_context)
 {
     m_states.UpdateState(update_context);
     m_weapon->UpdateWeaponState(update_context.timestamp);
+
+    if(m_aquired_target && m_aquired_target->IsValid())
+    {
+        const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
+        const math::Vector& target_world_position = m_aquired_target->Position();
+        const bool is_left_of_target = world_position.x < target_world_position.x;
+
+        mono::ISprite* sprite = m_sprite_system->GetSprite(m_entity_id);
+        if(is_left_of_target)
+            sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
+        else
+            sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
+    }
 }
 
 void FlyingMonsterController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
 {
+    const States active_state = m_states.ActiveState();
     const char* state_string = nullptr;
 
-    switch(m_states.ActiveState())
+    switch(active_state)
     {
     case States::IDLE:
         state_string = "Idle";
         break;
     case States::TRACKING:
         state_string = "Tracking";
+        break;
+    case States::REPOSITION:
+        state_string = "Reposition";
         break;
     case States::ATTACK_ANTICIPATION:
         state_string = "Attack Anticipation";
@@ -95,9 +123,12 @@ void FlyingMonsterController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
     debug_drawer->DrawCircle(world_position, tweak_values::max_attack_distance, mono::Color::RED);
     debug_drawer->DrawCircle(world_position, tweak_values::loose_interest_distance, mono::Color::GREEN);
 
-    const math::Vector& tracking_position = m_tracking_movement.GetTrackingPosition();
-    debug_drawer->DrawLine({ world_position, tracking_position }, 1.0f, mono::Color::BLUE);
-    debug_drawer->DrawPoint(tracking_position, 10.0f, mono::Color::RED);
+    if(active_state == States::TRACKING)
+    {
+        const math::Vector& tracking_position = m_tracking_movement.GetTrackingPosition();
+        debug_drawer->DrawLine({ world_position, tracking_position }, 1.0f, mono::Color::BLUE);
+        debug_drawer->DrawPoint(tracking_position, 10.0f, mono::Color::RED);
+    }
 }
 
 const char* FlyingMonsterController::GetDebugCategory() const
@@ -132,11 +163,19 @@ void FlyingMonsterController::Idle(const mono::UpdateContext& update_context)
         return;
 
     const float distance_to_player = math::DistanceBetween(world_position, m_aquired_target->Position());
-
-    if(distance_to_player < tweak_values::max_attack_distance)
-        m_states.TransitionTo(States::ATTACK_ANTICIPATION);
+    if(distance_to_player < tweak_values::attack_distance)
+    {
+        m_states.TransitionTo(States::REPOSITION);
+    }
+    else if(distance_to_player < tweak_values::max_attack_distance)
+    {
+        const bool reposition = mono::Chance(50);
+        m_states.TransitionTo(reposition ? States::REPOSITION : States::ATTACK_ANTICIPATION);
+    }
     else if(distance_to_player < tweak_values::track_to_player_distance)
+    {
         m_states.TransitionTo(States::TRACKING);
+    }
 }
 
 void FlyingMonsterController::ToTracking()
@@ -160,15 +199,6 @@ void FlyingMonsterController::Tracking(const mono::UpdateContext& update_context
         return;
     }
 
-    mono::ISprite* sprite = m_sprite_system->GetSprite(m_entity_id);
-
-    const math::Vector delta = world_position - target_world_position;
-    const bool left_of_player = (delta.x > 0.0f);
-    if(left_of_player)
-        sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
-    else
-        sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
-
     if(distance_to_player < tweak_values::attack_distance)
     {
         const bool sees_player = m_target_system->SeesTarget(m_entity_id, m_aquired_target.get());
@@ -182,6 +212,57 @@ void FlyingMonsterController::Tracking(const mono::UpdateContext& update_context
     const TrackingResult result = m_tracking_movement.Run(update_context, target_world_position);
     if(result.state == TrackingState::NO_PATH || result.state == TrackingState::AT_TARGET)
         m_states.TransitionTo(States::IDLE);
+}
+
+void FlyingMonsterController::ToReposition()
+{
+    if(!m_aquired_target->IsValid())
+    {
+        m_states.TransitionTo(States::IDLE);
+        return;
+    }
+
+    const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
+    const math::Vector& target_position = m_transform_system->GetWorldPosition(m_aquired_target->TargetId());
+
+    const math::Vector delta = target_position - world_position;
+    const float distance_to_target = math::Length(delta);
+
+    math::Vector homing_target = world_position;
+
+    // Move towards player
+    const math::Vector halfway_delta = delta / 2.0f;
+
+    if(distance_to_target < tweak_values::attack_distance)
+    {
+        const float multiplier = mono::Chance(50) ? -1.0f : 1.0f;
+        homing_target += math::Perpendicular(halfway_delta) * multiplier; // Move sideways
+    }
+    else
+    {
+        homing_target += halfway_delta;
+    }
+
+    m_homing_movement.SetTargetPosition(homing_target);
+}
+
+void FlyingMonsterController::Reposition(const mono::UpdateContext& update_context)
+{
+    const game::HomingResult result = m_homing_movement.Run(update_context);
+    if(result.distance_to_target < 0.1f)
+    {
+        const bool transition_to_attack =
+            m_aquired_target->IsValid() &&
+            mono::Chance(75) &&
+            m_target_system->SeesTarget(m_entity_id, m_aquired_target.get());
+
+        const States new_state = transition_to_attack ? States::ATTACK_ANTICIPATION : States::IDLE;
+        m_states.TransitionTo(new_state);
+    }
+    else if(result.is_stuck)
+    {
+        m_states.TransitionTo(States::IDLE);
+    }
 }
 
 void FlyingMonsterController::ToAttackAnticipation()
