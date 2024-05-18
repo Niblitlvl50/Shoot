@@ -52,6 +52,7 @@ extern const uint32_t ENTITY_BEHAVIOUR_ATTRIBUTE;
 
 extern const uint32_t SPAWN_SCORE_ATTRIBUTE;
 extern const uint32_t SPAWN_LIMIT_ATTRIBUTE;
+extern const uint32_t SPAWN_LIMIT_CONCURRENT_ATTRIBUTE;
 extern const uint32_t SPAWN_POINTS_ATTRIBUTE;
 extern const uint32_t TRIGGER_NAME_ATTRIBUTE;
 extern const uint32_t TRIGGER_NAME_EXIT_ATTRIBUTE;

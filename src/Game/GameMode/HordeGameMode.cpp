@@ -354,9 +354,7 @@ void HordeGameMode::SpawnLootBoxes()
     const uint32_t entity_id = m_loot_box_entities[index_to_use];
     const math::Vector world_position = m_transform_system->GetWorldPosition(entity_id);
 
-    const uint32_t spawned_entity_id = m_pickup_system->SpawnLootBox(world_position);
-//    m_entity_logic_system->AddLogic(
-//        spawned_entity_id, new game::LootBoxLogic(spawned_entity_id, m_interaction_system, m_entity_manager));
+    m_pickup_system->SpawnLootBox(world_position);
 
     m_loot_box_index++;
 }

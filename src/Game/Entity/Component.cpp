@@ -145,6 +145,7 @@ const DefaultAttribute default_attributes[] = {
     { "entity_type",                Variant(0) },
     { "priority",                   Variant(0) },
     { "target_faction",             Variant(0) },
+    { "spawn_limit_concurrent",     Variant(0) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -272,6 +273,7 @@ extern const uint32_t EMITTER_MODE_ATTRIBUTE                = default_attributes
 extern const uint32_t ENTITY_TYPE_ATTRIBUTE                 = default_attributes[103].hash;
 extern const uint32_t PRIORITY_ATTRIBUTE                    = default_attributes[104].hash;
 extern const uint32_t TARGET_FACTION_ATTRIBUTE              = default_attributes[105].hash;
+extern const uint32_t SPAWN_LIMIT_CONCURRENT_ATTRIBUTE      = default_attributes[106].hash;
 
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
@@ -480,7 +482,7 @@ const Component default_components[] = {
     MakeComponent(TIME_TRIGGER_COMPONENT,       NULL_COMPONENT,             false,  "triggers",     { TIME_STAMP_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, REPEATING_ATTRIBUTE }),
     MakeComponent(RELAY_TRIGGER_COMPONENT,      NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, TRIGGER_NAME_COMPLETED_ATTRIBUTE }),
 
-    MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,             false,  "spawning",     { SPAWN_SCORE_ATTRIBUTE, SPAWN_LIMIT_ATTRIBUTE, RADIUS_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE, SPAWN_POINTS_ATTRIBUTE }),
+    MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,             false,  "spawning",     { SPAWN_SCORE_ATTRIBUTE, SPAWN_LIMIT_ATTRIBUTE, SPAWN_LIMIT_CONCURRENT_ATTRIBUTE, RADIUS_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE, SPAWN_POINTS_ATTRIBUTE }),
     MakeComponent(ENTITY_SPAWN_POINT_COMPONENT, NULL_COMPONENT,             false,  "spawning",     { ENTITY_FILE_ATTRIBUTE, RADIUS_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
     MakeComponent(DESPAWN_ENTITY_COMPONENT,     NULL_COMPONENT,             false,  "spawning",     { TRIGGER_NAME_ATTRIBUTE } ),
 

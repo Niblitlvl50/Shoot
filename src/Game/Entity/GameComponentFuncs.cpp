@@ -241,7 +241,8 @@ namespace
         spawn_point.disable_trigger = 0;
 
         FindAttribute(SPAWN_SCORE_ATTRIBUTE, properties, spawn_point.spawn_score, FallbackMode::SET_DEFAULT);
-        FindAttribute(SPAWN_LIMIT_ATTRIBUTE, properties, spawn_point.spawn_limit, FallbackMode::SET_DEFAULT);
+        FindAttribute(SPAWN_LIMIT_ATTRIBUTE, properties, spawn_point.spawn_limit_total, FallbackMode::SET_DEFAULT);
+        FindAttribute(SPAWN_LIMIT_CONCURRENT_ATTRIBUTE, properties, spawn_point.spawn_limit_concurrent, FallbackMode::SET_DEFAULT);
         FindAttribute(RADIUS_ATTRIBUTE, properties, spawn_point.radius, FallbackMode::SET_DEFAULT);
         FindAttribute(TIME_STAMP_ATTRIBUTE, properties, spawn_point.interval_ms, FallbackMode::SET_DEFAULT);
 

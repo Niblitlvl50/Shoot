@@ -28,18 +28,21 @@ namespace game
         {
             int spawn_score;
             int interval_ms;
-            int spawn_limit; // Zero means infinite
+
+            // Zero means infinite
+            int spawn_limit_concurrent;
+            int spawn_limit_total;
 
             float radius;
+            std::vector<math::Vector> points;
 
             uint32_t enable_trigger;
             uint32_t disable_trigger;
 
-            std::vector<math::Vector> points;
-
             // Internal data
             bool active;
             int counter_ms;
+            int num_spawns;
             uint32_t enable_callback_id;
             uint32_t disable_callback_id;
             std::vector<SpawnIdAndCallback> active_spawns;

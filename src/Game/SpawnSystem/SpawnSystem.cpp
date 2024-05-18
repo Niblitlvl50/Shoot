@@ -52,6 +52,8 @@ SpawnSystem::SpawnPointComponent* SpawnSystem::AllocateSpawnPoint(uint32_t entit
     SpawnPointComponent component = {};
     component.enable_callback_id = NO_CALLBACK_SET;
     component.disable_callback_id = NO_CALLBACK_SET;
+    component.counter_ms = 0;
+    component.num_spawns = 0;
 
     return m_spawn_points.Set(entity_id, std::move(component));
 }
@@ -88,7 +90,8 @@ void SpawnSystem::SetSpawnPointData(uint32_t entity_id, const SpawnSystem::Spawn
 {
     SpawnPointComponent* spawn_point = m_spawn_points.Get(entity_id);
     spawn_point->spawn_score = component_data.spawn_score;
-    spawn_point->spawn_limit = component_data.spawn_limit;
+    spawn_point->spawn_limit_total = component_data.spawn_limit_total;
+    spawn_point->spawn_limit_concurrent = component_data.spawn_limit_concurrent;
     spawn_point->interval_ms = component_data.interval_ms;
     spawn_point->radius = component_data.radius;
     spawn_point->enable_trigger = component_data.enable_trigger;
@@ -249,9 +252,15 @@ void SpawnSystem::Update(const mono::UpdateContext& update_context)
         if(spawn_point.points.empty())
             return;
 
-        if(spawn_point.spawn_limit > 0)
+        if(spawn_point.spawn_limit_total > 0)
         {
-            if(spawn_point.active_spawns.size() >= size_t(spawn_point.spawn_limit))
+            if(spawn_point.num_spawns >= spawn_point.spawn_limit_total)
+                return;
+        }
+
+        if(spawn_point.spawn_limit_concurrent > 0)
+        {
+            if(spawn_point.active_spawns.size() >= size_t(spawn_point.spawn_limit_concurrent))
                 return;
         }
 
@@ -260,6 +269,7 @@ void SpawnSystem::Update(const mono::UpdateContext& update_context)
             return;
 
         spawn_point.counter_ms = 0;
+        spawn_point.num_spawns++;
 
         const float random_length = mono::Random(0.0f, spawn_point.radius);
         const math::Vector random_vector = math::VectorFromAngle(mono::Random(0.0f, math::PI() * 2.0f)) * random_length;
@@ -339,7 +349,7 @@ void SpawnSystem::Update(const mono::UpdateContext& update_context)
         if(has_spawn_point_component)
         {
             SpawnPointComponent* spawn_component = m_spawn_points.Get(spawn_event.spawner_id);
-            if(spawn_component->spawn_limit > 0)
+            if(spawn_component->spawn_limit_concurrent > 0)
             {
                 SpawnIdAndCallback spawn_callback_id;
                 spawn_callback_id.spawned_entity_id = spawned_entity.id;
