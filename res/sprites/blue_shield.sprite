@@ -24,78 +24,78 @@
             "h": 28,
             "name": "blue_shield_idle_1",
             "w": 28,
-            "x": 1673,
-            "y": 294
+            "x": 1293,
+            "y": 325
         },
         {
             "h": 28,
             "name": "blue_shield_idle_2",
             "w": 28,
-            "x": 225,
-            "y": 310
+            "x": 1485,
+            "y": 325
         },
         {
             "h": 28,
             "name": "blue_shield_idle_3",
             "w": 28,
-            "x": 1078,
-            "y": 324
+            "x": 177,
+            "y": 326
         },
         {
             "h": 28,
             "name": "blue_shield_idle_4",
             "w": 28,
-            "x": 1422,
-            "y": 323
+            "x": 1261,
+            "y": 325
         },
         {
             "h": 28,
             "name": "blue_shield_idle_5",
             "w": 28,
-            "x": 2014,
-            "y": 322
+            "x": 257,
+            "y": 312
         },
         {
             "h": 28,
             "name": "blue_shield_idle_6",
             "w": 28,
-            "x": 279,
-            "y": 309
+            "x": 1874,
+            "y": 325
         },
         {
             "h": 28,
             "name": "blue_shield_idle_7",
             "w": 28,
-            "x": 1641,
-            "y": 294
+            "x": 1906,
+            "y": 325
         },
         {
             "h": 28,
             "name": "blue_shield_idle_8",
             "w": 28,
-            "x": 739,
-            "y": 294
+            "x": 113,
+            "y": 326
         },
         {
             "h": 28,
             "name": "blue_shield_idle_9",
             "w": 28,
-            "x": 803,
-            "y": 294
+            "x": 1711,
+            "y": 295
         },
         {
             "h": 28,
             "name": "blue_shield_idle_10",
             "w": 28,
-            "x": 1982,
-            "y": 294
+            "x": 225,
+            "y": 312
         },
         {
             "h": 28,
             "name": "blue_shield_idle_11",
             "w": 28,
-            "x": 771,
-            "y": 294
+            "x": 1453,
+            "y": 325
         }
     ],
     "frames_offsets": [
