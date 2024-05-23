@@ -63,203 +63,203 @@
             "h": 5,
             "name": "totem_buff_appear_1",
             "w": 10,
-            "x": 1713,
-            "y": 476
+            "x": 69,
+            "y": 477
         },
         {
             "h": 12,
             "name": "totem_buff_appear_2",
             "w": 22,
-            "x": 1005,
+            "x": 1538,
             "y": 448
         },
         {
             "h": 17,
             "name": "totem_buff_appear_3",
             "w": 28,
-            "x": 838,
+            "x": 1325,
             "y": 408
         },
         {
             "h": 20,
             "name": "totem_buff_appear_4",
             "w": 32,
-            "x": 740,
+            "x": 1262,
             "y": 384
         },
         {
             "h": 17,
             "name": "totem_buff_appear_5",
             "w": 17,
-            "x": 1873,
+            "x": 1999,
             "y": 408
         },
         {
             "h": 16,
             "name": "totem_buff_die_1",
             "w": 18,
-            "x": 1782,
-            "y": 428
+            "x": 605,
+            "y": 429
         },
         {
             "h": 18,
             "name": "totem_buff_die_2",
             "w": 17,
-            "x": 1938,
-            "y": 384
+            "x": 806,
+            "y": 385
         },
         {
             "h": 22,
             "name": "totem_buff_die_3",
             "w": 17,
-            "x": 1052,
-            "y": 359
+            "x": 1348,
+            "y": 360
         },
         {
             "h": 21,
             "name": "totem_buff_die_4",
             "w": 17,
-            "x": 419,
+            "x": 930,
             "y": 384
         },
         {
             "h": 13,
             "name": "totem_buff_die_5",
             "w": 17,
-            "x": 290,
+            "x": 194,
             "y": 440
         },
         {
             "h": 14,
             "name": "totem_buff_die_6",
             "w": 20,
-            "x": 1868,
-            "y": 429
+            "x": 126,
+            "y": 430
         },
         {
             "h": 14,
             "name": "totem_buff_die_7",
             "w": 20,
-            "x": 1704,
-            "y": 429
+            "x": 102,
+            "y": 430
         },
         {
             "h": 14,
             "name": "totem_buff_die_8",
             "w": 20,
-            "x": 104,
+            "x": 369,
             "y": 430
         },
         {
             "h": 16,
             "name": "totem_buff_hurt_1",
             "w": 18,
-            "x": 1804,
-            "y": 428
+            "x": 583,
+            "y": 429
         },
         {
             "h": 18,
             "name": "totem_buff_hurt_2",
             "w": 17,
-            "x": 1980,
-            "y": 384
+            "x": 498,
+            "y": 386
         },
         {
             "h": 22,
             "name": "totem_buff_hurt_3",
             "w": 17,
-            "x": 485,
+            "x": 1023,
             "y": 360
         },
         {
             "h": 21,
             "name": "totem_buff_hurt_4",
             "w": 17,
-            "x": 557,
+            "x": 656,
             "y": 384
         },
         {
             "h": 22,
             "name": "totem_buff_hurt_5",
             "w": 17,
-            "x": 1073,
-            "y": 359
+            "x": 331,
+            "y": 365
         },
         {
             "h": 17,
             "name": "totem_buff_hurt_6",
             "w": 17,
-            "x": 1107,
+            "x": 1978,
             "y": 408
         },
         {
             "h": 17,
             "name": "totem_buff_hurt_7",
             "w": 17,
-            "x": 172,
-            "y": 409
+            "x": 1936,
+            "y": 408
         },
         {
             "h": 17,
             "name": "totem_buff_hurt_8",
             "w": 17,
-            "x": 1128,
+            "x": 1915,
             "y": 408
         },
         {
             "h": 18,
             "name": "totem_buff_idle_1",
             "w": 17,
-            "x": 2022,
-            "y": 384
+            "x": 519,
+            "y": 386
         },
         {
             "h": 19,
             "name": "totem_buff_idle_2",
             "w": 17,
-            "x": 1392,
+            "x": 1845,
             "y": 384
         },
         {
             "h": 20,
             "name": "totem_buff_idle_3",
             "w": 17,
-            "x": 1094,
+            "x": 1547,
             "y": 384
         },
         {
             "h": 21,
             "name": "totem_buff_idle_4",
             "w": 17,
-            "x": 536,
+            "x": 909,
             "y": 384
         },
         {
             "h": 22,
             "name": "totem_buff_idle_5",
             "w": 17,
-            "x": 188,
-            "y": 358
+            "x": 1002,
+            "y": 360
         },
         {
             "h": 17,
             "name": "totem_buff_idle_6",
             "w": 17,
-            "x": 1149,
+            "x": 1608,
             "y": 408
         },
         {
             "h": 17,
             "name": "totem_buff_idle_7",
             "w": 17,
-            "x": 130,
+            "x": 2,
             "y": 409
         },
         {
             "h": 17,
             "name": "totem_buff_idle_8",
             "w": 17,
-            "x": 1701,
+            "x": 1566,
             "y": 408
         }
     ],

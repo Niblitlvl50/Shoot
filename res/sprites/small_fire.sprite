@@ -29,64 +29,64 @@
             "h": 27,
             "name": "small_fire_idle_1",
             "w": 16,
-            "x": 1642,
+            "x": 1961,
             "y": 326
         },
         {
             "h": 28,
             "name": "small_fire_idle_2",
             "w": 16,
-            "x": 540,
-            "y": 325
+            "x": 319,
+            "y": 308
         },
         {
             "h": 26,
             "name": "small_fire_idle_3",
             "w": 16,
-            "x": 612,
+            "x": 1700,
             "y": 327
         },
         {
             "h": 25,
             "name": "small_fire_idle_4",
             "w": 16,
-            "x": 1083,
-            "y": 330
+            "x": 678,
+            "y": 328
         },
         {
             "h": 27,
             "name": "small_fire_idle_5",
             "w": 16,
-            "x": 1622,
-            "y": 326
+            "x": 22,
+            "y": 327
         },
         {
             "h": 28,
             "name": "small_fire_idle_6",
             "w": 16,
-            "x": 390,
+            "x": 422,
             "y": 326
         },
         {
             "h": 22,
             "name": "small_fire_idle_7",
             "w": 16,
-            "x": 277,
-            "y": 372
+            "x": 296,
+            "y": 369
         },
         {
             "h": 24,
             "name": "small_fire_idle_8",
             "w": 16,
-            "x": 448,
+            "x": 826,
             "y": 357
         },
         {
             "h": 8,
             "name": "small_fire_put_out_1",
             "w": 16,
-            "x": 1665,
-            "y": 464
+            "x": 69,
+            "y": 465
         }
     ],
     "frames_offsets": [

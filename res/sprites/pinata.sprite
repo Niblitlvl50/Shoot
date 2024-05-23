@@ -39,85 +39,85 @@
             "h": 23,
             "name": "pinata_Idle_1",
             "w": 20,
-            "x": 973,
+            "x": 1675,
             "y": 357
         },
         {
             "h": 22,
             "name": "pinata_Idle_2",
             "w": 20,
-            "x": 164,
+            "x": 474,
             "y": 358
         },
         {
             "h": 22,
             "name": "pinata_Idle_3",
             "w": 20,
-            "x": 373,
+            "x": 450,
             "y": 358
         },
         {
             "h": 23,
             "name": "pinata_explode_1",
             "w": 22,
-            "x": 1281,
+            "x": 1624,
             "y": 357
         },
         {
             "h": 27,
             "name": "pinata_explode_2",
             "w": 28,
-            "x": 965,
+            "x": 1842,
             "y": 326
         },
         {
             "h": 28,
             "name": "pinata_explode_3",
             "w": 31,
-            "x": 718,
+            "x": 1696,
             "y": 295
         },
         {
             "h": 27,
             "name": "pinata_explode_4",
             "w": 35,
-            "x": 1146,
+            "x": 1640,
             "y": 326
         },
         {
             "h": 22,
             "name": "pinata_explode_5",
             "w": 32,
-            "x": 1693,
-            "y": 357
+            "x": 2,
+            "y": 358
         },
         {
             "h": 23,
             "name": "pinata_walk_1",
             "w": 21,
-            "x": 1307,
+            "x": 1650,
             "y": 357
         },
         {
             "h": 22,
             "name": "pinata_walk_2",
             "w": 20,
-            "x": 397,
+            "x": 173,
             "y": 358
         },
         {
             "h": 22,
             "name": "pinata_walk_3",
             "w": 22,
-            "x": 112,
+            "x": 398,
             "y": 358
         },
         {
             "h": 22,
             "name": "pinata_walk_4",
             "w": 20,
-            "x": 325,
-            "y": 358
+            "x": 498,
+            "y": 360
         }
     ],
     "frames_offsets": [

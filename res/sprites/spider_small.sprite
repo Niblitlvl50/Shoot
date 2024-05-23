@@ -31,77 +31,77 @@
             "h": 8,
             "name": "spider_small_idle_1",
             "w": 12,
-            "x": 114,
+            "x": 419,
             "y": 465
         },
         {
             "h": 7,
             "name": "spider_small_idle_2",
             "w": 14,
-            "x": 278,
-            "y": 472
+            "x": 282,
+            "y": 469
         },
         {
             "h": 7,
             "name": "spider_small_idle_3",
             "w": 14,
-            "x": 260,
-            "y": 472
+            "x": 264,
+            "y": 469
         },
         {
             "h": 8,
             "name": "spider_small_idle_4",
             "w": 12,
-            "x": 130,
+            "x": 483,
             "y": 465
         },
         {
             "h": 9,
             "name": "spider_small_idle_5",
             "w": 12,
-            "x": 1193,
+            "x": 1663,
             "y": 464
         },
         {
             "h": 7,
             "name": "spider_small_move_1",
             "w": 11,
-            "x": 735,
-            "y": 476
+            "x": 223,
+            "y": 471
         },
         {
             "h": 8,
             "name": "spider_small_move_2",
             "w": 12,
-            "x": 98,
+            "x": 451,
             "y": 465
         },
         {
             "h": 8,
             "name": "spider_small_move_3",
             "w": 13,
-            "x": 1896,
-            "y": 464
+            "x": 353,
+            "y": 465
         },
         {
             "h": 7,
             "name": "spider_small_move_4",
             "w": 11,
-            "x": 296,
-            "y": 472
+            "x": 208,
+            "y": 471
         },
         {
             "h": 8,
             "name": "spider_small_move_5",
             "w": 10,
-            "x": 238,
+            "x": 543,
             "y": 465
         },
         {
             "h": 8,
             "name": "spider_small_move_6",
             "w": 12,
-            "x": 178,
+            "x": 499,
             "y": 465
         }
     ],

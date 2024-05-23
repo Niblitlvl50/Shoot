@@ -24,77 +24,77 @@
             "h": 16,
             "name": "explosion_medium_3_idle_1",
             "w": 16,
-            "x": 426,
+            "x": 1039,
             "y": 429
         },
         {
             "h": 16,
             "name": "explosion_medium_3_idle_2",
             "w": 16,
-            "x": 44,
+            "x": 1019,
             "y": 429
         },
         {
             "h": 16,
             "name": "explosion_medium_3_idle_3",
             "w": 16,
-            "x": 64,
+            "x": 1059,
             "y": 429
         },
         {
             "h": 23,
             "name": "explosion_medium_3_idle_4",
             "w": 29,
-            "x": 909,
+            "x": 1382,
             "y": 357
         },
         {
             "h": 26,
             "name": "explosion_medium_3_idle_5",
             "w": 31,
-            "x": 1974,
-            "y": 326
+            "x": 790,
+            "y": 327
         },
         {
             "h": 21,
             "name": "explosion_medium_3_idle_6",
             "w": 29,
-            "x": 215,
+            "x": 403,
             "y": 384
         },
         {
             "h": 20,
             "name": "explosion_medium_3_idle_7",
             "w": 27,
-            "x": 810,
+            "x": 1400,
             "y": 384
         },
         {
             "h": 20,
             "name": "explosion_medium_3_idle_8",
             "w": 27,
-            "x": 841,
+            "x": 1369,
             "y": 384
         },
         {
             "h": 21,
             "name": "explosion_medium_3_idle_9",
             "w": 29,
-            "x": 182,
+            "x": 370,
             "y": 384
         },
         {
             "h": 28,
             "name": "explosion_medium_3_idle_10",
             "w": 32,
-            "x": 1981,
-            "y": 294
+            "x": 754,
+            "y": 295
         },
         {
             "h": 31,
             "name": "explosion_medium_3_idle_11",
             "w": 31,
-            "x": 116,
+            "x": 124,
             "y": 291
         }
     ],
