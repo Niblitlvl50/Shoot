@@ -1003,7 +1003,7 @@ bool editor::DrawEntityReferenceProperty(
         entity_reference = mono::INVALID_ID;
 
     ImGui::SameLine(0.0f, item_spacing);
-    const bool select_picked_entity = ImGui::Button(">", ImVec2(tiny_button_width, 0));
+    const bool select_picked_entity = ImGui::Button(">", ImVec2(tiny_button_width, 0)) && entity_reference != mono::INVALID_ID;
     if(select_picked_entity)
         select_callback(entity_reference);
 
