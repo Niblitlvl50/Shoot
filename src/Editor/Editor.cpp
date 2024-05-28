@@ -867,7 +867,7 @@ void Editor::UpdateGrabbers()
 float Editor::GetPickingDistance() const
 {
     const System::Size& size = m_window->Size();
-    return math::Width(m_camera->GetViewport()) / size.width * 5.0f;
+    return math::Width(m_camera->GetViewport()) / size.width * 10.0f;
 }
 
 void Editor::OnDeleteObject()
