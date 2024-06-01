@@ -14,8 +14,8 @@
             "h": 6,
             "name": "ammo_icon_tiny",
             "w": 3,
-            "x": 40,
-            "y": 477
+            "x": 1785,
+            "y": 526
         }
     ],
     "frames_offsets": [

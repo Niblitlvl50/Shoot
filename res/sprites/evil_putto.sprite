@@ -17,22 +17,22 @@
             "h": 15,
             "name": "evil_putto_idle_1",
             "w": 12,
-            "x": 1840,
-            "y": 429
+            "x": 1443,
+            "y": 476
         },
         {
             "h": 12,
             "name": "evil_putto_idle_2",
             "w": 16,
-            "x": 1633,
-            "y": 448
+            "x": 1016,
+            "y": 496
         },
         {
             "h": 9,
             "name": "evil_putto_idle_3",
             "w": 12,
-            "x": 1743,
-            "y": 464
+            "x": 727,
+            "y": 513
         }
     ],
     "frames_offsets": [
