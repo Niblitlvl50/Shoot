@@ -1,0 +1,12 @@
+{
+    "missions": [
+        {
+            "name": "first_mission",
+            "entity_collection": "res/entities/blah.entities"
+        },
+        {
+            "name": "second_mission",
+            "entity_collection": "res/entities/blah.entities"
+        }
+    ]
+}

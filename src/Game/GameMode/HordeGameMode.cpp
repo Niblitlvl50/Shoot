@@ -13,6 +13,7 @@
 #include "Hud/LevelUpScreen.h"
 #include "Hud/PlayerUIElement.h"
 #include "InteractionSystem/InteractionSystem.h"
+#include "Mission/MissionSystem.h"
 #include "Pickups/PickupSystem.h"
 #include "Player/PlayerDaemonSystem.h"
 #include "Player/PlayerAuxiliaryDrawer.h"
@@ -62,7 +63,7 @@ namespace tweak_values
 {
     constexpr float level_result_duration_s = 1.5f;
     constexpr float fade_duration_s = 0.7f;
-    constexpr float spawn_wave_interval_s = 30.0f;
+    constexpr float spawn_wave_interval_s = 45.0f;
 }
 
 using namespace game;
@@ -107,9 +108,14 @@ void HordeGameMode::Begin(
     m_interaction_system = system_context->GetSystem<game::InteractionSystem>();
     m_pickup_system = system_context->GetSystem<game::PickupSystem>();
     m_spawn_system = system_context->GetSystem<game::SpawnSystem>();
+    m_mission_system = system_context->GetSystem<game::MissionSystem>();
 
     const uint32_t loot_tag = hash::Hash("loot_point");
     m_loot_box_entities = m_entity_manager->CollectEntitiesWithTag(loot_tag);
+
+    const uint32_t mission_tag = hash::Hash("mission_point");
+    const std::vector<uint32_t> mission_points = m_entity_manager->CollectEntitiesWithTag(mission_tag);
+    m_mission_system->InitializeMissionPositions(mission_points);
 
     mono::UniformRandomBitGenerator random_bit_generator(System::GetMilliseconds());
     std::shuffle(m_loot_box_entities.begin(), m_loot_box_entities.end(), random_bit_generator);
@@ -173,9 +179,6 @@ void HordeGameMode::Begin(
     // Package
     m_package_aux_drawer = std::make_unique<PackageAuxiliaryDrawer>(m_transform_system);
     zone->AddDrawable(m_package_aux_drawer.get(), LayerId::GAMEOBJECTS_UI);
-
-    // Let the enemies target the package and move towards it.
-    //game::g_ai_info.behaviour = game::PrimaryAIBehaviour::TargetPackage;
 }
 
 int HordeGameMode::End(mono::IZone* zone)

@@ -22,6 +22,7 @@
 #include "Entity/TargetSystem.h"
 #include "GameCamera/CameraSystem.h"
 #include "InteractionSystem/InteractionSystem.h"
+#include "Mission/MissionSystem.h"
 #include "Navigation/NavigationSystem.h"
 #include "Pickups/PickupSystem.h"
 #include "Player/PlayerDaemonSystem.h"
@@ -99,6 +100,8 @@ void game::CreateGameSystems(
         system_context.CreateSystem<game::TargetSystem>(transform_system, physics_system, damage_system);
     system_context.CreateSystem<game::WeaponSystem>(
         transform_system, sprite_system, physics_system, entity_system, damage_system, camera_system, logic_system, target_system, &system_context);
+
+    system_context.CreateSystem<game::MissionSystem>(entity_system, transform_system);
 
     game::ServerManager* server_manager = system_context.CreateSystem<game::ServerManager>(&event_handler, &game_config);
     system_context.CreateSystem<game::ClientManager>(&event_handler, &game_config);
