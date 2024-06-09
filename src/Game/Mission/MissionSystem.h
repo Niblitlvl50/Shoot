@@ -52,10 +52,12 @@ namespace game
         void ActivateMission();
         const std::vector<MissionTrackerComponent>& GetMissionStatus() const;
 
-        MissionTrackerComponent* AllocateMission(uint32_t entity_id);
+        void AllocateMission(uint32_t entity_id);
         void ReleaseMission(uint32_t entity_id);
         void SetMissionData(
             uint32_t entity_id, const std::string& name, const std::string& description, uint32_t activated_trigger_hash, uint32_t completed_trigger_hash, uint32_t failed_trigger_hash);
+
+        MissionTrackerComponent* GetComponentById(uint32_t entity_id);
 
     private:
 
@@ -71,6 +73,7 @@ namespace game
         std::vector<uint32_t> m_mission_points;
         std::vector<std::string> m_spawnable_missions;
 
-        std::unordered_map<uint32_t, MissionTrackerComponent> m_mission_trackers;
+        std::vector<MissionTrackerComponent> m_mission_trackers;
+        //std::unordered_map<uint32_t, MissionTrackerComponent> m_mission_trackers;
     };
 }

@@ -1105,7 +1105,7 @@ namespace
     bool ReleaseMissionTracker(mono::Entity* entity, mono::SystemContext* context)
     {
         game::MissionSystem* mission_system = context->GetSystem<game::MissionSystem>();
-        mission_system->AllocateMission(entity->id);
+        mission_system->ReleaseMission(entity->id);
         return true;
     }
     bool UpdateMissionTracker(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)

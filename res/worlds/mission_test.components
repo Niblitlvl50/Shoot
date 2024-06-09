@@ -1248,9 +1248,9 @@
         },
         "background_color": {
             "alpha": 1.0,
-            "blue": 1.0,
-            "green": 1.0,
-            "red": 1.0
+            "blue": 0.10294115543365479,
+            "green": 0.10294115543365479,
+            "red": 0.10294115543365479
         },
         "background_music": "",
         "background_size": {

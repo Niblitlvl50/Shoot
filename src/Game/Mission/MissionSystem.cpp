@@ -7,6 +7,7 @@
 #include "System/Hash.h"
 #include "System/System.h"
 #include "TransformSystem/TransformSystem.h"
+#include "Util/Algorithm.h"
 #include "Util/Random.h"
 
 #include "nlohmann/json.hpp"
@@ -16,6 +17,14 @@
 namespace
 {
     constexpr uint32_t NO_CALLBACK_SET = std::numeric_limits<uint32_t>::max();
+}
+
+namespace game
+{
+    static bool operator==(const game::MissionTrackerComponent& left, const game::MissionTrackerComponent& right)
+    {
+        return left.entity_id == right.entity_id;
+    }
 }
 
 using namespace game;
@@ -43,10 +52,10 @@ const char* MissionSystem::Name() const
 void MissionSystem::Begin()
 {
     // Trigger auto trigger missions
-    for(auto& mission_pair : m_mission_trackers)
+    for(const MissionTrackerComponent& mission : m_mission_trackers)
     {
-        if(mission_pair.second.activated_trigger == hash::NO_HASH)
-            HandleMissionActivated(mission_pair.first);
+        if(mission.activated_trigger == hash::NO_HASH)
+            HandleMissionActivated(mission.entity_id);
     }
 }
 
@@ -93,13 +102,13 @@ void MissionSystem::ActivateMission()
 
 const std::vector<MissionTrackerComponent>& MissionSystem::GetMissionStatus() const
 {
-    static std::vector<MissionTrackerComponent> temp;
-    return temp;
+    return m_mission_trackers;
 }
 
-MissionTrackerComponent* MissionSystem::AllocateMission(uint32_t entity_id)
+void MissionSystem::AllocateMission(uint32_t entity_id)
 {
-    MissionTrackerComponent& component = m_mission_trackers[entity_id];
+    MissionTrackerComponent component;
+    component.entity_id = entity_id;
 
     component.activated_trigger = hash::NO_HASH;
     component.completed_trigger = hash::NO_HASH;
@@ -111,79 +120,92 @@ MissionTrackerComponent* MissionSystem::AllocateMission(uint32_t entity_id)
 
     component.status = MissionStatus::Inactive;
 
-    return &component;
+    m_mission_trackers.push_back(component);
 }
 
 void MissionSystem::ReleaseMission(uint32_t entity_id)
 {
-    MissionTrackerComponent& component = m_mission_trackers[entity_id];
+    MissionTrackerComponent* component = GetComponentById(entity_id);
+    if(!component)
+        return;
 
-    if(component.activated_callback_id != NO_CALLBACK_SET)
-        m_trigger_system->RemoveTriggerCallback(component.activated_trigger, component.activated_callback_id, entity_id);
+    if(component->activated_callback_id != NO_CALLBACK_SET)
+        m_trigger_system->RemoveTriggerCallback(component->activated_trigger, component->activated_callback_id, entity_id);
 
-    if(component.completed_callback_id != NO_CALLBACK_SET)
-        m_trigger_system->RemoveTriggerCallback(component.completed_trigger, component.completed_callback_id, entity_id);
+    if(component->completed_callback_id != NO_CALLBACK_SET)
+        m_trigger_system->RemoveTriggerCallback(component->completed_trigger, component->completed_callback_id, entity_id);
 
-    if(component.failed_callback_id != NO_CALLBACK_SET)
-        m_trigger_system->RemoveTriggerCallback(component.failed_trigger, component.failed_callback_id, entity_id);
+    if(component->failed_callback_id != NO_CALLBACK_SET)
+        m_trigger_system->RemoveTriggerCallback(component->failed_trigger, component->failed_callback_id, entity_id);
 
-    m_mission_trackers.erase(entity_id);
+    mono::remove(m_mission_trackers, *component);
 }
 
 void MissionSystem::SetMissionData(uint32_t entity_id, const std::string& name, const std::string& description, uint32_t activated_trigger_hash, uint32_t completed_trigger_hash, uint32_t failed_trigger_hash)
 {
-    MissionTrackerComponent& component = m_mission_trackers[entity_id];
-    component.name = name;
-    component.description = description;
-    component.activated_trigger = activated_trigger_hash;
-    component.completed_trigger = completed_trigger_hash;
-    component.failed_trigger = failed_trigger_hash;
+    MissionTrackerComponent* component = GetComponentById(entity_id);
+    if(!component)
+        return;
 
-    if(component.activated_trigger != hash::NO_HASH)
+    component->name = name;
+    component->description = description;
+    component->activated_trigger = activated_trigger_hash;
+    component->completed_trigger = completed_trigger_hash;
+    component->failed_trigger = failed_trigger_hash;
+
+    if(component->activated_trigger != hash::NO_HASH)
     {
         const game::TriggerCallback activated_callback = [this, entity_id](uint32_t trigger_id) {
             HandleMissionActivated(entity_id);
         };
-        component.activated_callback_id = m_trigger_system->RegisterTriggerCallback(component.activated_trigger, activated_callback, entity_id);
+        component->activated_callback_id = m_trigger_system->RegisterTriggerCallback(component->activated_trigger, activated_callback, entity_id);
     }
 
-    if(component.completed_trigger != hash::NO_HASH)
+    if(component->completed_trigger != hash::NO_HASH)
     {
         const game::TriggerCallback completed_callback = [this, entity_id](uint32_t trigger_id) {
             HandleMissionCompleted(entity_id);
         };
-        component.completed_callback_id = m_trigger_system->RegisterTriggerCallback(component.completed_trigger, completed_callback, entity_id);
+        component->completed_callback_id = m_trigger_system->RegisterTriggerCallback(component->completed_trigger, completed_callback, entity_id);
     }
 
-    if(component.failed_trigger != hash::NO_HASH)
+    if(component->failed_trigger != hash::NO_HASH)
     {
         const game::TriggerCallback failed_callback = [this, entity_id](uint32_t trigger_id) {
             HandleMissionFailed(entity_id);
         };
-        component.failed_callback_id = m_trigger_system->RegisterTriggerCallback(component.failed_trigger, failed_callback, entity_id);
+        component->failed_callback_id = m_trigger_system->RegisterTriggerCallback(component->failed_trigger, failed_callback, entity_id);
     }
+}
+
+MissionTrackerComponent* MissionSystem::GetComponentById(uint32_t entity_id)
+{
+    const auto find_by_id = [entity_id](const MissionTrackerComponent& mission_tracker) {
+        return mission_tracker.entity_id == entity_id;
+    };
+    return mono::find_if(m_mission_trackers, find_by_id);
 }
 
 void MissionSystem::HandleMissionActivated(uint32_t entity_id)
 {
-    MissionTrackerComponent& component = m_mission_trackers[entity_id];
-    System::Log("MissionSystem|Mission Activated! %s (%s)", component.name.c_str(), component.description.c_str());
+    MissionTrackerComponent* component = GetComponentById(entity_id);
+    System::Log("MissionSystem|Mission Activated! %s (%s)", component->name.c_str(), component->description.c_str());
 
-    component.status = MissionStatus::Active;
+    component->status = MissionStatus::Active;
 }
 
 void MissionSystem::HandleMissionCompleted(uint32_t entity_id)
 {
-    MissionTrackerComponent& component = m_mission_trackers[entity_id];
-    System::Log("MissionSystem|Mission Completed! %s (%s)", component.name.c_str(), component.description.c_str());
+    MissionTrackerComponent* component = GetComponentById(entity_id);
+    System::Log("MissionSystem|Mission Completed! %s (%s)", component->name.c_str(), component->description.c_str());
 
-    component.status = MissionStatus::Completed;
+    component->status = MissionStatus::Completed;
 }
 
 void MissionSystem::HandleMissionFailed(uint32_t entity_id)
 {
-    MissionTrackerComponent& component = m_mission_trackers[entity_id];
-    System::Log("MissionSystem|Mission Failed! %s (%s)", component.name.c_str(), component.description.c_str());
+    MissionTrackerComponent* component = GetComponentById(entity_id);
+    System::Log("MissionSystem|Mission Failed! %s (%s)", component->name.c_str(), component->description.c_str());
 
-    component.status = MissionStatus::Failed;
+    component->status = MissionStatus::Failed;
 }
