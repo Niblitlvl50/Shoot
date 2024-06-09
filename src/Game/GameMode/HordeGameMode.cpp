@@ -346,6 +346,8 @@ void HordeGameMode::SpawnNextWave()
         spawn_point.spawn_score += 1;
     };
     m_spawn_system->ForEachSpawnPoint(increment_spawn_score);
+
+    m_mission_system->ActivateMission();
 }
 
 void HordeGameMode::SpawnLootBoxes()

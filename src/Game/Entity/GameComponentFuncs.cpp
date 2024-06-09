@@ -16,6 +16,7 @@
 #include "GameCamera/CameraSystem.h"
 #include "InteractionSystem/InteractionSystem.h"
 #include "DialogSystem/DialogSystem.h"
+#include "Mission/MissionSystem.h"
 #include "Weapons/WeaponSystem.h"
 #include "World/TeleportSystem.h"
 #include "World/WorldEntityTrackingSystem.h"
@@ -1094,6 +1095,39 @@ namespace
         target_system->SetTargetData(entity->id, game::TargetFaction(faction), priority);
         return true;
     }
+
+    bool CreateMissionTracker(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::MissionSystem* mission_system = context->GetSystem<game::MissionSystem>();
+        mission_system->AllocateMission(entity->id);
+        return true;
+    }
+    bool ReleaseMissionTracker(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::MissionSystem* mission_system = context->GetSystem<game::MissionSystem>();
+        mission_system->AllocateMission(entity->id);
+        return true;
+    }
+    bool UpdateMissionTracker(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        std::string mission_name;
+        std::string mission_description;
+        FindAttribute(NAME_ATTRIBUTE, properties, mission_name, FallbackMode::SET_DEFAULT);
+        FindAttribute(SUB_TEXT_ATTRIBUTE, properties, mission_description, FallbackMode::SET_DEFAULT);
+
+        mono::Event trigger_name;
+        mono::Event completed_trigger_name;
+        mono::Event failed_trigger_name;
+        FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::SET_DEFAULT);
+        FindAttribute(COMPLETED_TRIGGER_ATTRIBUTE, properties, completed_trigger_name, FallbackMode::SET_DEFAULT);
+        FindAttribute(FAILED_TRIGGER_ATTRIBUTE, properties, failed_trigger_name, FallbackMode::SET_DEFAULT);
+
+        game::MissionSystem* mission_system = context->GetSystem<game::MissionSystem>();
+        mission_system->SetMissionData(
+            entity->id, mission_name, mission_description, hash::Hash(trigger_name.text.c_str()), hash::Hash(completed_trigger_name.text.c_str()), hash::Hash(failed_trigger_name.text.c_str()));
+
+        return true;
+    }
 }
 
 void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
@@ -1132,4 +1166,5 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(TELEPORT_PLAYER_COMPONENT, CreateTeleportPlayer, ReleaseTeleportPlayer, UpdateTeleportPlayer);
     entity_manager->RegisterComponent(ENTITY_TRACKING_COMPONENT, CreateEntityTracker, ReleaseEntityTracker, UpdateEntityTracker);
     entity_manager->RegisterComponent(TARGET_COMPONENT, CreateEntityTarget, ReleaseEntityTarget, UpdateEntityTarget);
+    entity_manager->RegisterComponent(MISSION_TRACKER_COMPONENT, CreateMissionTracker, ReleaseMissionTracker, UpdateMissionTracker);
 }

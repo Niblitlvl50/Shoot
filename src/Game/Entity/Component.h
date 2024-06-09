@@ -140,6 +140,8 @@ extern const uint32_t EMITTER_MODE_ATTRIBUTE;
 extern const uint32_t ENTITY_TYPE_ATTRIBUTE;
 extern const uint32_t PRIORITY_ATTRIBUTE;
 extern const uint32_t TARGET_FACTION_ATTRIBUTE;
+extern const uint32_t COMPLETED_TRIGGER_ATTRIBUTE;
+extern const uint32_t FAILED_TRIGGER_ATTRIBUTE;
 
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);
@@ -240,6 +242,7 @@ extern const uint32_t REGION_COMPONENT;
 extern const uint32_t TELEPORT_PLAYER_COMPONENT;
 extern const uint32_t ENTITY_TRACKING_COMPONENT;
 extern const uint32_t TARGET_COMPONENT;
+extern const uint32_t MISSION_TRACKER_COMPONENT;
 
 
 struct Component

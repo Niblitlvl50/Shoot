@@ -1,12 +1,6 @@
 {
     "missions": [
-        {
-            "name": "first_mission",
-            "entity_collection": "res/entities/blah.entities"
-        },
-        {
-            "name": "second_mission",
-            "entity_collection": "res/entities/blah.entities"
-        }
+        "res/entities/monster_goblin_collection.entity",
+        "res/entities/monster_goblin_collection.entity"
     ]
 }

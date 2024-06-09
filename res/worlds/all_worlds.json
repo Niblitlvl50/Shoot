@@ -6,6 +6,7 @@
         "res/worlds/end_screen.components",
         "res/worlds/game_over.components",
         "res/worlds/horde_arena.components",
+        "res/worlds/mission_test.components",
         "res/worlds/options_screen.components",
         "res/worlds/pickup_arena.components",
         "res/worlds/setup_game_screen.components",

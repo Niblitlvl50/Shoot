@@ -33,6 +33,7 @@ namespace game
 
         class HealthbarDrawer* m_healthbar_drawer;
         class RegionDrawer* m_region_ui;
+        class MissionSystemDrawer* m_mission_ui;
         class DebugUpdater* m_debug_updater;
         std::unique_ptr<IGameMode> m_game_mode;
     };

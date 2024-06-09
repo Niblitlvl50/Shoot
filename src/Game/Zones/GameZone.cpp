@@ -57,6 +57,8 @@
 #include "Entity/EntityObjectDrawer.h"
 #include "Entity/TargetSystem.h"
 #include "Entity/TargetSystemDrawer.h"
+#include "Mission/MissionSystem.h"
+#include "Mission/MissionSystemDrawer.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "TriggerSystem/TriggerDebugDrawer.h"
 #include "SpawnSystem/SpawnSystem.h"
@@ -117,6 +119,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     game::UISystem* ui_system = m_system_context->GetSystem<UISystem>();
     game::TargetSystem* target_system = m_system_context->GetSystem<TargetSystem>();
     game::EntityLogicSystem* logic_system = m_system_context->GetSystem<EntityLogicSystem>();
+    game::MissionSystem* mission_system = m_system_context->GetSystem<game::MissionSystem>();
 
     m_leveldata = ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
     const game::LevelMetadata& metadata = m_leveldata.metadata;
@@ -164,6 +167,9 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     m_region_ui = new RegionDrawer(region_system);
     AddUpdatableDrawable(m_region_ui, LayerId::UI);
 
+    m_mission_ui = new MissionSystemDrawer(mission_system);
+    AddUpdatableDrawable(m_mission_ui, LayerId::UI);
+
     // Debug
     AddDrawable(new PhysicsStatsElement(physics_system), LayerId::UI);
     AddDrawable(new ParticleStatusDrawer(particle_system), LayerId::UI);
@@ -196,6 +202,10 @@ int GameZone::OnUnload()
     RemoveUpdatableDrawable(m_region_ui);
     delete m_region_ui;
     m_region_ui = nullptr;
+
+    RemoveUpdatableDrawable(m_mission_ui);
+    delete m_mission_ui;
+    m_mission_ui = nullptr;
 
     RemoveUpdatableDrawable(m_debug_updater);
     delete m_debug_updater;

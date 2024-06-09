@@ -33,6 +33,7 @@
         "res/entities/monster_flying.entity",
         "res/entities/monster_flying_eye_boss.entity",
         "res/entities/monster_goblin.entity",
+        "res/entities/monster_goblin_collection.entity",
         "res/entities/monster_imp.entity",
         "res/entities/package_shield.entity",
         "res/entities/pickup_ammo_10.entity",

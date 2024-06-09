@@ -41782,7 +41782,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 11.550000190734863,
-                                "y": 0.75
+                                "y": 1.2000000476837158
                             }
                         },
                         {
@@ -45389,7 +45389,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 17.55000114440918,
-                                "y": 1.6500000953674316
+                                "y": 2.1000001430511475
                             }
                         },
                         {
@@ -51008,8 +51008,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 19.80000114440918,
-                                "y": 8.850000381469727
+                                "x": 19.650001525878906,
+                                "y": 8.700000762939453
                             }
                         },
                         {
@@ -56651,8 +56651,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 19.200000762939453,
-                                "y": 6.750000476837158
+                                "x": 17.400001525878906,
+                                "y": 8.25
                             }
                         },
                         {
@@ -57012,7 +57012,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 13.950000762939453,
-                                "y": 1.2000000476837158
+                                "y": 2.700000047683716
                             }
                         },
                         {
@@ -57389,8 +57389,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 9.15000057220459,
-                                "y": 1.6500000953674316
+                                "x": 9.300000190734863,
+                                "y": 1.350000023841858
                             }
                         },
                         {
@@ -57698,7 +57698,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 10.350000381469727,
-                                "y": 1.6500000953674316
+                                "y": 2.1000001430511475
                             }
                         },
                         {
@@ -57884,7 +57884,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 11.40000057220459,
-                                "y": 1.8000000715255737
+                                "y": 2.25
                             }
                         },
                         {
@@ -58070,7 +58070,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.0
+                                "y": -0.15000000596046448
                             }
                         },
                         {
@@ -58258,7 +58258,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 12.450000762939453,
-                                "y": 1.8000000715255737
+                                "y": 2.4000000953674316
                             }
                         },
                         {
@@ -58595,6 +58595,246 @@
             "entity_properties": 0,
             "name": "torch_tiny",
             "uuid_hash": 485466730
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "japanese_banner_mid_red"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 8.850000381469727,
+                                "y": 1.6500000953674316
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "japanese_banner_mid_red.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 5
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "japanese_banner_mid_red",
+            "uuid_hash": 4045793915
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "japanese_banner_tall_demon"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 21.150001525878906,
+                                "y": 9.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "japanese_banner_tall_demon.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 5
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "japanese_banner_tall_demon",
+            "uuid_hash": 1948602056
         }
     ],
     "metadata": {
