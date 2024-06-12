@@ -254,8 +254,6 @@ void UISpriteElement::Draw(mono::IRenderer& renderer) const
     if(!m_show)
         return;
 
-    UIElement::Draw(renderer);
-
     if(m_sprites.empty() || m_sprite_buffers.empty())
         return;
 
@@ -266,6 +264,8 @@ void UISpriteElement::Draw(mono::IRenderer& renderer) const
     const mono::SpriteDrawBuffers& buffers = m_sprite_buffers[m_active_sprite];
     renderer.DrawSprite(
         sprite, &buffers, m_indices.get(), sprite->GetCurrentFrameIndex() * buffers.vertices_per_sprite);
+
+    UIElement::Draw(renderer);
 }
 
 

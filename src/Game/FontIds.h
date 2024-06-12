@@ -19,11 +19,11 @@ namespace game
         RUSSOONE_LARGE,
         RUSSOONE_MEGA,
 
-        UNUSED_TINY,
-        UNUSED_SMALL,
-        UNUSED_MEDIUM,
-        UNUSED_LARGE,
-        UNUSED_MEGA,
+        MITR_TINY,
+        MITR_SMALL,
+        MITR_MEDIUM,
+        MITR_LARGE,
+        MITR_MEGA,
 
         BLACK_HAN_SANS_TINY,
         BLACK_HAN_SANS_SMALL,
@@ -45,11 +45,11 @@ namespace game
         "RUSSOONE_LARGE",
         "RUSSOONE_MEGA",
 
-        "UNUSED_TINY",
-        "UNUSED_SMALL",
-        "UNUSED_MEDIUM",
-        "UNUSED_LARGE",
-        "UNUSED_MEGA",
+        "MITR_TINY",
+        "MITR_SMALL",
+        "MITR_MEDIUM",
+        "MITR_LARGE",
+        "MITR_MEGA",
 
         "BLACK_HAN_SANS_TINY",
         "BLACK_HAN_SANS_SMALL",

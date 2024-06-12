@@ -52,11 +52,8 @@ namespace game
             m_position = m_offscreen_position = offscreen_position;
             m_screen_position = onscreen_position;
 
-            UISpriteElement* background_hud = new UISpriteElement("res/sprites/player_background_hud.sprite");
-            background_hud->SetPosition(0.0f, 0.5f);
-
             m_mugshot_hud = new UISpriteElement();
-            m_mugshot_hud->SetPosition(-0.6f, 0.5f);
+            m_mugshot_hud->SetPosition(-0.6f, 0.0f);
 
             std::vector<std::string> weapon_sprites;
 
@@ -71,38 +68,40 @@ namespace game
             }
 
             m_weapon_sprites = new UISpriteElement(weapon_sprites);
-            m_weapon_sprites->SetPosition(0.15f, 0.5f);
+            m_weapon_sprites->SetPosition(0.15f, 0.0f);
 
             m_ammo_text = new UITextElement(
                 FontId::RUSSOONE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
-            m_ammo_text->SetPosition(0.55f, 0.6f);
+            m_ammo_text->SetPosition(0.55f, 0.1f);
             m_ammo_text->SetScale(0.5f);
 
             m_chips_text = new UITextElement(
                 FontId::RUSSOONE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::GOLDEN_YELLOW);
-            m_chips_text->SetPosition(0.55f, 0.4f);
+            m_chips_text->SetPosition(0.55f, -0.1f);
             m_chips_text->SetScale(0.5f);
 
             m_rubble_text = new UITextElement(
                 FontId::RUSSOONE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::GOLDEN_YELLOW);
-            m_rubble_text->SetPosition(0.55f, 0.2f);
+            m_rubble_text->SetPosition(0.55f, -0.3f);
             m_rubble_text->SetScale(0.5f);
 
             constexpr mono::Color::RGBA healthbar_red = mono::Color::RGBA(1.0f, 0.3f, 0.3f, 1.0f);
             m_healthbar = new UIBarElement(1.0f, 0.05f, mono::Color::GRAY, 1.0f, 0.05f, healthbar_red);
-            m_healthbar->SetPosition(-0.15f, 0.3f);
+            m_healthbar->SetPosition(-0.15f, -0.2f);
 
             m_expbar = new UIBarElement(1.0f, 0.05f, mono::Color::GRAY, 1.0f, 0.05f, mono::Color::GREEN_VIVID);
-            m_expbar->SetPosition(-0.15f, 0.25f);
+            m_expbar->SetPosition(-0.15f, -0.35f);
+
+            UISpriteElement* background_hud = new UISpriteElement("res/sprites/player_background_hud.sprite");
+            background_hud->AddChild(m_mugshot_hud);
+            background_hud->AddChild(m_weapon_sprites);
+            background_hud->AddChild(m_ammo_text);
+            background_hud->AddChild(m_chips_text);
+            background_hud->AddChild(m_rubble_text);
+            background_hud->AddChild(m_healthbar);
+            background_hud->AddChild(m_expbar);
 
             AddChild(background_hud);
-            AddChild(m_mugshot_hud);
-            AddChild(m_weapon_sprites);
-            AddChild(m_ammo_text);
-            AddChild(m_chips_text);
-            AddChild(m_rubble_text);
-            AddChild(m_healthbar);
-            AddChild(m_expbar);
 
             const PlayerUIStateMachine::StateTable states = {
                 PlayerUIStateMachine::MakeState(States::APPEAR, &PlayerElement::ToAppear, &PlayerElement::Appearing, this),
@@ -370,9 +369,9 @@ PlayerUIElement::PlayerUIElement(
     const float position_x = m_width - g_player_element_half_width;
 
     const math::Vector hud_positions[] = {
-        { g_player_element_half_width, 0.0f },
-        { position_x, 0.0f },
-        { m_width / 2.0f, 0.0f },
+        { g_player_element_half_width, 0.5f },
+        { position_x, 0.5f },
+        { m_width / 2.0f, 0.5f },
     };
 
     const math::Vector hud_offscreen_delta[] = {
