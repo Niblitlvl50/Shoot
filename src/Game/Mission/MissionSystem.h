@@ -4,7 +4,6 @@
 #include "MonoFwd.h"
 #include "IGameSystem.h"
 
-#include <unordered_map>
 #include <vector>
 #include <string>
 #include <cstdint>
@@ -39,6 +38,12 @@ namespace game
         uint32_t failed_callback_id;
     };
 
+    struct MissionStatusEvent
+    {
+        uint32_t mission_id;
+        MissionStatus status;
+    };
+
     class MissionSystem : public mono::IGameSystem
     {
     public:
@@ -46,11 +51,11 @@ namespace game
         MissionSystem(mono::IEntityManager* entity_manager, mono::TransformSystem* transform_system, game::TriggerSystem* trigger_system);
         const char* Name() const override;
         void Begin() override;
-        void Update(const mono::UpdateContext& update_context) override;
+        void Sync() override;
 
         void InitializeMissionPositions(const std::vector<uint32_t>& mission_points);
         void ActivateMission();
-        const std::vector<MissionTrackerComponent>& GetMissionStatus() const;
+        const std::vector<MissionStatusEvent>& GetMissionStatusEvents() const;
 
         void AllocateMission(uint32_t entity_id);
         void ReleaseMission(uint32_t entity_id);
@@ -74,6 +79,6 @@ namespace game
         std::vector<std::string> m_spawnable_missions;
 
         std::vector<MissionTrackerComponent> m_mission_trackers;
-        //std::unordered_map<uint32_t, MissionTrackerComponent> m_mission_trackers;
+        std::vector<MissionStatusEvent> m_mission_status_events;
     };
 }

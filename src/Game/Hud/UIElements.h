@@ -145,6 +145,7 @@ namespace game
             const mono::Color::RGBA& color,
             const mono::Color::RGBA& border_color,
             float border_width);
+        ~UISquareElement();
 
         void Draw(mono::IRenderer& renderer) const override;
 

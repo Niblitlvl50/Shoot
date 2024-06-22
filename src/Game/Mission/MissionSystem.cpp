@@ -59,9 +59,9 @@ void MissionSystem::Begin()
     }
 }
 
-void MissionSystem::Update(const mono::UpdateContext& update_context)
+void MissionSystem::Sync()
 {
-
+    m_mission_status_events.clear();
 }
 
 void MissionSystem::InitializeMissionPositions(const std::vector<uint32_t>& mission_points)
@@ -100,9 +100,9 @@ void MissionSystem::ActivateMission()
     m_point_index++;
 }
 
-const std::vector<MissionTrackerComponent>& MissionSystem::GetMissionStatus() const
+const std::vector<MissionStatusEvent>& MissionSystem::GetMissionStatusEvents() const
 {
-    return m_mission_trackers;
+    return m_mission_status_events;
 }
 
 void MissionSystem::AllocateMission(uint32_t entity_id)
@@ -192,6 +192,7 @@ void MissionSystem::HandleMissionActivated(uint32_t entity_id)
     System::Log("MissionSystem|Mission Activated! %s (%s)", component->name.c_str(), component->description.c_str());
 
     component->status = MissionStatus::Active;
+    m_mission_status_events.push_back({ entity_id, component->status });
 }
 
 void MissionSystem::HandleMissionCompleted(uint32_t entity_id)
@@ -200,6 +201,7 @@ void MissionSystem::HandleMissionCompleted(uint32_t entity_id)
     System::Log("MissionSystem|Mission Completed! %s (%s)", component->name.c_str(), component->description.c_str());
 
     component->status = MissionStatus::Completed;
+    m_mission_status_events.push_back({ entity_id, component->status });
 }
 
 void MissionSystem::HandleMissionFailed(uint32_t entity_id)
@@ -208,4 +210,5 @@ void MissionSystem::HandleMissionFailed(uint32_t entity_id)
     System::Log("MissionSystem|Mission Failed! %s (%s)", component->name.c_str(), component->description.c_str());
 
     component->status = MissionStatus::Failed;
+    m_mission_status_events.push_back({ entity_id, component->status });
 }

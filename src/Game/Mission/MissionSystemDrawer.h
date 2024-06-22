@@ -2,7 +2,9 @@
 #pragma once
 
 #include "Hud/UIElements.h"
+
 #include <cstdint>
+#include <vector>
 
 namespace game
 {
@@ -15,14 +17,20 @@ namespace game
 
     private:
 
+        class MissionStatusUIElement* AddMissionUIElement(uint32_t entity_id);
+        void RemoveMissionUIElement(uint32_t entity_id);
+        void ReCalculateLayout();
+
         MissionSystem* m_mission_system;
 
-        UISquareElement* m_background;
-        UITextElement* m_mission_name_text;
-        UITextElement* m_mission_description_text;
-
-        math::Vector m_onscreen_position;
-        math::Vector m_offscreen_position;
-        float m_text_timer_s;
+        struct MissionStatusData
+        {
+            uint32_t entity_id;
+            float timer_s;
+            math::Vector onscreen_position;
+            math::Vector offscreen_position;
+            class MissionStatusUIElement* ui_element;
+        };
+        std::vector<MissionStatusData> m_mission_ui_collection;
     };
 }

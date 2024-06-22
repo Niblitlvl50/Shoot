@@ -332,6 +332,8 @@ UISquareElement::UISquareElement(
     m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, std::size(indices), indices);
 }
 
+UISquareElement::~UISquareElement() = default;
+
 void UISquareElement::Draw(mono::IRenderer& renderer) const
 {
     if(!m_show)
