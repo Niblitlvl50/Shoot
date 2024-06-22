@@ -189,26 +189,35 @@ MissionTrackerComponent* MissionSystem::GetComponentById(uint32_t entity_id)
 void MissionSystem::HandleMissionActivated(uint32_t entity_id)
 {
     MissionTrackerComponent* component = GetComponentById(entity_id);
-    System::Log("MissionSystem|Mission Activated! %s (%s)", component->name.c_str(), component->description.c_str());
+    if(component->status == MissionStatus::Active)
+        return;
 
     component->status = MissionStatus::Active;
     m_mission_status_events.push_back({ entity_id, component->status });
+
+    System::Log("MissionSystem|Mission Activated! %s (%s)", component->name.c_str(), component->description.c_str());
 }
 
 void MissionSystem::HandleMissionCompleted(uint32_t entity_id)
 {
     MissionTrackerComponent* component = GetComponentById(entity_id);
-    System::Log("MissionSystem|Mission Completed! %s (%s)", component->name.c_str(), component->description.c_str());
+    if(component->status == MissionStatus::Completed)
+        return;
 
     component->status = MissionStatus::Completed;
     m_mission_status_events.push_back({ entity_id, component->status });
+
+    System::Log("MissionSystem|Mission Completed! %s (%s)", component->name.c_str(), component->description.c_str());
 }
 
 void MissionSystem::HandleMissionFailed(uint32_t entity_id)
 {
     MissionTrackerComponent* component = GetComponentById(entity_id);
-    System::Log("MissionSystem|Mission Failed! %s (%s)", component->name.c_str(), component->description.c_str());
+    if(component->status == MissionStatus::Failed)
+        return;
 
     component->status = MissionStatus::Failed;
     m_mission_status_events.push_back({ entity_id, component->status });
+
+    System::Log("MissionSystem|Mission Failed! %s (%s)", component->name.c_str(), component->description.c_str());
 }
