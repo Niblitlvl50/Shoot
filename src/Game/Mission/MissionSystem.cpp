@@ -178,6 +178,11 @@ void MissionSystem::SetMissionData(uint32_t entity_id, const std::string& name, 
     }
 }
 
+const MissionTrackerComponent* MissionSystem::GetComponentById(uint32_t entity_id) const
+{
+    return const_cast<MissionSystem*>(this)->GetComponentById(entity_id);
+}
+
 MissionTrackerComponent* MissionSystem::GetComponentById(uint32_t entity_id)
 {
     const auto find_by_id = [entity_id](const MissionTrackerComponent& mission_tracker) {

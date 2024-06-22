@@ -23,7 +23,7 @@ namespace
     constexpr float ease_out_time_s = ease_in_out_time_s + display_time_s;
 }
 
-MissionSystemDrawer::MissionSystemDrawer(MissionSystem* mission_system)
+MissionSystemDrawer::MissionSystemDrawer(const MissionSystem* mission_system)
     : UIOverlay(50.0f, 50.0f / mono::RenderSystem::GetWindowAspect())
     , m_mission_system(mission_system)
 { }
@@ -41,7 +41,7 @@ void MissionSystemDrawer::Update(const mono::UpdateContext& update_context)
             break;
         case MissionStatus::Active:
         {
-            MissionTrackerComponent* mission_tracker = m_mission_system->GetComponentById(mission_status_event.mission_id);
+            const MissionTrackerComponent* mission_tracker = m_mission_system->GetComponentById(mission_status_event.mission_id);
 
             MissionStatusUIElement* ui_element = AddMissionUIElement(mission_status_event.mission_id);
             ui_element->SetText(mission_tracker->name);
@@ -70,7 +70,6 @@ MissionStatusUIElement* MissionSystemDrawer::AddMissionUIElement(uint32_t entity
     mission_status_data.ui_element = new MissionStatusUIElement(UI_ELEMENT_WIDTH, UI_ELEMENT_HEIGHT, mono::Color::MakeWithAlpha(mono::Color::DARK_GRAY, 0.25f));
 
     m_mission_ui_collection.push_back(mission_status_data);
-
     AddChild(mission_status_data.ui_element);
 
     return mission_status_data.ui_element;
@@ -108,21 +107,3 @@ void MissionSystemDrawer::ReCalculateLayout()
         mission_status_data.ui_element->SetPosition(mission_status_data.onscreen_position);
     }
 }
-
-/*
-    m_text_timer_s += update_context.delta_s;
-
-    math::Vector background_position = m_background->GetPosition();
-
-    if(m_text_timer_s < ease_in_out_time_s)
-    {
-        background_position.x = math::EaseInOutCubic(m_text_timer_s, transition_duration_s, m_offscreen_position.x, m_onscreen_position.x - m_offscreen_position.x);
-    }
-    else if(m_text_timer_s > display_time_s && m_text_timer_s < ease_out_time_s)
-    {
-        const float time_s = m_text_timer_s - display_time_s;
-        background_position.x = math::EaseInOutCubic(time_s, transition_duration_s, m_onscreen_position.x, m_offscreen_position.x - m_onscreen_position.x);
-    }
-
-    m_background->SetPosition(background_position);
-*/

@@ -12,7 +12,7 @@ namespace game
     {
     public:
 
-        MissionSystemDrawer(class MissionSystem* mission_system);
+        MissionSystemDrawer(const class MissionSystem* mission_system);
         void Update(const mono::UpdateContext& context) override;
 
     private:
@@ -21,7 +21,7 @@ namespace game
         void RemoveMissionUIElement(uint32_t entity_id);
         void ReCalculateLayout();
 
-        MissionSystem* m_mission_system;
+        const MissionSystem* m_mission_system;
 
         struct MissionStatusData
         {
