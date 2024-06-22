@@ -137,6 +137,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "enter_boss_area",
                                 "type": 0
                             }
@@ -146,6 +147,7 @@
                             "name": "trigger_name_exit",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "leave_boss_area",
                                 "type": 0
                             }
@@ -231,6 +233,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "leave_boss_area",
                                 "type": 0
                             }
@@ -1414,6 +1417,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "boss_dead",
                                 "type": 0
                             }
@@ -4114,6 +4118,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "enter_boss_area",
                                 "type": 0
                             }
@@ -10059,7 +10064,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": "logic"
+                            "variant_value": "mission"
                         },
                         {
                             "id": 3923852156,
@@ -10111,16 +10116,8 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "boss_dead",
-                                "type": 0
-                            }
-                        },
-                        {
-                            "id": 4129703001,
-                            "name": "trigger_name_completed",
-                            "variant_type": 11,
-                            "variant_value": {
-                                "text": "level_completed",
                                 "type": 0
                             }
                         },
@@ -10129,6 +10126,64 @@
                             "name": "time_stamp",
                             "variant_type": 1,
                             "variant_value": 2000
+                        },
+                        {
+                            "id": 4129703001,
+                            "name": "trigger_name_completed",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "level_completed",
+                                "type": 0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "hash": 1411079002,
+                    "name": "mission_tracker",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "Face the Demon"
+                        },
+                        {
+                            "id": 3435213149,
+                            "name": "sub_text",
+                            "variant_type": 6,
+                            "variant_value": "...defeat it"
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "enter_boss_area",
+                                "type": 0
+                            }
+                        },
+                        {
+                            "id": 1405321977,
+                            "name": "completed_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "boss_dead",
+                                "type": 0
+                            }
+                        },
+                        {
+                            "id": 2993395927,
+                            "name": "failed_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "",
+                                "type": 0
+                            }
                         }
                     ]
                 }
@@ -10687,6 +10742,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "boss_dead",
                                 "type": 0
                             }
@@ -10846,6 +10902,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "boss_dead",
                                 "type": 0
                             }
@@ -11005,6 +11062,7 @@
                             "name": "trigger_name",
                             "variant_type": 11,
                             "variant_value": {
+                                "direction": 0,
                                 "text": "boss_dead",
                                 "type": 0
                             }
@@ -37019,7 +37077,7 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "japanese_banner_tall.sprite"
+                            "variant_value": "japanese_banner_mid_demon.sprite"
                         },
                         {
                             "id": 3779456605,

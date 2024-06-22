@@ -5795,6 +5795,12 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 777099168,
+                            "name": "spawn_limit_concurrent",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 230313139,
                             "name": "radius",
                             "variant_type": 3,

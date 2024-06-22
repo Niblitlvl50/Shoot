@@ -498,6 +498,12 @@
                             "variant_value": 3
                         },
                         {
+                            "id": 777099168,
+                            "name": "spawn_limit_concurrent",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 230313139,
                             "name": "radius",
                             "variant_type": 3,
@@ -2776,6 +2782,12 @@
                             "variant_value": 3
                         },
                         {
+                            "id": 777099168,
+                            "name": "spawn_limit_concurrent",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 230313139,
                             "name": "radius",
                             "variant_type": 3,
@@ -3589,6 +3601,12 @@
                             "name": "spawn_limit",
                             "variant_type": 1,
                             "variant_value": 3
+                        },
+                        {
+                            "id": 777099168,
+                            "name": "spawn_limit_concurrent",
+                            "variant_type": 1,
+                            "variant_value": 0
                         },
                         {
                             "id": 230313139,
@@ -4775,7 +4793,7 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "japanese_banner_tall.sprite"
+                            "variant_value": "japanese_banner_tall_red.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -13003,6 +13021,12 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 777099168,
+                            "name": "spawn_limit_concurrent",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 230313139,
                             "name": "radius",
                             "variant_type": 3,
@@ -14417,6 +14441,12 @@
                             "name": "spawn_limit",
                             "variant_type": 1,
                             "variant_value": 3
+                        },
+                        {
+                            "id": 777099168,
+                            "name": "spawn_limit_concurrent",
+                            "variant_type": 1,
+                            "variant_value": 0
                         },
                         {
                             "id": 230313139,
@@ -26685,7 +26715,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": "zone_logic"
+                            "variant_value": "mission"
                         },
                         {
                             "id": 3923852156,
@@ -30263,7 +30293,7 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "japanese_banner_tall.sprite"
+                            "variant_value": "japanese_banner_mid_demon.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -68092,6 +68122,118 @@
             "entity_properties": 0,
             "name": "cardboard_box_small",
             "uuid_hash": 3721363637
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "mission_logic"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "mission"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 1
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -12.0,
+                                "y": -10.5
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 1411079002,
+                    "name": "mission_tracker",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "Delivery"
+                        },
+                        {
+                            "id": 3435213149,
+                            "name": "sub_text",
+                            "variant_type": 6,
+                            "variant_value": "...get the package delivered"
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "",
+                                "type": 0
+                            }
+                        },
+                        {
+                            "id": 1405321977,
+                            "name": "completed_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "package_delivered",
+                                "type": 0
+                            }
+                        },
+                        {
+                            "id": 2993395927,
+                            "name": "failed_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "",
+                                "type": 0
+                            }
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "mission_logic",
+            "uuid_hash": 438581795
         }
     ],
     "metadata": {
