@@ -194,7 +194,7 @@ MissionTrackerComponent* MissionSystem::GetComponentById(uint32_t entity_id)
 void MissionSystem::HandleMissionActivated(uint32_t entity_id)
 {
     MissionTrackerComponent* component = GetComponentById(entity_id);
-    if(component->status == MissionStatus::Active)
+    if(component->status >= MissionStatus::Active)
         return;
 
     component->status = MissionStatus::Active;
@@ -206,7 +206,7 @@ void MissionSystem::HandleMissionActivated(uint32_t entity_id)
 void MissionSystem::HandleMissionCompleted(uint32_t entity_id)
 {
     MissionTrackerComponent* component = GetComponentById(entity_id);
-    if(component->status == MissionStatus::Completed)
+    if(component->status >= MissionStatus::Completed)
         return;
 
     component->status = MissionStatus::Completed;
@@ -218,7 +218,7 @@ void MissionSystem::HandleMissionCompleted(uint32_t entity_id)
 void MissionSystem::HandleMissionFailed(uint32_t entity_id)
 {
     MissionTrackerComponent* component = GetComponentById(entity_id);
-    if(component->status == MissionStatus::Failed)
+    if(component->status >= MissionStatus::Failed)
         return;
 
     component->status = MissionStatus::Failed;

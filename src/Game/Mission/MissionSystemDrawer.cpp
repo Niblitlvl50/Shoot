@@ -15,7 +15,7 @@ namespace
 {
     constexpr float UI_ELEMENT_WIDTH = 10.0f;
     constexpr float UI_ELEMENT_HEIGHT = 2.5f;
-    constexpr float UI_ELEMENT_SPACING = 1.0f;
+    constexpr float UI_ELEMENT_SPACING = 0.5f;
 
     constexpr float transition_duration_s = 0.8f;
     constexpr float ease_in_out_time_s = 1.0f;
