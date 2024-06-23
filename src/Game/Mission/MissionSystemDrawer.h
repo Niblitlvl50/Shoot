@@ -17,18 +17,22 @@ namespace game
 
     private:
 
+        void UpdateAnimations(const mono::UpdateContext& context);
+
         class MissionStatusUIElement* AddMissionUIElement(uint32_t entity_id);
         void RemoveMissionUIElement(uint32_t entity_id);
+        void CompleteAndRemoveMissionUIElement(uint32_t entity_id);
+        void FailAndRemoveMissionUIElement(uint32_t entity_id);
         void ReCalculateLayout();
+        math::Vector CalculatePositionForItem(int item_index) const;
 
         const MissionSystem* m_mission_system;
 
         struct MissionStatusData
         {
             uint32_t entity_id;
-            float timer_s;
-            math::Vector onscreen_position;
-            math::Vector offscreen_position;
+            math::Vector desired_position;
+            math::Vector current_velocity;
             class MissionStatusUIElement* ui_element;
         };
         std::vector<MissionStatusData> m_mission_ui_collection;

@@ -4,6 +4,7 @@
 #include "FontIds.h"
 #include "Hud/MissionStatusUIElement.h"
 
+#include "Math/CriticalDampedSpring.h"
 #include "Math/EasingFunctions.h"
 #include "Math/Quad.h"
 #include "Rendering/RenderSystem.h"
@@ -50,24 +51,48 @@ void MissionSystemDrawer::Update(const mono::UpdateContext& update_context)
             break;
         }
         case MissionStatus::Completed:
-        case MissionStatus::Failed:
-            RemoveMissionUIElement(mission_status_event.mission_id);
+        {
+
+            CompleteAndRemoveMissionUIElement(mission_status_event.mission_id);
+            ReCalculateLayout();
             break;
+        }
+        case MissionStatus::Failed:
+        {
+
+            FailAndRemoveMissionUIElement(mission_status_event.mission_id);
+            ReCalculateLayout();
+            break;
+        }
         }
     }
 
-    if(!mission_status.empty())
-        ReCalculateLayout();
+    UpdateAnimations(update_context);
+}
+
+void MissionSystemDrawer::UpdateAnimations(const mono::UpdateContext& context)
+{
+    for(MissionStatusData& mission_status_data : m_mission_ui_collection)
+    {
+        math::Vector current_position = mission_status_data.ui_element->GetPosition();
+        math::critical_spring_damper(
+            current_position, mission_status_data.current_velocity, mission_status_data.desired_position, math::ZeroVec, 0.5f, context.delta_s);
+        mission_status_data.ui_element->SetPosition(current_position);
+    }
 }
 
 MissionStatusUIElement* MissionSystemDrawer::AddMissionUIElement(uint32_t entity_id)
 {
+    const math::Vector onscreen_position = CalculatePositionForItem(m_mission_ui_collection.size());
+
     MissionStatusData mission_status_data;
     mission_status_data.entity_id = entity_id;
-    mission_status_data.timer_s = 0.0f;
-    mission_status_data.onscreen_position = math::ZeroVec;
-    mission_status_data.offscreen_position = math::ZeroVec;
+    mission_status_data.desired_position = onscreen_position;
+    mission_status_data.current_velocity = math::ZeroVec;
+
     mission_status_data.ui_element = new MissionStatusUIElement(UI_ELEMENT_WIDTH, UI_ELEMENT_HEIGHT, mono::Color::MakeWithAlpha(mono::Color::DARK_GRAY, 0.25f));
+    mission_status_data.ui_element->ShowIcon(false);
+    mission_status_data.ui_element->SetPosition(onscreen_position - math::Vector(UI_ELEMENT_WIDTH + 1.0f, 0.0f));
 
     m_mission_ui_collection.push_back(mission_status_data);
     AddChild(mission_status_data.ui_element);
@@ -90,20 +115,48 @@ void MissionSystemDrawer::RemoveMissionUIElement(uint32_t entity_id)
     mono::remove_if(m_mission_ui_collection, find_by_id);
 }
 
+void MissionSystemDrawer::CompleteAndRemoveMissionUIElement(uint32_t entity_id)
+{
+    const auto find_by_id = [this, entity_id](const MissionStatusData& mission_status_data) {
+        return mission_status_data.entity_id == entity_id;
+    };
+
+    MissionStatusData* mission_status_data = mono::find_if(m_mission_ui_collection, find_by_id);
+    if(mission_status_data)
+    {
+        mission_status_data->ui_element->ShowIcon(true);
+        RemoveMissionUIElement(entity_id);
+    }
+}
+
+void MissionSystemDrawer::FailAndRemoveMissionUIElement(uint32_t entity_id)
+{
+    const auto find_by_id = [this, entity_id](const MissionStatusData& mission_status_data) {
+        return mission_status_data.entity_id == entity_id;
+    };
+
+    MissionStatusData* mission_status_data = mono::find_if(m_mission_ui_collection, find_by_id);
+    if(mission_status_data)
+    {
+        mission_status_data->ui_element->ShowIcon(true);
+        RemoveMissionUIElement(entity_id);
+    }
+}
+
 void MissionSystemDrawer::ReCalculateLayout()
+{
+    for(int index = 0; index < (int)m_mission_ui_collection.size(); ++index)
+    {
+        MissionStatusData& mission_status_data = m_mission_ui_collection[index];
+        mission_status_data.desired_position = CalculatePositionForItem(index);
+    }
+}
+
+math::Vector MissionSystemDrawer::CalculatePositionForItem(int item_index) const
 {
     constexpr float base_offset_x = 0.5f;
     constexpr float base_offset_y = 0.5f;
 
-    math::Vector current_position = math::Vector(base_offset_x, m_height - base_offset_y);
-
-    for(MissionStatusData& mission_status_data : m_mission_ui_collection)
-    {
-        current_position.y -= (UI_ELEMENT_HEIGHT + UI_ELEMENT_SPACING);
-
-        mission_status_data.onscreen_position = current_position;
-        mission_status_data.offscreen_position = current_position - math::Vector(0.0f, UI_ELEMENT_WIDTH + 1.0f);
-
-        mission_status_data.ui_element->SetPosition(mission_status_data.onscreen_position);
-    }
+    return math::Vector(base_offset_x, m_height - base_offset_y) -
+        (math::Vector(0.0f, UI_ELEMENT_HEIGHT + UI_ELEMENT_SPACING) * (item_index + 1));
 }
