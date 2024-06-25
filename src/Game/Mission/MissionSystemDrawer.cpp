@@ -51,23 +51,16 @@ void MissionSystemDrawer::Update(const mono::UpdateContext& update_context)
             break;
         }
         case MissionStatus::Completed:
-        {
-
             CompleteAndRemoveMissionUIElement(mission_status_event.mission_id);
-            ReCalculateLayout();
             break;
-        }
         case MissionStatus::Failed:
-        {
-
             FailAndRemoveMissionUIElement(mission_status_event.mission_id);
-            ReCalculateLayout();
             break;
-        }
         }
     }
 
     UpdateAnimations(update_context);
+    CheckForFinishedAnimations(update_context);
 }
 
 void MissionSystemDrawer::UpdateAnimations(const mono::UpdateContext& context)
@@ -79,6 +72,35 @@ void MissionSystemDrawer::UpdateAnimations(const mono::UpdateContext& context)
             current_position, mission_status_data.current_velocity, mission_status_data.desired_position, math::ZeroVec, 0.15f, context.delta_s);
         mission_status_data.ui_element->SetPosition(current_position);
     }
+}
+
+void MissionSystemDrawer::CheckForFinishedAnimations(const mono::UpdateContext& context)
+{
+    const auto remove_if_timed_out = [&](MissionStatusData& mission_status_data) {
+        if(!mission_status_data.delayed_remove)
+            return false;
+
+        mission_status_data.time_s -= context.delta_s;
+
+        if(mission_status_data.time_s <= 1.0f && !mission_status_data.initiated_transition_out)
+        {
+            mission_status_data.desired_position -= math::Vector(10.0f, 0.0f);
+            mission_status_data.initiated_transition_out = true;
+        }
+
+        const bool time_to_remove = (mission_status_data.time_s <= 0.0f);
+        if(time_to_remove)
+        {
+            RemoveChild(mission_status_data.ui_element);
+            delete mission_status_data.ui_element;
+        }
+
+        return time_to_remove;
+    };
+
+    const bool removed_item = mono::remove_if(m_mission_ui_collection, remove_if_timed_out);
+    if(removed_item)
+        ReCalculateLayout();
 }
 
 MissionStatusUIElement* MissionSystemDrawer::AddMissionUIElement(uint32_t entity_id)
@@ -94,30 +116,19 @@ MissionStatusUIElement* MissionSystemDrawer::AddMissionUIElement(uint32_t entity
     mission_status_data.ui_element->ShowIcon(false);
     mission_status_data.ui_element->SetPosition(onscreen_position - math::Vector(UI_ELEMENT_WIDTH + 1.0f, 0.0f));
 
+    mission_status_data.delayed_remove = false;
+    mission_status_data.initiated_transition_out = false;
+    mission_status_data.time_s = 0.0f;
+
     m_mission_ui_collection.push_back(mission_status_data);
     AddChild(mission_status_data.ui_element);
 
     return mission_status_data.ui_element;
 }
 
-void MissionSystemDrawer::RemoveMissionUIElement(uint32_t entity_id)
-{
-    const auto find_by_id = [this, entity_id](const MissionStatusData& mission_status_data) {
-        const bool this_is_the_one = (mission_status_data.entity_id == entity_id);
-        if(this_is_the_one)
-        {
-            RemoveChild(mission_status_data.ui_element);
-            delete mission_status_data.ui_element;
-        }
-
-        return this_is_the_one;
-    };
-    mono::remove_if(m_mission_ui_collection, find_by_id);
-}
-
 void MissionSystemDrawer::CompleteAndRemoveMissionUIElement(uint32_t entity_id)
 {
-    const auto find_by_id = [this, entity_id](const MissionStatusData& mission_status_data) {
+    const auto find_by_id = [entity_id](const MissionStatusData& mission_status_data) {
         return mission_status_data.entity_id == entity_id;
     };
 
@@ -125,13 +136,14 @@ void MissionSystemDrawer::CompleteAndRemoveMissionUIElement(uint32_t entity_id)
     if(mission_status_data)
     {
         mission_status_data->ui_element->ShowIcon(true);
-        RemoveMissionUIElement(entity_id);
+        mission_status_data->delayed_remove = true;
+        mission_status_data->time_s = 3.0f;
     }
 }
 
 void MissionSystemDrawer::FailAndRemoveMissionUIElement(uint32_t entity_id)
 {
-    const auto find_by_id = [this, entity_id](const MissionStatusData& mission_status_data) {
+    const auto find_by_id = [entity_id](const MissionStatusData& mission_status_data) {
         return mission_status_data.entity_id == entity_id;
     };
 
@@ -139,7 +151,8 @@ void MissionSystemDrawer::FailAndRemoveMissionUIElement(uint32_t entity_id)
     if(mission_status_data)
     {
         mission_status_data->ui_element->ShowIcon(true);
-        RemoveMissionUIElement(entity_id);
+        mission_status_data->delayed_remove = true;
+        mission_status_data->time_s = 3.0f;
     }
 }
 
