@@ -76,7 +76,7 @@ void MissionSystemDrawer::UpdateAnimations(const mono::UpdateContext& context)
     {
         math::Vector current_position = mission_status_data.ui_element->GetPosition();
         math::critical_spring_damper(
-            current_position, mission_status_data.current_velocity, mission_status_data.desired_position, math::ZeroVec, 0.5f, context.delta_s);
+            current_position, mission_status_data.current_velocity, mission_status_data.desired_position, math::ZeroVec, 0.15f, context.delta_s);
         mission_status_data.ui_element->SetPosition(current_position);
     }
 }
