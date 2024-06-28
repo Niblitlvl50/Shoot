@@ -92,20 +92,20 @@
                             "variant_type": 7,
                             "variant_value": [
                                 {
-                                    "x": -8.0,
-                                    "y": -8.0
+                                    "x": -18.334321975708008,
+                                    "y": -8.020552635192871
                                 },
                                 {
-                                    "x": -8.0,
-                                    "y": 8.0
+                                    "x": -18.275577545166016,
+                                    "y": 8.163341522216797
                                 },
                                 {
-                                    "x": 8.0,
-                                    "y": 8.0
+                                    "x": 12.887965202331543,
+                                    "y": 7.75213623046875
                                 },
                                 {
-                                    "x": 8.0,
-                                    "y": -8.0
+                                    "x": 13.357916831970215,
+                                    "y": -8.343643188476563
                                 }
                             ]
                         }
@@ -1782,6 +1782,151 @@
             "entity_properties": 0,
             "name": "coin",
             "uuid_hash": 4051767564
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "region"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 1
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 2.4000000953674316,
+                                "y": 1.6500000953674316
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 3996803839,
+                    "name": "circle_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 4.0
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 52100733,
+                    "name": "region",
+                    "properties": [
+                        {
+                            "id": 3185987134,
+                            "name": "text",
+                            "variant_type": 6,
+                            "variant_value": "Barrens"
+                        },
+                        {
+                            "id": 3435213149,
+                            "name": "sub_text",
+                            "variant_type": 6,
+                            "variant_value": "Its completely empty..."
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "region",
+            "uuid_hash": 3770729906
         }
     ],
     "metadata": {
