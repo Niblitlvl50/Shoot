@@ -168,7 +168,7 @@ void MissionSystemDrawer::ReCalculateLayout()
 math::Vector MissionSystemDrawer::CalculatePositionForItem(int item_index) const
 {
     constexpr float base_offset_x = 0.5f;
-    constexpr float base_offset_y = 0.5f;
+    constexpr float base_offset_y = 5.5f;
 
     return math::Vector(base_offset_x, m_height - base_offset_y) -
         (math::Vector(0.0f, UI_ELEMENT_HEIGHT + UI_ELEMENT_SPACING) * (item_index + 1));
