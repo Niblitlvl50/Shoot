@@ -1,0 +1,234 @@
+{
+    "animations": [
+        {
+            "frame_duration": 100,
+            "frames": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+            ],
+            "loop": true,
+            "name": "flying"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                8,
+                9
+            ],
+            "loop": true,
+            "name": "idle"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                10,
+                11,
+                12
+            ],
+            "loop": true,
+            "name": "peck"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                13,
+                14,
+                15
+            ],
+            "loop": true,
+            "name": "walk"
+        }
+    ],
+    "frames": [
+        {
+            "h": 9,
+            "name": "bird_brown_flying_1",
+            "w": 14,
+            "x": 567,
+            "y": 513
+        },
+        {
+            "h": 8,
+            "name": "bird_brown_flying_2",
+            "w": 14,
+            "x": 1301,
+            "y": 525
+        },
+        {
+            "h": 6,
+            "name": "bird_brown_flying_3",
+            "w": 14,
+            "x": 1997,
+            "y": 526
+        },
+        {
+            "h": 8,
+            "name": "bird_brown_flying_4",
+            "w": 15,
+            "x": 213,
+            "y": 518
+        },
+        {
+            "h": 10,
+            "name": "bird_brown_flying_5",
+            "w": 14,
+            "x": 1997,
+            "y": 512
+        },
+        {
+            "h": 8,
+            "name": "bird_brown_flying_6",
+            "w": 15,
+            "x": 232,
+            "y": 518
+        },
+        {
+            "h": 6,
+            "name": "bird_brown_flying_7",
+            "w": 14,
+            "x": 1979,
+            "y": 526
+        },
+        {
+            "h": 9,
+            "name": "bird_brown_flying_8",
+            "w": 14,
+            "x": 549,
+            "y": 513
+        },
+        {
+            "h": 12,
+            "name": "bird_brown_idle_1",
+            "w": 11,
+            "x": 2035,
+            "y": 496
+        },
+        {
+            "h": 11,
+            "name": "bird_brown_idle_2",
+            "w": 11,
+            "x": 1730,
+            "y": 512
+        },
+        {
+            "h": 9,
+            "name": "bird_brown_peck_1",
+            "w": 12,
+            "x": 769,
+            "y": 513
+        },
+        {
+            "h": 7,
+            "name": "bird_brown_peck_2",
+            "w": 12,
+            "x": 1228,
+            "y": 526
+        },
+        {
+            "h": 8,
+            "name": "bird_brown_peck_3",
+            "w": 13,
+            "x": 1337,
+            "y": 525
+        },
+        {
+            "h": 9,
+            "name": "bird_brown_walk_1",
+            "w": 12,
+            "x": 721,
+            "y": 513
+        },
+        {
+            "h": 10,
+            "name": "bird_brown_walk_2",
+            "w": 12,
+            "x": 88,
+            "y": 513
+        },
+        {
+            "h": 10,
+            "name": "bird_brown_walk_3",
+            "w": 12,
+            "x": 72,
+            "y": 513
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "source_folder": "res/images/creatures/bird/",
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}
