@@ -57158,13 +57158,13 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "Fetch a Box"
+                            "variant_value": "Fetch Job"
                         },
                         {
                             "id": 3435213149,
                             "name": "sub_text",
                             "variant_type": 6,
-                            "variant_value": "get it..."
+                            "variant_value": "Go get it!"
                         },
                         {
                             "id": 2603146703,
