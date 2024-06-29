@@ -279,11 +279,16 @@ mono::EventResult Animator::OnKeyDownUp(const event::KeyDownEvent& event)
             else
             {
                 const int add_value = (event.key == Keycode::UP) ? -1 : +1;
-                const int new_active_frame = m_sprite->GetActiveAnimationFrame() + add_value;
-
                 const mono::SpriteAnimation& sprite_animation = m_sprite_data->animations[m_sprite->GetActiveAnimation()];
-                const int frame = std::clamp(new_active_frame, 0, (int)sprite_animation.frames.size() -1);
-                SetActiveFrame(frame);
+
+                int new_active_frame = m_sprite->GetActiveAnimationFrame() + add_value;
+                
+                if(new_active_frame < 0)
+                    new_active_frame = sprite_animation.frames.size() -1;
+                else if(new_active_frame == sprite_animation.frames.size())
+                    new_active_frame = 0;
+
+                SetActiveFrame(new_active_frame);
 
                 m_sprite->SetAnimationPlayback(mono::PlaybackMode::PAUSED);
                 m_context.animation_playing = false;
