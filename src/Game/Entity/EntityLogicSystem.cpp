@@ -8,6 +8,7 @@
 
 
 #include "Enemies/BatController.h"
+#include "Enemies/BirdController.h"
 #include "Enemies/GoblinFireController.h"
 #include "Enemies/EyeMonsterController.h"
 #include "Enemies/DemonBossController.h"
@@ -53,7 +54,7 @@ namespace
         MakeController<game::FlyingMonsterController>,
         MakeController<game::InvaderPathController>,
         MakeController<game::BlobController>,
-        MakeController<NullLogic>,
+        MakeController<game::BirdController>,
         MakeController<game::ExplodableController>,
         MakeController<game::FlamingSkullBossController>,
         MakeController<game::ImpController>,
