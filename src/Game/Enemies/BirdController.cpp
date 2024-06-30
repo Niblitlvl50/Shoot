@@ -36,7 +36,7 @@ BirdController::BirdController(uint32_t entity_id, mono::SystemContext* system_c
     body->AddCollisionHandler(this);
 
     m_homing.SetBody(body);
-    m_homing.SetAngularVelocity(360.0f);
+    m_homing.SetAngularVelocity(180.0f);
     m_homing.SetForwardVelocity(2.0f);
 
     mono::SpriteSystem* sprite_system = system_context->GetSystem<mono::SpriteSystem>();
@@ -64,6 +64,8 @@ void BirdController::Update(const mono::UpdateContext& update_context)
 
 void BirdController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
 {
+    const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
+
     const char* state_string = "Unknown";
 
     switch(m_states.ActiveState())
@@ -86,7 +88,6 @@ void BirdController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
     }
     }
 
-    const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
     debug_drawer->DrawWorldText(state_string, world_position, mono::Color::OFF_WHITE);
 }
 
@@ -197,7 +198,7 @@ void BirdController::ToFlying()
 {
     constexpr float move_radius = 5.0f;
     const float x = mono::Random(-move_radius, move_radius) + 2.0f;
-    const float y = mono::Random(-move_radius, move_radius) + 2.0f;
+    const float y = mono::Random(-move_radius, move_radius) / 2.0f;
 
     const math::Vector fly_to_position = math::Vector(x, y);
 
@@ -220,11 +221,9 @@ void BirdController::Flying(const mono::UpdateContext& update_context)
 
     math::Vector shadow_offset_target = m_shadow_offset;
 
-    const float t = std::clamp((result.distance_to_target - m_total_fly_distance) / m_total_fly_distance, 0.0f, 1.0f);
-    if(t < 0.1f)
+    const float t = std::clamp((m_total_fly_distance - result.distance_to_target) / m_total_fly_distance, 0.0f, 1.0f);
+    if(t < 0.6f)
         shadow_offset_target = m_shadow_offset - math::Vector(0.0f, 0.5f);
-    else if(t > 0.9f)
-        shadow_offset_target = m_shadow_offset;
 
     math::critical_spring_damper(
         m_current_shadow_offset,
@@ -236,7 +235,7 @@ void BirdController::Flying(const mono::UpdateContext& update_context)
 
     m_sprite->SetShadowOffset(m_current_shadow_offset);
 
-    if(result.distance_to_target < 0.25f)
+    if(result.distance_to_target < 0.5f)
         m_states.TransitionTo(States::IDLE);
 }
 
