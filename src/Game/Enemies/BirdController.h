@@ -6,10 +6,13 @@
 #include "Entity/IEntityLogic.h"
 #include "StateMachine.h"
 #include "Math/Vector.h"
+#include "Physics/IBody.h"
+
+#include "Behaviour/HomingBehaviour.h"
 
 namespace game
 {
-    class BirdController : public IEntityLogic
+    class BirdController : public IEntityLogic, public mono::ICollisionHandler
     {
     public:
 
@@ -21,6 +24,10 @@ namespace game
         void DrawDebugInfo(class IDebugDrawer* debug_drawer) const override;
         const char* GetDebugCategory() const override;
 
+        mono::CollisionResolve OnCollideWith(
+            mono::IBody* body, const math::Vector& collision_point, const math::Vector& collision_normal, uint32_t categories) override;
+        void OnSeparateFrom(mono::IBody* body) override;
+
         void ToIdle();
         void Idle(const mono::UpdateContext& update_context);
 
@@ -29,6 +36,10 @@ namespace game
 
         void ToMoving();
         void Moving(const mono::UpdateContext& update_context);
+
+        void ToFlying();
+        void Flying(const mono::UpdateContext& update_context);
+        void ExitFlying();
 
         uint32_t m_entity_id;
         mono::TransformSystem* m_transform_system;
@@ -45,11 +56,19 @@ namespace game
         math::Vector m_move_delta;
         float m_move_counter_s;
 
+        float m_total_fly_distance;
+        math::Vector m_shadow_offset;
+        math::Vector m_current_shadow_offset;
+        math::Vector m_current_shadow_offset_velocity;
+
+        game::HomingBehaviour m_homing;
+
         enum class States
         {
             IDLE,
             PECK,
-            MOVING
+            MOVING,
+            FLYING
         };
 
         using BirdStateMachine = StateMachine<States, const mono::UpdateContext&>;

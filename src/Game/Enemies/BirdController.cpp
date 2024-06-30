@@ -1,8 +1,10 @@
 
 #include "BirdController.h"
 #include "Debug/IDebugDrawer.h"
+#include "CollisionConfiguration.h"
 
 #include "SystemContext.h"
+#include "Physics/PhysicsSystem.h"
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "Rendering/Sprite/SpriteSystem.h"
@@ -10,12 +12,14 @@
 #include "TransformSystem/TransformSystem.h"
 #include "Util/Random.h"
 #include "Math/EasingFunctions.h"
+#include "Math/CriticalDampedSpring.h"
 
 namespace tweak_values
 {
     constexpr float idle_threshold_s = 1.0f;
     constexpr int percentage_to_move = 10;
     constexpr int percentage_to_peck = 5;
+    constexpr int percentage_to_fly_away = 70;
     constexpr float move_radius = 0.25f;
     constexpr math::EaseFunction ease_function = math::EaseInOutCubic;
 }
@@ -26,6 +30,14 @@ BirdController::BirdController(uint32_t entity_id, mono::SystemContext* system_c
     : m_entity_id(entity_id)
 {
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
+    mono::PhysicsSystem* physics_system = system_context->GetSystem<mono::PhysicsSystem>();
+
+    mono::IBody* body = physics_system->GetBody(entity_id);
+    body->AddCollisionHandler(this);
+
+    m_homing.SetBody(body);
+    m_homing.SetAngularVelocity(360.0f);
+    m_homing.SetForwardVelocity(2.0f);
 
     mono::SpriteSystem* sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_sprite = sprite_system->GetSprite(entity_id);
@@ -39,6 +51,7 @@ BirdController::BirdController(uint32_t entity_id, mono::SystemContext* system_c
         BirdStateMachine::MakeState(States::IDLE, &BirdController::ToIdle, &BirdController::Idle, this),
         BirdStateMachine::MakeState(States::PECK, &BirdController::ToPeck, &BirdController::Peck, this),
         BirdStateMachine::MakeState(States::MOVING, &BirdController::ToMoving, &BirdController::Moving, this),
+        BirdStateMachine::MakeState(States::FLYING, &BirdController::ToFlying, &BirdController::Flying, &BirdController::ExitFlying, this),
     };
 
     m_states.SetStateTableAndState(state_table, States::IDLE);
@@ -64,6 +77,13 @@ void BirdController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
     case States::MOVING:
         state_string = "Moving";
         break;
+    case States::FLYING:
+    {
+        state_string = "Flying";
+        const math::Vector& target_position = m_homing.GetTargetPosition();
+        debug_drawer->DrawPoint(target_position, 2.0f, mono::Color::CYAN);
+        break;
+    }
     }
 
     const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
@@ -72,7 +92,24 @@ void BirdController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
 
 const char* BirdController::GetDebugCategory() const
 {
-    return "Bird Controller";
+    return "Bird";
+}
+
+mono::CollisionResolve BirdController::OnCollideWith(
+    mono::IBody* body, const math::Vector& collision_point, const math::Vector& collision_normal, uint32_t categories)
+{
+    const uint32_t physics_objects = PLAYER | PLAYER_BULLET | ENEMY | ENEMY_BULLET | PACKAGE;
+
+    const bool sensed_threatening_object = (categories & physics_objects) != 0;
+    if(sensed_threatening_object)
+        m_states.TransitionTo(States::FLYING);
+
+    return mono::CollisionResolve::NORMAL;
+}
+
+void BirdController::OnSeparateFrom(mono::IBody* body)
+{
+
 }
 
 void BirdController::ToIdle()
@@ -89,10 +126,13 @@ void BirdController::Idle(const mono::UpdateContext& update_context)
     {
         const bool move = mono::Chance(tweak_values::percentage_to_move);
         const bool peck = mono::Chance(tweak_values::percentage_to_peck);
+        const bool fly_away = mono::Chance(tweak_values::percentage_to_fly_away);
         if(move)
             m_states.TransitionTo(States::MOVING);
         else if(peck)
             m_states.TransitionTo(States::PECK);
+        else if(fly_away)
+            m_states.TransitionTo(States::FLYING);
 
         m_idle_timer_s = 0.0f;
     }
@@ -152,3 +192,56 @@ void BirdController::Moving(const mono::UpdateContext& update_context)
     if(m_move_counter_s > duration)
         m_states.TransitionTo(States::IDLE);
 }
+
+void BirdController::ToFlying()
+{
+    constexpr float move_radius = 5.0f;
+    const float x = mono::Random(-move_radius, move_radius) + 2.0f;
+    const float y = mono::Random(-move_radius, move_radius) + 2.0f;
+
+    const math::Vector fly_to_position = math::Vector(x, y);
+
+    const math::Vector& current_position = m_transform_system->GetWorldPosition(m_entity_id);
+    m_homing.SetTargetPosition(current_position + fly_to_position);
+    m_sprite->SetAnimation(m_flying_anim_id);
+
+    m_total_fly_distance = math::Length(fly_to_position);
+    m_shadow_offset = m_sprite->GetShadowOffset();
+}
+
+void BirdController::Flying(const mono::UpdateContext& update_context)
+{
+    const game::HomingResult result = m_homing.Run(update_context);
+    const math::Vector& vector_angle = math::VectorFromAngle(result.new_heading);
+    if(vector_angle.x < 0.0f)
+        m_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
+    else
+        m_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
+
+    math::Vector shadow_offset_target = m_shadow_offset;
+
+    const float t = std::clamp((result.distance_to_target - m_total_fly_distance) / m_total_fly_distance, 0.0f, 1.0f);
+    if(t < 0.1f)
+        shadow_offset_target = m_shadow_offset - math::Vector(0.0f, 0.5f);
+    else if(t > 0.9f)
+        shadow_offset_target = m_shadow_offset;
+
+    math::critical_spring_damper(
+        m_current_shadow_offset,
+        m_current_shadow_offset_velocity,
+        shadow_offset_target,
+        math::ZeroVec,
+        0.2f,
+        update_context.delta_s);
+
+    m_sprite->SetShadowOffset(m_current_shadow_offset);
+
+    if(result.distance_to_target < 0.25f)
+        m_states.TransitionTo(States::IDLE);
+}
+
+void BirdController::ExitFlying()
+{
+    m_sprite->SetShadowOffset(m_shadow_offset);
+}
+
