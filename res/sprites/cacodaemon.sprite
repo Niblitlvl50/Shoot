@@ -43,22 +43,22 @@
             "h": 42,
             "name": "cacodaemon_attack_1",
             "w": 48,
-            "x": 374,
-            "y": 248
-        },
-        {
-            "h": 42,
-            "name": "cacodaemon_attack_2",
-            "w": 48,
             "x": 36,
             "y": 252
         },
         {
             "h": 42,
+            "name": "cacodaemon_attack_2",
+            "w": 48,
+            "x": 374,
+            "y": 248
+        },
+        {
+            "h": 42,
             "name": "cacodaemon_attack_3",
             "w": 46,
-            "x": 290,
-            "y": 270
+            "x": 88,
+            "y": 252
         },
         {
             "h": 42,
@@ -78,7 +78,7 @@
             "h": 42,
             "name": "cacodaemon_attack_6",
             "w": 46,
-            "x": 240,
+            "x": 290,
             "y": 270
         },
         {
@@ -106,14 +106,14 @@
             "h": 39,
             "name": "cacodaemon_hurt_4",
             "w": 48,
-            "x": 1159,
+            "x": 363,
             "y": 294
         },
         {
             "h": 39,
             "name": "cacodaemon_idle_1",
             "w": 48,
-            "x": 1107,
+            "x": 1159,
             "y": 294
         },
         {
@@ -134,7 +134,7 @@
             "h": 39,
             "name": "cacodaemon_idle_4",
             "w": 48,
-            "x": 363,
+            "x": 1107,
             "y": 294
         },
         {

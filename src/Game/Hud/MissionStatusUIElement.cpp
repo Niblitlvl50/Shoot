@@ -13,7 +13,7 @@ MissionStatusUIElement::MissionStatusUIElement(float width, float height, const 
     m_mission_description_text = new UITextElement(FontId::MITR_TINY, "", mono::FontCentering::DEFAULT_CENTER, mono::Color::GRAY);
     m_mission_description_text->SetPosition(0.65f, 0.25f);
 
-    m_icon = new UISpriteElement("res/sprites/squid.sprite");
+    m_icon = new UISpriteElement("res/sprites/ui_icon_check.sprite");
     m_icon->SetPosition(width - 1.0f, height / 2.0f);
     m_icon->SetScale(4.0f);
 

@@ -1,5 +1,6 @@
 {
     "all_entities": [
+        "res/entities/bird.entity",
         "res/entities/bullet_boss_circle.entity",
         "res/entities/bullet_boss_long.entity",
         "res/entities/bullet_caco.entity",

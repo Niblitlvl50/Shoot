@@ -17,28 +17,28 @@
             "h": 8,
             "name": "fire_bullet_circulating_idle_1",
             "w": 7,
-            "x": 801,
+            "x": 871,
             "y": 526
         },
         {
             "h": 7,
             "name": "fire_bullet_circulating_idle_2",
             "w": 8,
-            "x": 1842,
+            "x": 1919,
             "y": 526
         },
         {
             "h": 8,
             "name": "fire_bullet_circulating_idle_3",
             "w": 7,
-            "x": 790,
+            "x": 849,
             "y": 526
         },
         {
             "h": 7,
             "name": "fire_bullet_circulating_idle_4",
             "w": 8,
-            "x": 1818,
+            "x": 1907,
             "y": 526
         }
     ],

@@ -101,8 +101,8 @@
             "h": 34,
             "name": "shardsoul_slayer_emote_2",
             "w": 34,
-            "x": 1943,
-            "y": 297
+            "x": 2,
+            "y": 298
         },
         {
             "h": 35,
@@ -115,22 +115,22 @@
             "h": 32,
             "name": "shardsoul_slayer_emote_4",
             "w": 33,
-            "x": 926,
+            "x": 2,
             "y": 336
         },
         {
             "h": 33,
             "name": "shardsoul_slayer_idle_1",
             "w": 33,
-            "x": 77,
-            "y": 335
+            "x": 312,
+            "y": 316
         },
         {
             "h": 33,
             "name": "shardsoul_slayer_idle_2",
             "w": 33,
-            "x": 40,
-            "y": 335
+            "x": 238,
+            "y": 316
         },
         {
             "h": 32,
@@ -150,21 +150,21 @@
             "h": 33,
             "name": "shardsoul_slayer_idle_5",
             "w": 33,
-            "x": 769,
+            "x": 77,
             "y": 335
         },
         {
             "h": 33,
             "name": "shardsoul_slayer_idle_6",
             "w": 33,
-            "x": 238,
-            "y": 316
+            "x": 40,
+            "y": 335
         },
         {
             "h": 32,
             "name": "shardsoul_slayer_idle_7",
             "w": 33,
-            "x": 2,
+            "x": 926,
             "y": 336
         },
         {
@@ -192,14 +192,14 @@
             "h": 34,
             "name": "shardsoul_slayer_run_3",
             "w": 36,
-            "x": 769,
+            "x": 809,
             "y": 297
         },
         {
             "h": 34,
             "name": "shardsoul_slayer_run_4",
             "w": 36,
-            "x": 809,
+            "x": 769,
             "y": 297
         },
         {
