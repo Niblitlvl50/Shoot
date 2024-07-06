@@ -100,7 +100,7 @@ void RemoteZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddUpdatable(new ClientReplicator(camera, client_manager));
 
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, m_sprite_system, render_system), LayerId::GAMEOBJECTS);
-    AddDrawable(new PredictionSystemDebugDrawer(m_position_prediction_system), LayerId::GAMEOBJECTS_DEBUG);
+    AddDrawable(new PredictionSystemDebugDrawer(m_position_prediction_system), LayerId::GAMEOBJECTS_UI);
     AddDrawable(new mono::TransformSystemDrawer(g_draw_transformsystem, transform_system), LayerId::UI);
     AddDrawable(new HealthbarDrawer(m_damage_system, animation_system, text_system, transform_system, m_entity_manager), LayerId::UI);
     AddDrawable(m_console_drawer.get(), LayerId::UI);

@@ -139,31 +139,35 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
 
+    // Background
+    AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system, PolygonDrawLayer::PRE_GAMEOBJECTS), LayerId::BACKGROUND);
+    AddDrawable(new mono::RoadBatchDrawer(road_system, path_system, transform_system), LayerId::BACKGROUND);
+
+    // Pre Game Objects
+    AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system, mono::ParticleDrawLayer::PRE_GAMEOBJECTS), LayerId::PRE_GAMEOBJECTS);
+
+    // Game Objects
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system, render_system), LayerId::GAMEOBJECTS);
     AddDrawable(new game::EntityObjectDrawer(logic_system), LayerId::GAMEOBJECTS);
     AddDrawable(new mono::LightSystemDrawer(light_system, transform_system), LayerId::GAMEOBJECTS);
 
-    AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system, mono::ParticleDrawLayer::PRE_GAMEOBJECTS), LayerId::PRE_GAMEOBJECTS);
-
-    AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system, mono::ParticleDrawLayer::POST_GAMEOBJECTS), LayerId::POST_GAMEOBJECTS);
-    AddDrawable(new game::PlayerAuxiliaryDrawer(camera_system, transform_system), LayerId::POST_GAMEOBJECTS);
+    // Post Game Objects
     AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system, PolygonDrawLayer::POST_GAMEOBJECTS), LayerId::POST_GAMEOBJECTS);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), LayerId::POST_GAMEOBJECTS);
+    AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system, mono::ParticleDrawLayer::POST_GAMEOBJECTS), LayerId::POST_GAMEOBJECTS);
+    AddDrawable(new game::SpawnSystemDrawer(spawn_system, transform_system, particle_system, entity_system), LayerId::POST_GAMEOBJECTS);
 
+    // Game Objects UI
+    AddDrawable(new game::PlayerAuxiliaryDrawer(camera_system, transform_system), LayerId::GAMEOBJECTS_UI);
     m_healthbar_drawer = new game::HealthbarDrawer(damage_system, animation_system, text_system, transform_system, entity_system);
     AddUpdatableDrawable(m_healthbar_drawer, LayerId::GAMEOBJECTS_UI);
     AddDrawable(new WorldEntityTrackingDrawer(entity_tracking_system, transform_system), LayerId::GAMEOBJECTS_UI);
-
-    AddDrawable(new game::InteractionSystemDrawer(interaction_system, sprite_system, transform_system, entity_system), LayerId::UI);
-    AddDrawable(new game::DialogSystemDrawer(dialog_system, transform_system), LayerId::UI);
-    AddDrawable(new game::SpawnSystemDrawer(spawn_system, transform_system, particle_system, entity_system), LayerId::UI);
-
-    AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system, PolygonDrawLayer::PRE_GAMEOBJECTS), LayerId::BACKGROUND);
-    AddDrawable(new mono::RoadBatchDrawer(road_system, path_system, transform_system), LayerId::BACKGROUND);
+    AddDrawable(new game::InteractionSystemDrawer(interaction_system, sprite_system, transform_system, entity_system), LayerId::GAMEOBJECTS_UI);
 
     AddDrawable(new game::UISystemDrawer(ui_system, transform_system), LayerId::UI_OVERLAY);
     AddDrawable(new mono::ScreenFadeDrawer(render_system), LayerId::UI_OVERLAY);
 
+    AddDrawable(new game::DialogSystemDrawer(dialog_system, transform_system), LayerId::UI);
     m_region_ui = new RegionDrawer(region_system);
     AddUpdatableDrawable(m_region_ui, LayerId::UI);
 

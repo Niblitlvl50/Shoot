@@ -345,7 +345,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddUpdatable(new SyncPoint(m_entity_manager, m_context));
 
     AddDrawable(new GridVisualizer(m_context.draw_grid), game::LayerId::BACKGROUND);
-    AddDrawable(new GrabberVisualizer(m_grabbers), game::LayerId::GAMEOBJECTS_DEBUG);
+    AddDrawable(new GrabberVisualizer(m_grabbers), game::LayerId::UI_DEBUG);
     AddDrawable(m_selection_visualizer, game::LayerId::UI);
     AddDrawable(new ObjectNameVisualizer(m_context.draw_object_names, m_proxies), game::LayerId::UI);
     AddDrawable(m_component_detail_visualizer.get(), game::LayerId::GAMEOBJECTS_UI);
