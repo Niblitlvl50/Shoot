@@ -34,7 +34,7 @@ ShopScreen::ShopScreen(
     shopkeeper_sprite->SetScale(2.0f);
     shopkeeper_sprite->SetActiveSprite(0, 1);
 
-    UITextElement* title_text = new UITextElement(font_id, "SHOP", mono::FontCentering::HORIZONTAL, mono::Color::GRAY);
+    UITextElement* title_text = new UITextElement(font_id, "SHOP", mono::Color::GRAY);
     title_text->SetPosition(background_half_width, background_height - 0.75f);
 
     UISquareElement* item_background = new UISquareElement(3.5f, 3.5f, mono::Color::MakeWithAlpha(mono::Color::GRAY, 0.2f));
@@ -42,8 +42,7 @@ ShopScreen::ShopScreen(
 
     const char* close_text = "Close";
     const mono::TextMeasurement close_text_measurement = mono::MeasureString(font_id, close_text);
-    m_close_text =
-        new UITextElement(font_id, close_text, mono::FontCentering::DEFAULT_CENTER, mono::Color::GRAY);
+    m_close_text = new UITextElement(font_id, close_text, mono::Color::GRAY);
     m_close_text->SetPosition(background_width - close_text_measurement.size.x - 0.25f, 0.25f);
 
     UISquareElement* background_element =
@@ -66,7 +65,7 @@ void ShopScreen::ShowAt(const math::Vector& position)
     const UINavigationSetup close_nav_setup = {
         mono::INVALID_ID, mono::INVALID_ID, mono::INVALID_ID, mono::INVALID_ID
     };
-    m_close_proxy.UpdateUIItem(m_close_text->Transform(), m_close_text->GetBounds(), "close", close_nav_setup);
+    m_close_proxy.UpdateUIItem(m_close_text->Transform(), m_close_text->BoundingBox(), "close", close_nav_setup);
 
     const auto close_callback = [this](uint32_t entity_id) {
         Hide();

@@ -27,7 +27,26 @@ namespace
 MissionSystemDrawer::MissionSystemDrawer(const MissionSystem* mission_system)
     : UIOverlay(50.0f, 50.0f / mono::RenderSystem::GetWindowAspect())
     , m_mission_system(mission_system)
-{ }
+{
+    /*
+    UITextureBoxElement* texture_box = new UITextureBoxElement();
+    texture_box->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
+    texture_box->SetPosition(math::Vector(10.0f, 10.0f));
+    texture_box->SetTextures(
+        "res/textures/ui/ui_text_background_left.png",
+        "res/textures/ui/ui_text_background_mid.png",
+        "res/textures/ui/ui_text_background_right.png",
+        8.0f);
+    texture_box->SetWidth(UI_ELEMENT_WIDTH);
+
+    UITextElement* text = new UITextElement(FontId::RUSSOONE_SMALL, "Hello!", mono::Color::OFF_WHITE);
+    text->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
+    text->SetPosition(-texture_box->GetAnchorOffset() + math::Vector(0.0f, 0.5f));
+    texture_box->AddChild(text);
+
+    AddChild(texture_box);
+    */
+}
 
 void MissionSystemDrawer::Update(const mono::UpdateContext& update_context)
 {
@@ -112,7 +131,7 @@ MissionStatusUIElement* MissionSystemDrawer::AddMissionUIElement(uint32_t entity
     mission_status_data.desired_position = onscreen_position;
     mission_status_data.current_velocity = math::ZeroVec;
 
-    mission_status_data.ui_element = new MissionStatusUIElement(UI_ELEMENT_WIDTH, UI_ELEMENT_HEIGHT, mono::Color::MakeWithAlpha(mono::Color::DARK_GRAY, 0.25f));
+    mission_status_data.ui_element = new MissionStatusUIElement(UI_ELEMENT_WIDTH, UI_ELEMENT_HEIGHT, mono::Color::MakeWithAlpha(mono::Color::DARK_GRAY, 0.75f));
     mission_status_data.ui_element->ShowIcon(false);
     mission_status_data.ui_element->SetPosition(onscreen_position - math::Vector(UI_ELEMENT_WIDTH + 1.0f, 0.0f));
 

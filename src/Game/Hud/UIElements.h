@@ -41,8 +41,11 @@ namespace game
         void SetScale(const math::Vector& scale);
         void SetScale(float uniform_scale);
         void SetRotation(float radians);
+        void SetAchorPoint(mono::AnchorPoint anchor_point);
+
         math::Matrix LocalTransform() const;
         math::Matrix Transform() const;
+        math::Vector GetAnchorOffset() const;
 
         void AddChild(UIElement* element);
         void RemoveChild(UIElement* element);
@@ -50,9 +53,12 @@ namespace game
     protected:
 
         UIElement* m_parent;
+
         math::Vector m_position;
         math::Vector m_scale;
         float m_rotation;
+        mono::AnchorPoint m_anchor_point;
+
         std::vector<UIElement*> m_ui_elements;
         bool m_show;
     };
@@ -63,6 +69,7 @@ namespace game
 
         UIOverlay(float width, float height);
         void Draw(mono::IRenderer& renderer) const override;
+        math::Quad BoundingBox() const override;
 
     protected:
 
@@ -75,12 +82,12 @@ namespace game
     {
     public:
 
-        UITextElement(int font_id, const std::string& text, mono::FontCentering centering, const mono::Color::RGBA& color);
+        UITextElement(int font_id, const std::string& text, const mono::Color::RGBA& color);
         void SetText(const std::string& new_text);
         void SetColor(const mono::Color::RGBA& new_color);
         void SetAlpha(float alpha);
 
-        math::Quad GetBounds() const;
+        math::Quad BoundingBox() const override;
 
     private:
 
@@ -88,7 +95,6 @@ namespace game
 
         int m_font_id;
         std::string m_text;
-        mono::FontCentering m_centering;
         mono::Color::RGBA m_color;
 
         mono::TextDrawBuffers m_draw_buffers;
@@ -124,15 +130,37 @@ namespace game
     public:
 
         UITextureElement();
-        UITextureElement(const char* texture);
-        void SetTexture(const char* texture);
+        UITextureElement(const char* texture, float pixels_per_meter);
+        void SetTexture(const char* texture, float pixels_per_meter);
         void Draw(mono::IRenderer& renderer) const override;
+        math::Quad BoundingBox() const override;
+
+        math::Vector GetTextureSize() const;
 
     private:
 
         mono::TextureDrawBuffers m_draw_buffers;
         mono::ITexturePtr m_texture;
+        float m_pixels_per_meter;
     };
+
+    class UITextureBoxElement : public UIElement
+    {
+    public:
+
+        UITextureBoxElement();
+        UITextureBoxElement(const char* left_sprite, const char* mid_sprite, const char* right_sprite, float pixels_per_meter);
+        void SetTextures(const char* left_sprite, const char* mid_sprite, const char* right_sprite, float pixels_per_meter);
+        void SetWidth(float width);
+
+    private:
+
+        UITextureElement* m_left;
+        UITextureElement* m_mid;
+        UITextureElement* m_right;
+
+        float m_pixels_per_meter;
+    };    
 
     class UISquareElement : public UIElement
     {
@@ -148,6 +176,7 @@ namespace game
         ~UISquareElement();
 
         void Draw(mono::IRenderer& renderer) const override;
+        math::Quad BoundingBox() const override;
 
         void SetColor(const mono::Color::RGBA& color);
         const mono::Color::RGBA& GetColor() const;
@@ -163,6 +192,8 @@ namespace game
         std::unique_ptr<mono::IElementBuffer> m_indices;
 
         const float m_border_width;
+        const float m_width;
+        const float m_height;
         mono::Color::RGBA m_color;
         mono::Color::RGBA m_border_color;
     };

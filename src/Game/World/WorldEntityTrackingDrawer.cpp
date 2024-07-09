@@ -77,8 +77,8 @@ void WorldEntityTrackingDrawer::Draw(mono::IRenderer& renderer) const
         const math::Matrix& transform = math::CreateMatrixWithPosition(closest_point);
         const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
 
-        renderer.DrawFilledCircle(math::ZeroVec, math::Vector(0.275f, 0.275f), 32, mono::Color::BLACK);
-        renderer.DrawFilledCircle(math::ZeroVec, math::Vector(0.25f, 0.25f), 32, mono::Color::GRAY);
+        renderer.DrawFilledCircle(math::ZeroVec, math::Vector(0.25f, 0.25f), 32, mono::Color::BLACK);
+        renderer.DrawFilledCircle(math::ZeroVec, math::Vector(0.225f, 0.225f), 32, mono::Color::GRAY);
 
         if(tracking_entity.type == game::EntityType::Package)
             renderer.DrawSprite(m_package_sprite.get(), &m_package_sprite_buffers, m_indices.get(), 0);

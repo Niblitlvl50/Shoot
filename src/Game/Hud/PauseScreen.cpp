@@ -36,21 +36,21 @@ PauseScreen::PauseScreen(
     const FontId font_id = FontId::RUSSOONE_TINY;
 
     UISquareElement* background_element = new UISquareElement(background_width, background_height, mono::Color::BLACK, mono::Color::GRAY, 1.0f);
+    background_element->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
     background_element->SetPosition(background_x, background_y);
 
-    UITextElement* pause_text =
-        new UITextElement(font_id, "Pause", mono::FontCentering::HORIZONTAL, mono::Color::GRAY);
-    pause_text->SetPosition(0.0f, background_y + background_height - 0.4f);
+    UITextElement* pause_text = new UITextElement(font_id, "Pause", mono::Color::GRAY);
+    pause_text->SetPosition(0.0f, (background_height / 2.0f) - 0.25f);
 
-    m_quit_text =
-        new UITextElement(font_id, "Quit", mono::FontCentering::DEFAULT_CENTER, mono::Color::GRAY);
+    m_quit_text = new UITextElement(font_id, "Quit", mono::Color::GRAY);
+    m_quit_text->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
     m_quit_text->SetPosition(background_x + 0.2f, background_y + 0.15f);
 
     const char* close_text = "Close";
     const mono::TextMeasurement close_text_measurement = mono::MeasureString(font_id, close_text);
 
-    m_close_text =
-        new UITextElement(font_id, close_text, mono::FontCentering::DEFAULT_CENTER, mono::Color::GRAY);
+    m_close_text = new UITextElement(font_id, close_text, mono::Color::GRAY);
+    m_close_text->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
     m_close_text->SetPosition(background_x + background_width - close_text_measurement.size.x - 0.2f, background_y + 0.15f);
 
     m_input_layout = new UITextureElement();
@@ -79,18 +79,18 @@ void PauseScreen::ShowAt(const math::Vector& position)
     const UINavigationSetup quit_nav_setup = {
         mono::INVALID_ID, m_close_proxy.GetEntityId(), mono::INVALID_ID, mono::INVALID_ID
     };
-    m_quit_proxy.UpdateUIItem(m_quit_text->Transform(), m_quit_text->GetBounds(), "level_aborted", quit_nav_setup);
+    m_quit_proxy.UpdateUIItem(m_quit_text->Transform(), m_quit_text->BoundingBox(), "level_aborted", quit_nav_setup);
 
     const UINavigationSetup close_nav_setup = {
         m_quit_proxy.GetEntityId(), mono::INVALID_ID, mono::INVALID_ID, mono::INVALID_ID
     };
-    m_close_proxy.UpdateUIItem(m_close_text->Transform(), m_close_text->GetBounds(), "close", close_nav_setup);
+    m_close_proxy.UpdateUIItem(m_close_text->Transform(), m_close_text->BoundingBox(), "close", close_nav_setup);
 
     const mono::InputContextType most_recent_input = m_input_system->GetMostRecentGlobalInput();
     const char* input_layout_texture =
         (most_recent_input == mono::InputContextType::Controller) ? 
             "res/textures/gamepad/gamepad_button_layout.png" : "res/textures/gamepad/keyboard_layout.png";
-    m_input_layout->SetTexture(input_layout_texture);
+    m_input_layout->SetTexture(input_layout_texture, 1.0f);
 
     Show();
 }

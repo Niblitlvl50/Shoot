@@ -70,18 +70,15 @@ namespace game
             m_weapon_sprites = new UISpriteElement(weapon_sprites);
             m_weapon_sprites->SetPosition(0.15f, 0.0f);
 
-            m_ammo_text = new UITextElement(
-                FontId::RUSSOONE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::MAGENTA);
+            m_ammo_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::MAGENTA);
             m_ammo_text->SetPosition(0.55f, 0.1f);
             m_ammo_text->SetScale(0.5f);
 
-            m_chips_text = new UITextElement(
-                FontId::RUSSOONE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::GOLDEN_YELLOW);
+            m_chips_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::GOLDEN_YELLOW);
             m_chips_text->SetPosition(0.55f, -0.1f);
             m_chips_text->SetScale(0.5f);
 
-            m_rubble_text = new UITextElement(
-                FontId::RUSSOONE_TINY, "", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::GOLDEN_YELLOW);
+            m_rubble_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::GOLDEN_YELLOW);
             m_rubble_text->SetPosition(0.55f, -0.3f);
             m_rubble_text->SetScale(0.5f);
 
@@ -220,12 +217,12 @@ namespace game
 
             UISquareElement* background = new UISquareElement(
                 g_player_death_element_width, g_player_element_height, mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.8f), mono::Color::BLACK, 1.0f);
+            background->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
 
             UISpriteElement* skull_sprite = new UISpriteElement("res/sprites/skull_red_eyes.sprite");
             skull_sprite->SetPosition(0.4f, 0.5f);
 
-            UITextElement* death_text = new UITextElement(
-                FontId::RUSSOONE_TINY, "You are dead!", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::OFF_WHITE);
+            UITextElement* death_text = new UITextElement(FontId::RUSSOONE_TINY, "You are dead!", mono::Color::OFF_WHITE);
             death_text->SetPosition(1.75f, 0.60f);
             death_text->SetScale(0.7f);
 
@@ -246,8 +243,7 @@ namespace game
             m_input_type_to_index[mono::InputContextType::Keyboard] = { 1, 0.3f };
             m_input_type_to_index[mono::InputContextType::Mouse] = { 1, 0.3f };
 
-            UITextElement* button_sprite_text = new UITextElement(
-                FontId::RUSSOONE_TINY, "to Continue", mono::FontCentering::HORIZONTAL_VERTICAL, mono::Color::GRAY);
+            UITextElement* button_sprite_text = new UITextElement(FontId::RUSSOONE_TINY, "to Continue", mono::Color::GRAY);
             button_sprite_text->SetPosition(1.9f, 0.25f);
             button_sprite_text->SetScale(0.5f);
 
@@ -323,11 +319,9 @@ namespace game
         {
             m_position = math::Vector(x, y);
 
-            m_powerup_bar = new UIBarElement(
-                2.0f, 0.1f, mono::Color::GRAY, 2.0f, 0.1f, mono::Color::RED);
+            m_powerup_bar = new UIBarElement(2.0f, 0.1f, mono::Color::GRAY, 2.0f, 0.1f, mono::Color::RED);
 
-            m_powerup_text = new UITextElement(
-                FontId::RUSSOONE_TINY, "", mono::FontCentering::DEFAULT_CENTER, mono::Color::OFF_WHITE);
+            m_powerup_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::OFF_WHITE);
             m_powerup_text->SetScale(0.5f);
             m_powerup_text->SetPosition(0.0f, -0.2f);
 

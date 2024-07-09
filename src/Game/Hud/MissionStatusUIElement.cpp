@@ -7,14 +7,19 @@ using namespace game;
 MissionStatusUIElement::MissionStatusUIElement(float width, float height, const mono::Color::RGBA& background_color)
     : UISquareElement(width, height, background_color)
 {
-    m_mission_name_text = new UITextElement(FontId::MITR_SMALL, "", mono::FontCentering::DEFAULT_CENTER, mono::Color::OFF_WHITE);
-    m_mission_name_text->SetPosition(0.5f, 1.0f);
+    SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
+    const math::Vector anchor_offset = GetAnchorOffset();
 
-    m_mission_description_text = new UITextElement(FontId::MITR_TINY, "", mono::FontCentering::DEFAULT_CENTER, mono::Color::GRAY);
-    m_mission_description_text->SetPosition(0.65f, 0.25f);
+    m_mission_name_text = new UITextElement(FontId::MITR_SMALL, "", mono::Color::OFF_WHITE);
+    m_mission_name_text->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
+    m_mission_name_text->SetPosition(-anchor_offset + math::Vector(0.25f, 1.15f));
+
+    m_mission_description_text = new UITextElement(FontId::MITR_TINY, "", mono::Color::GRAY);
+    m_mission_description_text->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
+    m_mission_description_text->SetPosition(-anchor_offset + math::Vector(0.5f, 0.35f));
 
     m_icon = new UISpriteElement("res/sprites/ui_icon_check.sprite");
-    m_icon->SetPosition(width - 1.0f, height / 2.0f);
+    m_icon->SetPosition(width / 2.0f - 1.0f, 0.0f);
     m_icon->SetScale(4.0f);
 
     AddChild(m_mission_name_text);

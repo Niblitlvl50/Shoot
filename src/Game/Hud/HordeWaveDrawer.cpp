@@ -14,14 +14,19 @@ HordeWaveDrawer::HordeWaveDrawer()
     m_onscreen_position = math::Vector(40.0f, m_height - 8.0f);
     m_offscreen_position = m_onscreen_position + math::Vector(10.0f, 0.0f);
 
-    m_wave_text = new UITextElement(FontId::RUSSOONE_LARGE, "", mono::FontCentering::DEFAULT_CENTER, mono::Color::GOLDEN_YELLOW);
-    m_wave_text->SetPosition(0.5f, 2.0f);
-
-    m_wave_subtext = new UITextElement(FontId::RUSSOONE_MEDIUM, "", mono::FontCentering::DEFAULT_CENTER, mono::Color::LIGHT_GRAY);
-    m_wave_subtext->SetPosition(0.75f, 0.5f);
-
     m_background = new UISquareElement(15.0f, 3.5f, mono::Color::MakeWithAlpha(mono::Color::GRAY, 0.25f));
+    m_background->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
     m_background->SetPosition(m_offscreen_position);
+
+    const math::Vector anchor_offset = m_background->GetAnchorOffset();
+
+    m_wave_text = new UITextElement(FontId::RUSSOONE_LARGE, "", mono::Color::GOLDEN_YELLOW);
+    m_wave_text->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
+    m_wave_text->SetPosition(-anchor_offset + math::Vector(0.5f, 2.0f));
+
+    m_wave_subtext = new UITextElement(FontId::RUSSOONE_MEDIUM, "", mono::Color::LIGHT_GRAY);
+    m_wave_subtext->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
+    m_wave_subtext->SetPosition(-anchor_offset + math::Vector(0.75f, 0.5f));
 
     m_background->AddChild(m_wave_text);
     m_background->AddChild(m_wave_subtext);

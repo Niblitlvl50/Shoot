@@ -21,6 +21,7 @@ UIElement::UIElement()
     : m_parent(nullptr)
     , m_scale(1.0f, 1.0f)
     , m_rotation(0.0f)
+    , m_anchor_point(mono::AnchorPoint::CENTER)
     , m_show(true)
 { }
 
@@ -50,7 +51,12 @@ void UIElement::Draw(mono::IRenderer& renderer) const
 
 math::Quad UIElement::BoundingBox() const
 {
-    return math::InfQuad;
+    math::Quad bounds = math::InverseInfQuad;
+
+    for(const UIElement* ui : m_ui_elements)
+        math::ExpandBy(bounds, ui->BoundingBox());
+
+    return bounds;
 }
 
 void UIElement::Show()
@@ -93,10 +99,17 @@ void UIElement::SetRotation(float radians)
     m_rotation = radians;
 }
 
+void UIElement::SetAchorPoint(mono::AnchorPoint anchor_point)
+{
+    m_anchor_point = anchor_point;
+}
+
 math::Matrix UIElement::LocalTransform() const
 {
+    const math::Vector& anchor_offset = GetAnchorOffset();
     return 
         math::CreateMatrixWithPosition(m_position) *
+        math::CreateMatrixWithPosition(anchor_offset) * 
         math::CreateMatrixFromZRotation(m_rotation) *
         math::CreateMatrixWithScale(m_scale);
 }
@@ -104,6 +117,14 @@ math::Matrix UIElement::LocalTransform() const
 math::Matrix UIElement::Transform() const
 {
     return LocalTransform() * ((m_parent != nullptr) ? m_parent->Transform() : math::Matrix());
+}
+
+math::Vector UIElement::GetAnchorOffset() const
+{
+    const math::Quad& bounds = BoundingBox();
+    const math::Vector& anchor_offset = mono::CalculateOffsetFromCenter(m_anchor_point, math::Size(bounds), 1.0f);
+
+    return anchor_offset;
 }
 
 void UIElement::AddChild(UIElement* element)
@@ -132,11 +153,15 @@ void UIOverlay::Draw(mono::IRenderer& renderer) const
     UIElement::Draw(renderer);
 }
 
+math::Quad UIOverlay::BoundingBox() const
+{
+    return math::InfQuad;
+}
 
-UITextElement::UITextElement(int font_id, const std::string& text, mono::FontCentering centering, const mono::Color::RGBA& color)
+
+UITextElement::UITextElement(int font_id, const std::string& text, const mono::Color::RGBA& color)
     : m_font_id(font_id)
     , m_text(text)
-    , m_centering(centering)
     , m_color(color)
 {
     SetText(text);
@@ -146,7 +171,7 @@ void UITextElement::SetText(const std::string& new_text)
 {
     m_text = new_text;
     if(!m_text.empty())
-        m_draw_buffers = mono::BuildTextDrawBuffers(m_font_id, m_text.c_str(), m_centering);
+        m_draw_buffers = mono::BuildTextDrawBuffers(m_font_id, m_text.c_str(), mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
 void UITextElement::SetColor(const mono::Color::RGBA& new_color)
@@ -157,14 +182,6 @@ void UITextElement::SetColor(const mono::Color::RGBA& new_color)
 void UITextElement::SetAlpha(float alpha)
 {
     m_color.alpha = alpha;
-}
-
-math::Quad UITextElement::GetBounds() const
-{
-    const mono::TextMeasurement text_measurement = mono::MeasureString(m_font_id, m_text.c_str());
-    const math::Vector text_offset = mono::TextOffsetFromFontCentering(text_measurement.size, m_centering);
-
-    return math::Quad(text_offset, text_offset + text_measurement.size);
 }
 
 void UITextElement::Draw(mono::IRenderer& renderer) const
@@ -191,6 +208,18 @@ void UITextElement::Draw(mono::IRenderer& renderer) const
         false,
         m_draw_buffers.indices->Size());
 }
+
+math::Quad UITextElement::BoundingBox() const
+{
+    math::Quad bounds = UIElement::BoundingBox();
+
+    const mono::TextMeasurement text_measurement = mono::MeasureString(m_font_id, m_text.c_str());
+    const math::Vector text_offset = mono::TextOffsetFromFontCentering(text_measurement.size, mono::FontCentering::HORIZONTAL_VERTICAL);
+
+    math::ExpandBy(bounds, math::Quad(text_offset, text_offset + text_measurement.size));
+    return bounds;
+}
+
 
 UISpriteElement::UISpriteElement()
     : m_active_sprite(0)
@@ -272,15 +301,21 @@ void UISpriteElement::Draw(mono::IRenderer& renderer) const
 UITextureElement::UITextureElement()
 { }
 
-UITextureElement::UITextureElement(const char* texture)
+UITextureElement::UITextureElement(const char* texture, float pixels_per_meter)
 {
-    SetTexture(texture);
+    SetTexture(texture, pixels_per_meter);
 }
 
-void UITextureElement::SetTexture(const char* texture)
+void UITextureElement::SetTexture(const char* texture, float pixels_per_meter)
 {
     m_texture = mono::RenderSystem::GetTextureFactory()->CreateTexture(texture);
-    m_draw_buffers = mono::BuildTextureDrawBuffers(m_texture.get());
+
+    mono::TextureBufferOptions options;
+    options.pixels_per_meter = pixels_per_meter;
+    options.anchor = mono::AnchorPoint::CENTER;
+    m_draw_buffers = mono::BuildTextureDrawBuffers(m_texture.get(), options);
+
+    m_pixels_per_meter = pixels_per_meter;
 }
 
 void UITextureElement::Draw(mono::IRenderer& renderer) const
@@ -302,6 +337,63 @@ void UITextureElement::Draw(mono::IRenderer& renderer) const
         m_draw_buffers.indices->Size());
 }
 
+math::Quad UITextureElement::BoundingBox() const
+{
+    math::Quad bounds = UIElement::BoundingBox();
+    if(m_texture)
+        math::ExpandBy(bounds, math::Quad(math::ZeroVec, m_texture->Width() * m_scale.x, m_texture->Height()) / m_pixels_per_meter);
+
+    return bounds;
+}
+
+math::Vector UITextureElement::GetTextureSize() const
+{
+    if(m_texture)
+        return math::Vector(m_texture->Width(), m_texture->Height());
+
+    return math::ZeroVec;
+}
+
+
+UITextureBoxElement::UITextureBoxElement()
+    : m_pixels_per_meter(32.0f)
+{
+    m_left = new UITextureElement();
+    m_mid = new UITextureElement();
+    m_right = new UITextureElement();
+
+    m_left->SetAchorPoint(mono::AnchorPoint::BOTTOM_RIGHT);
+    m_right->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
+
+    AddChild(m_left);
+    AddChild(m_mid);
+    AddChild(m_right);
+}
+
+UITextureBoxElement::UITextureBoxElement(const char* left_sprite, const char* mid_sprite, const char* right_sprite, float pixels_per_meter)
+    : UITextureBoxElement()
+{
+    SetTextures(left_sprite, mid_sprite, right_sprite, pixels_per_meter);
+}
+
+void UITextureBoxElement::SetTextures(const char* left_sprite, const char* mid_sprite, const char* right_sprite, float pixels_per_meter)
+{
+    m_left->SetTexture(left_sprite, pixels_per_meter);
+    m_mid->SetTexture(mid_sprite, pixels_per_meter);
+    m_right->SetTexture(right_sprite, pixels_per_meter);
+
+    m_pixels_per_meter = pixels_per_meter;
+}
+
+void UITextureBoxElement::SetWidth(float width)
+{
+    m_mid->SetScale(math::Vector(width * m_pixels_per_meter, 1.0f));
+
+    const math::Quad bounds = m_mid->BoundingBox();
+    m_left->SetPosition(math::BottomLeft(bounds));
+    m_right->SetPosition(math::BottomRight(bounds));
+}
+
 
 UISquareElement::UISquareElement(float width, float height, const mono::Color::RGBA& color)
     : UISquareElement(width, height, color, color, 0.0f)
@@ -309,15 +401,20 @@ UISquareElement::UISquareElement(float width, float height, const mono::Color::R
 
 UISquareElement::UISquareElement(
     float width, float height, const mono::Color::RGBA& color, const mono::Color::RGBA& border_color, float border_width)
-    : m_border_width(border_width)
+    : m_width(width)
+    , m_height(height)
+    , m_border_width(border_width)
     , m_color(color)
     , m_border_color(border_color)
 {
-    const std::vector<math::Vector> vertex_data = {
-        { 0.0f, 0.0f },
-        { 0.0f, height },
-        { width, height },
-        { width, 0.0f }
+   const float half_width = width / 2.0f;
+   const float half_height = height / 2.0f;
+
+    const std::vector<math::Vector> vertex_data = {   
+        { -half_width, -half_height }, 
+        { -half_width, half_height },
+        { half_width, half_height },
+        { half_width, -half_height }
     };
 
     m_vertices = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, 4, vertex_data.data());
@@ -349,6 +446,14 @@ void UISquareElement::Draw(mono::IRenderer& renderer) const
     }
 
     UIElement::Draw(renderer);
+}
+
+math::Quad UISquareElement::BoundingBox() const
+{
+    math::Quad bounds = UIElement::BoundingBox();
+    math::ExpandBy(bounds, math::Quad(math::ZeroVec, m_width, m_height));
+
+    return bounds;
 }
 
 void UISquareElement::SetColor(const mono::Color::RGBA& color)

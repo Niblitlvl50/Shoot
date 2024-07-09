@@ -28,16 +28,15 @@ BigTextScreen::BigTextScreen(
     const float square_height = m_height * 0.3f;
 
     m_background = new UISquareElement(m_width, square_height, color, border_color, 1.0f);
+    m_background->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
     m_background->SetPosition(math::Vector(0.0f, half_height - (square_height / 2.0f)));
 
     const float text_offset = hide_subtext ? 0.0f : 1.5f;
-    m_main_text_element =
-        new UITextElement(FontId::RUSSOONE_MEGA, text, mono::FontCentering::HORIZONTAL_VERTICAL, text_color);
+    m_main_text_element = new UITextElement(FontId::RUSSOONE_MEGA, text, text_color);
     m_main_text_element->SetPosition(math::Vector(half_width, half_height + text_offset));
 
     const float sub_text_offset = hide_text ? 0.0f : 1.0f;
-    m_sub_text_element =
-        new UITextElement(FontId::RUSSOONE_LARGE, sub_text, mono::FontCentering::HORIZONTAL_VERTICAL, subtext_color);
+    m_sub_text_element = new UITextElement(FontId::RUSSOONE_LARGE, sub_text, subtext_color);
     m_sub_text_element->SetPosition(math::Vector(half_width, half_height - sub_text_offset));
 
     AddChild(m_background);

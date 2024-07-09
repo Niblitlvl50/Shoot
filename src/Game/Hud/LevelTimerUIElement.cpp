@@ -9,8 +9,7 @@ LevelTimerUIElement::LevelTimerUIElement()
     : UIOverlay(50.0f, 50.0f / mono::RenderSystem::GetWindowAspect())
     , m_seconds(0)
 {
-    m_time_element = new UITextElement(
-        game::FontId::RUSSOONE_LARGE, "", mono::FontCentering::DEFAULT_CENTER, mono::Color::OFF_WHITE);
+    m_time_element = new UITextElement(game::FontId::RUSSOONE_LARGE, "", mono::Color::OFF_WHITE);
     m_time_element->SetPosition(25.0f, m_height - 2.0f);
     AddChild(m_time_element);
 }
