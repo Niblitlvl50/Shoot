@@ -466,7 +466,7 @@
             "name": "Flak Canon",
             "weapon": "flak_gun",
             "bullet": "flak_bullet",
-            "sprite_file": "res/sprites/voodoo_dagger1.sprite"
+            "sprite_file": "res/sprites/troll_hand1.sprite"
         },
         {
             "name": "Plasma Canon",
