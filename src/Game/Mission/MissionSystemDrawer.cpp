@@ -131,7 +131,7 @@ MissionStatusUIElement* MissionSystemDrawer::AddMissionUIElement(uint32_t entity
     mission_status_data.desired_position = onscreen_position;
     mission_status_data.current_velocity = math::ZeroVec;
 
-    mission_status_data.ui_element = new MissionStatusUIElement(UI_ELEMENT_WIDTH, UI_ELEMENT_HEIGHT, mono::Color::MakeWithAlpha(mono::Color::DARK_GRAY, 0.75f));
+    mission_status_data.ui_element = new MissionStatusUIElement(UI_ELEMENT_WIDTH, UI_ELEMENT_HEIGHT, mono::Color::MakeWithAlpha(mono::Color::DARK_GRAY, 0.25f));
     mission_status_data.ui_element->ShowIcon(false);
     mission_status_data.ui_element->SetPosition(onscreen_position - math::Vector(UI_ELEMENT_WIDTH + 1.0f, 0.0f));
 
