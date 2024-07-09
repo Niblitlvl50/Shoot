@@ -436,13 +436,13 @@
             "name": "Generic",
             "weapon": "generic",
             "bullet": "generic_bullet",
-            "sprite_file": "res/sprites/bolter.sprite"
+            "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
             "name": "Generic Wavey",
             "weapon": "generic",
             "bullet": "fire_wobbly_bullet",
-            "sprite_file": "res/sprites/bolter.sprite"
+            "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
             "name": "Familiar Generic",
