@@ -17,7 +17,7 @@
             "h": 10,
             "name": "fire_bullet_shuriken_idle_1",
             "w": 10,
-            "x": 418,
+            "x": 376,
             "y": 513
         },
         {
@@ -31,14 +31,14 @@
             "h": 10,
             "name": "fire_bullet_shuriken_idle_3",
             "w": 10,
-            "x": 376,
+            "x": 390,
             "y": 513
         },
         {
             "h": 10,
             "name": "fire_bullet_shuriken_idle_4",
             "w": 10,
-            "x": 390,
+            "x": 446,
             "y": 513
         }
     ],

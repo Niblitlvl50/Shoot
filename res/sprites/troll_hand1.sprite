@@ -6,15 +6,15 @@
                 0
             ],
             "loop": true,
-            "name": "idle"
+            "name": "default"
         }
     ],
     "frames": [
         {
-            "h": 5,
-            "name": "ui_icon_check_idle_1",
-            "w": 6,
-            "x": 402,
+            "h": 4,
+            "name": "troll_hand1",
+            "w": 13,
+            "x": 454,
             "y": 527
         }
     ],
@@ -24,7 +24,7 @@
             "y": 0.0
         }
     ],
-    "source_folder": "res/images/ui/",
+    "source_folder": "res/images/weapons/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

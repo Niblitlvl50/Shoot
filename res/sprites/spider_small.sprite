@@ -31,78 +31,78 @@
             "h": 8,
             "name": "spider_small_idle_1",
             "w": 12,
-            "x": 1480,
+            "x": 1416,
             "y": 525
         },
         {
             "h": 7,
             "name": "spider_small_idle_2",
             "w": 14,
-            "x": 1237,
+            "x": 1255,
             "y": 526
         },
         {
             "h": 7,
             "name": "spider_small_idle_3",
             "w": 14,
-            "x": 1255,
+            "x": 1273,
             "y": 526
         },
         {
             "h": 8,
             "name": "spider_small_idle_4",
             "w": 12,
-            "x": 1464,
-            "y": 525
+            "x": 518,
+            "y": 526
         },
         {
             "h": 9,
             "name": "spider_small_idle_5",
             "w": 12,
-            "x": 858,
+            "x": 842,
             "y": 513
         },
         {
             "h": 7,
             "name": "spider_small_move_1",
             "w": 11,
-            "x": 1877,
+            "x": 1892,
             "y": 526
         },
         {
             "h": 8,
             "name": "spider_small_move_2",
             "w": 12,
-            "x": 550,
-            "y": 526
+            "x": 1480,
+            "y": 525
         },
         {
             "h": 8,
             "name": "spider_small_move_3",
             "w": 13,
-            "x": 1399,
+            "x": 1382,
             "y": 525
         },
         {
             "h": 7,
             "name": "spider_small_move_4",
             "w": 11,
-            "x": 1892,
+            "x": 1877,
             "y": 526
         },
         {
             "h": 8,
             "name": "spider_small_move_5",
             "w": 10,
-            "x": 594,
+            "x": 566,
             "y": 526
         },
         {
             "h": 8,
             "name": "spider_small_move_6",
             "w": 12,
-            "x": 1448,
-            "y": 525
+            "x": 534,
+            "y": 526
         }
     ],
     "frames_offsets": [

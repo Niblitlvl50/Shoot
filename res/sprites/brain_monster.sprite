@@ -20,21 +20,21 @@
             "h": 9,
             "name": "brain_monster_idle_1",
             "w": 13,
-            "x": 761,
+            "x": 710,
             "y": 513
         },
         {
             "h": 9,
             "name": "brain_monster_idle_2",
             "w": 13,
-            "x": 676,
+            "x": 642,
             "y": 513
         },
         {
             "h": 9,
             "name": "brain_monster_idle_3",
             "w": 13,
-            "x": 693,
+            "x": 676,
             "y": 513
         },
         {
@@ -55,21 +55,21 @@
             "h": 9,
             "name": "brain_monster_idle_6",
             "w": 13,
-            "x": 659,
+            "x": 761,
             "y": 513
         },
         {
             "h": 9,
             "name": "brain_monster_idle_7",
             "w": 13,
-            "x": 642,
+            "x": 659,
             "y": 513
         },
         {
             "h": 9,
             "name": "brain_monster_idle_8",
             "w": 13,
-            "x": 710,
+            "x": 693,
             "y": 513
         }
     ],

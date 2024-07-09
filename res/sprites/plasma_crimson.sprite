@@ -18,14 +18,14 @@
             "h": 13,
             "name": "plasma_crimson_idle_1",
             "w": 13,
-            "x": 472,
+            "x": 489,
             "y": 496
         },
         {
             "h": 11,
             "name": "plasma_crimson_idle_2",
             "w": 11,
-            "x": 1780,
+            "x": 1765,
             "y": 512
         },
         {
@@ -39,14 +39,14 @@
             "h": 7,
             "name": "plasma_crimson_idle_4",
             "w": 7,
-            "x": 1965,
+            "x": 1943,
             "y": 526
         },
         {
             "h": 7,
             "name": "plasma_crimson_idle_5",
             "w": 7,
-            "x": 1943,
+            "x": 1965,
             "y": 526
         }
     ],
