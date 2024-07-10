@@ -161,12 +161,12 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new game::PlayerAuxiliaryDrawer(camera_system, transform_system), LayerId::GAMEOBJECTS_UI);
     m_healthbar_drawer = new game::HealthbarDrawer(damage_system, animation_system, text_system, transform_system, entity_system);
     AddUpdatableDrawable(m_healthbar_drawer, LayerId::GAMEOBJECTS_UI);
-    AddDrawable(new WorldEntityTrackingDrawer(entity_tracking_system, transform_system), LayerId::GAMEOBJECTS_UI);
     AddDrawable(new game::InteractionSystemDrawer(interaction_system, sprite_system, transform_system, entity_system), LayerId::GAMEOBJECTS_UI);
 
     AddDrawable(new game::UISystemDrawer(ui_system, transform_system), LayerId::UI_OVERLAY);
     AddDrawable(new mono::ScreenFadeDrawer(render_system), LayerId::UI_OVERLAY);
 
+    AddDrawable(new WorldEntityTrackingDrawer(entity_tracking_system, transform_system), LayerId::UI);
     AddDrawable(new game::DialogSystemDrawer(dialog_system, transform_system), LayerId::UI);
     m_region_ui = new RegionDrawer(region_system);
     AddUpdatableDrawable(m_region_ui, LayerId::UI);
@@ -188,6 +188,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     m_debug_updater = new DebugUpdater(m_system_context, m_event_handler, renderer);
     AddUpdatableDrawable(m_debug_updater, LayerId::UI);
 
+    // Game Mode
     m_game_mode = CreateGameMode();
     m_game_mode->Begin(this, renderer, m_system_context, m_event_handler, metadata);
     AddUpdatable(m_game_mode.get());

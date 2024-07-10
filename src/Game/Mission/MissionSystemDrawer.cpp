@@ -27,26 +27,7 @@ namespace
 MissionSystemDrawer::MissionSystemDrawer(const MissionSystem* mission_system)
     : UIOverlay(50.0f, 50.0f / mono::RenderSystem::GetWindowAspect())
     , m_mission_system(mission_system)
-{
-    /*
-    UITextureBoxElement* texture_box = new UITextureBoxElement();
-    texture_box->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
-    texture_box->SetPosition(math::Vector(10.0f, 10.0f));
-    texture_box->SetTextures(
-        "res/textures/ui/ui_text_background_left.png",
-        "res/textures/ui/ui_text_background_mid.png",
-        "res/textures/ui/ui_text_background_right.png",
-        8.0f);
-    texture_box->SetWidth(UI_ELEMENT_WIDTH);
-
-    UITextElement* text = new UITextElement(FontId::RUSSOONE_SMALL, "Hello!", mono::Color::OFF_WHITE);
-    text->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
-    text->SetPosition(-texture_box->GetAnchorOffset() + math::Vector(0.0f, 0.5f));
-    texture_box->AddChild(text);
-
-    AddChild(texture_box);
-    */
-}
+{ }
 
 void MissionSystemDrawer::Update(const mono::UpdateContext& update_context)
 {
