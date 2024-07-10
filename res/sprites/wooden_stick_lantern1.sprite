@@ -11,11 +11,11 @@
     ],
     "frames": [
         {
-            "h": 18,
-            "name": "laser_small",
-            "w": 4,
-            "x": 828,
-            "y": 430
+            "h": 5,
+            "name": "wooden_stick_lantern1",
+            "w": 13,
+            "x": 1457,
+            "y": 526
         }
     ],
     "frames_offsets": [
@@ -24,7 +24,7 @@
             "y": 0.0
         }
     ],
-    "source_folder": "res/images/bullets/",
+    "source_folder": "res/images/weapons/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

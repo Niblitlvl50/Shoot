@@ -24,77 +24,77 @@
             "h": 28,
             "name": "blue_shield_idle_1",
             "w": 28,
-            "x": 843,
+            "x": 698,
             "y": 371
         },
         {
             "h": 28,
             "name": "blue_shield_idle_2",
             "w": 28,
-            "x": 1151,
+            "x": 843,
             "y": 371
         },
         {
             "h": 28,
             "name": "blue_shield_idle_3",
             "w": 28,
-            "x": 518,
+            "x": 1215,
             "y": 371
         },
         {
             "h": 28,
             "name": "blue_shield_idle_4",
             "w": 28,
-            "x": 454,
+            "x": 614,
             "y": 371
         },
         {
             "h": 28,
             "name": "blue_shield_idle_5",
             "w": 28,
-            "x": 2018,
-            "y": 370
+            "x": 582,
+            "y": 371
         },
         {
             "h": 28,
             "name": "blue_shield_idle_6",
             "w": 28,
-            "x": 582,
+            "x": 486,
             "y": 371
         },
         {
             "h": 28,
             "name": "blue_shield_idle_7",
             "w": 28,
-            "x": 1215,
-            "y": 371
+            "x": 2018,
+            "y": 370
         },
         {
             "h": 28,
             "name": "blue_shield_idle_8",
             "w": 28,
-            "x": 614,
+            "x": 454,
             "y": 371
         },
         {
             "h": 28,
             "name": "blue_shield_idle_9",
             "w": 28,
-            "x": 875,
+            "x": 518,
             "y": 371
         },
         {
             "h": 28,
             "name": "blue_shield_idle_10",
             "w": 28,
-            "x": 730,
+            "x": 875,
             "y": 371
         },
         {
             "h": 28,
             "name": "blue_shield_idle_11",
             "w": 28,
-            "x": 698,
+            "x": 1151,
             "y": 371
         }
     ],

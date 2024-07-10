@@ -49,42 +49,42 @@
             "h": 2,
             "name": "worm_red_appear_1",
             "w": 21,
-            "x": 1001,
-            "y": 527
+            "x": 1707,
+            "y": 526
         },
         {
             "h": 10,
             "name": "worm_red_appear_2",
             "w": 21,
-            "x": 1861,
+            "x": 1226,
             "y": 512
         },
         {
             "h": 15,
             "name": "worm_red_appear_3",
             "w": 25,
-            "x": 1216,
+            "x": 853,
             "y": 476
         },
         {
             "h": 19,
             "name": "worm_red_appear_4",
             "w": 22,
-            "x": 1858,
+            "x": 903,
             "y": 430
         },
         {
             "h": 24,
             "name": "worm_red_appear_5",
             "w": 22,
-            "x": 907,
+            "x": 933,
             "y": 402
         },
         {
             "h": 25,
             "name": "worm_red_appear_6",
             "w": 22,
-            "x": 1959,
+            "x": 1933,
             "y": 401
         },
         {
@@ -105,70 +105,70 @@
             "h": 26,
             "name": "worm_red_dissapear_1",
             "w": 22,
-            "x": 672,
+            "x": 926,
             "y": 372
         },
         {
             "h": 26,
             "name": "worm_red_dissapear_2",
             "w": 22,
-            "x": 926,
+            "x": 646,
             "y": 372
         },
         {
             "h": 25,
             "name": "worm_red_dissapear_3",
             "w": 22,
-            "x": 1933,
+            "x": 1959,
             "y": 401
         },
         {
             "h": 24,
             "name": "worm_red_dissapear_4",
             "w": 22,
-            "x": 933,
+            "x": 907,
             "y": 402
         },
         {
             "h": 19,
             "name": "worm_red_dissapear_5",
             "w": 22,
-            "x": 1884,
+            "x": 979,
             "y": 430
         },
         {
             "h": 15,
             "name": "worm_red_dissapear_6",
             "w": 22,
-            "x": 1245,
+            "x": 1033,
             "y": 476
         },
         {
             "h": 10,
             "name": "worm_red_dissapear_7",
             "w": 21,
-            "x": 1886,
+            "x": 1201,
             "y": 512
         },
         {
             "h": 2,
             "name": "worm_red_dissapear_8",
             "w": 21,
-            "x": 1026,
-            "y": 527
+            "x": 1682,
+            "y": 526
         },
         {
             "h": 26,
             "name": "worm_red_idle_1",
             "w": 22,
-            "x": 814,
+            "x": 672,
             "y": 372
         },
         {
             "h": 26,
             "name": "worm_red_idle_2",
             "w": 22,
-            "x": 646,
+            "x": 814,
             "y": 372
         },
         {
