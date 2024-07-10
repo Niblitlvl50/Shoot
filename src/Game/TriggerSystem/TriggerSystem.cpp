@@ -180,7 +180,7 @@ void TriggerSystem::AddDestroyedTrigger(uint32_t entity_id, uint32_t trigger_has
         const mono::ReleaseCallback callback = [this, trigger_hash](uint32_t id, mono::ReleasePhase phase) {
             EmitTrigger(trigger_hash);
         };
-        allocated_trigger->callback_id = m_entity_system->AddReleaseCallback(entity_id, mono::ReleasePhase::POST_RELEASE, callback);
+        allocated_trigger->callback_id = m_entity_system->AddReleaseCallback(entity_id, mono::ReleasePhase::PRE_RELEASE, callback);
     }
 }
 
