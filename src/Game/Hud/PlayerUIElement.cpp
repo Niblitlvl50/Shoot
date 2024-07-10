@@ -375,9 +375,9 @@ PlayerUIElement::PlayerUIElement(
     };
 
     const math::Vector death_element_offset[] = {
-        { (-g_player_death_element_width / 2.0f) + 0.25f, 0.0f },
-        { (-g_player_death_element_width / 2.0f) - 0.25f, 0.0f },
-        { (-g_player_death_element_width / 2.0f), 0.0f },
+        { (-g_player_death_element_width / 2.0f) + 0.25f, -0.5f },
+        { (-g_player_death_element_width / 2.0f) - 0.25f, -0.5f },
+        { (-g_player_death_element_width / 2.0f), -0.5f },
     };
 
     const math::Vector death_element_offscreen_delta[] = {
