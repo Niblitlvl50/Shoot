@@ -87,7 +87,6 @@ namespace game
 
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
-        void Sync() override;
         void Destroy() override;
 
     private:

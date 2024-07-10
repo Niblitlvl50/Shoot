@@ -274,6 +274,8 @@ void DamageSystem::Update(const mono::UpdateContext& update_context)
         call_callbacks(damage_event, m_global_damage_callbacks);
     }
 
+    m_damage_events.clear();
+
     for(uint32_t entity_id = 0; entity_id < m_damage_records.size(); ++entity_id)
     {
         if(!m_active[entity_id])
@@ -291,11 +293,6 @@ void DamageSystem::Update(const mono::UpdateContext& update_context)
             m_active[entity_id] = false;
         }
     }
-}
-
-void DamageSystem::Sync()
-{
-    m_damage_events.clear();
 }
 
 void DamageSystem::Destroy()
