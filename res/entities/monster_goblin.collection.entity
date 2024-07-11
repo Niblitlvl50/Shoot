@@ -1,0 +1,844 @@
+{
+    "entities": [
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "monster_goblin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "collection"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -1.9500000476837158,
+                                "y": 0.6000000238418579
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 1805184399,
+                    "name": "health",
+                    "properties": [
+                        {
+                            "id": 1805184399,
+                            "name": "health",
+                            "variant_type": 1,
+                            "variant_value": 1000
+                        },
+                        {
+                            "id": 1989672395,
+                            "name": "boss_health",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "goblin.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.25
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 0.4000000059604645
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 3801947695,
+                    "name": "light",
+                    "properties": [
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 2.0
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.2800605595111847,
+                                "green": 0.7426962852478027,
+                                "red": 0.906862735748291
+                            }
+                        },
+                        {
+                            "id": 226247311,
+                            "name": "flicker",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 800267265,
+                            "name": "frequency",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 2538831285,
+                            "name": "percentage",
+                            "variant_type": 3,
+                            "variant_value": 0.5
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.30000001192092896,
+                                "y": 0.30000001192092896
+                            }
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2465580911,
+                    "name": "destroyed_trigger",
+                    "properties": [
+                        {
+                            "id": 3833720897,
+                            "name": "destroyed_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "mission_completed",
+                                "type": 2
+                            }
+                        }
+                    ]
+                },
+                {
+                    "hash": 2406412294,
+                    "name": "weapon_loadout",
+                    "properties": [
+                        {
+                            "id": 3150860,
+                            "name": "weapon_primary",
+                            "variant_type": 6,
+                            "variant_value": "Caco Plasma"
+                        },
+                        {
+                            "id": 3576654212,
+                            "name": "weapon_secondary",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 556824164,
+                            "name": "weapon_tertiary",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
+                    "hash": 845187144,
+                    "name": "target",
+                    "properties": [
+                        {
+                            "id": 1147998091,
+                            "name": "target_faction",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 2498028297,
+                            "name": "priority",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 1411079002,
+                    "name": "mission_tracker",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "Rouge Goblin"
+                        },
+                        {
+                            "id": 3435213149,
+                            "name": "sub_text",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 2268399416,
+                            "name": "time_based",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1564253156,
+                            "name": "time",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 149336291,
+                            "name": "fail_on_timeout",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "",
+                                "type": 2
+                            }
+                        },
+                        {
+                            "id": 1405321977,
+                            "name": "completed_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "mission_completed",
+                                "type": 0
+                            }
+                        },
+                        {
+                            "id": 2993395927,
+                            "name": "failed_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "",
+                                "type": 0
+                            }
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "monster_goblin",
+            "uuid_hash": 2962097332
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pumpkin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "collection"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -2.5500001907348633,
+                                "y": -0.45000001788139343
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 1805184399,
+                    "name": "health",
+                    "properties": [
+                        {
+                            "id": 1805184399,
+                            "name": "health",
+                            "variant_type": 1,
+                            "variant_value": 1000
+                        },
+                        {
+                            "id": 1989672395,
+                            "name": "boss_health",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "pumpkin.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.25
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 0.4000000059604645
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 3996803839,
+                    "name": "circle_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 0.3499999940395355
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.10000000149011612,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "pumpkin",
+            "uuid_hash": 2376090060
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "pumpkin"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "collection"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -1.2000000476837158,
+                                "y": -0.15000000596046448
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 1805184399,
+                    "name": "health",
+                    "properties": [
+                        {
+                            "id": 1805184399,
+                            "name": "health",
+                            "variant_type": 1,
+                            "variant_value": 1000
+                        },
+                        {
+                            "id": 1989672395,
+                            "name": "boss_health",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "pumpkin.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.25
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 0.4000000059604645
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 3996803839,
+                    "name": "circle_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 0.3499999940395355
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.10000000149011612,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "pumpkin",
+            "uuid_hash": 4183229288
+        }
+    ],
+    "metadata": {
+        "ambient_shade": {
+            "alpha": 1.0,
+            "blue": 1.0,
+            "green": 1.0,
+            "red": 1.0
+        },
+        "background_color": {
+            "alpha": 1.0,
+            "blue": 1.0,
+            "green": 1.0,
+            "red": 1.0
+        },
+        "background_music": "",
+        "background_size": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "background_texture": "",
+        "camera_position": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "camera_size": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "level_description": "",
+        "level_game_mode": "",
+        "level_name": "",
+        "navmesh_density": 1.0,
+        "navmesh_end": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "navmesh_start": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "package_spawn_position": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "player_spawn_point": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "spawn_package": true,
+        "time_limit_s": 0,
+        "triggers": [
+            "mission_completed"
+        ],
+        "use_custom_package_spawn_position": false
+    }
+}
