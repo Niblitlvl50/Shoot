@@ -1,6 +1,6 @@
 {
     "missions": [
-        "res/entities/monster_goblin_collection.entity",
-        "res/entities/monster_goblin_collection.entity"
+        "res/entities/monster_goblin.collection.entity",
+        "res/entities/monster_goblin.collection.entity"
     ]
 }
