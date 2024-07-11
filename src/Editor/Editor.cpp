@@ -549,7 +549,7 @@ void Editor::ExportAsEntityCollection()
             proxies.push_back(proxy);
     }
 
-    std::string filename = "res/entities/" + std::string(proxies.front()->Name()) + "_collection.entity";
+    std::string filename = "res/entities/" + std::string(proxies.front()->Name()) + ".collection.entity";
     std::replace(filename.begin(), filename.end(), ' ', '_');
 
     const auto to_lower = [](unsigned char c) {
@@ -559,7 +559,20 @@ void Editor::ExportAsEntityCollection()
 
     game::LevelMetadata metadata;
 
-    // Store triggers in metadata here.
+    for(const IObjectProxy* proxy : proxies)
+    {
+        for(const Component& component : proxy->GetComponents())
+        {
+            for(const Attribute& attribute : component.properties)
+            {
+                const mono::Event* event = std::get_if<mono::Event>(&attribute.value);
+                if(event && !event->text.empty())
+                    metadata.triggers.push_back(event->text);
+            }
+        }
+    }
+
+    mono::make_unique(metadata.triggers);
 
     editor::WriteComponentEntities(filename, metadata, proxies);
     editor::AddNewEntity(filename.c_str());
