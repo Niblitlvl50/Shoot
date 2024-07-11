@@ -22,17 +22,20 @@ namespace game
 
     struct MissionTrackerComponent
     {
-        uint32_t entity_id;
-
         std::string name;
         std::string description;
+
+        bool time_based;
+        float time_s;
+        bool fail_on_timeout;
+
         uint32_t activated_trigger;
         uint32_t completed_trigger;
         uint32_t failed_trigger;
 
-        MissionStatus status;
-
         // Internal data
+        MissionStatus status;
+        uint32_t entity_id;
         uint32_t activated_callback_id;
         uint32_t completed_callback_id;
         uint32_t failed_callback_id;
@@ -52,6 +55,7 @@ namespace game
         const char* Name() const override;
         void Begin() override;
         void Sync() override;
+        void Update(const mono::UpdateContext& update_context) override;
 
         void InitializeMissionPositions(const std::vector<uint32_t>& mission_points);
         void ActivateMission();
@@ -60,7 +64,15 @@ namespace game
         void AllocateMission(uint32_t entity_id);
         void ReleaseMission(uint32_t entity_id);
         void SetMissionData(
-            uint32_t entity_id, const std::string& name, const std::string& description, uint32_t activated_trigger_hash, uint32_t completed_trigger_hash, uint32_t failed_trigger_hash);
+            uint32_t entity_id,
+            const std::string& name,
+            const std::string& description,
+            bool time_based,
+            float time_s,
+            bool fail_on_timeout,
+            uint32_t activated_trigger_hash,
+            uint32_t completed_trigger_hash,
+            uint32_t failed_trigger_hash);
 
         const MissionTrackerComponent* GetComponentById(uint32_t entity_id) const;
 

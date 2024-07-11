@@ -12,7 +12,7 @@ namespace game
         MissionStatusUIElement(float width, float height, const mono::Color::RGBA& background_color);
         void SetText(const std::string& text);
         void SetDescription(const std::string& description);
-        void ShowIcon(bool show);
+        void ShowIcon(bool show, int index);
 
         UITextElement* m_mission_name_text;
         UITextElement* m_mission_description_text;

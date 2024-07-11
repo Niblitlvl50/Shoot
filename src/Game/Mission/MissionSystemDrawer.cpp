@@ -113,7 +113,7 @@ MissionStatusUIElement* MissionSystemDrawer::AddMissionUIElement(uint32_t entity
     mission_status_data.current_velocity = math::ZeroVec;
 
     mission_status_data.ui_element = new MissionStatusUIElement(UI_ELEMENT_WIDTH, UI_ELEMENT_HEIGHT, mono::Color::MakeWithAlpha(mono::Color::DARK_GRAY, 0.25f));
-    mission_status_data.ui_element->ShowIcon(false);
+    mission_status_data.ui_element->ShowIcon(false, 0);
     mission_status_data.ui_element->SetPosition(onscreen_position - math::Vector(UI_ELEMENT_WIDTH + 1.0f, 0.0f));
 
     mission_status_data.delayed_remove = false;
@@ -135,7 +135,7 @@ void MissionSystemDrawer::CompleteAndRemoveMissionUIElement(uint32_t entity_id)
     MissionStatusData* mission_status_data = mono::find_if(m_mission_ui_collection, find_by_id);
     if(mission_status_data)
     {
-        mission_status_data->ui_element->ShowIcon(true);
+        mission_status_data->ui_element->ShowIcon(true, 0);
         mission_status_data->delayed_remove = true;
         mission_status_data->time_s = 3.0f;
     }
@@ -150,7 +150,7 @@ void MissionSystemDrawer::FailAndRemoveMissionUIElement(uint32_t entity_id)
     MissionStatusData* mission_status_data = mono::find_if(m_mission_ui_collection, find_by_id);
     if(mission_status_data)
     {
-        mission_status_data->ui_element->ShowIcon(true);
+        mission_status_data->ui_element->ShowIcon(true, 1);
         mission_status_data->delayed_remove = true;
         mission_status_data->time_s = 3.0f;
     }

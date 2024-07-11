@@ -148,6 +148,9 @@ const DefaultAttribute default_attributes[] = {
     { "spawn_limit_concurrent",     Variant(0) },
     { "completed_trigger",          Variant(event_type_input_default), "Completed Event" },
     { "failed_trigger",             Variant(event_type_input_default), "Failed Event" },
+    { "time_based",                 Variant(false) },
+    { "time",                       Variant(1.0f), "In Seconds" },
+    { "fail_on_timeout",            Variant(false) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -278,6 +281,9 @@ extern const uint32_t TARGET_FACTION_ATTRIBUTE              = default_attributes
 extern const uint32_t SPAWN_LIMIT_CONCURRENT_ATTRIBUTE      = default_attributes[106].hash;
 extern const uint32_t COMPLETED_TRIGGER_ATTRIBUTE           = default_attributes[107].hash;
 extern const uint32_t FAILED_TRIGGER_ATTRIBUTE              = default_attributes[108].hash;
+extern const uint32_t TIME_BASED_ATTRIBUTE                  = default_attributes[109].hash;
+extern const uint32_t TIME_ATTRIBUTE                        = default_attributes[110].hash;
+extern const uint32_t FAIL_ON_TIMEOUT_ATTRIBUTE             = default_attributes[111].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -509,7 +515,7 @@ const Component default_components[] = {
     MakeComponent(WEAPON_LOADOUT_COMPONENT,     NULL_COMPONENT,             false,  "logic",        { WEAPON_PRIMARY_ATTRIBUTE, WEAPON_SECONDARY_ATTRIBUTE, WEAPON_TERTIARY_ATTRIBUTE } ),
     MakeComponent(TARGET_COMPONENT,             NULL_COMPONENT,             false,  "logic",        { TARGET_FACTION_ATTRIBUTE, PRIORITY_ATTRIBUTE } ),
     MakeComponent(BEHAVIOUR_COMPONENT,          NULL_COMPONENT,             false,  "logic",        { ENTITY_BEHAVIOUR_ATTRIBUTE }),
-    MakeComponent(MISSION_TRACKER_COMPONENT,    NULL_COMPONENT,             false,  "logic",        { NAME_ATTRIBUTE, SUB_TEXT_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, COMPLETED_TRIGGER_ATTRIBUTE, FAILED_TRIGGER_ATTRIBUTE }),
+    MakeComponent(MISSION_TRACKER_COMPONENT,    NULL_COMPONENT,             false,  "logic",        { NAME_ATTRIBUTE, SUB_TEXT_ATTRIBUTE, TIME_BASED_ATTRIBUTE, TIME_ATTRIBUTE, FAIL_ON_TIMEOUT_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, COMPLETED_TRIGGER_ATTRIBUTE, FAILED_TRIGGER_ATTRIBUTE }),
 };
 
 const char* AttributeNameFromHash(uint32_t hash)

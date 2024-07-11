@@ -142,6 +142,9 @@ extern const uint32_t PRIORITY_ATTRIBUTE;
 extern const uint32_t TARGET_FACTION_ATTRIBUTE;
 extern const uint32_t COMPLETED_TRIGGER_ATTRIBUTE;
 extern const uint32_t FAILED_TRIGGER_ATTRIBUTE;
+extern const uint32_t TIME_BASED_ATTRIBUTE;
+extern const uint32_t TIME_ATTRIBUTE;
+extern const uint32_t FAIL_ON_TIMEOUT_ATTRIBUTE;
 
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);

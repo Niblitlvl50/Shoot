@@ -18,7 +18,11 @@ MissionStatusUIElement::MissionStatusUIElement(float width, float height, const 
     m_mission_description_text->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
     m_mission_description_text->SetPosition(-anchor_offset + math::Vector(0.5f, 0.35f));
 
-    m_icon = new UISpriteElement("res/sprites/ui_icon_check.sprite");
+    const std::vector<std::string> ui_sprites = {
+        "res/sprites/ui_icon_check.sprite",
+        "res/sprites/ui_icon_cross.sprite"
+    };
+    m_icon = new UISpriteElement(ui_sprites);
     m_icon->SetPosition(width / 2.0f - 1.0f, 0.0f);
     m_icon->SetScale(4.0f);
 
@@ -37,8 +41,9 @@ void MissionStatusUIElement::SetDescription(const std::string& description)
     m_mission_description_text->SetText(description);
 }
 
-void MissionStatusUIElement::ShowIcon(bool show)
+void MissionStatusUIElement::ShowIcon(bool show, int index)
 {
+    m_icon->SetActiveSprite(index, 0);
     if(show)
         m_icon->Show();
     else

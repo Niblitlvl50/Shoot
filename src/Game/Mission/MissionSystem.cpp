@@ -64,6 +64,25 @@ void MissionSystem::Sync()
     m_mission_status_events.clear();
 }
 
+void MissionSystem::Update(const mono::UpdateContext& update_context)
+{
+    for(MissionTrackerComponent& mission_tracker : m_mission_trackers)
+    {
+        if(mission_tracker.status != MissionStatus::Active || !mission_tracker.time_based)
+            continue;
+
+        mission_tracker.time_s -= update_context.delta_s;
+ 
+        if(mission_tracker.time_s <= 0.0f)
+        {
+            if(mission_tracker.fail_on_timeout)
+                HandleMissionFailed(mission_tracker.entity_id);
+            else
+                HandleMissionCompleted(mission_tracker.entity_id);
+        }
+    }
+}
+
 void MissionSystem::InitializeMissionPositions(const std::vector<uint32_t>& mission_points)
 {
     m_mission_points = mission_points;
@@ -110,6 +129,10 @@ void MissionSystem::AllocateMission(uint32_t entity_id)
     MissionTrackerComponent component;
     component.entity_id = entity_id;
 
+    component.time_based = false;
+    component.time_s = 0.0f;
+    component.fail_on_timeout = false;
+
     component.activated_trigger = hash::NO_HASH;
     component.completed_trigger = hash::NO_HASH;
     component.failed_trigger = hash::NO_HASH;
@@ -141,7 +164,16 @@ void MissionSystem::ReleaseMission(uint32_t entity_id)
     mono::remove(m_mission_trackers, *component);
 }
 
-void MissionSystem::SetMissionData(uint32_t entity_id, const std::string& name, const std::string& description, uint32_t activated_trigger_hash, uint32_t completed_trigger_hash, uint32_t failed_trigger_hash)
+void MissionSystem::SetMissionData(
+    uint32_t entity_id,
+    const std::string& name,
+    const std::string& description,
+    bool time_based,
+    float time_s,
+    bool fail_on_timeout,
+    uint32_t activated_trigger_hash,
+    uint32_t completed_trigger_hash,
+    uint32_t failed_trigger_hash)
 {
     MissionTrackerComponent* component = GetComponentById(entity_id);
     if(!component)
@@ -149,6 +181,9 @@ void MissionSystem::SetMissionData(uint32_t entity_id, const std::string& name, 
 
     component->name = name;
     component->description = description;
+    component->time_based = time_based;
+    component->time_s = time_s;
+    component->fail_on_timeout = fail_on_timeout;
     component->activated_trigger = activated_trigger_hash;
     component->completed_trigger = completed_trigger_hash;
     component->failed_trigger = failed_trigger_hash;

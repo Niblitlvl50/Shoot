@@ -1112,8 +1112,14 @@ namespace
     {
         std::string mission_name;
         std::string mission_description;
+        bool time_based;
+        float time_s;
+        bool fail_on_timeout;
         FindAttribute(NAME_ATTRIBUTE, properties, mission_name, FallbackMode::SET_DEFAULT);
         FindAttribute(SUB_TEXT_ATTRIBUTE, properties, mission_description, FallbackMode::SET_DEFAULT);
+        FindAttribute(TIME_BASED_ATTRIBUTE, properties, time_based, FallbackMode::SET_DEFAULT);
+        FindAttribute(TIME_ATTRIBUTE, properties, time_s, FallbackMode::SET_DEFAULT);
+        FindAttribute(FAIL_ON_TIMEOUT_ATTRIBUTE, properties, fail_on_timeout, FallbackMode::SET_DEFAULT);
 
         mono::Event trigger_name;
         mono::Event completed_trigger_name;
@@ -1124,7 +1130,15 @@ namespace
 
         game::MissionSystem* mission_system = context->GetSystem<game::MissionSystem>();
         mission_system->SetMissionData(
-            entity->id, mission_name, mission_description, hash::Hash(trigger_name.text.c_str()), hash::Hash(completed_trigger_name.text.c_str()), hash::Hash(failed_trigger_name.text.c_str()));
+            entity->id,
+            mission_name,
+            mission_description,
+            time_based,
+            time_s,
+            fail_on_timeout,
+            hash::Hash(trigger_name.text.c_str()),
+            hash::Hash(completed_trigger_name.text.c_str()),
+            hash::Hash(failed_trigger_name.text.c_str()));
 
         return true;
     }
