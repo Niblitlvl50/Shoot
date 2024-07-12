@@ -74,6 +74,8 @@ namespace game
             uint32_t completed_trigger_hash,
             uint32_t failed_trigger_hash);
 
+        bool IsTimeBasedMission(uint32_t entity_id) const;
+        float GetTimeLeftForMission(uint32_t entity_id) const;
         const MissionTrackerComponent* GetComponentById(uint32_t entity_id) const;
 
     private:

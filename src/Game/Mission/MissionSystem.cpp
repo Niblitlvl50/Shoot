@@ -72,7 +72,7 @@ void MissionSystem::Update(const mono::UpdateContext& update_context)
             continue;
 
         mission_tracker.time_s -= update_context.delta_s;
- 
+
         if(mission_tracker.time_s <= 0.0f)
         {
             if(mission_tracker.fail_on_timeout)
@@ -211,6 +211,24 @@ void MissionSystem::SetMissionData(
         };
         component->failed_callback_id = m_trigger_system->RegisterTriggerCallback(component->failed_trigger, failed_callback, entity_id);
     }
+}
+
+bool MissionSystem::IsTimeBasedMission(uint32_t entity_id) const
+{
+    const MissionTrackerComponent* component = GetComponentById(entity_id);
+    if(!component)
+        return false;
+
+    return component->time_based;
+}
+
+float MissionSystem::GetTimeLeftForMission(uint32_t entity_id) const
+{
+    const MissionTrackerComponent* component = GetComponentById(entity_id);
+    if(!component)
+        return 0.0f;
+
+    return component->time_s;
 }
 
 const MissionTrackerComponent* MissionSystem::GetComponentById(uint32_t entity_id) const

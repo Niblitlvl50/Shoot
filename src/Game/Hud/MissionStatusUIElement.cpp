@@ -26,9 +26,13 @@ MissionStatusUIElement::MissionStatusUIElement(float width, float height, const 
     m_icon->SetPosition(width / 2.0f - 1.0f, 0.0f);
     m_icon->SetScale(4.0f);
 
+    m_timer_text = new UITextElement(FontId::MITR_SMALL, "", mono::Color::RED);
+    m_timer_text->SetPosition(width / 2.0f, 0.0f);
+
     AddChild(m_mission_name_text);
     AddChild(m_mission_description_text);
     AddChild(m_icon);
+    AddChild(m_timer_text);
 }
 
 void MissionStatusUIElement::SetText(const std::string& text)
@@ -50,3 +54,9 @@ void MissionStatusUIElement::ShowIcon(bool show, int index)
         m_icon->Hide();
 }
 
+void MissionStatusUIElement::SetTime(float time_s)
+{
+    char buffer[512] = { 0 };
+    std::snprintf(buffer, std::size(buffer), "%.1f", time_s);
+    m_timer_text->SetText(buffer);
+}

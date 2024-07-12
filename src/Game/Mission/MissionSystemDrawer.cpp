@@ -43,8 +43,9 @@ void MissionSystemDrawer::Update(const mono::UpdateContext& update_context)
         case MissionStatus::Active:
         {
             const MissionTrackerComponent* mission_tracker = m_mission_system->GetComponentById(mission_status_event.mission_id);
+            const bool time_based_mission = m_mission_system->IsTimeBasedMission(mission_status_event.mission_id);
 
-            MissionStatusUIElement* ui_element = AddMissionUIElement(mission_status_event.mission_id);
+            MissionStatusUIElement* ui_element = AddMissionUIElement(mission_status_event.mission_id, time_based_mission);
             ui_element->SetText(mission_tracker->name);
             ui_element->SetDescription(mission_tracker->description);
 
@@ -71,6 +72,12 @@ void MissionSystemDrawer::UpdateAnimations(const mono::UpdateContext& context)
         math::critical_spring_damper(
             current_position, mission_status_data.current_velocity, mission_status_data.desired_position, math::ZeroVec, 0.15f, context.delta_s);
         mission_status_data.ui_element->SetPosition(current_position);
+
+        if(mission_status_data.time_based_mission)
+        {
+            const float time_left_s = m_mission_system->GetTimeLeftForMission(mission_status_data.entity_id);
+            mission_status_data.ui_element->SetTime(time_left_s);
+        }
     }
 }
 
@@ -103,12 +110,14 @@ void MissionSystemDrawer::CheckForFinishedAnimations(const mono::UpdateContext& 
         ReCalculateLayout();
 }
 
-MissionStatusUIElement* MissionSystemDrawer::AddMissionUIElement(uint32_t entity_id)
+MissionStatusUIElement* MissionSystemDrawer::AddMissionUIElement(uint32_t entity_id, bool time_based_mission)
 {
     const math::Vector onscreen_position = CalculatePositionForItem(m_mission_ui_collection.size());
 
     MissionStatusData mission_status_data;
     mission_status_data.entity_id = entity_id;
+    mission_status_data.time_based_mission = time_based_mission;
+
     mission_status_data.desired_position = onscreen_position;
     mission_status_data.current_velocity = math::ZeroVec;
 

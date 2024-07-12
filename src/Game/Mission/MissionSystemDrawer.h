@@ -20,7 +20,7 @@ namespace game
         void UpdateAnimations(const mono::UpdateContext& context);
         void CheckForFinishedAnimations(const mono::UpdateContext& context);
 
-        class MissionStatusUIElement* AddMissionUIElement(uint32_t entity_id);
+        class MissionStatusUIElement* AddMissionUIElement(uint32_t entity_id, bool time_based_mission);
         void CompleteAndRemoveMissionUIElement(uint32_t entity_id);
         void FailAndRemoveMissionUIElement(uint32_t entity_id);
         void ReCalculateLayout();
@@ -31,6 +31,8 @@ namespace game
         struct MissionStatusData
         {
             uint32_t entity_id;
+            bool time_based_mission;
+            
             math::Vector desired_position;
             math::Vector current_velocity;
             class MissionStatusUIElement* ui_element;
