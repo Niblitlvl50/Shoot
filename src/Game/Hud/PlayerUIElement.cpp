@@ -68,33 +68,33 @@ namespace game
             }
 
             m_weapon_sprites = new UISpriteElement(weapon_sprites);
-            m_weapon_sprites->SetPosition(0.15f, 0.0f);
+            m_weapon_sprites->SetPosition(0.15f, -0.05f);
 
             m_ammo_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::MAGENTA);
-            m_ammo_text->SetPosition(0.55f, 0.1f);
+            m_ammo_text->SetPosition(0.6f, -0.05f);
             m_ammo_text->SetScale(0.5f);
 
             m_chips_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::GOLDEN_YELLOW);
-            m_chips_text->SetPosition(0.55f, -0.1f);
+            m_chips_text->SetPosition(-0.25f, -0.4f);
             m_chips_text->SetScale(0.5f);
 
             m_rubble_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::GOLDEN_YELLOW);
-            m_rubble_text->SetPosition(0.55f, -0.3f);
+            m_rubble_text->SetPosition(0.55f, -0.4f);
             m_rubble_text->SetScale(0.5f);
 
             constexpr mono::Color::RGBA healthbar_red = mono::Color::RGBA(1.0f, 0.3f, 0.3f, 1.0f);
             m_healthbar = new UIBarElement(1.0f, 0.05f, mono::Color::GRAY, healthbar_red);
-            m_healthbar->SetPosition(-0.15f, -0.2f);
+            m_healthbar->SetPosition(-0.15f, -0.25f);
 
-            m_expbar = new UIBarElement(1.0f, 0.05f, mono::Color::GRAY, mono::Color::GREEN_VIVID);
-            m_expbar->SetPosition(-0.15f, -0.35f);
+            m_expbar = new UIBarElement(0.65f, 0.025f, mono::Color::GRAY, mono::Color::GREEN_VIVID);
+            m_expbar->SetPosition(-0.92f, -0.3f);
 
             UISpriteElement* background_hud = new UISpriteElement("res/sprites/player_background_hud.sprite");
             background_hud->AddChild(m_mugshot_hud);
             background_hud->AddChild(m_weapon_sprites);
             background_hud->AddChild(m_ammo_text);
-            background_hud->AddChild(m_chips_text);
-            background_hud->AddChild(m_rubble_text);
+            // background_hud->AddChild(m_chips_text);
+            // background_hud->AddChild(m_rubble_text);
             background_hud->AddChild(m_healthbar);
             background_hud->AddChild(m_expbar);
 
