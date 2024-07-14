@@ -83,10 +83,10 @@ namespace game
             m_rubble_text->SetScale(0.5f);
 
             constexpr mono::Color::RGBA healthbar_red = mono::Color::RGBA(1.0f, 0.3f, 0.3f, 1.0f);
-            m_healthbar = new UIBarElement(1.0f, 0.05f, mono::Color::GRAY, 1.0f, 0.05f, healthbar_red);
+            m_healthbar = new UIBarElement(1.0f, 0.05f, mono::Color::GRAY, healthbar_red);
             m_healthbar->SetPosition(-0.15f, -0.2f);
 
-            m_expbar = new UIBarElement(1.0f, 0.05f, mono::Color::GRAY, 1.0f, 0.05f, mono::Color::GREEN_VIVID);
+            m_expbar = new UIBarElement(1.0f, 0.05f, mono::Color::GRAY, mono::Color::GREEN_VIVID);
             m_expbar->SetPosition(-0.15f, -0.35f);
 
             UISpriteElement* background_hud = new UISpriteElement("res/sprites/player_background_hud.sprite");
@@ -319,7 +319,7 @@ namespace game
         {
             m_position = math::Vector(x, y);
 
-            m_powerup_bar = new UIBarElement(2.0f, 0.1f, mono::Color::GRAY, 2.0f, 0.1f, mono::Color::RED);
+            m_powerup_bar = new UIBarElement(2.0f, 0.1f, mono::Color::GRAY, mono::Color::RED);
 
             m_powerup_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::OFF_WHITE);
             m_powerup_text->SetScale(0.5f);

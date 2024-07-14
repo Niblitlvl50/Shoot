@@ -27,6 +27,7 @@ namespace game
 
         bool time_based;
         float time_s;
+        float total_duration_s;
         bool fail_on_timeout;
 
         uint32_t activated_trigger;
@@ -45,6 +46,12 @@ namespace game
     {
         uint32_t mission_id;
         MissionStatus status;
+    };
+
+    struct MissionTime
+    {
+        float total_duration_s;
+        float current_time_s;
     };
 
     class MissionSystem : public mono::IGameSystem
@@ -75,7 +82,8 @@ namespace game
             uint32_t failed_trigger_hash);
 
         bool IsTimeBasedMission(uint32_t entity_id) const;
-        float GetTimeLeftForMission(uint32_t entity_id) const;
+        MissionTime GetMissionTime(uint32_t entity_id) const;
+
         const MissionTrackerComponent* GetComponentById(uint32_t entity_id) const;
 
     private:

@@ -13,11 +13,12 @@ namespace game
         void SetText(const std::string& text);
         void SetDescription(const std::string& description);
         void ShowIcon(bool show, int index);
-        void SetTime(float time_s);
+        void ShowTimer(bool show);
+        void SetTime(float time_s, float max_time_s);
 
         UITextElement* m_mission_name_text;
         UITextElement* m_mission_description_text;
         UISpriteElement* m_icon;
-        UITextElement* m_timer_text;
+        UIBarElement* m_timer_bar;
     };
 }

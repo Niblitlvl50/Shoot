@@ -209,9 +209,10 @@ namespace game
         };
 
         UIBarElement(
-            float background_width, float background_height, const mono::Color::RGBA& background_color,
-            float foreground_width, float foreground_height, const mono::Color::RGBA& foreground_color
-        );
+            float background_width,
+            float background_height,
+            const mono::Color::RGBA& background_color,
+            const mono::Color::RGBA& foreground_color);
 
         void SetFraction(float fraction);
         void SetDirection(Direction new_direction);
@@ -220,11 +221,13 @@ namespace game
 
         void Update(const mono::UpdateContext& context) override;
         void Draw(mono::IRenderer& renderer) const override;
+        math::Quad BoundingBox() const override;
 
         float m_fraction;
         float m_target_fraction;
         float m_velocity;
         Direction m_direction;
+        math::Vector m_bar_size;
 
         std::unique_ptr<mono::IRenderBuffer> m_vertices;
         std::unique_ptr<mono::IRenderBuffer> m_background_colors;

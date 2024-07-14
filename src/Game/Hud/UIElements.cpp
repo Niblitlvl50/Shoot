@@ -481,19 +481,31 @@ const mono::Color::RGBA& UISquareElement::GetBorderColor() const
 
 
 UIBarElement::UIBarElement(
-    float background_width, float background_height, const mono::Color::RGBA& background_color,
-    float foreground_width, float foreground_height, const mono::Color::RGBA& foreground_color)
+    float background_width, float background_height, const mono::Color::RGBA& background_color, const mono::Color::RGBA& foreground_color)
     : m_fraction(0.0f)
     , m_target_fraction(0.0f)
     , m_velocity(0.0f)
     , m_direction(Direction::HORIZONTAL)
 {
+    m_bar_size = math::Vector(background_width, background_height);
+
     const std::vector<math::Vector> vertex_data = {
         { 0.0f, 0.0f },
         { 0.0f, background_height },
         { background_width, background_height },
         { background_width, 0.0f }
     };
+
+/*
+    const math::Vector half_size = m_bar_size / 2.0f;
+
+    const std::vector<math::Vector> vertex_data = {
+        { -half_size.x, -half_size.y },
+        { -half_size.x, half_size.y },
+        { half_size.x, half_size.y },
+        { half_size.x, -half_size.y }
+    };
+*/
 
     const std::vector<mono::Color::RGBA> background_color_data(4, background_color);
     const std::vector<mono::Color::RGBA> foreground_color_data(4, foreground_color);
@@ -539,4 +551,12 @@ void UIBarElement::Draw(mono::IRenderer& renderer) const
     const auto scale_transform_scope = mono::MakeTransformScope(
         transform * math::CreateMatrixWithScale(m_fraction, 1.0f), &renderer);
     renderer.DrawTrianges(m_vertices.get(), m_foreground_colors.get(), m_indices.get(), 0, 6);
+}
+
+math::Quad UIBarElement::BoundingBox() const
+{
+    math::Quad bounds = UIElement::BoundingBox();
+    math::ExpandBy(bounds, math::Quad(math::ZeroVec, m_bar_size.x, m_bar_size.y));
+
+    return bounds;
 }

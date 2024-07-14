@@ -183,6 +183,7 @@ void MissionSystem::SetMissionData(
     component->description = description;
     component->time_based = time_based;
     component->time_s = time_s;
+    component->total_duration_s = time_s;
     component->fail_on_timeout = fail_on_timeout;
     component->activated_trigger = activated_trigger_hash;
     component->completed_trigger = completed_trigger_hash;
@@ -222,14 +223,22 @@ bool MissionSystem::IsTimeBasedMission(uint32_t entity_id) const
     return component->time_based;
 }
 
-float MissionSystem::GetTimeLeftForMission(uint32_t entity_id) const
+MissionTime MissionSystem::GetMissionTime(uint32_t entity_id) const
 {
+    MissionTime mission_time;
+    mission_time.current_time_s = 0.0f;
+    mission_time.total_duration_s = 0.0f;
+ 
     const MissionTrackerComponent* component = GetComponentById(entity_id);
-    if(!component)
-        return 0.0f;
+    if(component)
+    {
+        mission_time.current_time_s = component->time_s;
+        mission_time.total_duration_s = component->total_duration_s;
+    }
 
-    return component->time_s;
+    return mission_time;
 }
+
 
 const MissionTrackerComponent* MissionSystem::GetComponentById(uint32_t entity_id) const
 {

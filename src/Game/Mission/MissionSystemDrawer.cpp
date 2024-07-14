@@ -75,8 +75,8 @@ void MissionSystemDrawer::UpdateAnimations(const mono::UpdateContext& context)
 
         if(mission_status_data.time_based_mission)
         {
-            const float time_left_s = m_mission_system->GetTimeLeftForMission(mission_status_data.entity_id);
-            mission_status_data.ui_element->SetTime(time_left_s);
+            const MissionTime& mission_time = m_mission_system->GetMissionTime(mission_status_data.entity_id);
+            mission_status_data.ui_element->SetTime(mission_time.current_time_s, mission_time.total_duration_s);
         }
     }
 }
@@ -123,6 +123,7 @@ MissionStatusUIElement* MissionSystemDrawer::AddMissionUIElement(uint32_t entity
 
     mission_status_data.ui_element = new MissionStatusUIElement(UI_ELEMENT_WIDTH, UI_ELEMENT_HEIGHT, mono::Color::MakeWithAlpha(mono::Color::DARK_GRAY, 0.25f));
     mission_status_data.ui_element->ShowIcon(false, 0);
+    mission_status_data.ui_element->ShowTimer(time_based_mission);
     mission_status_data.ui_element->SetPosition(onscreen_position - math::Vector(UI_ELEMENT_WIDTH + 1.0f, 0.0f));
 
     mission_status_data.delayed_remove = false;
