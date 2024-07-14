@@ -70,7 +70,7 @@ namespace game
             m_weapon_sprites = new UISpriteElement(weapon_sprites);
             m_weapon_sprites->SetPosition(0.15f, -0.05f);
 
-            m_ammo_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::MAGENTA);
+            m_ammo_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::OFF_WHITE);
             m_ammo_text->SetPosition(0.6f, -0.05f);
             m_ammo_text->SetScale(0.5f);
 
