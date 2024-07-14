@@ -225,7 +225,7 @@ void PlayerLogic::Update(const mono::UpdateContext& update_context)
 
     m_stamina = std::clamp(m_stamina - (update_context.delta_s * tweak_values::stamina_consumption_per_s * stamina_multiplier), 0.0f, 1.0f);
 
-    if(m_player_info->auto_aim)
+    if(m_player_info->persistent_data.auto_aim)
     {
         mono::PhysicsSpace* space = m_physics_system->GetSpace();
         mono::QueryResult query_result = space->QueryNearest(m_player_info->position, 3.0f, CollisionCategory::ENEMY);
@@ -414,7 +414,7 @@ void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
     {
         m_player_info->weapon_state = active_weapon->Fire(fire_position, m_player_info->aim_target, update_context.timestamp);
 
-        if(m_player_info->weapon_state == WeaponState::OUT_OF_AMMO && m_player_info->auto_reload)
+        if(m_player_info->weapon_state == WeaponState::OUT_OF_AMMO && m_player_info->persistent_data.auto_reload)
             Reload(update_context.timestamp);
 
         const math::Vector familiar_position = m_transform_system->GetWorldPosition(m_player_info->familiar_entity_id);
@@ -587,7 +587,7 @@ void PlayerLogic::HandlePickup(PickupType type, int amount)
     }
     case PickupType::EXPERIENCE:
     {
-        m_player_info->experience_fraction += 1.5f;
+        m_player_info->experience_fraction += 0.05f;
 
         if(m_player_info->experience_fraction >= 1.0f)
         {

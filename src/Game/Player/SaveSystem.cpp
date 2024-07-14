@@ -12,10 +12,14 @@ void game::SavePlayerData(const char* user_path, int slot_index, const SaveSlotD
 
     for(uint32_t index = 0; index < std::size(data.player_data); ++index)
     {
-        nlohmann::json player_data;
-        player_data["chips"] = data.player_data[index].chips;
-        player_data["rubble"] = data.player_data[index].rubble;
-        save_data_array.push_back(player_data);
+        const PersistentPlayerData& player_data = data.player_data[index];
+        nlohmann::json player_data_json;
+        player_data_json["chips"] = player_data.chips;
+        player_data_json["rubble"] = player_data.rubble;
+        player_data_json["god_mode"] = player_data.god_mode;
+        player_data_json["auto_aim"] = player_data.auto_aim;
+        player_data_json["auto_reload"] = player_data.auto_reload;
+        save_data_array.push_back(player_data_json);
     }
 
     nlohmann::json json;
@@ -50,5 +54,8 @@ void game::LoadPlayerData(const char* user_path, int slot_index, SaveSlotData& d
     {
         data.player_data[index].chips = save_data_array[index].value("chips", 0);
         data.player_data[index].rubble = save_data_array[index].value("rubble", 0);
+        data.player_data[index].god_mode = save_data_array[index].value("god_mode", false);
+        data.player_data[index].auto_aim = save_data_array[index].value("auto_aim", false);
+        data.player_data[index].auto_reload = save_data_array[index].value("auto_reload", false);
     }
 }

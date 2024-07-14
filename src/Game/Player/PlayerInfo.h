@@ -40,6 +40,10 @@ namespace game
     {
         int chips;
         int rubble;
+
+        bool god_mode;
+        bool auto_aim;
+        bool auto_reload;
     };
 
     struct PlayerInfo
@@ -74,8 +78,8 @@ namespace game
         float powerup_fraction;
 
         bool laser_sight;
-        bool auto_aim;
-        bool auto_reload;
+        //bool auto_aim;
+        //bool auto_reload;
 
         mono::InputContextType last_used_input;
         PersistentPlayerData persistent_data;

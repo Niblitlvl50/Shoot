@@ -251,14 +251,17 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
                 bool god_mode = damage_system->IsInvincible(player_info.entity_id);
                 const bool changed = ImGui::Checkbox("##godmode_id", &god_mode);
                 if(changed)
+                {
                     damage_system->SetInvincible(player_info.entity_id, god_mode);
+                    player_info.persistent_data.god_mode = changed;
+                }
             }
 
             ImGui::TableNextColumn();
-            ImGui::Checkbox("##autoaim_id", &player_info.auto_aim);
+            ImGui::Checkbox("##autoaim_id", &player_info.persistent_data.auto_aim);
 
             ImGui::TableNextColumn();
-            ImGui::Checkbox("##autoreload_id", &player_info.auto_reload);
+            ImGui::Checkbox("##autoreload_id", &player_info.persistent_data.auto_reload);
 
             {
                 // Buttons
