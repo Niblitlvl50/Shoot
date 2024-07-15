@@ -275,6 +275,8 @@ uint32_t PlayerDaemonSystem::SpawnPlayer(
     const uint32_t callback_id = m_damage_system->SetDamageCallback(player_entity.id, DamageType::DT_ALL, damage_callback);
     (void)callback_id;
 
+    m_damage_system->SetInvincible(player_entity.id, player_info->persistent_data.god_mode);
+
     game::EntityLogicSystem* logic_system = system_context->GetSystem<EntityLogicSystem>();
     entity_system->AddComponent(player_entity.id, BEHAVIOUR_COMPONENT);
 
