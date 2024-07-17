@@ -20,5 +20,6 @@ namespace game
         UITextElement* m_mission_description_text;
         UISpriteElement* m_icon;
         UIBarElement* m_timer_bar;
+        UITextElement* m_timer_text;
     };
 }

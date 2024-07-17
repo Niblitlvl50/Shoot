@@ -30,10 +30,15 @@ MissionStatusUIElement::MissionStatusUIElement(float width, float height, const 
     m_timer_bar->SetPosition(-anchor_offset);
     m_timer_bar->Hide();
 
+    m_timer_text = new UITextElement(FontId::MITR_TINY, "", mono::Color::OFF_WHITE);
+    m_timer_text->SetPosition(width / 2.0f - 1.0f, 0.0f);
+    m_timer_text->Hide();
+
     AddChild(m_mission_name_text);
     AddChild(m_mission_description_text);
     AddChild(m_icon);
     AddChild(m_timer_bar);
+    AddChild(m_timer_text);
 }
 
 void MissionStatusUIElement::SetText(const std::string& text)
@@ -50,21 +55,41 @@ void MissionStatusUIElement::ShowIcon(bool show, int index)
 {
     m_icon->SetActiveSprite(index, 0);
     if(show)
+    {
         m_icon->Show();
+        m_timer_text->Hide();
+    }
     else
+    {
         m_icon->Hide();
+    }
 }
 
 void MissionStatusUIElement::ShowTimer(bool show)
 {
     if(show)
+    {
         m_timer_bar->Show();
+        m_timer_text->Show();
+    }
     else
+    {
         m_timer_bar->Hide();
+        m_timer_text->Hide();
+    }
 }
 
 void MissionStatusUIElement::SetTime(float time_s, float max_time_s)
 {
     const float fraction = math::Scale01Clamped(time_s, max_time_s, 0.0f);
     m_timer_bar->SetFraction(fraction);
+
+
+    const int seconds = int(time_s) % 60;
+    const int minutes = time_s / 60.0f;
+
+    char text_buffer[1024] = {};
+    std::snprintf(text_buffer, std::size(text_buffer), "%d:%.2d", minutes, seconds);
+
+    m_timer_text->SetText(text_buffer);
 }
