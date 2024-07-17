@@ -177,17 +177,19 @@ void PacketDeliveryGameMode::Begin(
     m_level_timer = level_metadata.time_limit_s;
     m_level_has_timelimit = (m_level_timer > 0);
 
+    /*
     m_timer_screen = std::make_unique<LevelTimerUIElement>();
     m_timer_screen->SetSeconds(m_level_timer);
     if(!m_level_has_timelimit)
         m_timer_screen->Hide();
+    */
 
     zone->AddUpdatable(m_coop_power_manager.get());
     zone->AddUpdatableDrawable(m_big_text_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_pause_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_shop_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_player_ui.get(), LayerId::UI);
-    zone->AddUpdatableDrawable(m_timer_screen.get(), LayerId::UI);
+    //zone->AddUpdatableDrawable(m_timer_screen.get(), LayerId::UI);
 
     // Package
     m_package_aux_drawer = std::make_unique<PackageAuxiliaryDrawer>(m_transform_system);
@@ -202,7 +204,7 @@ int PacketDeliveryGameMode::End(mono::IZone* zone)
     zone->RemoveUpdatableDrawable(m_pause_screen.get());
     zone->RemoveUpdatableDrawable(m_shop_screen.get());
     zone->RemoveUpdatableDrawable(m_player_ui.get());
-    zone->RemoveUpdatableDrawable(m_timer_screen.get());
+    //zone->RemoveUpdatableDrawable(m_timer_screen.get());
 
     if(m_package_entity_id != mono::INVALID_ID)
         m_entity_manager->RemoveReleaseCallback(m_package_entity_id, m_package_release_callback);
@@ -336,7 +338,7 @@ void PacketDeliveryGameMode::RunGameMode(const mono::UpdateContext& update_conte
     if(m_package_spawned)
     {
         m_level_timer -= update_context.delta_s;
-        m_timer_screen->SetSeconds(m_level_timer);
+        //m_timer_screen->SetSeconds(m_level_timer);
 
         if(m_level_has_timelimit && m_level_timer < 1.0f)
             m_states.TransitionTo(GameModeStates::TIMEOUT);
