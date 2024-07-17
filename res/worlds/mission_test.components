@@ -1202,6 +1202,24 @@
                             "variant_value": "...its flying to the east."
                         },
                         {
+                            "id": 2268399416,
+                            "name": "time_based",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 1564253156,
+                            "name": "time",
+                            "variant_type": 3,
+                            "variant_value": 300.0
+                        },
+                        {
+                            "id": 149336291,
+                            "name": "fail_on_timeout",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 2603146703,
                             "name": "trigger_name",
                             "variant_type": 11,
@@ -1532,6 +1550,24 @@
                             "name": "sub_text",
                             "variant_type": 6,
                             "variant_value": "...something shiny"
+                        },
+                        {
+                            "id": 2268399416,
+                            "name": "time_based",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1564253156,
+                            "name": "time",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 149336291,
+                            "name": "fail_on_timeout",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2603146703,
@@ -1985,8 +2021,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.0,
-                                "y": 1.350000023841858
+                                "x": -2.700000047683716,
+                                "y": 0.15000000596046448
                             }
                         },
                         {
@@ -2180,8 +2216,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -0.6000000238418579,
-                                "y": 3.3000001907348633
+                                "x": -0.9000000357627869,
+                                "y": 3.1500000953674316
                             }
                         },
                         {
@@ -2226,9 +2262,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.6580882668495178,
-                                "green": 0.6580882668495178,
-                                "red": 0.8774510025978088
+                                "blue": 0.0,
+                                "green": 0.8529412150382996,
+                                "red": 1.0
                             }
                         },
                         {
@@ -2256,6 +2292,69 @@
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 3996803839,
+                    "name": "circle_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
                             "variant_value": true
                         }
                     ]
@@ -2275,7 +2374,7 @@
             ],
             "entity_properties": 0,
             "name": "bird",
-            "uuid_hash": 2948679300
+            "uuid_hash": 2175470561
         }
     ],
     "metadata": {

@@ -57167,6 +57167,24 @@
                             "variant_value": "Go get it!"
                         },
                         {
+                            "id": 2268399416,
+                            "name": "time_based",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 1564253156,
+                            "name": "time",
+                            "variant_type": 3,
+                            "variant_value": 300.0
+                        },
+                        {
+                            "id": 149336291,
+                            "name": "fail_on_timeout",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 2603146703,
                             "name": "trigger_name",
                             "variant_type": 11,
@@ -57252,7 +57270,7 @@
             "y": 0.0
         },
         "spawn_package": true,
-        "time_limit_s": 300,
+        "time_limit_s": 0,
         "triggers": [
             "boss_completed",
             "boss_defeated",

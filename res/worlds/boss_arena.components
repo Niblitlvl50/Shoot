@@ -10156,6 +10156,24 @@
                             "variant_value": "...defeat it"
                         },
                         {
+                            "id": 2268399416,
+                            "name": "time_based",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1564253156,
+                            "name": "time",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 149336291,
+                            "name": "fail_on_timeout",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2603146703,
                             "name": "trigger_name",
                             "variant_type": 11,
