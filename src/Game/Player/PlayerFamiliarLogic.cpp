@@ -55,6 +55,7 @@ void PlayerFamiliarLogic::Update(const mono::UpdateContext& update_context)
     if(show_sprite)
     {
         const game::PlayerInfo* player_info = game::FindPlayerInfoFromEntityId(m_owner_entity_id);
+        MONO_ASSERT(player_info);
 
         math::Vector current_position = m_transform_system->GetWorldPosition(m_entity_id);
         const math::Vector target_position =
