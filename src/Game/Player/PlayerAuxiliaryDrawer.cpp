@@ -213,7 +213,7 @@ void PlayerAuxiliaryDrawer::DrawLasers(const std::vector<const game::PlayerInfo*
         });
 
         aim_target_points.push_back(player_info->aim_target);
-        aim_target_colors.push_back(laser_color);
+        aim_target_colors.push_back(mono::Color::MakeWithAlpha(laser_color, 0.5f));
     }
 
     for(const AimlineData& aimline_data : aimline_transforms)
