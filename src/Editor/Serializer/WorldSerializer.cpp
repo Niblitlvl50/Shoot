@@ -89,6 +89,9 @@ void editor::WriteComponentEntities(
     json_metadata["navmesh_density"] = level_metadata.navmesh_density;
     json_metadata["time_limit_s"] = level_metadata.time_limit_s;
 
+    json_metadata["completed_trigger"] = level_metadata.completed_trigger;
+    json_metadata["failed_trigger"] = level_metadata.failed_trigger;
+
     nlohmann::json json;
     json["metadata"] = json_metadata;
     json["entities"] = json_entities;

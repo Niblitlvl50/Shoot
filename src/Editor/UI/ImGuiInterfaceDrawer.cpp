@@ -376,6 +376,19 @@ namespace
                 ImGui::InputFloat2("End", &context.level_metadata.navmesh_end.x);
                 ImGui::InputFloat("Density", &context.level_metadata.navmesh_density);
 
+                ImGui::Spacing();
+                ImGui::TextDisabled("Triggers");
+
+                mono::Event completed_event = { mono::EventType::Global, mono::EventDirection::Input, context.level_metadata.completed_trigger };
+                const bool completed_changed = editor::DrawEventProperty("Completed", completed_event, context);
+                if(completed_changed)
+                    context.level_metadata.completed_trigger = completed_event.text;
+
+                mono::Event failed_event = { mono::EventType::Global, mono::EventDirection::Input, context.level_metadata.failed_trigger };
+                const bool failed_changed = editor::DrawEventProperty("Failed", failed_event, context);
+                if(failed_changed)
+                    context.level_metadata.failed_trigger = failed_event.text;
+
                 ImGui::EndTabItem();
             }
 

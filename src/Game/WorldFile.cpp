@@ -53,6 +53,9 @@ namespace
             level_data.metadata.navmesh_density = json_metadata.value("navmesh_density", 1.0f);
 
             level_data.metadata.time_limit_s = json_metadata.value("time_limit_s", 0);
+
+            level_data.metadata.completed_trigger = json_metadata.value("completed_trigger", "");
+            level_data.metadata.failed_trigger = json_metadata.value("failed_trigger", "");
         }
 
         const std::vector<mono::EntityData>& loaded_entity_data = json["entities"];

@@ -44,6 +44,9 @@ namespace game
         float navmesh_density = 1.0f;
 
         int time_limit_s = 0;
+
+        std::string completed_trigger;
+        std::string failed_trigger;
     };
 
     struct LevelData
