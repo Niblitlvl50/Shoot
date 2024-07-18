@@ -58864,6 +58864,8 @@
             "x": 12.0,
             "y": 7.5
         },
+        "completed_trigger": "",
+        "failed_trigger": "",
         "level_description": "Darkish and full of nothing...",
         "level_game_mode": "package_delivery_mode",
         "level_name": "Deep Forest",

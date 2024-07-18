@@ -10189,7 +10189,7 @@
                             "variant_type": 11,
                             "variant_value": {
                                 "direction": 0,
-                                "text": "boss_dead",
+                                "text": "level_completed",
                                 "type": 0
                             }
                         },
@@ -37359,6 +37359,8 @@
             "x": 12.0,
             "y": 7.5
         },
+        "completed_trigger": "boss_dead",
+        "failed_trigger": "level_completed",
         "level_description": "Watch out son",
         "level_game_mode": "package_delivery_mode",
         "level_name": "Boss World",
