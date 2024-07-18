@@ -597,7 +597,7 @@ namespace
     {
         game::Pickup pickup;
         FindAttribute(PICKUP_TYPE_ATTRIBUTE, properties, (int&)pickup.type, FallbackMode::SET_DEFAULT);
-        FindAttribute(AMOUNT_ATTRIBUTE, properties, pickup.amount, FallbackMode::SET_DEFAULT);
+        FindAttribute(AMOUNT_ATTRIBUTE, properties, pickup.meta_data, FallbackMode::SET_DEFAULT);
 
         game::PickupSystem* pickup_system = context->GetSystem<game::PickupSystem>();
         pickup_system->SetPickupData(entity->id, pickup);

@@ -27,7 +27,7 @@ namespace game
     struct Pickup
     {
         PickupType type;
-        int amount;
+        int meta_data;
     };
 
     struct PickupAnnotation
@@ -43,7 +43,7 @@ namespace game
         uint32_t release_handle;
     };
 
-    using PickupCallback = std::function<void (PickupType type, int amount)>;
+    using PickupCallback = std::function<void (PickupType type, int meta_data)>;
 
     class PickupSystem : public mono::IGameSystem
     {

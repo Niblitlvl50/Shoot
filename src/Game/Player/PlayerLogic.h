@@ -59,11 +59,11 @@ namespace game
         void StopFire();
         void Reload(uint32_t timestamp);
         void UseItemSlot(ItemSlotIndex slot_index);
-        void HandlePickup(PickupType type, int amount);
+        void HandlePickup(PickupType type, int meta_data);
 
         void CycleWeapon();
-        void AddDamageBuff(int amount);
-        void AddBulletWallBuff(int amount);
+        void AddDamageBuff(int meta_data);
+        void AddBulletWallBuff(int meta_data);
 
         void TriggerHookshot();
         void ReleaseHookshot();

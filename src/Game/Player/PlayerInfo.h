@@ -40,6 +40,7 @@ namespace game
     {
         int chips;
         int rubble;
+        int experience;
 
         bool god_mode;
         bool auto_aim;

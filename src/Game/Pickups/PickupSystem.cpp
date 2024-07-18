@@ -248,7 +248,7 @@ void PickupSystem::Update(const mono::UpdateContext& update_context)
         if(it != m_pickup_targets.end())
         {
             const Pickup* pickup_data = m_pickups.Get(pickup.pickup_id);
-            it->second(pickup_data->type, pickup_data->amount);
+            it->second(pickup_data->type, pickup_data->meta_data);
             PlayPickupSound(pickup_data->type);
         }
 

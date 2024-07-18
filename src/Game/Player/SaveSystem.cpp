@@ -16,6 +16,7 @@ void game::SavePlayerData(const char* user_path, int slot_index, const SaveSlotD
         nlohmann::json player_data_json;
         player_data_json["chips"] = player_data.chips;
         player_data_json["rubble"] = player_data.rubble;
+        player_data_json["experience"] = player_data.experience;
         player_data_json["god_mode"] = player_data.god_mode;
         player_data_json["auto_aim"] = player_data.auto_aim;
         player_data_json["auto_reload"] = player_data.auto_reload;
@@ -54,6 +55,7 @@ void game::LoadPlayerData(const char* user_path, int slot_index, SaveSlotData& d
     {
         data.player_data[index].chips = save_data_array[index].value("chips", 0);
         data.player_data[index].rubble = save_data_array[index].value("rubble", 0);
+        data.player_data[index].experience = save_data_array[index].value("experience", 0);
         data.player_data[index].god_mode = save_data_array[index].value("god_mode", false);
         data.player_data[index].auto_aim = save_data_array[index].value("auto_aim", false);
         data.player_data[index].auto_reload = save_data_array[index].value("auto_reload", false);

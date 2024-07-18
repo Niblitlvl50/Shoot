@@ -557,7 +557,7 @@ void PlayerLogic::UseItemSlot(ItemSlotIndex slot_index)
     //ItemSlot& item_slot = m_item_slots[slot_index];
 }
 
-void PlayerLogic::HandlePickup(PickupType type, int amount)
+void PlayerLogic::HandlePickup(PickupType type, int meta_data)
 {
     switch(type)
     {
@@ -582,25 +582,19 @@ void PlayerLogic::HandlePickup(PickupType type, int amount)
     }
     case PickupType::COINS:
     {
-        m_player_info->persistent_data.chips += amount;
+        m_player_info->persistent_data.chips += meta_data;
         break;
     }
     case PickupType::EXPERIENCE:
     {
-        m_player_info->experience_fraction += 0.05f;
+        m_player_info->persistent_data.experience++;
 
-        if(m_player_info->experience_fraction >= 1.0f)
-        {
-            m_player_info->experience_fraction = 0.0f;
-            m_event_handler->DispatchEvent(PlayerLevelUpEvent(m_entity_id));
-        }
-
-        AddBulletWallBuff(amount);
+        AddBulletWallBuff(meta_data);
         break;
     }
     case PickupType::DAMAGE_BUFF:
     {
-        AddDamageBuff(amount);
+        AddDamageBuff(meta_data);
         break;
     }
     };
@@ -615,7 +609,7 @@ void PlayerLogic::CycleWeapon()
     m_switch_weapon_sound->Play();
 }
 
-void PlayerLogic::AddDamageBuff(int amount)
+void PlayerLogic::AddDamageBuff(int meta_data)
 {
     constexpr float duration_s = 10.0f;
     m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, new DamageModifier(2.0f));
@@ -624,7 +618,7 @@ void PlayerLogic::AddDamageBuff(int amount)
     m_player_info->powerup_id = WeaponModifier::DAMAGE;
 }
 
-void PlayerLogic::AddBulletWallBuff(int amount)
+void PlayerLogic::AddBulletWallBuff(int meta_data)
 {
     constexpr float duration_s = 10.0f;
     m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, new BulletWallModifier());
