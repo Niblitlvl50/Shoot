@@ -52,11 +52,8 @@
 
 namespace
 {
-    const uint32_t level_completed_hash = hash::Hash("level_completed");
-    const uint32_t level_gameover_hash = hash::Hash("level_gameover");
-    const uint32_t level_aborted_hash = hash::Hash("level_aborted");
-
-    const uint32_t show_shop_screen_hash = hash::Hash("show_shop_screen");
+    const uint32_t g_level_aborted_hash = hash::Hash("level_aborted");
+    const uint32_t g_show_shop_screen_hash = hash::Hash("show_shop_screen");
 }
 
 namespace tweak_values
@@ -128,7 +125,7 @@ void HordeGameMode::Begin(
     game::TargetSystem* target_system = system_context->GetSystem<game::TargetSystem>();
     target_system->SetGlobalTargetMode(EnemyTargetMode::Horde);
 
-    SetupEvents();
+    SetupEvents(level_metadata);
 
     // Player
     m_player_system = system_context->GetSystem<PlayerDaemonSystem>();
@@ -199,10 +196,10 @@ int HordeGameMode::End(mono::IZone* zone)
     m_event_handler->RemoveListener(m_levelup_token);
     m_event_handler->RemoveListener(m_pause_token);
 
-    m_trigger_system->RemoveTriggerCallback(level_completed_hash, m_level_completed_trigger, mono::INVALID_ID);
-    m_trigger_system->RemoveTriggerCallback(level_gameover_hash, m_level_gameover_trigger, mono::INVALID_ID);
-    m_trigger_system->RemoveTriggerCallback(level_aborted_hash, m_level_aborted_trigger, mono::INVALID_ID);
-    m_trigger_system->RemoveTriggerCallback(show_shop_screen_hash, m_show_shop_screen_trigger, mono::INVALID_ID);
+    m_trigger_system->RemoveTriggerCallback(m_level_completed_hash, m_level_completed_trigger, mono::INVALID_ID);
+    m_trigger_system->RemoveTriggerCallback(m_level_failed_hash, m_level_gameover_trigger, mono::INVALID_ID);
+    m_trigger_system->RemoveTriggerCallback(g_level_aborted_hash, m_level_aborted_trigger, mono::INVALID_ID);
+    m_trigger_system->RemoveTriggerCallback(g_show_shop_screen_hash, m_show_shop_screen_trigger, mono::INVALID_ID);
 
     return 0;
 }
@@ -246,7 +243,7 @@ void HordeGameMode::Update(const mono::UpdateContext& update_context)
     */
 }
 
-void HordeGameMode::SetupEvents()
+void HordeGameMode::SetupEvents(const LevelMetadata& level_metadata)
 {
     // Quit and game over events
     const GameOverFunc on_game_over = [this](const game::GameOverEvent& game_over_event) {
@@ -271,23 +268,26 @@ void HordeGameMode::SetupEvents()
     };
     m_pause_token = m_event_handler->AddListener(on_pause);
 
+    m_level_completed_hash = hash::Hash(level_metadata.completed_trigger.c_str());
+    m_level_failed_hash = hash::Hash(level_metadata.failed_trigger.c_str());
+
     const TriggerCallback level_event_callback = [this](uint32_t trigger_id) {
-        if(trigger_id == level_completed_hash)
+        if(trigger_id == m_level_completed_hash)
             m_states.TransitionTo(GameModeStates::LEVEL_COMPLETED);
-        else if(trigger_id == level_gameover_hash)
+        else if(trigger_id == m_level_failed_hash)
             m_states.TransitionTo(GameModeStates::PACKAGE_DESTROYED);
-        else if(trigger_id == level_aborted_hash)
+        else if(trigger_id == g_level_aborted_hash)
             m_states.TransitionTo(GameModeStates::LEVEL_ABORTED);
-        else if(trigger_id == show_shop_screen_hash)
+        else if(trigger_id == g_show_shop_screen_hash)
         {
             const mono::ICamera* camera = m_camera_system->GetActiveCamera();
             m_shop_screen->ShowAt(camera->GetTargetPosition());
         }
     };
-    m_level_completed_trigger = m_trigger_system->RegisterTriggerCallback(level_completed_hash, level_event_callback, mono::INVALID_ID);
-    m_level_gameover_trigger = m_trigger_system->RegisterTriggerCallback(level_gameover_hash, level_event_callback, mono::INVALID_ID);
-    m_level_aborted_trigger = m_trigger_system->RegisterTriggerCallback(level_aborted_hash, level_event_callback, mono::INVALID_ID);
-    m_show_shop_screen_trigger = m_trigger_system->RegisterTriggerCallback(show_shop_screen_hash, level_event_callback, mono::INVALID_ID);
+    m_level_completed_trigger = m_trigger_system->RegisterTriggerCallback(m_level_completed_hash, level_event_callback, mono::INVALID_ID);
+    m_level_gameover_trigger = m_trigger_system->RegisterTriggerCallback(m_level_failed_hash, level_event_callback, mono::INVALID_ID);
+    m_level_aborted_trigger = m_trigger_system->RegisterTriggerCallback(g_level_aborted_hash, level_event_callback, mono::INVALID_ID);
+    m_show_shop_screen_trigger = m_trigger_system->RegisterTriggerCallback(g_show_shop_screen_hash, level_event_callback, mono::INVALID_ID);
 }
 
 void HordeGameMode::OnSpawnPlayer(uint32_t player_entity_id, const math::Vector& position)
@@ -339,6 +339,12 @@ void HordeGameMode::SpawnPackage(const math::Vector& position)
 
 void HordeGameMode::SpawnNextWave()
 {
+    if(m_wave_index == 10)
+    {
+        m_states.TransitionTo(GameModeStates::LEVEL_COMPLETED);
+        return;
+    }
+
     m_wave_index++;
     m_horde_wave_ui->ShowNextWave(m_wave_index, "Watch Out!");
 

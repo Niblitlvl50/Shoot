@@ -39,7 +39,6 @@ namespace game
         void RunGameMode(const mono::UpdateContext& update_context);
 
         void ToPackageDestroyed();
-        void ToTimeout();
         void ToLevelCompleted();
         void ToLevelAborted();
         void TriggerLevelCompletedFade(const char* text, const char* sub_text, int exit_zone);
@@ -57,7 +56,6 @@ namespace game
             FADE_IN,
             RUN_GAME_MODE,
             PACKAGE_DESTROYED,
-            TIMEOUT,
             LEVEL_COMPLETED,
             LEVEL_ABORTED,
             PAUSED,
@@ -94,14 +92,14 @@ namespace game
         math::Vector m_package_spawn_position;
         int m_next_zone;
 
+        uint32_t m_level_completed_hash;
+        uint32_t m_level_failed_hash;
+
         uint32_t m_level_completed_trigger;
         uint32_t m_level_gameover_trigger;
         uint32_t m_level_aborted_trigger;
         uint32_t m_show_shop_screen_trigger;
         uint32_t m_package_release_callback;
         uint32_t m_package_entity_id;
-
-        bool m_level_has_timelimit;
-        float m_level_timer;
     };
 }

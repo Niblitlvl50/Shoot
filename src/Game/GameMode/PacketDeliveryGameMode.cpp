@@ -48,11 +48,8 @@
 
 namespace
 {
-    const uint32_t level_completed_hash = hash::Hash("level_completed");
-    const uint32_t level_gameover_hash = hash::Hash("level_gameover");
-    const uint32_t level_aborted_hash = hash::Hash("level_aborted");
-
-    const uint32_t show_shop_screen_hash = hash::Hash("show_shop_screen");
+    const uint32_t g_level_aborted_hash = hash::Hash("level_aborted");
+    const uint32_t g_show_shop_screen_hash = hash::Hash("show_shop_screen");
 }
 
 namespace tweak_values
@@ -73,7 +70,6 @@ PacketDeliveryGameMode::PacketDeliveryGameMode()
         GameModeStateMachine::MakeState(GameModeStates::FADE_IN, &PacketDeliveryGameMode::ToFadeIn, &PacketDeliveryGameMode::FadeIn, this),
         GameModeStateMachine::MakeState(GameModeStates::RUN_GAME_MODE, &PacketDeliveryGameMode::ToRunGameMode, &PacketDeliveryGameMode::RunGameMode, this),
         GameModeStateMachine::MakeState(GameModeStates::PACKAGE_DESTROYED, &PacketDeliveryGameMode::ToPackageDestroyed, &PacketDeliveryGameMode::LevelCompleted, this),
-        GameModeStateMachine::MakeState(GameModeStates::TIMEOUT, &PacketDeliveryGameMode::ToTimeout, &PacketDeliveryGameMode::LevelCompleted, this),
         GameModeStateMachine::MakeState(GameModeStates::LEVEL_ABORTED, &PacketDeliveryGameMode::ToLevelAborted, &PacketDeliveryGameMode::LevelCompleted, this),
         GameModeStateMachine::MakeState(GameModeStates::LEVEL_COMPLETED, &PacketDeliveryGameMode::ToLevelCompleted, &PacketDeliveryGameMode::LevelCompleted, this),
         GameModeStateMachine::MakeState(GameModeStates::PAUSED, &PacketDeliveryGameMode::ToPaused, &PacketDeliveryGameMode::Paused, &PacketDeliveryGameMode::ExitPaused, this),
@@ -122,23 +118,26 @@ void PacketDeliveryGameMode::Begin(
     };
     m_pause_token = m_event_handler->AddListener(on_pause);
 
+    m_level_completed_hash = hash::Hash(level_metadata.completed_trigger.c_str());
+    m_level_failed_hash = hash::Hash(level_metadata.failed_trigger.c_str());
+
     const TriggerCallback level_event_callback = [this](uint32_t trigger_id) {
-        if(trigger_id == level_completed_hash)
+        if(trigger_id == m_level_completed_hash)
             m_states.TransitionTo(GameModeStates::LEVEL_COMPLETED);
-        else if(trigger_id == level_gameover_hash)
+        else if(trigger_id == m_level_failed_hash)
             m_states.TransitionTo(GameModeStates::PACKAGE_DESTROYED);
-        else if(trigger_id == level_aborted_hash)
+        else if(trigger_id == g_level_aborted_hash)
             m_states.TransitionTo(GameModeStates::LEVEL_ABORTED);
-        else if(trigger_id == show_shop_screen_hash)
+        else if(trigger_id == g_show_shop_screen_hash)
         {
             const mono::ICamera* camera = m_camera_system->GetActiveCamera();
             m_shop_screen->ShowAt(camera->GetTargetPosition());
         }
     };
-    m_level_completed_trigger = m_trigger_system->RegisterTriggerCallback(level_completed_hash, level_event_callback, mono::INVALID_ID);
-    m_level_gameover_trigger = m_trigger_system->RegisterTriggerCallback(level_gameover_hash, level_event_callback, mono::INVALID_ID);
-    m_level_aborted_trigger = m_trigger_system->RegisterTriggerCallback(level_aborted_hash, level_event_callback, mono::INVALID_ID);
-    m_show_shop_screen_trigger = m_trigger_system->RegisterTriggerCallback(show_shop_screen_hash, level_event_callback, mono::INVALID_ID);
+    m_level_completed_trigger = m_trigger_system->RegisterTriggerCallback(m_level_completed_hash, level_event_callback, mono::INVALID_ID);
+    m_level_gameover_trigger = m_trigger_system->RegisterTriggerCallback(m_level_failed_hash, level_event_callback, mono::INVALID_ID);
+    m_level_aborted_trigger = m_trigger_system->RegisterTriggerCallback(g_level_aborted_hash, level_event_callback, mono::INVALID_ID);
+    m_show_shop_screen_trigger = m_trigger_system->RegisterTriggerCallback(g_show_shop_screen_hash, level_event_callback, mono::INVALID_ID);
 
     // Player
     m_player_system = system_context->GetSystem<PlayerDaemonSystem>();
@@ -174,22 +173,11 @@ void PacketDeliveryGameMode::Begin(
 
     m_player_ui = std::make_unique<PlayerUIElement>(game::g_players, game::n_players, weapon_system, m_sprite_system);
 
-    m_level_timer = level_metadata.time_limit_s;
-    m_level_has_timelimit = (m_level_timer > 0);
-
-    /*
-    m_timer_screen = std::make_unique<LevelTimerUIElement>();
-    m_timer_screen->SetSeconds(m_level_timer);
-    if(!m_level_has_timelimit)
-        m_timer_screen->Hide();
-    */
-
     zone->AddUpdatable(m_coop_power_manager.get());
     zone->AddUpdatableDrawable(m_big_text_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_pause_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_shop_screen.get(), LayerId::UI);
     zone->AddUpdatableDrawable(m_player_ui.get(), LayerId::UI);
-    //zone->AddUpdatableDrawable(m_timer_screen.get(), LayerId::UI);
 
     // Package
     m_package_aux_drawer = std::make_unique<PackageAuxiliaryDrawer>(m_transform_system);
@@ -204,16 +192,15 @@ int PacketDeliveryGameMode::End(mono::IZone* zone)
     zone->RemoveUpdatableDrawable(m_pause_screen.get());
     zone->RemoveUpdatableDrawable(m_shop_screen.get());
     zone->RemoveUpdatableDrawable(m_player_ui.get());
-    //zone->RemoveUpdatableDrawable(m_timer_screen.get());
 
     if(m_package_entity_id != mono::INVALID_ID)
         m_entity_manager->RemoveReleaseCallback(m_package_entity_id, m_package_release_callback);
 
     m_event_handler->RemoveListener(m_gameover_token);
-    m_trigger_system->RemoveTriggerCallback(level_completed_hash, m_level_completed_trigger, mono::INVALID_ID);
-    m_trigger_system->RemoveTriggerCallback(level_gameover_hash, m_level_gameover_trigger, mono::INVALID_ID);
-    m_trigger_system->RemoveTriggerCallback(level_aborted_hash, m_level_aborted_trigger, mono::INVALID_ID);
-    m_trigger_system->RemoveTriggerCallback(show_shop_screen_hash, m_show_shop_screen_trigger, mono::INVALID_ID);
+    m_trigger_system->RemoveTriggerCallback(m_level_completed_hash, m_level_completed_trigger, mono::INVALID_ID);
+    m_trigger_system->RemoveTriggerCallback(m_level_failed_hash, m_level_gameover_trigger, mono::INVALID_ID);
+    m_trigger_system->RemoveTriggerCallback(g_level_aborted_hash, m_level_aborted_trigger, mono::INVALID_ID);
+    m_trigger_system->RemoveTriggerCallback(g_show_shop_screen_hash, m_show_shop_screen_trigger, mono::INVALID_ID);
 
     return m_next_zone;
 }
@@ -334,25 +321,11 @@ void PacketDeliveryGameMode::FadeIn(const mono::UpdateContext& update_context)
 void PacketDeliveryGameMode::ToRunGameMode()
 { }
 void PacketDeliveryGameMode::RunGameMode(const mono::UpdateContext& update_context)
-{
-    if(m_package_spawned)
-    {
-        m_level_timer -= update_context.delta_s;
-        //m_timer_screen->SetSeconds(m_level_timer);
-
-        if(m_level_has_timelimit && m_level_timer < 1.0f)
-            m_states.TransitionTo(GameModeStates::TIMEOUT);
-    }
-}
+{ }
 
 void PacketDeliveryGameMode::ToPackageDestroyed()
 {
     TriggerLevelCompletedFade("Delivery failed!", "You lost the package...", game::ZoneResult::ZR_GAME_OVER);
-}
-
-void PacketDeliveryGameMode::ToTimeout()
-{
-    TriggerLevelCompletedFade("Delivery failed!", "Man, you were too slow!", game::ZoneResult::ZR_GAME_OVER);
 }
 
 void PacketDeliveryGameMode::ToLevelCompleted()

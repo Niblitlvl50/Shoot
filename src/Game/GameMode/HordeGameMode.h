@@ -30,7 +30,7 @@ namespace game
         int End(mono::IZone* zone) override;
         void Update(const mono::UpdateContext& update_context) override;
 
-        void SetupEvents();
+        void SetupEvents(const LevelMetadata& level_metadata);
         void OnSpawnPlayer(uint32_t player_entity_id, const math::Vector& position);
         void SpawnPackage(const math::Vector& position);
         void SpawnNextWave();
@@ -102,6 +102,9 @@ namespace game
         bool m_package_spawned;
         math::Vector m_package_spawn_position;
         int m_next_zone;
+
+        uint32_t m_level_completed_hash;
+        uint32_t m_level_failed_hash;
 
         uint32_t m_level_completed_trigger;
         uint32_t m_level_gameover_trigger;
