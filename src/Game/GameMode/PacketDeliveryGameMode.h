@@ -82,7 +82,6 @@ namespace game
         std::unique_ptr<class PauseScreen> m_pause_screen;
         std::unique_ptr<class ShopScreen> m_shop_screen;
         std::unique_ptr<class PlayerUIElement> m_player_ui;
-        //std::unique_ptr<class LevelTimerUIElement> m_timer_screen;
 
         mono::EventToken<struct GameOverEvent> m_gameover_token;
         mono::EventToken<event::PauseEvent> m_pause_token;
