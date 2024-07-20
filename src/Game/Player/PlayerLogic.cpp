@@ -225,19 +225,30 @@ void PlayerLogic::Update(const mono::UpdateContext& update_context)
 
     m_stamina = std::clamp(m_stamina - (update_context.delta_s * tweak_values::stamina_consumption_per_s * stamina_multiplier), 0.0f, 1.0f);
 
-    if(m_player_info->persistent_data.auto_aim)
-    {
-        mono::PhysicsSpace* space = m_physics_system->GetSpace();
-        mono::QueryResult query_result = space->QueryNearest(m_player_info->position, 3.0f, CollisionCategory::ENEMY);
-        if(query_result.body)
-        {
-            const math::Vector delta_to_target = (query_result.body->GetPosition() - m_player_info->position);
-            const float aim_direction = math::AngleFromVector(delta_to_target);
-            SetAimDirection(aim_direction);
-        }
-    }
-
+    UpdateAutoAim();
     UpdatePlayerInfo(update_context.timestamp);
+}
+
+void PlayerLogic::UpdateAutoAim()
+{
+    if(!m_player_info->persistent_data.auto_aim)
+        return;
+
+    mono::PhysicsSpace* space = m_physics_system->GetSpace();
+
+    const mono::QueryFilter filter_visible = [this, space](uint32_t entity_id, const math::Vector& point) {
+        const uint32_t query_category = CollisionCategory::ENEMY | CollisionCategory::STATIC;
+        const mono::QueryResult result = space->QueryFirst(m_player_info->position, point, query_category);
+        return (result.collision_category & CollisionCategory::ENEMY);
+    };
+
+    mono::QueryResult query_result = space->QueryNearest(m_player_info->position, 3.0f, CollisionCategory::ENEMY, filter_visible);
+    if(query_result.body)
+    {
+        const math::Vector delta_to_target = (query_result.body->GetPosition() - m_player_info->position);
+        const float aim_direction = math::AngleFromVector(delta_to_target);
+        SetAimDirection(aim_direction);
+    }
 }
 
 void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
@@ -261,7 +272,7 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
     m_player_info->weapon_type = active_weapon->GetWeaponSetup();
     m_player_info->weapon_state = active_weapon->UpdateWeaponState(timestamp);
     m_player_info->magazine_left = active_weapon->AmmunitionLeft();
-    m_player_info->laser_sight = true; //(HoldingPickup() == false);
+    m_player_info->laser_sight = true;
 
     m_player_info->cooldown_id = 0;
     m_player_info->cooldown_fraction = 1.0f;
@@ -274,6 +285,9 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
     }
 
     m_player_info->stamina_fraction = m_stamina;
+
+    const float experience_fraction = m_player_info->persistent_data.experience / 100.0f;
+    m_player_info->experience_fraction = experience_fraction;
 
     const auto find_active_cooldown = [](float cooldown){
         return cooldown < 1.0f;

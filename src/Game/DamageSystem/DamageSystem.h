@@ -18,7 +18,7 @@ namespace game
     {
         int health;
         int full_health;
-        int multipier;
+        float multipier;
         uint32_t last_damaged_timestamp;
         bool release_entity_on_death;
         bool is_boss;
@@ -72,6 +72,9 @@ namespace game
 
         bool IsInvincible(uint32_t id) const;
         void SetInvincible(uint32_t id, bool invincible);
+
+        void SetDamageMultiplier(uint32_t id, float multiplier);
+        float GetDamageMultiplier(uint32_t id) const;
 
         bool IsBoss(uint32_t id) const;
 

@@ -82,7 +82,7 @@ DamageRecord* DamageSystem::CreateRecord(uint32_t id)
 
     DamageRecord& new_record = m_damage_records[id];
     new_record.health = 100;
-    new_record.multipier = 1;
+    new_record.multipier = 1.0f;
     new_record.last_damaged_timestamp = std::numeric_limits<uint32_t>::max();
     new_record.release_entity_on_death = true;
     new_record.is_boss = false;
@@ -232,6 +232,22 @@ void DamageSystem::SetInvincible(uint32_t id, bool invincible)
     const bool has_damage_record = IsAllocated(id);
     if(has_damage_record)
         m_damage_records[id].is_invincible = invincible;
+}
+
+void DamageSystem::SetDamageMultiplier(uint32_t id, float multiplier)
+{
+    const bool has_damage_record = IsAllocated(id);
+    if(has_damage_record)
+        m_damage_records[id].multipier = multiplier;
+}
+
+float DamageSystem::GetDamageMultiplier(uint32_t id) const
+{
+    const bool has_damage_record = IsAllocated(id);
+    if(has_damage_record)
+        return m_damage_records[id].multipier;
+
+    return 1.0f;
 }
 
 bool DamageSystem::IsBoss(uint32_t id) const

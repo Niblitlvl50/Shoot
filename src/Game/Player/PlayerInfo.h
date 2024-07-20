@@ -45,6 +45,8 @@ namespace game
         bool god_mode;
         bool auto_aim;
         bool auto_reload;
+
+        float damage_multiplier;
     };
 
     struct PlayerInfo

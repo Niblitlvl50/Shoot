@@ -210,7 +210,7 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
     ImGui::SetNextWindowSize(ImVec2(1000, -1));
     ImGui::Begin("DebugPlayers", &show_window, flags);
 
-    const bool table_result = ImGui::BeginTable("player_table", 10, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_SizingFixedFit);
+    const bool table_result = ImGui::BeginTable("player_table", 11, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_SizingFixedFit);
     if(table_result)
     {
         ImGui::TableSetupColumn("Index", 0, 60);
@@ -220,6 +220,7 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
         ImGui::TableSetupColumn("Position", 0, 150);
         ImGui::TableSetupColumn("Viewport", 0, 150);
         ImGui::TableSetupColumn("GodMode", 0, 60);
+        ImGui::TableSetupColumn("DamageScalar", 0, 60);
         ImGui::TableSetupColumn("AutoAim", 0, 60);
         ImGui::TableSetupColumn("AutoReload", 0, 60);
         ImGui::TableSetupColumn("Actions", 0, 150);
@@ -254,6 +255,15 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
                 {
                     damage_system->SetInvincible(player_info.entity_id, god_mode);
                     player_info.persistent_data.god_mode = changed;
+                }
+
+                ImGui::TableNextColumn();
+                float damage_multiplier = damage_system->GetDamageMultiplier(player_info.entity_id);
+                const bool multiplier_changed = ImGui::InputFloat("##damage_multiplier_id", &damage_multiplier);
+                if(multiplier_changed)
+                {
+                    damage_system->SetDamageMultiplier(player_info.entity_id, damage_multiplier);
+                    player_info.persistent_data.damage_multiplier = damage_multiplier;
                 }
             }
 

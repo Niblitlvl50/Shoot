@@ -20,6 +20,7 @@ void game::SavePlayerData(const char* user_path, int slot_index, const SaveSlotD
         player_data_json["god_mode"] = player_data.god_mode;
         player_data_json["auto_aim"] = player_data.auto_aim;
         player_data_json["auto_reload"] = player_data.auto_reload;
+        player_data_json["damage_multiplier"] = player_data.damage_multiplier;
         save_data_array.push_back(player_data_json);
     }
 
@@ -59,5 +60,6 @@ void game::LoadPlayerData(const char* user_path, int slot_index, SaveSlotData& d
         data.player_data[index].god_mode = save_data_array[index].value("god_mode", false);
         data.player_data[index].auto_aim = save_data_array[index].value("auto_aim", false);
         data.player_data[index].auto_reload = save_data_array[index].value("auto_reload", false);
+        data.player_data[index].damage_multiplier = save_data_array[index].value("damage_multiplier", 1.0f);
     }
 }

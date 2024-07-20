@@ -50,6 +50,7 @@ namespace game
         const char* GetDebugCategory() const override;
         void Update(const mono::UpdateContext& update_context) override;
 
+        void UpdateAutoAim();
         void UpdatePlayerInfo(uint32_t timestamp);
         void UpdateMovement(const mono::UpdateContext& update_context);
         void UpdateAnimation(const mono::UpdateContext& update_context, float aim_direction, const math::Vector& world_position, const math::Vector& player_velocity);
