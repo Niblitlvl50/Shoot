@@ -207,7 +207,7 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
         ImGuiWindowFlags_AlwaysAutoResize |
         ImGuiWindowFlags_NoResize;
 
-    ImGui::SetNextWindowSize(ImVec2(1000, -1));
+    ImGui::SetNextWindowSize(ImVec2(1100, -1));
     ImGui::Begin("DebugPlayers", &show_window, flags);
 
     const bool table_result = ImGui::BeginTable("player_table", 11, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_SizingFixedFit);
@@ -254,7 +254,7 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
                 if(changed)
                 {
                     damage_system->SetInvincible(player_info.entity_id, god_mode);
-                    player_info.persistent_data.god_mode = changed;
+                    player_info.persistent_data.god_mode = god_mode;
                 }
 
                 ImGui::TableNextColumn();
