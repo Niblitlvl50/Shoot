@@ -334,7 +334,7 @@ void PlayerLogic::UpdateAnimation(const mono::UpdateContext& update_context, flo
     if(velocity_magnitude > 0.2f)
     {
         anim_id = facing_down ? m_run_anim_id : m_run_up_anim_id;
-        anim_speed = std::clamp(math::Scale01(velocity_magnitude, 0.0f, 5.0f), 0.5f, 10.0f);
+        anim_speed = std::clamp(math::Scale01(velocity_magnitude, 0.0f, 3.0f), 0.5f, 10.0f);
     }
 
     if(m_accumulated_step_distance >= tweak_values::footstep_length)
@@ -353,6 +353,12 @@ void PlayerLogic::UpdateAnimation(const mono::UpdateContext& update_context, flo
     if(anim_id != sprite->GetActiveAnimation())
         sprite->SetAnimation(anim_id);
     sprite->SetAnimationPlaybackSpeed(anim_speed);
+
+    const bool reverse_playback = (facing_left && player_velocity.x > 0.0f) || (!facing_left && player_velocity.x < 0.0f);
+    if(reverse_playback)
+        sprite->SetAnimationPlayback(mono::PlaybackMode::PLAYING_REVERSE);
+    else
+        sprite->SetAnimationPlayback(mono::PlaybackMode::PLAYING);
 
 
     // Weapon animation
