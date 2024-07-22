@@ -151,7 +151,7 @@
             "max_damage": 50,
             "life_span": 10.0,
             "fuzzy_life_span": 0.0,
-            "bullet_want_direction": true,
+            "bullet_want_direction": false,
             "entity_file": "res/entities/bullet_rocket.entity",
             "impact_entity_file": "res/entities/explosion_rocket.entity",
             "sound_file": "",
@@ -429,6 +429,26 @@
             "out_of_ammo_sound": "res/sound/ooa_sound_short.wav",
             "reload_sound": "res/sound/shotgun_reload2.wav",
             "reload_finished_sound": "res/sound/shotgun_reload2.wav"
+        },
+        {
+            "name": "temp_homing_gun",
+            "magazine_size": 20,
+            "infinite_ammo": false,
+            "reload_time": 0.5,
+            "projectiles_per_fire": 1,
+            "rounds_per_second": 5.0,
+            "fire_rate_multiplier": 1.0,
+            "max_fire_rate": 1.0,
+            "bullet_velocity": -2.5,
+            "bullet_spread_degrees": 5.0,
+            "bullet_offset": 0.5,
+            "bullet_velocity_random": true,
+            "auto_reload": false,
+            "fire_sound": "res/sound/blaster-probe-gun.wav",
+            "out_of_ammo_sound": "res/sound/ooa_sound_short.wav",
+            "reload_sound": "res/sound/shotgun_reload2.wav",
+            "reload_finished_sound": "res/sound/shotgun_reload2.wav",
+            "sprite_file": "res/sprites/wooden_stick1.sprite"
         }
     ],
     "weapon_setups": [
@@ -527,6 +547,12 @@
             "weapon": "generic",
             "bullet": "generic_bullet",
             "sprite_file": "res/sprites/wooden_stick1.sprite"
+        },
+        {
+            "name": "Temp Homing Gun",
+            "weapon": "temp_homing_gun",
+            "bullet": "flak_bullet_homing",
+            "sprite_file": "res/sprites/wooden_stick_lantern1.sprite"
         }
     ]
 }

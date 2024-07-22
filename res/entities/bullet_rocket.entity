@@ -35,8 +35,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -1.0903053283691406,
-                                "y": -3.13114333152771
+                                "x": 0.0,
+                                "y": 0.0
                             }
                         },
                         {
@@ -67,7 +67,7 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "rocket.sprite"
+                            "variant_value": "caco_bullet.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -81,9 +81,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 1.0,
+                                "blue": 0.07843136787414551,
                                 "green": 1.0,
-                                "red": 1.0
+                                "red": 0.48500579595565796
                             }
                         },
                         {
@@ -112,6 +112,56 @@
                             "name": "random_start_frame",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 3801947695,
+                    "name": "light",
+                    "properties": [
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 0.5
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 226247311,
+                            "name": "flicker",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 800267265,
+                            "name": "frequency",
+                            "variant_type": 3,
+                            "variant_value": 20.0
+                        },
+                        {
+                            "id": 2538831285,
+                            "name": "percentage",
+                            "variant_type": 3,
+                            "variant_value": 0.20000000298023224
                         }
                     ]
                 },
@@ -146,8 +196,8 @@
                     ]
                 },
                 {
-                    "hash": 103600384,
-                    "name": "box_shape",
+                    "hash": 3996803839,
+                    "name": "circle_shape",
                     "properties": [
                         {
                             "id": 776086107,
@@ -156,13 +206,10 @@
                             "variant_value": 1
                         },
                         {
-                            "id": 597743964,
-                            "name": "size",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.20000000298023224,
-                                "y": 0.5
-                            }
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 0.20000000298023224
                         },
                         {
                             "id": 2471448074,
@@ -214,6 +261,8 @@
             "x": 0.0,
             "y": 0.0
         },
+        "completed_trigger": "",
+        "failed_trigger": "",
         "level_description": "",
         "level_game_mode": "",
         "level_name": "",
