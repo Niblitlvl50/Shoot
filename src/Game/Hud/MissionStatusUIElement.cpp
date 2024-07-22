@@ -2,6 +2,8 @@
 #include "MissionStatusUIElement.h"
 #include "FontIds.h"
 
+#include "Rendering/Sprite/ISprite.h"
+
 using namespace game;
 
 MissionStatusUIElement::MissionStatusUIElement(float width, float height, const mono::Color::RGBA& background_color)
@@ -25,6 +27,12 @@ MissionStatusUIElement::MissionStatusUIElement(float width, float height, const 
     m_icon = new UISpriteElement(ui_sprites);
     m_icon->SetPosition(width / 2.0f - 1.0f, 0.0f);
     m_icon->SetScale(4.0f);
+
+    mono::ISprite* check_sprite = m_icon->GetSprite(0);
+    check_sprite->SetShade(mono::Color::GREEN);
+
+    mono::ISprite* cross_sprite = m_icon->GetSprite(1);
+    cross_sprite->SetShade(mono::Color::RED);
 
     m_timer_bar = new UIBarElement(width, 0.1f, mono::Color::DARK_GRAY, mono::Color::GOLDEN_YELLOW);
     m_timer_bar->SetPosition(-anchor_offset);
