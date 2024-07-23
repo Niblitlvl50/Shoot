@@ -12,7 +12,7 @@
             "name": "idle"
         },
         {
-            "frame_duration": 100,
+            "frame_duration": 50,
             "frames": [
                 4,
                 5,
