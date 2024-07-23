@@ -15,6 +15,8 @@
 #include "Math/CriticalDampedSpring.h"
 #include "Util/Algorithm.h"
 
+#include "Debug/GameDebugVariables.h"
+
 using namespace game;
 
 UIElement::UIElement()
@@ -39,6 +41,12 @@ void UIElement::Update(const mono::UpdateContext& context)
 
 void UIElement::Draw(mono::IRenderer& renderer) const
 {
+    if(g_draw_ui_element_bounds)
+    {
+        const math::Quad& bounds = BoundingBox();
+        renderer.DrawQuad(bounds, mono::Color::CYAN, 1.0f);
+    }
+
     if(!m_show)
         return;
 

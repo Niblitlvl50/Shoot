@@ -309,10 +309,7 @@ void DamageSystem::Update(const mono::UpdateContext& update_context)
     }
 }
 
-void DamageSystem::Destroy()
-{ }
-
-void DamageSystem::Sync()
+void DamageSystem::PostUpdate()
 {
     m_damage_events.clear();
 }

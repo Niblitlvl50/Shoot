@@ -46,12 +46,16 @@ bool game::g_draw_debug_players = false;
 bool game::g_draw_debug_frametimes = false;
 bool game::g_draw_spawn_points = false;
 bool game::g_draw_camera_debug = false;
+
 bool game::g_draw_debug_uisystem = false;
+bool game::g_draw_ui_element_bounds = false;
+
 bool game::g_debug_camera = false;
 bool game::g_debug_draw_damage_words = false;
 
 bool game::g_draw_debug_soundsystem = false;
 bool game::g_mute_soundsystem = false;
+
 
 bool game::g_draw_entity_introspection = false;
 
@@ -87,7 +91,12 @@ void DrawDebugMenu(game::EntityLogicSystem* logic_system, uint32_t fps, float de
         ImGui::Checkbox("Frame Times",          &game::g_draw_debug_frametimes);
         ImGui::Checkbox("Spawn Points",         &game::g_draw_spawn_points);
         ImGui::Checkbox("Camera Debug",         &game::g_draw_camera_debug);
+
+        ImGui::Separator();
         ImGui::Checkbox("UI Debug",             &game::g_draw_debug_uisystem);
+        ImGui::Checkbox("UI Element Bounds",    &game::g_draw_ui_element_bounds);
+
+        ImGui::Separator();
         ImGui::Checkbox("Debug Camera",         &game::g_debug_camera);
         ImGui::Checkbox("Damage Words",         &game::g_debug_draw_damage_words);
         ImGui::Separator();
@@ -210,19 +219,19 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
     ImGui::SetNextWindowSize(ImVec2(1100, -1));
     ImGui::Begin("DebugPlayers", &show_window, flags);
 
-    const bool table_result = ImGui::BeginTable("player_table", 11, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_SizingFixedFit);
+    const bool table_result = ImGui::BeginTable("player_table", 10, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_SizingFixedFit);
     if(table_result)
     {
         ImGui::TableSetupColumn("Index", 0, 60);
         ImGui::TableSetupColumn("Entity", 0, 60);
-        ImGui::TableSetupColumn("Controller", 0, 60);
+        ImGui::TableSetupColumn("Controller", 0, 80);
         ImGui::TableSetupColumn("State", 0, 100);
-        ImGui::TableSetupColumn("Position", 0, 150);
-        ImGui::TableSetupColumn("Viewport", 0, 150);
+        ImGui::TableSetupColumn("Position", 0, 100);
+        //ImGui::TableSetupColumn("Viewport", 0, 150);
         ImGui::TableSetupColumn("GodMode", 0, 60);
-        ImGui::TableSetupColumn("DamageScalar", 0, 60);
+        ImGui::TableSetupColumn("DamageScalar", 0, 80);
         ImGui::TableSetupColumn("AutoAim", 0, 60);
-        ImGui::TableSetupColumn("AutoReload", 0, 60);
+        ImGui::TableSetupColumn("AutoReload", 0, 80);
         ImGui::TableSetupColumn("Actions", 0, 150);
         ImGui::TableHeadersRow();
 
@@ -238,6 +247,8 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
             ImGui::TableNextColumn(); ImGui::Text("%d", player_info.controller_id);
             ImGui::TableNextColumn(); ImGui::Text("%s", game::PlayerStateToString(player_info.player_state));
             ImGui::TableNextColumn(); ImGui::Text("%.1f %.1f", player_info.position.x, player_info.position.y);
+
+            /*
             ImGui::TableNextColumn();
             const math::Quad& viewport = player_info.viewport;
             ImGui::Text(
@@ -246,6 +257,7 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
                 viewport.bottom_left.y,
                 viewport.top_right.x,
                 viewport.top_right.y);
+            */
 
             {
                 ImGui::TableNextColumn();

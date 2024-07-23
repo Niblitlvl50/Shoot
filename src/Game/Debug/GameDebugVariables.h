@@ -24,6 +24,8 @@ namespace game
     extern bool g_draw_spawn_points;
     extern bool g_draw_camera_debug;
     extern bool g_draw_debug_uisystem;
+    extern bool g_draw_ui_element_bounds;
+
     extern bool g_debug_camera;
     extern bool g_debug_draw_damage_words;
 
