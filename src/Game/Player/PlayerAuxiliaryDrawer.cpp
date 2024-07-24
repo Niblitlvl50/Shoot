@@ -198,7 +198,7 @@ void PlayerAuxiliaryDrawer::DrawLasers(const std::vector<const game::PlayerInfo*
 
     for(const game::PlayerInfo* player_info : players)
     {
-        if(!player_info->laser_sight)
+        if(!player_info->persistent_data.laser_sight)
             continue;
 
         const uint32_t player_index = FindPlayerIndex(player_info);

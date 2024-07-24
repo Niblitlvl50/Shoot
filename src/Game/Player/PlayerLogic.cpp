@@ -272,7 +272,7 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
     m_player_info->weapon_type = active_weapon->GetWeaponSetup();
     m_player_info->weapon_state = active_weapon->UpdateWeaponState(timestamp);
     m_player_info->magazine_left = active_weapon->AmmunitionLeft();
-    m_player_info->laser_sight = true;
+    m_player_info->persistent_data.laser_sight = true;
 
     m_player_info->cooldown_id = 0;
     m_player_info->cooldown_fraction = 1.0f;

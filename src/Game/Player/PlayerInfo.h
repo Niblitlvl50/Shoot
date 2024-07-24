@@ -45,6 +45,7 @@ namespace game
         bool god_mode;
         bool auto_aim;
         bool auto_reload;
+        bool laser_sight;
 
         float damage_multiplier;
     };
@@ -79,10 +80,6 @@ namespace game
 
         uint32_t powerup_id;
         float powerup_fraction;
-
-        bool laser_sight;
-        //bool auto_aim;
-        //bool auto_reload;
 
         mono::InputContextType last_used_input;
         PersistentPlayerData persistent_data;
