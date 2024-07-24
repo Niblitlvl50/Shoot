@@ -32,6 +32,7 @@ namespace game
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
+        virtual void DrawElement(mono::IRenderer& renderer) const { }
         virtual void Show();
         virtual void Hide();
 
@@ -91,7 +92,7 @@ namespace game
 
     private:
 
-        void Draw(mono::IRenderer& renderer) const override;
+        void DrawElement(mono::IRenderer& renderer) const override;
 
         int m_font_id;
         std::string m_text;
@@ -115,12 +116,14 @@ namespace game
         mono::ISprite* GetSprite(uint32_t index);
 
         void Update(const mono::UpdateContext& context) override;
-        void Draw(mono::IRenderer& renderer) const override;
+        void DrawElement(mono::IRenderer& renderer) const override;
+        math::Quad BoundingBox() const override;
 
     private:
 
         std::vector<mono::ISpritePtr> m_sprites;
         std::vector<mono::SpriteDrawBuffers> m_sprite_buffers;
+        std::vector<math::Quad> m_sprite_bounds;
         std::unique_ptr<mono::IElementBuffer> m_indices;
         uint32_t m_active_sprite;
     };
@@ -132,7 +135,7 @@ namespace game
         UITextureElement();
         UITextureElement(const char* texture, float pixels_per_meter);
         void SetTexture(const char* texture, float pixels_per_meter);
-        void Draw(mono::IRenderer& renderer) const override;
+        void DrawElement(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
         math::Vector GetTextureSize() const;
@@ -175,7 +178,7 @@ namespace game
             float border_width);
         ~UISquareElement();
 
-        void Draw(mono::IRenderer& renderer) const override;
+        void DrawElement(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
         void SetColor(const mono::Color::RGBA& color);
@@ -220,7 +223,7 @@ namespace game
     private:
 
         void Update(const mono::UpdateContext& context) override;
-        void Draw(mono::IRenderer& renderer) const override;
+        void DrawElement(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
 
         float m_fraction;

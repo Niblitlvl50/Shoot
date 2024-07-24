@@ -226,10 +226,6 @@ namespace game
             death_text->SetPosition(1.75f, 0.60f);
             death_text->SetScale(0.7f);
 
-            UISpriteElement* enter_sprite = new UISpriteElement();
-            enter_sprite->SetPosition(1.0f, 0.25f);
-            enter_sprite->SetScale(0.3f);
-
             const std::vector<std::string> continue_sprites = {
                 "res/sprites/button_indication.sprite",
                 "res/sprites/key_enter.sprite",

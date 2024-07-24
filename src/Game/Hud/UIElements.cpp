@@ -41,20 +41,22 @@ void UIElement::Update(const mono::UpdateContext& context)
 
 void UIElement::Draw(mono::IRenderer& renderer) const
 {
-    if(g_draw_ui_element_bounds)
-    {
-        const math::Quad& bounds = BoundingBox();
-        renderer.DrawQuad(bounds, mono::Color::CYAN, 1.0f);
-    }
-
     if(!m_show)
         return;
 
     const math::Matrix& transform = renderer.GetTransform() * LocalTransform();
     const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
 
+    DrawElement(renderer);
+
     for(const UIElement* ui : m_ui_elements)
         ui->Draw(renderer);
+
+    if(g_draw_ui_element_bounds)
+    {
+        const math::Quad& bounds = BoundingBox();
+        renderer.DrawQuad(bounds, mono::Color::CYAN, 1.0f);
+    }
 }
 
 math::Quad UIElement::BoundingBox() const
@@ -192,21 +194,15 @@ void UITextElement::SetAlpha(float alpha)
     m_color.alpha = alpha;
 }
 
-void UITextElement::Draw(mono::IRenderer& renderer) const
+void UITextElement::DrawElement(mono::IRenderer& renderer) const
 {
-    if(!m_show || m_text.empty())
+    if(m_text.empty())
         return;
-
-    UIElement::Draw(renderer);
 
     if(m_color.alpha == 0.0f)
         return;
 
     const mono::ITexturePtr texture = mono::GetFontTexture(m_font_id);
-
-    const math::Matrix& transform = renderer.GetTransform() * LocalTransform();
-    const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
-
     renderer.DrawGeometry(
         m_draw_buffers.vertices.get(),
         m_draw_buffers.uv.get(),
@@ -264,6 +260,22 @@ void UISpriteElement::SetSprites(const std::vector<std::string>& sprite_files)
     {
         m_sprites.push_back(mono::RenderSystem::GetSpriteFactory()->CreateSprite(sprite_file.c_str()));
         m_sprite_buffers.push_back(mono::BuildSpriteDrawBuffers(m_sprites.back()->GetSpriteData()));
+
+        const mono::ISprite* sprite = m_sprites.back().get();
+        const mono::SpriteData* sprite_data = sprite->GetSpriteData();
+
+        if(sprite_data)
+        {
+            math::Vector frame_size;
+
+            for(const mono::SpriteFrame& frame : sprite_data->frames)
+            {
+                frame_size.x = std::max(frame_size.x, frame.size.x);
+                frame_size.y = std::max(frame_size.y, frame.size.y);
+            }
+
+            m_sprite_bounds.push_back(math::Quad(math::ZeroVec, frame_size.x, frame_size.y));
+        }
     }
 }
 
@@ -286,23 +298,28 @@ void UISpriteElement::Update(const mono::UpdateContext& update_context)
         sprite->Update(update_context);
 }
 
-void UISpriteElement::Draw(mono::IRenderer& renderer) const
+void UISpriteElement::DrawElement(mono::IRenderer& renderer) const
 {
-    if(!m_show)
-        return;
-
     if(m_sprites.empty() || m_sprite_buffers.empty())
         return;
-
-    const math::Matrix& transform = renderer.GetTransform() * LocalTransform();
-    const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
 
     const mono::ISprite* sprite = m_sprites[m_active_sprite].get();
     const mono::SpriteDrawBuffers& buffers = m_sprite_buffers[m_active_sprite];
     renderer.DrawSprite(
         sprite, &buffers, m_indices.get(), sprite->GetCurrentFrameIndex() * buffers.vertices_per_sprite);
+}
 
-    UIElement::Draw(renderer);
+math::Quad UISpriteElement::BoundingBox() const
+{
+    math::Quad bounds = UIElement::BoundingBox();
+
+    if(!m_sprite_bounds.empty())
+    {
+        const math::Quad& active_sprite_bounds = m_sprite_bounds[m_active_sprite];
+        math::ExpandBy(bounds, active_sprite_bounds);
+    }
+
+    return bounds;
 }
 
 
@@ -326,15 +343,11 @@ void UITextureElement::SetTexture(const char* texture, float pixels_per_meter)
     m_pixels_per_meter = pixels_per_meter;
 }
 
-void UITextureElement::Draw(mono::IRenderer& renderer) const
+void UITextureElement::DrawElement(mono::IRenderer& renderer) const
 {
-    if(!m_show || !m_texture)
+    if(!m_texture)
         return;
 
-    UIElement::Draw(renderer);
-
-    const math::Matrix& transform = renderer.GetTransform() * LocalTransform();
-    const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
     renderer.DrawGeometry(
         m_draw_buffers.vertices.get(),
         m_draw_buffers.uv.get(),
@@ -349,7 +362,7 @@ math::Quad UITextureElement::BoundingBox() const
 {
     math::Quad bounds = UIElement::BoundingBox();
     if(m_texture)
-        math::ExpandBy(bounds, math::Quad(math::ZeroVec, m_texture->Width() * m_scale.x, m_texture->Height()) / m_pixels_per_meter);
+        math::ExpandBy(bounds, math::Quad(math::ZeroVec, m_texture->Width(), m_texture->Height()) / m_pixels_per_meter);
 
     return bounds;
 }
@@ -439,21 +452,11 @@ UISquareElement::UISquareElement(
 
 UISquareElement::~UISquareElement() = default;
 
-void UISquareElement::Draw(mono::IRenderer& renderer) const
+void UISquareElement::DrawElement(mono::IRenderer& renderer) const
 {
-    if(!m_show)
-        return;
-
-    {
-        const math::Matrix& transform = renderer.GetTransform() * LocalTransform();
-        const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
-
-        renderer.DrawTrianges(m_vertices.get(), m_colors.get(), m_indices.get(), 0, 6);
-        if(m_border_width > 0.0f)
-            renderer.DrawPolyline(m_vertices.get(), m_border_colors.get(), m_indices.get(), 6, 5);
-    }
-
-    UIElement::Draw(renderer);
+    renderer.DrawTrianges(m_vertices.get(), m_colors.get(), m_indices.get(), 0, 6);
+    if(m_border_width > 0.0f)
+        renderer.DrawPolyline(m_vertices.get(), m_border_colors.get(), m_indices.get(), 6, 5);
 }
 
 math::Quad UISquareElement::BoundingBox() const
@@ -544,27 +547,19 @@ void UIBarElement::Update(const mono::UpdateContext& context)
     math::simple_spring_damper_implicit(m_fraction, m_velocity, m_target_fraction, 0.1f, context.delta_s);
 }
 
-void UIBarElement::Draw(mono::IRenderer& renderer) const
+void UIBarElement::DrawElement(mono::IRenderer& renderer) const
 {
-    if(!m_show)
-        return;
-
-    UIElement::Draw(renderer);
-
-    const math::Matrix& transform = renderer.GetTransform() * LocalTransform();
-    const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
-
     renderer.DrawTrianges(m_vertices.get(), m_background_colors.get(), m_indices.get(), 0, 6);
 
     const auto scale_transform_scope = mono::MakeTransformScope(
-        transform * math::CreateMatrixWithScale(m_fraction, 1.0f), &renderer);
+        renderer.GetTransform() * math::CreateMatrixWithScale(m_fraction, 1.0f), &renderer);
     renderer.DrawTrianges(m_vertices.get(), m_foreground_colors.get(), m_indices.get(), 0, 6);
 }
 
 math::Quad UIBarElement::BoundingBox() const
 {
     math::Quad bounds = UIElement::BoundingBox();
-    math::ExpandBy(bounds, math::Quad(math::ZeroVec, m_bar_size.x, m_bar_size.y));
+    math::ExpandBy(bounds, math::Quad(math::ZeroVec, m_bar_size));
 
     return bounds;
 }
