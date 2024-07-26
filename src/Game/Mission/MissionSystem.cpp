@@ -76,9 +76,9 @@ void MissionSystem::Update(const mono::UpdateContext& update_context)
         if(mission_tracker.time_s <= 0.0f)
         {
             if(mission_tracker.fail_on_timeout)
-                HandleMissionFailed(mission_tracker.entity_id);
+                HandleMissionFailed(mission_tracker.entity_id, true);
             else
-                HandleMissionCompleted(mission_tracker.entity_id);
+                HandleMissionCompleted(mission_tracker.entity_id, true);
         }
     }
 }
@@ -200,7 +200,7 @@ void MissionSystem::SetMissionData(
     if(component->completed_trigger != hash::NO_HASH)
     {
         const game::TriggerCallback completed_callback = [this, entity_id](uint32_t trigger_id) {
-            HandleMissionCompleted(entity_id);
+            HandleMissionCompleted(entity_id, false);
         };
         component->completed_callback_id = m_trigger_system->RegisterTriggerCallback(component->completed_trigger, completed_callback, entity_id);
     }
@@ -208,7 +208,7 @@ void MissionSystem::SetMissionData(
     if(component->failed_trigger != hash::NO_HASH)
     {
         const game::TriggerCallback failed_callback = [this, entity_id](uint32_t trigger_id) {
-            HandleMissionFailed(entity_id);
+            HandleMissionFailed(entity_id, false);
         };
         component->failed_callback_id = m_trigger_system->RegisterTriggerCallback(component->failed_trigger, failed_callback, entity_id);
     }
@@ -265,26 +265,31 @@ void MissionSystem::HandleMissionActivated(uint32_t entity_id)
     System::Log("MissionSystem|Mission Activated! %s (%s)", component->name.c_str(), component->description.c_str());
 }
 
-void MissionSystem::HandleMissionCompleted(uint32_t entity_id)
+void MissionSystem::HandleMissionCompleted(uint32_t entity_id, bool emit_success_event)
 {
     MissionTrackerComponent* component = GetComponentById(entity_id);
     if(component->status >= MissionStatus::Completed)
         return;
 
     component->status = MissionStatus::Completed;
-    m_mission_status_events.push_back({ entity_id, component->status });
+    if(emit_success_event)
+        m_trigger_system->EmitTrigger(component->completed_trigger);
 
+    m_mission_status_events.push_back({ entity_id, component->status });
     System::Log("MissionSystem|Mission Completed! %s (%s)", component->name.c_str(), component->description.c_str());
 }
 
-void MissionSystem::HandleMissionFailed(uint32_t entity_id)
+void MissionSystem::HandleMissionFailed(uint32_t entity_id, bool emit_failure_event)
 {
     MissionTrackerComponent* component = GetComponentById(entity_id);
     if(component->status >= MissionStatus::Failed)
         return;
 
     component->status = MissionStatus::Failed;
-    m_mission_status_events.push_back({ entity_id, component->status });
 
+    if(emit_failure_event)
+        m_trigger_system->EmitTrigger(component->failed_trigger);
+
+    m_mission_status_events.push_back({ entity_id, component->status });
     System::Log("MissionSystem|Mission Failed! %s (%s)", component->name.c_str(), component->description.c_str());
 }

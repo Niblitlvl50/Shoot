@@ -91,8 +91,8 @@ namespace game
         MissionTrackerComponent* GetComponentById(uint32_t entity_id);
 
         void HandleMissionActivated(uint32_t entity_id);
-        void HandleMissionCompleted(uint32_t entity_id);
-        void HandleMissionFailed(uint32_t entity_id);
+        void HandleMissionCompleted(uint32_t entity_id, bool emit_success_event);
+        void HandleMissionFailed(uint32_t entity_id, bool emit_failure_event);
 
         mono::IEntityManager* m_entity_manager;
         mono::TransformSystem* m_transform_system;
