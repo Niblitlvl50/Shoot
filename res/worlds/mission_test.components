@@ -1211,7 +1211,7 @@
                             "id": 1564253156,
                             "name": "time",
                             "variant_type": 3,
-                            "variant_value": 300.0
+                            "variant_value": 20.0
                         },
                         {
                             "id": 149336291,
@@ -2380,9 +2380,9 @@
     "metadata": {
         "ambient_shade": {
             "alpha": 1.0,
-            "blue": 1.0,
-            "green": 1.0,
-            "red": 1.0
+            "blue": 0.46568626165390015,
+            "green": 0.46568626165390015,
+            "red": 0.46568626165390015
         },
         "background_color": {
             "alpha": 1.0,
