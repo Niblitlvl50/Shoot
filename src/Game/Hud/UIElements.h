@@ -29,9 +29,10 @@ namespace game
         virtual ~UIElement();
 
         void Update(const mono::UpdateContext& context) override;
-        void Draw(mono::IRenderer& renderer) const override;
-        math::Quad BoundingBox() const override;
+        void Draw(mono::IRenderer& renderer) const;
 
+        virtual math::Quad BoundingBox() const;
+        virtual math::Quad LocalBoundingBox() const;
         virtual void DrawElement(mono::IRenderer& renderer) const { }
         virtual void Show();
         virtual void Hide();
@@ -71,6 +72,7 @@ namespace game
         UIOverlay(float width, float height);
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
+        math::Quad LocalBoundingBox() const override;
 
     protected:
 
@@ -88,7 +90,7 @@ namespace game
         void SetColor(const mono::Color::RGBA& new_color);
         void SetAlpha(float alpha);
 
-        math::Quad BoundingBox() const override;
+        math::Quad LocalBoundingBox() const override;
 
     private:
 
@@ -117,7 +119,7 @@ namespace game
 
         void Update(const mono::UpdateContext& context) override;
         void DrawElement(mono::IRenderer& renderer) const override;
-        math::Quad BoundingBox() const override;
+        math::Quad LocalBoundingBox() const override;
 
     private:
 
@@ -136,7 +138,7 @@ namespace game
         UITextureElement(const char* texture, float pixels_per_meter);
         void SetTexture(const char* texture, float pixels_per_meter);
         void DrawElement(mono::IRenderer& renderer) const override;
-        math::Quad BoundingBox() const override;
+        math::Quad LocalBoundingBox() const override;
 
         math::Vector GetTextureSize() const;
 
@@ -179,7 +181,7 @@ namespace game
         ~UISquareElement();
 
         void DrawElement(mono::IRenderer& renderer) const override;
-        math::Quad BoundingBox() const override;
+        math::Quad LocalBoundingBox() const override;
 
         void SetColor(const mono::Color::RGBA& color);
         const mono::Color::RGBA& GetColor() const;
@@ -224,7 +226,7 @@ namespace game
 
         void Update(const mono::UpdateContext& context) override;
         void DrawElement(mono::IRenderer& renderer) const override;
-        math::Quad BoundingBox() const override;
+        math::Quad LocalBoundingBox() const override;
 
         float m_fraction;
         float m_target_fraction;

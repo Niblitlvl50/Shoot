@@ -9,7 +9,7 @@ using namespace game;
 MissionStatusUIElement::MissionStatusUIElement(float width, float height, const mono::Color::RGBA& background_color)
     : UISquareElement(width, height, background_color)
 {
-    SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
+    SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT); 
     const math::Vector anchor_offset = GetAnchorOffset();
 
     m_mission_name_text = new UITextElement(FontId::MITR_SMALL, "", mono::Color::OFF_WHITE);
@@ -38,8 +38,8 @@ MissionStatusUIElement::MissionStatusUIElement(float width, float height, const 
     m_timer_bar->SetPosition(-anchor_offset);
     m_timer_bar->Hide();
 
-    m_timer_text = new UITextElement(FontId::MITR_TINY, "", mono::Color::OFF_WHITE);
-    m_timer_text->SetPosition(width / 2.0f - 1.0f, 0.0f);
+    m_timer_text = new UITextElement(FontId::MITR_TINY, "", mono::Color::LIGHT_GRAY);
+    m_timer_text->SetPosition(width / 2.0f - 1.0f, 0.5f);
     m_timer_text->Hide();
 
     AddChild(m_mission_name_text);

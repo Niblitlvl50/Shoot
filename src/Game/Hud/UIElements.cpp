@@ -61,12 +61,25 @@ void UIElement::Draw(mono::IRenderer& renderer) const
 
 math::Quad UIElement::BoundingBox() const
 {
-    math::Quad bounds = math::InverseInfQuad;
+    math::Quad bounds = LocalBoundingBox();
+    //math::Quad bounds = math::Transformed(LocalTransform(), LocalBoundingBox());
 
     for(const UIElement* ui : m_ui_elements)
-        math::ExpandBy(bounds, ui->BoundingBox());
+    {
+        const math::Quad& local_bounds = ui->LocalBoundingBox();
+        const math::Matrix& local_transform = ui->LocalTransform();
+        math::ExpandBy(bounds, math::Transformed(local_transform, local_bounds));
+        //math::ExpandBy(bounds, local_bounds);
+    }
 
+    //return math::Transformed(LocalTransform(), bounds);
     return bounds;
+}
+
+math::Quad UIElement::LocalBoundingBox() const
+{
+    //return math::Quad(m_position, 0.0f); //m_scale.x, m_scale.y);
+    return math::ZeroQuad;
 }
 
 void UIElement::Show()
@@ -131,7 +144,7 @@ math::Matrix UIElement::Transform() const
 
 math::Vector UIElement::GetAnchorOffset() const
 {
-    const math::Quad& bounds = BoundingBox();
+    const math::Quad& bounds = LocalBoundingBox();
     const math::Vector& anchor_offset = mono::CalculateOffsetFromCenter(m_anchor_point, math::Size(bounds), 1.0f);
 
     return anchor_offset;
@@ -164,6 +177,11 @@ void UIOverlay::Draw(mono::IRenderer& renderer) const
 }
 
 math::Quad UIOverlay::BoundingBox() const
+{
+    return math::InfQuad;
+}
+
+math::Quad UIOverlay::LocalBoundingBox() const
 {
     return math::InfQuad;
 }
@@ -213,15 +231,11 @@ void UITextElement::DrawElement(mono::IRenderer& renderer) const
         m_draw_buffers.indices->Size());
 }
 
-math::Quad UITextElement::BoundingBox() const
+math::Quad UITextElement::LocalBoundingBox() const
 {
-    math::Quad bounds = UIElement::BoundingBox();
-
     const mono::TextMeasurement text_measurement = mono::MeasureString(m_font_id, m_text.c_str());
     const math::Vector text_offset = mono::TextOffsetFromFontCentering(text_measurement.size, mono::FontCentering::HORIZONTAL_VERTICAL);
-
-    math::ExpandBy(bounds, math::Quad(text_offset, text_offset + text_measurement.size));
-    return bounds;
+    return math::Quad(text_offset, text_offset + text_measurement.size);
 }
 
 
@@ -309,17 +323,12 @@ void UISpriteElement::DrawElement(mono::IRenderer& renderer) const
         sprite, &buffers, m_indices.get(), sprite->GetCurrentFrameIndex() * buffers.vertices_per_sprite);
 }
 
-math::Quad UISpriteElement::BoundingBox() const
+math::Quad UISpriteElement::LocalBoundingBox() const
 {
-    math::Quad bounds = UIElement::BoundingBox();
+    if(m_sprite_bounds.empty())
+        return math::ZeroQuad;
 
-    if(!m_sprite_bounds.empty())
-    {
-        const math::Quad& active_sprite_bounds = m_sprite_bounds[m_active_sprite];
-        math::ExpandBy(bounds, active_sprite_bounds);
-    }
-
-    return bounds;
+    return m_sprite_bounds[m_active_sprite];
 }
 
 
@@ -358,13 +367,12 @@ void UITextureElement::DrawElement(mono::IRenderer& renderer) const
         m_draw_buffers.indices->Size());
 }
 
-math::Quad UITextureElement::BoundingBox() const
+math::Quad UITextureElement::LocalBoundingBox() const
 {
-    math::Quad bounds = UIElement::BoundingBox();
     if(m_texture)
-        math::ExpandBy(bounds, math::Quad(math::ZeroVec, m_texture->Width(), m_texture->Height()) / m_pixels_per_meter);
+        return math::Quad(math::ZeroVec, m_texture->Width(), m_texture->Height()) / m_pixels_per_meter;
 
-    return bounds;
+    return math::ZeroQuad;
 }
 
 math::Vector UITextureElement::GetTextureSize() const
@@ -459,12 +467,9 @@ void UISquareElement::DrawElement(mono::IRenderer& renderer) const
         renderer.DrawPolyline(m_vertices.get(), m_border_colors.get(), m_indices.get(), 6, 5);
 }
 
-math::Quad UISquareElement::BoundingBox() const
+math::Quad UISquareElement::LocalBoundingBox() const
 {
-    math::Quad bounds = UIElement::BoundingBox();
-    math::ExpandBy(bounds, math::Quad(math::ZeroVec, m_width, m_height));
-
-    return bounds;
+    return math::Quad(math::ZeroVec, m_width, m_height);
 }
 
 void UISquareElement::SetColor(const mono::Color::RGBA& color)
@@ -556,10 +561,7 @@ void UIBarElement::DrawElement(mono::IRenderer& renderer) const
     renderer.DrawTrianges(m_vertices.get(), m_foreground_colors.get(), m_indices.get(), 0, 6);
 }
 
-math::Quad UIBarElement::BoundingBox() const
+math::Quad UIBarElement::LocalBoundingBox() const
 {
-    math::Quad bounds = UIElement::BoundingBox();
-    math::ExpandBy(bounds, math::Quad(math::ZeroVec, m_bar_size));
-
-    return bounds;
+    return math::Quad(math::ZeroVec, m_bar_size);
 }

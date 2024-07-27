@@ -22,6 +22,10 @@ namespace game
         void Show() override;
         void Hide() override;
 
+    private:
+    
+        math::Quad BoundingBox() const override;
+
         mono::InputSystem* m_input_system;
         game::UISystem* m_ui_system;
 

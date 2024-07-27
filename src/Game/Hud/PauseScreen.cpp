@@ -2,6 +2,7 @@
 #include "PauseScreen.h"
 
 #include "Rendering/Text/TextFunctions.h"
+#include "Rendering/RenderSystem.h"
 #include "FontIds.h"
 
 #include "Input/InputSystem.h"
@@ -36,8 +37,6 @@ PauseScreen::PauseScreen(
     const FontId font_id = FontId::RUSSOONE_TINY;
 
     UISquareElement* background_element = new UISquareElement(background_width, background_height, mono::Color::BLACK, mono::Color::GRAY, 1.0f);
-    background_element->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
-    background_element->SetPosition(background_x, background_y);
 
     UITextElement* pause_text = new UITextElement(font_id, "Pause", mono::Color::GRAY);
     pause_text->SetPosition(0.0f, (background_height / 2.0f) - 0.25f);
@@ -46,12 +45,9 @@ PauseScreen::PauseScreen(
     m_quit_text->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
     m_quit_text->SetPosition(background_x + 0.2f, background_y + 0.15f);
 
-    const char* close_text = "Close";
-    const mono::TextMeasurement close_text_measurement = mono::MeasureString(font_id, close_text);
-
-    m_close_text = new UITextElement(font_id, close_text, mono::Color::GRAY);
-    m_close_text->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
-    m_close_text->SetPosition(background_x + background_width - close_text_measurement.size.x - 0.2f, background_y + 0.15f);
+    m_close_text = new UITextElement(font_id, "Close", mono::Color::GRAY);
+    m_close_text->SetAchorPoint(mono::AnchorPoint::BOTTOM_RIGHT);
+    m_close_text->SetPosition(background_x + background_width - 0.2f, background_y + 0.15f);
 
     m_input_layout = new UITextureElement();
     m_input_layout->SetScale(0.0075f);
@@ -111,4 +107,9 @@ void PauseScreen::Hide()
 
     UIElement::Hide();
     m_ui_system->Disable();
+}
+
+math::Quad PauseScreen::BoundingBox() const
+{
+    return math::InfQuad;
 }
