@@ -34,28 +34,28 @@
             "h": 58,
             "name": "demon_minion_idle_1",
             "w": 41,
-            "x": 567,
+            "x": 1019,
             "y": 184
         },
         {
             "h": 58,
             "name": "demon_minion_idle_2",
             "w": 41,
-            "x": 1019,
+            "x": 567,
             "y": 184
         },
         {
             "h": 62,
             "name": "demon_minion_left_1",
             "w": 42,
-            "x": 1788,
+            "x": 1834,
             "y": 176
         },
         {
             "h": 62,
             "name": "demon_minion_turn_1",
             "w": 42,
-            "x": 1834,
+            "x": 1788,
             "y": 176
         },
         {

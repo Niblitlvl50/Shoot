@@ -51,42 +51,42 @@
             "h": 21,
             "name": "flame_blob_attack_1",
             "w": 21,
-            "x": 1505,
-            "y": 429
+            "x": 519,
+            "y": 430
         },
         {
             "h": 20,
             "name": "flame_blob_attack_2",
             "w": 19,
-            "x": 412,
+            "x": 1155,
             "y": 430
         },
         {
             "h": 24,
             "name": "flame_blob_attack_3",
             "w": 19,
-            "x": 818,
+            "x": 1213,
             "y": 402
         },
         {
             "h": 27,
             "name": "flame_blob_attack_4",
             "w": 19,
-            "x": 1765,
-            "y": 371
+            "x": 2,
+            "y": 372
         },
         {
             "h": 21,
             "name": "flame_blob_attack_5",
             "w": 20,
-            "x": 1604,
-            "y": 429
+            "x": 618,
+            "y": 430
         },
         {
             "h": 27,
             "name": "flame_blob_attack_6",
             "w": 26,
-            "x": 1670,
+            "x": 1976,
             "y": 371
         },
         {
@@ -128,92 +128,92 @@
             "h": 20,
             "name": "flame_blob_idle_1",
             "w": 20,
-            "x": 364,
+            "x": 1084,
             "y": 430
         },
         {
             "h": 22,
             "name": "flame_blob_idle_2",
             "w": 19,
-            "x": 1236,
-            "y": 428
+            "x": 1566,
+            "y": 429
         },
         {
             "h": 20,
             "name": "flame_blob_idle_3",
             "w": 19,
-            "x": 458,
+            "x": 1132,
             "y": 430
         },
         {
             "h": 21,
             "name": "flame_blob_idle_4",
             "w": 21,
-            "x": 1555,
-            "y": 429
+            "x": 569,
+            "y": 430
         },
         {
             "h": 20,
             "name": "flame_blob_idle_5",
             "w": 19,
-            "x": 435,
+            "x": 1178,
             "y": 430
         },
         {
             "h": 21,
             "name": "flame_blob_idle_6",
             "w": 19,
-            "x": 1628,
-            "y": 429
+            "x": 642,
+            "y": 430
         },
         {
             "h": 23,
             "name": "flame_blob_idle_7",
             "w": 19,
-            "x": 1447,
-            "y": 402
+            "x": 734,
+            "y": 403
         },
         {
             "h": 22,
             "name": "flame_blob_idle_8",
             "w": 19,
-            "x": 1470,
-            "y": 426
+            "x": 1543,
+            "y": 429
         },
         {
             "h": 17,
             "name": "flame_blob_run_1",
             "w": 21,
-            "x": 697,
+            "x": 1751,
             "y": 455
         },
         {
             "h": 18,
             "name": "flame_blob_run_2",
             "w": 22,
-            "x": 631,
-            "y": 453
+            "x": 97,
+            "y": 454
         },
         {
             "h": 18,
             "name": "flame_blob_run_3",
             "w": 23,
-            "x": 242,
-            "y": 441
+            "x": 1398,
+            "y": 453
         },
         {
             "h": 18,
             "name": "flame_blob_run_4",
             "w": 22,
-            "x": 1464,
-            "y": 452
+            "x": 153,
+            "y": 454
         },
         {
             "h": 19,
             "name": "flame_blob_run_5",
             "w": 22,
-            "x": 929,
-            "y": 430
+            "x": 338,
+            "y": 431
         }
     ],
     "frames_offsets": [

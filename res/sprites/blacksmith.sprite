@@ -21,56 +21,56 @@
             "h": 27,
             "name": "blacksmith_idle_1",
             "w": 15,
-            "x": 907,
-            "y": 371
+            "x": 134,
+            "y": 372
         },
         {
             "h": 28,
             "name": "blacksmith_idle_2",
             "w": 14,
-            "x": 1806,
-            "y": 337
+            "x": 1639,
+            "y": 371
         },
         {
             "h": 28,
             "name": "blacksmith_idle_3",
             "w": 17,
-            "x": 114,
-            "y": 370
+            "x": 320,
+            "y": 353
         },
         {
             "h": 28,
             "name": "blacksmith_idle_4",
             "w": 16,
-            "x": 1745,
+            "x": 114,
             "y": 370
         },
         {
             "h": 28,
             "name": "blacksmith_idle_5",
             "w": 14,
-            "x": 1553,
-            "y": 337
+            "x": 1657,
+            "y": 371
         },
         {
             "h": 27,
             "name": "blacksmith_idle_6",
             "w": 16,
-            "x": 1851,
-            "y": 371
+            "x": 48,
+            "y": 372
         },
         {
             "h": 27,
             "name": "blacksmith_idle_7",
             "w": 19,
-            "x": 1788,
-            "y": 371
+            "x": 25,
+            "y": 372
         },
         {
             "h": 27,
             "name": "blacksmith_idle_8",
             "w": 23,
-            "x": 1700,
+            "x": 2006,
             "y": 371
         }
     ],
