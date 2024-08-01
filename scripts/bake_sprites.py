@@ -2,6 +2,7 @@
 import os
 import subprocess
 import tempfile
+import platform
 
 
 def get_files(folder, extension):
@@ -17,8 +18,10 @@ def get_files(folder, extension):
 #
 # Hardcoded binary path is not great.
 #
+binary_file = 'bin/spritebaker' if platform.system() == 'Darwin' else 'bin/Debug/spritebaker'
+
 arguments = [
-    'bin/Debug/spritebaker',
+    binary_file,
     '-width', '2048',
     '-height', '1024',
     '-padding', '2',
@@ -31,7 +34,7 @@ arguments = [
 
 arguments.append('-input')
 
-with tempfile.TemporaryFile(mode='wt', suffix='.filelist', delete=False) as temp_input_file:
+with tempfile.NamedTemporaryFile(mode='wt', suffix='.filelist', delete=False) as temp_input_file:
     for file in get_files('res/images', 'png'):
         temp_input_file.write(file + '\n')
 
