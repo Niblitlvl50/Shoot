@@ -36,14 +36,14 @@
             "h": 13,
             "name": "switch_small_default_1",
             "w": 8,
-            "x": 143,
+            "x": 165,
             "y": 497
         },
         {
             "h": 13,
             "name": "switch_small_default_2",
             "w": 8,
-            "x": 167,
+            "x": 153,
             "y": 497
         }
     ],

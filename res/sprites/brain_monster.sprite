@@ -20,56 +20,56 @@
             "h": 9,
             "name": "brain_monster_idle_1",
             "w": 13,
-            "x": 157,
-            "y": 514
+            "x": 1969,
+            "y": 513
         },
         {
             "h": 9,
             "name": "brain_monster_idle_2",
             "w": 13,
-            "x": 38,
+            "x": 53,
             "y": 514
         },
         {
             "h": 9,
             "name": "brain_monster_idle_3",
             "w": 13,
-            "x": 55,
-            "y": 514
+            "x": 1986,
+            "y": 513
         },
         {
             "h": 9,
             "name": "brain_monster_idle_4",
             "w": 13,
-            "x": 72,
-            "y": 514
+            "x": 2003,
+            "y": 513
         },
         {
             "h": 9,
             "name": "brain_monster_idle_5",
             "w": 13,
-            "x": 89,
-            "y": 514
+            "x": 2020,
+            "y": 513
         },
         {
             "h": 9,
             "name": "brain_monster_idle_6",
             "w": 13,
-            "x": 106,
+            "x": 2,
             "y": 514
         },
         {
             "h": 9,
             "name": "brain_monster_idle_7",
             "w": 13,
-            "x": 123,
+            "x": 19,
             "y": 514
         },
         {
             "h": 9,
             "name": "brain_monster_idle_8",
             "w": 13,
-            "x": 140,
+            "x": 36,
             "y": 514
         }
     ],
