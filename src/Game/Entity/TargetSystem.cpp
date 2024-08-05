@@ -85,12 +85,12 @@ void TargetSystem::AllocateTarget(uint32_t entity_id)
     target_component.enabled = true;
     target_component.priority = 0;
 
-    const DamageCallback& on_destroyed = [this](uint32_t id, int damage, uint32_t who_did_damage, DamageType type) {
-        const auto it = m_active_targets.find(id);
+    const DamageCallback& on_destroyed = [this](uint32_t damaged_entity_id, uint32_t who_did_damage, uint32_t weapon_identifier, int damage, DamageType type) {
+        const auto it = m_active_targets.find(damaged_entity_id);
         if(it != m_active_targets.end())
         {
             it->second->InvalidateTarget();
-            m_active_targets.erase(id);
+            m_active_targets.erase(damaged_entity_id);
         }
     };
     target_component.callback_handle = m_damage_system->SetDamageCallback(entity_id, DamageType::DESTROYED, on_destroyed);

@@ -31,6 +31,7 @@ WeaponEntityFactory::WeaponEntityFactory(
 
 mono::Entity WeaponEntityFactory::CreateBulletEntity(
     uint32_t owner_id,
+    uint32_t weapon_identifier_hash,
     const BulletConfiguration& bullet_config,
     const CollisionConfiguration& collision_config,
     const math::Vector& target,
@@ -44,6 +45,7 @@ mono::Entity WeaponEntityFactory::CreateBulletEntity(
     IEntityLogic* bullet_logic = new BulletLogic(
         bullet_entity.id,
         owner_id,
+        weapon_identifier_hash,
         target,
         velocity,
         bullet_direction,

@@ -157,7 +157,8 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
             local_bullet_config.bullet_want_direction ? math::AngleFromVector(modified_fire_direction) : 0.0f;
         const math::Matrix& transform = math::CreateMatrixWithPositionRotation(fire_position, bullet_rotation);
 
-        mono::Entity bullet_entity = entity_factory.CreateBulletEntity(m_owner_id, local_bullet_config, m_collision_config, target, velocity, bullet_direction, transform);
+        mono::Entity bullet_entity = entity_factory.CreateBulletEntity(
+            m_owner_id, m_weapon_setup.weapon_identifier_hash, local_bullet_config, m_collision_config, target, velocity, bullet_direction, transform);
 
         m_bullet_trail->AttachEmitterToBullet(bullet_entity.id);
 

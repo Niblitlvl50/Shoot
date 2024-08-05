@@ -38,7 +38,7 @@ ExplodableController::ExplodableController(uint32_t entity_id, mono::SystemConte
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_entity_system = system_context->GetSystem<mono::IEntityManager>();
 
-    const DamageCallback destroyed_callback = [this](uint32_t id, int damage, uint32_t who_did_damage, DamageType type) {
+    const DamageCallback destroyed_callback = [this](uint32_t damaged_entity_id, uint32_t who_did_damage, uint32_t weapon_identifier, int damage, DamageType type) {
         m_states.TransitionTo(States::DEAD);
     };
 

@@ -7,6 +7,7 @@
 #include "Debug/IDebugDrawer.h"
 #include "Entity/TargetSystem.h"
 #include "Navigation/NavigationSystem.h"
+#include "Weapons/WeaponTypes.h"
 
 #include "Physics/IBody.h"
 #include "Physics/PhysicsSystem.h"
@@ -136,8 +137,8 @@ mono::CollisionResolve EyeMonsterController::OnCollideWith(
         game::ShockwaveAt(m_physics_system, entity_position, tweak_values::shockwave_radius, tweak_values::shockwave_magnitude);
 
         const uint32_t other_entity_id = mono::PhysicsSystem::GetIdFromBody(body);
-        m_damage_system->ApplyDamage(other_entity_id, tweak_values::collision_damage, m_entity_id);
-        m_damage_system->ApplyDamage(m_entity_id, 1000, m_entity_id);
+        m_damage_system->ApplyDamage(other_entity_id, m_entity_id, NO_WEAPON_IDENTIFIER, tweak_values::collision_damage);
+        m_damage_system->ApplyDamage(m_entity_id, m_entity_id, NO_WEAPON_IDENTIFIER, 1000);
     }
 
     return mono::CollisionResolve::NORMAL;

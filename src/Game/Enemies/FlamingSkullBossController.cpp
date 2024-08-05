@@ -7,6 +7,7 @@
 #include "Navigation/NavigationSystem.h"
 #include "Shockwave.h"
 #include "Debug/IDebugDrawer.h"
+#include "Weapons/WeaponTypes.h"
 
 #include "Physics/IBody.h"
 #include "Physics/PhysicsSystem.h"
@@ -105,7 +106,7 @@ mono::CollisionResolve FlamingSkullBossController::OnCollideWith(
         game::ShockwaveAt(m_physics_system, entity_position, tweak_values::shockwave_radius, tweak_values::shockwave_magnitude);
 
         const uint32_t other_entity_id = mono::PhysicsSystem::GetIdFromBody(body);
-        m_damage_system->ApplyDamage(other_entity_id, tweak_values::collision_damage, m_entity_id);
+        m_damage_system->ApplyDamage(other_entity_id, m_entity_id, NO_WEAPON_IDENTIFIER, tweak_values::collision_damage);
     }
     else if(category == CollisionCategory::PLAYER_BULLET)
     {

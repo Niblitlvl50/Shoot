@@ -70,7 +70,7 @@ DemonBossController::DemonBossController(uint32_t entity_id, mono::SystemContext
     m_damage_system = system_context->GetSystem<game::DamageSystem>();
     m_damage_system->PreventReleaseOnDeath(entity_id, true);
 
-    const DamageCallback destroyed_callback = [this](uint32_t id, int damage, uint32_t who_did_damage, DamageType type) {
+    const DamageCallback destroyed_callback = [this](uint32_t damaged_entity_id, uint32_t who_did_damage, uint32_t weapon_identifier, int damage, DamageType type) {
         if(type == DamageType::DAMAGED)
             OnDamage(who_did_damage, damage);
         else if(type == DamageType::DESTROYED)

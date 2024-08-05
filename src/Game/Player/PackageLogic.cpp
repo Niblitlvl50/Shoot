@@ -6,6 +6,7 @@
 #include "Debug/IDebugDrawer.h"
 #include "CollisionConfiguration.h"
 #include "DamageSystem/DamageSystem.h"
+#include "Weapons/WeaponTypes.h"
 
 #include "EntitySystem/IEntityManager.h"
 #include "EventHandler/EventHandler.h"
@@ -71,7 +72,7 @@ PackageLogic::PackageLogic(
     m_sprite_system->SetSpriteEnabled(m_spawned_shield_id, false);
     m_light_system->SetLightEnabled(m_spawned_shield_id, false);
 
-    const auto not_player_filter = [this](uint32_t id, int damage, uint32_t id_who_did_damage) {
+    const game::DamageFilter not_player_filter = [this](uint32_t damaged_entity_id, uint32_t id_who_did_damage, uint32_t weapon_identifier, int damage) {
         if(m_states.ActiveState() == States::SHIELDED)
             return FilterResult::FILTER_OUT;
         return game::IsPlayerOrFamiliar(id_who_did_damage) ? FilterResult::FILTER_OUT : FilterResult::APPLY_DAMAGE;
@@ -129,7 +130,7 @@ mono::CollisionResolve PackageLogic::OnCollideWith(
     if(in_throwing_state && is_enemy)
     {
         const uint32_t body_id = mono::PhysicsSystem::GetIdFromBody(body);
-        m_damage_system->ApplyDamage(body_id, 100, m_entity_id);
+        m_damage_system->ApplyDamage(body_id, m_entity_id, NO_WEAPON_IDENTIFIER, 100);
     }
 
     return mono::CollisionResolve::NORMAL;

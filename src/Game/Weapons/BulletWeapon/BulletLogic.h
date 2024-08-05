@@ -24,6 +24,7 @@ namespace game
         BulletLogic(
             uint32_t entity_id,
             uint32_t owner_entity_id,
+            uint32_t weapon_identifier_hash,
             const math::Vector& target,
             const math::Vector& velocity,
             float direction,
@@ -52,6 +53,7 @@ namespace game
         class TargetSystem* m_target_system;
 
         int m_damage;
+        uint32_t m_weapon_identifier_hash;
         std::string m_impact_entity;
         uint32_t m_bullet_behaviour;
 

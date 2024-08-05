@@ -170,7 +170,7 @@ void TriggerSystem::AddDestroyedTrigger(uint32_t entity_id, uint32_t trigger_has
 
     if(allocated_trigger->trigger_type == DestroyedTriggerType::ON_DEATH)
     {
-        const DamageCallback callback = [this, trigger_hash](uint32_t id, int damage, uint32_t id_who_did_damage, DamageType type) {
+        const DamageCallback callback = [this, trigger_hash](uint32_t damaged_entity_id, uint32_t id_who_did_damage, uint32_t weapon_identifier, int damage, DamageType type) {
             EmitTrigger(trigger_hash);
         };
         allocated_trigger->callback_id = m_damage_system->SetDamageCallback(entity_id, DamageType::DESTROYED, callback);

@@ -81,11 +81,11 @@ WeaponSystem::WeaponSystem(
 
     using namespace std::placeholders;
     m_standard_collision =
-        std::bind(StandardCollision, _1, _2, _3, _4, _5, _6, m_entity_manager, damage_system, sprite_system, transform_system);
+        std::bind(StandardCollision, _1, _2, _3, _4, _5, _6, _7, m_entity_manager, damage_system, sprite_system, transform_system);
 
     m_bullet_callbacks = {
-        { hash::Hash("rocket"),             std::bind(RocketCollision, _1, _2, _3, _4, _5, _6, m_entity_manager, damage_system, camera_system, sprite_system, transform_system) },
-        { hash::Hash("webber_bullet"),      std::bind(WebberCollision, _1, _2, _3, _4, _5, _6, m_entity_manager, damage_system, physics_system, sprite_system, transform_system, &m_weapon_entity_factory) },
+        { hash::Hash("rocket"),             std::bind(RocketCollision, _1, _2, _3, _4, _5, _6, _7, m_entity_manager, damage_system, camera_system, sprite_system, transform_system) },
+        { hash::Hash("webber_bullet"),      std::bind(WebberCollision, _1, _2, _3, _4, _5, _6, _7, m_entity_manager, damage_system, physics_system, sprite_system, transform_system, &m_weapon_entity_factory) },
     };
 }
 

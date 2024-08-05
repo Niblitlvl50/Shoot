@@ -208,11 +208,11 @@ void PlayerDaemonSystem::SpawnLocalPlayer(int player_index, System::ControllerId
     const uint32_t actual_player_index = game::FindPlayerIndex(allocated_player_info);
     allocated_player_info->persistent_data = m_save_slot_0.player_data[actual_player_index];
 
-    const auto destroyed_func = [this, allocated_player_info](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type) {
+    const game::DamageCallback destroyed_func = [this, allocated_player_info](uint32_t damaged_entity_id, uint32_t id_who_did_damage, uint32_t weapon_identifier, int damage, DamageType type) {
 
         if(type == DamageType::DESTROYED)
         {
-            m_camera_system->Unfollow(entity_id);
+            m_camera_system->Unfollow(damaged_entity_id);
             allocated_player_info->player_state = game::PlayerState::DEAD;
             allocated_player_info->killer_entity_id = id_who_did_damage;
         }
@@ -353,7 +353,7 @@ mono::EventResult PlayerDaemonSystem::RemotePlayerConnected(const PlayerConnecte
     PlayerDaemonSystem::RemotePlayerData& remote_player_data = m_remote_players[event.address];
     remote_player_data.player_info = allocated_player_info;
 
-    const auto remote_player_destroyed = [this, allocated_player_info](uint32_t entity_id, int damage, uint32_t id_who_did_damage, DamageType type)
+    const game::DamageCallback remote_player_destroyed = [this, allocated_player_info](uint32_t damaged_entity_id, uint32_t id_who_did_damage, uint32_t weapon_identifier, int damage, DamageType type)
     {
         m_camera_system->Unfollow(allocated_player_info->entity_id);
         allocated_player_info->player_state = game::PlayerState::DEAD;

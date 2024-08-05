@@ -160,22 +160,22 @@ DamageRecord* DamageSystem::GetDamageRecord(uint32_t id)
     return &m_damage_records[id];
 }
 
-DamageResult DamageSystem::ApplyDamage(uint32_t id, int damage, uint32_t id_who_did_damage)
+DamageResult DamageSystem::ApplyDamage(uint32_t id_damaged_entity, uint32_t id_who_did_damage, uint32_t weapon_identifier, int damage)
 {
     DamageResult result = { false, 0 };
 
-    const bool has_damage_record = IsAllocated(id);
+    const bool has_damage_record = IsAllocated(id_damaged_entity);
     if(!has_damage_record)
         return result;
 
-    DamageRecord& damage_record = m_damage_records[id];
+    DamageRecord& damage_record = m_damage_records[id_damaged_entity];
     if(damage_record.health <= 0 || damage_record.is_invincible)
         return result;
 
-    const DamageFilter& damage_filter = m_damage_filters[id];
+    const DamageFilter& damage_filter = m_damage_filters[id_damaged_entity];
     if(damage_filter != nullptr)
     {
-        const FilterResult filter_result = damage_filter(id, damage, id_who_did_damage);
+        const FilterResult filter_result = damage_filter(id_damaged_entity, id_who_did_damage, weapon_identifier, damage);
         if(filter_result == FilterResult::FILTER_OUT)
             return result;
     }
@@ -190,7 +190,7 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id, int damage, uint32_t id_who_
 
     const DamageType damage_type = (result.health_left <= 0) ? DamageType::DESTROYED : DamageType::DAMAGED;
     m_damage_events.push_back(
-        { id, id_who_did_damage, damage, damage_type }
+        { id_damaged_entity, id_who_did_damage, weapon_identifier, damage, damage_type }
     );
 
     return result;
@@ -279,14 +279,14 @@ void DamageSystem::Update(const mono::UpdateContext& update_context)
             if(valid_callback_type)
             {
                 callback_data.callback(
-                    damage_event.id, damage_event.damage, damage_event.id_who_did_damage, damage_event.damage_result);
+                    damage_event.id_damaged_entity, damage_event.id_who_did_damage, damage_event.weapon_identifier, damage_event.damage, damage_event.damage_result);
             }
         }
     };
 
     for(const DamageEvent& damage_event : m_damage_events)
     {
-        call_callbacks(damage_event, m_damage_callbacks[damage_event.id]);
+        call_callbacks(damage_event, m_damage_callbacks[damage_event.id_damaged_entity]);
         call_callbacks(damage_event, m_global_damage_callbacks);
     }
 

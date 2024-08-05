@@ -10,6 +10,8 @@
 
 namespace game
 {
+    constexpr uint32_t NO_WEAPON_IDENTIFIER = 0;
+
     enum class WeaponFaction
     {
         PLAYER,
@@ -19,7 +21,7 @@ namespace game
     struct WeaponSetup
     {
         WeaponSetup()
-            : weapon_identifier_hash(0)
+            : weapon_identifier_hash(NO_WEAPON_IDENTIFIER)
             , weapon_hash(0)
             , bullet_hash(0)
         { }

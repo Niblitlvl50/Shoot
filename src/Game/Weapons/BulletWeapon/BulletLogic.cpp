@@ -30,6 +30,7 @@ using namespace game;
 BulletLogic::BulletLogic(
     uint32_t entity_id,
     uint32_t owner_entity_id,
+    uint32_t weapon_identifier_hash,
     const math::Vector& target,
     const math::Vector& velocity,
     float direction,
@@ -40,6 +41,7 @@ BulletLogic::BulletLogic(
     TargetSystem* target_system)
     : m_entity_id(entity_id)
     , m_owner_entity_id(owner_entity_id)
+    , m_weapon_identifier_hash(weapon_identifier_hash)
     , m_target(target)
     , m_collision_callback(collision_config.collision_callback)
     , m_transform_system(transform_system)
@@ -94,7 +96,7 @@ void BulletLogic::Update(const mono::UpdateContext& update_context)
         details.point = math::ZeroVec;
         details.normal = math::ZeroVec;
 
-        m_collision_callback(m_entity_id, m_owner_entity_id, 0, nullptr, BulletImpactFlag::DESTROY_THIS, details);
+        m_collision_callback(m_entity_id, m_owner_entity_id, m_weapon_identifier_hash, 0, nullptr, BulletImpactFlag::DESTROY_THIS, details);
         return;
     }
 
@@ -202,7 +204,7 @@ mono::CollisionResolve BulletLogic::OnCollideWith(
     details.point = collision_point;
     details.normal = collision_normal;
 
-    m_collision_callback(m_entity_id, m_owner_entity_id, m_damage, impact_entity, collision_flags, details);
+    m_collision_callback(m_entity_id, m_owner_entity_id, m_weapon_identifier_hash, m_damage, impact_entity, collision_flags, details);
     return resolve_type;
 }
 

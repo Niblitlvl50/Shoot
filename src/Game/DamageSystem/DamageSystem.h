@@ -27,8 +27,9 @@ namespace game
 
     struct DamageEvent
     {
-        uint32_t id;
+        uint32_t id_damaged_entity;
         uint32_t id_who_did_damage;
+        uint32_t weapon_identifier;
         int damage;
         DamageType damage_result;
     };
@@ -63,7 +64,7 @@ namespace game
         uint32_t SetGlobalDamageCallback(uint32_t callback_types, DamageCallback damage_callback);
         void RemoveGlobalDamageCallback(uint32_t callback_id);
 
-        DamageResult ApplyDamage(uint32_t id, int damage, uint32_t id_who_did_damage);
+        DamageResult ApplyDamage(uint32_t id_damaged_entity, uint32_t id_who_did_damage, uint32_t weapon_identifier, int damage);
         void GainHealth(uint32_t id, int health_gain);
         const std::vector<DamageRecord>& GetDamageRecords() const;
         const std::vector<DamageEvent>& GetDamageEventsThisFrame() const;

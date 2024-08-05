@@ -21,6 +21,7 @@ namespace game
 
         mono::Entity CreateBulletEntity(
             uint32_t owner_id,
+            uint32_t weapon_identifier_hash,
             const struct BulletConfiguration& bullet_config,
             const struct CollisionConfiguration& collision_config,
             const math::Vector& target,

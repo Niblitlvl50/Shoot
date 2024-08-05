@@ -112,8 +112,8 @@ void PickupSystem::Begin()
     m_pickup_effect = new game::PickupEffect(m_particle_system, m_entity_manager);
     m_pickup_loot_effect = new game::PickupLootEffect(m_particle_system, m_entity_manager);
 
-    const game::DamageCallback handle_destroyed_entity = [this](uint32_t id, int damage, uint32_t who_did_damage, DamageType type) {
-        HandleSpawnEnemyPickup(id);
+    const game::DamageCallback handle_destroyed_entity = [this](uint32_t damaged_entity_id, uint32_t who_did_damage, uint32_t weapon_identifier, int damage, DamageType type) {
+        HandleSpawnEnemyPickup(damaged_entity_id);
     };
     m_damage_callback_id = m_damage_system->SetGlobalDamageCallback(DamageType::DESTROYED, handle_destroyed_entity);
 

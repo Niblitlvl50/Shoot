@@ -22,8 +22,8 @@ CoopPowerupManager::CoopPowerupManager(game::DamageSystem* damage_system)
     , m_powerup_value_raw(0.0f)
     , m_activated_timer_s(0.0f)
 {
-    const DamageCallback on_entity_destroyed = [this](uint32_t id, int damage, uint32_t who_did_damage, DamageType type) {
-        const game::DamageRecord* damage_record = m_damage_system->GetDamageRecord(id);
+    const DamageCallback on_entity_destroyed = [this](uint32_t damaged_entity_id, uint32_t who_did_damage, uint32_t weapon_identifier, int damage, DamageType type) {
+        const game::DamageRecord* damage_record = m_damage_system->GetDamageRecord(damaged_entity_id);
         const float multiplier = damage_record->is_boss ? 1.5f : 1.0f;
         m_powerup_value_raw += (damage_record->full_health * multiplier);
     };

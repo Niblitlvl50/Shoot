@@ -28,6 +28,7 @@ namespace game
     void StandardCollision(
         uint32_t entity_id,
         uint32_t owner_entity_id,
+        uint32_t weapon_identifier_hash,
         int damage,
         const char* impact_entity,
         game::BulletImpactFlag flags,
@@ -40,6 +41,7 @@ namespace game
     void RocketCollision(
         uint32_t entity_id,
         uint32_t owner_entity_id,
+        uint32_t weapon_identifier_hash,
         int damage,
         const char* impact_entity,
         game::BulletImpactFlag flags,
@@ -53,6 +55,7 @@ namespace game
     void WebberCollision(
         uint32_t entity_id,
         uint32_t owner_entity_id,
+        uint32_t weapon_identifier_hash,
         int damage,
         const char* impact_entity,
         game::BulletImpactFlag flags,

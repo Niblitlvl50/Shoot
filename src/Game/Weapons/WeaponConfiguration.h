@@ -27,14 +27,22 @@ namespace game
         math::Vector normal;
     };
 
-    // entity_id is the bullet that collides with something
+    // bullet_entity_id is the bullet that collides with something
     // owner_entity_id is the owner of this bullet
+    // weapon_identifier_hash is the weapon setup hash
     // damage is how much damage to apply
     // impact_entity optionally an entity to spawn on impact
     // imact_flags is what to do on impact
     // details contains more data on the collision
     using BulletImpactCallback =
-        std::function<void (uint32_t entity_id, uint32_t owner_entity_id, int damage, const char* impact_entity, BulletImpactFlag impact_flags, const CollisionDetails& details)>;
+        std::function<void (
+            uint32_t bullet_entity_id,
+            uint32_t owner_entity_id,
+            uint32_t weapon_identifier_hash,
+            int damage,
+            const char* impact_entity,
+            BulletImpactFlag impact_flags,
+            const CollisionDetails& details)>;
 
     enum BulletCollisionFlag : uint8_t
     {

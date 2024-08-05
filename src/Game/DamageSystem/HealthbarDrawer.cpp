@@ -237,7 +237,7 @@ void HealthbarDrawer::Update(const mono::UpdateContext& update_context)
 
     for(const DamageEvent& damage_event : m_damage_system->GetDamageEventsThisFrame())
     {
-        const math::Vector& world_position = m_transform_system->GetWorldPosition(damage_event.id);
+        const math::Vector& world_position = m_transform_system->GetWorldPosition(damage_event.id_damaged_entity);
         const math::Vector& instigator_position = m_transform_system->GetWorldPosition(damage_event.id_who_did_damage);
         const math::Vector& delta_position_norm = math::Normalized(world_position - instigator_position);
         const math::Vector& offset = math::Vector(
