@@ -90,6 +90,7 @@ namespace game
         class CameraSystem* m_camera_system;
         class DamageSystem* m_damage_system;
 
+        uint32_t m_collect_weapon_exp_id;
         bool m_spawn_players;
         math::Vector m_player_spawn;
         PlayerSpawnedCallback m_player_spawned_callback;

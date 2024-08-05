@@ -38,15 +38,17 @@ namespace game
 
     struct PersistentPlayerData
     {
+        // Player Progression
         int chips;
         int rubble;
         int experience;
+        std::unordered_map<uint32_t, int> weapon_experience;
 
+        // Player Setup/Config
         bool god_mode;
         bool auto_aim;
         bool auto_reload;
         bool laser_sight;
-
         float damage_multiplier;
     };
 

@@ -10,18 +10,51 @@ game::PlayerInfo game::g_players[n_players];
 game::PackageInfo game::g_package_info;
 game::CoopPowerUp game::g_coop_powerup;
 
+namespace
+{
+    void ClearPlayerInfo(game::PlayerInfo& player_info)
+    {
+        player_info.player_state = game::PlayerState::NOT_SPAWNED;
+        player_info.controller_id = System::ControllerId::Primary;
+        player_info.entity_id = mono::INVALID_ID;
+        player_info.familiar_entity_id = mono::INVALID_ID;
+        player_info.killer_entity_id = mono::INVALID_ID;
+        
+        player_info.direction = 0.0f;
+        player_info.magazine_left = 0;
+
+        player_info.health_fraction = 0.0f;
+        player_info.stamina_fraction = 0.0f;
+        player_info.experience_fraction = 0.0f;
+
+        player_info.cooldown_id = 0;
+        player_info.cooldown_fraction = 0.0f;
+
+        player_info.powerup_id = 0;
+        player_info.powerup_fraction = 0.0f;
+
+        player_info.last_used_input = mono::InputContextType::None;
+
+        player_info.persistent_data.auto_aim;
+
+        player_info.persistent_data.chips = 0;
+        player_info.persistent_data.rubble = 0;
+        player_info.persistent_data.experience = 0;
+        player_info.persistent_data.god_mode = false;
+        player_info.persistent_data.auto_aim = false;
+        player_info.persistent_data.auto_reload = false;
+        player_info.persistent_data.laser_sight = false;
+        player_info.persistent_data.damage_multiplier = 1.0f;
+    }
+}
+
 void game::InitializePlayerInfo()
 {
-    std::memset(g_players, 0, sizeof(g_players));
+    for(game::PlayerInfo& info : game::g_players)
+        ClearPlayerInfo(info);
+
     std::memset(&g_package_info, 0, sizeof(g_package_info));
     std::memset(&g_coop_powerup, 0, sizeof(g_coop_powerup));
-
-    for(game::PlayerInfo& info : game::g_players)
-    {
-        info.entity_id = mono::INVALID_ID;
-        info.killer_entity_id = mono::INVALID_ID;
-        info.last_used_input = mono::InputContextType::None;
-    }
 
     g_package_info.entity_id = mono::INVALID_ID;
 }
@@ -56,12 +89,7 @@ void game::ReleasePlayerInfo(game::PlayerInfo* player_info_release)
 
     game::PlayerInfo* it = std::find_if(std::begin(g_players), std::end(g_players), find_func);
     if(it != std::end(g_players))
-    {
-        std::memset(it, 0, sizeof(game::PlayerInfo));
-        it->entity_id = mono::INVALID_ID;
-        it->killer_entity_id = mono::INVALID_ID;
-        it->last_used_input = mono::InputContextType::None;
-    }
+        ClearPlayerInfo(*it);
 }
 
 uint32_t game::FindPlayerIndex(const game::PlayerInfo* player_info)

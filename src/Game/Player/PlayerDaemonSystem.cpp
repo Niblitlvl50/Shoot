@@ -67,7 +67,6 @@ PlayerDaemonSystem::PlayerDaemonSystem(
     std::shuffle(m_familiar_entities.begin(), m_familiar_entities.end(), random_bit_generator);
     //std::shuffle(m_package_entities.begin(), m_package_entities.end(), random_bit_generator);
 
-    std::memset(&m_save_slot_0, 0, sizeof(m_save_slot_0));
     game::LoadPlayerData(System::GetUserPath(), 0, m_save_slot_0);
 
     using namespace std::placeholders;
@@ -122,6 +121,20 @@ void PlayerDaemonSystem::Update(const mono::UpdateContext& update_context)
 
 void PlayerDaemonSystem::Begin()
 {
+    const game::DamageCallback collect_weapon_experience = [](uint32_t damaged_entity_id, uint32_t who_did_damage, uint32_t weapon_identifier, int damage, DamageType type) {
+        const bool is_player = IsPlayer(who_did_damage);
+        if(!is_player)
+            return;
+
+        game::PlayerInfo* player_info = game::FindPlayerInfoFromEntityId(who_did_damage);
+        if(!player_info)
+            return;
+
+        int& weapon_exp = player_info->persistent_data.weapon_experience[weapon_identifier];
+        weapon_exp++;
+    };
+    m_collect_weapon_exp_id = m_damage_system->SetGlobalDamageCallback(DamageType::DESTROYED, collect_weapon_experience);
+
     SpawnLocalPlayer(game::ANY_PLAYER_INFO, System::ControllerId::Primary);
 
     if(System::IsControllerActive(System::ControllerId::Secondary))
@@ -130,6 +143,8 @@ void PlayerDaemonSystem::Begin()
 
 void PlayerDaemonSystem::Reset()
 {
+    m_damage_system->RemoveGlobalDamageCallback(m_collect_weapon_exp_id);
+    
     for(int index = 0; index < game::n_players; ++index)
     {
         game::PlayerInfo& player_info = g_players[index];

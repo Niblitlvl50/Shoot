@@ -21,6 +21,17 @@ void game::SavePlayerData(const char* user_path, int slot_index, const SaveSlotD
         player_data_json["auto_aim"] = player_data.auto_aim;
         player_data_json["auto_reload"] = player_data.auto_reload;
         player_data_json["damage_multiplier"] = player_data.damage_multiplier;
+
+        nlohmann::json weapon_exp_array;
+        for(const auto& pair : player_data.weapon_experience)
+        {
+            weapon_exp_array.push_back({
+                {"weapon_identifier", pair.first},
+                {"experience", pair.second} });
+        }
+
+        player_data_json["weapon_experience"] = weapon_exp_array;
+
         save_data_array.push_back(player_data_json);
     }
 
@@ -54,12 +65,22 @@ void game::LoadPlayerData(const char* user_path, int slot_index, SaveSlotData& d
 
     for(uint32_t index = 0; index < save_data_array.size(); ++index)
     {
-        data.player_data[index].chips = save_data_array[index].value("chips", 0);
-        data.player_data[index].rubble = save_data_array[index].value("rubble", 0);
-        data.player_data[index].experience = save_data_array[index].value("experience", 0);
-        data.player_data[index].god_mode = save_data_array[index].value("god_mode", false);
-        data.player_data[index].auto_aim = save_data_array[index].value("auto_aim", false);
-        data.player_data[index].auto_reload = save_data_array[index].value("auto_reload", false);
-        data.player_data[index].damage_multiplier = save_data_array[index].value("damage_multiplier", 1.0f);
+        const nlohmann::json& save_data = save_data_array[index];
+
+        data.player_data[index].chips = save_data.value("chips", 0);
+        data.player_data[index].rubble = save_data.value("rubble", 0);
+        data.player_data[index].experience = save_data.value("experience", 0);
+
+        for(const nlohmann::json& array_object : save_data["weapon_experience"])
+        {
+            const uint32_t key = array_object.value("weapon_identifier", 0);
+            const int value = array_object.value("experience", 0);
+            data.player_data[index].weapon_experience[key] = value;
+        }
+
+        data.player_data[index].god_mode = save_data.value("god_mode", false);
+        data.player_data[index].auto_aim = save_data.value("auto_aim", false);
+        data.player_data[index].auto_reload = save_data.value("auto_reload", false);
+        data.player_data[index].damage_multiplier = save_data.value("damage_multiplier", 1.0f);
     }
 }
