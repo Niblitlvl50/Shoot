@@ -34,9 +34,9 @@ namespace
         player_info.powerup_id = 0;
         player_info.powerup_fraction = 0.0f;
 
-        player_info.last_used_input = mono::InputContextType::None;
+        player_info.active_weapon_modifiers.clear();
 
-        player_info.persistent_data.auto_aim;
+        player_info.last_used_input = mono::InputContextType::None;
 
         player_info.persistent_data.chips = 0;
         player_info.persistent_data.rubble = 0;

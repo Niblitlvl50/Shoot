@@ -10,6 +10,7 @@
 #include "System/System.h"
 
 #include <cstdint>
+#include <vector>
 #include <array>
 
 namespace game
@@ -83,6 +84,8 @@ namespace game
 
         uint32_t powerup_id;
         float powerup_fraction;
+
+        std::vector<uint32_t> active_weapon_modifiers;
 
         mono::InputContextType last_used_input;
         PersistentPlayerData persistent_data;

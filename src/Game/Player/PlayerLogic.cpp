@@ -310,6 +310,12 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
     const float damage_modifier_fraction = m_weapon_system->GetDurationFractionForModifierOnEntity(m_entity_id, m_damage_modifier_handle);
     m_player_info->powerup_fraction = damage_modifier_fraction;
 
+    m_player_info->active_weapon_modifiers.clear();
+
+    const game::WeaponModifierList& modifier_list = m_weapon_system->GetWeaponModifiersForId(m_entity_id);
+    for(const std::unique_ptr<IWeaponModifier>& modifier : modifier_list)
+        m_player_info->active_weapon_modifiers.push_back(modifier->Id());
+
     m_player_info->last_used_input = m_input_context->most_recent_input;
 }
 
