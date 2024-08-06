@@ -25,7 +25,8 @@ namespace
 
         player_info.health_fraction = 0.0f;
         player_info.stamina_fraction = 0.0f;
-        player_info.experience_fraction = 0.0f;
+        player_info.player_experience_fraction = 0.0f;
+        player_info.weapon_experience_fraction = 0.0f;
 
         player_info.cooldown_id = 0;
         player_info.cooldown_fraction = 0.0f;

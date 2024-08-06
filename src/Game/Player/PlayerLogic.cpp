@@ -287,7 +287,13 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
     m_player_info->stamina_fraction = m_stamina;
 
     const float experience_fraction = m_player_info->persistent_data.experience / 100.0f;
-    m_player_info->experience_fraction = experience_fraction;
+    m_player_info->player_experience_fraction = experience_fraction;
+
+    const auto weapon_it = m_player_info->persistent_data.weapon_experience.find(m_player_info->weapon_type.weapon_identifier_hash);
+    if(weapon_it != m_player_info->persistent_data.weapon_experience.end())
+    {
+        m_player_info->weapon_experience_fraction = float(weapon_it->second) / 100.0f;
+    }
 
     const auto find_active_cooldown = [](float cooldown){
         return cooldown < 1.0f;

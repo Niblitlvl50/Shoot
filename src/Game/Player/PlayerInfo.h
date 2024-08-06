@@ -75,8 +75,9 @@ namespace game
 
         float health_fraction;
         float stamina_fraction;
-        float experience_fraction;
-
+        float player_experience_fraction;
+        float weapon_experience_fraction;
+        
         uint32_t cooldown_id;
         float cooldown_fraction;
 

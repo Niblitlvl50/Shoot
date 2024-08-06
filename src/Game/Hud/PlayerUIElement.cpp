@@ -84,10 +84,13 @@ namespace game
 
             constexpr mono::Color::RGBA healthbar_red = mono::Color::RGBA(1.0f, 0.3f, 0.3f, 1.0f);
             m_healthbar = new UIBarElement(1.0f, 0.05f, mono::Color::GRAY, healthbar_red);
-            m_healthbar->SetPosition(-0.15f, -0.25f);
+            m_healthbar->SetPosition(-0.15f, -0.275f);
 
             m_expbar = new UIBarElement(0.65f, 0.025f, mono::Color::GRAY, mono::Color::GREEN_VIVID);
             m_expbar->SetPosition(-0.92f, -0.3f);
+
+            m_weapon_expbar = new UIBarElement(1.0f, 0.025f, mono::Color::GRAY, mono::Color::GREEN_VIVID);
+            m_weapon_expbar->SetPosition(-0.15f, -0.2f);
 
             UISpriteElement* background_hud = new UISpriteElement("res/sprites/player_background_hud.sprite");
             background_hud->AddChild(m_mugshot_hud);
@@ -97,6 +100,7 @@ namespace game
             // background_hud->AddChild(m_rubble_text);
             background_hud->AddChild(m_healthbar);
             background_hud->AddChild(m_expbar);
+            background_hud->AddChild(m_weapon_expbar);
 
             AddChild(background_hud);
 
@@ -149,7 +153,8 @@ namespace game
             m_weapon_sprites->SetActiveSprite(weapon_index, 0);
 
             m_healthbar->SetFraction(m_player_info.health_fraction);
-            m_expbar->SetFraction(m_player_info.experience_fraction);
+            m_expbar->SetFraction(m_player_info.player_experience_fraction);
+            m_weapon_expbar->SetFraction(m_player_info.weapon_experience_fraction);
 
             if(m_player_info.player_state == PlayerState::NOT_SPAWNED)
                 m_states.TransitionTo(States::DISAPPEAR);
@@ -188,6 +193,7 @@ namespace game
         class UISpriteElement* m_weapon_sprites;
         class UIBarElement* m_healthbar;
         class UIBarElement* m_expbar;
+        class UIBarElement* m_weapon_expbar;
 
         enum class States
         {
