@@ -313,14 +313,14 @@ void PickupSystem::HandleSpawnEnemyPickup(uint32_t id)
         return;
 
     const bool garanteed_drop = (m_garanteed_drop.count(id) != 0);
-    const bool initial_spawn_pickup = garanteed_drop || mono::Chance(50);
+    const bool initial_spawn_pickup = garanteed_drop || mono::Chance(25);
 
     m_garanteed_drop.erase(id);
 
     if(!initial_spawn_pickup)
         return;
 
-    const int n_pickups = mono::RandomInt(2, 4);
+    const int n_pickups = 1; //mono::RandomInt(2, 4);
 
     for(int index = 0; index < n_pickups; ++index)
     {
