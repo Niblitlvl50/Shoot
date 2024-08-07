@@ -109,6 +109,8 @@ void DemonBossController::Update(const mono::UpdateContext& update_context)
     m_secondary_weapon->UpdateWeaponState(update_context.timestamp);
     m_tertiary_weapon->UpdateWeaponState(update_context.timestamp);
 
+    UpdateMovement(update_context);
+
     m_circle_attack_cooldown = std::clamp(m_circle_attack_cooldown - update_context.delta_s, 0.0f, 10.0f);
     m_fire_homing_cooldown = std::clamp(m_fire_homing_cooldown - update_context.delta_s, 0.0f, 10.0f);
     m_long_attack_cooldown = std::clamp(m_long_attack_cooldown - update_context.delta_s, 0.0f, 10.0f);
@@ -133,6 +135,23 @@ const char* DemonBossController::GetDebugCategory() const
     return "Green Boss Demon";
 }
 
+void DemonBossController::UpdateMovement(const mono::UpdateContext& update_context)
+{
+    if(!m_aquired_target || !m_aquired_target->IsValid())
+        return;
+
+    const math::Vector world_position = m_transform_system->GetWorldPosition(m_entity_id);
+    const math::Vector& target_world_position = m_aquired_target->Position();
+
+    const float distance_to_target = math::DistanceBetween(world_position, target_world_position);
+    const math::Vector position_diff_normalized = math::Normalized(world_position - target_world_position);
+
+    if(distance_to_target < tweak_values::retreat_distance)
+        m_entity_body->ApplyLocalImpulse(position_diff_normalized * 10.0f, math::ZeroVec);
+    else if(distance_to_target > tweak_values::advance_distance)
+        m_entity_body->ApplyLocalImpulse(-position_diff_normalized * 10.0f, math::ZeroVec);
+}
+
 void DemonBossController::OnIdle()
 {
     m_entity_sprite->SetAnimation(m_idle_animation);
@@ -148,19 +167,13 @@ void DemonBossController::Idle(const mono::UpdateContext& update_context)
         return;
 
     const math::Vector& target_world_position = m_aquired_target->Position();
-    const float distance_to_player = math::DistanceBetween(world_position, target_world_position);
-    const math::Vector position_diff_normalized = math::Normalized(world_position - target_world_position);
+    const float distance_to_target = math::DistanceBetween(world_position, target_world_position);
 
-    if(distance_to_player < tweak_values::retreat_distance)
-        m_entity_body->ApplyLocalImpulse(position_diff_normalized * 10.0f, math::ZeroVec);
-    else if(distance_to_player > tweak_values::advance_distance)
-        m_entity_body->ApplyLocalImpulse(-position_diff_normalized * 10.0f, math::ZeroVec);
-
-    if(distance_to_player < tweak_values::circle_attack_distance && m_circle_attack_cooldown == 0.0f)
+    if(distance_to_target < tweak_values::circle_attack_distance && m_circle_attack_cooldown == 0.0f)
         TurnAndTransitionTo(States::ACTION_FIRE_CIRCLE);
-    else if(distance_to_player < tweak_values::homing_attack_distance && m_fire_homing_cooldown == 0.0f)
+    else if(distance_to_target < tweak_values::homing_attack_distance && m_fire_homing_cooldown == 0.0f)
         TurnAndTransitionTo(States::ACTION_FIRE_HOMING);
-    else if(distance_to_player < tweak_values::long_attack_distance && m_long_attack_cooldown == 0.0f)
+    else if(distance_to_target < tweak_values::long_attack_distance && m_long_attack_cooldown == 0.0f)
         TurnAndTransitionTo(States::ACTION_FIRE_LONG);
 }
 
