@@ -334,6 +334,9 @@ void TriggerSystem::AddRelayTrigger(uint32_t entity_id, uint32_t listener_hash, 
 
 uint32_t TriggerSystem::RegisterTriggerCallback(uint32_t trigger_hash, TriggerCallback callback, uint32_t debug_entity_id)
 {
+    if(trigger_hash == hash::NO_HASH)
+        return std::numeric_limits<uint32_t>::max();
+
     m_trigger_hash_to_entity_ids[trigger_hash].push_back(debug_entity_id);
 
     TriggerCallbacks& callback_array = m_trigger_callbacks[trigger_hash];
@@ -349,6 +352,9 @@ uint32_t TriggerSystem::RegisterTriggerCallback(uint32_t trigger_hash, TriggerCa
 
 void TriggerSystem::RemoveTriggerCallback(uint32_t trigger_hash, uint32_t callback_id, uint32_t debug_entity_id)
 {
+    if(trigger_hash == hash::NO_HASH)
+        return;
+
     m_trigger_callbacks[trigger_hash][callback_id] = nullptr;
     mono::remove(m_trigger_hash_to_entity_ids[trigger_hash], debug_entity_id);
 }
