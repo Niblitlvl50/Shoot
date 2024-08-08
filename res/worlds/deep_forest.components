@@ -58838,6 +58838,7 @@
         }
     ],
     "metadata": {
+        "aborted_trigger": "level_aborted",
         "ambient_shade": {
             "alpha": 1.0,
             "blue": 0.1560938060283661,
@@ -58864,7 +58865,8 @@
             "x": 12.0,
             "y": 7.5
         },
-        "completed_trigger": "",
+        "completed_alt_trigger": "",
+        "completed_trigger": "level_completed",
         "failed_trigger": "",
         "level_description": "Darkish and full of nothing...",
         "level_game_mode": "package_delivery_mode",
@@ -58889,6 +58891,7 @@
         "spawn_package": true,
         "time_limit_s": 0,
         "triggers": [
+            "level_aborted",
             "level_completed",
             "start_graveyard_spawn"
         ],

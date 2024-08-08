@@ -165,7 +165,7 @@ void PacketDeliveryGameMode::Begin(
         BigTextScreen::TEXT | BigTextScreen::SUBTEXT);
     m_big_text_screen->Hide();
 
-    m_pause_screen = std::make_unique<PauseScreen>(m_transform_system, input_system, m_entity_manager, event_handler, ui_system);
+    m_pause_screen = std::make_unique<PauseScreen>(level_metadata.aborted_trigger, m_transform_system, input_system, m_entity_manager, event_handler, ui_system);
     m_pause_screen->Hide();
 
     m_shop_screen = std::make_unique<ShopScreen>(m_transform_system, m_entity_manager, event_handler, ui_system, shop_system);

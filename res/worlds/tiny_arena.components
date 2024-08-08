@@ -68926,6 +68926,7 @@
         }
     ],
     "metadata": {
+        "aborted_trigger": "level_aborted",
         "ambient_shade": {
             "alpha": 1.0,
             "blue": 0.5436370372772217,
@@ -68952,6 +68953,7 @@
             "x": 12.0,
             "y": 7.5
         },
+        "completed_alt_trigger": "",
         "completed_trigger": "level_completed",
         "failed_trigger": "level_failed",
         "level_description": "Its a woody place...",
@@ -68979,6 +68981,7 @@
         "triggers": [
             "alien_tree_destroyed",
             "close_box",
+            "level_aborted",
             "level_completed",
             "level_failed",
             "open_box",

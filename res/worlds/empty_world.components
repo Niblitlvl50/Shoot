@@ -19612,6 +19612,7 @@
         }
     ],
     "metadata": {
+        "aborted_trigger": "level_aborted",
         "ambient_shade": {
             "alpha": 1.0,
             "blue": 0.5392156839370728,
@@ -19638,8 +19639,9 @@
             "x": 12.0,
             "y": 7.5
         },
-        "completed_trigger": "",
-        "failed_trigger": "",
+        "completed_alt_trigger": "",
+        "completed_trigger": "level_completed",
+        "failed_trigger": "level_gameover",
         "level_description": "",
         "level_game_mode": "package_delivery_mode",
         "level_name": "Empty",

@@ -2,7 +2,6 @@
 #include "UIItemProxy.h"
 #include "UI/UISystem.h"
 #include "Entity/Component.h"
-#include "System/Hash.h"
 
 #include "EntitySystem/IEntityManager.h"
 #include "TransformSystem/TransformSystem.h"
@@ -28,11 +27,11 @@ UIItemProxy::~UIItemProxy()
 }
 
 void UIItemProxy::UpdateUIItem(
-    const math::Matrix& transform, const math::Quad& bb, const char* trigger_name, const UINavigationSetup& navigation_setup)
+    const math::Matrix& transform, const math::Quad& bb, uint32_t trigger_hash, const UINavigationSetup& navigation_setup)
 {
     m_transform_system->SetTransform(m_entity_id, transform);
     m_transform_system->SetBoundingBox(m_entity_id, bb);
-    m_ui_system->UpdateUIItem(m_entity_id, hash::Hash(trigger_name), 0, game::UIItemState::Enabled, navigation_setup);
+    m_ui_system->UpdateUIItem(m_entity_id, trigger_hash, 0, game::UIItemState::Enabled, navigation_setup);
 }
 
 void UIItemProxy::SetItemState(UIItemState new_state)

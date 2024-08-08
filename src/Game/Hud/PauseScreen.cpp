@@ -14,10 +14,12 @@
 #include "EventHandler/EventHandler.h"
 #include "Events/QuitEvent.h"
 #include "Events/PauseEvent.h"
+#include "System/Hash.h"
 
 using namespace game;
 
 PauseScreen::PauseScreen(
+    const std::string& aborted_hash,
     mono::TransformSystem* transform_system,
     mono::InputSystem* input_system,
     mono::IEntityManager* entity_manager,
@@ -66,6 +68,8 @@ PauseScreen::PauseScreen(
     AddChild(m_quit_text);
     AddChild(m_close_text);
     AddChild(m_input_layout);
+
+    m_aborted_hash = hash::Hash(aborted_hash.c_str());
 }
 
 void PauseScreen::ShowAt(const math::Vector& position)
@@ -75,12 +79,12 @@ void PauseScreen::ShowAt(const math::Vector& position)
     const UINavigationSetup quit_nav_setup = {
         mono::INVALID_ID, m_close_proxy.GetEntityId(), mono::INVALID_ID, mono::INVALID_ID
     };
-    m_quit_proxy.UpdateUIItem(m_quit_text->Transform(), m_quit_text->BoundingBox(), "level_aborted", quit_nav_setup);
+    m_quit_proxy.UpdateUIItem(m_quit_text->Transform(), m_quit_text->BoundingBox(), m_aborted_hash, quit_nav_setup);
 
     const UINavigationSetup close_nav_setup = {
         m_quit_proxy.GetEntityId(), mono::INVALID_ID, mono::INVALID_ID, mono::INVALID_ID
     };
-    m_close_proxy.UpdateUIItem(m_close_text->Transform(), m_close_text->BoundingBox(), "close", close_nav_setup);
+    m_close_proxy.UpdateUIItem(m_close_text->Transform(), m_close_text->BoundingBox(), hash::Hash("close"), close_nav_setup);
 
     const mono::InputContextType most_recent_input = m_input_system->GetMostRecentGlobalInput();
     const char* input_layout_texture =

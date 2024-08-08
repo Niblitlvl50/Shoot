@@ -5,6 +5,8 @@
 #include "UIElements.h"
 #include "UI/UIItemProxy.h"
 
+#include <string>
+
 namespace game
 {
     class PauseScreen : public game::UIElement
@@ -12,6 +14,7 @@ namespace game
     public:
 
         PauseScreen(
+            const std::string& aborted_hash,
             mono::TransformSystem* transform_system,
             mono::InputSystem* input_system,
             mono::IEntityManager* entity_manager,
@@ -35,5 +38,7 @@ namespace game
         UIItemProxy m_close_proxy;
 
         UITextureElement* m_input_layout;
+
+        uint32_t m_aborted_hash;
     };
 }

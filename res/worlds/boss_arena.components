@@ -37333,6 +37333,7 @@
         }
     ],
     "metadata": {
+        "aborted_trigger": "level_aborted",
         "ambient_shade": {
             "alpha": 1.0,
             "blue": 0.5392156839370728,
@@ -37359,6 +37360,7 @@
             "x": 12.0,
             "y": 7.5
         },
+        "completed_alt_trigger": "",
         "completed_trigger": "boss_dead",
         "failed_trigger": "",
         "level_description": "Watch out son",
@@ -37387,6 +37389,7 @@
             "boss_dead",
             "enter_boss_area",
             "leave_boss_area",
+            "level_aborted",
             "level_completed"
         ],
         "use_custom_package_spawn_position": false

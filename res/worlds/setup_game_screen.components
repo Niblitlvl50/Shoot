@@ -12549,6 +12549,7 @@
         }
     ],
     "metadata": {
+        "aborted_trigger": "level_aborted",
         "ambient_shade": {
             "alpha": 1.0,
             "blue": 0.7303921580314636,
@@ -12575,8 +12576,9 @@
             "x": 12.800000190734863,
             "y": 8.0
         },
+        "completed_alt_trigger": "",
         "completed_trigger": "level_completed",
-        "failed_trigger": "level_aborted",
+        "failed_trigger": "",
         "level_description": "...get ready.",
         "level_game_mode": "start_menu_mode",
         "level_name": "Setup Screen",

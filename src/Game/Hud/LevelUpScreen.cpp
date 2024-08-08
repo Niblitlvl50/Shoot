@@ -8,6 +8,7 @@
 #include "Input/InputSystem.h"
 #include "Rendering/Text/TextFunctions.h"
 #include "TransformSystem/TransformSystem.h"
+#include "System/Hash.h"
 
 using namespace game;
 
@@ -52,7 +53,7 @@ void LevelUpScreen::ShowAt(const math::Vector& position)
     const UINavigationSetup close_nav_setup = {
         mono::INVALID_ID, mono::INVALID_ID, mono::INVALID_ID, mono::INVALID_ID
     };
-    m_close_proxy.UpdateUIItem(m_close_text->Transform(), m_close_text->BoundingBox(), "close", close_nav_setup);
+    m_close_proxy.UpdateUIItem(m_close_text->Transform(), m_close_text->BoundingBox(), hash::Hash("close"), close_nav_setup);
 
     const auto close_callback = [this](uint32_t entity_id) {
         Hide();

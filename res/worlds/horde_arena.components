@@ -52440,6 +52440,7 @@
         }
     ],
     "metadata": {
+        "aborted_trigger": "abort_level",
         "ambient_shade": {
             "alpha": 1.0,
             "blue": 0.6176470518112183,
@@ -52466,6 +52467,9 @@
             "x": 12.0,
             "y": 8.0
         },
+        "completed_alt_trigger": "",
+        "completed_trigger": "",
+        "failed_trigger": "",
         "level_description": "Protect that package!",
         "level_game_mode": "horde_mode",
         "level_name": "Horde Mode",
@@ -52489,6 +52493,7 @@
         "spawn_package": true,
         "time_limit_s": 0,
         "triggers": [
+            "abort_level",
             "despawn_me",
             "loot_box_destroyed",
             "open_loot_box",

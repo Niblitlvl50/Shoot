@@ -18,7 +18,7 @@ namespace game
         ~UIItemProxy();
 
         void UpdateUIItem(
-            const math::Matrix& transform, const math::Quad& bb, const char* trigger_name, const UINavigationSetup& navigation_setup);
+            const math::Matrix& transform, const math::Quad& bb, uint32_t trigger_hash, const UINavigationSetup& navigation_setup);
         void SetItemState(UIItemState new_state);
         void SetItemCallback(const UIItemCallback& item_callback);
         void ReleaseItemCallback();
