@@ -46,6 +46,8 @@ namespace game
         int time_limit_s = 0;
 
         std::string completed_trigger;
+        std::string completed_alt_trigger;
+        std::string aborted_trigger;
         std::string failed_trigger;
     };
 

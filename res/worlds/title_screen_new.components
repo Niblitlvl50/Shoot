@@ -1069,6 +1069,7 @@
         }
     ],
     "metadata": {
+        "aborted_trigger": "level_aborted",
         "ambient_shade": {
             "alpha": 1.0,
             "blue": 1.0,
@@ -1095,6 +1096,9 @@
             "x": 12.0,
             "y": 7.5
         },
+        "completed_alt_trigger": "level_completed_alt",
+        "completed_trigger": "level_completed",
+        "failed_trigger": "",
         "level_description": "",
         "level_game_mode": "start_menu_mode",
         "level_name": "",

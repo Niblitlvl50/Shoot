@@ -47,7 +47,6 @@
 
 namespace
 {
-    const uint32_t g_level_aborted_hash = hash::Hash("level_aborted");
     const uint32_t g_show_shop_screen_hash = hash::Hash("show_shop_screen");
 }
 
@@ -118,6 +117,8 @@ void PacketDeliveryGameMode::Begin(
     m_pause_token = m_event_handler->AddListener(on_pause);
 
     m_level_completed_hash = hash::Hash(level_metadata.completed_trigger.c_str());
+    m_level_completed_alt_hash = hash::Hash(level_metadata.completed_alt_trigger.c_str());
+    m_level_aborted_hash = hash::Hash(level_metadata.aborted_trigger.c_str());
     m_level_failed_hash = hash::Hash(level_metadata.failed_trigger.c_str());
 
     const TriggerCallback level_event_callback = [this](uint32_t trigger_id) {
@@ -125,7 +126,7 @@ void PacketDeliveryGameMode::Begin(
             m_states.TransitionTo(GameModeStates::LEVEL_COMPLETED);
         else if(trigger_id == m_level_failed_hash)
             m_states.TransitionTo(GameModeStates::PACKAGE_DESTROYED);
-        else if(trigger_id == g_level_aborted_hash)
+        else if(trigger_id == m_level_aborted_hash)
             m_states.TransitionTo(GameModeStates::LEVEL_ABORTED);
         else if(trigger_id == g_show_shop_screen_hash)
         {
@@ -134,8 +135,8 @@ void PacketDeliveryGameMode::Begin(
         }
     };
     m_level_completed_trigger = m_trigger_system->RegisterTriggerCallback(m_level_completed_hash, level_event_callback, mono::INVALID_ID);
-    m_level_gameover_trigger = m_trigger_system->RegisterTriggerCallback(m_level_failed_hash, level_event_callback, mono::INVALID_ID);
-    m_level_aborted_trigger = m_trigger_system->RegisterTriggerCallback(g_level_aborted_hash, level_event_callback, mono::INVALID_ID);
+    m_level_aborted_trigger = m_trigger_system->RegisterTriggerCallback(m_level_aborted_hash, level_event_callback, mono::INVALID_ID);
+    m_level_failed_trigger = m_trigger_system->RegisterTriggerCallback(m_level_failed_hash, level_event_callback, mono::INVALID_ID);
     m_show_shop_screen_trigger = m_trigger_system->RegisterTriggerCallback(g_show_shop_screen_hash, level_event_callback, mono::INVALID_ID);
 
     // Player
@@ -197,8 +198,8 @@ int PacketDeliveryGameMode::End(mono::IZone* zone)
 
     m_event_handler->RemoveListener(m_gameover_token);
     m_trigger_system->RemoveTriggerCallback(m_level_completed_hash, m_level_completed_trigger, mono::INVALID_ID);
-    m_trigger_system->RemoveTriggerCallback(m_level_failed_hash, m_level_gameover_trigger, mono::INVALID_ID);
-    m_trigger_system->RemoveTriggerCallback(g_level_aborted_hash, m_level_aborted_trigger, mono::INVALID_ID);
+    m_trigger_system->RemoveTriggerCallback(m_level_aborted_hash, m_level_aborted_trigger, mono::INVALID_ID);
+    m_trigger_system->RemoveTriggerCallback(m_level_failed_hash, m_level_failed_trigger, mono::INVALID_ID);
     m_trigger_system->RemoveTriggerCallback(g_show_shop_screen_hash, m_show_shop_screen_trigger, mono::INVALID_ID);
 
     return m_next_zone;

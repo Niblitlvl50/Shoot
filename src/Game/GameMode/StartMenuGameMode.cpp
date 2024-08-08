@@ -3,6 +3,7 @@
 #include "Zones/ZoneFlow.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "UI/UISystem.h"
+#include "WorldFile.h"
 
 #include "EventHandler/EventHandler.h"
 #include "Events/QuitEvent.h"
@@ -11,14 +12,6 @@
 
 #include "System/Hash.h"
 #include "EntitySystem/Entity.h"
-
-namespace
-{
-    const uint32_t level_completed_hash = hash::Hash("level_completed");
-    const uint32_t level_completed_alt_hash = hash::Hash("level_completed_alt");
-    const uint32_t level_gameover_hash = hash::Hash("level_gameover");
-    const uint32_t level_aborted_hash = hash::Hash("level_aborted");
-}
 
 using namespace game;
 
@@ -34,20 +27,25 @@ void StartMenuGameMode::Begin(
     m_ui_system = system_context->GetSystem<game::UISystem>();
     m_event_handler = event_handler;
 
+    m_level_completed_hash = hash::Hash(level_metadata.completed_trigger.c_str());
+    m_level_completed_alt_hash = hash::Hash(level_metadata.completed_alt_trigger.c_str());
+    m_level_aborted_hash = hash::Hash(level_metadata.aborted_trigger.c_str());
+    m_level_failed_hash = hash::Hash(level_metadata.failed_trigger.c_str());
+
     const TriggerCallback level_hash_callback = [this](uint32_t trigger_id) {
-        if(trigger_id == level_completed_hash)
+        if(trigger_id == m_level_completed_hash)
             Completed();
-        else if(trigger_id == level_completed_alt_hash)
+        else if(trigger_id == m_level_completed_alt_hash)
             CompletedAlt();
-        else if(trigger_id == level_gameover_hash)
-            GameOver();
-        else if(trigger_id == level_aborted_hash)
+        else if(trigger_id == m_level_aborted_hash)
             Aborted();
+        else if(trigger_id == m_level_failed_hash)
+            GameOver();
     };
-    m_level_completed_trigger = m_trigger_system->RegisterTriggerCallback(level_completed_hash, level_hash_callback, mono::INVALID_ID);
-    m_level_completed_alt_trigger = m_trigger_system->RegisterTriggerCallback(level_completed_alt_hash, level_hash_callback, mono::INVALID_ID);
-    m_level_gameover_trigger = m_trigger_system->RegisterTriggerCallback(level_gameover_hash, level_hash_callback, mono::INVALID_ID);
-    m_level_aborted_trigger = m_trigger_system->RegisterTriggerCallback(level_aborted_hash, level_hash_callback, mono::INVALID_ID);
+    m_level_completed_trigger = m_trigger_system->RegisterTriggerCallback(m_level_completed_hash, level_hash_callback, mono::INVALID_ID);
+    m_level_completed_alt_trigger = m_trigger_system->RegisterTriggerCallback(m_level_completed_alt_hash, level_hash_callback, mono::INVALID_ID);
+    m_level_aborted_trigger = m_trigger_system->RegisterTriggerCallback(m_level_aborted_hash, level_hash_callback, mono::INVALID_ID);
+    m_level_failed_trigger = m_trigger_system->RegisterTriggerCallback(m_level_failed_hash, level_hash_callback, mono::INVALID_ID);
 
     m_input_context = m_input_system->CreateContext(0, mono::InputContextBehaviour::ConsumeIfHandled, "StartMenuGameMode");
     m_input_context->enabled = true;
@@ -61,10 +59,10 @@ int StartMenuGameMode::End(mono::IZone* zone)
 {
     m_ui_system->Disable();
 
-    m_trigger_system->RemoveTriggerCallback(level_completed_hash, m_level_completed_trigger, mono::INVALID_ID);
-    m_trigger_system->RemoveTriggerCallback(level_completed_alt_hash, m_level_completed_trigger, mono::INVALID_ID);
-    m_trigger_system->RemoveTriggerCallback(level_gameover_hash, m_level_gameover_trigger, mono::INVALID_ID);
-    m_trigger_system->RemoveTriggerCallback(level_aborted_hash, m_level_aborted_trigger, mono::INVALID_ID);
+    m_trigger_system->RemoveTriggerCallback(m_level_completed_hash, m_level_completed_trigger, mono::INVALID_ID);
+    m_trigger_system->RemoveTriggerCallback(m_level_completed_alt_hash, m_level_completed_trigger, mono::INVALID_ID);
+    m_trigger_system->RemoveTriggerCallback(m_level_aborted_hash, m_level_aborted_trigger, mono::INVALID_ID);
+    m_trigger_system->RemoveTriggerCallback(m_level_failed_hash, m_level_failed_trigger, mono::INVALID_ID);
 
     m_input_system->ReleaseContext(m_input_context);
     return m_game_mode_result;

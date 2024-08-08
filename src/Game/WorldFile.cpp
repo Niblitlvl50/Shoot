@@ -55,6 +55,8 @@ namespace
             level_data.metadata.time_limit_s = json_metadata.value("time_limit_s", 0);
 
             level_data.metadata.completed_trigger = json_metadata.value("completed_trigger", "");
+            level_data.metadata.completed_alt_trigger = json_metadata.value("completed_alt_trigger", "");
+            level_data.metadata.aborted_trigger = json_metadata.value("aborted_trigger", "");
             level_data.metadata.failed_trigger = json_metadata.value("failed_trigger", "");
         }
 

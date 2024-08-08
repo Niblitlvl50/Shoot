@@ -90,6 +90,8 @@ void editor::WriteComponentEntities(
     json_metadata["time_limit_s"] = level_metadata.time_limit_s;
 
     json_metadata["completed_trigger"] = level_metadata.completed_trigger;
+    json_metadata["completed_alt_trigger"] = level_metadata.completed_alt_trigger;
+    json_metadata["aborted_trigger"] = level_metadata.aborted_trigger;
     json_metadata["failed_trigger"] = level_metadata.failed_trigger;
 
     nlohmann::json json;

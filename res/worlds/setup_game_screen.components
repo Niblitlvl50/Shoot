@@ -12575,6 +12575,8 @@
             "x": 12.800000190734863,
             "y": 8.0
         },
+        "completed_trigger": "level_completed",
+        "failed_trigger": "level_aborted",
         "level_description": "...get ready.",
         "level_game_mode": "start_menu_mode",
         "level_name": "Setup Screen",
@@ -12595,7 +12597,7 @@
             "x": 0.0,
             "y": 0.0
         },
-        "spawn_package": true,
+        "spawn_package": false,
         "time_limit_s": 0,
         "triggers": [
             "goto_scene_1",

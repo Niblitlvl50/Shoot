@@ -384,6 +384,16 @@ namespace
                 if(completed_changed)
                     context.level_metadata.completed_trigger = completed_event.text;
 
+                mono::Event completed_alt_event = { mono::EventType::Global, mono::EventDirection::Input, context.level_metadata.completed_alt_trigger };
+                const bool completed_alt_changed = editor::DrawEventProperty("Completed Alternative", completed_alt_event, context);
+                if(completed_alt_changed)
+                    context.level_metadata.completed_alt_trigger = completed_alt_event.text;
+
+                mono::Event aborted_event = { mono::EventType::Global, mono::EventDirection::Input, context.level_metadata.aborted_trigger };
+                const bool aborted_changed = editor::DrawEventProperty("Aborted", aborted_event, context);
+                if(aborted_changed)
+                    context.level_metadata.aborted_trigger = aborted_event.text;
+
                 mono::Event failed_event = { mono::EventType::Global, mono::EventDirection::Input, context.level_metadata.failed_trigger };
                 const bool failed_changed = editor::DrawEventProperty("Failed", failed_event, context);
                 if(failed_changed)

@@ -528,6 +528,8 @@
             "x": 12.0,
             "y": 9.0
         },
+        "completed_trigger": "",
+        "failed_trigger": "",
         "level_description": "",
         "level_game_mode": "start_menu_mode",
         "level_name": "game_options",

@@ -104,12 +104,17 @@ namespace game
         int m_next_zone;
 
         uint32_t m_level_completed_hash;
+        uint32_t m_level_completed_alt_hash;
+        uint32_t m_level_aborted_hash;
         uint32_t m_level_failed_hash;
 
         uint32_t m_level_completed_trigger;
-        uint32_t m_level_gameover_trigger;
+        uint32_t m_level_completed_alt_trigger;
         uint32_t m_level_aborted_trigger;
+        uint32_t m_level_failed_trigger;
+
         uint32_t m_show_shop_screen_trigger;
+
         uint32_t m_package_release_callback;
         uint32_t m_package_entity_id;
 

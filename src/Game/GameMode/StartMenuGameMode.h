@@ -34,10 +34,16 @@ namespace game
         class UISystem* m_ui_system;
         mono::InputContext* m_input_context;
 
+        uint32_t m_level_completed_hash;
+        uint32_t m_level_completed_alt_hash;
+        uint32_t m_level_aborted_hash;
+        uint32_t m_level_failed_hash;
+
         uint32_t m_level_completed_trigger;
         uint32_t m_level_completed_alt_trigger;
-        uint32_t m_level_gameover_trigger;
         uint32_t m_level_aborted_trigger;
+        uint32_t m_level_failed_trigger;
+        
         int m_game_mode_result;
     };
 }
