@@ -6,6 +6,7 @@
 #include "Hud/PlayerUIElement.h"
 #include "Player/PlayerAuxiliaryDrawer.h"
 #include "Zones/ZoneFlow.h"
+#include "Entity/TargetSystem.h"
 #include "Events/GameEvents.h"
 #include "Events/GameEventFuncFwd.h"
 #include "Events/PlayerEvents.h"
@@ -99,6 +100,9 @@ void PacketDeliveryGameMode::Begin(
     WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
     UISystem* ui_system = system_context->GetSystem<game::UISystem>();
     ShopSystem* shop_system = system_context->GetSystem<game::ShopSystem>();
+
+    game::TargetSystem* target_system = system_context->GetSystem<game::TargetSystem>();
+    target_system->SetGlobalTargetMode(EnemyTargetMode::Normal);
 
     // Quit and game over events
     const GameOverFunc on_game_over = [this](const game::GameOverEvent& game_over_event) {
