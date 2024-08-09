@@ -262,6 +262,13 @@ int WeaponSystem::AddModifierForId(uint32_t id, IWeaponModifier* weapon_modifier
 
 int WeaponSystem::AddModifierForIdWithDuration(uint32_t id, float duration_s, IWeaponModifier* weapon_modifier)
 {
+    const auto identify_modifier_by_id = [weapon_modifier](const std::unique_ptr<IWeaponModifier>& modifier) {
+        return weapon_modifier->Id() == modifier->Id();
+    };
+    const bool has_modifier = mono::contains(m_weapon_modifiers[id].modifiers, identify_modifier_by_id);
+    if(has_modifier)
+        return -1;
+
     m_modifier_id++;
 
     WeaponModifierDuration duration;
