@@ -52,8 +52,6 @@ namespace
             level_data.metadata.navmesh_end = json_metadata.value("navmesh_end", math::ZeroVec);
             level_data.metadata.navmesh_density = json_metadata.value("navmesh_density", 1.0f);
 
-            level_data.metadata.time_limit_s = json_metadata.value("time_limit_s", 0);
-
             level_data.metadata.completed_trigger = json_metadata.value("completed_trigger", "");
             level_data.metadata.completed_alt_trigger = json_metadata.value("completed_alt_trigger", "");
             level_data.metadata.aborted_trigger = json_metadata.value("aborted_trigger", "");

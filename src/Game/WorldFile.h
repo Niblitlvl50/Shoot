@@ -43,8 +43,6 @@ namespace game
         math::Vector navmesh_end;
         float navmesh_density = 1.0f;
 
-        int time_limit_s = 0;
-
         std::string completed_trigger;
         std::string completed_alt_trigger;
         std::string aborted_trigger;

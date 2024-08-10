@@ -332,7 +332,6 @@ namespace
 
                 ImGui::TextDisabled("Game Mode");
                 editor::DrawStringPicker("Mode", context.level_metadata.level_game_mode, game::GameModeFactory::GetAllGameModes());
-                ImGui::InputInt("Time limit", &context.level_metadata.time_limit_s);
                 ImGui::Spacing();
 
                 ImGui::TextDisabled("Player");

@@ -87,7 +87,6 @@ void editor::WriteComponentEntities(
     json_metadata["navmesh_start"] = level_metadata.navmesh_start;
     json_metadata["navmesh_end"] = level_metadata.navmesh_end;
     json_metadata["navmesh_density"] = level_metadata.navmesh_density;
-    json_metadata["time_limit_s"] = level_metadata.time_limit_s;
 
     json_metadata["completed_trigger"] = level_metadata.completed_trigger;
     json_metadata["completed_alt_trigger"] = level_metadata.completed_alt_trigger;
