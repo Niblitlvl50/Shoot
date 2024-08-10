@@ -326,11 +326,14 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     draw_funcs[POLYGON_SHAPE_COMPONENT] = editor::DrawPolygonShapeDetails;
     draw_funcs[SPAWN_POINT_COMPONENT] = editor::DrawSpawnPointDetails;
     draw_funcs[ENTITY_SPAWN_POINT_COMPONENT] = editor::DrawEntitySpawnPointDetails;
+
     draw_funcs[SHAPE_TRIGGER_COMPONENT] = editor::DrawShapeTriggerComponentDetails;
     draw_funcs[AREA_TRIGGER_COMPONENT] = editor::DrawAreaTriggerComponentDetails;
     draw_funcs[DESTROYED_TRIGGER_COMPONENT] = editor::DrawDestroyedTriggerComponentDetails;
     draw_funcs[TIME_TRIGGER_COMPONENT] = editor::DrawTimeTriggerComponentDetails;
     draw_funcs[COUNTER_TRIGGER_COMPONENT] = editor::DrawCounterTriggerComponentDetails;
+    draw_funcs[RELAY_TRIGGER_COMPONENT] = editor::DrawRelayTriggerComponentDetails;
+
     draw_funcs[TRANSLATION_COMPONENT] = editor::DrawSetTranslationDetails;
     draw_funcs[ROTATION_COMPONENT] = editor::DrawSetRotationDetails;
     draw_funcs[LAYER_COMPONENT] = editor::DrawLayerDetails;

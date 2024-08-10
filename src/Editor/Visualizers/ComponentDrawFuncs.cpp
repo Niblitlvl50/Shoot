@@ -193,6 +193,20 @@ void editor::DrawCounterTriggerComponentDetails(mono::IRenderer& renderer, const
     renderer.RenderText(game::FontId::PIXELETTE_TINY, output.c_str(), g_trigger_name_color, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
+void editor::DrawRelayTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
+{
+    mono::Event name;
+    mono::Event completed_name;
+    FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
+    FindAttribute(TRIGGER_NAME_COMPLETED_ATTRIBUTE, component_properties, completed_name, FallbackMode::SET_DEFAULT);
+
+    int time_until_relayed_ms;
+    FindAttribute(TIME_STAMP_ATTRIBUTE, component_properties, time_until_relayed_ms, FallbackMode::SET_DEFAULT);
+
+    const std::string output = name.text + " wait for " + std::to_string(time_until_relayed_ms) + "ms -> " + completed_name.text;
+    renderer.RenderText(game::FontId::PIXELETTE_TINY, output.c_str(), g_trigger_name_color, mono::FontCentering::HORIZONTAL_VERTICAL);
+}
+
 void editor::DrawSetTranslationDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     math::Vector delta_position;
