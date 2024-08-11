@@ -21,10 +21,14 @@
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
 
+#include "System/Audio.h"
+
 namespace
 {
     game::DamageEffect* g_damage_effect = nullptr;
     game::ImpactEffect* g_impact_effect = nullptr;
+
+    audio::ISoundPtr g_death_sound = nullptr;
 }
 
 void game::InitWeaponCallbacks(mono::SystemContext* system_context)
@@ -34,6 +38,8 @@ void game::InitWeaponCallbacks(mono::SystemContext* system_context)
 
     g_damage_effect = new game::DamageEffect(particle_system, entity_system);
     g_impact_effect = new game::ImpactEffect(particle_system, entity_system);
+
+    g_death_sound = audio::CreateSound("res/sound/impact/squelch_1.wav", audio::SoundPlayback::ONCE);
 }
 
 void game::CleanupWeaponCallbacks()
@@ -43,6 +49,8 @@ void game::CleanupWeaponCallbacks()
 
     delete g_impact_effect;
     g_impact_effect = nullptr;
+
+    g_death_sound = nullptr;
 }
 
 uint32_t game::SpawnEntityWithAnimation(
@@ -92,6 +100,9 @@ void game::StandardCollision(
         {
             const DamageResult result = damage_system->ApplyDamage(other_entity_id, owner_entity_id, weapon_identifier_hash, damage);
             did_damage = result.did_damage;
+
+            if(result.did_damage && result.health_left <= 0)
+                g_death_sound->Play();
         }
 
         if(impact_entity != nullptr)
