@@ -11,6 +11,8 @@
         "res/sound/pickups/nintendo-coin-pickup.wav",
         "res/sound/pickups/pickup_gold.wav",
         "res/sound/pickups/smoke_bomb.wav",
+        "res/sound/ui/tiny-click_minimal-ui-sounds.wav",
+        "res/sound/ui/click-04_minimal-ui-sounds.wav",
         "res/sound/blaster-probe-gun.wav",
         "res/sound/blaster-ricochet.wav",
         "res/sound/demon_death.wav",

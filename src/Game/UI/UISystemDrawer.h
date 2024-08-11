@@ -6,6 +6,10 @@
 #include "Rendering/Sprite/SpriteBufferFactory.h"
 #include "Rendering/Sprite/ISpriteFactory.h"
 
+#include "System/Audio.h"
+
+#include <cstdint>
+
 namespace game
 {
     class UISystem;
@@ -29,5 +33,8 @@ namespace game
         mono::SpriteDrawBuffers m_cursor_sprite_buffer;
 
         std::unique_ptr<mono::IElementBuffer> m_indices;
+
+        audio::ISoundPtr m_select_sound;
+        mutable uint32_t m_last_active_item_index;
     };
 }
