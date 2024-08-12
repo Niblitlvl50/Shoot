@@ -20,6 +20,7 @@
 #include "Rendering/Sprite/Sprite.h"
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
+#include "Util/Random.h"
 
 #include "System/Audio.h"
 
@@ -28,7 +29,7 @@ namespace
     game::DamageEffect* g_damage_effect = nullptr;
     game::ImpactEffect* g_impact_effect = nullptr;
 
-    audio::ISoundPtr g_death_sound = nullptr;
+    std::vector<audio::ISoundPtr> g_death_sounds; 
 }
 
 void game::InitWeaponCallbacks(mono::SystemContext* system_context)
@@ -39,7 +40,16 @@ void game::InitWeaponCallbacks(mono::SystemContext* system_context)
     g_damage_effect = new game::DamageEffect(particle_system, entity_system);
     g_impact_effect = new game::ImpactEffect(particle_system, entity_system);
 
-    g_death_sound = audio::CreateSound("res/sound/impact/squelch_1.wav", audio::SoundPlayback::ONCE);
+    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish01.wav", audio::SoundPlayback::ONCE));
+    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish02.wav", audio::SoundPlayback::ONCE));
+    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish03.wav", audio::SoundPlayback::ONCE));
+    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish04.wav", audio::SoundPlayback::ONCE));
+    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish05.wav", audio::SoundPlayback::ONCE));
+    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish06.wav", audio::SoundPlayback::ONCE));
+    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish07.wav", audio::SoundPlayback::ONCE));
+    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish08.wav", audio::SoundPlayback::ONCE));
+    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish09.wav", audio::SoundPlayback::ONCE));
+    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish10.wav", audio::SoundPlayback::ONCE));
 }
 
 void game::CleanupWeaponCallbacks()
@@ -50,7 +60,7 @@ void game::CleanupWeaponCallbacks()
     delete g_impact_effect;
     g_impact_effect = nullptr;
 
-    g_death_sound = nullptr;
+    g_death_sounds.clear();
 }
 
 uint32_t game::SpawnEntityWithAnimation(
@@ -102,7 +112,10 @@ void game::StandardCollision(
             did_damage = result.did_damage;
 
             if(result.did_damage && result.health_left <= 0)
-                g_death_sound->Play();
+            {
+                const int index = mono::RandomInt(0, g_death_sounds.size() - 1);
+                g_death_sounds[index]->Play();
+            }
         }
 
         if(impact_entity != nullptr)
