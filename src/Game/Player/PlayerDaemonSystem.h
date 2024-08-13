@@ -7,6 +7,7 @@
 
 #include "Events/EventFwd.h"
 #include "EventHandler/EventToken.h"
+#include "System/Audio.h"
 #include "System/System.h"
 #include "System/Network.h"
 
@@ -112,6 +113,9 @@ namespace game
         mono::EventToken<RespawnPlayerEvent> m_respawn_player_token;
 
         std::unordered_map<System::ControllerId, PlayerInfo*> m_controller_id_to_player_info;
+
+        std::vector<audio::ISoundPtr> m_damage_sounds;
+        std::vector<audio::ISoundPtr> m_death_sounds;
 
         struct RemotePlayerData
         {

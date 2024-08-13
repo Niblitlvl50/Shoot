@@ -18,5 +18,15 @@
     ],
     "weapon_entities": [
         "res/entities/player_weapon.entity"
+    ],
+    "player_damage_sounds": [
+        "res/sound/death/death_squish01.wav",
+        "res/sound/death/death_squish04.wav",
+        "res/sound/death/death_squish07.wav"
+    ],
+    "player_death_sounds": [
+        "res/sound/impact/deathd.wav",
+        "res/sound/impact/paind.wav",
+        "res/sound/impact/demon-death-05.wav"
     ]
 }

@@ -62,6 +62,15 @@ PlayerDaemonSystem::PlayerDaemonSystem(
     m_decoy_entities = json["decoy_entities"];
     m_weapon_entities = json["weapon_entities"];
 
+    const std::vector<std::string> player_damage_sounds = json["player_damage_sounds"];
+    const std::vector<std::string> player_death_sounds = json["player_death_sounds"];
+
+    for(const std::string& sound_file : player_damage_sounds)
+        m_damage_sounds.push_back(audio::CreateSound(sound_file.c_str(), audio::SoundPlayback::ONCE));
+
+    for(const std::string& sound_file : player_death_sounds)
+        m_death_sounds.push_back(audio::CreateSound(sound_file.c_str(), audio::SoundPlayback::ONCE));
+
     mono::UniformRandomBitGenerator random_bit_generator(System::GetMilliseconds());
     //std::shuffle(m_player_entities.begin(), m_player_entities.end(), random_bit_generator);
     std::shuffle(m_familiar_entities.begin(), m_familiar_entities.end(), random_bit_generator);
@@ -230,10 +239,22 @@ void PlayerDaemonSystem::SpawnLocalPlayer(int player_index, System::ControllerId
             m_camera_system->Unfollow(damaged_entity_id);
             allocated_player_info->player_state = game::PlayerState::DEAD;
             allocated_player_info->killer_entity_id = id_who_did_damage;
+
+            if(!m_death_sounds.empty())
+            {
+                const int random_index = mono::RandomInt(0, m_death_sounds.size() -1);
+                m_death_sounds[random_index]->Play();
+            }
         }
         else if(type == DamageType::DAMAGED)
         {
             m_camera_system->AddCameraShake(0.25f);
+
+            if(!m_damage_sounds.empty())
+            {
+                const int random_index = mono::RandomInt(0, m_damage_sounds.size() -1);
+                m_damage_sounds[random_index]->Play();
+            }
         }
     };
 
