@@ -109,8 +109,6 @@ void DemonBossController::Update(const mono::UpdateContext& update_context)
     m_secondary_weapon->UpdateWeaponState(update_context.timestamp);
     m_tertiary_weapon->UpdateWeaponState(update_context.timestamp);
 
-    UpdateMovement(update_context);
-
     m_circle_attack_cooldown = std::clamp(m_circle_attack_cooldown - update_context.delta_s, 0.0f, 10.0f);
     m_fire_homing_cooldown = std::clamp(m_fire_homing_cooldown - update_context.delta_s, 0.0f, 10.0f);
     m_long_attack_cooldown = std::clamp(m_long_attack_cooldown - update_context.delta_s, 0.0f, 10.0f);
@@ -165,6 +163,8 @@ void DemonBossController::Idle(const mono::UpdateContext& update_context)
     m_aquired_target = m_target_system->AquireTarget(TargetFaction::Player, world_position, tweak_values::activate_distance);
     if(!m_aquired_target->IsValid())
         return;
+
+    UpdateMovement(update_context);
 
     const math::Vector& target_world_position = m_aquired_target->Position();
     const float distance_to_target = math::DistanceBetween(world_position, target_world_position);
@@ -236,6 +236,8 @@ void DemonBossController::CircleAttack(const mono::UpdateContext& update_context
         return;
     }
 
+    UpdateMovement(update_context);
+
     if(!m_ready_to_attack)
         return;
 
@@ -281,6 +283,8 @@ void DemonBossController::ActionFireHoming(const mono::UpdateContext& update_con
         m_states.TransitionTo(States::IDLE);
         return;
     }
+
+    UpdateMovement(update_context);
 
     if(!m_ready_to_attack)
         return;
