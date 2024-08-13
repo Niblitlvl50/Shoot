@@ -71,11 +71,15 @@ void game::LoadPlayerData(const char* user_path, int slot_index, SaveSlotData& d
         data.player_data[index].rubble = save_data.value("rubble", 0);
         data.player_data[index].experience = save_data.value("experience", 0);
 
-        for(const nlohmann::json& array_object : save_data["weapon_experience"])
+        const bool has_weapon_experience_node = save_data.contains("weapon_experience");
+        if(has_weapon_experience_node)
         {
-            const uint32_t key = array_object.value("weapon_identifier", 0);
-            const int value = array_object.value("experience", 0);
-            data.player_data[index].weapon_experience[key] = value;
+            for(const nlohmann::json& array_object : save_data["weapon_experience"])
+            {
+                const uint32_t key = array_object.value("weapon_identifier", 0);
+                const int value = array_object.value("experience", 0);
+                data.player_data[index].weapon_experience[key] = value;
+            }
         }
 
         data.player_data[index].god_mode = save_data.value("god_mode", false);
