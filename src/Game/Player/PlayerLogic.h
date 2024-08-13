@@ -153,6 +153,8 @@ namespace game
         std::unique_ptr<class WeaponModifierEffect> m_weapon_modifier_effect;
         audio::ISoundPtr m_switch_weapon_sound;
         audio::ISoundPtr m_blink_sound;
+        audio::ISoundPtr m_drop_box_sound;
+        audio::ISoundPtr m_pickup_box_sound;
         audio::ISoundPtr m_running_sound;
 
         math::Vector m_movement_direction;

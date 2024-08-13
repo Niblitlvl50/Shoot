@@ -130,6 +130,8 @@ PlayerLogic::PlayerLogic(
 
     m_switch_weapon_sound = audio::CreateSound("res/sound/weapon_switch.wav", audio::SoundPlayback::ONCE);
     m_blink_sound = audio::CreateSound("res/sound/punch.wav", audio::SoundPlayback::ONCE);
+    m_drop_box_sound = audio::CreateSound("res/sound/punch.wav", audio::SoundPlayback::ONCE);
+    m_pickup_box_sound = audio::CreateSound("res/sound/punch.wav", audio::SoundPlayback::ONCE);
     m_running_sound = audio::CreateSound("res/sound/running-cartoon-footstep_1.wav", audio::SoundPlayback::ONCE);
     m_running_sound->SetVolume(0.5f);
 
@@ -693,6 +695,7 @@ void PlayerLogic::Throw(float throw_force)
 
     const PackageAction action = (throw_force > 0.0f) ? PackageAction::THROWN : PackageAction::DROPPED;
     m_event_handler->DispatchEvent(PackagePickupEvent(m_entity_id, m_picked_up_id, action));
+    m_drop_box_sound->Play();
 
     m_picked_up_id = mono::INVALID_ID;
 }
@@ -732,7 +735,7 @@ void PlayerLogic::PickupDrop()
             pickup_body->SetMass(0.1f);
 
             m_event_handler->DispatchEvent(PackagePickupEvent(m_entity_id, m_picked_up_id, PackageAction::PICKED_UP));
-
+            m_pickup_box_sound->Play();
 
             // Must handle destroyed package while holding it and then player death.
 
