@@ -23,7 +23,6 @@ using namespace game;
 UISystemDrawer::UISystemDrawer(const UISystem* ui_system, mono::TransformSystem* transform_system)
     : m_ui_system(ui_system)
     , m_transform_system(transform_system)
-    , m_last_active_item_index(mono::INVALID_ID)
 {
     m_item_selection_sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite("res/sprites/ui_item_selection.sprite");
     m_item_selection_sprite_buffer = mono::BuildSpriteDrawBuffers(m_item_selection_sprite->GetSpriteData());
@@ -35,8 +34,6 @@ UISystemDrawer::UISystemDrawer(const UISystem* ui_system, mono::TransformSystem*
         0, 1, 2, 0, 2, 3
     };
     m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices);
-
-    m_select_sound = audio::CreateSound("res/sound/ui/click-04_minimal-ui-sounds.wav", audio::SoundPlayback::ONCE);
 }
 
 void UISystemDrawer::Draw(mono::IRenderer& renderer) const
@@ -74,14 +71,6 @@ void UISystemDrawer::Draw(mono::IRenderer& renderer) const
         const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
         renderer.DrawSprite(m_cursor_sprite.get(), &m_cursor_sprite_buffer, m_indices.get(), 0);
     }
-
-    const bool active_index_changed = (active_item != m_last_active_item_index);
-    if(active_index_changed && active_item != mono::INVALID_ID)
-    {
-        m_select_sound->Play();
-    }
-
-    m_last_active_item_index = active_item;
 }
 
 math::Quad UISystemDrawer::BoundingBox() const

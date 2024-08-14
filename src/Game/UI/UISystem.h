@@ -5,6 +5,7 @@
 #include "IGameSystem.h"
 #include "Math/Vector.h"
 #include "Input/InputSystem.h"
+#include "System/Audio.h"
 
 #include <string>
 #include <vector>
@@ -135,6 +136,9 @@ namespace game
         bool m_button_up;
         bool m_button_down;
         bool m_button_push_this_frame;
+
+        audio::ISoundPtr m_selection_sound;
+        audio::ISoundPtr m_click_sound;
 
         std::vector<UIItem> m_items;
         std::vector<UISetGroupState> m_set_group_states;

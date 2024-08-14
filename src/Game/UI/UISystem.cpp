@@ -44,6 +44,9 @@ UISystem::UISystem(
     m_input_context->enabled = false;
     m_input_context->mouse_input = this;
     m_input_context->controller_input = this;
+
+    m_selection_sound = audio::CreateSound("res/sound/ui/tiny-click_minimal-ui-sounds.wav", audio::SoundPlayback::ONCE);
+    m_click_sound = audio::CreateSound("res/sound/ui/click-04_minimal-ui-sounds.wav", audio::SoundPlayback::ONCE);
 }
 
 UISystem::~UISystem()
@@ -162,6 +165,10 @@ void UISystem::Update(const mono::UpdateContext& update_context)
     if(game::g_draw_debug_uisystem)
         DrawDebug(update_context);
 
+    const bool active_index_changed = (last_active_item_index != m_active_item_index);
+    if(active_index_changed && m_active_item_index != mono::INVALID_ID)
+        m_selection_sound->Play();
+
     if((m_clicked_this_frame || m_button_push_this_frame) && m_active_item_index != INVALID_UI_INDEX)
     {
         const UIItem& active_item = m_items[m_active_item_index];
@@ -176,6 +183,8 @@ void UISystem::Update(const mono::UpdateContext& update_context)
                     callback(active_item.entity_id);
             }
         }
+
+        m_click_sound->Play();
     }
 
     m_clicked_this_frame = false;
