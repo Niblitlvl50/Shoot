@@ -132,7 +132,8 @@
         "xloctime": "cpp",
         "xmemory": "cpp",
         "xstddef": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "hash_map": "cpp"
     },
     "cmake.configureOnOpen": false
 }
