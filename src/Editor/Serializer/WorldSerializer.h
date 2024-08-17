@@ -22,10 +22,10 @@ namespace editor
         class Editor* editor);
 
     void SaveWorld(
-        const char* file_name, const std::vector<const IObjectProxy*>& proxies, const game::LevelMetadata& level_data);
+        const char* file_name, const std::vector<IObjectProxy*>& proxies, const game::LevelMetadata& level_data);
 
     void WriteComponentEntities(
         const std::string& file_path,
         const game::LevelMetadata& level_metadata,
-        const std::vector<const IObjectProxy*>& proxies);
+        const std::vector<IObjectProxy*>& proxies);
 }

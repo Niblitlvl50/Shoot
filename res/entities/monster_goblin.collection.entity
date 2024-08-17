@@ -35,8 +35,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -5.875,
-                                "y": -2.125
+                                "x": -1.0,
+                                "y": -0.125
                             }
                         },
                         {
@@ -353,8 +353,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -6.25,
-                                "y": -1.75
+                                "x": -1.375,
+                                "y": 0.25
                             }
                         },
                         {
@@ -554,8 +554,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -5.5,
-                                "y": -1.875
+                                "x": -0.625,
+                                "y": 0.125
                             }
                         },
                         {
@@ -755,8 +755,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -5.875,
-                                "y": -1.875
+                                "x": -1.0,
+                                "y": 0.125
                             }
                         },
                         {
@@ -885,8 +885,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -5.75,
-                                "y": -2.25
+                                "x": -0.875,
+                                "y": -0.25
                             }
                         },
                         {
@@ -1023,8 +1023,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -6.375,
-                                "y": -1.5
+                                "x": -1.5,
+                                "y": 0.5
                             }
                         },
                         {
@@ -1161,8 +1161,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -6.375,
-                                "y": -2.125
+                                "x": -1.5,
+                                "y": -0.125
                             }
                         },
                         {
@@ -1281,8 +1281,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -5.5,
-                                "y": -1.625
+                                "x": -0.625,
+                                "y": 0.375
                             }
                         },
                         {

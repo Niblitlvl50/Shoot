@@ -76,11 +76,9 @@ namespace game
 
         MissionSystem(mono::IEntityManager* entity_manager, mono::TransformSystem* transform_system, game::TriggerSystem* trigger_system);
         const char* Name() const override;
-        void Begin() override;
         void Sync() override;
         void Update(const mono::UpdateContext& update_context) override;
 
-        //void InitializeMissionPositions(const std::vector<uint32_t>& mission_points);
         void ActivateMission();
         const std::vector<MissionStatusEvent>& GetMissionStatusEvents() const;
 
@@ -123,7 +121,6 @@ namespace game
         game::TriggerSystem* m_trigger_system;
 
         uint32_t m_point_index;
-        //std::vector<uint32_t> m_mission_points;
         std::vector<std::string> m_spawnable_missions;
 
         std::vector<MissionTrackerComponent> m_mission_trackers;

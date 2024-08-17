@@ -463,7 +463,7 @@ void Editor::Save()
         return;
     }
 
-    std::vector<const IObjectProxy*> proxies;
+    std::vector<IObjectProxy*> proxies;
     for(const IObjectProxyPtr& proxy_ptr : m_proxies)
     {
         std::vector<Component>& components = proxy_ptr->GetComponents();
@@ -544,12 +544,23 @@ void Editor::ExportAsEntityCollection()
     if(m_selected_ids.empty())
         return;
 
-    std::vector<const IObjectProxy*> proxies;
+    std::vector<math::Vector> proxy_positions;
+    std::vector<IObjectProxy*> proxies;
     for(uint32_t id : m_selected_ids)
     {
         IObjectProxy* proxy = FindProxyObject(id);
-        if(proxy)
-            proxies.push_back(proxy);
+        if(!proxy)
+            continue;
+
+        proxies.push_back(proxy);
+        proxy_positions.push_back(proxy->GetPosition());
+    }
+
+    const math::Vector center_point = math::CentroidOfPolygon(proxy_positions);
+    for(IObjectProxy* proxy : proxies)
+    {
+        const math::Vector new_position = proxy->GetPosition() - center_point;
+        proxy->SetPosition(new_position);
     }
 
     std::string filename = "res/entities/" + std::string(proxies.front()->Name()) + ".collection.entity";

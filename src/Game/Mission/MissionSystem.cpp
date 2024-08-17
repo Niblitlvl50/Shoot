@@ -54,16 +54,6 @@ const char* MissionSystem::Name() const
     return "missionsystem";
 }
 
-void MissionSystem::Begin()
-{
-    // Trigger auto trigger missions
-    for(const MissionTrackerComponent& mission : m_mission_trackers)
-    {
-        if(mission.activated_trigger == hash::NO_HASH)
-            HandleMissionActivated(mission.entity_id);
-    }
-}
-
 void MissionSystem::Sync()
 {
     m_mission_status_events.clear();
@@ -73,6 +63,12 @@ void MissionSystem::Update(const mono::UpdateContext& update_context)
 {
     for(MissionTrackerComponent& mission_tracker : m_mission_trackers)
     {
+        if(mission_tracker.status == MissionStatus::Inactive && mission_tracker.activated_trigger == hash::NO_HASH)
+        {
+            HandleMissionActivated(mission_tracker.entity_id);
+            continue;
+        }
+
         if(mission_tracker.status != MissionStatus::Active || !mission_tracker.time_based)
             continue;
 
@@ -88,16 +84,6 @@ void MissionSystem::Update(const mono::UpdateContext& update_context)
     }
 }
 
-/*
-void MissionSystem::InitializeMissionPositions(const std::vector<uint32_t>& mission_points)
-{
-    m_mission_points = mission_points;
-
-    mono::UniformRandomBitGenerator random_bit_generator(System::GetMilliseconds());
-    std::shuffle(m_mission_points.begin(), m_mission_points.end(), random_bit_generator);
-}
-*/
-
 void MissionSystem::ActivateMission()
 {
     if(m_mission_locations.empty())
@@ -105,7 +91,7 @@ void MissionSystem::ActivateMission()
 
     if(m_point_index >= m_mission_locations.size())
         return;
-
+ 
     if(m_spawnable_missions.empty())
         return;
 
