@@ -25,6 +25,11 @@ namespace game
     {
         return left.entity_id == right.entity_id;
     }
+
+    static bool operator==(const game::MissionActivationComponent& left, const game::MissionActivationComponent& right)
+    {
+        return left.entity_id == right.entity_id;
+    }
 }
 
 using namespace game;
@@ -83,6 +88,7 @@ void MissionSystem::Update(const mono::UpdateContext& update_context)
     }
 }
 
+/*
 void MissionSystem::InitializeMissionPositions(const std::vector<uint32_t>& mission_points)
 {
     m_mission_points = mission_points;
@@ -90,20 +96,21 @@ void MissionSystem::InitializeMissionPositions(const std::vector<uint32_t>& miss
     mono::UniformRandomBitGenerator random_bit_generator(System::GetMilliseconds());
     std::shuffle(m_mission_points.begin(), m_mission_points.end(), random_bit_generator);
 }
+*/
 
 void MissionSystem::ActivateMission()
 {
-    if(m_mission_points.empty())
+    if(m_mission_locations.empty())
         return;
 
-    if(m_point_index >= m_mission_points.size())
+    if(m_point_index >= m_mission_locations.size())
         return;
 
     if(m_spawnable_missions.empty())
         return;
 
-    const uint32_t mission_point_id = m_mission_points[m_point_index];
-    const math::Vector& world_position = m_transform_system->GetWorldPosition(mission_point_id);
+    const MissionLocation& mission_location = m_mission_locations[m_point_index];
+    const math::Vector& world_position = m_transform_system->GetWorldPosition(mission_location.entity_id);
 
     // Just the first mission for now
     const std::string& selected_mission = m_spawnable_missions.front();
@@ -239,6 +246,62 @@ MissionTime MissionSystem::GetMissionTime(uint32_t entity_id) const
     return mission_time;
 }
 
+void MissionSystem::AllocateMissionLocation(uint32_t entity_id)
+{
+    MissionLocation component;
+    component.entity_id = entity_id;
+    m_mission_locations.push_back(component);
+}
+
+void MissionSystem::ReleaseMissionLocation(uint32_t entity_id)
+{
+    const auto remove_on_id = [entity_id](const MissionLocation& component) {
+        return entity_id == component.entity_id;
+    };
+    mono::remove_if(m_mission_locations, remove_on_id);
+}
+
+void MissionSystem::AllocateMissionActivator(uint32_t entity_id)
+{
+    MissionActivationComponent component;
+    component.entity_id = entity_id;
+    component.trigger = hash::NO_HASH;
+    component.trigger_callback_id = NO_CALLBACK_SET;
+
+    m_mission_activators.push_back(component);
+}
+
+void MissionSystem::ReleaseMissionActivator(uint32_t entity_id)
+{
+    MissionActivationComponent* component = GetActivationComponentById(entity_id);
+    if(!component)
+        return;
+
+    if(component->trigger_callback_id != NO_CALLBACK_SET)
+        m_trigger_system->RemoveTriggerCallback(component->trigger, component->trigger_callback_id, entity_id);
+
+    mono::remove(m_mission_activators, *component);
+}
+
+void MissionSystem::SetMissionActivatorData(uint32_t entity_id, uint32_t activation_trigger, bool do_once)
+{
+    MissionActivationComponent* component = GetActivationComponentById(entity_id);
+    if(!component)
+        return;
+
+    component->trigger = activation_trigger;
+    component->do_once = do_once;
+
+    if(component->trigger != hash::NO_HASH)
+    {
+        const game::TriggerCallback activated_callback = [this](uint32_t trigger_id) {
+            ActivateMission();
+
+            // if do once, deactivate trigger here.
+        };
+        component->trigger_callback_id = m_trigger_system->RegisterTriggerCallback(component->trigger, activated_callback, entity_id);
+    }
+}
 
 const MissionTrackerComponent* MissionSystem::GetComponentById(uint32_t entity_id) const
 {
@@ -251,6 +314,14 @@ MissionTrackerComponent* MissionSystem::GetComponentById(uint32_t entity_id)
         return mission_tracker.entity_id == entity_id;
     };
     return mono::find_if(m_mission_trackers, find_by_id);
+}
+
+MissionActivationComponent* MissionSystem::GetActivationComponentById(uint32_t entity_id)
+{
+    const auto find_by_id = [entity_id](const MissionActivationComponent& mission_activator) {
+        return mission_activator.entity_id == entity_id;
+    };
+    return mono::find_if(m_mission_activators, find_by_id);
 }
 
 void MissionSystem::HandleMissionActivated(uint32_t entity_id)

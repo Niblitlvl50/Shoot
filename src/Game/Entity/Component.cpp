@@ -336,6 +336,8 @@ extern const uint32_t TELEPORT_PLAYER_COMPONENT     = hash::Hash("teleport_playe
 extern const uint32_t ENTITY_TRACKING_COMPONENT     = hash::Hash("entity_tracker");
 extern const uint32_t TARGET_COMPONENT              = hash::Hash("target");
 extern const uint32_t MISSION_TRACKER_COMPONENT     = hash::Hash("mission_tracker");
+extern const uint32_t MISSION_ACTIVATION_COMPONENT  = hash::Hash("mission_activation");
+extern const uint32_t MISSION_LOCATION_COMPONENT    = hash::Hash("mission_location");
 
 const char* component::ComponentNameFromHash(uint32_t hash)
 {
@@ -441,6 +443,10 @@ const char* component::ComponentNameFromHash(uint32_t hash)
         return "target";
     else if(hash == MISSION_TRACKER_COMPONENT)
         return "mission_tracker";
+    else if(hash == MISSION_ACTIVATION_COMPONENT)
+        return "mission_activation";
+    else if(hash == MISSION_LOCATION_COMPONENT)
+        return "mission_location";
 
     return "Unknown";
 }
@@ -511,11 +517,14 @@ const Component default_components[] = {
     MakeComponent(TEXTURED_POLYGON_COMPONENT,   NULL_COMPONENT,             false,  "world",        { TEXTURE_ATTRIBUTE, COLOR_ATTRIBUTE, POLYGON_DRAW_LAYER_ATTRIBUTE, POLYGON_ATTRIBUTE }),
     MakeComponent(REGION_COMPONENT,             PHYSICS_COMPONENT,          false,  "world",        { TEXT_ATTRIBUTE, SUB_TEXT_ATTRIBUTE }),
 
+    MakeComponent(MISSION_TRACKER_COMPONENT,    NULL_COMPONENT,             false,  "mission",      { NAME_ATTRIBUTE, SUB_TEXT_ATTRIBUTE, TIME_BASED_ATTRIBUTE, TIME_ATTRIBUTE, FAIL_ON_TIMEOUT_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, COMPLETED_TRIGGER_ATTRIBUTE, FAILED_TRIGGER_ATTRIBUTE }),
+    MakeComponent(MISSION_ACTIVATION_COMPONENT, NULL_COMPONENT,             false,  "mission",      { TRIGGER_NAME_ATTRIBUTE, EMIT_ONCE_ATTRIBUTE }),
+    MakeComponent(MISSION_LOCATION_COMPONENT,   NULL_COMPONENT,             false,  "mission",      { }),
+
     MakeComponent(TELEPORT_PLAYER_COMPONENT,    NULL_COMPONENT,             false,  "logic",        { TRIGGER_NAME_ATTRIBUTE } ),
     MakeComponent(WEAPON_LOADOUT_COMPONENT,     NULL_COMPONENT,             false,  "logic",        { WEAPON_PRIMARY_ATTRIBUTE, WEAPON_SECONDARY_ATTRIBUTE, WEAPON_TERTIARY_ATTRIBUTE } ),
     MakeComponent(TARGET_COMPONENT,             NULL_COMPONENT,             false,  "logic",        { TARGET_FACTION_ATTRIBUTE, PRIORITY_ATTRIBUTE } ),
     MakeComponent(BEHAVIOUR_COMPONENT,          NULL_COMPONENT,             false,  "logic",        { ENTITY_BEHAVIOUR_ATTRIBUTE }),
-    MakeComponent(MISSION_TRACKER_COMPONENT,    NULL_COMPONENT,             false,  "logic",        { NAME_ATTRIBUTE, SUB_TEXT_ATTRIBUTE, TIME_BASED_ATTRIBUTE, TIME_ATTRIBUTE, FAIL_ON_TIMEOUT_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, COMPLETED_TRIGGER_ATTRIBUTE, FAILED_TRIGGER_ATTRIBUTE }),
 };
 
 const char* AttributeNameFromHash(uint32_t hash)

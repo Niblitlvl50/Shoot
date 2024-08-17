@@ -1142,6 +1142,45 @@ namespace
 
         return true;
     }
+
+    bool CreateMissionActivator(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::MissionSystem* mission_system = context->GetSystem<game::MissionSystem>();
+        mission_system->AllocateMissionActivator(entity->id);
+        return true;
+    }
+    bool ReleaseMissionActivator(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::MissionSystem* mission_system = context->GetSystem<game::MissionSystem>();
+        mission_system->ReleaseMissionActivator(entity->id);
+        return true;
+    }
+    bool UpdateMissionActivator(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        mono::Event trigger_name;
+        bool emit_once;
+        FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::SET_DEFAULT);
+        FindAttribute(EMIT_ONCE_ATTRIBUTE, properties, emit_once, FallbackMode::SET_DEFAULT);
+
+        game::MissionSystem* mission_system = context->GetSystem<game::MissionSystem>();
+        mission_system->SetMissionActivatorData(
+            entity->id, hash::Hash(trigger_name.text.c_str()), emit_once);
+
+        return true;
+    }
+
+    bool CreateMissionLocation(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::MissionSystem* mission_system = context->GetSystem<game::MissionSystem>();
+        mission_system->AllocateMissionLocation(entity->id);
+        return true;
+    }
+    bool ReleaseMissionLocation(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::MissionSystem* mission_system = context->GetSystem<game::MissionSystem>();
+        mission_system->ReleaseMissionLocation(entity->id);
+        return true;
+    }
 }
 
 void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
@@ -1181,4 +1220,6 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(ENTITY_TRACKING_COMPONENT, CreateEntityTracker, ReleaseEntityTracker, UpdateEntityTracker);
     entity_manager->RegisterComponent(TARGET_COMPONENT, CreateEntityTarget, ReleaseEntityTarget, UpdateEntityTarget);
     entity_manager->RegisterComponent(MISSION_TRACKER_COMPONENT, CreateMissionTracker, ReleaseMissionTracker, UpdateMissionTracker);
+    entity_manager->RegisterComponent(MISSION_ACTIVATION_COMPONENT, CreateMissionActivator, ReleaseMissionActivator, UpdateMissionActivator);
+    entity_manager->RegisterComponent(MISSION_LOCATION_COMPONENT, CreateMissionLocation, ReleaseMissionLocation);
 }

@@ -109,9 +109,9 @@ void HordeGameMode::Begin(
     const uint32_t loot_tag = hash::Hash("loot_point");
     m_loot_box_entities = m_entity_manager->CollectEntitiesWithTag(loot_tag);
 
-    const uint32_t mission_tag = hash::Hash("mission_point");
-    const std::vector<uint32_t> mission_points = m_entity_manager->CollectEntitiesWithTag(mission_tag);
-    m_mission_system->InitializeMissionPositions(mission_points);
+    // const uint32_t mission_tag = hash::Hash("mission_point");
+    // const std::vector<uint32_t> mission_points = m_entity_manager->CollectEntitiesWithTag(mission_tag);
+    // m_mission_system->InitializeMissionPositions(mission_points);
 
     mono::UniformRandomBitGenerator random_bit_generator(System::GetMilliseconds());
     std::shuffle(m_loot_box_entities.begin(), m_loot_box_entities.end(), random_bit_generator);

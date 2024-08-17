@@ -42,6 +42,22 @@ namespace game
         uint32_t failed_callback_id;
     };
 
+    struct MissionActivationComponent
+    {
+        uint32_t trigger;
+        bool do_once;
+
+        // Internal
+        uint32_t entity_id;
+        uint32_t trigger_callback_id;
+    };
+
+    struct MissionLocation
+    {
+        // Internal
+        uint32_t entity_id;
+    };
+
     struct MissionStatusEvent
     {
         uint32_t mission_id;
@@ -64,7 +80,7 @@ namespace game
         void Sync() override;
         void Update(const mono::UpdateContext& update_context) override;
 
-        void InitializeMissionPositions(const std::vector<uint32_t>& mission_points);
+        //void InitializeMissionPositions(const std::vector<uint32_t>& mission_points);
         void ActivateMission();
         const std::vector<MissionStatusEvent>& GetMissionStatusEvents() const;
 
@@ -84,11 +100,19 @@ namespace game
         bool IsTimeBasedMission(uint32_t entity_id) const;
         MissionTime GetMissionTime(uint32_t entity_id) const;
 
+        void AllocateMissionLocation(uint32_t entity_id);
+        void ReleaseMissionLocation(uint32_t entity_id);
+
+        void AllocateMissionActivator(uint32_t entity_id);
+        void ReleaseMissionActivator(uint32_t entity_id);
+        void SetMissionActivatorData(uint32_t entity_id, uint32_t activation_trigger, bool do_once);
+
         const MissionTrackerComponent* GetComponentById(uint32_t entity_id) const;
 
     private:
 
         MissionTrackerComponent* GetComponentById(uint32_t entity_id);
+        MissionActivationComponent* GetActivationComponentById(uint32_t entity_id);
 
         void HandleMissionActivated(uint32_t entity_id);
         void HandleMissionCompleted(uint32_t entity_id, bool emit_success_event);
@@ -99,10 +123,13 @@ namespace game
         game::TriggerSystem* m_trigger_system;
 
         uint32_t m_point_index;
-        std::vector<uint32_t> m_mission_points;
+        //std::vector<uint32_t> m_mission_points;
         std::vector<std::string> m_spawnable_missions;
 
         std::vector<MissionTrackerComponent> m_mission_trackers;
         std::vector<MissionStatusEvent> m_mission_status_events;
+
+        std::vector<MissionLocation> m_mission_locations;
+        std::vector<MissionActivationComponent> m_mission_activators;
     };
 }

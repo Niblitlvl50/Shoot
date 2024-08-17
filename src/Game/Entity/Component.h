@@ -246,7 +246,8 @@ extern const uint32_t TELEPORT_PLAYER_COMPONENT;
 extern const uint32_t ENTITY_TRACKING_COMPONENT;
 extern const uint32_t TARGET_COMPONENT;
 extern const uint32_t MISSION_TRACKER_COMPONENT;
-
+extern const uint32_t MISSION_ACTIVATION_COMPONENT;
+extern const uint32_t MISSION_LOCATION_COMPONENT;
 
 struct Component
 {
