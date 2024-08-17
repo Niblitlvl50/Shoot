@@ -811,7 +811,7 @@
                             "id": 149336291,
                             "name": "fail_on_timeout",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         },
                         {
                             "id": 2603146703,
