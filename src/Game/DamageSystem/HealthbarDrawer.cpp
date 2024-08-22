@@ -261,7 +261,7 @@ void HealthbarDrawer::Update(const mono::UpdateContext& update_context)
         text_data.tint = mono::Color::WHITE;
         text_data.center_flags = mono::FontCentering::HORIZONTAL_VERTICAL;
         text_data.draw_shadow = true;
-        text_data.shadow_offset = math::Vector(0.01f, 0.01f);
+        text_data.shadow_offset = math::Vector(0.015f, 0.015f);
         text_data.shadow_color = mono::Color::BLACK;
         m_text_system->SetTextData(damage_number_entity.id, text_data);
 
