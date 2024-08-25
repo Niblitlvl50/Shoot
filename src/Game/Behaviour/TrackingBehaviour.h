@@ -34,6 +34,13 @@ namespace game
         float distance_to_target;
     };
 
+    struct TrackingDebugData
+    {
+        float current_position;
+        float time_since_last_update;
+        float meter_per_second;
+    };
+
     class TrackingBehaviour
     {
     public:
@@ -45,6 +52,7 @@ namespace game
         void SetTrackingSpeed(float meter_per_second);
         bool UpdatePath(const math::Vector& tracking_position);
         const math::Vector& GetTrackingPosition() const;
+        TrackingDebugData GetDebugData() const;
 
         TrackingResult Run(const mono::UpdateContext& update_context, const math::Vector& tracking_position);
 
@@ -57,7 +65,7 @@ namespace game
         float m_current_position;
         float m_meter_per_second;
 
-        float m_time_since_last_update;
+        float m_timestamp_last_updated;
 
         math::Vector m_move_velocity;
         mono::IPathPtr m_path;
