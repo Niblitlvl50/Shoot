@@ -113,13 +113,13 @@ jobs:
 
     steps:
     - name: Prepare Binaries
-      uses: actions/download-artifact@v3.0.0
+      uses: actions/download-artifact@v4.1.7
       with:
         name: game-${{matrix.itch-channel}}
         path: stage/game-${{matrix.itch-channel}}
 
     - name: Prepare Resources
-      uses: actions/download-artifact@v3.0.0
+      uses: actions/download-artifact@v4.1.7
       if: runner.os != 'macOS'
       with:
         name: res
