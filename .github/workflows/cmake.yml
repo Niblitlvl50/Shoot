@@ -77,7 +77,7 @@ jobs:
       run: ./bin/${{matrix.bin_subdir}}game_test_exe${{matrix.exe_suffix}}
       
     - name: Artifacts Binaries
-      uses: actions/upload-artifact@v3.1.0
+      uses: actions/upload-artifact@v4
       with:
         name: game-${{matrix.channel}}
         path: |
@@ -87,7 +87,7 @@ jobs:
 
     # We only need to do this step once, and it just happened to be Linux who does it. 
     - name: Artifacts Resources
-      uses: actions/upload-artifact@v3.1.0
+      uses: actions/upload-artifact@v4
       if: runner.os == 'Linux'
       with:
         name: res
@@ -113,13 +113,13 @@ jobs:
 
     steps:
     - name: Prepare Binaries
-      uses: actions/download-artifact@v4.1.7
+      uses: actions/download-artifact@v4
       with:
         name: game-${{matrix.itch-channel}}
         path: stage/game-${{matrix.itch-channel}}
 
     - name: Prepare Resources
-      uses: actions/download-artifact@v4.1.7
+      uses: actions/download-artifact@v4
       if: runner.os != 'macOS'
       with:
         name: res
