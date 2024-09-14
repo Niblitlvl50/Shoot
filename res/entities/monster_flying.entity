@@ -197,6 +197,30 @@
                     ]
                 },
                 {
+                    "hash": 2406412294,
+                    "name": "weapon_loadout",
+                    "properties": [
+                        {
+                            "id": 3150860,
+                            "name": "weapon_primary",
+                            "variant_type": 6,
+                            "variant_value": "Generic"
+                        },
+                        {
+                            "id": 3576654212,
+                            "name": "weapon_secondary",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 556824164,
+                            "name": "weapon_tertiary",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
                     "hash": 522866682,
                     "name": "entity_behaviour",
                     "properties": [
@@ -215,6 +239,7 @@
         }
     ],
     "metadata": {
+        "aborted_trigger": "",
         "ambient_shade": {
             "alpha": 1.0,
             "blue": 1.0,
@@ -241,6 +266,9 @@
             "x": 0.0,
             "y": 0.0
         },
+        "completed_alt_trigger": "",
+        "completed_trigger": "",
+        "failed_trigger": "",
         "level_description": "",
         "level_game_mode": "",
         "level_name": "",
@@ -262,7 +290,6 @@
             "y": 0.0
         },
         "spawn_package": true,
-        "time_limit_s": 0,
         "triggers": [],
         "use_custom_package_spawn_position": false
     }
