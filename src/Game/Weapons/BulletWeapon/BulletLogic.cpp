@@ -95,6 +95,7 @@ void BulletLogic::Update(const mono::UpdateContext& update_context)
         details.body = nullptr;
         details.point = math::ZeroVec;
         details.normal = math::ZeroVec;
+        details.material = 0;
 
         m_collision_callback(m_entity_id, m_owner_entity_id, m_weapon_identifier_hash, 0, nullptr, BulletImpactFlag::DESTROY_THIS, details);
         return;
@@ -203,6 +204,7 @@ mono::CollisionResolve BulletLogic::OnCollideWith(
     details.body = colliding_body;
     details.point = collision_point;
     details.normal = collision_normal;
+    details.material = colliding_body->GetMaterial();
 
     m_collision_callback(m_entity_id, m_owner_entity_id, m_weapon_identifier_hash, m_damage, impact_entity, collision_flags, details);
     return resolve_type;

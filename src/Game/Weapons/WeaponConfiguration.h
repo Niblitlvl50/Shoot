@@ -25,6 +25,7 @@ namespace game
         mono::IBody* body;
         math::Vector point;
         math::Vector normal;
+        int32_t material;
     };
 
     // bullet_entity_id is the bullet that collides with something
