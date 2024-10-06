@@ -1,6 +1,7 @@
 
 #include "CollisionCallbacks.h"
 #include "WeaponEntityFactory.h"
+#include "PhysicsMaterialConfiguration.h"
 
 #include "DamageSystem/DamageSystem.h"
 #include "GameCamera/CameraSystem.h"
@@ -26,9 +27,7 @@
 
 namespace
 {
-    game::DamageEffect* g_damage_effect = nullptr;
-    game::ImpactEffect* g_impact_effect = nullptr;
-
+    std::unique_ptr<game::IParticleEffect> g_impact_effects[game::PhysicsMaterial::NUM_MATERIALS];
     std::vector<audio::ISoundPtr> g_death_sounds; 
 }
 
@@ -37,8 +36,10 @@ void game::InitWeaponCallbacks(mono::SystemContext* system_context)
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
     mono::IEntityManager* entity_system = system_context->GetSystem<mono::IEntityManager>();
 
-    g_damage_effect = new game::DamageEffect(particle_system, entity_system);
-    g_impact_effect = new game::ImpactEffect(particle_system, entity_system);
+    g_impact_effects[game::PhysicsMaterial::UNSPECIFIED]    = std::make_unique<game::ImpactEffect>(particle_system, entity_system);
+    g_impact_effects[game::PhysicsMaterial::ROCK]           = std::make_unique<game::ImpactEffect>(particle_system, entity_system);
+    g_impact_effects[game::PhysicsMaterial::TREE]           = std::make_unique<game::ImpactEffect>(particle_system, entity_system);
+    g_impact_effects[game::PhysicsMaterial::FLESH]          = std::make_unique<game::DamageEffect>(particle_system, entity_system);
 
     g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish01.wav", audio::SoundPlayback::ONCE));
     g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish02.wav", audio::SoundPlayback::ONCE));
@@ -54,11 +55,8 @@ void game::InitWeaponCallbacks(mono::SystemContext* system_context)
 
 void game::CleanupWeaponCallbacks()
 {
-    delete g_damage_effect;
-    g_damage_effect = nullptr;
-
-    delete g_impact_effect;
-    g_impact_effect = nullptr;
+    for(int index = 0; index < game::PhysicsMaterial::NUM_MATERIALS; ++index)
+        g_impact_effects[index] = nullptr;
 
     g_death_sounds.clear();
 }
@@ -125,10 +123,7 @@ void game::StandardCollision(
         else
         {
             const float direction = math::AngleFromVector(collision_details.normal);
-            if(did_damage)
-                g_damage_effect->EmitGibsAt(collision_details.point, direction);
-            else
-                g_impact_effect->EmittAt(collision_details.point, direction);
+            g_impact_effects[collision_details.material]->EmitAtWithDirection(collision_details.point, direction);
         }
 
         if(did_damage)

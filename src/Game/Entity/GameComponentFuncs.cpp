@@ -63,12 +63,16 @@ namespace
         bool prevent_rotation = false;
         FindAttribute(PREVENT_ROTATION_ATTRIBUTE, properties, prevent_rotation, FallbackMode::SET_DEFAULT);
 
+        uint32_t material;
+        FindAttribute(PHYSICS_MATERIAL_ATTRIBUTE, properties, material, FallbackMode::SET_DEFAULT);
+
         mono::PhysicsSystem* physics_system = context->GetSystem<mono::PhysicsSystem>();
         mono::IBody* body = physics_system->GetBody(entity->id);
         body->SetMass(body_args.mass);
         body->SetPreventRotation(prevent_rotation);
         body->SetMoment(body_args.inertia);
         body->SetType(body_args.type);
+        body->SetMaterial(material);
 
         mono::TransformSystem* transform_system = context->GetSystem<mono::TransformSystem>();
         const math::Matrix& transform = transform_system->GetTransform(entity->id);

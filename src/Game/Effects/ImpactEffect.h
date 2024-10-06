@@ -3,17 +3,20 @@
 
 #include "MonoFwd.h"
 #include "Math/Vector.h"
+#include "Effects/IParticleEffect.h"
 #include <cstdint>
 
 namespace game
 {
-    class ImpactEffect
+    class ImpactEffect : public IParticleEffect
     {
     public:
 
         ImpactEffect(mono::ParticleSystem* particle_system, mono::IEntityManager* entity_system);
         ~ImpactEffect();
-        void EmittAt(const math::Vector& position, float direction);
+
+        void EmitAt(const math::Vector& world_position) override;
+        void EmitAtWithDirection(const math::Vector& world_position, float direction) override;
 
     private:
         mono::ParticleSystem* m_particle_system;

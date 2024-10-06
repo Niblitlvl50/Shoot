@@ -151,6 +151,7 @@ const DefaultAttribute default_attributes[] = {
     { "time_based",                 Variant(false) },
     { "time",                       Variant(1.0f), "In Seconds" },
     { "fail_on_timeout",            Variant(false) },
+    { "physics_material",           Variant(0u) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -284,6 +285,8 @@ extern const uint32_t FAILED_TRIGGER_ATTRIBUTE              = default_attributes
 extern const uint32_t TIME_BASED_ATTRIBUTE                  = default_attributes[109].hash;
 extern const uint32_t TIME_ATTRIBUTE                        = default_attributes[110].hash;
 extern const uint32_t FAIL_ON_TIMEOUT_ATTRIBUTE             = default_attributes[111].hash;
+extern const uint32_t PHYSICS_MATERIAL_ATTRIBUTE            = default_attributes[112].hash;
+
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -487,7 +490,7 @@ const Component default_components[] = {
     MakeComponent(UI_ITEM_COMPONENT,            NULL_COMPONENT,             false,  "ui",           { UI_GROUP_ATTRIBUTE, UI_ITEM_STATE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, UI_LEFT_ITEM_ID_ATTRIBUTE, UI_RIGHT_ITEM_ID_ATTRIBUTE, UI_ABOVE_ITEM_ID_ATTRIBUTE, UI_BELOW_ITEM_ID_ATTRIBUTE} ),
     MakeComponent(UI_SET_GROUP_STATE_COMPONENT, NULL_COMPONENT,             false,  "ui",           { UI_GROUP_ATTRIBUTE, UI_ITEM_STATE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE } ),
 
-    MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,             false,  "physics",      { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, INERTIA_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }),
+    MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,             false,  "physics",      { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, PHYSICS_MATERIAL_ATTRIBUTE, INERTIA_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }),
     MakeComponent(BOX_SHAPE_COMPONENT,          PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
     MakeComponent(CIRCLE_SHAPE_COMPONENT,       PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
     MakeComponent(POLYGON_SHAPE_COMPONENT,      PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, POLYGON_ATTRIBUTE, SENSOR_ATTRIBUTE }),

@@ -146,6 +146,8 @@ extern const uint32_t TIME_BASED_ATTRIBUTE;
 extern const uint32_t TIME_ATTRIBUTE;
 extern const uint32_t FAIL_ON_TIMEOUT_ATTRIBUTE;
 
+extern const uint32_t PHYSICS_MATERIAL_ATTRIBUTE;
+
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);
 const Variant& DefaultAttributeFromHash(uint32_t hash);

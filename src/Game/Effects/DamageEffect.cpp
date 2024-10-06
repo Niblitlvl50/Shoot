@@ -68,14 +68,20 @@ DamageEffect::~DamageEffect()
     m_entity_system->ReleaseEntity(m_particle_entity);
 }
 
-void DamageEffect::EmitGibsAt(const math::Vector& position, float direction)
+void DamageEffect::EmitAt(const math::Vector& world_position)
+{
+    EmitAtWithDirection(world_position, 0.0f);
+}
+
+void DamageEffect::EmitAtWithDirection(const math::Vector& world_position, float direction)
 {
     m_particle_system->AttachEmitter(
         m_particle_entity,
-        position,
+        world_position,
         0.25f,
         30.0f,
         mono::EmitterType::BURST_REMOVE_ON_FINISH,
         mono::EmitterMode::AUTO_ACTIVATED,
         GibsGenerator);
 }
+

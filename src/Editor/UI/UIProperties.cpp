@@ -11,6 +11,7 @@
 #include "Entity/TargetTypes.h"
 #include "EntitySystem/Entity.h"
 #include "CollisionConfiguration.h"
+#include "PhysicsMaterialConfiguration.h"
 #include "Pickups/PickupTypes.h"
 #include "InteractionSystem/InteractionType.h"
 #include "Math/EasingFunctions.h"
@@ -452,7 +453,20 @@ bool editor::DrawProperty(uint32_t component_hash, Attribute& attribute, const s
 
         return ImGui::Combo(
             attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(game::g_target_faction_strings));
-        }
+    }
+    else if(attribute.id == PHYSICS_MATERIAL_ATTRIBUTE)
+    {
+        uint32_t& physics_material = std::get<uint32_t>(attribute.value);
+
+        int index = physics_material;
+        const bool material_changed = ImGui::Combo(
+            attribute_name, &index, game::g_physics_material_strings, std::size(game::g_physics_material_strings));
+
+        if(material_changed)
+            physics_material = index;
+
+        return material_changed;
+    }
     else
     {
         return DrawGenericProperty(attribute_name, attribute.value, ui_context);

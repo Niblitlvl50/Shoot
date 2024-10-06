@@ -72,7 +72,7 @@ ImpactEffect::~ImpactEffect()
     m_entity_system->ReleaseEntity(m_particle_entity);
 }
 
-void ImpactEffect::EmittAt(const math::Vector& position, float direction)
+void ImpactEffect::EmitAtWithDirection(const math::Vector& world_position, float direction)
 {
     const auto generator_proxy = [direction](const mono::ParticleGeneratorContext& context, mono::ParticlePoolComponentView& component_view) {
         GibsGenerator(context, component_view, direction);
@@ -80,7 +80,7 @@ void ImpactEffect::EmittAt(const math::Vector& position, float direction)
 
     m_particle_system->AttachEmitter(
         m_particle_entity,
-        position,
+        world_position,
         0.5f,
         30.0f,
         mono::EmitterType::BURST_REMOVE_ON_FINISH,
@@ -88,3 +88,7 @@ void ImpactEffect::EmittAt(const math::Vector& position, float direction)
         generator_proxy);
 }
 
+void ImpactEffect::EmitAt(const math::Vector& world_position)
+{
+
+}
