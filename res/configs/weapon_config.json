@@ -8,7 +8,7 @@
             "life_span": 10.0,
             "fuzzy_life_span": 0.0,
             "bullet_want_direction": false,
-            "entity_file": "res/entities/bullet_green_blob.entity",
+            "entity_file": "res/entities/bullet_fire_wobbly.entity",
             "impact_entity_file": "",
             "sound_file": "",
             "behaviour": ""
@@ -197,7 +197,7 @@
             "bullet_offset": 0.0,
             "bullet_velocity_random": false,
             "auto_reload": false,
-            "fire_sound": "",
+            "fire_sound": "res/sound/plasma_fire_2.wav",
             "out_of_ammo_sound": "res/sound/ooa_sound_short.wav",
             "reload_sound": "res/sound/shotgun_reload2.wav",
             "reload_finished_sound": "res/sound/shotgun_reload2.wav"
