@@ -23,14 +23,14 @@
 
 namespace tweak_values
 {
-    constexpr float idle_time_s = 1.5f;
-    constexpr float attack_start_delay_s = 0.5f;
+    constexpr float idle_time_s = 1.0f;
+    constexpr float attack_start_delay_s = 0.25f;
 
     constexpr float move_speed = 0.5f;
     constexpr float degrees_per_second = 360.0f;
 
-    constexpr float attack_distance = 1.5f;
-    constexpr float max_attack_distance = 2.25f;
+    constexpr float attack_distance = 2.5f;
+    constexpr float max_attack_distance = 3.0f;
     constexpr float track_to_player_distance = 4.0f;
     constexpr float loose_interest_distance = 5.0f;
 
@@ -140,7 +140,7 @@ void FlyingMonsterController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
 
 const char* FlyingMonsterController::GetDebugCategory() const
 {
-    return "FlyingMonsterController";
+    return "Flying Monster";
 }
 
 void FlyingMonsterController::ToIdle()
