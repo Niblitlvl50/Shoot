@@ -132,6 +132,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -315,6 +321,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -496,6 +508,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -1125,6 +1143,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -1308,6 +1332,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -1489,6 +1519,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -1756,6 +1792,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -2152,6 +2194,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -2598,6 +2646,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -2779,6 +2833,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -2964,6 +3024,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -3145,6 +3211,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -3346,6 +3418,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10000.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -3609,6 +3687,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 50.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -3898,6 +3982,12 @@
                             "variant_value": 50.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -4183,6 +4273,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 50.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -4472,6 +4568,12 @@
                             "variant_value": 50.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -4757,6 +4859,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 50.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -5046,6 +5154,12 @@
                             "variant_value": 50.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -5331,6 +5445,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 50.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -5816,6 +5936,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 50.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -6320,6 +6446,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -6519,6 +6651,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -6730,6 +6868,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -6937,6 +7081,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -7812,6 +7962,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -8014,6 +8170,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -8220,6 +8382,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -8422,6 +8590,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -9502,6 +9676,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -10537,6 +10717,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -10741,6 +10927,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -10927,6 +11119,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -11108,6 +11306,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -11321,6 +11525,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 50.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -11585,6 +11795,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -11832,6 +12048,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -12036,6 +12258,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -12238,6 +12466,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -12494,6 +12728,12 @@
                             "variant_value": 50.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -12729,6 +12969,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -13102,6 +13348,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -13301,6 +13553,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -13550,6 +13808,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -13779,6 +14043,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -13996,6 +14266,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -14198,6 +14474,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -14404,6 +14686,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -14606,6 +14894,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -16114,6 +16408,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -16295,6 +16595,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -16498,6 +16804,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -16697,6 +17009,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -17266,6 +17584,12 @@
                             "variant_value": 50.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -17723,6 +18047,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -17920,6 +18250,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -18139,6 +18475,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -18323,6 +18665,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -18524,6 +18872,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -18721,6 +19075,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -18922,6 +19282,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -19119,6 +19485,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -19320,6 +19692,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -19517,6 +19895,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -19718,6 +20102,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -19915,6 +20305,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -20116,6 +20512,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -20313,6 +20715,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -20514,6 +20922,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -20711,6 +21125,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -20912,6 +21332,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -21109,6 +21535,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -21570,6 +22002,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -21751,6 +22189,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -21936,6 +22380,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -22117,6 +22567,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -22302,6 +22758,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -22483,6 +22945,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -22668,6 +23136,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -22851,6 +23325,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -23032,6 +23512,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -23455,6 +23941,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -24032,6 +24524,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -24734,6 +25232,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -24936,6 +25440,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -25142,6 +25652,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -25326,6 +25842,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -26460,6 +26982,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -26664,6 +27192,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -26863,6 +27397,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -27074,6 +27614,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -27273,6 +27819,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -27484,6 +28036,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -27691,6 +28249,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -27902,6 +28466,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -28111,6 +28681,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -28318,6 +28894,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -28751,6 +29333,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -28934,6 +29522,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -29115,6 +29709,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -29316,6 +29916,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -29522,6 +30128,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -29708,6 +30320,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -29891,6 +30509,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -30072,6 +30696,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -30497,6 +31127,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -30681,6 +31317,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -30887,6 +31529,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -31089,6 +31737,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -31416,6 +32070,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -31615,6 +32275,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -32392,6 +33058,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -32589,6 +33261,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -32790,6 +33468,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -33001,6 +33685,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -33203,6 +33893,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -33409,6 +34105,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -33610,6 +34312,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -33791,6 +34499,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -33994,6 +34708,12 @@
                             "variant_value": 10000.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -34189,6 +34909,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -34370,6 +35096,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -34555,6 +35287,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -34736,6 +35474,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -34937,6 +35681,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -35209,6 +35959,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -35433,6 +36189,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -36679,6 +37441,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -38222,6 +38990,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -38406,6 +39180,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -38612,6 +39392,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -38793,6 +39579,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -39769,6 +40561,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -39950,6 +40748,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -40615,6 +41419,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -40808,6 +41618,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -42329,6 +43145,12 @@
                             "variant_value": 100.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -42531,6 +43353,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 100.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -42737,6 +43565,12 @@
                             "variant_value": 100.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -42941,6 +43775,12 @@
                             "variant_value": 100.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -43143,6 +43983,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 100.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -44373,6 +45219,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -44575,6 +45427,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -45141,6 +45999,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -45325,6 +46189,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -45529,6 +46399,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -46380,6 +47256,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -46581,6 +47463,12 @@
                             "variant_value": 10000.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -46776,6 +47664,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -46957,6 +47851,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -47142,6 +48042,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -47323,6 +48229,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -47524,6 +48436,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -47721,6 +48639,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -47922,6 +48846,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -48119,6 +49049,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -48320,6 +49256,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -48517,6 +49459,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -50062,6 +51010,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -50261,6 +51215,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -50464,6 +51424,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -50663,6 +51629,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -50866,6 +51838,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -51065,6 +52043,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -51898,6 +52882,12 @@
                             "variant_value": 50.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -52273,6 +53263,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -52474,6 +53470,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -52599,6 +53601,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -52729,6 +53737,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -53714,6 +54728,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -53900,6 +54920,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -54084,6 +55110,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -55444,6 +56476,12 @@
                             "variant_value": 50.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -55729,6 +56767,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 50.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -56018,6 +57062,12 @@
                             "variant_value": 50.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -56303,6 +57353,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 50.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -56592,6 +57648,12 @@
                             "variant_value": 50.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -56871,6 +57933,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -57017,6 +58085,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -57274,7 +58348,6 @@
             "y": 0.0
         },
         "spawn_package": true,
-        "time_limit_s": 0,
         "triggers": [
             "boss_completed",
             "boss_defeated",
