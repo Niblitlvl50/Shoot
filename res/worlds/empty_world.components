@@ -35,8 +35,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -0.75,
-                                "y": -0.75
+                                "x": -0.875,
+                                "y": -0.25
                             }
                         },
                         {
@@ -132,6 +132,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -221,8 +227,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -0.75,
-                                "y": -0.15000000596046448
+                                "x": -0.875,
+                                "y": 0.375
                             }
                         },
                         {
@@ -359,8 +365,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 3.3000001907348633,
-                                "y": -0.15000000596046448
+                                "x": 3.25,
+                                "y": 0.375
                             }
                         },
                         {
@@ -497,8 +503,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.30000001192092896,
-                                "y": 0.45000001788139343
+                                "x": 0.25,
+                                "y": 1.0
                             }
                         },
                         {
@@ -635,8 +641,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 2.4000000953674316,
-                                "y": 0.45000001788139343
+                                "x": 2.25,
+                                "y": 1.0
                             }
                         },
                         {
@@ -2701,8 +2707,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 5.550000190734863,
-                                "y": -4.800000190734863
+                                "x": 5.0,
+                                "y": -4.75
                             }
                         },
                         {
@@ -2821,8 +2827,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 7.050000190734863,
-                                "y": -4.200000286102295
+                                "x": 7.125,
+                                "y": -4.375
                             }
                         },
                         {
@@ -4621,8 +4627,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 4.950000286102295,
-                                "y": -3.450000047683716
+                                "x": 5.0,
+                                "y": -3.5
                             }
                         },
                         {
@@ -4741,8 +4747,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 6.0,
-                                "y": -2.700000047683716
+                                "x": 5.875,
+                                "y": -2.5
                             }
                         },
                         {
@@ -6421,8 +6427,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 5.550000190734863,
-                                "y": -1.0500000715255737
+                                "x": 7.25,
+                                "y": -1.5
                             }
                         },
                         {
@@ -14827,8 +14833,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 3.0,
-                                "y": -1.0500000715255737
+                                "x": 2.875,
+                                "y": -0.5
                             }
                         },
                         {
@@ -15035,8 +15041,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -0.6000000238418579,
-                                "y": -1.0500000715255737
+                                "x": -0.75,
+                                "y": -0.5
                             }
                         },
                         {
@@ -15211,8 +15217,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 3.3000001907348633,
-                                "y": -0.75
+                                "x": 3.25,
+                                "y": -0.25
                             }
                         },
                         {
@@ -15306,6 +15312,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -15512,6 +15524,12 @@
                             "variant_value": 10.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -15711,6 +15729,12 @@
                             "name": "mass",
                             "variant_type": 3,
                             "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
                         },
                         {
                             "id": 3447918833,
@@ -15964,6 +15988,12 @@
                             "variant_value": 50.0
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3447918833,
                             "name": "inertia",
                             "variant_type": 3,
@@ -16086,8 +16116,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.0,
-                                "y": -1.2000000476837158
+                                "x": -0.625,
+                                "y": -1.125
                             }
                         },
                         {
@@ -16668,6 +16698,220 @@
             "entity_properties": 0,
             "name": "fog_test",
             "uuid_hash": 4190335088
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "bone_wand1"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 1.375,
+                                "y": -1.375
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 2050902347,
+                    "name": "interaction",
+                    "properties": [
+                        {
+                            "id": 648402708,
+                            "name": "interaction_type",
+                            "variant_type": 1,
+                            "variant_value": 4
+                        },
+                        {
+                            "id": 3146177751,
+                            "name": "sound_file",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "",
+                                "type": 0
+                            }
+                        },
+                        {
+                            "id": 3732203999,
+                            "name": "draw_name",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "bone_wand1.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2406412294,
+                    "name": "weapon_loadout",
+                    "properties": [
+                        {
+                            "id": 3150860,
+                            "name": "weapon_primary",
+                            "variant_type": 6,
+                            "variant_value": "Stinky Bomb"
+                        },
+                        {
+                            "id": 3576654212,
+                            "name": "weapon_secondary",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 556824164,
+                            "name": "weapon_tertiary",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "bone_wand1",
+            "uuid_hash": 1103040701
         }
     ],
     "metadata": {
