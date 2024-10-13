@@ -126,15 +126,19 @@ mono::InputResult PlayerKeyboardController::KeyDown(const event::KeyDownEvent& e
     switch(event.key)
     {
     case Keycode::A:
+    case Keycode::LEFT:
         m_left = true;
         break;
     case Keycode::D:
+    case Keycode::RIGHT:
         m_right = true;
         break;
     case Keycode::W:
+    case Keycode::UP:
         m_up = true;
         break;
     case Keycode::S:
+    case Keycode::DOWN:
         m_down = true;
         break;
 
@@ -150,15 +154,19 @@ mono::InputResult PlayerKeyboardController::KeyUp(const event::KeyUpEvent& event
     switch(event.key)
     {
     case Keycode::A:
+    case Keycode::LEFT:
         m_left = false;
         break;
     case Keycode::D:
+    case Keycode::RIGHT:
         m_right = false;
         break;
     case Keycode::W:
+    case Keycode::UP:
         m_up = false;
         break;
     case Keycode::S:
+    case Keycode::DOWN:
         m_down = false;
         break;
 
