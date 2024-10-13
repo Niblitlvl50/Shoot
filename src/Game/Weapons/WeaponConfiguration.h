@@ -54,6 +54,7 @@ namespace game
         EXPLODES        = ENUM_BIT(4),
         CIRCULATING     = ENUM_BIT(5),
         SINEWAVE        = ENUM_BIT(6),
+        ARC_TRAJECTORY  = ENUM_BIT(7),
     };
 
     inline uint8_t StringToBulletCollisionFlag(const char* string)
@@ -72,6 +73,8 @@ namespace game
             return BulletCollisionFlag::CIRCULATING;
         else if(std::strcmp(string, "sinewave") == 0)
             return BulletCollisionFlag::SINEWAVE;
+        else if(std::strcmp(string, "arc_trajectory") == 0)
+            return BulletCollisionFlag::ARC_TRAJECTORY;
 
         return 0;
     }
@@ -123,24 +126,6 @@ namespace game
     {
         CollisionCategory collision_category;
         uint32_t collision_mask;
-        BulletImpactCallback collision_callback;
-    };
-
-    struct ThrowableWeaponConfig
-    {
-        int magazine_size = 10;
-        int projectiles_per_fire = 1;
-        float cooldown_seconds = 2.0f;
-        float reload_time = 1.0f;
-        float max_distance = 5.0f;
-        float target_accuracy = 0.0f; // Radius
-
-        // Throwable data
-        const char* thrown_entity = nullptr;
-        const char* spawned_entity = nullptr;
-
-        CollisionCategory collision_category = CollisionCategory::STATIC;
-        uint32_t collision_mask = 0;
         BulletImpactCallback collision_callback;
     };
 }

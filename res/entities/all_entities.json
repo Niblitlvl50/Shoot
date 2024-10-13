@@ -53,6 +53,8 @@
         "res/entities/portal_green.entity",
         "res/entities/secondary_player_bat.entity",
         "res/entities/small_crosshair.entity",
+        "res/entities/stinky_bomb.entity",
+        "res/entities/stinky_bomb_explosion.entity",
         "res/entities/throwable_thing.entity",
         "res/entities/torch_small.entity",
         "res/entities/weapon_pickup.entity",

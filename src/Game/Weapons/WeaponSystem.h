@@ -65,8 +65,6 @@ namespace game
 
     private:
 
-        IWeaponPtr CreateThrowableWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id);
-
         mono::TransformSystem* m_transform_system;
         mono::IEntityManager* m_entity_manager;
         mono::SystemContext* m_system_context;

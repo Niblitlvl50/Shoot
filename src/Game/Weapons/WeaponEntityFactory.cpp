@@ -3,6 +3,7 @@
 #include "WeaponConfiguration.h"
 #include "BulletWeapon/BulletLogic.h"
 #include "BulletWeapon/WebberLogic.h"
+#include "BulletWeapon/ThrowableLogic.h"
 #include "Entity/EntityLogicSystem.h"
 
 #include "EntitySystem/IEntityManager.h"
@@ -42,18 +43,38 @@ mono::Entity WeaponEntityFactory::CreateBulletEntity(
     mono::Entity bullet_entity = m_entity_manager->SpawnEntity(bullet_config.entity_file.c_str());
     m_transform_system->SetTransform(bullet_entity.id, transform, mono::TransformState::CLIENT);
 
-    IEntityLogic* bullet_logic = new BulletLogic(
-        bullet_entity.id,
-        owner_id,
-        weapon_identifier_hash,
-        target,
-        velocity,
-        bullet_direction,
-        bullet_config,
-        collision_config,
-        m_transform_system,
-        m_physics_system,
-        m_target_system);
+
+    const bool is_throwable_weapon = (bullet_config.bullet_behaviour & BulletCollisionFlag::ARC_TRAJECTORY);
+
+    IEntityLogic* bullet_logic = nullptr;
+    
+    if(is_throwable_weapon)
+    {
+        bullet_logic = new ThrowableLogic(
+            bullet_entity.id,
+            owner_id,
+            math::GetPosition(transform),
+            target,
+            velocity,
+            bullet_config,
+            m_transform_system,
+            m_entity_manager);
+    }
+    else
+    {
+        bullet_logic = new BulletLogic(
+            bullet_entity.id,
+            owner_id,
+            weapon_identifier_hash,
+            target,
+            velocity,
+            bullet_direction,
+            bullet_config,
+            collision_config,
+            m_transform_system,
+            m_physics_system,
+            m_target_system);
+    }
 
     m_entity_manager->AddComponent(bullet_entity.id, BEHAVIOUR_COMPONENT);
     m_logic_system->AddLogic(bullet_entity.id, bullet_logic);

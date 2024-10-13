@@ -5,7 +5,6 @@
 #include "Util/Algorithm.h"
 
 #include "Weapons/BulletWeapon/BulletWeapon.h"
-#include "Weapons/ThrowableWeapon/ThrowableWeapon.h"
 #include "Weapons/CollisionCallbacks.h"
 #include "DamageSystem/DamageSystem.h"
 
@@ -203,27 +202,8 @@ IWeaponPtr WeaponSystem::CreateWeapon(WeaponSetup setup, WeaponFaction faction, 
     collision_config.collision_mask = enemy_weapon ? ENEMY_BULLET_MASK : PLAYER_BULLET_MASK;
     collision_config.collision_callback = (impact_callback_it != m_bullet_callbacks.end()) ? impact_callback_it->second : m_standard_collision;
 
-    const bool is_bullet_weapon = true; //IsBulletWeapon(setup);
-    if(is_bullet_weapon)
-    {
-        return std::make_unique<game::Weapon>(
-            owner_id, setup, weapon_config, bullet_config, collision_config, m_entity_manager, m_system_context);
-    }
-    else
-    {
-        return CreateThrowableWeapon(setup, faction, owner_id);
-    }
-}
-
-IWeaponPtr WeaponSystem::CreateThrowableWeapon(WeaponSetup setup, WeaponFaction faction, uint32_t owner_id)
-{
-    ThrowableWeaponConfig weapon_config;
-
-    const bool enemy_weapon = (faction == WeaponFaction::ENEMY);
-    weapon_config.collision_category = enemy_weapon ? CollisionCategory::ENEMY_BULLET : CollisionCategory::PLAYER_BULLET;
-    weapon_config.collision_mask = enemy_weapon ? ENEMY_BULLET_MASK : PLAYER_BULLET_MASK;
-
-    return std::make_unique<game::ThrowableWeapon>(setup, weapon_config, m_entity_manager, m_system_context);
+    return std::make_unique<game::Weapon>(
+        owner_id, setup, weapon_config, bullet_config, collision_config, m_entity_manager, m_system_context);
 }
 
 std::vector<WeaponBulletCombination> WeaponSystem::GetAllWeaponCombinations() const

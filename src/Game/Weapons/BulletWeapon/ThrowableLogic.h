@@ -7,6 +7,7 @@
 #include "StateMachine.h"
 
 #include <memory>
+#include <string>
 
 namespace game
 {
@@ -16,12 +17,12 @@ namespace game
 
         ThrowableLogic(
             uint32_t entity_id,
-            const char* spawned_entity,
+            uint32_t owner_entity_id,
             const math::Vector& position,
             const math::Vector& target,
+            const math::Vector& velocity,
+            const struct BulletConfiguration& bullet_config,
             mono::TransformSystem* transform_system,
-            mono::SpriteSystem* sprite_system,
-            mono::ParticleSystem* particle_system,
             mono::IEntityManager* entity_manager);
         void Update(const mono::UpdateContext& update_context) override;
 
@@ -33,18 +34,18 @@ namespace game
         void Spawning(const mono::UpdateContext& update_context);
 
         const uint32_t m_entity_id;
-        const char* m_spawned_entity;
+        const uint32_t m_owner_entity_id;
+        const std::string m_spawned_entity;
         const math::Vector m_target;
         mono::TransformSystem* m_transform_system;
-        mono::SpriteSystem* m_sprite_system;
         mono::IEntityManager* m_entity_manager;
 
         math::Vector m_start_position;
         math::Vector m_move_delta;
+        float m_meters_per_second;
+        float m_life_span;
         float m_move_timer_s;
         float m_spawn_timer_s;
-
-        std::unique_ptr<class SmokeEffect> m_smoke_effect;
 
         enum class ThrowableStates
         {

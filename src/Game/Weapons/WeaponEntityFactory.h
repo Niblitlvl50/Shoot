@@ -28,7 +28,7 @@ namespace game
             const math::Vector& velocity,
             float bullet_direction,
             const math::Matrix& transform) const;
-
+        
         mono::Entity CreateWebberEntity(
             const std::vector<mono::QueryResult>& bodies, const math::Matrix& transform) const;
 

@@ -180,6 +180,18 @@
             "impact_entity_file": "",
             "sound_file": "",
             "behaviour": ""
+        },
+        {
+            "name": "stinky_bomb",
+            "min_damage": 0,
+            "max_damage": 0,
+            "life_span": 2.5,
+            "fuzzy_life_span": 0,
+            "bullet_want_direction": true,
+            "entity_file": "res/entities/stinky_bomb.entity",
+            "impact_entity_file": "res/entities/stinky_bomb_explosion.entity",
+            "sound_file": "",
+            "behaviour": "arc_trajectory"
         }
     ],
     "weapons": [
@@ -449,6 +461,26 @@
             "reload_sound": "res/sound/shotgun_reload2.wav",
             "reload_finished_sound": "res/sound/shotgun_reload2.wav",
             "sprite_file": "res/sprites/wooden_stick1.sprite"
+        },
+        {
+            "name": "throwing_stinky_bomb",
+            "magazine_size": 3,
+            "infinite_ammo": false,
+            "reload_time": 0.75,
+            "projectiles_per_fire": 1,
+            "rounds_per_second": 2.0,
+            "fire_rate_multiplier": 1.0,
+            "max_fire_rate": 1.0,
+            "bullet_velocity": 0.5,
+            "bullet_spread_degrees": 5.0,
+            "bullet_offset": 0.0,
+            "bullet_velocity_random": true,
+            "auto_reload": true,
+            "fire_sound": "res/sound/blaster-probe-gun.wav",
+            "out_of_ammo_sound": "res/sound/ooa_sound_short.wav",
+            "reload_sound": "res/sound/shotgun_reload2.wav",
+            "reload_finished_sound": "res/sound/shotgun_reload2.wav",
+            "sprite_file": "res/sprites/wooden_stick1.sprite"
         }
     ],
     "weapon_setups": [
@@ -552,6 +584,12 @@
             "name": "Temp Homing Gun",
             "weapon": "temp_homing_gun",
             "bullet": "flak_bullet_homing",
+            "sprite_file": "res/sprites/wooden_stick_lantern1.sprite"
+        },
+        {
+            "name": "Stinky Bomb",
+            "weapon": "throwing_stinky_bomb",
+            "bullet": "stinky_bomb",
             "sprite_file": "res/sprites/wooden_stick_lantern1.sprite"
         }
     ]
