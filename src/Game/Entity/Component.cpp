@@ -301,6 +301,7 @@ extern const uint32_t BOX_SHAPE_COMPONENT           = hash::Hash("box_shape");
 extern const uint32_t SEGMENT_SHAPE_COMPONENT       = hash::Hash("segment_shape");
 extern const uint32_t POLYGON_SHAPE_COMPONENT       = hash::Hash("polygon_shape");
 extern const uint32_t HEALTH_COMPONENT              = hash::Hash("health");
+extern const uint32_t SHOCKWAVE_COMPONENT           = hash::Hash("shockwave");
 extern const uint32_t BEHAVIOUR_COMPONENT           = hash::Hash("entity_behaviour");
 extern const uint32_t SPAWN_POINT_COMPONENT         = hash::Hash("spawn_point");
 extern const uint32_t ENTITY_SPAWN_POINT_COMPONENT  = hash::Hash("entity_spawn_point");
@@ -370,6 +371,8 @@ const char* component::ComponentNameFromHash(uint32_t hash)
         return "polygon_shape";
     else if(hash == HEALTH_COMPONENT)
         return "health";
+    else if(hash == SHOCKWAVE_COMPONENT)
+        return "shockwave";
     else if(hash == BEHAVIOUR_COMPONENT)
         return "entity_behaviour";
     else if(hash == SPAWN_POINT_COMPONENT)
@@ -468,12 +471,14 @@ const Component default_components[] = {
     MakeComponent(NAME_FOLDER_COMPONENT,        NULL_COMPONENT,             false,  "general",      { NAME_ATTRIBUTE, FOLDER_ATTRIBUTE, EDITOR_PROPERTIES_ATTRIBUTE }),
     MakeComponent(TRANSFORM_COMPONENT,          NULL_COMPONENT,             false,  "general",      { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE, SCALE_ATTRIBUTE, ENTITY_REFERENCE_ATTRIBUTE }),
     MakeComponent(TAG_COMPONENT,                NULL_COMPONENT,             false,  "general",      { TAG_ATTRIBUTE }),
-    MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,             false,  "general",      { HEALTH_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }),
     MakeComponent(INTERACTION_COMPONENT,        NULL_COMPONENT,             false,  "general",      { INTERACTION_TYPE_ATTRIBUTE, SOUND_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DRAW_NAME_ATTRIBUTE }),
     MakeComponent(INTERACTION_SWITCH_COMPONENT, NULL_COMPONENT,             false,  "general",      { INTERACTION_TYPE_ATTRIBUTE, SOUND_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, DRAW_NAME_ATTRIBUTE }),
     MakeComponent(PATH_COMPONENT,               NULL_COMPONENT,             false,  "general",      { PATH_TYPE_ATTRIBUTE, PATH_POINTS_ATTRIBUTE, PATH_CLOSED_ATTRIBUTE }),
     MakeComponent(SOUND_COMPONENT,              NULL_COMPONENT,             false,  "general",      { SOUND_ATTRIBUTE, SOUND_PLAY_PARAMETERS, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE }),
     MakeComponent(ENTITY_TRACKING_COMPONENT,    NULL_COMPONENT,             false,  "general",      { ENTITY_TYPE_ATTRIBUTE } ),
+
+    MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,             false,  "damage",       { HEALTH_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }),
+    MakeComponent(SHOCKWAVE_COMPONENT,          NULL_COMPONENT,             false,  "damage",       { TRIGGER_NAME_ATTRIBUTE, RADIUS_ATTRIBUTE, MAGNITUDE_INTERVAL_ATTRIBUTE, HEALTH_ATTRIBUTE }),
 
     MakeComponent(PICKUP_COMPONENT,             PHYSICS_COMPONENT,          false,  "pickups",      { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE }),
     MakeComponent(LOOTBOX_COMPONENT,            NULL_COMPONENT,             false,  "pickups",      { }),

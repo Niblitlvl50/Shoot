@@ -10,8 +10,6 @@
 
 namespace game
 {
-    class TriggerSystem;
-
     enum class MissionStatus
     {
         Inactive,
@@ -74,7 +72,7 @@ namespace game
     {
     public:
 
-        MissionSystem(mono::IEntityManager* entity_manager, mono::TransformSystem* transform_system, game::TriggerSystem* trigger_system);
+        MissionSystem(mono::IEntityManager* entity_manager, mono::TransformSystem* transform_system, mono::TriggerSystem* trigger_system);
         const char* Name() const override;
         void Sync() override;
         void Update(const mono::UpdateContext& update_context) override;
@@ -118,7 +116,7 @@ namespace game
 
         mono::IEntityManager* m_entity_manager;
         mono::TransformSystem* m_transform_system;
-        game::TriggerSystem* m_trigger_system;
+        mono::TriggerSystem* m_trigger_system;
 
         uint32_t m_point_index;
         std::vector<std::string> m_spawnable_missions;

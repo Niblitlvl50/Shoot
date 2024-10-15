@@ -88,7 +88,7 @@ void PacketDeliveryGameMode::Begin(
 {
     m_event_handler = event_handler;
     m_render_system = system_context->GetSystem<mono::RenderSystem>();
-    m_trigger_system = system_context->GetSystem<game::TriggerSystem>();
+    m_trigger_system = system_context->GetSystem<mono::TriggerSystem>();
     m_entity_manager = system_context->GetSystem<mono::IEntityManager>();
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
@@ -125,7 +125,7 @@ void PacketDeliveryGameMode::Begin(
     m_level_aborted_hash = hash::Hash(level_metadata.aborted_trigger.c_str());
     m_level_failed_hash = hash::Hash(level_metadata.failed_trigger.c_str());
 
-    const TriggerCallback level_event_callback = [this](uint32_t trigger_id) {
+    const mono::TriggerCallback level_event_callback = [this](uint32_t trigger_id) {
         if(trigger_id == m_level_completed_hash)
             m_states.TransitionTo(GameModeStates::LEVEL_COMPLETED);
         else if(trigger_id == m_level_failed_hash)

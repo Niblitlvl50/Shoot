@@ -34,7 +34,7 @@ namespace game
 
 using namespace game;
 
-MissionSystem::MissionSystem(mono::IEntityManager* entity_manager, mono::TransformSystem* transform_system, game::TriggerSystem* trigger_system)
+MissionSystem::MissionSystem(mono::IEntityManager* entity_manager, mono::TransformSystem* transform_system, mono::TriggerSystem* trigger_system)
     : m_entity_manager(entity_manager)
     , m_transform_system(transform_system)
     , m_trigger_system(trigger_system)
@@ -184,7 +184,7 @@ void MissionSystem::SetMissionData(
 
     if(component->activated_trigger != hash::NO_HASH)
     {
-        const game::TriggerCallback activated_callback = [this, entity_id](uint32_t trigger_id) {
+        const mono::TriggerCallback activated_callback = [this, entity_id](uint32_t trigger_id) {
             HandleMissionActivated(entity_id);
         };
         component->activated_callback_id = m_trigger_system->RegisterTriggerCallback(component->activated_trigger, activated_callback, entity_id);
@@ -192,7 +192,7 @@ void MissionSystem::SetMissionData(
 
     if(component->completed_trigger != hash::NO_HASH)
     {
-        const game::TriggerCallback completed_callback = [this, entity_id](uint32_t trigger_id) {
+        const mono::TriggerCallback completed_callback = [this, entity_id](uint32_t trigger_id) {
             HandleMissionCompleted(entity_id, false);
         };
         component->completed_callback_id = m_trigger_system->RegisterTriggerCallback(component->completed_trigger, completed_callback, entity_id);
@@ -200,7 +200,7 @@ void MissionSystem::SetMissionData(
 
     if(component->failed_trigger != hash::NO_HASH)
     {
-        const game::TriggerCallback failed_callback = [this, entity_id](uint32_t trigger_id) {
+        const mono::TriggerCallback failed_callback = [this, entity_id](uint32_t trigger_id) {
             HandleMissionFailed(entity_id, false);
         };
         component->failed_callback_id = m_trigger_system->RegisterTriggerCallback(component->failed_trigger, failed_callback, entity_id);
@@ -280,7 +280,7 @@ void MissionSystem::SetMissionActivatorData(uint32_t entity_id, uint32_t activat
 
     if(component->trigger != hash::NO_HASH)
     {
-        const game::TriggerCallback activated_callback = [this](uint32_t trigger_id) {
+        const mono::TriggerCallback activated_callback = [this](uint32_t trigger_id) {
             ActivateMission();
 
             // if do once, deactivate trigger here.

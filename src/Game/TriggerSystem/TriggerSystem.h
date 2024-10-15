@@ -4,7 +4,6 @@
 #include "IGameSystem.h"
 #include "MonoFwd.h"
 #include "Math/Quad.h"
-
 #include "Physics/PhysicsFwd.h"
 #include "TriggerTypes.h"
 #include "Util/ActiveVector.h"
@@ -16,7 +15,7 @@
 #include <functional>
 #include <memory>
 
-namespace game
+namespace mono
 {
     struct ShapeTriggerComponent
     {
@@ -26,15 +25,6 @@ namespace game
 
         // Internal data
         std::unique_ptr<mono::ICollisionHandler> shape_trigger_handler;
-    };
-
-    struct DestroyedTriggerComponent
-    {
-        uint32_t trigger_hash;
-        DestroyedTriggerType trigger_type;
-
-        // Internal data
-        uint32_t callback_id;
     };
 
     struct AreaEntityTriggerComponent
@@ -85,18 +75,12 @@ namespace game
 
         TriggerSystem(
             uint32_t n_triggers,
-            class DamageSystem* damage_system,
-            mono::PhysicsSystem* physics_system,
-            mono::IEntityManager* entity_system);
+            mono::PhysicsSystem* physics_system);
 
         ShapeTriggerComponent* AllocateShapeTrigger(uint32_t entity_id);
         void ReleaseShapeTrigger(uint32_t entity_id);
         void AddShapeTrigger(
             uint32_t entity_id, uint32_t trigger_hash_enter, uint32_t trigger_hash_exit, uint32_t collision_mask, bool trigger_once);
-
-        DestroyedTriggerComponent* AllocateDestroyedTrigger(uint32_t entity_id);
-        void ReleaseDestroyedTrigger(uint32_t entity_id);
-        void AddDestroyedTrigger(uint32_t entity_id, uint32_t trigger_hash, DestroyedTriggerType type);
 
         AreaEntityTriggerComponent* AllocateAreaTrigger(uint32_t entity_id);
         void ReleaseAreaTrigger(uint32_t entity_id);
@@ -128,12 +112,6 @@ namespace game
         void ForEachShapeTrigger(T&& callable)
         {
             m_shape_triggers.ForEach(callable);
-        }
-
-        template<typename T>
-        void ForEachDestroyedTrigger(T&& callable)
-        {
-            m_destroyed_triggers.ForEach(callable);
         }
 
         template<typename T>
@@ -169,15 +147,12 @@ namespace game
         void UpdateTimeTriggers(const mono::UpdateContext& update_context);
         void UpdateDelayedRelayTriggers(const mono::UpdateContext& update_context);
 
-        class DamageSystem* m_damage_system;
         mono::PhysicsSystem* m_physics_system;
-        mono::IEntityManager* m_entity_system;
 
         using TriggerCallbacks = std::array<TriggerCallback, 8>;
         std::unordered_map<uint32_t, TriggerCallbacks> m_trigger_callbacks;
 
         mono::ActiveVector<ShapeTriggerComponent> m_shape_triggers;
-        mono::ActiveVector<DestroyedTriggerComponent> m_destroyed_triggers;
         mono::ActiveVector<AreaEntityTriggerComponent> m_area_triggers;
         mono::ActiveVector<TimeTriggerComponent> m_time_triggers;
         mono::ActiveVector<CounterTriggerComponent> m_counter_triggers;

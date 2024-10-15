@@ -16,7 +16,7 @@ namespace
 }
 
 AnimationSystem::AnimationSystem(
-    uint32_t n, TriggerSystem* trigger_system, mono::TransformSystem* transform_system, mono::SpriteSystem* sprite_system)
+    uint32_t n, mono::TriggerSystem* trigger_system, mono::TransformSystem* transform_system, mono::SpriteSystem* sprite_system)
     : m_trigger_system(trigger_system)
     , m_transform_system(transform_system)
     , m_sprite_system(sprite_system)
@@ -81,7 +81,7 @@ bool AnimationSystem::IsAnimationContainerAllocated(uint32_t entity_id)
     allocated_component->trigger_hash = trigger_hash;
     allocated_component->animation_index = animation_index;
 
-    const TriggerCallback callback = [this, allocated_component](uint32_t trigger_id) {
+    const mono::TriggerCallback callback = [this, allocated_component](uint32_t trigger_id) {
         m_sprite_anims_to_process.push_back(allocated_component);
     };
     allocated_component->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback, container_id);
@@ -120,7 +120,7 @@ TransformAnimationComponent* AnimationSystem::AddTransformComponent(
 
     if(mode & AnimationMode::TRIGGER_ACTIVATED)
     {
-        const TriggerCallback callback = [this, allocated_component](uint32_t trigger_id) {
+        const mono::TriggerCallback callback = [this, allocated_component](uint32_t trigger_id) {
             AddTransformAnimatonToUpdate(allocated_component);
         };
         allocated_component->callback_id = m_trigger_system->RegisterTriggerCallback(trigger_hash, callback, container_id);

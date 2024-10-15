@@ -16,7 +16,6 @@
 
 namespace game
 {
-    class TriggerSystem;
     class DamageSystem;
     class EntityLogicSystem;
 
@@ -39,10 +38,11 @@ namespace game
         mutable bool m_draw_trigger_input;
         bool m_pause;
 
-        TriggerSystem* m_trigger_system;
+        mono::TriggerSystem* m_trigger_system;
+        mono::IEntityManager* m_entity_manager;
         DamageSystem* m_damage_system;
         EntityLogicSystem* m_logic_system;
-        mono::IEntityManager* m_entity_manager;
+
         mono::EventToken<event::KeyUpEvent> m_keyup_token;
 
         mono::FpsCounter m_counter;

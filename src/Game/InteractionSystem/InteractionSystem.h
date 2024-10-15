@@ -42,7 +42,7 @@ namespace game
     {
     public:
 
-        InteractionSystem(uint32_t n, mono::TransformSystem* transform_system, class TriggerSystem* trigger_system);
+        InteractionSystem(uint32_t n, mono::TransformSystem* transform_system, mono::TriggerSystem* trigger_system);
 
         InteractionComponent* AllocateComponent(uint32_t entity_id);
         void ReleaseComponent(uint32_t entity_id);
@@ -86,7 +86,7 @@ namespace game
         };
 
         mono::TransformSystem* m_transform_system;
-        game::TriggerSystem* m_trigger_system;
+        mono::TriggerSystem* m_trigger_system;
 
         mono::ActiveVector<InteractionComponent> m_components;
         std::vector<InteractionComponentDetails> m_component_details;

@@ -49,7 +49,7 @@ namespace game
             mono::ICamera* camera,
             mono::TransformSystem* transform_system,
             mono::EventHandler* event_handler,
-            class TriggerSystem* trigger_system);
+            mono::TriggerSystem* trigger_system);
 
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
@@ -81,7 +81,7 @@ private:
 
         mono::ICamera* m_camera;
         mono::TransformSystem* m_transform_system;
-        class TriggerSystem* m_trigger_system;
+        mono::TriggerSystem* m_trigger_system;
 
         mono::MouseCameraController m_controller;
 

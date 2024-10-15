@@ -29,6 +29,7 @@
 
 #include "System/Hash.h"
 #include "System/System.h"
+#include "Util/Random.h"
 #include "Math/EasingFunctions.h"
 
 namespace
@@ -197,6 +198,42 @@ namespace
         return true;
     }
 
+    bool CreateShockwave(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::DamageSystem* damage_system = context->GetSystem<game::DamageSystem>();
+        damage_system->CreateShockwaveComponent(entity->id);
+        return true;
+    }
+
+    bool ReleaseShockwave(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::DamageSystem* damage_system = context->GetSystem<game::DamageSystem>();
+        damage_system->ReleaseShockwaveComponent(entity->id);
+        return true;
+    }
+
+    bool UpdateShockwave(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        uint32_t trigger = 0;
+        float radius;
+        math::Interval magnitude;
+        int damage;
+
+        mono::Event trigger_name;
+        const bool found_enable = FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::SET_DEFAULT);
+        if(found_enable)
+            trigger = hash::Hash(trigger_name.text.c_str());
+
+        FindAttribute(RADIUS_ATTRIBUTE, properties, radius, FallbackMode::SET_DEFAULT);
+        FindAttribute(MAGNITUDE_INTERVAL_ATTRIBUTE, properties, magnitude, FallbackMode::SET_DEFAULT);
+        FindAttribute(HEALTH_ATTRIBUTE, properties, damage, FallbackMode::SET_DEFAULT);
+
+        game::DamageSystem* damage_system = context->GetSystem<game::DamageSystem>();
+        damage_system->UpdateShockwaveComponent(entity->id, trigger, radius, mono::Random(magnitude.min, magnitude.max), damage);
+
+        return true;
+    }
+
     bool CreateEntityLogic(mono::Entity* entity, mono::SystemContext* context)
     {
         game::EntityLogicSystem* logic_system = context->GetSystem<game::EntityLogicSystem>();
@@ -336,14 +373,14 @@ namespace
 
     bool CreateShapeTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
-        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
         trigger_system->AllocateShapeTrigger(entity->id);
         return true;
     }
     
     bool ReleaseShapeTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
-        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
         trigger_system->ReleaseShapeTrigger(entity->id);
         return true;
     }
@@ -372,7 +409,7 @@ namespace
         const uint32_t enter_trigger_hash = hash::Hash(enter_trigger_name.text.c_str());
         const uint32_t exit_trigger_hash = hash::Hash(exit_trigger_name.text.c_str());
 
-        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
         trigger_system->AddShapeTrigger(entity->id, enter_trigger_hash, exit_trigger_hash, faction, emit_once);
 
         hash::HashRegisterString(enter_trigger_name.text.c_str());
@@ -383,20 +420,21 @@ namespace
 
     bool CreateDestroyedTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
-        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
-        trigger_system->AllocateDestroyedTrigger(entity->id);
+        //mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
+        //trigger_system->AllocateDestroyedTrigger(entity->id);
         return true;
     }
 
     bool ReleaseDestroyedTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
-        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
-        trigger_system->ReleaseDestroyedTrigger(entity->id);
+        //mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
+        //trigger_system->ReleaseDestroyedTrigger(entity->id);
         return true;
     }
 
     bool UpdateDestroyedTrigger(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
+        /*
         mono::Event trigger_name;
         const bool found_trigger_name =
             FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
@@ -411,23 +449,24 @@ namespace
         FindAttribute(DESTROYED_TRIGGER_TYPE_ATTRIBUTE, properties, trigger_type, FallbackMode::SET_DEFAULT);
 
         const uint32_t trigger_hash = hash::Hash(trigger_name.text.c_str());
-        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
-        trigger_system->AddDestroyedTrigger(entity->id, trigger_hash, game::DestroyedTriggerType(trigger_type));
+        game::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
+        trigger_system->AddDestroyedTrigger(entity->id, trigger_hash, mono::DestroyedTriggerType(trigger_type));
         hash::HashRegisterString(trigger_name.text.c_str());
+        */
 
         return true;
     }
 
     bool CreateAreaTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
-        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
         trigger_system->AllocateAreaTrigger(entity->id);
         return true;
     }
 
     bool ReleaseAreaTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
-        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
         trigger_system->ReleaseAreaTrigger(entity->id);
         return true;
     }
@@ -458,9 +497,9 @@ namespace
 
         const uint32_t trigger_hash = hash::Hash(trigger_name.text.c_str());
 
-        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
         trigger_system->AddAreaEntityTrigger(
-            entity->id, trigger_hash, world_bb, faction, game::AreaTriggerOperation(operation), n_entities);
+            entity->id, trigger_hash, world_bb, faction, mono::AreaTriggerOperation(operation), n_entities);
         hash::HashRegisterString(trigger_name.text.c_str());
 
         return true;
@@ -468,14 +507,14 @@ namespace
 
     bool CreateTimeTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
-        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
         trigger_system->AllocateTimeTrigger(entity->id);
         return true;
     }
 
     bool ReleaseTimeTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
-        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
         trigger_system->ReleaseTimeTrigger(entity->id);
         return true;
     }
@@ -494,7 +533,7 @@ namespace
         FindAttribute(REPEATING_ATTRIBUTE, properties, repeating, FallbackMode::SET_DEFAULT);
 
         const uint32_t trigger_hash = hash::Hash(trigger_name.text.c_str());
-        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
         trigger_system->AddTimeTrigger(entity->id, trigger_hash, timeout_ms, repeating);
         hash::HashRegisterString(trigger_name.text.c_str());
 
@@ -503,14 +542,14 @@ namespace
 
     bool CreateCounterTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
-        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
         trigger_system->AllocateCounterTrigger(entity->id);
         return true;
     }
 
     bool ReleaseCounterTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
-        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
         trigger_system->ReleaseCounterTrigger(entity->id);
         return true;
     }
@@ -534,7 +573,7 @@ namespace
         const uint32_t trigger_hash = hash::Hash(trigger_name.text.c_str());
         const uint32_t completed_trigger_hash = hash::Hash(trigger_name_completed.text.c_str());
 
-        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
         trigger_system->AddCounterTrigger(entity->id, trigger_hash, completed_trigger_hash, count, reset_on_completed);
 
         hash::HashRegisterString(trigger_name.text.c_str());
@@ -545,14 +584,14 @@ namespace
 
     bool CreateRelayTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
-        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
         trigger_system->AllocateRelayTrigger(entity->id);
         return true;
     }
 
     bool ReleaseRelayTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
-        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
         trigger_system->ReleaseRelayTrigger(entity->id);
         return true;
     }
@@ -574,7 +613,7 @@ namespace
         const uint32_t trigger_hash = hash::Hash(trigger_name.text.c_str());
         const uint32_t completed_trigger_hash = hash::Hash(trigger_name_completed.text.c_str());
 
-        game::TriggerSystem* trigger_system = context->GetSystem<game::TriggerSystem>();
+        mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
         trigger_system->AddRelayTrigger(entity->id, trigger_hash, completed_trigger_hash, delay_ms);
 
         hash::HashRegisterString(trigger_name.text.c_str());
@@ -1195,6 +1234,7 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(SEGMENT_SHAPE_COMPONENT, CreateShape, ReleaseShape, UpdateSegmentShape);
     entity_manager->RegisterComponent(POLYGON_SHAPE_COMPONENT, CreateShape, ReleaseShape, UpdatePolygonShape);
     entity_manager->RegisterComponent(HEALTH_COMPONENT, CreateHealth, ReleaseHealth, UpdateHealth);
+    entity_manager->RegisterComponent(SHOCKWAVE_COMPONENT, CreateShockwave, ReleaseShockwave, UpdateShockwave);
     entity_manager->RegisterComponent(BEHAVIOUR_COMPONENT, CreateEntityLogic, ReleaseEntityLogic, UpdateEntityLogic);
     entity_manager->RegisterComponent(SPAWN_POINT_COMPONENT, CreateSpawnPoint, ReleaseSpawnPoint, UpdateSpawnPoint);
     entity_manager->RegisterComponent(ENTITY_SPAWN_POINT_COMPONENT, CreateEntitySpawnPoint, ReleaseEntitySpawnPoint, UpdateEntitySpawnPoint);

@@ -30,7 +30,7 @@ namespace
 
 using namespace game;
 
-SoundSystem::SoundSystem(uint32_t n, game::TriggerSystem* trigger_system)
+SoundSystem::SoundSystem(uint32_t n, mono::TriggerSystem* trigger_system)
     : m_trigger_system(trigger_system)
     , m_sound_components(n)
     , m_master_volume(1.0f)
@@ -152,12 +152,12 @@ void SoundSystem::SetSoundComponentData(
     if(component->stop_callback_id != NO_CALLBACK_SET)
         m_trigger_system->RemoveTriggerCallback(component->stop_trigger, component->stop_callback_id, entity_id);
 
-    const TriggerCallback play_callback = [component](uint32_t trigger_id) {
+    const mono::TriggerCallback play_callback = [component](uint32_t trigger_id) {
         component->sound->Play();
     };
     component->play_callback_id = m_trigger_system->RegisterTriggerCallback(component->play_trigger, play_callback, entity_id);
 
-    const TriggerCallback stop_callback = [component](uint32_t trigger_id) {
+    const mono::TriggerCallback stop_callback = [component](uint32_t trigger_id) {
         component->sound->Stop();
     };
     component->stop_callback_id = m_trigger_system->RegisterTriggerCallback(component->stop_trigger, stop_callback, entity_id);

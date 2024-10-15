@@ -70,7 +70,7 @@ namespace game
         GameModeStateMachine m_states;
 
         mono::EventHandler* m_event_handler;
-        class TriggerSystem* m_trigger_system;
+        mono::TriggerSystem* m_trigger_system;
 
         mono::RenderSystem* m_render_system;
         mono::TransformSystem* m_transform_system;

@@ -210,6 +210,7 @@ extern const uint32_t BOX_SHAPE_COMPONENT;
 extern const uint32_t SEGMENT_SHAPE_COMPONENT;
 extern const uint32_t POLYGON_SHAPE_COMPONENT;
 extern const uint32_t HEALTH_COMPONENT;
+extern const uint32_t SHOCKWAVE_COMPONENT;
 extern const uint32_t BEHAVIOUR_COMPONENT;
 extern const uint32_t SPAWN_POINT_COMPONENT;
 extern const uint32_t ENTITY_SPAWN_POINT_COMPONENT;

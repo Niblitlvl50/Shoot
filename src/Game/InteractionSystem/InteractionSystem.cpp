@@ -12,7 +12,7 @@
 using namespace game;
 
 InteractionSystem::InteractionSystem(
-    uint32_t n, mono::TransformSystem* transform_system, game::TriggerSystem* trigger_system)
+    uint32_t n, mono::TransformSystem* transform_system, mono::TriggerSystem* trigger_system)
     : m_transform_system(transform_system)
     , m_trigger_system(trigger_system)
     , m_components(n)

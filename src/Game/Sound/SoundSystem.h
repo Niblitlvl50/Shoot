@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include "MonoFwd.h"
 #include "IGameSystem.h"
 #include "Util/ActiveVector.h"
 #include "System/Audio.h"
@@ -12,8 +13,6 @@
 
 namespace game
 {
-    class TriggerSystem;
-
     enum class SoundTransition
     {
         None,
@@ -78,7 +77,7 @@ namespace game
     {
     public:
 
-        SoundSystem(uint32_t n, game::TriggerSystem* trigger_system);
+        SoundSystem(uint32_t n, mono::TriggerSystem* trigger_system);
         ~SoundSystem();
 
         void PlayBackgroundMusic(const std::string& name, SoundTransition transition);
@@ -95,7 +94,7 @@ namespace game
 
         void DrawDebug(const mono::UpdateContext& update_context);
 
-        game::TriggerSystem* m_trigger_system;
+        mono::TriggerSystem* m_trigger_system;
         mono::ActiveVector<SoundInstanceComponent> m_sound_components;
 
         float m_master_volume;

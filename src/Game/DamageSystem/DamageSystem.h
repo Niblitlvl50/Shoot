@@ -10,6 +10,7 @@
 #include <array>
 #include <memory>
 #include <string>
+#include <unordered_map>
 
 
 namespace game
@@ -40,6 +41,16 @@ namespace game
         int health_left;
     };
 
+    struct ShockwaveComponent
+    {
+        uint32_t trigger;
+        float radius;
+        float magnitude;
+        int damage;
+
+        // Internal
+    };
+
     class DamageSystem : public mono::IGameSystem
     {
     public:
@@ -47,13 +58,18 @@ namespace game
             size_t num_records,
             mono::TransformSystem* tranform_system,
             mono::SpriteSystem* sprite_system,
-            mono::IEntityManager* entity_manager);
+            mono::IEntityManager* entity_manager,
+            mono::TriggerSystem* trigger_system);
 
         DamageRecord* CreateRecord(uint32_t id);
         void ReleaseRecord(uint32_t id);
         bool IsAllocated(uint32_t id) const;
         void ReactivateDamageRecord(uint32_t id);
         DamageRecord* GetDamageRecord(uint32_t id);
+
+        ShockwaveComponent* CreateShockwaveComponent(uint32_t entity_id);
+        void ReleaseShockwaveComponent(uint32_t entity_id);
+        void UpdateShockwaveComponent(uint32_t entity_id, uint32_t trigger, float radius, float magnitude, int damage);
 
         void SetDamageFilter(uint32_t id, DamageFilter damage_filter);
         void ClearDamageFilter(uint32_t id);
@@ -107,6 +123,7 @@ namespace game
         mono::TransformSystem* m_transform_system;
         mono::SpriteSystem* m_sprite_system;
         mono::IEntityManager* m_entity_manager;
+        mono::TriggerSystem* m_trigger_system;
         uint32_t m_timestamp;
         
         std::vector<DamageRecord> m_damage_records;
@@ -118,5 +135,7 @@ namespace game
         DamageCallbacks m_global_damage_callbacks;
 
         std::vector<DamageEvent> m_damage_events;
+
+        std::unordered_map<uint32_t, ShockwaveComponent> m_shockwave_components;
     };
 }

@@ -66,7 +66,7 @@ namespace game
     public:
 
         AnimationSystem(
-            uint32_t n, class TriggerSystem* trigger_system, mono::TransformSystem* transform_system, mono::SpriteSystem* sprite_system);
+            uint32_t n, mono::TriggerSystem* trigger_system, mono::TransformSystem* transform_system, mono::SpriteSystem* sprite_system);
 
         AnimationContainer* AllocateAnimationContainer(uint32_t entity_id);
         void ReleaseAnimationContainer(uint32_t entity_id);
@@ -117,7 +117,7 @@ namespace game
 
         void AddTransformAnimatonToUpdate(TransformAnimationComponent* transform_animation);
 
-        class TriggerSystem* m_trigger_system;
+        mono::TriggerSystem* m_trigger_system;
         mono::TransformSystem* m_transform_system;
         mono::SpriteSystem* m_sprite_system;
 

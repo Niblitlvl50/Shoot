@@ -15,7 +15,7 @@ namespace game
 
         TeleportSystem(
             class CameraSystem* camera_system,
-            class TriggerSystem* trigger_system,
+            mono::TriggerSystem* trigger_system,
             mono::RenderSystem* render_system,
             mono::TransformSystem* transform_system);
 
@@ -33,7 +33,7 @@ namespace game
         void HandleTeleport(uint32_t entity_id);
 
         class CameraSystem* m_camera_system;
-        class TriggerSystem* m_trigger_system;
+        mono::TriggerSystem* m_trigger_system;
         mono::RenderSystem* m_render_system;
         mono::TransformSystem* m_transform_system;
 

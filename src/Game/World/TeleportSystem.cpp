@@ -18,7 +18,7 @@ using namespace game;
 
 TeleportSystem::TeleportSystem(
     CameraSystem* camera_system,
-    TriggerSystem* trigger_system,
+    mono::TriggerSystem* trigger_system,
     mono::RenderSystem* render_system,
     mono::TransformSystem* transform_system)
     : m_camera_system(camera_system)
@@ -56,7 +56,7 @@ void TeleportSystem::UpdateTeleportPlayer(uint32_t entity_id, uint32_t trigger_h
     if(teleport_info.trigger_handle != mono::INVALID_ID)
         m_trigger_system->RemoveTriggerCallback(teleport_info.trigger_hash, teleport_info.trigger_handle, mono::INVALID_ID);
 
-    const game::TriggerCallback trigger_callback = [this, entity_id](uint32_t trigger_id) {
+    const mono::TriggerCallback trigger_callback = [this, entity_id](uint32_t trigger_id) {
         HandleTeleport(entity_id);
     };
     teleport_info.trigger_handle = m_trigger_system->RegisterTriggerCallback(trigger_hash, trigger_callback, mono::INVALID_ID);

@@ -150,7 +150,7 @@ void editor::DrawAreaTriggerComponentDetails(mono::IRenderer& renderer, const st
 
     int trigger_op;
     FindAttribute(LOGIC_OP_ATTRIBUTE, component_properties, trigger_op, FallbackMode::SET_DEFAULT);
-    const char* op_string = game::AreaTriggerOpToString(game::AreaTriggerOperation(trigger_op));
+    const char* op_string = mono::AreaTriggerOpToString(mono::AreaTriggerOperation(trigger_op));
 
     int n_entities;
     FindAttribute(N_ENTITIES_ATTRIBUTE, component_properties, n_entities, FallbackMode::SET_DEFAULT);

@@ -105,11 +105,11 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     mono::LightSystem* light_system = m_system_context->GetSystem<mono::LightSystem>();
     mono::PathSystem* path_system = m_system_context->GetSystem<mono::PathSystem>();
     mono::RoadSystem* road_system = m_system_context->GetSystem<mono::RoadSystem>();
+    mono::TriggerSystem* trigger_system = m_system_context->GetSystem<mono::TriggerSystem>();
 
     game::AnimationSystem* animation_system = m_system_context->GetSystem<game::AnimationSystem>();
     game::CameraSystem* camera_system = m_system_context->GetSystem<CameraSystem>();
     game::DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
-    game::TriggerSystem* trigger_system = m_system_context->GetSystem<TriggerSystem>();
     game::InteractionSystem* interaction_system = m_system_context->GetSystem<InteractionSystem>();
     game::SpawnSystem* spawn_system = m_system_context->GetSystem<SpawnSystem>();
     game::DialogSystem* dialog_system = m_system_context->GetSystem<DialogSystem>();
@@ -181,7 +181,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::TransformSystemDrawer(g_draw_transformsystem, transform_system), LayerId::UI);
     AddDrawable(new mono::PhysicsDebugDrawer(
         g_draw_physics, g_interact_physics, g_body_introspection, g_draw_physics_subcomponents, physics_system, m_event_handler), LayerId::UI);
-    AddDrawable(new TriggerDebugDrawer(g_draw_triggers, trigger_system, transform_system), LayerId::UI);
+    AddDrawable(new mono::TriggerDebugDrawer(g_draw_triggers, trigger_system, transform_system), LayerId::UI);
     AddDrawable(new TargetSystemDrawer(g_draw_targets, target_system), LayerId::UI);
     AddDrawable(new GameDebugDrawer(), LayerId::UI_DEBUG);
 

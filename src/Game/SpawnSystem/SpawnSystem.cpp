@@ -23,7 +23,7 @@ namespace
     constexpr uint32_t NO_CALLBACK_SET = std::numeric_limits<uint32_t>::max();
 }
 
-SpawnSystem::SpawnSystem(uint32_t n, TriggerSystem* trigger_system, mono::IEntityManager* entity_manager, mono::TransformSystem* transform_system)
+SpawnSystem::SpawnSystem(uint32_t n, mono::TriggerSystem* trigger_system, mono::IEntityManager* entity_manager, mono::TransformSystem* transform_system)
     : m_trigger_system(trigger_system)
     , m_entity_manager(entity_manager)
     , m_transform_system(transform_system)
@@ -101,7 +101,7 @@ void SpawnSystem::SetSpawnPointData(uint32_t entity_id, const SpawnSystem::Spawn
 
     if(spawn_point->enable_trigger != 0)
     {
-        const game::TriggerCallback enable_callback = [spawn_point](uint32_t entity_id) {
+        const mono::TriggerCallback enable_callback = [spawn_point](uint32_t entity_id) {
             spawn_point->active = true;
         };
         spawn_point->enable_callback_id = m_trigger_system->RegisterTriggerCallback(spawn_point->enable_trigger, enable_callback, entity_id);
@@ -109,7 +109,7 @@ void SpawnSystem::SetSpawnPointData(uint32_t entity_id, const SpawnSystem::Spawn
 
     if(spawn_point->disable_trigger != 0)
     {
-        const game::TriggerCallback disable_callback = [spawn_point](uint32_t entity_id) {
+        const mono::TriggerCallback disable_callback = [spawn_point](uint32_t entity_id) {
             spawn_point->active = false;
         };
         spawn_point->disable_callback_id = m_trigger_system->RegisterTriggerCallback(spawn_point->disable_trigger, disable_callback, entity_id);
@@ -157,7 +157,7 @@ void SpawnSystem::SetEntitySpawnPointData(uint32_t entity_id, const std::string&
 
     if(component->spawn_trigger != 0)
     {
-        const game::TriggerCallback enable_callback = [this, component](uint32_t entity_id) {
+        const mono::TriggerCallback enable_callback = [this, component](uint32_t entity_id) {
             const bool is_added = mono::contains(m_active_entity_spawn_points, component);
             if(!is_added)
                 m_active_entity_spawn_points.push_back(component);
@@ -199,7 +199,7 @@ void SpawnSystem::SetDespawnTriggerData(uint32_t entity_id, uint32_t despawn_tri
 
     if(component->despawn_trigger_hash != 0)
     {
-        const game::TriggerCallback despawn_callback = [component, this](uint32_t trigger_hash) {
+        const mono::TriggerCallback despawn_callback = [component, this](uint32_t trigger_hash) {
             m_entity_manager->ReleaseEntity(component->entity_id);
         };
         component->callback_id = m_trigger_system->RegisterTriggerCallback(component->despawn_trigger_hash, despawn_callback, entity_id);

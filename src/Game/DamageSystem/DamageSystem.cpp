@@ -10,6 +10,7 @@
 #include "System/Hash.h"
 #include "System/Debug.h"
 #include "TransformSystem/TransformSystem.h"
+#include "TriggerSystem/TriggerSystem.h"
 #include "Util/Random.h"
 
 #include "nlohmann/json.hpp"
@@ -55,10 +56,12 @@ DamageSystem::DamageSystem(
     size_t num_records,
     mono::TransformSystem* tranform_system,
     mono::SpriteSystem* sprite_system,
-    mono::IEntityManager* entity_manager)
+    mono::IEntityManager* entity_manager,
+    mono::TriggerSystem* trigger_system)
     : m_transform_system(tranform_system)
     , m_sprite_system(sprite_system)
     , m_entity_manager(entity_manager)
+    , m_trigger_system(trigger_system)
     , m_timestamp(0)
     , m_damage_records(num_records)
     , m_damage_callbacks(num_records)
@@ -158,6 +161,26 @@ DamageRecord* DamageSystem::GetDamageRecord(uint32_t id)
 {
     MONO_ASSERT(m_active[id]);
     return &m_damage_records[id];
+}
+
+ShockwaveComponent* DamageSystem::CreateShockwaveComponent(uint32_t entity_id)
+{
+    auto pair = m_shockwave_components.insert(std::make_pair(entity_id, ShockwaveComponent()));
+    return &pair.first->second;
+}
+
+void DamageSystem::ReleaseShockwaveComponent(uint32_t entity_id)
+{
+    m_shockwave_components.erase(entity_id);
+}
+
+void DamageSystem::UpdateShockwaveComponent(uint32_t entity_id, uint32_t trigger, float radius, float magnitude, int damage)
+{
+    ShockwaveComponent& component = m_shockwave_components[entity_id];
+
+    component.radius = radius;
+    component.magnitude = magnitude;
+    component.damage = damage;
 }
 
 DamageResult DamageSystem::ApplyDamage(uint32_t id_damaged_entity, uint32_t id_who_did_damage, uint32_t weapon_identifier, int damage)

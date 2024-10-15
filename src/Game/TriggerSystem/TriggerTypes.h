@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-namespace game
+namespace mono
 {
     enum class AreaTriggerOperation : int
     {
@@ -22,20 +22,5 @@ namespace game
     {
         return area_trigger_op_strings[static_cast<int>(trigger_op)];
     }
-
-    enum class DestroyedTriggerType : int
-    {
-        ON_DEATH,
-        ON_DESTORYED
-    };
-
-    constexpr const char* destroyed_trigger_type_strings[] = {
-        "On Death",
-        "On Destroyed"
-    };
-
-    inline const char* DestroyedTriggerTypeToString(DestroyedTriggerType trigger_type)
-    {
-        return destroyed_trigger_type_strings[static_cast<int>(trigger_type)];
-    }
 }
+

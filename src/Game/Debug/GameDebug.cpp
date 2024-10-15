@@ -137,7 +137,7 @@ void DrawDebugMenu(game::EntityLogicSystem* logic_system, uint32_t fps, float de
     ImGui::EndMainMenuBar();
 }
 
-void DrawTriggerInput(bool& draw_trigger_input, game::TriggerSystem* trigger_system)
+void DrawTriggerInput(bool& draw_trigger_input, mono::TriggerSystem* trigger_system)
 {
     if(!trigger_system)
         return;
@@ -497,7 +497,7 @@ DebugUpdater::DebugUpdater(
     , m_draw_trigger_input(false)
     , m_pause(false)
 {
-    m_trigger_system = system_context->GetSystem<TriggerSystem>();
+    m_trigger_system = system_context->GetSystem<mono::TriggerSystem>();
     m_damage_system = system_context->GetSystem<DamageSystem>();
     m_logic_system = system_context->GetSystem<EntityLogicSystem>();
 

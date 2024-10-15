@@ -70,8 +70,8 @@ namespace game
         UISystem(
             mono::InputSystem* input_system,
             mono::TransformSystem* transform_system,
-            class CameraSystem* camera_system,
-            class TriggerSystem* trigger_system);
+            mono::TriggerSystem* trigger_system,
+            class CameraSystem* camera_system);
         ~UISystem();
 
         const char* Name() const override;
@@ -119,8 +119,8 @@ namespace game
 
         mono::InputSystem* m_input_system;
         mono::TransformSystem* m_transform_system;
+        mono::TriggerSystem* m_trigger_system;
         CameraSystem* m_camera_system;
-        TriggerSystem* m_trigger_system;
 
         mono::InputContext* m_input_context;
 

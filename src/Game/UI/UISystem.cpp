@@ -26,12 +26,12 @@ using namespace game;
 UISystem::UISystem(
     mono::InputSystem* input_system,
     mono::TransformSystem* transform_system,
-    CameraSystem* camera_system,
-    TriggerSystem* trigger_system)
+    mono::TriggerSystem* trigger_system,
+    CameraSystem* camera_system)
     : m_input_system(input_system)
     , m_transform_system(transform_system)
-    , m_camera_system(camera_system)
     , m_trigger_system(trigger_system)
+    , m_camera_system(camera_system)
     , m_clicked_this_frame(false)
     , m_button_left(false)
     , m_button_right(false)
@@ -312,7 +312,7 @@ void UISystem::UpdateUISetGroupState(uint32_t entity_id, int group_id, UIItemSta
         it->state_is_exclusive = false;
         it->trigger_hash = trigger_hash;
 
-        const TriggerCallback on_trigger = [this, group_id, state](uint32_t trigger_id) {
+        const mono::TriggerCallback on_trigger = [this, group_id, state](uint32_t trigger_id) {
             SetItemGroupState(group_id, state, true);
         };
         it->trigger_callback_id = m_trigger_system->RegisterTriggerCallback(it->trigger_hash, on_trigger, entity_id);

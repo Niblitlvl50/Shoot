@@ -30,7 +30,7 @@ namespace game
 
         mono::InputSystem* m_input_system;
         mono::EventHandler* m_event_handler;
-        class TriggerSystem* m_trigger_system;
+        mono::TriggerSystem* m_trigger_system;
         class UISystem* m_ui_system;
         mono::InputContext* m_input_context;
 

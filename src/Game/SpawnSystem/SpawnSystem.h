@@ -89,7 +89,7 @@ namespace game
 
         static const uint32_t spawn_delay_time_ms = 500;
 
-        SpawnSystem(uint32_t n, class TriggerSystem* trigger_system, mono::IEntityManager* entity_manager, mono::TransformSystem* transform_system);
+        SpawnSystem(uint32_t n, mono::TriggerSystem* trigger_system, mono::IEntityManager* entity_manager, mono::TransformSystem* transform_system);
 
         SpawnPointComponent* AllocateSpawnPoint(uint32_t entity_id);
         void ReleaseSpawnPoint(uint32_t entity_id);
@@ -129,7 +129,7 @@ namespace game
 
     private:
 
-        game::TriggerSystem* m_trigger_system;
+        mono::TriggerSystem* m_trigger_system;
         mono::IEntityManager* m_entity_manager;
         mono::TransformSystem* m_transform_system;
 

@@ -1,6 +1,6 @@
 
 #include "TriggerSystem.h"
-#include "DamageSystem/DamageSystem.h"
+//#include "DamageSystem/DamageSystem.h"
 #include "Debug/IDebugDrawer.h"
 #include "Debug/GameDebugVariables.h"
 
@@ -11,12 +11,12 @@
 #include "Physics/PhysicsSystem.h"
 #include "Physics/PhysicsSpace.h"
 #include "Rendering/Color.h"
-#include "EntitySystem/IEntityManager.h"
+//#include "EntitySystem/IEntityManager.h"
 
 #include <cassert>
 #include <string>
 
-using namespace game;
+using namespace mono;
 
 namespace
 {
@@ -67,12 +67,9 @@ namespace
 }
 
 TriggerSystem::TriggerSystem(
-    uint32_t n_triggers, DamageSystem* damage_system, mono::PhysicsSystem* physics_system, mono::IEntityManager* entity_system)
-    : m_damage_system(damage_system)
-    , m_physics_system(physics_system)
-    , m_entity_system(entity_system)
+    uint32_t n_triggers, mono::PhysicsSystem* physics_system)
+    : m_physics_system(physics_system)
     , m_shape_triggers(n_triggers)
-    , m_destroyed_triggers(n_triggers)
     , m_area_triggers(n_triggers)
     , m_time_triggers(n_triggers)
     , m_counter_triggers(n_triggers)
@@ -82,7 +79,7 @@ TriggerSystem::TriggerSystem(
 
 ShapeTriggerComponent* TriggerSystem::AllocateShapeTrigger(uint32_t entity_id)
 {
-    ShapeTriggerComponent* allocated_trigger = m_shape_triggers.Set(entity_id, game::ShapeTriggerComponent());
+    ShapeTriggerComponent* allocated_trigger = m_shape_triggers.Set(entity_id, mono::ShapeTriggerComponent());
     allocated_trigger->shape_trigger_handler = nullptr;
     return allocated_trigger;
 }
@@ -128,65 +125,9 @@ void TriggerSystem::AddShapeTrigger(
     }
 }
 
-DestroyedTriggerComponent* TriggerSystem::AllocateDestroyedTrigger(uint32_t entity_id)
-{
-    DestroyedTriggerComponent* allocated_trigger = m_destroyed_triggers.Set(entity_id, game::DestroyedTriggerComponent());
-    allocated_trigger->callback_id = NO_CALLBACK_SET;
-    return allocated_trigger;
-}
-
-void TriggerSystem::ReleaseDestroyedTrigger(uint32_t entity_id)
-{
-    DestroyedTriggerComponent* allocated_trigger = m_destroyed_triggers.Get(entity_id);
-
-    switch(allocated_trigger->trigger_type)
-    {
-    case DestroyedTriggerType::ON_DEATH:
-        m_damage_system->RemoveDamageCallback(entity_id, allocated_trigger->callback_id);
-        break;
-    case DestroyedTriggerType::ON_DESTORYED:
-        m_entity_system->RemoveReleaseCallback(entity_id, allocated_trigger->callback_id);
-        break;
-    };
-    allocated_trigger->callback_id = NO_CALLBACK_SET;
-
-    m_destroyed_triggers.Release(entity_id);
-}
-
-void TriggerSystem::AddDestroyedTrigger(uint32_t entity_id, uint32_t trigger_hash, DestroyedTriggerType type)
-{
-    DestroyedTriggerComponent* allocated_trigger = m_destroyed_triggers.Get(entity_id);
-    allocated_trigger->trigger_hash = trigger_hash;
-
-    if(allocated_trigger->callback_id != NO_CALLBACK_SET)
-    {
-        if(allocated_trigger->trigger_type == DestroyedTriggerType::ON_DEATH)
-            m_damage_system->RemoveDamageCallback(entity_id, allocated_trigger->callback_id);
-        else
-            m_entity_system->RemoveReleaseCallback(entity_id, allocated_trigger->callback_id);
-    }
-
-    allocated_trigger->trigger_type = type;
-
-    if(allocated_trigger->trigger_type == DestroyedTriggerType::ON_DEATH)
-    {
-        const DamageCallback callback = [this, trigger_hash](uint32_t damaged_entity_id, uint32_t id_who_did_damage, uint32_t weapon_identifier, int damage, DamageType type) {
-            EmitTrigger(trigger_hash);
-        };
-        allocated_trigger->callback_id = m_damage_system->SetDamageCallback(entity_id, DamageType::DESTROYED, callback);
-    }
-    else
-    {
-        const mono::ReleaseCallback callback = [this, trigger_hash](uint32_t id, mono::ReleasePhase phase) {
-            EmitTrigger(trigger_hash);
-        };
-        allocated_trigger->callback_id = m_entity_system->AddReleaseCallback(entity_id, mono::ReleasePhase::PRE_RELEASE, callback);
-    }
-}
-
 AreaEntityTriggerComponent* TriggerSystem::AllocateAreaTrigger(uint32_t entity_id)
 {
-    AreaEntityTriggerComponent* allocated_trigger = m_area_triggers.Set(entity_id, game::AreaEntityTriggerComponent());
+    AreaEntityTriggerComponent* allocated_trigger = m_area_triggers.Set(entity_id, mono::AreaEntityTriggerComponent());
     return allocated_trigger;
 }
 
@@ -212,7 +153,7 @@ void TriggerSystem::AddAreaEntityTrigger(
 
 TimeTriggerComponent* TriggerSystem::AllocateTimeTrigger(uint32_t entity_id)
 {
-    return m_time_triggers.Set(entity_id, game::TimeTriggerComponent());
+    return m_time_triggers.Set(entity_id, mono::TimeTriggerComponent());
 }
 
 void TriggerSystem::ReleaseTimeTrigger(uint32_t entity_id)
@@ -232,7 +173,7 @@ void TriggerSystem::AddTimeTrigger(uint32_t entity_id, uint32_t trigger_hash, fl
 
 CounterTriggerComponent* TriggerSystem::AllocateCounterTrigger(uint32_t entity_id)
 {
-    CounterTriggerComponent* counter_trigger = m_counter_triggers.Set(entity_id, game::CounterTriggerComponent());
+    CounterTriggerComponent* counter_trigger = m_counter_triggers.Set(entity_id, mono::CounterTriggerComponent());
     counter_trigger->callback_id = NO_CALLBACK_SET;
     counter_trigger->counter = 0;
     
@@ -401,6 +342,7 @@ void TriggerSystem::Update(const mono::UpdateContext& update_context)
             }
         }
 
+/*
         if(game::g_draw_triggers)
         {
             math::Vector text_position = math::Vector(1.0f, 4.0f);
@@ -422,6 +364,7 @@ void TriggerSystem::Update(const mono::UpdateContext& update_context)
                 }
             }
         }
+*/
     }
 }
 

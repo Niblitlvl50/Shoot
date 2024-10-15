@@ -23,7 +23,7 @@ void StartMenuGameMode::Begin(
     const LevelMetadata& level_metadata)
 {
     m_input_system = system_context->GetSystem<mono::InputSystem>();
-    m_trigger_system = system_context->GetSystem<game::TriggerSystem>();
+    m_trigger_system = system_context->GetSystem<mono::TriggerSystem>();
     m_ui_system = system_context->GetSystem<game::UISystem>();
     m_event_handler = event_handler;
 
@@ -32,7 +32,7 @@ void StartMenuGameMode::Begin(
     m_level_aborted_hash = hash::Hash(level_metadata.aborted_trigger.c_str());
     m_level_failed_hash = hash::Hash(level_metadata.failed_trigger.c_str());
 
-    const TriggerCallback level_hash_callback = [this](uint32_t trigger_id) {
+    const mono::TriggerCallback level_hash_callback = [this](uint32_t trigger_id) {
         if(trigger_id == m_level_completed_hash)
             Completed();
         else if(trigger_id == m_level_completed_alt_hash)

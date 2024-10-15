@@ -246,24 +246,26 @@ bool editor::DrawProperty(uint32_t component_hash, Attribute& attribute, const s
     {
         const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
         {
-            (*out_text) = game::AreaTriggerOpToString(game::AreaTriggerOperation(idx));
+            (*out_text) = mono::AreaTriggerOpToString(mono::AreaTriggerOperation(idx));
             return true;
         };
 
         return ImGui::Combo(
-            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(game::area_trigger_op_strings));
+            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(mono::area_trigger_op_strings));
     }
+        /*
     else if(attribute.id == DESTROYED_TRIGGER_TYPE_ATTRIBUTE)
     {
         const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool
         {
-            (*out_text) = game::DestroyedTriggerTypeToString(game::DestroyedTriggerType(idx));
+            (*out_text) = mono::DestroyedTriggerTypeToString(mono::DestroyedTriggerType(idx));
             return true;
         };
 
         return ImGui::Combo(
-            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(game::destroyed_trigger_type_strings));
+            attribute_name, &std::get<int>(attribute.value), item_proxy, nullptr, std::size(mono::destroyed_trigger_type_strings));
     }
+        */
     else if(attribute.id == ROTATION_ATTRIBUTE)
     {
         float degrees = math::ToDegrees(std::get<float>(attribute.value));

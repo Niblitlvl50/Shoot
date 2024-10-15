@@ -9,7 +9,7 @@
 #include "TransformSystem/TransformSystem.h"
 #include "EntitySystem/Entity.h"
 
-using namespace game;
+using namespace mono;
 
 namespace
 {
@@ -51,10 +51,12 @@ void TriggerDebugDrawer::Draw(mono::IRenderer& renderer) const
         trigger_hash_to_emitter_ids[trigger.trigger_hash_exit].push_back(entity_id);
     };
 
+/*
     const auto collect_death_triggers = [&](uint32_t entity_id, const DestroyedTriggerComponent& trigger)
     {
         trigger_hash_to_emitter_ids[trigger.trigger_hash].push_back(entity_id);
     };
+*/
 
     const auto collect_area_triggers = [&](uint32_t entity_id, const AreaEntityTriggerComponent& trigger)
     {
@@ -77,7 +79,7 @@ void TriggerDebugDrawer::Draw(mono::IRenderer& renderer) const
     };
 
     m_trigger_system->ForEachShapeTrigger(collect_shape_triggers);
-    m_trigger_system->ForEachDestroyedTrigger(collect_death_triggers);
+    //m_trigger_system->ForEachDestroyedTrigger(collect_death_triggers);
     m_trigger_system->ForEachAreaTrigger(collect_area_triggers);
     m_trigger_system->ForEachTimeTrigger(collect_time_triggers);
     m_trigger_system->ForEachCounterTrigger(collect_counter_triggers);

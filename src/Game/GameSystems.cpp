@@ -67,6 +67,7 @@ void game::CreateGameSystems(
     physics_system_params.n_polygon_shapes = max_entities;
 
     mono::PhysicsSystem* physics_system = system_context.CreateSystem<mono::PhysicsSystem>(physics_system_params, transform_system);
+    mono::TriggerSystem* trigger_system = system_context.CreateSystem<mono::TriggerSystem>(max_entities, physics_system);
     mono::SpriteSystem* sprite_system = system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
     system_context.CreateSystem<mono::TextSystem>(max_entities, transform_system);
     system_context.CreateSystem<mono::PathSystem>(max_entities, transform_system);
@@ -74,9 +75,7 @@ void game::CreateGameSystems(
     system_context.CreateSystem<mono::LightSystem>(max_entities);
 
     game::DamageSystem* damage_system =
-        system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, entity_system);
-    game::TriggerSystem* trigger_system =
-        system_context.CreateSystem<game::TriggerSystem>(max_entities, damage_system, physics_system, entity_system);
+        system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, entity_system, trigger_system);
     game::EntityLogicSystem* logic_system =
         system_context.CreateSystem<game::EntityLogicSystem>(max_entities, &system_context, &event_handler);
     game::SpawnSystem* spawn_system =
@@ -91,7 +90,7 @@ void game::CreateGameSystems(
     system_context.CreateSystem<game::SoundSystem>(max_entities, trigger_system);
     system_context.CreateSystem<game::RegionSystem>(physics_system);
     system_context.CreateSystem<game::WorldBoundsSystem>(transform_system);
-    system_context.CreateSystem<game::UISystem>(input_system, transform_system, camera_system, trigger_system);
+    system_context.CreateSystem<game::UISystem>(input_system, transform_system, trigger_system, camera_system);
     system_context.CreateSystem<game::ShopSystem>();
     system_context.CreateSystem<game::NavigationSystem>();
     system_context.CreateSystem<game::TeleportSystem>(camera_system, trigger_system, render_system, transform_system);

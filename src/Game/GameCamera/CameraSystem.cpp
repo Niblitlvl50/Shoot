@@ -40,7 +40,7 @@ namespace tweak_values
 using namespace game;
 
 CameraSystem::CameraSystem(
-    uint32_t n, mono::ICamera* camera, mono::TransformSystem* transform_system, mono::EventHandler* event_handler, TriggerSystem* trigger_system)
+    uint32_t n, mono::ICamera* camera, mono::TransformSystem* transform_system, mono::EventHandler* event_handler, mono::TriggerSystem* trigger_system)
     : m_camera(camera)
     , m_transform_system(transform_system)
     , m_trigger_system(trigger_system)
@@ -225,7 +225,7 @@ void CameraSystem::AddCameraAnimationComponent(uint32_t entity_id, uint32_t trig
     if(component->callback_id != NO_CALLBACK)
         m_trigger_system->RemoveTriggerCallback(component->trigger_hash, component->callback_id, entity_id);
 
-    const TriggerCallback callback = [this, component](uint32_t trigger_id) {
+    const mono::TriggerCallback callback = [this, component](uint32_t trigger_id) {
         m_camera_anims_to_process.push_back(component);
     };
 
@@ -242,7 +242,7 @@ void CameraSystem::AddCameraAnimationComponent(uint32_t entity_id, uint32_t trig
     if(component->callback_id != NO_CALLBACK)
         m_trigger_system->RemoveTriggerCallback(component->trigger_hash, component->callback_id, entity_id);
 
-    const TriggerCallback callback = [this, component](uint32_t trigger_id) {
+    const mono::TriggerCallback callback = [this, component](uint32_t trigger_id) {
         m_camera_anims_to_process.push_back(component);
     };
 
@@ -259,7 +259,7 @@ void CameraSystem::AddCameraAnimationComponent(uint32_t entity_id, uint32_t trig
     if(component->callback_id != NO_CALLBACK)
         m_trigger_system->RemoveTriggerCallback(component->trigger_hash, component->callback_id, entity_id);
 
-    const TriggerCallback callback = [this, component](uint32_t trigger_id) {
+    const mono::TriggerCallback callback = [this, component](uint32_t trigger_id) {
         m_camera_anims_to_process.push_back(component);
     };
 
