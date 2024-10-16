@@ -20,6 +20,7 @@
 #include "Entity/AnimationSystem.h"
 #include "Entity/EntityLogicSystem.h"
 #include "Entity/TargetSystem.h"
+#include "Entity/EntityLifetimeTriggerSystem.h"
 #include "GameCamera/CameraSystem.h"
 #include "InteractionSystem/InteractionSystem.h"
 #include "Mission/MissionSystem.h"
@@ -85,6 +86,8 @@ void game::CreateGameSystems(
     system_context.CreateSystem<game::AnimationSystem>(max_entities, trigger_system, transform_system, sprite_system);
     game::CameraSystem* camera_system =
         system_context.CreateSystem<game::CameraSystem>(max_entities, &camera, transform_system, &event_handler, trigger_system);
+    
+    system_context.CreateSystem<game::EntityLifetimeTriggerSystem>(trigger_system, entity_system, damage_system);
     system_context.CreateSystem<game::InteractionSystem>(max_entities, transform_system, trigger_system);
     system_context.CreateSystem<game::DialogSystem>(max_entities);
     system_context.CreateSystem<game::SoundSystem>(max_entities, trigger_system);

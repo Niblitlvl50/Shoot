@@ -13,6 +13,7 @@
 #include "Entity/EntityLogicSystem.h"
 #include "Entity/AnimationSystem.h"
 #include "Entity/TargetSystem.h"
+#include "Entity/EntityLifetimeTriggerSystem.h"
 #include "GameCamera/CameraSystem.h"
 #include "InteractionSystem/InteractionSystem.h"
 #include "DialogSystem/DialogSystem.h"
@@ -420,21 +421,20 @@ namespace
 
     bool CreateDestroyedTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
-        //mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
-        //trigger_system->AllocateDestroyedTrigger(entity->id);
+        game::EntityLifetimeTriggerSystem* trigger_system = context->GetSystem<game::EntityLifetimeTriggerSystem>();
+        trigger_system->AllocateDestroyedTrigger(entity->id);
         return true;
     }
 
     bool ReleaseDestroyedTrigger(mono::Entity* entity, mono::SystemContext* context)
     {
-        //mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
-        //trigger_system->ReleaseDestroyedTrigger(entity->id);
+        game::EntityLifetimeTriggerSystem* trigger_system = context->GetSystem<game::EntityLifetimeTriggerSystem>();
+        trigger_system->ReleaseDestroyedTrigger(entity->id);
         return true;
     }
 
     bool UpdateDestroyedTrigger(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
-        /*
         mono::Event trigger_name;
         const bool found_trigger_name =
             FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
@@ -449,10 +449,9 @@ namespace
         FindAttribute(DESTROYED_TRIGGER_TYPE_ATTRIBUTE, properties, trigger_type, FallbackMode::SET_DEFAULT);
 
         const uint32_t trigger_hash = hash::Hash(trigger_name.text.c_str());
-        game::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
-        trigger_system->AddDestroyedTrigger(entity->id, trigger_hash, mono::DestroyedTriggerType(trigger_type));
+        game::EntityLifetimeTriggerSystem* trigger_system = context->GetSystem<game::EntityLifetimeTriggerSystem>();
+        trigger_system->AddDestroyedTrigger(entity->id, trigger_hash, game::DestroyedTriggerType(trigger_type));
         hash::HashRegisterString(trigger_name.text.c_str());
-        */
 
         return true;
     }
