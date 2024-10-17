@@ -3,7 +3,7 @@
 
 #include "CollisionConfiguration.h"
 #include "DamageSystem/DamageSystem.h"
-#include "Shockwave.h"
+#include "DamageSystem/Shockwave.h"
 #include "Debug/IDebugDrawer.h"
 #include "Entity/TargetSystem.h"
 #include "Navigation/NavigationSystem.h"

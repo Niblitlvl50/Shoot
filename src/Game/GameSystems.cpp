@@ -76,7 +76,7 @@ void game::CreateGameSystems(
     system_context.CreateSystem<mono::LightSystem>(max_entities);
 
     game::DamageSystem* damage_system =
-        system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, entity_system, trigger_system);
+        system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, physics_system, entity_system, trigger_system);
     game::EntityLogicSystem* logic_system =
         system_context.CreateSystem<game::EntityLogicSystem>(max_entities, &system_context, &event_handler);
     game::SpawnSystem* spawn_system =

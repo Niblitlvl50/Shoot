@@ -78,7 +78,7 @@ int main()
         mono::PhysicsSystem* physics_system = system_context.CreateSystem<mono::PhysicsSystem>(physics_init_params, transform_system);
         mono::TriggerSystem* trigger_system = system_context.CreateSystem<mono::TriggerSystem>(max_entities, physics_system);
 
-        system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, entity_system, trigger_system);
+        system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, physics_system, entity_system, trigger_system);
         game::CameraSystem* camera_system =
             system_context.CreateSystem<game::CameraSystem>(max_entities, &camera, transform_system, &event_handler, trigger_system);
         system_context.CreateSystem<game::RegionSystem>(physics_system);

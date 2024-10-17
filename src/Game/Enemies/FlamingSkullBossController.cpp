@@ -5,7 +5,7 @@
 #include "DamageSystem/DamageSystem.h"
 #include "Entity/TargetSystem.h"
 #include "Navigation/NavigationSystem.h"
-#include "Shockwave.h"
+#include "DamageSystem/Shockwave.h"
 #include "Debug/IDebugDrawer.h"
 #include "Weapons/WeaponTypes.h"
 

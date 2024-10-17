@@ -1,5 +1,6 @@
 
 #include "DamageSystem.h"
+#include "Shockwave.h"
 #include "Weapons/CollisionCallbacks.h"
 
 #include "EntitySystem/IEntityManager.h"
@@ -56,10 +57,12 @@ DamageSystem::DamageSystem(
     size_t num_records,
     mono::TransformSystem* tranform_system,
     mono::SpriteSystem* sprite_system,
+    mono::PhysicsSystem* physics_system,
     mono::IEntityManager* entity_manager,
     mono::TriggerSystem* trigger_system)
     : m_transform_system(tranform_system)
     , m_sprite_system(sprite_system)
+    , m_physics_system(physics_system)
     , m_entity_manager(entity_manager)
     , m_trigger_system(trigger_system)
     , m_timestamp(0)
@@ -171,16 +174,31 @@ ShockwaveComponent* DamageSystem::CreateShockwaveComponent(uint32_t entity_id)
 
 void DamageSystem::ReleaseShockwaveComponent(uint32_t entity_id)
 {
+    ShockwaveComponent& component = m_shockwave_components[entity_id];
+
+    if(component.trigger_handle != mono::INVALID_ID)
+        m_trigger_system->RemoveTriggerCallback(component.trigger_hash, component.trigger_handle, mono::INVALID_ID);
+
     m_shockwave_components.erase(entity_id);
 }
 
-void DamageSystem::UpdateShockwaveComponent(uint32_t entity_id, uint32_t trigger, float radius, float magnitude, int damage)
+void DamageSystem::UpdateShockwaveComponent(uint32_t entity_id, uint32_t trigger_hash, float radius, float magnitude, int damage)
 {
     ShockwaveComponent& component = m_shockwave_components[entity_id];
 
+    if(component.trigger_handle != mono::INVALID_ID)
+        m_trigger_system->RemoveTriggerCallback(component.trigger_hash, component.trigger_handle, mono::INVALID_ID);
+
+    component.trigger_hash = trigger_hash;
     component.radius = radius;
     component.magnitude = magnitude;
     component.damage = damage;
+    component.trigger_handle = mono::INVALID_ID;
+
+    const mono::TriggerCallback trigger_callback = [this, entity_id](uint32_t trigger_id) {
+        ApplyShockwave(entity_id);
+    };
+    component.trigger_handle = m_trigger_system->RegisterTriggerCallback(component.trigger_hash, trigger_callback, mono::INVALID_ID);
 }
 
 DamageResult DamageSystem::ApplyDamage(uint32_t id_damaged_entity, uint32_t id_who_did_damage, uint32_t weapon_identifier, int damage)
@@ -234,6 +252,21 @@ const std::vector<DamageRecord>& DamageSystem::GetDamageRecords() const
 const std::vector<DamageEvent>& DamageSystem::GetDamageEventsThisFrame() const
 {
     return m_damage_events;
+}
+
+void DamageSystem::ApplyShockwave(uint32_t entity_id)
+{
+    const ShockwaveComponent& component = m_shockwave_components[entity_id];
+    const math::Vector& world_position = m_transform_system->GetWorldPosition(entity_id);
+    game::ShockwaveAndDamageAt(
+        m_physics_system,
+        this,
+        world_position,
+        component.radius,
+        component.magnitude,
+        component.damage,
+        entity_id,
+        CollisionCategory::CC_ALL);
 }
 
 void DamageSystem::PreventReleaseOnDeath(uint32_t id, bool enable)

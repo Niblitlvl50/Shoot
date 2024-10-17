@@ -43,7 +43,7 @@
 #include "Effects/FootStepsEffect.h"
 #include "Effects/WeaponModifierEffect.h"
 #include "Pickups/PickupSystem.h"
-#include "Shockwave.h"
+#include "DamageSystem/Shockwave.h"
 
 #include "HookshotLogic.h"
 

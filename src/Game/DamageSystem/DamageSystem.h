@@ -43,12 +43,13 @@ namespace game
 
     struct ShockwaveComponent
     {
-        uint32_t trigger;
+        uint32_t trigger_hash;
         float radius;
         float magnitude;
         int damage;
 
         // Internal
+        uint32_t trigger_handle;
     };
 
     class DamageSystem : public mono::IGameSystem
@@ -58,6 +59,7 @@ namespace game
             size_t num_records,
             mono::TransformSystem* tranform_system,
             mono::SpriteSystem* sprite_system,
+            mono::PhysicsSystem* physics_system,
             mono::IEntityManager* entity_manager,
             mono::TriggerSystem* trigger_system);
 
@@ -84,6 +86,8 @@ namespace game
         void GainHealth(uint32_t id, int health_gain);
         const std::vector<DamageRecord>& GetDamageRecords() const;
         const std::vector<DamageEvent>& GetDamageEventsThisFrame() const;
+
+        void ApplyShockwave(uint32_t entity_id);
 
         void PreventReleaseOnDeath(uint32_t id, bool enable);
 
@@ -122,6 +126,7 @@ namespace game
 
         mono::TransformSystem* m_transform_system;
         mono::SpriteSystem* m_sprite_system;
+        mono::PhysicsSystem* m_physics_system;
         mono::IEntityManager* m_entity_manager;
         mono::TriggerSystem* m_trigger_system;
         uint32_t m_timestamp;

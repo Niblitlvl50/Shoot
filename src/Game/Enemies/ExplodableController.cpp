@@ -3,7 +3,7 @@
 
 #include "DamageSystem/DamageSystem.h"
 #include "Effects/ExplosionEffect.h"
-#include "Shockwave.h"
+#include "DamageSystem/Shockwave.h"
 #include "CollisionConfiguration.h"
 
 #include "System/Audio.h"
