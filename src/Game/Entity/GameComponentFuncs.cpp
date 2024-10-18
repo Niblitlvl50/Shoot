@@ -185,15 +185,18 @@ namespace
     bool UpdateHealth(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         int health;
-        FindAttribute(HEALTH_ATTRIBUTE, properties, health, FallbackMode::SET_DEFAULT);
-
+        bool release_on_death;
         bool is_boss_health;
+
+        FindAttribute(HEALTH_ATTRIBUTE, properties, health, FallbackMode::SET_DEFAULT);
+        FindAttribute(RELEASE_ON_DEATH_ATTRIBUTE, properties, release_on_death, FallbackMode::SET_DEFAULT);
         FindAttribute(BOSS_HEALTH_ATTRIBUTE, properties, is_boss_health, FallbackMode::SET_DEFAULT);
 
         game::DamageSystem* damage_system = context->GetSystem<game::DamageSystem>();
         game::DamageRecord* damage_record = damage_system->GetDamageRecord(entity->id);
         damage_record->health = health;
         damage_record->full_health = health;
+        damage_record->release_entity_on_death = release_on_death;
         damage_record->is_boss = is_boss_health;
 
         return true;

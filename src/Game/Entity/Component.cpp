@@ -152,6 +152,7 @@ const DefaultAttribute default_attributes[] = {
     { "time",                       Variant(1.0f), "In Seconds" },
     { "fail_on_timeout",            Variant(false) },
     { "physics_material",           Variant(0u) },
+    { "release_on_death",           Variant(true) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -286,7 +287,7 @@ extern const uint32_t TIME_BASED_ATTRIBUTE                  = default_attributes
 extern const uint32_t TIME_ATTRIBUTE                        = default_attributes[110].hash;
 extern const uint32_t FAIL_ON_TIMEOUT_ATTRIBUTE             = default_attributes[111].hash;
 extern const uint32_t PHYSICS_MATERIAL_ATTRIBUTE            = default_attributes[112].hash;
-
+extern const uint32_t RELEASE_ON_DEATH_ATTRIBUTE            = default_attributes[113].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -477,7 +478,7 @@ const Component default_components[] = {
     MakeComponent(SOUND_COMPONENT,              NULL_COMPONENT,             false,  "general",      { SOUND_ATTRIBUTE, SOUND_PLAY_PARAMETERS, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE }),
     MakeComponent(ENTITY_TRACKING_COMPONENT,    NULL_COMPONENT,             false,  "general",      { ENTITY_TYPE_ATTRIBUTE } ),
 
-    MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,             false,  "damage",       { HEALTH_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }),
+    MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,             false,  "damage",       { HEALTH_ATTRIBUTE, RELEASE_ON_DEATH_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }),
     MakeComponent(SHOCKWAVE_COMPONENT,          NULL_COMPONENT,             false,  "damage",       { TRIGGER_NAME_ATTRIBUTE, RADIUS_ATTRIBUTE, MAGNITUDE_INTERVAL_ATTRIBUTE, HEALTH_ATTRIBUTE }),
 
     MakeComponent(PICKUP_COMPONENT,             PHYSICS_COMPONENT,          false,  "pickups",      { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE }),

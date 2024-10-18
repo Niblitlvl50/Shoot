@@ -97,6 +97,38 @@ DamageRecord* DamageSystem::CreateRecord(uint32_t id)
     return &new_record;
 }
 
+void DamageSystem::ReleaseRecord(uint32_t id)
+{
+    for(auto& callback : m_damage_callbacks[id])
+        callback.callback = nullptr;
+
+    ClearDamageFilter(id);
+    m_active[id] = false;
+}
+
+bool DamageSystem::IsAllocated(uint32_t id) const
+{
+    if(id >= m_active.size())
+        return false;
+
+    return m_active[id];
+}
+
+void DamageSystem::ReactivateDamageRecord(uint32_t id)
+{
+    m_active[id] = true;
+
+    DamageRecord* record = GetDamageRecord(id);
+    record->health = record->full_health;
+    record->last_damaged_timestamp = std::numeric_limits<uint32_t>::max();
+}
+
+DamageRecord* DamageSystem::GetDamageRecord(uint32_t id)
+{
+    MONO_ASSERT(m_active[id]);
+    return &m_damage_records[id];
+}
+
 void DamageSystem::SetDamageFilter(uint32_t id, DamageFilter damage_filter)
 {
     m_damage_filters[id] = damage_filter;
@@ -132,38 +164,6 @@ uint32_t DamageSystem::SetGlobalDamageCallback(uint32_t callback_types, DamageCa
 void DamageSystem::RemoveGlobalDamageCallback(uint32_t callback_id)
 {
     m_global_damage_callbacks[callback_id].callback = nullptr;
-}
-
-void DamageSystem::ReleaseRecord(uint32_t id)
-{
-    for(auto& callback : m_damage_callbacks[id])
-        callback.callback = nullptr;
-
-    ClearDamageFilter(id);
-    m_active[id] = false;
-}
-
-bool DamageSystem::IsAllocated(uint32_t id) const
-{
-    if(id >= m_active.size())
-        return false;
-
-    return m_active[id];
-}
-
-void DamageSystem::ReactivateDamageRecord(uint32_t id)
-{
-    m_active[id] = true;
-
-    DamageRecord* record = GetDamageRecord(id);
-    record->health = record->full_health;
-    record->last_damaged_timestamp = std::numeric_limits<uint32_t>::max();
-}
-
-DamageRecord* DamageSystem::GetDamageRecord(uint32_t id)
-{
-    MONO_ASSERT(m_active[id]);
-    return &m_damage_records[id];
 }
 
 ShockwaveComponent* DamageSystem::CreateShockwaveComponent(uint32_t entity_id)

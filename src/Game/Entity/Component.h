@@ -39,6 +39,7 @@ extern const uint32_t SENSOR_ATTRIBUTE;
 extern const uint32_t HEALTH_ATTRIBUTE;
 extern const uint32_t SCORE_ATTRIBUTE;
 extern const uint32_t BOSS_HEALTH_ATTRIBUTE;
+extern const uint32_t RELEASE_ON_DEATH_ATTRIBUTE;
 
 extern const uint32_t SPRITE_ATTRIBUTE;
 extern const uint32_t ANIMATION_ATTRIBUTE;
