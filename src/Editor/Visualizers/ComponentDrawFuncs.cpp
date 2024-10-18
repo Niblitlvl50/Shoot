@@ -281,3 +281,12 @@ void editor::DrawTeleportPlayerPoint(mono::IRenderer& renderer, const std::vecto
     renderer.DrawCircle(math::ZeroVec, radius, 16, 1.0f, mono::Color::GOLDEN_YELLOW);
     renderer.DrawPoints({ math::ZeroVec }, mono::Color::GOLDEN_YELLOW, 16.0f);
 }
+
+void editor::DrawShockwaveComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
+{
+    float radius;
+    FindAttribute(RADIUS_ATTRIBUTE, component_properties, radius, FallbackMode::SET_DEFAULT);
+
+    renderer.DrawFilledCircle(math::ZeroVec, math::Vector(radius, radius), 24, mono::Color::MakeWithAlpha(mono::Color::GRAY, 0.25f));
+    renderer.DrawCircle(math::ZeroVec, radius, 24, 1.0f, mono::Color::RED);
+}
