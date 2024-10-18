@@ -59,7 +59,7 @@ namespace tweak_values
     constexpr float shield_cooldown_s = 2.0f;
 
     constexpr float footstep_length = 0.4f;
-    constexpr float stamina_consumption_per_s = 0.75f;
+    constexpr float stamina_consumption_per_s = 0.5f;
     constexpr float stamina_recover_thresold_s = 0.75f;
 }
 
