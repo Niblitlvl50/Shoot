@@ -400,6 +400,12 @@ void Animator::OnDeleteFrame(int id)
     std::vector<int>& frames = m_sprite_data->animations[current_id].frames;
     frames.erase(frames.begin() + id);
 
+    int new_id = current_id - 1;
+    if(new_id < 0)
+        new_id = 0;
+
+    m_sprite->SetActiveAnimationFrame(new_id);
+
     m_sprite_batch_drawer->ReloadSpriteData(m_sprite_data->hash);
 }
 
