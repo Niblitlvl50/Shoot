@@ -60,6 +60,43 @@
                     ]
                 },
                 {
+                    "hash": 1796759480,
+                    "name": "shockwave",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "do_shockwave",
+                                "type": 2
+                            }
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 2.0
+                        },
+                        {
+                            "id": 1291939675,
+                            "name": "magnitude_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 1.0,
+                                "min": 0.0
+                            }
+                        },
+                        {
+                            "id": 1805184399,
+                            "name": "health",
+                            "variant_type": 1,
+                            "variant_value": 30
+                        }
+                    ]
+                },
+                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -153,7 +190,7 @@
                             "id": 3143743637,
                             "name": "damping",
                             "variant_type": 3,
-                            "variant_value": 0.0
+                            "variant_value": 0.009999999776482582
                         }
                     ]
                 },
@@ -200,8 +237,8 @@
                             "name": "size",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.5,
-                                "y": 0.5
+                                "x": 0.25,
+                                "y": 0.25
                             }
                         },
                         {
@@ -224,7 +261,7 @@
                             "name": "magnitude_interval",
                             "variant_type": 8,
                             "variant_value": {
-                                "max": 1.0,
+                                "max": 2.0,
                                 "min": 0.5
                             }
                         },
@@ -254,21 +291,21 @@
                                 "gradient": [
                                     {
                                         "alpha": 0.0,
-                                        "blue": 1.0,
-                                        "green": 1.0,
-                                        "red": 1.0
+                                        "blue": 0.820652186870575,
+                                        "green": 0.820652186870575,
+                                        "red": 0.820652186870575
                                     },
                                     {
                                         "alpha": 0.3921568691730499,
                                         "blue": 0.0,
-                                        "green": 0.0,
-                                        "red": 0.0
+                                        "green": 0.3588728606700897,
+                                        "red": 0.40760868787765503
                                     },
                                     {
                                         "alpha": 0.3921568691730499,
-                                        "blue": 0.07177457958459854,
-                                        "green": 0.07177457958459854,
-                                        "red": 0.08152174949645996
+                                        "blue": 0.0,
+                                        "green": 0.49125710129737854,
+                                        "red": 0.717391312122345
                                     },
                                     {
                                         "alpha": 0.0,
@@ -307,6 +344,50 @@
                                     "min": 0.0
                                 },
                                 "value": 48.0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "hash": 1848570119,
+                    "name": "time_trigger",
+                    "properties": [
+                        {
+                            "id": 3027259768,
+                            "name": "time_stamp",
+                            "variant_type": 1,
+                            "variant_value": 50
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "do_shockwave",
+                                "type": 2
+                            }
+                        },
+                        {
+                            "id": 2374006294,
+                            "name": "repeating",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 1070666913,
+                    "name": "despawn_entity",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "do_shockwave",
+                                "type": 2
                             }
                         }
                     ]
@@ -369,7 +450,9 @@
             "y": 0.0
         },
         "spawn_package": true,
-        "triggers": [],
+        "triggers": [
+            "do_shockwave"
+        ],
         "use_custom_package_spawn_position": false
     }
 }
