@@ -68,7 +68,8 @@ DemonBossController::DemonBossController(uint32_t entity_id, mono::SystemContext
     m_death_animation = m_entity_sprite->GetAnimationIdFromName("die");
 
     m_damage_system = system_context->GetSystem<game::DamageSystem>();
-    m_damage_system->PreventReleaseOnDeath(entity_id, true);
+    DamageRecord* damage_record = m_damage_system->GetDamageRecord(entity_id);
+    damage_record->release_entity_on_death = false;
 
     const DamageCallback destroyed_callback = [this](uint32_t damaged_entity_id, uint32_t who_did_damage, uint32_t weapon_identifier, int damage, DamageType type) {
         if(type == DamageType::DAMAGED)

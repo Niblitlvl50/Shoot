@@ -269,11 +269,6 @@ void DamageSystem::ApplyShockwave(uint32_t entity_id)
         CollisionCategory::CC_ALL);
 }
 
-void DamageSystem::PreventReleaseOnDeath(uint32_t id, bool enable)
-{
-    m_damage_records[id].release_entity_on_death = !enable;
-}
-
 bool DamageSystem::IsInvincible(uint32_t id) const
 {
     const bool has_damage_record = IsAllocated(id);

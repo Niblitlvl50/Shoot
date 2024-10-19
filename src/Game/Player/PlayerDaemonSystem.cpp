@@ -306,8 +306,10 @@ uint32_t PlayerDaemonSystem::SpawnPlayer(
     transform_system->SetTransform(player_entity.id, math::CreateMatrixWithPosition(spawn_position));
     transform_system->SetTransformState(player_entity.id, mono::TransformState::CLIENT);
 
+    DamageRecord* damage_record = m_damage_system->GetDamageRecord(player_entity.id);
+    damage_record->release_entity_on_death = false;
+
     // No need to store the callback id, when destroyed this callback will be cleared up.
-    m_damage_system->PreventReleaseOnDeath(player_entity.id, true);
     const uint32_t callback_id = m_damage_system->SetDamageCallback(player_entity.id, DamageType::DT_ALL, damage_callback);
     (void)callback_id;
 
