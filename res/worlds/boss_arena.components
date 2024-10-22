@@ -1006,6 +1006,18 @@
                     ]
                 },
                 {
+                    "hash": 1162497497,
+                    "name": "entity_tracker",
+                    "properties": [
+                        {
+                            "id": 282636455,
+                            "name": "entity_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        }
+                    ]
+                },
+                {
                     "hash": 1805184399,
                     "name": "health",
                     "properties": [
@@ -1016,22 +1028,16 @@
                             "variant_value": 7000
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": true
-                        }
-                    ]
-                },
-                {
-                    "hash": 1162497497,
-                    "name": "entity_tracker",
-                    "properties": [
-                        {
-                            "id": 282636455,
-                            "name": "entity_type",
-                            "variant_type": 1,
-                            "variant_value": 2
                         }
                     ]
                 },
@@ -10952,6 +10958,42 @@
                             "variant_value": 2
                         }
                     ]
+                },
+                {
+                    "hash": 2406412294,
+                    "name": "weapon_loadout",
+                    "properties": [
+                        {
+                            "id": 3150860,
+                            "name": "weapon_primary",
+                            "variant_type": 6,
+                            "variant_value": "Stinky Bomb"
+                        },
+                        {
+                            "id": 3576654212,
+                            "name": "weapon_secondary",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 556824164,
+                            "name": "weapon_tertiary",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 11
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -11124,6 +11166,42 @@
                             "variant_value": 2
                         }
                     ]
+                },
+                {
+                    "hash": 2406412294,
+                    "name": "weapon_loadout",
+                    "properties": [
+                        {
+                            "id": 3150860,
+                            "name": "weapon_primary",
+                            "variant_type": 6,
+                            "variant_value": "Stinky Bomb"
+                        },
+                        {
+                            "id": 3576654212,
+                            "name": "weapon_secondary",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 556824164,
+                            "name": "weapon_tertiary",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 11
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -11294,6 +11372,42 @@
                             "name": "animation",
                             "variant_type": 1,
                             "variant_value": 2
+                        }
+                    ]
+                },
+                {
+                    "hash": 2406412294,
+                    "name": "weapon_loadout",
+                    "properties": [
+                        {
+                            "id": 3150860,
+                            "name": "weapon_primary",
+                            "variant_type": 6,
+                            "variant_value": "Stinky Bomb"
+                        },
+                        {
+                            "id": 3576654212,
+                            "name": "weapon_secondary",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 556824164,
+                            "name": "weapon_tertiary",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 11
                         }
                     ]
                 }

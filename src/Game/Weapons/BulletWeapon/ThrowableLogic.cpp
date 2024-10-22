@@ -37,7 +37,8 @@ ThrowableLogic::ThrowableLogic(
     m_start_position = position;
     m_move_delta = m_target - m_start_position;
     m_meters_per_second = math::Length(velocity);
-    m_life_span = bullet_config.life_span + (mono::Random() * bullet_config.fuzzy_life_span);
+    m_initial_life_span = bullet_config.life_span + (mono::Random() * bullet_config.fuzzy_life_span);
+    m_life_span = m_initial_life_span;
 
     const ThrowableStatemachine::StateTable state_table = {
         ThrowableStatemachine::MakeState(ThrowableStates::THROWING, &ThrowableLogic::ToThrowing, &ThrowableLogic::Throwing, this),
@@ -65,9 +66,11 @@ void ThrowableLogic::Throwing(const mono::UpdateContext& update_context)
 
     m_move_timer_s += update_context.delta_s;
 
+    const float radians = math::Scale01(m_life_span, 0.0f, m_initial_life_span) * math::PI();
+
     const math::Vector new_position = {
         tweak_values::ease_function(m_move_timer_s, duration_s, m_start_position.x, m_move_delta.x),
-        tweak_values::ease_function(m_move_timer_s, duration_s, m_start_position.y, m_move_delta.y)
+        tweak_values::ease_function(m_move_timer_s, duration_s, m_start_position.y, m_move_delta.y) + std::sin(radians)
     };
 
     math::Matrix& entity_transform = m_transform_system->GetTransform(m_entity_id);

@@ -43,6 +43,7 @@ namespace game
         math::Vector m_start_position;
         math::Vector m_move_delta;
         float m_meters_per_second;
+        float m_initial_life_span;
         float m_life_span;
         float m_move_timer_s;
         float m_spawn_timer_s;
