@@ -13,7 +13,8 @@
 
 namespace tweak_values
 {
-    constexpr float targeting_range = 3.5f;
+    constexpr float targeting_range = 4.0f;
+    constexpr float attack_range = 3.5f;
 
     constexpr float idle_timer_s = 2.0f;
     //constexpr float attack_start_delay_s = 0.5f;
@@ -98,7 +99,7 @@ void BombThrowerController::Idle(const mono::UpdateContext& update_context)
     else 
         sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 
-    const bool is_within_range = m_aquired_target->IsWithinRange(world_position, tweak_values::targeting_range);
+    const bool is_within_range = m_aquired_target->IsWithinRange(world_position, tweak_values::attack_range);
     if(is_within_range)
     {
         m_states.TransitionTo(States::PREPARE_ATTACK);
