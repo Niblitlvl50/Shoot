@@ -18,6 +18,7 @@
 #include "Math/MathFunctions.h"
 #include "Physics/PhysicsSystem.h"
 #include "Particle/ParticleSystem.h"
+#include "Rendering/Sprite/SpriteSystem.h"
 #include "System/Audio.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Util/Random.h"
@@ -69,6 +70,7 @@ Weapon::Weapon(
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     m_particle_system = system_context->GetSystem<mono::ParticleSystem>();
+    m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_logic_system = system_context->GetSystem<EntityLogicSystem>();
     m_target_system = system_context->GetSystem<TargetSystem>();
     m_weapon_system = system_context->GetSystem<WeaponSystem>();
@@ -123,7 +125,7 @@ WeaponState Weapon::Fire(const math::Vector& position, const math::Vector& targe
     m_last_fire_timestamp = timestamp;
 
     const WeaponEntityFactory entity_factory(
-        m_entity_manager, m_transform_system, m_physics_system, m_logic_system, m_target_system);
+        m_entity_manager, m_sprite_system, m_transform_system, m_physics_system, m_logic_system, m_target_system);
 
     const mono::ReleaseCallback release_callback = [this](uint32_t entity_id, mono::ReleasePhase phase) {
         m_bullet_trail->RemoveEmitterFromBullet(entity_id);

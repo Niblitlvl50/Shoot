@@ -19,11 +19,13 @@ using namespace game;
 
 WeaponEntityFactory::WeaponEntityFactory(
     mono::IEntityManager* entity_manager,
+    mono::SpriteSystem* sprite_system,
     mono::TransformSystem* transform_system,
     mono::PhysicsSystem* physics_system,
     game::EntityLogicSystem* logic_system,
     game::TargetSystem* target_system)
     : m_entity_manager(entity_manager)
+    , m_sprite_system(sprite_system)
     , m_transform_system(transform_system)
     , m_physics_system(physics_system)
     , m_logic_system(logic_system)
@@ -57,6 +59,7 @@ mono::Entity WeaponEntityFactory::CreateBulletEntity(
             target,
             velocity,
             bullet_config,
+            m_sprite_system,
             m_transform_system,
             m_entity_manager);
     }

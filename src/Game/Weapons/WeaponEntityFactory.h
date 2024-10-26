@@ -14,6 +14,7 @@ namespace game
 
         WeaponEntityFactory(
             mono::IEntityManager* entity_manager,
+            mono::SpriteSystem* sprite_system,
             mono::TransformSystem* transform_system,
             mono::PhysicsSystem* physics_system,
             class EntityLogicSystem* logic_system,
@@ -35,6 +36,7 @@ namespace game
     private:
 
         mono::IEntityManager* m_entity_manager;
+        mono::SpriteSystem* m_sprite_system;
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
         game::EntityLogicSystem* m_logic_system;

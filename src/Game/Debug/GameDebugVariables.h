@@ -28,6 +28,7 @@ namespace game
 
     extern bool g_debug_camera;
     extern bool g_debug_draw_damage_words;
+    extern bool g_debug_draw_shockwaves;
 
     extern bool g_draw_debug_soundsystem;
     extern bool g_mute_soundsystem;

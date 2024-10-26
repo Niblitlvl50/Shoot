@@ -2,6 +2,8 @@
 #include "DamageSystem.h"
 #include "Shockwave.h"
 #include "Weapons/CollisionCallbacks.h"
+#include "Debug/GameDebugVariables.h"
+#include "Debug/IDebugDrawer.h"
 
 #include "EntitySystem/IEntityManager.h"
 #include "Math/MathFunctions.h"
@@ -267,6 +269,11 @@ void DamageSystem::ApplyShockwave(uint32_t entity_id)
         component.damage,
         entity_id,
         CollisionCategory::CC_ALL);
+
+    if(g_debug_draw_shockwaves)
+    {
+        g_debug_drawer->DrawCircleFading(world_position, component.radius, mono::Color::RED, 1.0f);
+    }
 }
 
 bool DamageSystem::IsInvincible(uint32_t id) const

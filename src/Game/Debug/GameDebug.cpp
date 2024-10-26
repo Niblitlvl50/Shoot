@@ -53,6 +53,8 @@ bool game::g_draw_ui_element_bounds = false;
 
 bool game::g_debug_camera = false;
 bool game::g_debug_draw_damage_words = false;
+bool game::g_debug_draw_shockwaves = false;
+
 
 bool game::g_draw_debug_soundsystem = false;
 bool game::g_mute_soundsystem = false;
@@ -100,6 +102,7 @@ void DrawDebugMenu(game::EntityLogicSystem* logic_system, uint32_t fps, float de
         ImGui::Separator();
         ImGui::Checkbox("Debug Camera",         &game::g_debug_camera);
         ImGui::Checkbox("Damage Words",         &game::g_debug_draw_damage_words);
+        ImGui::Checkbox("Shockwaves",           &game::g_debug_draw_shockwaves);
         ImGui::Separator();
         ImGui::Checkbox("Sound System",         &game::g_draw_debug_soundsystem);
         ImGui::Checkbox("Mute Sounds",          &game::g_mute_soundsystem);

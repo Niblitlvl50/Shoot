@@ -59,6 +59,7 @@ void BombThrowerController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
 {
     const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
     debug_drawer->DrawCircle(world_position, tweak_values::targeting_range, mono::Color::CYAN);
+    debug_drawer->DrawCircle(world_position, tweak_values::attack_range, mono::Color::RED);
 }
 
 const char* BombThrowerController::GetDebugCategory() const

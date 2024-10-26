@@ -62,6 +62,7 @@ namespace game
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
         mono::ParticleSystem* m_particle_system;
+        mono::SpriteSystem* m_sprite_system;
         EntityLogicSystem* m_logic_system;
         class TargetSystem* m_target_system;
         class WeaponSystem* m_weapon_system;

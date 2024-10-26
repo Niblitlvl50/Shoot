@@ -77,7 +77,7 @@
                             "id": 230313139,
                             "name": "radius",
                             "variant_type": 3,
-                            "variant_value": 2.0
+                            "variant_value": 1.25
                         },
                         {
                             "id": 1291939675,
@@ -377,6 +377,38 @@
                     ]
                 },
                 {
+                    "hash": 4160075433,
+                    "name": "relay_trigger",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "do_shockwave",
+                                "type": 2
+                            }
+                        },
+                        {
+                            "id": 3027259768,
+                            "name": "time_stamp",
+                            "variant_type": 1,
+                            "variant_value": 1000
+                        },
+                        {
+                            "id": 4129703001,
+                            "name": "trigger_name_completed",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 1,
+                                "text": "despawn_me",
+                                "type": 2
+                            }
+                        }
+                    ]
+                },
+                {
                     "hash": 1070666913,
                     "name": "despawn_entity",
                     "properties": [
@@ -386,7 +418,7 @@
                             "variant_type": 11,
                             "variant_value": {
                                 "direction": 0,
-                                "text": "do_shockwave",
+                                "text": "despawn_me",
                                 "type": 2
                             }
                         }
@@ -451,6 +483,7 @@
         },
         "spawn_package": true,
         "triggers": [
+            "despawn_me",
             "do_shockwave"
         ],
         "use_custom_package_spawn_position": false
