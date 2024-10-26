@@ -15384,7 +15384,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "monster_goblin"
+                            "variant_value": "explodable_pumpkin"
                         },
                         {
                             "id": 3647911389,
@@ -15409,8 +15409,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -4.125,
-                                "y": -1.75
+                                "x": -4.875,
+                                "y": 0.125
                             }
                         },
                         {
@@ -15441,13 +15441,56 @@
                             "id": 1805184399,
                             "name": "health",
                             "variant_type": 1,
-                            "variant_value": 1000
+                            "variant_value": 500
+                        },
+                        {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 1796759480,
+                    "name": "shockwave",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "do_shockwave",
+                                "type": 1
+                            }
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 3.0
+                        },
+                        {
+                            "id": 1291939675,
+                            "name": "magnitude_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 20.0,
+                                "min": 10.0
+                            }
+                        },
+                        {
+                            "id": 1805184399,
+                            "name": "health",
+                            "variant_type": 1,
+                            "variant_value": 10
                         }
                     ]
                 },
@@ -15575,10 +15618,80 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 2465580911,
+                    "name": "destroyed_trigger",
+                    "properties": [
+                        {
+                            "id": 3833720897,
+                            "name": "destroyed_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "do_shockwave",
+                                "type": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "hash": 4160075433,
+                    "name": "relay_trigger",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "do_shockwave",
+                                "type": 1
+                            }
+                        },
+                        {
+                            "id": 3027259768,
+                            "name": "time_stamp",
+                            "variant_type": 1,
+                            "variant_value": 100
+                        },
+                        {
+                            "id": 4129703001,
+                            "name": "trigger_name_completed",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 1,
+                                "text": "despawn_me",
+                                "type": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "hash": 1070666913,
+                    "name": "despawn_entity",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "despawn_me",
+                                "type": 1
+                            }
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
-            "name": "monster_goblin",
+            "name": "explodable_pumpkin",
             "uuid_hash": 2376090060
         },
         {
@@ -15649,6 +15762,12 @@
                             "name": "health",
                             "variant_type": 1,
                             "variant_value": 1000
+                        },
+                        {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
                         },
                         {
                             "id": 1989672395,
@@ -15855,7 +15974,13 @@
                             "id": 1805184399,
                             "name": "health",
                             "variant_type": 1,
-                            "variant_value": 1000000
+                            "variant_value": 200
+                        },
+                        {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
                         },
                         {
                             "id": 1989672395,
@@ -16037,6 +16162,28 @@
                             "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2465580911,
+                    "name": "destroyed_trigger",
+                    "properties": [
+                        {
+                            "id": 3833720897,
+                            "name": "destroyed_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "mission_completed",
+                                "type": 0
+                            }
                         }
                     ]
                 },
@@ -16969,6 +17116,7 @@
         "triggers": [
             "boss_defeated",
             "despawn_me",
+            "do_shockwave",
             "level_aborted",
             "level_completed",
             "level_gameover",
