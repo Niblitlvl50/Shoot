@@ -19,14 +19,14 @@
             "h": 8,
             "name": "splatter_small_idle_1",
             "w": 9,
-            "x": 139,
+            "x": 90,
             "y": 527
         },
         {
             "h": 18,
             "name": "splatter_small_idle_2",
             "w": 17,
-            "x": 862,
+            "x": 406,
             "y": 454
         },
         {
@@ -40,7 +40,7 @@
             "h": 24,
             "name": "splatter_small_idle_4",
             "w": 27,
-            "x": 1038,
+            "x": 1100,
             "y": 402
         },
         {

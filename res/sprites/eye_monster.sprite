@@ -24,22 +24,22 @@
             "h": 25,
             "name": "eye_monster_idle_1",
             "w": 35,
-            "x": 1472,
-            "y": 399
+            "x": 212,
+            "y": 386
         },
         {
             "h": 24,
             "name": "eye_monster_idle_2",
             "w": 27,
-            "x": 1100,
+            "x": 1069,
             "y": 402
         },
         {
             "h": 25,
             "name": "eye_monster_idle_3",
             "w": 35,
-            "x": 212,
-            "y": 386
+            "x": 1472,
+            "y": 399
         }
     ],
     "frames_offsets": [

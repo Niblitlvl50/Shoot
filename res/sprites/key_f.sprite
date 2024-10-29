@@ -3,40 +3,50 @@
         {
             "frame_duration": 100,
             "frames": [
-                0,
-                1
+                0
             ],
             "loop": true,
-            "name": "default"
+            "name": "neutral"
+        },
+        {
+            "frame_duration": 400,
+            "frames": [
+                1,
+                0,
+                0,
+                0
+            ],
+            "loop": true,
+            "name": "pushed"
         }
     ],
     "frames": [
         {
             "h": 14,
-            "name": "plasma_default_1",
-            "w": 15,
-            "x": 2008,
-            "y": 495
+            "name": "key_f_neutral_1",
+            "w": 13,
+            "x": 58,
+            "y": 496
         },
         {
             "h": 13,
-            "name": "plasma_default_2",
+            "name": "key_f_pushed_1",
             "w": 13,
-            "x": 1341,
+            "x": 1629,
             "y": 496
         }
     ],
     "frames_offsets": [
         {
             "x": 0.0,
-            "y": 0.015625
+            "y": 0.0
         },
         {
             "x": 0.0,
-            "y": 0.0
+            "y": -0.015625
         }
     ],
-    "source_folder": "res/images/bullets/",
+    "source_folder": "res/images/ui/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,
