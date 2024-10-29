@@ -36,7 +36,8 @@ namespace game
             mono::ISpritePtr sprite;
             mono::SpriteDrawBuffers sprite_buffer;
         };
-        mutable std::vector<VerbSpriteBuffer> m_verb_sprites_buffers;
+        mutable std::vector<VerbSpriteBuffer> m_verb_sprites_buffers_gamepad;
+        mutable std::vector<VerbSpriteBuffer> m_verb_sprites_buffers_keyboard;
         std::vector<mono::TextDrawBuffers> m_verb_text_buffers;
         std::vector<float> m_verb_text_widths;
 

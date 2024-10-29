@@ -4,6 +4,7 @@
 #include "MonoFwd.h"
 #include "IGameSystem.h"
 #include "InteractionType.h"
+#include "Input/InputSystemTypes.h"
 #include "Util/ActiveVector.h"
 #include "System/Audio.h"
 
@@ -27,6 +28,7 @@ namespace game
         uint32_t interaction_id;
         uint32_t trigger_id;
         InteractionType interaction_type;
+        mono::InputContextType input_type;
         bool draw_name;
     };
 

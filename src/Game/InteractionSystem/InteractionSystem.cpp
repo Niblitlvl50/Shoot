@@ -98,7 +98,7 @@ void InteractionSystem::Update(const mono::UpdateContext& update_context)
                 continue;
 
             m_interaction_data.active.push_back(
-                { interaction_id, player_info->entity_id, interaction.type, interaction.draw_name }
+                { interaction_id, player_info->entity_id, interaction.type, player_info->last_used_input, interaction.draw_name }
             );
 
             const auto find_player_func = [player_info](const PlayerTriggerData& player_trigger_data) {

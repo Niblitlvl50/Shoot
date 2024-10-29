@@ -23,7 +23,7 @@
 
 namespace
 {
-    constexpr const char* g_interaction_type_sprite[] = {
+    constexpr const char* g_interaction_type_sprite_gamepad[] = {
         "res/sprites/button_cross.sprite",
         "res/sprites/button_cross.sprite",
         "res/sprites/button_cross.sprite",
@@ -31,7 +31,16 @@ namespace
         "res/sprites/button_cross.sprite",
     };
 
-    static_assert(std::size(g_interaction_type_sprite) == std::size(game::interaction_type_verb));
+    constexpr const char* g_interaction_type_sprite_keyboard[] = {
+        "res/sprites/key_f.sprite",
+        "res/sprites/key_f.sprite",
+        "res/sprites/key_f.sprite",
+        "res/sprites/key_f.sprite",
+        "res/sprites/key_f.sprite",
+    };
+
+    static_assert(std::size(g_interaction_type_sprite_gamepad) == std::size(game::interaction_type_verb));
+    static_assert(std::size(g_interaction_type_sprite_keyboard) == std::size(game::interaction_type_verb));
 }
 
 namespace tweak_values
@@ -62,11 +71,17 @@ InteractionSystemDrawer::InteractionSystemDrawer(
         const mono::TextMeasurement text_measurement = mono::MeasureString(tweak_values::verb_font, verb);
         m_verb_text_widths.push_back(text_measurement.size.x);
 
-        VerbSpriteBuffer verb_sprite_buffer;
-        verb_sprite_buffer.sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite(g_interaction_type_sprite[index]);
-        verb_sprite_buffer.sprite_buffer = mono::BuildSpriteDrawBuffers(verb_sprite_buffer.sprite->GetSpriteData());
+        VerbSpriteBuffer verb_sprite_buffer_gamepad;
+        verb_sprite_buffer_gamepad.sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite(g_interaction_type_sprite_gamepad[index]);
+        verb_sprite_buffer_gamepad.sprite_buffer = mono::BuildSpriteDrawBuffers(verb_sprite_buffer_gamepad.sprite->GetSpriteData());
 
-        m_verb_sprites_buffers.push_back(std::move(verb_sprite_buffer));
+        m_verb_sprites_buffers_gamepad.push_back(std::move(verb_sprite_buffer_gamepad));
+
+        VerbSpriteBuffer verb_sprite_buffer_keyboard;
+        verb_sprite_buffer_keyboard.sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite(g_interaction_type_sprite_keyboard[index]);
+        verb_sprite_buffer_keyboard.sprite_buffer = mono::BuildSpriteDrawBuffers(verb_sprite_buffer_keyboard.sprite->GetSpriteData());
+
+        m_verb_sprites_buffers_keyboard.push_back(std::move(verb_sprite_buffer_keyboard));
     }
 
     for(const char* verb : interaction_type_verb)
@@ -92,7 +107,10 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
         update_context.timestamp = renderer.GetTimestamp();
         update_context.paused = false;
 
-        for(VerbSpriteBuffer& verb_sprite : m_verb_sprites_buffers)
+        for(VerbSpriteBuffer& verb_sprite : m_verb_sprites_buffers_gamepad)
+            verb_sprite.sprite->Update(update_context);
+
+        for(VerbSpriteBuffer& verb_sprite : m_verb_sprites_buffers_keyboard)
             verb_sprite.sprite->Update(update_context);
     }
 
@@ -100,6 +118,7 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
     {
         math::Matrix transform;
         uint32_t sprite_index;
+        mono::InputContextType input_type;
         const char* name;
     };
     std::vector<InteractionDrawData> active_interactions;
@@ -130,7 +149,7 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
 
         const char* entity_name =
             interaction_trigger.draw_name ? m_entity_system->GetEntityName(interaction_trigger.interaction_id) : nullptr;
-        active_interactions.push_back({ transform, (uint32_t)interaction_trigger.interaction_type, entity_name });
+        active_interactions.push_back({ transform, (uint32_t)interaction_trigger.interaction_type, interaction_trigger.input_type, entity_name });
     }
 
     for(const InteractionAndTrigger& interaction_trigger : frame_interactions.deactivated)
@@ -155,8 +174,8 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
 
             const float padding = 0.1f;
 
-            const mono::TextMeasurement text_measurement = mono::MeasureString(tweak_values::verb_font, draw_data.name);
-            const math::Vector half_text_size = (text_measurement.size / 2.0f) + math::Vector(padding, padding);
+            const mono::TextMeasurement& text_measurement = mono::MeasureString(tweak_values::verb_font, draw_data.name);
+            const math::Vector& half_text_size = (text_measurement.size / 2.0f) + math::Vector(padding, padding);
 
             const math::Quad background_quad(-half_text_size, half_text_size);
             renderer.DrawFilledQuad(background_quad, tweak_values::background_color);
@@ -173,11 +192,13 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
             const float verb_width = m_verb_text_widths[draw_data.sprite_index];
             const float width_padding = 0.1f;
 
-            const VerbSpriteBuffer& sprite_and_buffer = m_verb_sprites_buffers[draw_data.sprite_index];
+            const VerbSpriteBuffer& sprite_and_buffer =
+                (draw_data.input_type == mono::InputContextType::Controller) ? m_verb_sprites_buffers_gamepad[draw_data.sprite_index] : m_verb_sprites_buffers_keyboard[draw_data.sprite_index];
+
             const mono::ISprite* button_sprite = sprite_and_buffer.sprite.get();
             const mono::SpriteDrawBuffers& button_buffers = sprite_and_buffer.sprite_buffer;
 
-            const mono::SpriteFrame current_frame = button_sprite->GetCurrentFrame();
+            const mono::SpriteFrame& current_frame = button_sprite->GetCurrentFrame();
             const float half_sprite_width = current_frame.size.x / 2.0f;
 
             const math::Quad background_quad(
