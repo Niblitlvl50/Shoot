@@ -60,6 +60,44 @@
                     ]
                 },
                 {
+                    "hash": 235771284,
+                    "name": "sound",
+                    "properties": [
+                        {
+                            "id": 3146177751,
+                            "name": "sound_file",
+                            "variant_type": 6,
+                            "variant_value": "res/sound/explosion_metallic.wav"
+                        },
+                        {
+                            "id": 2209811736,
+                            "name": "sound_properties",
+                            "variant_type": 2,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 2200757869,
+                            "name": "enable_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "do_shockwave",
+                                "type": 2
+                            }
+                        },
+                        {
+                            "id": 3946117592,
+                            "name": "disable_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "",
+                                "type": 0
+                            }
+                        }
+                    ]
+                },
+                {
                     "hash": 1796759480,
                     "name": "shockwave",
                     "properties": [
