@@ -34,8 +34,8 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
     else
         m_player_logic->StopFire();
 
-    const bool face_bottom_down = System::IsButtonDown(m_current_state.button_state, System::ControllerButton::FACE_BOTTOM);
-    if(face_bottom_down)
+    const bool sprint = System::IsButtonDown(m_current_state.button_state, System::ControllerButton::FACE_RIGHT);
+    if(sprint)
         m_player_logic->Sprint();
     else
         m_player_logic->StopSprint();
@@ -45,19 +45,19 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
     if(reload)
         m_player_logic->Reload(update_context.timestamp);
 
-    const bool face_top = System::IsButtonTriggered(m_last_state.button_state, m_current_state.button_state, System::ControllerButton::FACE_TOP);
-    if(face_top)
+    const bool cycle_weapon = System::IsButtonTriggered(m_last_state.button_state, m_current_state.button_state, System::ControllerButton::FACE_TOP);
+    if(cycle_weapon)
         m_player_logic->CycleWeapon();
 
-    const bool face_right = System::IsButtonDown(m_current_state.button_state, System::ControllerButton::FACE_RIGHT);
-    if(face_right)
+    const bool blink = System::IsButtonTriggered(m_last_state.button_state, m_current_state.button_state, System::ControllerButton::FACE_BOTTOM);
+    if(blink)
+        m_player_logic->Blink(math::Vector(m_current_state.left_x, m_current_state.left_y));
+
+    const bool right_shoulder = System::IsButtonDown(m_current_state.button_state, System::ControllerButton::RIGHT_SHOULDER);
+    if(right_shoulder)
         m_player_logic->TriggerHookshot();
     else
         m_player_logic->ReleaseHookshot();
-
-    const bool right_shoulder = System::IsButtonTriggered(m_last_state.button_state, m_current_state.button_state, System::ControllerButton::RIGHT_SHOULDER);
-    if(right_shoulder)
-        m_player_logic->Blink(math::Vector(m_current_state.left_x, m_current_state.left_y));
 
     m_player_logic->MoveInDirection(math::Vector(m_current_state.left_x, m_current_state.left_y));
 
