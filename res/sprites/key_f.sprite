@@ -1,14 +1,6 @@
 {
     "animations": [
         {
-            "frame_duration": 100,
-            "frames": [
-                0
-            ],
-            "loop": true,
-            "name": "neutral"
-        },
-        {
             "frame_duration": 400,
             "frames": [
                 1,
