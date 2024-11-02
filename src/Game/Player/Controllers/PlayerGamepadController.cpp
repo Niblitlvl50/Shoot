@@ -34,14 +34,14 @@ void PlayerGamepadController::Update(const mono::UpdateContext& update_context)
     else
         m_player_logic->StopFire();
 
-    const bool sprint = System::IsButtonDown(m_current_state.button_state, System::ControllerButton::FACE_RIGHT);
+    const bool sprint = System::IsButtonDown(m_current_state.button_state, System::ControllerButton::FACE_LEFT);
     if(sprint)
         m_player_logic->Sprint();
     else
         m_player_logic->StopSprint();
 
     const bool reload =
-        System::ButtonTriggeredAndChanged(m_last_state.button_state, m_current_state.button_state, System::ControllerButton::FACE_LEFT);
+        System::ButtonTriggeredAndChanged(m_last_state.button_state, m_current_state.button_state, System::ControllerButton::FACE_RIGHT);
     if(reload)
         m_player_logic->Reload(update_context.timestamp);
 
