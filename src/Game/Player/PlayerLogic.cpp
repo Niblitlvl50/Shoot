@@ -621,12 +621,20 @@ void PlayerLogic::HandlePickup(PickupType type, int meta_data)
     {
         m_player_info->persistent_data.experience++;
 
-        AddBulletWallBuff(meta_data);
         break;
     }
-    case PickupType::DAMAGE_BUFF:
+    case PickupType::WEAPON_MODIFIER:
     {
-        AddDamageBuff(meta_data);
+        switch(WeaponModifier(meta_data))
+        {
+        case WeaponModifier::DAMAGE:
+            AddDamageBuff(meta_data);
+            break;
+        case WeaponModifier::SPREAD:
+            AddBulletWallBuff(meta_data);
+            break;
+        }
+
         break;
     }
     };

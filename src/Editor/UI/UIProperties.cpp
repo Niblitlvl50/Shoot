@@ -31,6 +31,7 @@
 #include "Paths/PathTypes.h"
 #include "Physics/IBody.h"
 #include "UI/UISystem.h"
+#include "Weapons/WeaponModifierTypes.h"
 #include "World/WorldBoundsTypes.h"
 #include "World/WorldEntityTrackingSystem.h"
 
@@ -151,6 +152,11 @@ bool editor::DrawProperty(uint32_t component_hash, Attribute& attribute, const s
     {
         return ImGui::Combo(
             attribute_name, &std::get<int>(attribute.value), game::g_pickup_items, std::size(game::g_pickup_items));
+    }
+    if(attribute.id == WEAPON_MODIFIER_TYPE_ATTRIBUTE)
+    {
+        return ImGui::Combo(
+            attribute_name, &std::get<int>(attribute.value), game::g_weapon_modifier_type_names, std::size(game::g_weapon_modifier_type_names));
     }
     else if(attribute.id == ENTITY_BEHAVIOUR_ATTRIBUTE)
     {

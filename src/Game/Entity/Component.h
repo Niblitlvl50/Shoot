@@ -148,6 +148,7 @@ extern const uint32_t TIME_ATTRIBUTE;
 extern const uint32_t FAIL_ON_TIMEOUT_ATTRIBUTE;
 
 extern const uint32_t PHYSICS_MATERIAL_ATTRIBUTE;
+extern const uint32_t WEAPON_MODIFIER_TYPE_ATTRIBUTE;
 
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);
@@ -223,6 +224,7 @@ extern const uint32_t TIME_TRIGGER_COMPONENT;
 extern const uint32_t COUNTER_TRIGGER_COMPONENT;
 extern const uint32_t RELAY_TRIGGER_COMPONENT;
 extern const uint32_t PICKUP_COMPONENT;
+extern const uint32_t WEAPON_PICKUP_COMPONENT;
 extern const uint32_t LOOTBOX_COMPONENT;
 extern const uint32_t ANIMATION_COMPONENT;
 extern const uint32_t TRANSLATION_COMPONENT;

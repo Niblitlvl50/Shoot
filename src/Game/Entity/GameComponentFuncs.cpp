@@ -650,6 +650,18 @@ namespace
         return true;
     }
 
+    bool UpdateWeaponPickup(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        game::Pickup pickup;
+        pickup.type = game::PickupType::WEAPON_MODIFIER;
+        FindAttribute(WEAPON_MODIFIER_TYPE_ATTRIBUTE, properties, pickup.meta_data, FallbackMode::SET_DEFAULT);
+
+        game::PickupSystem* pickup_system = context->GetSystem<game::PickupSystem>();
+        pickup_system->SetPickupData(entity->id, pickup);
+
+        return true;
+    }
+
     bool CreateLootBox(mono::Entity* entity, mono::SystemContext* context)
     {
         game::PickupSystem* pickup_system = context->GetSystem<game::PickupSystem>();
@@ -1248,6 +1260,7 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(COUNTER_TRIGGER_COMPONENT, CreateCounterTrigger, ReleaseCounterTrigger, UpdateCounterTrigger);
     entity_manager->RegisterComponent(RELAY_TRIGGER_COMPONENT, CreateRelayTrigger, ReleaseRelayTrigger, UpdateRelayTrigger);
     entity_manager->RegisterComponent(PICKUP_COMPONENT, CreatePickup, ReleasePickup, UpdatePickup);
+    entity_manager->RegisterComponent(WEAPON_PICKUP_COMPONENT, CreatePickup, ReleasePickup, UpdateWeaponPickup);
     entity_manager->RegisterComponent(LOOTBOX_COMPONENT, CreateLootBox, ReleaseLootBox, UpdateLootBox);
     entity_manager->RegisterComponent(ANIMATION_COMPONENT, CreateAnimation, ReleaseAnimation, UpdateSpriteAnimation);
     entity_manager->RegisterComponent(TRANSLATION_COMPONENT, CreateAnimation, ReleaseAnimation, UpdateTranslationAnimation);

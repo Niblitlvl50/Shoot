@@ -153,6 +153,7 @@ const DefaultAttribute default_attributes[] = {
     { "fail_on_timeout",            Variant(false) },
     { "physics_material",           Variant(0u) },
     { "release_on_death",           Variant(true) },
+    { "weapon_modifier_type",       Variant(0) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -288,6 +289,7 @@ extern const uint32_t TIME_ATTRIBUTE                        = default_attributes
 extern const uint32_t FAIL_ON_TIMEOUT_ATTRIBUTE             = default_attributes[111].hash;
 extern const uint32_t PHYSICS_MATERIAL_ATTRIBUTE            = default_attributes[112].hash;
 extern const uint32_t RELEASE_ON_DEATH_ATTRIBUTE            = default_attributes[113].hash;
+extern const uint32_t WEAPON_MODIFIER_TYPE_ATTRIBUTE        = default_attributes[114].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -314,6 +316,7 @@ extern const uint32_t TIME_TRIGGER_COMPONENT        = hash::Hash("time_trigger")
 extern const uint32_t COUNTER_TRIGGER_COMPONENT     = hash::Hash("counter_trigger");
 extern const uint32_t RELAY_TRIGGER_COMPONENT       = hash::Hash("relay_trigger");
 extern const uint32_t PICKUP_COMPONENT              = hash::Hash("pickup");
+extern const uint32_t WEAPON_PICKUP_COMPONENT       = hash::Hash("weapon_pickup");
 extern const uint32_t LOOTBOX_COMPONENT             = hash::Hash("loot_box");
 extern const uint32_t ANIMATION_COMPONENT           = hash::Hash("set_animation");
 extern const uint32_t TRANSLATION_COMPONENT         = hash::Hash("set_translation");
@@ -396,6 +399,8 @@ const char* component::ComponentNameFromHash(uint32_t hash)
         return "relay_trigger";
     else if(hash == PICKUP_COMPONENT)
         return "pickup";
+    else if(hash == WEAPON_PICKUP_COMPONENT)
+        return "weapon_pickup";
     else if(hash == LOOTBOX_COMPONENT)
         return "loot_box";
     else if(hash == ANIMATION_COMPONENT)
@@ -482,6 +487,7 @@ const Component default_components[] = {
     MakeComponent(SHOCKWAVE_COMPONENT,          NULL_COMPONENT,             false,  "damage",       { TRIGGER_NAME_ATTRIBUTE, RADIUS_ATTRIBUTE, MAGNITUDE_INTERVAL_ATTRIBUTE, HEALTH_ATTRIBUTE }),
 
     MakeComponent(PICKUP_COMPONENT,             PHYSICS_COMPONENT,          false,  "pickups",      { PICKUP_TYPE_ATTRIBUTE, AMOUNT_ATTRIBUTE }),
+    MakeComponent(WEAPON_PICKUP_COMPONENT,      PHYSICS_COMPONENT,          false,  "pickups",      { WEAPON_MODIFIER_TYPE_ATTRIBUTE }),
     MakeComponent(LOOTBOX_COMPONENT,            NULL_COMPONENT,             false,  "pickups",      { }),
 
     MakeComponent(LAYER_COMPONENT,              NULL_COMPONENT,             false,  "rendering",    { LAYER_ATTRIBUTE, SORT_OFFSET_ATTRIBUTE }),
@@ -496,7 +502,7 @@ const Component default_components[] = {
     MakeComponent(UI_ITEM_COMPONENT,            NULL_COMPONENT,             false,  "ui",           { UI_GROUP_ATTRIBUTE, UI_ITEM_STATE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, UI_LEFT_ITEM_ID_ATTRIBUTE, UI_RIGHT_ITEM_ID_ATTRIBUTE, UI_ABOVE_ITEM_ID_ATTRIBUTE, UI_BELOW_ITEM_ID_ATTRIBUTE} ),
     MakeComponent(UI_SET_GROUP_STATE_COMPONENT, NULL_COMPONENT,             false,  "ui",           { UI_GROUP_ATTRIBUTE, UI_ITEM_STATE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE } ),
 
-    MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,             false,  "physics",      { BODY_TYPE_ATTRIBUTE, MASS_ATTRIBUTE, PHYSICS_MATERIAL_ATTRIBUTE, INERTIA_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }),
+    MakeComponent(PHYSICS_COMPONENT,            NULL_COMPONENT,             false,  "physics",      { BODY_TYPE_ATTRIBUTE, PHYSICS_MATERIAL_ATTRIBUTE, MASS_ATTRIBUTE, INERTIA_ATTRIBUTE, PREVENT_ROTATION_ATTRIBUTE }),
     MakeComponent(BOX_SHAPE_COMPONENT,          PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, SIZE_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
     MakeComponent(CIRCLE_SHAPE_COMPONENT,       PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
     MakeComponent(POLYGON_SHAPE_COMPONENT,      PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, POLYGON_ATTRIBUTE, SENSOR_ATTRIBUTE }),
