@@ -2,7 +2,7 @@
 #include "ZoneManager.h"
 #include "ZoneFlow.h"
 #include "RemoteZone.h"
-#include "SystemTestZone.h"
+#include "ServerGameZone.h"
 
 #include "Engine.h"
 #include "System/Hash.h"

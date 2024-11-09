@@ -1,5 +1,5 @@
 
-#include "SystemTestZone.h"
+#include "ServerGameZone.h"
 #include "GameMode/PacketDeliveryGameMode.h"
 
 #include "EntitySystem/Entity.h"
