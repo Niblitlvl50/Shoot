@@ -22,17 +22,17 @@
 
 using namespace game;
 
-SystemTestZone::SystemTestZone(const ZoneCreationContext& context)
+ServerGameZone::ServerGameZone(const ZoneCreationContext& context)
     : GameZone(context)
     , m_system_context(context.system_context)
     , m_event_handler(context.event_handler)
     , m_game_config(*context.game_config)
 { }
 
-SystemTestZone::~SystemTestZone()
+ServerGameZone::~ServerGameZone()
 { }
 
-void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
+void ServerGameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 {
     GameZone::OnLoad(camera, renderer);
 
@@ -62,7 +62,7 @@ void SystemTestZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new NetworkStatusDrawer(server_manager), LayerId::UI);
 }
 
-int SystemTestZone::OnUnload()
+int ServerGameZone::OnUnload()
 {
     game::ServerManager* server_manager = m_system_context->GetSystem<game::ServerManager>();
     server_manager->QuitServer();

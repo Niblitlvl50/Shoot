@@ -67,7 +67,7 @@ namespace game
     }
 
     static const std::string QUIT_NAME              = "quit";
-    static const std::string REMOTE_NETWORK_NAME    = "remote_network_zone";
+    //static const std::string REMOTE_NETWORK_NAME    = "remote_network_zone";
 
     static const std::unordered_map<std::string, LoadFunction> g_zone_load_func = {
         { "remote_network_zone",    LoadZone<game::RemoteZone>  },
@@ -77,7 +77,7 @@ namespace game
 void ZoneManager::Run(mono::ICamera* camera, ZoneCreationContext zone_context, const char* initial_zone_name)
 {
     mono::Engine engine(zone_context.window, camera, zone_context.system_context, zone_context.event_handler);
-    LevelConfig level_config = LoadLevelConfig("res/configs/level_config.json");
+    const LevelConfig level_config = LoadLevelConfig("res/configs/level_config.json");
 
     std::string zone_name =
         (initial_zone_name != nullptr) ? initial_zone_name : level_config.start_level;
@@ -104,7 +104,7 @@ void ZoneManager::Run(mono::ICamera* camera, ZoneCreationContext zone_context, c
 
         const auto load_func_it = g_zone_load_func.find(zone_name);
         const LoadFunction load_func =
-            (load_func_it != g_zone_load_func.end()) ? load_func_it->second : LoadZone<SystemTestZone>;
+            (load_func_it != g_zone_load_func.end()) ? load_func_it->second : LoadZone<ServerGameZone>;
 
         game::IZonePtr zone = load_func(zone_context);
         const int zone_run_result = engine.Run(zone.get());

@@ -9,12 +9,12 @@
 
 namespace game
 {
-    class SystemTestZone : public GameZone
+    class ServerGameZone : public GameZone
     {
     public:
     
-        SystemTestZone(const ZoneCreationContext& context);
-        ~SystemTestZone();
+        ServerGameZone(const ZoneCreationContext& context);
+        ~ServerGameZone();
 
         void OnLoad(mono::ICamera* camera, mono::IRenderer* renderer) override;
         int OnUnload() override;
