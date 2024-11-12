@@ -90,7 +90,6 @@
                 "aborted": "title_screen"
             }
         },
-
         {
             "name": "tiny_alien_arena",
             "filename": "res/worlds/tiny_alien_world.components",
