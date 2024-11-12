@@ -23,13 +23,6 @@ namespace game
     using IZonePtr = std::unique_ptr<mono::IZone>;
     using LoadFunction = game::IZonePtr(*)(const game::ZoneCreationContext& zone_context);
 
-    struct Level
-    {
-        std::string name;
-        std::string filename;
-        std::string transitions[game::ZoneResult::ZR_COUNT];
-    };
-
     struct LevelConfig
     {
         std::string start_level;
@@ -57,6 +50,11 @@ namespace game
         level_config.start_level = json["start_level"];
         level_config.levels = json["levels"];
 
+        const auto sort_by_name = [](const Level& left, const Level& right) {
+            return left.name < right.name;
+        };
+        std::sort(level_config.levels.begin(), level_config.levels.end(), sort_by_name);
+
         return level_config;
     }
 
@@ -72,18 +70,37 @@ namespace game
     static const std::unordered_map<std::string, LoadFunction> g_zone_load_func = {
         { "remote_network_zone",    LoadZone<game::RemoteZone>  },
     };
+
+    static LevelConfig g_level_config;
+    static std::string g_next_level_override;
+}
+
+std::vector<game::Level> ZoneManager::GetLevels()
+{
+    return g_level_config.levels;
+}
+
+void ZoneManager::SwitchToLevel(const Level& level)
+{
+    g_next_level_override = level.name;
 }
 
 void ZoneManager::Run(mono::ICamera* camera, ZoneCreationContext zone_context, const char* initial_zone_name)
 {
+    g_level_config = LoadLevelConfig("res/configs/level_config.json");
     mono::Engine engine(zone_context.window, camera, zone_context.system_context, zone_context.event_handler);
-    const LevelConfig level_config = LoadLevelConfig("res/configs/level_config.json");
 
     std::string zone_name =
-        (initial_zone_name != nullptr) ? initial_zone_name : level_config.start_level;
+        (initial_zone_name != nullptr) ? initial_zone_name : g_level_config.start_level;
 
     while(true)
     {
+        if(!g_next_level_override.empty())
+        {
+            zone_name = g_next_level_override;
+            g_next_level_override.clear();
+        }
+
         if(zone_name == QUIT_NAME)
             break;
 
@@ -91,14 +108,14 @@ void ZoneManager::Run(mono::ICamera* camera, ZoneCreationContext zone_context, c
             return zone_name == level.name;
         };
 
-        const auto level_it = std::find_if(level_config.levels.begin(), level_config.levels.end(), find_zone);
-        if(level_it == level_config.levels.end())
+        const auto level_it = std::find_if(g_level_config.levels.begin(), g_level_config.levels.end(), find_zone);
+        if(level_it == g_level_config.levels.end())
         {
             System::Log("ZoneManager|Unable to find world with name '%s'", zone_name.c_str());
             break;
         }
 
-        MONO_ASSERT(level_it != level_config.levels.end());
+        MONO_ASSERT(level_it != g_level_config.levels.end());
 
         zone_context.zone_filename = level_it->filename.c_str();
 

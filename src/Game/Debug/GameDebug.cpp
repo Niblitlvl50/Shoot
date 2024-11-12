@@ -6,6 +6,7 @@
 #include "Entity/EntityLogicSystem.h"
 #include "Navigation/NavmeshData.h"
 #include "Weapons/WeaponTypes.h"
+#include "Zones/ZoneManager.h"
 
 #include "SystemContext.h"
 #include "Events/KeyEvent.h"
@@ -13,6 +14,7 @@
 #include "Events/MouseEvent.h"
 #include "Events/PauseEvent.h"
 #include "Events/PlayerEvents.h"
+#include "Events/QuitEvent.h"
 #include "EntitySystem/IEntityManager.h"
 #include "EventHandler/EventHandler.h"
 #include "Physics/PhysicsDebugDrawer.h"
@@ -64,7 +66,7 @@ bool game::g_draw_entity_introspection = false;
 
 constexpr uint32_t NO_ID = std::numeric_limits<uint32_t>::max();
 
-void DrawDebugMenu(game::EntityLogicSystem* logic_system, uint32_t fps, float delta)
+void DrawDebugMenu(game::EntityLogicSystem* logic_system, mono::EventHandler* event_handler, uint32_t fps, float delta)
 {
     ImGui::BeginMainMenuBar();
     if(ImGui::BeginMenu("Options"))
@@ -132,6 +134,28 @@ void DrawDebugMenu(game::EntityLogicSystem* logic_system, uint32_t fps, float de
         ImGui::Checkbox("Players",              &game::g_draw_debug_players);
         ImGui::Checkbox("Entity Introspection", &game::g_draw_entity_introspection);
         ImGui::EndMenu();
+    }
+
+    if(ImGui::BeginMenu("Levels"))
+    {
+        uint32_t selected_index = -1;
+
+        const std::vector<game::Level>& levels = game::ZoneManager::GetLevels();
+        for(uint32_t index = 0; index < levels.size(); ++index)
+        {
+            const game::Level& level = levels[index];
+
+            if(ImGui::MenuItem(level.name.c_str(), "", false))
+                selected_index = index;
+        }
+
+        ImGui::EndMenu();
+
+        if(selected_index != -1)
+        {
+            game::ZoneManager::SwitchToLevel(levels[selected_index]);
+            event_handler->DispatchEvent(event::QuitEvent());
+        }
     }
 
     ImGui::SameLine(ImGui::GetWindowWidth() -150);
@@ -545,7 +569,7 @@ void DebugUpdater::Update(const mono::UpdateContext& update_context)
 void DebugUpdater::Draw(mono::IRenderer& renderer) const
 {
     if(m_draw_debug_menu)
-        DrawDebugMenu(m_logic_system, m_counter.Fps(), m_counter.Delta());
+        DrawDebugMenu(m_logic_system, m_event_handler, m_counter.Fps(), m_counter.Delta());
 
     if(m_draw_trigger_input)
         DrawTriggerInput(m_draw_trigger_input, m_trigger_system);
