@@ -335,7 +335,7 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
                 {
                     const bool kill_player = ImGui::SmallButton("Kill");
                     if(kill_player)
-                        damage_system->ApplyDamage(player_info.entity_id, NO_ID, game::NO_WEAPON_IDENTIFIER, 1000000);
+                        damage_system->ApplyDamage(player_info.entity_id, NO_ID, game::NO_WEAPON_IDENTIFIER, game::DamageDetails(1000000, true));
                 }
                 else if(player_info.player_state == game::PlayerState::DEAD)
                 {

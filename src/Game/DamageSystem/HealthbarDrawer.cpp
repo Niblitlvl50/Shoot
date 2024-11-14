@@ -257,7 +257,7 @@ void HealthbarDrawer::Update(const mono::UpdateContext& update_context)
 
         mono::TextComponent text_data;
         text_data.text = text_buffer;
-        text_data.font_id = FontId::RUSSOONE_TINY;
+        text_data.font_id = damage_event.critical_hit ? FontId::RUSSOONE_SMALL : FontId::RUSSOONE_TINY;
         text_data.tint = mono::Color::WHITE;
         text_data.center_flags = mono::FontCentering::HORIZONTAL_VERTICAL;
         text_data.draw_shadow = true;

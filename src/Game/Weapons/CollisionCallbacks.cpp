@@ -90,9 +90,9 @@ void game::StandardCollision(
     uint32_t entity_id,
     uint32_t owner_entity_id,
     uint32_t weapon_identifier_hash,
-    int damage,
     const char* impact_entity,
     game::BulletImpactFlag flags,
+    const DamageDetails& damage_details,
     const CollisionDetails& collision_details,
     mono::IEntityManager* entity_manager,
     game::DamageSystem* damage_system,
@@ -106,7 +106,7 @@ void game::StandardCollision(
 
         if(flags & game::BulletImpactFlag::APPLY_DAMAGE)
         {
-            const DamageResult result = damage_system->ApplyDamage(other_entity_id, owner_entity_id, weapon_identifier_hash, damage);
+            const DamageResult result = damage_system->ApplyDamage(other_entity_id, owner_entity_id, weapon_identifier_hash, damage_details);
             did_damage = result.did_damage;
 
             if(result.did_damage && result.health_left <= 0)
@@ -141,9 +141,9 @@ void game::RocketCollision(
     uint32_t entity_id,
     uint32_t owner_entity_id,
     uint32_t weapon_identifier_hash,
-    int damage,
     const char* impact_entity,
     game::BulletImpactFlag flags,
+    const DamageDetails& damage_details,
     const CollisionDetails& collision_details,
     mono::IEntityManager* entity_manager,
     game::DamageSystem* damage_system,
@@ -152,7 +152,7 @@ void game::RocketCollision(
     mono::TransformSystem* transform_system)
 {
     StandardCollision(
-        entity_id, owner_entity_id, weapon_identifier_hash, damage, impact_entity, flags, collision_details, entity_manager, damage_system, sprite_system, transform_system);
+        entity_id, owner_entity_id, weapon_identifier_hash, impact_entity, flags, damage_details, collision_details, entity_manager, damage_system, sprite_system, transform_system);
 
     const mono::ICamera* camera = camera_system->GetActiveCamera();
     const bool collision_visible = math::PointInsideQuad(collision_details.point, camera->GetViewport());
@@ -164,9 +164,9 @@ void game::WebberCollision(
     uint32_t entity_id,
     uint32_t owner_entity_id,
     uint32_t weapon_identifier_hash,
-    int damage,
     const char* impact_entity,
     game::BulletImpactFlag flags,
+    const DamageDetails& damage_details,
     const game::CollisionDetails& collision_details,
     mono::IEntityManager* entity_manager,
     game::DamageSystem* damage_system,
@@ -176,7 +176,7 @@ void game::WebberCollision(
     const game::WeaponEntityFactory* entity_factory)
 {
     StandardCollision(
-        entity_id, owner_entity_id, weapon_identifier_hash, damage, impact_entity, flags, collision_details, entity_manager, damage_system, sprite_system, transform_system);
+        entity_id, owner_entity_id, weapon_identifier_hash, impact_entity, flags, damage_details, collision_details, entity_manager, damage_system, sprite_system, transform_system);
 
     const std::vector<mono::QueryResult> found_bodies =
         physics_system->GetSpace()->QueryRadius(collision_details.point, 2.5f, game::CollisionCategory::ENEMY);

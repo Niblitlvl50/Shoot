@@ -3,6 +3,7 @@
 
 #include "Physics/PhysicsFwd.h"
 #include "Particle/ParticleFwd.h"
+#include "DamageSystem/DamageSystemTypes.h"
 #include "CollisionConfiguration.h"
 #include "Math/Vector.h"
 
@@ -40,9 +41,9 @@ namespace game
             uint32_t bullet_entity_id,
             uint32_t owner_entity_id,
             uint32_t weapon_identifier_hash,
-            int damage,
             const char* impact_entity,
             BulletImpactFlag impact_flags,
+            const DamageDetails& damage_details,
             const CollisionDetails& details)>;
 
     enum BulletCollisionFlag : uint8_t
@@ -84,6 +85,7 @@ namespace game
         std::string name;
         int min_damage;
         int max_damage;
+        int critical_hit_chance;
         float life_span;
         float fuzzy_life_span;
         bool bullet_want_direction;

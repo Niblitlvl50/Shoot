@@ -22,4 +22,20 @@ namespace game
         FILTER_OUT
     };
     using DamageFilter = std::function<FilterResult (uint32_t damaged_entity_id, uint32_t who_did_damage, uint32_t weapon_identifier, int damage)>;
+
+    struct DamageDetails
+    {
+        DamageDetails()
+            : damage(0)
+            , critical_hit(false)
+        { }
+
+        DamageDetails(int damage, bool critical_hit)
+            : damage(damage)
+            , critical_hit(critical_hit)
+        { }
+
+        int damage;
+        bool critical_hit;
+    };
 }

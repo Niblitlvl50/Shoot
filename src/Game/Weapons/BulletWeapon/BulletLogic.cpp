@@ -52,7 +52,8 @@ BulletLogic::BulletLogic(
     , m_bullet_behaviour(bullet_config.bullet_behaviour)
     , m_circulating_behaviour(transform_system)
 {
-    m_damage = mono::RandomInt(bullet_config.min_damage, bullet_config.max_damage);
+    m_critical_hit = mono::Chance(bullet_config.critical_hit_chance);
+    m_damage = mono::RandomInt(bullet_config.min_damage, bullet_config.max_damage) * (m_critical_hit ? 2.0f : 1.0f);
 
     m_life_span = bullet_config.life_span + (mono::Random() * bullet_config.fuzzy_life_span);
     m_is_player_faction = (collision_config.collision_category & CollisionCategory::PLAYER_BULLET);
@@ -91,13 +92,17 @@ void BulletLogic::Update(const mono::UpdateContext& update_context)
     m_life_span -= update_context.delta_s;
     if(m_life_span < 0.0f)
     {
+        DamageDetails damage_details;
+        damage_details.damage = 0;
+        damage_details.critical_hit = false;
+
         CollisionDetails details;
         details.body = nullptr;
         details.point = math::ZeroVec;
         details.normal = math::ZeroVec;
         details.material = 0;
 
-        m_collision_callback(m_entity_id, m_owner_entity_id, m_weapon_identifier_hash, 0, nullptr, BulletImpactFlag::DESTROY_THIS, details);
+        m_collision_callback(m_entity_id, m_owner_entity_id, m_weapon_identifier_hash, nullptr, BulletImpactFlag::DESTROY_THIS, damage_details, details);
         return;
     }
 
@@ -200,13 +205,25 @@ mono::CollisionResolve BulletLogic::OnCollideWith(
         collision_flags = BulletImpactFlag(collision_flags & ~DESTROY_THIS);
     }
 
-    CollisionDetails details;
-    details.body = colliding_body;
-    details.point = collision_point;
-    details.normal = collision_normal;
-    details.material = colliding_body->GetMaterial();
+    DamageDetails damage_details;
+    damage_details.damage = m_damage;
+    damage_details.critical_hit = m_critical_hit;
 
-    m_collision_callback(m_entity_id, m_owner_entity_id, m_weapon_identifier_hash, m_damage, impact_entity, collision_flags, details);
+    CollisionDetails collision_details;
+    collision_details.body = colliding_body;
+    collision_details.point = collision_point;
+    collision_details.normal = collision_normal;
+    collision_details.material = colliding_body->GetMaterial();
+
+    m_collision_callback(
+        m_entity_id,
+        m_owner_entity_id,
+        m_weapon_identifier_hash,
+        impact_entity,
+        collision_flags,
+        damage_details,
+        collision_details);
+
     return resolve_type;
 }
 

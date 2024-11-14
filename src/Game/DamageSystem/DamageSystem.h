@@ -32,6 +32,7 @@ namespace game
         uint32_t id_who_did_damage;
         uint32_t weapon_identifier;
         int damage;
+        bool critical_hit;
         DamageType damage_result;
     };
 
@@ -82,7 +83,7 @@ namespace game
         uint32_t SetGlobalDamageCallback(uint32_t callback_types, DamageCallback damage_callback);
         void RemoveGlobalDamageCallback(uint32_t callback_id);
 
-        DamageResult ApplyDamage(uint32_t id_damaged_entity, uint32_t id_who_did_damage, uint32_t weapon_identifier, int damage);
+        DamageResult ApplyDamage(uint32_t id_damaged_entity, uint32_t id_who_did_damage, uint32_t weapon_identifier, const DamageDetails& damage_details);
         void GainHealth(uint32_t id, int health_gain);
         const std::vector<DamageRecord>& GetDamageRecords() const;
         const std::vector<DamageEvent>& GetDamageEventsThisFrame() const;

@@ -52,6 +52,7 @@ namespace game
         mono::PhysicsSystem* m_physics_system;
         class TargetSystem* m_target_system;
 
+        bool m_critical_hit;
         int m_damage;
         uint32_t m_weapon_identifier_hash;
         std::string m_impact_entity;

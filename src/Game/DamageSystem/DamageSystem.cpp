@@ -203,7 +203,7 @@ void DamageSystem::UpdateShockwaveComponent(uint32_t entity_id, uint32_t trigger
     component.trigger_handle = m_trigger_system->RegisterTriggerCallback(component.trigger_hash, trigger_callback, mono::INVALID_ID);
 }
 
-DamageResult DamageSystem::ApplyDamage(uint32_t id_damaged_entity, uint32_t id_who_did_damage, uint32_t weapon_identifier, int damage)
+DamageResult DamageSystem::ApplyDamage(uint32_t id_damaged_entity, uint32_t id_who_did_damage, uint32_t weapon_identifier, const DamageDetails& damage_details)
 {
     DamageResult result = { false, 0 };
 
@@ -218,12 +218,12 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id_damaged_entity, uint32_t id_w
     const DamageFilter& damage_filter = m_damage_filters[id_damaged_entity];
     if(damage_filter != nullptr)
     {
-        const FilterResult filter_result = damage_filter(id_damaged_entity, id_who_did_damage, weapon_identifier, damage);
+        const FilterResult filter_result = damage_filter(id_damaged_entity, id_who_did_damage, weapon_identifier, damage_details.damage);
         if(filter_result == FilterResult::FILTER_OUT)
             return result;
     }
 
-    damage_record.health -= damage * damage_record.multipier;
+    damage_record.health -= damage_details.damage * damage_record.multipier;
     damage_record.last_damaged_timestamp = m_timestamp;
 
     damage_record.health = std::max(0, damage_record.health);
@@ -233,7 +233,7 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id_damaged_entity, uint32_t id_w
 
     const DamageType damage_type = (result.health_left <= 0) ? DamageType::DESTROYED : DamageType::DAMAGED;
     m_damage_events.push_back(
-        { id_damaged_entity, id_who_did_damage, weapon_identifier, damage, damage_type }
+        { id_damaged_entity, id_who_did_damage, weapon_identifier, damage_details.damage, damage_details.critical_hit, damage_type }
     );
 
     return result;

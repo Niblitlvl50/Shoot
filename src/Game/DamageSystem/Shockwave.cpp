@@ -53,6 +53,6 @@ void game::ShockwaveAndDamageAt(
         query_result.body->ApplyImpulse(normalized_delta * magnitude, world_position);
 
         if(damage_system)
-            damage_system->ApplyDamage(other_entity_id, who_did_damage, NO_WEAPON_IDENTIFIER, damage);
+            damage_system->ApplyDamage(other_entity_id, who_did_damage, NO_WEAPON_IDENTIFIER, DamageDetails(damage, false));
     }
 }
