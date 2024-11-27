@@ -449,8 +449,11 @@ void PlayerLogic::DefaultState(const mono::UpdateContext& update_context)
         if(m_player_info->weapon_state == WeaponState::OUT_OF_AMMO && m_player_info->persistent_data.auto_reload)
             Reload(update_context.timestamp);
 
-        const math::Vector familiar_position = m_transform_system->GetWorldPosition(m_player_info->familiar_entity_id);
-        m_familiar_weapon->Fire(familiar_position, m_player_info->aim_target, update_context.timestamp);
+        if(m_player_info->weapon_state == WeaponState::FIRE)
+        {
+            const math::Vector familiar_position = m_transform_system->GetWorldPosition(m_player_info->familiar_entity_id);
+            m_familiar_weapon->Fire(familiar_position, m_player_info->aim_target, update_context.timestamp);
+        }
     }
     else if(m_stop_fire)
     {
