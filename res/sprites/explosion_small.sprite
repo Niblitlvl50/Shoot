@@ -20,7 +20,7 @@
             "h": 10,
             "name": "explosion_small_idle_1",
             "w": 10,
-            "x": 1810,
+            "x": 1838,
             "y": 513
         },
         {
@@ -34,7 +34,7 @@
             "h": 28,
             "name": "explosion_small_idle_3",
             "w": 28,
-            "x": 750,
+            "x": 607,
             "y": 371
         },
         {
@@ -48,7 +48,7 @@
             "h": 28,
             "name": "explosion_small_idle_5",
             "w": 28,
-            "x": 1545,
+            "x": 686,
             "y": 371
         },
         {

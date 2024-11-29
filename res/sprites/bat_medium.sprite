@@ -40,42 +40,42 @@
             "h": 8,
             "name": "bat_medium_attack_1",
             "w": 18,
-            "x": 714,
+            "x": 736,
             "y": 526
         },
         {
             "h": 9,
             "name": "bat_medium_attack_2",
             "w": 18,
-            "x": 1970,
+            "x": 1948,
             "y": 513
         },
         {
             "h": 12,
             "name": "bat_medium_attack_3",
             "w": 15,
-            "x": 907,
+            "x": 869,
             "y": 497
         },
         {
             "h": 13,
             "name": "bat_medium_attack_4",
             "w": 13,
-            "x": 1358,
+            "x": 1469,
             "y": 496
         },
         {
             "h": 14,
             "name": "bat_medium_attack_5",
             "w": 11,
-            "x": 545,
+            "x": 575,
             "y": 496
         },
         {
             "h": 15,
             "name": "bat_medium_attack_6",
             "w": 12,
-            "x": 122,
+            "x": 581,
             "y": 477
         },
         {
@@ -103,28 +103,28 @@
             "h": 8,
             "name": "bat_medium_attack_10",
             "w": 20,
-            "x": 225,
+            "x": 249,
             "y": 519
         },
         {
             "h": 8,
             "name": "bat_medium_idle_1",
             "w": 18,
-            "x": 736,
+            "x": 714,
             "y": 526
         },
         {
             "h": 10,
             "name": "bat_medium_idle_2",
             "w": 16,
-            "x": 1492,
+            "x": 1472,
             "y": 513
         },
         {
             "h": 11,
             "name": "bat_medium_idle_3",
             "w": 12,
-            "x": 1135,
+            "x": 1023,
             "y": 513
         },
         {
@@ -138,14 +138,14 @@
             "h": 9,
             "name": "bat_medium_idle_5",
             "w": 18,
-            "x": 1948,
+            "x": 1970,
             "y": 513
         },
         {
             "h": 8,
             "name": "bat_medium_idle_6",
             "w": 20,
-            "x": 249,
+            "x": 225,
             "y": 519
         },
         {

@@ -49,7 +49,7 @@
             "h": 2,
             "name": "worm_red_appear_1",
             "w": 21,
-            "x": 1126,
+            "x": 1115,
             "y": 528
         },
         {
@@ -70,71 +70,71 @@
             "h": 19,
             "name": "worm_red_appear_4",
             "w": 22,
-            "x": 338,
+            "x": 312,
             "y": 431
         },
         {
             "h": 24,
             "name": "worm_red_appear_5",
             "w": 22,
-            "x": 659,
+            "x": 1187,
             "y": 402
         },
         {
             "h": 25,
             "name": "worm_red_appear_6",
             "w": 22,
-            "x": 108,
+            "x": 439,
             "y": 402
         },
         {
             "h": 26,
             "name": "worm_red_appear_7",
             "w": 22,
-            "x": 659,
+            "x": 1080,
             "y": 372
         },
         {
             "h": 26,
             "name": "worm_red_appear_8",
             "w": 22,
-            "x": 1028,
+            "x": 946,
             "y": 372
         },
         {
             "h": 26,
             "name": "worm_red_dissapear_1",
             "w": 22,
-            "x": 1054,
+            "x": 659,
             "y": 372
         },
         {
             "h": 26,
             "name": "worm_red_dissapear_2",
             "w": 22,
-            "x": 946,
+            "x": 1106,
             "y": 372
         },
         {
             "h": 25,
             "name": "worm_red_dissapear_3",
             "w": 22,
-            "x": 439,
+            "x": 108,
             "y": 402
         },
         {
             "h": 24,
             "name": "worm_red_dissapear_4",
             "w": 22,
-            "x": 1187,
+            "x": 659,
             "y": 402
         },
         {
             "h": 19,
             "name": "worm_red_dissapear_5",
             "w": 22,
-            "x": 312,
-            "y": 431
+            "x": 1409,
+            "y": 430
         },
         {
             "h": 15,
@@ -154,21 +154,21 @@
             "h": 2,
             "name": "worm_red_dissapear_8",
             "w": 21,
-            "x": 1101,
+            "x": 1140,
             "y": 528
         },
         {
             "h": 26,
             "name": "worm_red_idle_1",
             "w": 22,
-            "x": 1080,
+            "x": 1028,
             "y": 372
         },
         {
             "h": 26,
             "name": "worm_red_idle_2",
             "w": 22,
-            "x": 1106,
+            "x": 1054,
             "y": 372
         },
         {

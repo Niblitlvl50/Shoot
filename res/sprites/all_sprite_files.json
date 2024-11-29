@@ -195,6 +195,7 @@
         "res/sprites/portal.sprite",
         "res/sprites/portal_green.sprite",
         "res/sprites/potatoe_1.sprite",
+        "res/sprites/powerup_crit_icon.sprite",
         "res/sprites/powerup_damage_icon.sprite",
         "res/sprites/powerup_spread_icon.sprite",
         "res/sprites/ps_circle.sprite",

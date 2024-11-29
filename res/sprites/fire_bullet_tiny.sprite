@@ -17,28 +17,28 @@
             "h": 6,
             "name": "fire_bullet_tiny_idle_1",
             "w": 9,
-            "x": 768,
+            "x": 782,
             "y": 528
         },
         {
             "h": 6,
             "name": "fire_bullet_tiny_idle_2",
             "w": 7,
-            "x": 804,
+            "x": 818,
             "y": 528
         },
         {
             "h": 6,
             "name": "fire_bullet_tiny_idle_3",
             "w": 5,
-            "x": 854,
+            "x": 859,
             "y": 528
         },
         {
             "h": 6,
             "name": "fire_bullet_tiny_idle_4",
             "w": 7,
-            "x": 793,
+            "x": 807,
             "y": 528
         }
     ],

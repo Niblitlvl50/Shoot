@@ -40,6 +40,7 @@
         "res/entities/pickup_ammo_10.entity",
         "res/entities/pickup_annotation.entity",
         "res/entities/pickup_coin_100.entity",
+        "res/entities/pickup_crit_chance_10.entity",
         "res/entities/pickup_damage_x2.entity",
         "res/entities/pickup_exp.entity",
         "res/entities/pickup_health_10.entity",
