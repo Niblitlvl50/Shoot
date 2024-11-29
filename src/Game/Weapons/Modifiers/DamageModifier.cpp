@@ -43,3 +43,14 @@ WeaponConfiguration BulletWallModifier::ModifyWeapon(const WeaponConfiguration& 
     return config;
 }
 
+CritChanceModifier::CritChanceModifier(int percent_units)
+    : m_percent_units(percent_units)
+{ }
+
+BulletConfiguration CritChanceModifier::ModifyBullet(const BulletConfiguration& bullet_config)
+{
+    BulletConfiguration config = bullet_config;
+    config.critical_hit_chance += m_percent_units;
+
+    return config;
+}

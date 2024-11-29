@@ -636,6 +636,9 @@ void PlayerLogic::HandlePickup(PickupType type, int meta_data)
         case WeaponModifier::SPREAD:
             AddBulletWallBuff(meta_data);
             break;
+        case WeaponModifier::CRIT_CHANCE:
+            AddCritChanceBuff(meta_data);
+            break;
         }
 
         break;
@@ -668,6 +671,15 @@ void PlayerLogic::AddBulletWallBuff(int meta_data)
     m_weapon_modifier_effect->EmitForDuration(duration_s);
 
     m_player_info->powerup_id = WeaponModifier::SPREAD;
+}
+
+void PlayerLogic::AddCritChanceBuff(int meta_data)
+{
+    constexpr float duration_s = 10.0f;
+    m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, new CritChanceModifier(10));
+    m_weapon_modifier_effect->EmitForDuration(duration_s);
+
+    m_player_info->powerup_id = WeaponModifier::CRIT_CHANCE;
 }
 
 void PlayerLogic::TriggerHookshot()

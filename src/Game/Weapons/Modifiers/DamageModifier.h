@@ -25,6 +25,16 @@ namespace game
         BulletWallModifier();
         WeaponConfiguration ModifyWeapon(const WeaponConfiguration& weapon_config) override;
     };
+
+    class CritChanceModifier : public IWeaponModifier
+    {
+    public:
+
+        CritChanceModifier(int percent_units);
+        BulletConfiguration ModifyBullet(const BulletConfiguration& bullet_config) override;
+
+        const int m_percent_units;
+    };
 }
 
 /*
