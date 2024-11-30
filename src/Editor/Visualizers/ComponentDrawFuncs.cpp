@@ -247,11 +247,13 @@ void editor::DrawLayerDetails(mono::IRenderer& renderer, const std::vector<Attri
 
 void editor::DrawAreaEmitterDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
+    math::Vector offset;
     math::Vector area_size;
+    FindAttribute(OFFSET_ATTRIBUTE, component_properties, offset, FallbackMode::SET_DEFAULT);
     FindAttribute(SIZE_ATTRIBUTE, component_properties, area_size, FallbackMode::SET_DEFAULT);
 
     constexpr mono::Color::RGBA color = { 1.0f, 0.0f, 0.5f, 0.1f};
-    const math::Quad area = math::Quad(-area_size / 2.0, area_size / 2.0f);
+    const math::Quad area = math::Quad(-area_size / 2.0, area_size / 2.0f) + offset;
 
     renderer.DrawFilledQuad(area, color);
     renderer.DrawQuad(area, mono::Color::BLACK, 1.0f);

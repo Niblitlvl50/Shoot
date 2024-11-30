@@ -367,6 +367,7 @@ namespace
         FindAttribute(EMIT_RATE_ATTRIBUTE, properties, emit_rate, FallbackMode::SET_DEFAULT);
         FindAttribute(EMITTER_TYPE_ATTRIBUTE, properties, emitter_type, FallbackMode::SET_DEFAULT);
 
+        FindAttribute(OFFSET_ATTRIBUTE, properties, generator_properties.offset, FallbackMode::SET_DEFAULT);
         FindAttribute(SIZE_ATTRIBUTE, properties, generator_properties.emit_area, FallbackMode::SET_DEFAULT);
         FindAttribute(GRADIENT4_ATTRIBUTE, properties, generator_properties.color_gradient, FallbackMode::SET_DEFAULT);
         FindAttribute(DIRECTION_INTERVAL_ATTRIBUTE, properties, generator_properties.direction_degrees_interval, FallbackMode::SET_DEFAULT);
