@@ -29,9 +29,9 @@ namespace game
         virtual ~UIElement();
 
         void Update(const mono::UpdateContext& context) override;
-        void Draw(mono::IRenderer& renderer) const;
+        void Draw(mono::IRenderer& renderer) const override;
 
-        virtual math::Quad BoundingBox() const;
+        virtual math::Quad BoundingBox() const override;
         virtual math::Quad LocalBoundingBox() const;
         virtual void DrawElement(mono::IRenderer& renderer) const { }
         virtual void Show();
@@ -196,9 +196,9 @@ namespace game
         std::unique_ptr<mono::IRenderBuffer> m_border_colors;
         std::unique_ptr<mono::IElementBuffer> m_indices;
 
-        const float m_border_width;
         const float m_width;
         const float m_height;
+        const float m_border_width;
         mono::Color::RGBA m_color;
         mono::Color::RGBA m_border_color;
     };

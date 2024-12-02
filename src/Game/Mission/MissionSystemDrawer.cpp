@@ -18,10 +18,10 @@ namespace
     constexpr float UI_ELEMENT_HEIGHT = 2.0f;
     constexpr float UI_ELEMENT_SPACING = 0.5f;
 
-    constexpr float transition_duration_s = 0.8f;
+    //constexpr float transition_duration_s = 0.8f;
     constexpr float ease_in_out_time_s = 1.0f;
     constexpr float display_time_s = 3.0f;
-    constexpr float ease_out_time_s = ease_in_out_time_s + display_time_s;
+    //constexpr float ease_out_time_s = ease_in_out_time_s + display_time_s;
 }
 
 MissionSystemDrawer::MissionSystemDrawer(const MissionSystem* mission_system)
