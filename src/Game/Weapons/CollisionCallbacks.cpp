@@ -29,6 +29,8 @@ namespace
 {
     std::unique_ptr<game::IParticleEffect> g_impact_effects[game::PhysicsMaterial::NUM_MATERIALS];
     std::vector<audio::ISoundPtr> g_death_sounds; 
+
+    audio::ISoundPtr g_critical_hit_sound;
 }
 
 void game::InitWeaponCallbacks(mono::SystemContext* system_context)
@@ -51,6 +53,8 @@ void game::InitWeaponCallbacks(mono::SystemContext* system_context)
     g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish08.wav", audio::SoundPlayback::ONCE));
     g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish09.wav", audio::SoundPlayback::ONCE));
     g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish10.wav", audio::SoundPlayback::ONCE));
+
+    g_critical_hit_sound = audio::CreateSound("res/sound/Impact/arrow-impact1.wav", audio::SoundPlayback::ONCE);
 }
 
 void game::CleanupWeaponCallbacks()
@@ -59,6 +63,7 @@ void game::CleanupWeaponCallbacks()
         g_impact_effects[index] = nullptr;
 
     g_death_sounds.clear();
+    g_critical_hit_sound.reset();
 }
 
 uint32_t game::SpawnEntityWithAnimation(
@@ -130,6 +135,13 @@ void game::StandardCollision(
         {
             mono::Sprite* sprite = sprite_system->GetSprite(other_entity_id);
             sprite->FlashSprite();
+
+            if(damage_details.critical_hit)
+            {
+                // Play critical hit sound
+                if(!g_critical_hit_sound->IsPlaying())
+                    g_critical_hit_sound->Play();
+            }
         }
     }
 
