@@ -19,6 +19,7 @@
 #include "Enemies/FlamingSkullBossController.h"
 #include "Enemies/ImpController.h"
 #include "Enemies/BombThrowerController.h"
+#include "Enemies/DemonMinionController.h"
 
 
 #include <algorithm>
@@ -60,6 +61,7 @@ namespace
         MakeController<game::FlamingSkullBossController>,
         MakeController<game::ImpController>,
         MakeController<game::BombThrowerController>,
+        MakeController<game::DemonMinionController>,
     };
 }
 
