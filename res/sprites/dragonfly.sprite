@@ -17,29 +17,29 @@
             "h": 11,
             "name": "dragonfly_idle_1",
             "w": 15,
-            "x": 850,
-            "y": 513
+            "x": 1176,
+            "y": 526
         },
         {
             "h": 10,
             "name": "dragonfly_idle_2",
             "w": 16,
-            "x": 1532,
-            "y": 513
+            "x": 244,
+            "y": 533
         },
         {
             "h": 7,
             "name": "dragonfly_idle_3",
             "w": 16,
-            "x": 1539,
-            "y": 527
+            "x": 197,
+            "y": 547
         },
         {
             "h": 6,
             "name": "dragonfly_idle_4",
             "w": 16,
-            "x": 1813,
-            "y": 527
+            "x": 582,
+            "y": 554
         }
     ],
     "frames_offsets": [
