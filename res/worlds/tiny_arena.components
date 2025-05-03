@@ -144,16 +144,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -291,6 +291,12 @@
                             "name": "health",
                             "variant_type": 1,
                             "variant_value": 1000
+                        },
+                        {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
                         },
                         {
                             "id": 1989672395,
@@ -435,16 +441,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 3
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -643,6 +649,12 @@
                             "variant_value": 100
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
@@ -785,16 +797,16 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 3
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 3447918833,
@@ -1004,16 +1016,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 1
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -1223,16 +1235,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 1
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -1442,16 +1454,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 1
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -2153,16 +2165,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -2345,16 +2357,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -2619,6 +2631,12 @@
                             "variant_value": 1000
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
@@ -2761,16 +2779,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -2961,6 +2979,12 @@
                             "variant_value": 100
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
@@ -3103,16 +3127,16 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 3
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 3447918833,
@@ -3238,6 +3262,18 @@
                     ]
                 },
                 {
+                    "hash": 1162497497,
+                    "name": "entity_tracker",
+                    "properties": [
+                        {
+                            "id": 282636455,
+                            "name": "entity_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        }
+                    ]
+                },
+                {
                     "hash": 1805184399,
                     "name": "health",
                     "properties": [
@@ -3248,22 +3284,16 @@
                             "variant_value": 1000
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": true
-                        }
-                    ]
-                },
-                {
-                    "hash": 1162497497,
-                    "name": "entity_tracker",
-                    "properties": [
-                        {
-                            "id": 282636455,
-                            "name": "entity_type",
-                            "variant_type": 1,
-                            "variant_value": 2
                         }
                     ]
                 },
@@ -3468,6 +3498,15 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
                             "id": 597743964,
                             "name": "size",
                             "variant_type": 4,
@@ -3594,16 +3633,16 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 3447918833,
@@ -3806,6 +3845,12 @@
                             "variant_value": 100
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
@@ -3948,16 +3993,16 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 3
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 3447918833,
@@ -4093,6 +4138,12 @@
                             "variant_value": 100
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
@@ -4235,16 +4286,16 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 3
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 3447918833,
@@ -4380,6 +4431,12 @@
                             "variant_value": 100
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
@@ -4522,16 +4579,16 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 3
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 3447918833,
@@ -4667,6 +4724,12 @@
                             "variant_value": 200
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
@@ -4741,16 +4804,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 1000.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 1000.0
                         },
                         {
                             "id": 3447918833,
@@ -5006,6 +5069,12 @@
                             "variant_value": 200
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
@@ -5080,16 +5149,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 1000.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 1000.0
                         },
                         {
                             "id": 3447918833,
@@ -5659,16 +5728,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -5882,16 +5951,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -6105,16 +6174,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -6328,16 +6397,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -6551,16 +6620,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -6774,16 +6843,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -6997,16 +7066,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -7220,16 +7289,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -7443,16 +7512,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -7666,16 +7735,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -7889,16 +7958,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -8112,16 +8181,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -8335,16 +8404,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -8558,16 +8627,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -8781,16 +8850,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -9004,16 +9073,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -9227,16 +9296,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -9450,16 +9519,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -9673,16 +9742,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 1
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -9896,16 +9965,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 1
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -10119,16 +10188,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -10342,16 +10411,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 1
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -10565,16 +10634,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -10788,16 +10857,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -11011,16 +11080,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -11234,16 +11303,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -11383,6 +11452,12 @@
                             "variant_value": 200
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
@@ -11457,16 +11532,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10000.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10000.0
                         },
                         {
                             "id": 3447918833,
@@ -11676,16 +11751,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -11883,16 +11958,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -12072,16 +12147,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -12295,16 +12370,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -12426,6 +12501,12 @@
                             "name": "health",
                             "variant_type": 1,
                             "variant_value": 100
+                        },
+                        {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
                         },
                         {
                             "id": 1989672395,
@@ -12570,16 +12651,16 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 3447918833,
@@ -12715,6 +12796,12 @@
                             "variant_value": 200
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
@@ -12789,16 +12876,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 100.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 100.0
                         },
                         {
                             "id": 3447918833,
@@ -13104,6 +13191,12 @@
                             "variant_value": 1000
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
@@ -13246,16 +13339,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -13494,16 +13587,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -13704,16 +13797,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -13927,16 +14020,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 1
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -14076,6 +14169,12 @@
                             "variant_value": 200
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
@@ -14150,16 +14249,16 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 3
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -14319,6 +14418,12 @@
                             "variant_value": 200
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
@@ -14393,16 +14498,16 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 3
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -14562,6 +14667,12 @@
                             "variant_value": 1000
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
@@ -14704,16 +14815,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 3
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -15818,16 +15929,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -16041,16 +16152,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -16264,16 +16375,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -16487,16 +16598,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -16710,16 +16821,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -16933,16 +17044,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -17156,16 +17267,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -17363,16 +17474,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -17552,16 +17663,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -17744,16 +17855,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -18306,6 +18417,15 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
                             "id": 597743964,
                             "name": "size",
                             "variant_type": 4,
@@ -18560,6 +18680,15 @@
                             "name": "emitter_type",
                             "variant_type": 1,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
                         },
                         {
                             "id": 597743964,
@@ -19066,16 +19195,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -23815,16 +23944,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -23948,16 +24077,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -26216,16 +26345,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -30430,16 +30559,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -30962,16 +31091,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -31103,16 +31232,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -31244,16 +31373,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -31385,16 +31514,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -31526,16 +31655,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -31741,16 +31870,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -31948,16 +32077,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -32635,16 +32764,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -35242,16 +35371,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -35449,16 +35578,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -35656,16 +35785,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 2
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -35983,16 +36112,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -36190,16 +36319,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 1
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -36413,16 +36542,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 1
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -36628,16 +36757,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -36835,16 +36964,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 1
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -41638,6 +41767,12 @@
                             "variant_value": 400
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
@@ -41712,16 +41847,16 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 500.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 500.0
                         },
                         {
                             "id": 3447918833,
@@ -41848,6 +41983,12 @@
                             "variant_value": 400
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
@@ -41922,16 +42063,16 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 500.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 500.0
                         },
                         {
                             "id": 3447918833,
@@ -42058,6 +42199,12 @@
                             "variant_value": 400
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
@@ -42132,16 +42279,16 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 500.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 500.0
                         },
                         {
                             "id": 3447918833,
@@ -42268,6 +42415,12 @@
                             "variant_value": 400
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
@@ -42342,16 +42495,16 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 500.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 500.0
                         },
                         {
                             "id": 3447918833,
@@ -42478,6 +42631,12 @@
                             "variant_value": 400
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
@@ -42552,16 +42711,16 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 500.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 500.0
                         },
                         {
                             "id": 3447918833,
@@ -42688,6 +42847,12 @@
                             "variant_value": 400
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
@@ -42762,16 +42927,16 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 500.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 500.0
                         },
                         {
                             "id": 3447918833,
@@ -42898,6 +43063,12 @@
                             "variant_value": 400
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
@@ -42972,16 +43143,16 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 500.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 500.0
                         },
                         {
                             "id": 3447918833,
@@ -43108,16 +43279,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -43249,16 +43420,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -43394,16 +43565,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -43535,16 +43706,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -43676,16 +43847,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -44011,16 +44182,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 1
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -44226,16 +44397,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 1
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -44921,16 +45092,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -45128,16 +45299,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -45335,16 +45506,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -45542,16 +45713,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -45749,16 +45920,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -45956,16 +46127,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -46163,16 +46334,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -46370,16 +46541,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -46503,16 +46674,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -46718,16 +46889,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -46925,16 +47096,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -55428,6 +55599,12 @@
                             "variant_value": 200
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
@@ -55502,16 +55679,16 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 3
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -55727,16 +55904,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -55863,6 +56040,12 @@
                             "variant_value": 200
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
@@ -55937,16 +56120,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 1000.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 1000.0
                         },
                         {
                             "id": 3447918833,
@@ -56082,6 +56265,12 @@
                             "variant_value": 200
                         },
                         {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
                             "id": 1989672395,
                             "name": "boss_health",
                             "variant_type": 0,
@@ -56156,16 +56345,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 1000.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 1000.0
                         },
                         {
                             "id": 3447918833,
@@ -56473,16 +56662,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -56662,16 +56851,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -57091,16 +57280,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -57280,16 +57469,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -57589,16 +57778,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -57778,16 +57967,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -58087,16 +58276,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -60378,16 +60567,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -65507,16 +65696,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -65648,16 +65837,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -65789,16 +65978,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -65930,16 +66119,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -66071,16 +66260,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -66800,16 +66989,16 @@
                             "variant_value": 2
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -67053,6 +67242,15 @@
                             "name": "emitter_type",
                             "variant_type": 1,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
                         },
                         {
                             "id": 597743964,
@@ -67367,6 +67565,15 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
                             "id": 597743964,
                             "name": "size",
                             "variant_type": 4,
@@ -67677,6 +67884,15 @@
                             "name": "emitter_type",
                             "variant_type": 1,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
                         },
                         {
                             "id": 597743964,
@@ -68739,6 +68955,15 @@
                             "variant_value": 1
                         },
                         {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
                             "id": 597743964,
                             "name": "size",
                             "variant_type": 4,
@@ -68963,6 +69188,34 @@
                     ]
                 },
                 {
+                    "hash": 1848570119,
+                    "name": "time_trigger",
+                    "properties": [
+                        {
+                            "id": 3027259768,
+                            "name": "time_stamp",
+                            "variant_type": 1,
+                            "variant_value": 2000
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "start_mission",
+                                "type": 0
+                            }
+                        },
+                        {
+                            "id": 2374006294,
+                            "name": "repeating",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
                     "hash": 1411079002,
                     "name": "mission_tracker",
                     "properties": [
@@ -69002,7 +69255,7 @@
                             "variant_type": 11,
                             "variant_value": {
                                 "direction": 0,
-                                "text": "",
+                                "text": "start_mission",
                                 "type": 0
                             }
                         },
@@ -69159,16 +69412,16 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -69360,16 +69613,16 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 10.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
                         },
                         {
                             "id": 3447918833,
@@ -69503,6 +69756,12 @@
                             "name": "health",
                             "variant_type": 1,
                             "variant_value": 100
+                        },
+                        {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
                         },
                         {
                             "id": 1989672395,
@@ -69647,16 +69906,16 @@
                             "variant_value": 0
                         },
                         {
-                            "id": 3749132497,
-                            "name": "mass",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
                             "id": 1682977822,
                             "name": "physics_material",
                             "variant_type": 2,
                             "variant_value": 3
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 1.0
                         },
                         {
                             "id": 3447918833,
@@ -69910,6 +70169,7 @@
             "region_shitty_plains",
             "show_shop_screen",
             "spawn_small_monster",
+            "start_mission",
             "start_spawning",
             "stop_spawning",
             "teleport_to_mainlevel",
