@@ -639,6 +639,9 @@ void PlayerLogic::HandlePickup(PickupType type, int meta_data)
         case WeaponModifier::CRIT_CHANCE:
             AddCritChanceBuff(meta_data);
             break;
+
+            case WeaponModifier::N_MODIFIERS:
+            break;
         }
 
         break;

@@ -46,6 +46,8 @@ namespace game
 
         const uint32_t m_entity_id;
         const uint32_t m_owner_entity_id;
+        uint32_t m_weapon_identifier_hash;
+
         const math::Vector m_target;
         BulletImpactCallback m_collision_callback;
         mono::TransformSystem* m_transform_system;
@@ -54,7 +56,6 @@ namespace game
 
         bool m_critical_hit;
         int m_damage;
-        uint32_t m_weapon_identifier_hash;
         std::string m_impact_entity;
         uint32_t m_bullet_behaviour;
 
