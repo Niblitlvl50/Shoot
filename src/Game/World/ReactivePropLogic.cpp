@@ -45,7 +45,8 @@ mono::CollisionResolve ReactivePropLogic::OnCollideWith(
     if(m_ready_for_push)
     {
         mono::IBody* my_body = m_physics_system->GetBody(m_entity_id);
-        my_body->ApplyLocalImpulse(collision_normal * 20.0f, math::ZeroVec);
+        my_body->ApplyLocalImpulse(collision_normal * 5.0f, math::ZeroVec);
+        my_body->ApplyLocalImpulse(collision_normal * 0.5f, math::Vector(0.0f, 0.1f));
         m_ready_for_push = false;
     }
 
