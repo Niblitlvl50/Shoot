@@ -113,6 +113,7 @@ extern const uint32_t MAGNITUDE_INTERVAL_ATTRIBUTE;
 extern const uint32_t ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE;
 extern const uint32_t GRADIENT4_ATTRIBUTE;
 extern const uint32_t DAMPING_ATTRIBUTE;
+extern const uint32_t USE_CUSTOM_DAMPING;
 
 extern const uint32_t TRANSFORM_SPACE_ATTRIBUTE;
 extern const uint32_t PARTICLE_DRAW_LAYER;

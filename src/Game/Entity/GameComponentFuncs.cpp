@@ -64,6 +64,11 @@ namespace
 
         bool prevent_rotation = false;
         FindAttribute(PREVENT_ROTATION_ATTRIBUTE, properties, prevent_rotation, FallbackMode::SET_DEFAULT);
+        
+        bool use_custom_damping = false;
+        float custom_damping = 0.0f;
+        FindAttribute(USE_CUSTOM_DAMPING, properties, use_custom_damping, FallbackMode::SET_DEFAULT);
+        FindAttribute(DAMPING_ATTRIBUTE, properties, custom_damping, FallbackMode::SET_DEFAULT);
 
         uint32_t material;
         FindAttribute(PHYSICS_MATERIAL_ATTRIBUTE, properties, material, FallbackMode::SET_DEFAULT);
@@ -73,6 +78,8 @@ namespace
         body->SetMass(body_args.mass);
         body->SetPreventRotation(prevent_rotation);
         body->SetMoment(body_args.inertia);
+        if(use_custom_damping)
+            body->SetCustomDamping(custom_damping);
         body->SetType(body_args.type);
         body->SetMaterial(material);
 

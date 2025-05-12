@@ -25,5 +25,6 @@ namespace game
 
         float m_alive_timer_s;
         bool m_ready_for_push;
+        int m_pushed_times;
     };
 }
