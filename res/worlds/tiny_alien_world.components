@@ -1806,6 +1806,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -1822,6 +1828,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -4945,6 +4963,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -4961,6 +4985,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": true
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -5696,6 +5732,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -5712,6 +5754,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -7884,6 +7938,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -7900,6 +7960,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -8070,6 +8142,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -8086,6 +8164,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -8256,6 +8346,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -8272,6 +8368,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -8442,6 +8550,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -8458,6 +8572,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -8628,6 +8754,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -8644,6 +8776,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -8814,6 +8958,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -8830,6 +8980,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -9000,6 +9162,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -9016,6 +9184,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -9186,6 +9366,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -9202,6 +9388,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -9372,6 +9570,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -9388,6 +9592,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -9558,6 +9774,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -9574,6 +9796,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -9744,6 +9978,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -9760,6 +10000,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -9930,6 +10182,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -9946,6 +10204,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -10116,6 +10386,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -10132,6 +10408,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -10302,6 +10590,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -10318,6 +10612,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -10488,6 +10794,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -10504,6 +10816,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -10674,6 +10998,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -10690,6 +11020,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -10860,6 +11202,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -10876,6 +11224,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -11046,6 +11406,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -11062,6 +11428,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -11232,6 +11610,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -11248,6 +11632,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -11418,6 +11814,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -11434,6 +11836,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -11604,6 +12018,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -11620,6 +12040,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -11790,6 +12222,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -11806,6 +12244,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -11976,6 +12426,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -11992,6 +12448,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -12162,6 +12630,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -12178,6 +12652,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -12348,6 +12834,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -12364,6 +12856,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -12534,6 +13038,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -12550,6 +13060,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -12720,6 +13242,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -12736,6 +13264,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -12906,6 +13446,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -12922,6 +13468,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -13092,6 +13650,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -13108,6 +13672,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -13278,6 +13854,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -13294,6 +13876,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -13464,6 +14058,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -13480,6 +14080,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -13650,6 +14262,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -13666,6 +14284,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -13836,6 +14466,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -13852,6 +14488,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -14022,6 +14670,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -14038,6 +14692,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -14208,6 +14874,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -14224,6 +14896,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -14394,6 +15078,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -14410,6 +15100,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -14580,6 +15282,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -14596,6 +15304,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -28746,6 +29466,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -28762,6 +29488,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -29395,6 +30133,12 @@
                             "variant_value": 2
                         },
                         {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
                             "id": 3749132497,
                             "name": "mass",
                             "variant_type": 3,
@@ -29411,6 +30155,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },

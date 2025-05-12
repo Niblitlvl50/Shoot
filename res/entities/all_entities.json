@@ -57,6 +57,7 @@
         "res/entities/small_crosshair.entity",
         "res/entities/stinky_bomb.entity",
         "res/entities/stinky_bomb_explosion.entity",
+        "res/entities/stone_lantern_2.collection.entity",
         "res/entities/throwable_thing.entity",
         "res/entities/torch_small.entity",
         "res/entities/weapon_pickup.entity",
