@@ -136,6 +136,15 @@
                             "variant_value": 0
                         },
                         {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
                             "id": 597743964,
                             "name": "size",
                             "variant_type": 4,
