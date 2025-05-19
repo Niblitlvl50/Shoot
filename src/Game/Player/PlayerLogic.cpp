@@ -132,8 +132,17 @@ PlayerLogic::PlayerLogic(
     m_blink_sound = audio::CreateSound("res/sound/punch.wav", audio::SoundPlayback::ONCE);
     m_drop_box_sound = audio::CreateSound("res/sound/punch.wav", audio::SoundPlayback::ONCE);
     m_pickup_box_sound = audio::CreateSound("res/sound/punch.wav", audio::SoundPlayback::ONCE);
-    m_running_sound = audio::CreateSound("res/sound/footsteps/running-cartoon-footstep_1.wav", audio::SoundPlayback::ONCE);
-    m_running_sound->SetVolume(0.5f);
+    
+    m_running_sounds[0] = audio::CreateSound("res/sound/footsteps/grass/steps1.wav", audio::SoundPlayback::ONCE);
+    m_running_sounds[1] = audio::CreateSound("res/sound/footsteps/grass/steps2.wav", audio::SoundPlayback::ONCE);
+    //m_running_sounds[2] = audio::CreateSound("res/sound/footsteps/grass/steps3.wav", audio::SoundPlayback::ONCE);
+    //m_running_sounds[3] = audio::CreateSound("res/sound/footsteps/grass/steps4.wav", audio::SoundPlayback::ONCE);
+
+//    for(audio::ISoundPtr& sound : m_running_sounds)
+//        sound->SetVolume(0.5f);
+
+    //m_running_sound = audio::CreateSound("res/sound/footsteps/running-cartoon-footstep_1.wav", audio::SoundPlayback::ONCE);
+    //m_running_sound->SetVolume(0.5f);
 
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
     m_smoke_effect = std::make_unique<SmokeEffect>(particle_system, m_entity_system);
@@ -352,7 +361,9 @@ void PlayerLogic::UpdateAnimation(const mono::UpdateContext& update_context, flo
     if(m_accumulated_step_distance >= tweak_values::footstep_length)
     {
         m_footsteps_effect->EmitFootStepsAt(world_position - math::Vector(0.0f, 0.15f));
-        m_running_sound->Play();
+        
+        const int sound_index = mono::RandomInt(0, std::size(m_running_sounds) -1);
+        m_running_sounds[sound_index]->Play();
         m_accumulated_step_distance = 0.0f;
     }
 

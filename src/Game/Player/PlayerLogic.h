@@ -156,7 +156,9 @@ namespace game
         audio::ISoundPtr m_blink_sound;
         audio::ISoundPtr m_drop_box_sound;
         audio::ISoundPtr m_pickup_box_sound;
-        audio::ISoundPtr m_running_sound;
+        
+        audio::ISoundPtr m_running_sounds[2];
+        
 
         math::Vector m_movement_direction;
         float m_accumulated_step_distance;
