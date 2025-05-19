@@ -132,7 +132,7 @@ PlayerLogic::PlayerLogic(
     m_blink_sound = audio::CreateSound("res/sound/punch.wav", audio::SoundPlayback::ONCE);
     m_drop_box_sound = audio::CreateSound("res/sound/punch.wav", audio::SoundPlayback::ONCE);
     m_pickup_box_sound = audio::CreateSound("res/sound/punch.wav", audio::SoundPlayback::ONCE);
-    m_running_sound = audio::CreateSound("res/sound/running-cartoon-footstep_1.wav", audio::SoundPlayback::ONCE);
+    m_running_sound = audio::CreateSound("res/sound/footsteps/running-cartoon-footstep_1.wav", audio::SoundPlayback::ONCE);
     m_running_sound->SetVolume(0.5f);
 
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
