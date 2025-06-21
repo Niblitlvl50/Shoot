@@ -342,6 +342,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     draw_funcs[CAMERA_POINT_COMPONENT] = editor::DrawCameraPoint;
     draw_funcs[TELEPORT_PLAYER_COMPONENT] = editor::DrawTeleportPlayerPoint;
     draw_funcs[SHOCKWAVE_COMPONENT] = editor::DrawShockwaveComponentDetails;
+    draw_funcs[PHYSICS_IMPULSE_COMPONENT] = editor::DrawPhysicsImpulseComponentDetails;
 
     m_selection_visualizer = new SelectionVisualizer(m_selected_ids, m_preselected_id, transform_system);
     m_component_detail_visualizer = std::make_unique<ComponentDetailVisualizer>(draw_funcs, transform_system);

@@ -15,6 +15,7 @@
 #include "Entity/TargetSystem.h"
 #include "Entity/EntityLifetimeTriggerSystem.h"
 #include "GameCamera/CameraSystem.h"
+#include "GamePhysics/GamePhysicsSystem.h"
 #include "InteractionSystem/InteractionSystem.h"
 #include "DialogSystem/DialogSystem.h"
 #include "Mission/MissionSystem.h"
@@ -1245,6 +1246,31 @@ namespace
         mission_system->ReleaseMissionLocation(entity->id);
         return true;
     }
+
+    bool CreatePhysicsImpulse(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::GamePhysicsSystem* game_physics = context->GetSystem<game::GamePhysicsSystem>();
+        game_physics->AllocateImpulse(entity->id);
+        return true;
+    }
+
+    bool ReleasePhysicsImpulse(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::GamePhysicsSystem* game_physics = context->GetSystem<game::GamePhysicsSystem>();
+        game_physics->ReleaseImpulse(entity->id);
+        return true;
+    }
+
+    bool UpdatePhysicsImpulse(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        float impulse_strength = 1.0f;
+        FindAttribute(STRENGTH_ATTRIBUTE, properties, impulse_strength, FallbackMode::SET_DEFAULT);
+
+        game::GamePhysicsSystem* game_physics = context->GetSystem<game::GamePhysicsSystem>();
+        game_physics->UpdateImpulse(entity->id, impulse_strength);
+
+        return true;
+    }
 }
 
 void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
@@ -1288,4 +1314,5 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(MISSION_TRACKER_COMPONENT, CreateMissionTracker, ReleaseMissionTracker, UpdateMissionTracker);
     entity_manager->RegisterComponent(MISSION_ACTIVATION_COMPONENT, CreateMissionActivator, ReleaseMissionActivator, UpdateMissionActivator);
     entity_manager->RegisterComponent(MISSION_LOCATION_COMPONENT, CreateMissionLocation, ReleaseMissionLocation);
+    entity_manager->RegisterComponent(PHYSICS_IMPULSE_COMPONENT, CreatePhysicsImpulse, ReleasePhysicsImpulse, UpdatePhysicsImpulse);
 }

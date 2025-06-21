@@ -33,4 +33,5 @@ namespace editor
     void DrawTeleportPlayerPoint(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb);
 
     void DrawShockwaveComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb);
+    void DrawPhysicsImpulseComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb);
 }

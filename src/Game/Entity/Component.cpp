@@ -155,6 +155,7 @@ const DefaultAttribute default_attributes[] = {
     { "release_on_death",           Variant(true) },
     { "weapon_modifier_type",       Variant(0) },
     { "use_custom_damping",         Variant(false) },
+    { "strength",                   Variant(1.0f) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -292,6 +293,7 @@ extern const uint32_t PHYSICS_MATERIAL_ATTRIBUTE            = default_attributes
 extern const uint32_t RELEASE_ON_DEATH_ATTRIBUTE            = default_attributes[113].hash;
 extern const uint32_t WEAPON_MODIFIER_TYPE_ATTRIBUTE        = default_attributes[114].hash;
 extern const uint32_t USE_CUSTOM_DAMPING                    = default_attributes[115].hash;
+extern const uint32_t STRENGTH_ATTRIBUTE                    = default_attributes[116].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -348,6 +350,7 @@ extern const uint32_t TARGET_COMPONENT              = hash::Hash("target");
 extern const uint32_t MISSION_TRACKER_COMPONENT     = hash::Hash("mission_tracker");
 extern const uint32_t MISSION_ACTIVATION_COMPONENT  = hash::Hash("mission_activation");
 extern const uint32_t MISSION_LOCATION_COMPONENT    = hash::Hash("mission_location");
+extern const uint32_t PHYSICS_IMPULSE_COMPONENT     = hash::Hash("physics_impulse");
 
 const char* component::ComponentNameFromHash(uint32_t hash)
 {
@@ -461,6 +464,8 @@ const char* component::ComponentNameFromHash(uint32_t hash)
         return "mission_activation";
     else if(hash == MISSION_LOCATION_COMPONENT)
         return "mission_location";
+    else if(hash == PHYSICS_IMPULSE_COMPONENT)
+        return "physics_impulse";
 
     return "Unknown";
 }
@@ -510,6 +515,8 @@ const Component default_components[] = {
     MakeComponent(CIRCLE_SHAPE_COMPONENT,       PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
     MakeComponent(POLYGON_SHAPE_COMPONENT,      PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, POLYGON_ATTRIBUTE, SENSOR_ATTRIBUTE }),
     MakeComponent(SEGMENT_SHAPE_COMPONENT,      PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, START_ATTRIBUTE, END_ATTRIBUTE, RADIUS_ATTRIBUTE, SENSOR_ATTRIBUTE }),
+
+    MakeComponent(PHYSICS_IMPULSE_COMPONENT,    PHYSICS_COMPONENT,          false,  "physics",      { STRENGTH_ATTRIBUTE }),
 
     MakeComponent(AREA_TRIGGER_COMPONENT,       NULL_COMPONENT,             false,  "triggers",     { SIZE_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE, LOGIC_OP_ATTRIBUTE, N_ENTITIES_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
     MakeComponent(COUNTER_TRIGGER_COMPONENT,    NULL_COMPONENT,             false,  "triggers",     { COUNT_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_COMPLETED_ATTRIBUTE, RESET_ON_COMPLETED_ATTRIBUTE }),

@@ -151,6 +151,8 @@ extern const uint32_t FAIL_ON_TIMEOUT_ATTRIBUTE;
 extern const uint32_t PHYSICS_MATERIAL_ATTRIBUTE;
 extern const uint32_t WEAPON_MODIFIER_TYPE_ATTRIBUTE;
 
+extern const uint32_t STRENGTH_ATTRIBUTE;
+
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);
 const Variant& DefaultAttributeFromHash(uint32_t hash);
@@ -255,6 +257,7 @@ extern const uint32_t TARGET_COMPONENT;
 extern const uint32_t MISSION_TRACKER_COMPONENT;
 extern const uint32_t MISSION_ACTIVATION_COMPONENT;
 extern const uint32_t MISSION_LOCATION_COMPONENT;
+extern const uint32_t PHYSICS_IMPULSE_COMPONENT;
 
 struct Component
 {

@@ -826,8 +826,8 @@ void PlayerLogic::ResetMovement()
 {
     m_movement_direction = math::ZeroVec;
 
-    mono::IBody* body = m_physics_system->GetBody(m_entity_id);
-    body->ResetForces();
+    //mono::IBody* body = m_physics_system->GetBody(m_entity_id);
+    //body->ResetForces();
 }
 
 void PlayerLogic::ApplyImpulse(const math::Vector& force)

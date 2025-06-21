@@ -292,3 +292,11 @@ void editor::DrawShockwaveComponentDetails(mono::IRenderer& renderer, const std:
     renderer.DrawFilledCircle(math::ZeroVec, math::Vector(radius, radius), 24, mono::Color::MakeWithAlpha(mono::Color::GRAY, 0.25f));
     renderer.DrawCircle(math::ZeroVec, radius, 24, 1.0f, mono::Color::RED);
 }
+
+void editor::DrawPhysicsImpulseComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
+{
+    float impulse_strength;
+    FindAttribute(STRENGTH_ATTRIBUTE, component_properties, impulse_strength, FallbackMode::SET_DEFAULT);
+
+    renderer.DrawLines({ math::ZeroVec, math::Vector(0.0f, 1.0f) * impulse_strength }, mono::Color::CYAN, 1.0f);
+}
