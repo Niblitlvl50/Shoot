@@ -9,8 +9,8 @@ using namespace game;
 
 namespace tweak_values
 {
-    constexpr float decoy_time_s = 10.0f;
-    constexpr int pushed_times_until_destroyed = 3;
+    //constexpr float decoy_time_s = 10.0f;
+    //constexpr int pushed_times_until_destroyed = 3;
 }
 
 ReactivePropLogic::ReactivePropLogic(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler* event_handler)
