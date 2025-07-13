@@ -6,6 +6,7 @@
 
 #include "Weapons/BulletWeapon/BulletWeapon.h"
 #include "Weapons/CollisionCallbacks.h"
+#include "Weapons/Modifiers/WeaponModifierFactory.h"
 #include "DamageSystem/DamageSystem.h"
 
 #include "SystemContext.h"
@@ -261,6 +262,24 @@ int WeaponSystem::AddModifierForIdWithDuration(uint32_t id, float duration_s, IW
     context.ids.push_back(m_modifier_id);
 
     return m_modifier_id;
+}
+
+int WeaponSystem::AddModifierForIdAndWeapon(uint32_t id, uint32_t weapon_identifier_hash, IWeaponModifier* weapon_modifier)
+{
+    return 0;
+}
+
+void WeaponSystem::ApplyModifiersForWeaponLevel(uint32_t entity_id, uint32_t weapon_identifier_hash, int weapon_experience)
+{
+    const auto it = std::lower_bound(
+        m_weapon_configuration.weapon_levels.begin(), m_weapon_configuration.weapon_levels.end(), weapon_experience);
+    const int level_index = std::distance(m_weapon_configuration.weapon_levels.begin(), it);
+
+    for(int index = 0; index < level_index; ++index)
+    {
+        IWeaponModifier* modifier = WeaponModifierFactory::CreateModifierForWeaponAndLevel(weapon_identifier_hash, index);
+        AddModifierForIdAndWeapon(entity_id, weapon_identifier_hash, modifier);
+    }
 }
 
 float WeaponSystem::GetDurationFractionForModifierOnEntity(uint32_t entity_id, uint32_t modifier_id) const

@@ -32,6 +32,8 @@ game::WeaponConfig game::LoadWeaponConfig(const char* weapon_config_file)
         weapon_config.weapon_combinations[hash::Hash(weapon_bullet_combo.name.c_str())] = weapon_bullet_combo;
     }
 
+    weapon_config.weapon_levels = json.value("weapon_levels", std::vector<int>());
+
     return weapon_config;
 }
 

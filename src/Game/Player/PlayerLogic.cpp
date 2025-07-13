@@ -161,6 +161,14 @@ PlayerLogic::PlayerLogic(
     m_weapons[1] = m_weapon_system->CreateSecondaryWeapon(entity_id, WeaponFaction::PLAYER);
     m_weapons[2] = m_weapon_system->CreateTertiaryWeapon(entity_id, WeaponFaction::PLAYER);
 
+    for(const game::IWeaponPtr& weapon_ptr : m_weapons)
+    {
+        const game::WeaponSetup& weapon_setup = weapon_ptr->GetWeaponSetup();
+        const auto it = player_info->persistent_data.weapon_experience.find(weapon_setup.weapon_identifier_hash);
+        if(it != player_info->persistent_data.weapon_experience.end())
+            m_weapon_system->ApplyModifiersForWeaponLevel(entity_id, it->first, it->second);
+    }
+
     m_aim_target = m_aim_direction = -math::PI_2();
 
     const PlayerStateMachine::StateTable state_table = {

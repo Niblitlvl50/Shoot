@@ -608,5 +608,17 @@
             "bullet": "stinky_bomb",
             "sprite_file": "res/sprites/wooden_stick_lantern1.sprite"
         }
+    ],
+    "weapon_levels": [
+        1000,
+        2000,
+        3000,
+        4000,
+        5000,
+        6000,
+        7000,
+        8000,
+        9000,
+        10000
     ]
 }

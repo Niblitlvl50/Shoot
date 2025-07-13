@@ -54,6 +54,7 @@ namespace game
         std::unordered_map<uint32_t, struct WeaponConfiguration> weapon_configs;
         std::unordered_map<uint32_t, struct WeaponBulletCombination> weapon_combinations;
         std::vector<std::string> weapon_names;
+        std::vector<int> weapon_levels;
     };
 
     WeaponConfig LoadWeaponConfig(const char* weapon_config);
