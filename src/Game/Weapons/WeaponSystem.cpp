@@ -269,7 +269,20 @@ int WeaponSystem::AddModifierForIdWithDuration(uint32_t id, float duration_s, IW
 
 int WeaponSystem::AddModifierForIdAndWeapon(uint32_t id, uint32_t weapon_identifier_hash, IWeaponModifier* weapon_modifier)
 {
-    return 0;
+    const uint32_t id_weapon_hash = id | weapon_identifier_hash;
+
+    m_modifier_id++;
+
+    WeaponModifierDuration duration;
+    duration.duration = -1.0f;
+    duration.duration_counter = -1.0f;
+
+    WeaponModifierContext& context = m_weapon_level_modifiers[id_weapon_hash];
+    context.durations.push_back(duration);
+    context.modifiers.push_back(weapon_modifier);
+    context.ids.push_back(m_modifier_id);
+
+    return m_modifier_id;
 }
 
 void WeaponSystem::ApplyModifiersForWeaponLevel(uint32_t entity_id, uint32_t weapon_identifier_hash, int weapon_experience)
@@ -280,7 +293,7 @@ void WeaponSystem::ApplyModifiersForWeaponLevel(uint32_t entity_id, uint32_t wea
 
     for(int index = 0; index < level_index; ++index)
     {
-        IWeaponModifier* modifier = WeaponModifierFactory::CreateModifierForWeaponAndLevel(weapon_identifier_hash, index);
+        IWeaponModifier* modifier = WeaponModifierFactory::CreateModifierForWeaponAndLevel(weapon_identifier_hash, index +1);
         if(modifier)
             AddModifierForIdAndWeapon(entity_id, weapon_identifier_hash, modifier);
     }
@@ -307,6 +320,11 @@ WeaponModifierList WeaponSystem::GetWeaponModifiersForIdAndWeapon(uint32_t id, u
     const auto it = m_weapon_modifiers.find(id);
     if(it != m_weapon_modifiers.end())
         modifier_list.insert(modifier_list.end(), it->second.modifiers.begin(), it->second.modifiers.end());
+
+    const uint32_t id_weapon_hash = id | weapon_identifier_hash;
+    const auto weapon_level_it = m_weapon_level_modifiers.find(id_weapon_hash);
+    if(weapon_level_it != m_weapon_level_modifiers.end())
+        modifier_list.insert(modifier_list.end(), weapon_level_it->second.modifiers.begin(), it->second.modifiers.end());
 
     return modifier_list;
 }
