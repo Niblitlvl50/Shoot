@@ -278,7 +278,8 @@ void WeaponSystem::ApplyModifiersForWeaponLevel(uint32_t entity_id, uint32_t wea
     for(int index = 0; index < level_index; ++index)
     {
         IWeaponModifier* modifier = WeaponModifierFactory::CreateModifierForWeaponAndLevel(weapon_identifier_hash, index);
-        AddModifierForIdAndWeapon(entity_id, weapon_identifier_hash, modifier);
+        if(modifier)
+            AddModifierForIdAndWeapon(entity_id, weapon_identifier_hash, modifier);
     }
 }
 
