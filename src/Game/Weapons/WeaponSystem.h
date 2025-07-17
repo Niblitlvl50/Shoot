@@ -17,7 +17,7 @@
 namespace game
 {
     using IWeaponPtr = std::unique_ptr<class IWeapon>;
-    using WeaponModifierList = std::vector<std::unique_ptr<IWeaponModifier>>;
+    using WeaponModifierList = std::vector<IWeaponModifier*>;
     
     class WeaponSystem : public mono::IGameSystem
     {
@@ -63,7 +63,7 @@ namespace game
 
         void ApplyModifiersForWeaponLevel(uint32_t entity_id, uint32_t weapon_identifier_hash, int weapon_experience);
         float GetDurationFractionForModifierOnEntity(uint32_t entity_id, uint32_t modifier_id) const;
-        const WeaponModifierList& GetWeaponModifiersForId(uint32_t id) const;
+        WeaponModifierList GetWeaponModifiersForIdAndWeapon(uint32_t id, uint32_t weapon_identifier_hash) const;
 
     private:
 
@@ -98,6 +98,7 @@ namespace game
         };
 
         std::unordered_map<uint32_t, WeaponModifierContext> m_weapon_modifiers;
+        std::unordered_map<uint32_t, WeaponModifierContext> m_weapon_level_modifiers;
 
         uint32_t m_modifier_id;
 

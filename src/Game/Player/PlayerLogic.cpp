@@ -329,8 +329,8 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
 
     m_player_info->active_weapon_modifiers.clear();
 
-    const game::WeaponModifierList& modifier_list = m_weapon_system->GetWeaponModifiersForId(m_entity_id);
-    for(const std::unique_ptr<IWeaponModifier>& modifier : modifier_list)
+    const game::WeaponModifierList& modifier_list = m_weapon_system->GetWeaponModifiersForIdAndWeapon(m_entity_id, 0);
+    for(const IWeaponModifier* modifier : modifier_list)
         m_player_info->active_weapon_modifiers.push_back(modifier->Id());
 
     m_player_info->last_used_input = m_input_context->most_recent_input;

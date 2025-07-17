@@ -125,6 +125,9 @@ void WeaponSystem::Update(const mono::UpdateContext& update_context)
         std::reverse(indices_to_remove.begin(), indices_to_remove.end());
 
         for(uint32_t index_to_remove : indices_to_remove)
+            delete pair.second.modifiers[index_to_remove];
+
+        for(uint32_t index_to_remove : indices_to_remove)
         {
             pair.second.durations.erase(pair.second.durations.begin() + index_to_remove);
             pair.second.modifiers.erase(pair.second.modifiers.begin() + index_to_remove);
@@ -243,7 +246,7 @@ int WeaponSystem::AddModifierForId(uint32_t id, IWeaponModifier* weapon_modifier
 
 int WeaponSystem::AddModifierForIdWithDuration(uint32_t id, float duration_s, IWeaponModifier* weapon_modifier)
 {
-    const auto identify_modifier_by_id = [weapon_modifier](const std::unique_ptr<IWeaponModifier>& modifier) {
+    const auto identify_modifier_by_id = [weapon_modifier](const IWeaponModifier* modifier) {
         return weapon_modifier->Id() == modifier->Id();
     };
     const bool has_modifier = mono::contains(m_weapon_modifiers[id].modifiers, identify_modifier_by_id);
@@ -258,7 +261,7 @@ int WeaponSystem::AddModifierForIdWithDuration(uint32_t id, float duration_s, IW
 
     WeaponModifierContext& context = m_weapon_modifiers[id];
     context.durations.push_back(duration);
-    context.modifiers.push_back(std::unique_ptr<IWeaponModifier>(weapon_modifier));
+    context.modifiers.push_back(weapon_modifier);
     context.ids.push_back(m_modifier_id);
 
     return m_modifier_id;
@@ -297,12 +300,13 @@ float WeaponSystem::GetDurationFractionForModifierOnEntity(uint32_t entity_id, u
     return duration.duration / duration.duration_counter;
 }
 
-const WeaponModifierList& WeaponSystem::GetWeaponModifiersForId(uint32_t id) const
+WeaponModifierList WeaponSystem::GetWeaponModifiersForIdAndWeapon(uint32_t id, uint32_t weapon_identifier_hash) const
 {
+    WeaponModifierList modifier_list;
+    
     const auto it = m_weapon_modifiers.find(id);
     if(it != m_weapon_modifiers.end())
-        return it->second.modifiers;
+        modifier_list.insert(modifier_list.end(), it->second.modifiers.begin(), it->second.modifiers.end());
 
-    static const WeaponModifierList empty_list;
-    return empty_list;
+    return modifier_list;
 }
