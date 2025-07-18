@@ -324,7 +324,7 @@ WeaponModifierList WeaponSystem::GetWeaponModifiersForIdAndWeapon(uint32_t id, u
     const uint32_t id_weapon_hash = id | weapon_identifier_hash;
     const auto weapon_level_it = m_weapon_level_modifiers.find(id_weapon_hash);
     if(weapon_level_it != m_weapon_level_modifiers.end())
-        modifier_list.insert(modifier_list.end(), weapon_level_it->second.modifiers.begin(), it->second.modifiers.end());
+        modifier_list.insert(modifier_list.end(), weapon_level_it->second.modifiers.begin(), weapon_level_it->second.modifiers.end());
 
     return modifier_list;
 }
