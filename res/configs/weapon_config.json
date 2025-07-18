@@ -12,7 +12,8 @@
             "entity_file": "res/entities/bullet_fire_wobbly.entity",
             "impact_entity_file": "",
             "sound_file": "",
-            "behaviour": ""
+            "collision_behaviour": "",
+            "movement_behaviour": ""
         },
         {
             "name": "generic_sinewave_bullet",
@@ -25,7 +26,8 @@
             "entity_file": "res/entities/bullet_green_blob.entity",
             "impact_entity_file": "",
             "sound_file": "",
-            "behaviour": "sinewave"
+            "collision_behaviour": "",
+            "movement_behaviour": "sinewave"
         },
         {
             "name": "plasma_bullet",
@@ -38,7 +40,8 @@
             "entity_file": "res/entities/bullet_plasma.entity",
             "impact_entity_file": "",
             "sound_file": "",
-            "behaviour": "jumper"
+            "collision_behaviour": "jumper",
+            "movement_behaviour": ""
         },
         {
             "name": "flak_bullet",
@@ -51,7 +54,8 @@
             "entity_file": "res/entities/bullet_flak.entity",
             "impact_entity_file": "",
             "sound_file": "",
-            "behaviour": ""
+            "collision_behaviour": "",
+            "movement_behaviour": ""
         },
         {
             "name": "flak_bullet_homing",
@@ -64,7 +68,8 @@
             "entity_file": "res/entities/bullet_flak_homing.entity",
             "impact_entity_file": "",
             "sound_file": "",
-            "behaviour": "homing"
+            "collision_behaviour": "",
+            "movement_behaviour": "homing"
         },
         {
             "name": "familiar_bullet",
@@ -77,7 +82,8 @@
             "entity_file": "res/entities/bullet_familiar.entity",
             "impact_entity_file": "",
             "sound_file": "",
-            "behaviour": ""
+            "collision_behaviour": "",
+            "movement_behaviour": ""
         },
         {
             "name": "fire_wobbly_bullet",
@@ -90,7 +96,8 @@
             "entity_file": "res/entities/bullet_fire_wobbly.entity",
             "impact_entity_file": "",
             "sound_file": "",
-            "behaviour": "sinewave"
+            "collision_behaviour": "",
+            "movement_behaviour": "sinewave"
         },
         {
             "name": "burst_gun_bullet",
@@ -103,7 +110,8 @@
             "entity_file": "res/entities/bullet_plasma_crimson.entity",
             "impact_entity_file": "",
             "sound_file": "",
-            "behaviour": "sinewave"
+            "collision_behaviour": "",
+            "movement_behaviour": "sinewave"
         },
         {
             "name": "caco_bullet",
@@ -116,7 +124,8 @@
             "entity_file": "res/entities/bullet_caco.entity",
             "impact_entity_file": "res/entities/explosion_caco.entity",
             "sound_file": "",
-            "behaviour": ""
+            "collision_behaviour": "",
+            "movement_behaviour": ""
         },
         {
             "name": "boss_caco_bullet",
@@ -129,7 +138,8 @@
             "entity_file": "res/entities/bullet_boss_long.entity",
             "impact_entity_file": "",
             "sound_file": "",
-            "behaviour": ""
+            "collision_behaviour": "",
+            "movement_behaviour": ""
         },
         {
             "name": "caco_bullet_homing",
@@ -142,7 +152,8 @@
             "entity_file": "res/entities/bullet_caco.entity",
             "impact_entity_file": "res/entities/explosion_caco.entity",
             "sound_file": "",
-            "behaviour": "homing"
+            "collision_behaviour": "",
+            "movement_behaviour": "homing"
         },
         {
             "name": "generic_circulating",
@@ -155,7 +166,8 @@
             "entity_file": "res/entities/bullet_boss_circle.entity",
             "impact_entity_file": "",
             "sound_file": "",
-            "behaviour": "circulating"
+            "collision_behaviour": "",
+            "movement_behaviour": "circulating"
         },
         {
             "name": "rocket",
@@ -168,7 +180,8 @@
             "entity_file": "res/entities/bullet_rocket.entity",
             "impact_entity_file": "res/entities/explosion_rocket.entity",
             "sound_file": "",
-            "behaviour": "explodes"
+            "collision_behaviour": "explodes",
+            "movement_behaviour": ""
         },
         {
             "name": "laser",
@@ -181,7 +194,8 @@
             "entity_file": "res/entities/bullet_laser.entity",
             "impact_entity_file": "",
             "sound_file": "",
-            "behaviour": ""
+            "collision_behaviour": "",
+            "movement_behaviour": ""
         },
         {
             "name": "webber_bullet",
@@ -194,7 +208,8 @@
             "entity_file": "res/entities/bullet_green_blob.entity",
             "impact_entity_file": "",
             "sound_file": "",
-            "behaviour": ""
+            "collision_behaviour": "",
+            "movement_behaviour": ""
         },
         {
             "name": "stinky_bomb",
@@ -207,7 +222,8 @@
             "entity_file": "res/entities/stinky_bomb.entity",
             "impact_entity_file": "res/entities/stinky_bomb_explosion.entity",
             "sound_file": "",
-            "behaviour": "arc_trajectory"
+            "collision_behaviour": "",
+            "movement_behaviour": "arc_trajectory"
         }
     ],
     "weapons": [

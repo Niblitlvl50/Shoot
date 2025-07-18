@@ -9,22 +9,32 @@ namespace game
 {
     inline void from_json(const nlohmann::json& json, BulletConfiguration& bullet_config)
     {
-        bullet_config.name                  = json["name"].get<std::string>();
-        bullet_config.min_damage            = json["min_damage"].get<int>();
-        bullet_config.max_damage            = json["max_damage"].get<int>();
-        bullet_config.critical_hit_chance   = json["critical_hit_chance"].get<int>();
-        bullet_config.life_span             = json["life_span"].get<float>();
-        bullet_config.fuzzy_life_span       = json["fuzzy_life_span"].get<float>();
-        bullet_config.bullet_want_direction = json["bullet_want_direction"].get<bool>();
-        bullet_config.entity_file           = json["entity_file"].get<std::string>();
-        bullet_config.impact_entity_file    = json["impact_entity_file"].get<std::string>();
-        bullet_config.sound_file            = json["sound_file"].get<std::string>();
-        bullet_config.bullet_behaviour      = 0;
+        bullet_config.name                          = json["name"].get<std::string>();
+        bullet_config.min_damage                    = json["min_damage"].get<int>();
+        bullet_config.max_damage                    = json["max_damage"].get<int>();
+        bullet_config.critical_hit_chance           = json["critical_hit_chance"].get<int>();
+        bullet_config.life_span                     = json["life_span"].get<float>();
+        bullet_config.fuzzy_life_span               = json["fuzzy_life_span"].get<float>();
+        bullet_config.bullet_want_direction         = json["bullet_want_direction"].get<bool>();
+        bullet_config.entity_file                   = json["entity_file"].get<std::string>();
+        bullet_config.impact_entity_file            = json["impact_entity_file"].get<std::string>();
+        bullet_config.sound_file                    = json["sound_file"].get<std::string>();
+        bullet_config.bullet_collision_behaviour    = 0;
+        bullet_config.bullet_movement_behaviour     = 0;
 
-        const std::string behaviour_string = json["behaviour"];
-        const std::vector<std::string> parts = mono::SplitString(behaviour_string, '|');
-        for(const std::string& flag_string : parts)
-            bullet_config.bullet_behaviour |= StringToBulletCollisionFlag(flag_string.c_str());
+        {
+            const std::string behaviour_string = json["collision_behaviour"];
+            const std::vector<std::string> parts = mono::SplitString(behaviour_string, '|');
+            for(const std::string& flag_string : parts)
+                bullet_config.bullet_collision_behaviour |= StringToBulletCollisionFlag(flag_string.c_str());
+        }
+
+        {
+            const std::string movement_behaviour_string = json["movement_behaviour"];
+            const std::vector<std::string> parts = mono::SplitString(movement_behaviour_string, '|');
+            for(const std::string& flag_string : parts)
+                bullet_config.bullet_movement_behaviour |= StringToBulletMovementFlag(flag_string.c_str());
+        }
     }
 
     inline void from_json(const nlohmann::json& json, WeaponConfiguration& weapon_config)

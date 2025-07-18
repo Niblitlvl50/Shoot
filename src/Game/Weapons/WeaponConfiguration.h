@@ -51,11 +51,15 @@ namespace game
         BOUNCE          = ENUM_BIT(0),
         JUMPER          = ENUM_BIT(1),
         PASS_THROUGH    = ENUM_BIT(2),
-        HOMING          = ENUM_BIT(3),
-        EXPLODES        = ENUM_BIT(4),
-        CIRCULATING     = ENUM_BIT(5),
-        SINEWAVE        = ENUM_BIT(6),
-        ARC_TRAJECTORY  = ENUM_BIT(7),
+        EXPLODES        = ENUM_BIT(3),
+    };
+
+    enum BulletMovementFlag : uint8_t
+    {
+        HOMING          = ENUM_BIT(0),
+        CIRCULATING     = ENUM_BIT(1),
+        SINEWAVE        = ENUM_BIT(2),
+        ARC_TRAJECTORY  = ENUM_BIT(3),
     };
 
     inline uint8_t StringToBulletCollisionFlag(const char* string)
@@ -66,16 +70,22 @@ namespace game
             return BulletCollisionFlag::JUMPER;
         else if(std::strcmp(string, "pass_through") == 0)
             return BulletCollisionFlag::PASS_THROUGH;
-        else if(std::strcmp(string, "homing") == 0)
-            return BulletCollisionFlag::HOMING;
         else if(std::strcmp(string, "explodes") == 0)
             return BulletCollisionFlag::EXPLODES;
+
+        return 0;
+    }
+
+    inline uint8_t StringToBulletMovementFlag(const char* string)
+    {
+        if(std::strcmp(string, "homing") == 0)
+            return BulletMovementFlag::HOMING;
         else if(std::strcmp(string, "circulating") == 0)
-            return BulletCollisionFlag::CIRCULATING;
+            return BulletMovementFlag::CIRCULATING;
         else if(std::strcmp(string, "sinewave") == 0)
-            return BulletCollisionFlag::SINEWAVE;
+            return BulletMovementFlag::SINEWAVE;
         else if(std::strcmp(string, "arc_trajectory") == 0)
-            return BulletCollisionFlag::ARC_TRAJECTORY;
+            return BulletMovementFlag::ARC_TRAJECTORY;
 
         return 0;
     }
@@ -92,7 +102,9 @@ namespace game
         std::string entity_file;
         std::string impact_entity_file;
         std::string sound_file;
-        uint32_t bullet_behaviour;
+
+        uint32_t bullet_collision_behaviour;
+        uint32_t bullet_movement_behaviour;
     };
 
     struct WeaponConfiguration

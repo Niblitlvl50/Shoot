@@ -57,7 +57,8 @@ namespace game
         bool m_critical_hit;
         int m_damage;
         std::string m_impact_entity;
-        uint32_t m_bullet_behaviour;
+        uint32_t m_bullet_collision_behaviour;
+        uint32_t m_bullet_movement_behaviour;
 
         float m_life_span;
         bool m_is_player_faction;

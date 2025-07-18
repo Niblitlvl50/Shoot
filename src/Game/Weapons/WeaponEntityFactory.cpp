@@ -46,7 +46,7 @@ mono::Entity WeaponEntityFactory::CreateBulletEntity(
     m_transform_system->SetTransform(bullet_entity.id, transform, mono::TransformState::CLIENT);
 
 
-    const bool is_throwable_weapon = (bullet_config.bullet_behaviour & BulletCollisionFlag::ARC_TRAJECTORY);
+    const bool is_throwable_weapon = (bullet_config.bullet_movement_behaviour & BulletMovementFlag::ARC_TRAJECTORY);
 
     IEntityLogic* bullet_logic = nullptr;
     

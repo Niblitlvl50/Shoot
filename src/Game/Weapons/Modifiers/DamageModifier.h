@@ -14,8 +14,8 @@ namespace game
 
         BulletConfiguration ModifyBullet(const BulletConfiguration& bullet_config) override;
 
-        int m_damage_delta;
-        float m_damage_multiplier;
+        const int m_damage_delta;
+        const float m_damage_multiplier;
     };
 
     class BulletWallModifier : public IWeaponModifier

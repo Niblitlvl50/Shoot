@@ -11,6 +11,6 @@ BulletBehaviourModifier::BulletBehaviourModifier(BulletCollisionFlag add_flag)
 BulletConfiguration BulletBehaviourModifier::ModifyBullet(const BulletConfiguration& bullet_config)
 {
     BulletConfiguration config = bullet_config;
-    config.bullet_behaviour |= m_add_flag;
+    config.bullet_collision_behaviour |= m_add_flag;
     return config;
 }

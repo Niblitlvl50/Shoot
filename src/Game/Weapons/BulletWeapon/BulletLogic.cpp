@@ -49,7 +49,8 @@ BulletLogic::BulletLogic(
     , m_target_system(target_system)
     , m_damage(0)
     , m_impact_entity(bullet_config.impact_entity_file)
-    , m_bullet_behaviour(bullet_config.bullet_behaviour)
+    , m_bullet_collision_behaviour(bullet_config.bullet_collision_behaviour)
+    , m_bullet_movement_behaviour(bullet_config.bullet_movement_behaviour)
     , m_circulating_behaviour(transform_system)
 {
     m_critical_hit = mono::Chance(bullet_config.critical_hit_chance);
@@ -106,7 +107,7 @@ void BulletLogic::Update(const mono::UpdateContext& update_context)
         return;
     }
 
-    if(m_bullet_behaviour & BulletCollisionFlag::HOMING)
+    if(m_bullet_movement_behaviour & BulletMovementFlag::HOMING)
     {
         if(!m_aquired_target || !m_aquired_target->IsValid())
         {
@@ -121,11 +122,11 @@ void BulletLogic::Update(const mono::UpdateContext& update_context)
             m_homing_behaviour.Run(update_context);
         }
     }
-    else if(m_bullet_behaviour & BulletCollisionFlag::CIRCULATING)
+    else if(m_bullet_movement_behaviour & BulletMovementFlag::CIRCULATING)
     {
         m_circulating_behaviour.Run(update_context);
     }
-    else if(m_bullet_behaviour & BulletCollisionFlag::SINEWAVE)
+    else if(m_bullet_movement_behaviour & BulletMovementFlag::SINEWAVE)
     {
         m_sinewave_behaviour.Run(update_context);
     }
@@ -134,7 +135,7 @@ void BulletLogic::Update(const mono::UpdateContext& update_context)
 mono::CollisionResolve BulletLogic::OnCollideWith(
     mono::IBody* colliding_body, const math::Vector& collision_point, const math::Vector& collision_normal, uint32_t categories)
 {
-    if(m_bullet_behaviour & BulletCollisionFlag::JUMPER)
+    if(m_bullet_collision_behaviour & BulletCollisionFlag::JUMPER)
     {
         const bool collide_with_static = (colliding_body->GetType() == mono::BodyType::STATIC);
         if(collide_with_static)
@@ -189,7 +190,7 @@ mono::CollisionResolve BulletLogic::OnCollideWith(
         }
     }
 
-    if(m_bullet_behaviour & BulletCollisionFlag::EXPLODES)
+    if(m_bullet_collision_behaviour & BulletCollisionFlag::EXPLODES)
     {
         //System::Log("EXPLODE THE BULLET PLX");
     }
@@ -199,7 +200,7 @@ mono::CollisionResolve BulletLogic::OnCollideWith(
     mono::CollisionResolve resolve_type = mono::CollisionResolve::NORMAL;
     BulletImpactFlag collision_flags = BulletImpactFlag(APPLY_DAMAGE | DESTROY_THIS);
 
-    if(m_jumps_left > 0 && (m_bullet_behaviour & BulletCollisionFlag::JUMPER))
+    if(m_jumps_left > 0 && (m_bullet_collision_behaviour & BulletCollisionFlag::JUMPER))
     {
         resolve_type = mono::CollisionResolve::IGNORE;
         collision_flags = BulletImpactFlag(collision_flags & ~DESTROY_THIS);
