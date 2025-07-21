@@ -332,6 +332,37 @@ math::Quad UISpriteElement::LocalBoundingBox() const
 }
 
 
+UISpriteBarElement::UISpriteBarElement()
+    : m_current_sprite_handle(0)
+{ }
+
+int UISpriteBarElement::PushSprite(const char* sprite_file)
+{
+    UISpriteElement* ui_sprite = new UISpriteElement(sprite_file);
+    AddChild(ui_sprite);
+
+    m_current_sprite_handle++;
+
+    m_sprites.push_back(
+        { m_current_sprite_handle, ui_sprite }
+    );
+
+    return m_current_sprite_handle;
+}
+
+void UISpriteBarElement::RemoveSprite(int sprite_handle)
+{
+    const auto find_by_handle = [this, sprite_handle](const UISpriteData& sprite_data) {
+        const bool this_is_the_one = (sprite_data.handle == sprite_handle);
+        if(this_is_the_one)
+            RemoveChild(sprite_data.ui_sprite);
+
+        return this_is_the_one;
+    };
+    mono::remove_if(m_sprites, find_by_handle);
+}
+
+
 UITextureElement::UITextureElement()
 { }
 

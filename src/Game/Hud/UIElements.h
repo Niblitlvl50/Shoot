@@ -149,6 +149,23 @@ namespace game
         float m_pixels_per_meter;
     };
 
+    class UISpriteBarElement : public UIElement
+    {
+    public:
+
+        UISpriteBarElement();
+        int PushSprite(const char* sprite_file);
+        void RemoveSprite(int sprite_handle);
+
+        struct UISpriteData
+        {
+            int handle;
+            UISpriteElement* ui_sprite;
+        };
+        std::vector<UISpriteData> m_sprites;
+        int m_current_sprite_handle;
+    };
+
     class UITextureBoxElement : public UIElement
     {
     public:
@@ -238,5 +255,11 @@ namespace game
         std::unique_ptr<mono::IRenderBuffer> m_background_colors;
         std::unique_ptr<mono::IRenderBuffer> m_foreground_colors;
         std::unique_ptr<mono::IElementBuffer> m_indices;
+    };
+
+    class UICheckboxElement : public UIElement
+    {
+    public: 
+
     };
 }

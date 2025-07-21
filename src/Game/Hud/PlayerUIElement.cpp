@@ -82,6 +82,10 @@ namespace game
             m_rubble_text->SetPosition(0.55f, -0.4f);
             m_rubble_text->SetScale(0.5f);
 
+            m_weapon_level_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::GOLDEN_YELLOW);
+            m_weapon_level_text->SetPosition(-0.125f, 0.0f);
+            m_weapon_level_text->SetScale(0.5f);
+
             constexpr mono::Color::RGBA healthbar_red = mono::Color::RGBA(1.0f, 0.3f, 0.3f, 1.0f);
             m_healthbar = new UIBarElement(1.0f, 0.05f, mono::Color::GRAY, healthbar_red);
             m_healthbar->SetPosition(-0.15f, -0.275f);
@@ -92,15 +96,20 @@ namespace game
             m_weapon_expbar = new UIBarElement(1.0f, 0.025f, mono::Color::GRAY, mono::Color::GREEN_VIVID);
             m_weapon_expbar->SetPosition(-0.15f, -0.2f);
 
+            m_effects_sprites = new UISpriteBarElement();
+            m_effects_sprites->SetPosition(0.0f, 1.0f);
+
             UISpriteElement* background_hud = new UISpriteElement("res/sprites/player_background_hud.sprite");
             background_hud->AddChild(m_mugshot_hud);
             background_hud->AddChild(m_weapon_sprites);
             background_hud->AddChild(m_ammo_text);
             // background_hud->AddChild(m_chips_text);
             // background_hud->AddChild(m_rubble_text);
+            background_hud->AddChild(m_weapon_level_text);
             background_hud->AddChild(m_healthbar);
             background_hud->AddChild(m_expbar);
             background_hud->AddChild(m_weapon_expbar);
+            background_hud->AddChild(m_effects_sprites);
 
             AddChild(background_hud);
 
@@ -149,6 +158,10 @@ namespace game
             std::snprintf(rubble_text, std::size(rubble_text), "%d", m_player_info.persistent_data.rubble);
             m_rubble_text->SetText(rubble_text);
 
+            char weapon_level_text[32] = { '\0' };
+            std::snprintf(weapon_level_text, std::size(weapon_level_text), "%d", m_player_info.weapon_level);
+            m_weapon_level_text->SetText(weapon_level_text);
+
             const uint32_t weapon_index = m_weapon_hash_to_index[m_player_info.weapon_type.weapon_hash];
             m_weapon_sprites->SetActiveSprite(weapon_index, 0);
 
@@ -189,11 +202,13 @@ namespace game
         class UITextElement* m_ammo_text;
         class UITextElement* m_chips_text;
         class UITextElement* m_rubble_text;
+        class UITextElement* m_weapon_level_text;
         class UISpriteElement* m_mugshot_hud;
         class UISpriteElement* m_weapon_sprites;
         class UIBarElement* m_healthbar;
         class UIBarElement* m_expbar;
         class UIBarElement* m_weapon_expbar;
+        class UISpriteBarElement* m_effects_sprites;
 
         enum class States
         {
