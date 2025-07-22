@@ -177,4 +177,6 @@ namespace game
 
     bool IsPlayer(uint32_t entity_id);
     bool IsPlayerOrFamiliar(uint32_t entity_id);
+
+    int GetPersistentExperienceForWeapon(uint32_t entity_id, uint32_t weapon_identifier_hash);
 }

@@ -170,3 +170,17 @@ bool game::IsPlayerOrFamiliar(uint32_t entity_id)
     game::PlayerInfo* player_info = std::find_if(std::begin(g_players), std::end(g_players), find_func);
     return (player_info != std::end(g_players));
 }
+
+int game::GetPersistentExperienceForWeapon(uint32_t entity_id, uint32_t weapon_identifier_hash)
+{
+    const game::PlayerInfo* player_info = FindPlayerInfoFromEntityId(entity_id);
+    if(!player_info)
+        return 0;
+
+    const auto it = player_info->persistent_data.weapon_experience.find(weapon_identifier_hash);
+    if(it == player_info->persistent_data.weapon_experience.end())
+        return 0;
+
+    return it->second;
+}
+
