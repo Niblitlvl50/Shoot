@@ -140,7 +140,7 @@ void PlayerDaemonSystem::Begin()
             return;
 
         int& weapon_exp = player_info->persistent_data.weapon_experience[weapon_identifier];
-        weapon_exp++;
+        weapon_exp += damage;
     };
     m_collect_weapon_exp_id = m_damage_system->SetGlobalDamageCallback(DamageType::DESTROYED, collect_weapon_experience);
 

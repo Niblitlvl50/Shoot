@@ -311,7 +311,7 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
     const auto weapon_it = m_player_info->persistent_data.weapon_experience.find(m_player_info->weapon_type.weapon_identifier_hash);
     if(weapon_it != m_player_info->persistent_data.weapon_experience.end())
     {
-        m_player_info->weapon_experience_fraction = math::Scale01Clamped(float(weapon_it->second), 0.0f, 100.0f);
+        m_player_info->weapon_experience_fraction = math::Scale01Clamped(float(weapon_it->second), 0.0f, 1000.0f);
     }
 
     const auto find_active_cooldown = [](float cooldown){
