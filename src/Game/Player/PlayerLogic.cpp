@@ -672,9 +672,20 @@ void PlayerLogic::HandlePickup(PickupType type, int meta_data)
 
 void PlayerLogic::CycleWeapon()
 {
-    m_weapon_index++;
-    if(m_weapon_index == N_WEAPONS)
-        m_weapon_index = 0;
+    NextWeapon();
+}
+
+void PlayerLogic::NextWeapon()
+{
+    m_weapon_index = (m_weapon_index + 1) % N_WEAPONS;
+    m_switch_weapon_sound->Play();
+}
+
+void PlayerLogic::PreviousWeapon()
+{
+    m_weapon_index = (m_weapon_index - 1);
+    if(m_weapon_index < 0)
+        m_weapon_index = (N_WEAPONS - 1);
 
     m_switch_weapon_sound->Play();
 }

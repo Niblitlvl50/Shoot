@@ -63,6 +63,8 @@ namespace game
         void HandlePickup(PickupType type, int meta_data);
 
         void CycleWeapon();
+        void NextWeapon();
+        void PreviousWeapon();
         void AddDamageBuff(int meta_data);
         void AddBulletWallBuff(int meta_data);
         void AddCritChanceBuff(int meta_data);

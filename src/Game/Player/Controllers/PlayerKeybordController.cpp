@@ -19,6 +19,8 @@ PlayerKeyboardController::PlayerKeyboardController(PlayerLogic* player_logic)
     , m_trigger_action(false)
     , m_trigger_pickup_drop(false)
     , m_cycle_weapon(false)
+    , m_next_weapon(false)
+    , m_previous_weapon(false)
     , m_update_aiming(false)
     , m_trigger_respawn(false)
 {
@@ -112,6 +114,17 @@ void PlayerKeyboardController::Update(const mono::UpdateContext& update_context)
     {
         m_player_logic->CycleWeapon();
         m_cycle_weapon = false;
+    }
+
+    if(m_next_weapon)
+    {
+        m_player_logic->NextWeapon();
+        m_next_weapon = false;
+    }
+    else if(m_previous_weapon)
+    {
+        m_player_logic->PreviousWeapon();
+        m_previous_weapon = false;
     }
 
     if(m_trigger_pickup_drop)
@@ -224,6 +237,10 @@ mono::InputResult PlayerKeyboardController::ButtonUp(const event::MouseUpEvent& 
 
 mono::InputResult PlayerKeyboardController::Wheel(const event::MouseWheelEvent& event)
 {
-    m_cycle_weapon = true;
-    return mono::InputResult::Handled;
+    if(event.y > 0)
+        m_next_weapon = true;
+    else if(event.y < 0)
+        m_previous_weapon = true;
+
+        return mono::InputResult::Handled;
 }

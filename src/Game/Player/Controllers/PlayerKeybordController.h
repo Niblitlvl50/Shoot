@@ -39,6 +39,8 @@ namespace game
         bool m_trigger_action;
         bool m_trigger_pickup_drop;
         bool m_cycle_weapon;
+        bool m_next_weapon;
+        bool m_previous_weapon;
         bool m_update_aiming;
         bool m_trigger_respawn;
         math::Vector m_aim_position;
