@@ -2,6 +2,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 namespace game
 {
@@ -9,5 +10,6 @@ namespace game
     {
         std::string decoy_entity;
         std::string weapon_entity;
+        std::vector<int> player_levels;
     };
 }

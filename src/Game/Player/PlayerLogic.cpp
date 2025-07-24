@@ -63,6 +63,29 @@ namespace tweak_values
     constexpr float stamina_recover_thresold_s = 0.75f;
 }
 
+namespace
+{
+    struct PlayerLevelExperience
+    {
+        int level;
+        int current_level_experience;
+        int next_level_experience;        
+    };
+    
+    PlayerLevelExperience GetPlayerLevelExperience(int player_experience, const std::vector<int>& player_levels)
+    {
+        auto it = std::lower_bound(player_levels.begin(), player_levels.end(), player_experience);
+        const int level_index = std::distance(player_levels.begin(), it);
+        
+        PlayerLevelExperience weapon_level_exp;
+        weapon_level_exp.level = level_index;
+        weapon_level_exp.next_level_experience = *it;
+        weapon_level_exp.current_level_experience = (it == player_levels.begin()) ? 0 : *(--it);
+        
+        return weapon_level_exp;
+    }
+}
+
 using namespace game;
 
 PlayerLogic::PlayerLogic(
@@ -306,8 +329,11 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
         m_player_info->health_fraction = float(player_damage_record->health) / float(player_damage_record->full_health);
     }
 
+    const PlayerLevelExperience& player_levels = GetPlayerLevelExperience(m_player_info->persistent_data.experience, m_config.player_levels);
+
     m_player_info->stamina_fraction = m_stamina;
-    m_player_info->player_experience_fraction = math::Scale01Clamped(float(m_player_info->persistent_data.experience), 0.0f, 100.0f);
+    m_player_info->player_experience_fraction =
+        math::Scale01Clamped(float(m_player_info->persistent_data.experience), float(player_levels.current_level_experience), float(player_levels.next_level_experience));
     m_player_info->weapon_experience_fraction =
         math::Scale01Clamped(float(weapon_experience), float(weapon_level_exp.current_level_experience), float(weapon_level_exp.next_level_experience));
 

@@ -102,6 +102,8 @@ namespace game
         std::vector<std::string> m_decoy_entities;
         std::vector<std::string> m_weapon_entities;
 
+        std::vector<int> m_player_levels;
+
         mono::EventToken<event::ControllerAddedEvent> m_added_token;
         mono::EventToken<event::ControllerRemovedEvent> m_removed_token;
         mono::EventToken<PlayerConnectedEvent> m_player_connected_token;

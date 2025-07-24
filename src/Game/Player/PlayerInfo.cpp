@@ -41,6 +41,7 @@ namespace
         player_info.persistent_data.chips = 0;
         player_info.persistent_data.rubble = 0;
         player_info.persistent_data.experience = 0;
+        player_info.persistent_data.weapon_experience.clear();
         player_info.persistent_data.god_mode = false;
         player_info.persistent_data.auto_aim = false;
         player_info.persistent_data.auto_reload = false;

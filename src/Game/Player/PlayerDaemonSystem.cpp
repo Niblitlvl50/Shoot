@@ -62,6 +62,8 @@ PlayerDaemonSystem::PlayerDaemonSystem(
     m_decoy_entities = json["decoy_entities"];
     m_weapon_entities = json["weapon_entities"];
 
+    m_player_levels = json.value("player_levels", std::vector<int>());
+
     const std::vector<std::string> player_damage_sounds = json["player_damage_sounds"];
     const std::vector<std::string> player_death_sounds = json["player_death_sounds"];
 
@@ -324,6 +326,7 @@ uint32_t PlayerDaemonSystem::SpawnPlayer(
     PlayerConfig player_config;
     player_config.decoy_entity = m_decoy_entities.front();
     player_config.weapon_entity = m_weapon_entities.front();
+    player_config.player_levels = m_player_levels;
 
     IEntityLogic* player_logic = new PlayerLogic(player_entity.id, player_info, player_config, input_system, event_handler, system_context);
     logic_system->AddLogic(player_entity.id, player_logic);

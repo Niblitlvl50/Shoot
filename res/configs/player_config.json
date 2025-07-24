@@ -28,5 +28,17 @@
         "res/sound/impact/deathd.wav",
         "res/sound/impact/paind.wav",
         "res/sound/impact/demon-death-05.wav"
+    ],
+    "player_levels": [
+        100,
+        200,
+        300,
+        400,
+        500,
+        600,
+        700,
+        800,
+        900,
+        1000
     ]
 }
