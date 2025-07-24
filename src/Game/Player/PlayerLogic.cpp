@@ -288,11 +288,12 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
     IWeaponPtr& active_weapon = m_weapons[m_weapon_index];
     const game::WeaponSetup& active_weapon_setup = active_weapon->GetWeaponSetup();
     const int weapon_experience = GetPersistentExperienceForWeapon(m_entity_id, active_weapon_setup.weapon_identifier_hash);
+    const WeaponLevelExperience& weapon_level_exp = m_weapon_system->GetWeaponLevelForExperience(active_weapon_setup.weapon_identifier_hash, weapon_experience);
 
     m_player_info->weapon_type = active_weapon_setup;
     m_player_info->weapon_state = active_weapon->UpdateWeaponState(timestamp);
     m_player_info->magazine_left = active_weapon->AmmunitionLeft();
-    m_player_info->weapon_level = m_weapon_system->GetWeaponLevelForExperience(active_weapon_setup.weapon_identifier_hash, weapon_experience);
+    m_player_info->weapon_level = weapon_level_exp.level;
     m_player_info->persistent_data.laser_sight = true;
 
     m_player_info->cooldown_id = 0;
@@ -307,12 +308,8 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
 
     m_player_info->stamina_fraction = m_stamina;
     m_player_info->player_experience_fraction = math::Scale01Clamped(float(m_player_info->persistent_data.experience), 0.0f, 100.0f);
-
-    const auto weapon_it = m_player_info->persistent_data.weapon_experience.find(m_player_info->weapon_type.weapon_identifier_hash);
-    if(weapon_it != m_player_info->persistent_data.weapon_experience.end())
-    {
-        m_player_info->weapon_experience_fraction = math::Scale01Clamped(float(weapon_it->second), 0.0f, 1000.0f);
-    }
+    m_player_info->weapon_experience_fraction =
+        math::Scale01Clamped(float(weapon_experience), float(weapon_level_exp.current_level_experience), float(weapon_level_exp.next_level_experience));
 
     const auto find_active_cooldown = [](float cooldown){
         return cooldown < 1.0f;
@@ -615,6 +612,8 @@ void PlayerLogic::UseItemSlot(ItemSlotIndex slot_index)
 
 void PlayerLogic::HandlePickup(PickupType type, int meta_data)
 {
+    m_player_info->persistent_data.experience++;
+
     switch(type)
     {
     case PickupType::AMMO:
@@ -643,8 +642,6 @@ void PlayerLogic::HandlePickup(PickupType type, int meta_data)
     }
     case PickupType::EXPERIENCE:
     {
-        m_player_info->persistent_data.experience++;
-
         break;
     }
     case PickupType::WEAPON_MODIFIER:

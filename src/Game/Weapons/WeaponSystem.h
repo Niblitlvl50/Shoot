@@ -18,6 +18,13 @@ namespace game
 {
     using IWeaponPtr = std::unique_ptr<class IWeapon>;
     using WeaponModifierList = std::vector<IWeaponModifier*>;
+
+    struct WeaponLevelExperience
+    {
+        int level;
+        int current_level_experience;
+        int next_level_experience;
+    };
     
     class WeaponSystem : public mono::IGameSystem
     {
@@ -61,7 +68,7 @@ namespace game
         int AddModifierForIdWithDuration(uint32_t id, float duration_s, IWeaponModifier* weapon_modifier);
         int AddModifierForIdAndWeapon(uint32_t id, uint32_t weapon_identifier_hash, IWeaponModifier* weapon_modifier);
 
-        int GetWeaponLevelForExperience(uint32_t weapon_identifier_hash, int weapon_experience);
+        WeaponLevelExperience GetWeaponLevelForExperience(uint32_t weapon_identifier_hash, int weapon_experience);
         void ApplyModifiersForWeaponLevel(uint32_t entity_id, uint32_t weapon_identifier_hash, int weapon_experience);
         float GetDurationFractionForModifierOnEntity(uint32_t entity_id, uint32_t modifier_id) const;
         WeaponModifierList GetWeaponModifiersForIdAndWeapon(uint32_t id, uint32_t weapon_identifier_hash) const;

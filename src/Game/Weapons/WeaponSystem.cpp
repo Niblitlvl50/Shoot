@@ -285,20 +285,25 @@ int WeaponSystem::AddModifierForIdAndWeapon(uint32_t id, uint32_t weapon_identif
     return m_modifier_id;
 }
 
-int WeaponSystem::GetWeaponLevelForExperience(uint32_t weapon_identifier_hash, int weapon_experience)
+WeaponLevelExperience WeaponSystem::GetWeaponLevelForExperience(uint32_t weapon_identifier_hash, int weapon_experience)
 {
-    const auto it = std::lower_bound(
+    auto it = std::lower_bound(
         m_weapon_configuration.weapon_levels.begin(), m_weapon_configuration.weapon_levels.end(), weapon_experience);
     const int level_index = std::distance(m_weapon_configuration.weapon_levels.begin(), it);
 
-    return level_index;
+    WeaponLevelExperience weapon_level_exp;
+    weapon_level_exp.level = level_index;
+    weapon_level_exp.next_level_experience = *it;
+    weapon_level_exp.current_level_experience = (it == m_weapon_configuration.weapon_levels.begin()) ? 0 : *(--it);
+
+    return weapon_level_exp;
 }
 
 void WeaponSystem::ApplyModifiersForWeaponLevel(uint32_t entity_id, uint32_t weapon_identifier_hash, int weapon_experience)
 {
-    const int weapon_level = GetWeaponLevelForExperience(weapon_identifier_hash, weapon_experience);
+    const WeaponLevelExperience weapon_level_exp = GetWeaponLevelForExperience(weapon_identifier_hash, weapon_experience);
 
-    for(int index = 0; index < weapon_level; ++index)
+    for(int index = 0; index < weapon_level_exp.level; ++index)
     {
         IWeaponModifier* modifier = WeaponModifierFactory::CreateModifierForWeaponAndLevel(weapon_identifier_hash, index +1);
         if(modifier)
