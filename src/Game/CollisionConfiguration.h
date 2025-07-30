@@ -4,20 +4,23 @@
 #include <cstdint>
 #include <vector>
 
+#define ENUM_BIT(n) (1 << (n))
+
 namespace game
 {
     enum CollisionCategory : uint32_t
     {
-        NONE = 0,
-        PLAYER = 1,
-        PLAYER_BULLET = 2,
-        ENEMY = 4,
-        ENEMY_BULLET = 8,
-        PROPS = 16,
-        PICKUPS = 32,
-        STATIC = 64,
-        PACKAGE = 128,
-        CC_ALL = (~(uint32_t)0)
+        NONE            = 0,
+        PLAYER          = ENUM_BIT(0),
+        PLAYER_BULLET   = ENUM_BIT(1),
+        ENEMY           = ENUM_BIT(2),
+        ENEMY_BULLET    = ENUM_BIT(3),
+        PROPS           = ENUM_BIT(4),
+        PICKUPS         = ENUM_BIT(5),
+        STATIC          = ENUM_BIT(6),
+        PACKAGE         = ENUM_BIT(7),
+        PLAYER_ONLY     = ENUM_BIT(8),
+        CC_ALL          = (~(uint32_t)0)
     };
 
     constexpr uint32_t STATIC_MASK =
@@ -35,7 +38,8 @@ namespace game
         CollisionCategory::PACKAGE |
         CollisionCategory::PROPS |
         CollisionCategory::PICKUPS |
-        CollisionCategory::STATIC;
+        CollisionCategory::STATIC |
+        CollisionCategory::PLAYER_ONLY;
 
     constexpr uint32_t PLAYER_BULLET_MASK =
         CollisionCategory::ENEMY |
@@ -75,7 +79,10 @@ namespace game
     constexpr uint32_t PICKUPS_MASK =
         CollisionCategory::PLAYER;
 
-    struct FactionPair
+    constexpr uint32_t PLAYER_ONLY_MASK =
+        CollisionCategory::PLAYER;
+
+        struct FactionPair
     {
         CollisionCategory category;
         uint32_t mask;
@@ -91,6 +98,7 @@ namespace game
         { CollisionCategory::PICKUPS,       PICKUPS_MASK },
         { CollisionCategory::STATIC,        STATIC_MASK },
         { CollisionCategory::PACKAGE,       PACKAGE_MASK },
+        { CollisionCategory::PLAYER_ONLY,   PLAYER_ONLY_MASK },
     };
 
     static const std::vector<uint32_t> all_collision_categories = {
@@ -102,6 +110,7 @@ namespace game
         CollisionCategory::PICKUPS,
         CollisionCategory::STATIC,
         CollisionCategory::PACKAGE,
+        CollisionCategory::PLAYER_ONLY,
         //CollisionCategory::ALL,
     };
 
@@ -127,6 +136,8 @@ namespace game
             return "Static";
         case CollisionCategory::PACKAGE:
             return "Package";
+        case CollisionCategory::PLAYER_ONLY:
+            return "Player Only";
         case CollisionCategory::CC_ALL:
             return "All";
         };
