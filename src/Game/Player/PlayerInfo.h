@@ -75,6 +75,8 @@ namespace game
         int magazine_left;
         int weapon_level;
 
+        int player_level;
+
         float health_fraction;
         float stamina_fraction;
         float player_experience_fraction;

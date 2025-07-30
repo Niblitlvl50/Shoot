@@ -22,6 +22,9 @@ namespace
         
         player_info.direction = 0.0f;
         player_info.magazine_left = 0;
+        player_info.weapon_level = 0;
+
+        player_info.player_level = 0;
 
         player_info.health_fraction = 0.0f;
         player_info.stamina_fraction = 0.0f;

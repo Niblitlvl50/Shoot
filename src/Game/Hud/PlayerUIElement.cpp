@@ -82,6 +82,10 @@ namespace game
             m_rubble_text->SetPosition(0.55f, -0.4f);
             m_rubble_text->SetScale(0.5f);
 
+            m_player_level_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::GOLDEN_YELLOW);
+            m_player_level_text->SetPosition(-0.85f, -0.15f);
+            m_player_level_text->SetScale(0.5f);
+
             m_weapon_level_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::GOLDEN_YELLOW);
             m_weapon_level_text->SetPosition(-0.125f, 0.0f);
             m_weapon_level_text->SetScale(0.5f);
@@ -105,6 +109,7 @@ namespace game
             background_hud->AddChild(m_ammo_text);
             // background_hud->AddChild(m_chips_text);
             // background_hud->AddChild(m_rubble_text);
+            background_hud->AddChild(m_player_level_text);
             background_hud->AddChild(m_weapon_level_text);
             background_hud->AddChild(m_healthbar);
             background_hud->AddChild(m_expbar);
@@ -158,6 +163,10 @@ namespace game
             std::snprintf(rubble_text, std::size(rubble_text), "%d", m_player_info.persistent_data.rubble);
             m_rubble_text->SetText(rubble_text);
 
+            char player_level_text[32] = { '\0' };
+            std::snprintf(player_level_text, std::size(player_level_text), "%d", m_player_info.player_level);
+            m_player_level_text->SetText(player_level_text);
+
             char weapon_level_text[32] = { '\0' };
             std::snprintf(weapon_level_text, std::size(weapon_level_text), "%d", m_player_info.weapon_level);
             m_weapon_level_text->SetText(weapon_level_text);
@@ -202,6 +211,7 @@ namespace game
         class UITextElement* m_ammo_text;
         class UITextElement* m_chips_text;
         class UITextElement* m_rubble_text;
+        class UITextElement* m_player_level_text;
         class UITextElement* m_weapon_level_text;
         class UISpriteElement* m_mugshot_hud;
         class UISpriteElement* m_weapon_sprites;

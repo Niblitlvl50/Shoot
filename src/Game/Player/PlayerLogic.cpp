@@ -330,6 +330,7 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
     }
 
     const PlayerLevelExperience& player_levels = GetPlayerLevelExperience(m_player_info->persistent_data.experience, m_config.player_levels);
+    m_player_info->player_level = player_levels.level;
 
     m_player_info->stamina_fraction = m_stamina;
     m_player_info->player_experience_fraction =
