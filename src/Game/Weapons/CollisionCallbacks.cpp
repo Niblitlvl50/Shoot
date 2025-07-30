@@ -59,7 +59,7 @@ void game::InitWeaponCallbacks(mono::SystemContext* system_context)
 
 void game::CleanupWeaponCallbacks()
 {
-    for(int index = 0; index < game::PhysicsMaterial::NUM_MATERIALS; ++index)
+    for(uint32_t index = 0; index < game::PhysicsMaterial::NUM_MATERIALS; ++index)
         g_impact_effects[index] = nullptr;
 
     g_death_sounds.clear();
