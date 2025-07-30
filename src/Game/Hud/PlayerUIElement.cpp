@@ -32,6 +32,121 @@ namespace game
     constexpr float g_player_death_element_width = 3.0f;
     constexpr float g_player_element_height = 1.0f;
 
+    class MugshotElement : public game::UIElement
+    {
+    public:
+        MugshotElement(const PlayerInfo& player_info, mono::SpriteSystem* sprite_system)
+            : m_player_info(player_info)
+            , m_sprite_system(sprite_system)
+        {
+            m_mugshot_hud = new UISpriteElement();
+            m_mugshot_hud->SetPosition(-0.6f, 0.0f);
+
+            m_player_level_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::GOLDEN_YELLOW);
+            m_player_level_text->SetPosition(-0.85f, -0.15f);
+            m_player_level_text->SetScale(0.5f);
+
+            m_expbar = new UIBarElement(0.65f, 0.025f, mono::Color::GRAY, mono::Color::GREEN_VIVID);
+            m_expbar->SetPosition(-0.92f, -0.3f);
+
+            AddChild(m_mugshot_hud);
+            AddChild(m_player_level_text);
+            AddChild(m_expbar);
+        }
+
+        void Update(const mono::UpdateContext& update_context) override
+        {
+            UIElement::Update(update_context);
+
+            char player_level_text[32] = { '\0' };
+            std::snprintf(player_level_text, std::size(player_level_text), "%d", m_player_info.player_level);
+            m_player_level_text->SetText(player_level_text);
+
+            m_expbar->SetFraction(m_player_info.player_experience_fraction);
+        }
+
+        void UpdateMugshotSprite()
+        {
+            const mono::Sprite* player_sprite = m_sprite_system->GetSprite(m_player_info.entity_id);
+            const char* sprite_filename = game::HashToFilename(player_sprite->GetSpriteHash());
+            m_mugshot_hud->SetSprite(sprite_filename);
+        }
+
+        const PlayerInfo& m_player_info;
+        mono::SpriteSystem* m_sprite_system;
+
+        class UITextElement* m_player_level_text;
+        class UISpriteElement* m_mugshot_hud;
+        class UIBarElement* m_expbar;
+    };
+
+    class WeaponElement : public game::UIElement
+    {
+    public:
+
+        WeaponElement(const PlayerInfo& player_info, game::WeaponSystem* weapon_system)
+            : m_player_info(player_info)
+        {
+            std::vector<std::string> weapon_sprites;
+
+            const std::vector<WeaponBulletCombination> weapon_combinations = weapon_system->GetAllWeaponCombinations();
+            for(uint32_t index = 0; index < weapon_combinations.size(); ++index)
+            {
+                const WeaponBulletCombination& weapon_combination = weapon_combinations[index];
+                weapon_sprites.push_back(weapon_combination.sprite_file);
+
+                const uint32_t weapon_hash = hash::Hash(weapon_combination.weapon.c_str());
+                m_weapon_hash_to_index[weapon_hash] = index;
+            }
+
+            m_weapon_sprites = new UISpriteElement(weapon_sprites);
+            m_weapon_sprites->SetPosition(0.25f, -0.1f);
+
+            m_ammo_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::OFF_WHITE);
+            m_ammo_text->SetPosition(0.7f, -0.1f);
+            m_ammo_text->SetScale(0.5f);
+
+            m_weapon_level_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::GOLDEN_YELLOW);
+            m_weapon_level_text->SetPosition(-0.1f, -0.15f);
+            m_weapon_level_text->SetScale(0.5f);
+
+            static const mono::Color::RGBA DamageColor_Turquise = mono::Color::MakeFromBytes(115, 238, 220); // https://coolors.co/73eedc
+            m_weapon_expbar = new UIBarElement(1.1f, 0.025f, mono::Color::GRAY, DamageColor_Turquise);
+            m_weapon_expbar->SetPosition(-0.175f, -0.3f);
+
+            AddChild(m_weapon_sprites);
+            AddChild(m_ammo_text);
+            AddChild(m_weapon_level_text);
+            AddChild(m_weapon_expbar);
+        }
+
+        void Update(const mono::UpdateContext& update_context) override
+        {
+            UIElement::Update(update_context);
+
+            char ammo_text[32] = { '\0' };
+            std::snprintf(ammo_text, std::size(ammo_text), "%2u", m_player_info.magazine_left);
+            m_ammo_text->SetText(ammo_text);
+
+            char weapon_level_text[32] = { '\0' };
+            std::snprintf(weapon_level_text, std::size(weapon_level_text), "%d", m_player_info.weapon_level);
+            m_weapon_level_text->SetText(weapon_level_text);
+
+            const uint32_t weapon_index = m_weapon_hash_to_index[m_player_info.weapon_type.weapon_hash];
+            m_weapon_sprites->SetActiveSprite(weapon_index, 0);
+
+            m_weapon_expbar->SetFraction(m_player_info.weapon_experience_fraction);
+        }
+
+        const PlayerInfo& m_player_info;
+
+        std::unordered_map<uint32_t, uint32_t> m_weapon_hash_to_index;
+        class UITextElement* m_ammo_text;
+        class UITextElement* m_weapon_level_text;
+        class UISpriteElement* m_weapon_sprites;
+        class UIBarElement* m_weapon_expbar;
+    };
+
     class PlayerElement : public game::UIElement
     {
     public:
@@ -45,34 +160,10 @@ namespace game
             game::WeaponSystem* weapon_system,
             mono::SpriteSystem* sprite_system)
             : m_player_info(player_info)
-            , m_weapon_system(weapon_system)
-            , m_sprite_system(sprite_system)
             , m_timer(0.0f)
         {
             m_position = m_offscreen_position = offscreen_position;
             m_screen_position = onscreen_position;
-
-            m_mugshot_hud = new UISpriteElement();
-            m_mugshot_hud->SetPosition(-0.6f, 0.0f);
-
-            std::vector<std::string> weapon_sprites;
-
-            const std::vector<WeaponBulletCombination> weapon_combinations = m_weapon_system->GetAllWeaponCombinations();
-            for(uint32_t index = 0; index < weapon_combinations.size(); ++index)
-            {
-                const WeaponBulletCombination& weapon_combination = weapon_combinations[index];
-                weapon_sprites.push_back(weapon_combination.sprite_file);
-
-                const uint32_t weapon_hash = hash::Hash(weapon_combination.weapon.c_str());
-                m_weapon_hash_to_index[weapon_hash] = index;
-            }
-
-            m_weapon_sprites = new UISpriteElement(weapon_sprites);
-            m_weapon_sprites->SetPosition(0.15f, -0.05f);
-
-            m_ammo_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::OFF_WHITE);
-            m_ammo_text->SetPosition(0.6f, -0.05f);
-            m_ammo_text->SetScale(0.5f);
 
             m_chips_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::GOLDEN_YELLOW);
             m_chips_text->SetPosition(-0.25f, -0.4f);
@@ -82,39 +173,25 @@ namespace game
             m_rubble_text->SetPosition(0.55f, -0.4f);
             m_rubble_text->SetScale(0.5f);
 
-            m_player_level_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::GOLDEN_YELLOW);
-            m_player_level_text->SetPosition(-0.85f, -0.15f);
-            m_player_level_text->SetScale(0.5f);
-
-            m_weapon_level_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::GOLDEN_YELLOW);
-            m_weapon_level_text->SetPosition(-0.125f, 0.0f);
-            m_weapon_level_text->SetScale(0.5f);
-
             constexpr mono::Color::RGBA healthbar_red = mono::Color::RGBA(1.0f, 0.3f, 0.3f, 1.0f);
-            m_healthbar = new UIBarElement(1.0f, 0.05f, mono::Color::GRAY, healthbar_red);
-            m_healthbar->SetPosition(-0.15f, -0.275f);
-
-            m_expbar = new UIBarElement(0.65f, 0.025f, mono::Color::GRAY, mono::Color::GREEN_VIVID);
-            m_expbar->SetPosition(-0.92f, -0.3f);
-
-            m_weapon_expbar = new UIBarElement(1.0f, 0.025f, mono::Color::GRAY, mono::Color::GREEN_VIVID);
-            m_weapon_expbar->SetPosition(-0.15f, -0.2f);
+            m_healthbar = new UIBarElement(1.9f, 0.05f, mono::Color::GRAY, healthbar_red);
+            m_healthbar->SetPosition(-0.95f, -0.45f);
 
             m_effects_sprites = new UISpriteBarElement();
             m_effects_sprites->SetPosition(0.0f, 1.0f);
 
+            m_mugshot_element = new MugshotElement(player_info, sprite_system);
+            m_weapon_element = new WeaponElement(player_info, weapon_system);
+
             UISpriteElement* background_hud = new UISpriteElement("res/sprites/player_background_hud.sprite");
-            background_hud->AddChild(m_mugshot_hud);
-            background_hud->AddChild(m_weapon_sprites);
-            background_hud->AddChild(m_ammo_text);
+
+            background_hud->AddChild(m_mugshot_element);
+            background_hud->AddChild(m_weapon_element);
+            background_hud->AddChild(m_healthbar);
+            background_hud->AddChild(m_effects_sprites);
+
             // background_hud->AddChild(m_chips_text);
             // background_hud->AddChild(m_rubble_text);
-            background_hud->AddChild(m_player_level_text);
-            background_hud->AddChild(m_weapon_level_text);
-            background_hud->AddChild(m_healthbar);
-            background_hud->AddChild(m_expbar);
-            background_hud->AddChild(m_weapon_expbar);
-            background_hud->AddChild(m_effects_sprites);
 
             AddChild(background_hud);
 
@@ -136,9 +213,7 @@ namespace game
 
         void ToAppear()
         {
-            const mono::Sprite* player_sprite = m_sprite_system->GetSprite(m_player_info.entity_id);
-            const char* sprite_filename = game::HashToFilename(player_sprite->GetSpriteHash());
-            m_mugshot_hud->SetSprite(sprite_filename);
+            m_mugshot_element->UpdateMugshotSprite();
         }
         void Appearing(const float& delta_s)
         {
@@ -151,10 +226,6 @@ namespace game
         { }
         void Active(const float& delta_s)
         {
-            char ammo_text[32] = { '\0' };
-            std::snprintf(ammo_text, std::size(ammo_text), "%2u", m_player_info.magazine_left);
-            m_ammo_text->SetText(ammo_text);
-
             char chips_text[32] = { '\0' };
             std::snprintf(chips_text, std::size(chips_text), "%d", m_player_info.persistent_data.chips);
             m_chips_text->SetText(chips_text);
@@ -163,20 +234,7 @@ namespace game
             std::snprintf(rubble_text, std::size(rubble_text), "%d", m_player_info.persistent_data.rubble);
             m_rubble_text->SetText(rubble_text);
 
-            char player_level_text[32] = { '\0' };
-            std::snprintf(player_level_text, std::size(player_level_text), "%d", m_player_info.player_level);
-            m_player_level_text->SetText(player_level_text);
-
-            char weapon_level_text[32] = { '\0' };
-            std::snprintf(weapon_level_text, std::size(weapon_level_text), "%d", m_player_info.weapon_level);
-            m_weapon_level_text->SetText(weapon_level_text);
-
-            const uint32_t weapon_index = m_weapon_hash_to_index[m_player_info.weapon_type.weapon_hash];
-            m_weapon_sprites->SetActiveSprite(weapon_index, 0);
-
             m_healthbar->SetFraction(m_player_info.health_fraction);
-            m_expbar->SetFraction(m_player_info.player_experience_fraction);
-            m_weapon_expbar->SetFraction(m_player_info.weapon_experience_fraction);
 
             if(m_player_info.player_state == PlayerState::NOT_SPAWNED)
                 m_states.TransitionTo(States::DISAPPEAR);
@@ -200,25 +258,19 @@ namespace game
         }
 
         const PlayerInfo& m_player_info;
-        game::WeaponSystem* m_weapon_system;
-        mono::SpriteSystem* m_sprite_system;
 
         math::Vector m_screen_position;
         math::Vector m_offscreen_position;
         float m_timer;
 
         std::unordered_map<uint32_t, uint32_t> m_weapon_hash_to_index;
-        class UITextElement* m_ammo_text;
         class UITextElement* m_chips_text;
         class UITextElement* m_rubble_text;
-        class UITextElement* m_player_level_text;
-        class UITextElement* m_weapon_level_text;
-        class UISpriteElement* m_mugshot_hud;
-        class UISpriteElement* m_weapon_sprites;
         class UIBarElement* m_healthbar;
-        class UIBarElement* m_expbar;
-        class UIBarElement* m_weapon_expbar;
         class UISpriteBarElement* m_effects_sprites;
+
+        MugshotElement* m_mugshot_element;
+        WeaponElement* m_weapon_element;
 
         enum class States
         {
