@@ -325,6 +325,17 @@ float WeaponSystem::GetDurationFractionForModifierOnEntity(uint32_t entity_id, u
     return duration.duration / duration.duration_counter;
 }
 
+WeaponModifierList WeaponSystem::GetWeaponModifiersForEntity(uint32_t entity_id) const
+{
+    WeaponModifierList modifier_list;
+    
+    const auto it = m_weapon_modifiers.find(entity_id);
+    if(it != m_weapon_modifiers.end())
+        modifier_list.insert(modifier_list.end(), it->second.modifiers.begin(), it->second.modifiers.end());
+
+    return modifier_list;
+}
+
 WeaponModifierList WeaponSystem::GetWeaponModifiersForIdAndWeapon(uint32_t id, uint32_t weapon_identifier_hash) const
 {
     WeaponModifierList modifier_list;

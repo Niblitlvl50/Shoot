@@ -333,21 +333,25 @@ math::Quad UISpriteElement::LocalBoundingBox() const
 
 
 UISpriteBarElement::UISpriteBarElement()
-    : m_current_sprite_handle(0)
 { }
 
-int UISpriteBarElement::PushSprite(const char* sprite_file)
+void UISpriteBarElement::PushSprite(int sprite_handle, const char* sprite_file)
 {
+    const auto check_id = [sprite_handle](const UISpriteData& sprite_data) {
+        return sprite_data.handle == sprite_handle;
+    };
+    const bool invalid_handle = mono::contains(m_sprites, check_id);
+    if(invalid_handle)
+        return;
+
     UISpriteElement* ui_sprite = new UISpriteElement(sprite_file);
     AddChild(ui_sprite);
 
-    m_current_sprite_handle++;
-
     m_sprites.push_back(
-        { m_current_sprite_handle, ui_sprite }
+        { sprite_handle, ui_sprite }
     );
 
-    return m_current_sprite_handle;
+    RecalculateLayout();
 }
 
 void UISpriteBarElement::RemoveSprite(int sprite_handle)
@@ -359,7 +363,24 @@ void UISpriteBarElement::RemoveSprite(int sprite_handle)
 
         return this_is_the_one;
     };
-    mono::remove_if(m_sprites, find_by_handle);
+    
+    const bool element_removed = mono::remove_if(m_sprites, find_by_handle);
+
+    if(element_removed)
+        RecalculateLayout();
+}
+
+void UISpriteBarElement::RecalculateLayout()
+{
+    float offset_x = 0.0f;
+
+    for(const UISpriteData& sprite_data : m_sprites)
+    {
+        sprite_data.ui_sprite->SetPosition(offset_x, 0.0f);
+
+        const math::Quad& local_bounds = sprite_data.ui_sprite->LocalBoundingBox();
+        offset_x += math::Width(local_bounds);
+    }
 }
 
 

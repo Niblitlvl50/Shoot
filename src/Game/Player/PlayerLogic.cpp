@@ -355,7 +355,7 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
 
     m_player_info->active_weapon_modifiers.clear();
 
-    const game::WeaponModifierList& modifier_list = m_weapon_system->GetWeaponModifiersForIdAndWeapon(m_entity_id, 0);
+    const game::WeaponModifierList& modifier_list = m_weapon_system->GetWeaponModifiersForEntity(m_entity_id);
     for(const IWeaponModifier* modifier : modifier_list)
         m_player_info->active_weapon_modifiers.push_back(modifier->Id());
 

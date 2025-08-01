@@ -71,6 +71,7 @@ namespace game
         WeaponLevelExperience GetWeaponLevelForExperience(uint32_t weapon_identifier_hash, int weapon_experience);
         void ApplyModifiersForWeaponLevel(uint32_t entity_id, uint32_t weapon_identifier_hash, int weapon_experience);
         float GetDurationFractionForModifierOnEntity(uint32_t entity_id, uint32_t modifier_id) const;
+        WeaponModifierList GetWeaponModifiersForEntity(uint32_t entity_id) const;
         WeaponModifierList GetWeaponModifiersForIdAndWeapon(uint32_t id, uint32_t weapon_identifier_hash) const;
 
     private:

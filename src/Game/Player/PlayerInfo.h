@@ -73,9 +73,9 @@ namespace game
         WeaponSetup weapon_type;
         WeaponState weapon_state;
         int magazine_left;
-        int weapon_level;
 
         int player_level;
+        int weapon_level;
 
         float health_fraction;
         float stamina_fraction;

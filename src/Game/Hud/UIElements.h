@@ -154,8 +154,9 @@ namespace game
     public:
 
         UISpriteBarElement();
-        int PushSprite(const char* sprite_file);
+        void PushSprite(int sprite_handle, const char* sprite_file);
         void RemoveSprite(int sprite_handle);
+        void RecalculateLayout();
 
         struct UISpriteData
         {
@@ -163,7 +164,6 @@ namespace game
             UISpriteElement* ui_sprite;
         };
         std::vector<UISpriteData> m_sprites;
-        int m_current_sprite_handle;
     };
 
     class UITextureBoxElement : public UIElement
