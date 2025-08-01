@@ -59,4 +59,10 @@ namespace game
 
     WeaponConfig LoadWeaponConfig(const char* weapon_config);
     WeaponSetup FindWeaponSetupFromString(const WeaponConfig& weapon_config, const char* weapon_combination_name);
+
+    struct ModifiersConfig
+    {
+        std::unordered_map<uint32_t, std::string> modifier_id_to_sprite;
+    };
+    ModifiersConfig LoadModifiersConfig(const char* modifiers_config);
 }

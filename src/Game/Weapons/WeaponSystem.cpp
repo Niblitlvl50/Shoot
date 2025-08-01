@@ -78,6 +78,7 @@ WeaponSystem::WeaponSystem(
     , m_modifier_id(0)
 {
     m_weapon_configuration = LoadWeaponConfig("res/configs/weapon_config.json");
+    m_modifier_configuration = LoadModifiersConfig("res/configs/modifiers_config.json");
 
     using namespace std::placeholders;
     m_standard_collision =

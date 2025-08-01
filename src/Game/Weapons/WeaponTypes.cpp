@@ -51,3 +51,25 @@ game::WeaponSetup game::FindWeaponSetupFromString(const WeaponConfig& weapon_con
     
     return weapon_setup;
 }
+
+game::ModifiersConfig game::LoadModifiersConfig(const char* modifiers_config_file)
+{
+    ModifiersConfig config;
+
+    file::FilePtr file = file::OpenAsciiFile(modifiers_config_file);
+    if(!file)
+        return config;
+
+    const std::vector<byte> file_data = file::FileRead(file);
+    const nlohmann::json& json = nlohmann::json::parse(file_data);
+
+    for(const auto& modifier_json : json["modifiers"])
+    {
+        const std::string& name = modifier_json.value("name", "");
+        const std::string& sprite = modifier_json.value("sprite_file", "");
+
+        config.modifier_id_to_sprite.insert_or_assign(hash::Hash(name.c_str()), sprite);
+    }
+
+    return config;
+}

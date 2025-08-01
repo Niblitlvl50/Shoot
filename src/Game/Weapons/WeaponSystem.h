@@ -82,6 +82,7 @@ namespace game
         game::WeaponEntityFactory m_weapon_entity_factory;
 
         WeaponConfig m_weapon_configuration;
+        ModifiersConfig m_modifier_configuration;
         BulletImpactCallback m_standard_collision;
         std::unordered_map<uint32_t, BulletImpactCallback> m_bullet_callbacks;
 

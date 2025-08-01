@@ -1,0 +1,12 @@
+{
+    "modifiers": [
+        {
+            "name": "hello",
+            "sprite_file": "res/sprites/modifier1.sprite"
+        },
+        {
+            "name": "quad_damage",
+            "sprite_file": "res/sprites/modifier_quad.sprite"
+        }
+    ]
+}
