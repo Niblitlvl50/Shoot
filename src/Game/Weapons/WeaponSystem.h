@@ -74,6 +74,8 @@ namespace game
         WeaponModifierList GetWeaponModifiersForEntity(uint32_t entity_id) const;
         WeaponModifierList GetWeaponModifiersForIdAndWeapon(uint32_t id, uint32_t weapon_identifier_hash) const;
 
+        const std::string& GetModifierSpriteFileForNameId(uint32_t weapon_modifier_hash) const; 
+
     private:
 
         mono::TransformSystem* m_transform_system;

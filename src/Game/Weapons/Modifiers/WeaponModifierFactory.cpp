@@ -13,11 +13,11 @@ game::IWeaponModifier* game::WeaponModifierFactory::CreateModifierForWeaponAndLe
         break;
 
     case 1:
-        return new DamageModifier(10);
+        return new DamageModifier("damage_up_10", 10);
     case 2:
         return new BulletWallModifier();
     case 3:
-        return new BulletBehaviourModifier(game::BulletCollisionFlag::PASS_THROUGH);
+        return new BulletBehaviourModifier("behaviour_mod_pass_through", game::BulletCollisionFlag::PASS_THROUGH);
 
     default:
         break;

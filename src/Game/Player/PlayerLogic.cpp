@@ -717,7 +717,7 @@ void PlayerLogic::PreviousWeapon()
 void PlayerLogic::AddDamageBuff(int meta_data)
 {
     constexpr float duration_s = 10.0f;
-    m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, new DamageModifier(2.0f));
+    m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, new DamageModifier("double_damage_10s", 2.0f));
     m_weapon_modifier_effect->EmitForDuration(duration_s);
 
     m_player_info->powerup_id = WeaponModifier::DAMAGE;
@@ -735,7 +735,7 @@ void PlayerLogic::AddBulletWallBuff(int meta_data)
 void PlayerLogic::AddCritChanceBuff(int meta_data)
 {
     constexpr float duration_s = 10.0f;
-    m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, new CritChanceModifier(10));
+    m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, new CritChanceModifier("crit_chance_10", 10));
     m_weapon_modifier_effect->EmitForDuration(duration_s);
 
     m_player_info->powerup_id = WeaponModifier::CRIT_CHANCE;

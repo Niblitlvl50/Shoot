@@ -9,11 +9,13 @@ namespace game
     {
     public:
 
-        DamageModifier(int add_damage_delta);
-        DamageModifier(float damage_multiplier);
+        DamageModifier(const char* name_identifier, int add_damage_delta);
+        DamageModifier(const char* name_identifier, float damage_multiplier);
 
+        uint32_t Id() const override;
         BulletConfiguration ModifyBullet(const BulletConfiguration& bullet_config) override;
 
+        const uint32_t m_id;
         const int m_damage_delta;
         const float m_damage_multiplier;
     };
@@ -23,16 +25,23 @@ namespace game
     public:
 
         BulletWallModifier();
+
+        uint32_t Id() const override;
         WeaponConfiguration ModifyWeapon(const WeaponConfiguration& weapon_config) override;
+
+        const uint32_t m_id;
     };
 
     class CritChanceModifier : public IWeaponModifier
     {
     public:
 
-        CritChanceModifier(int percent_units);
+        CritChanceModifier(const char* name_identifier, int percent_units);
+
+        uint32_t Id() const override;
         BulletConfiguration ModifyBullet(const BulletConfiguration& bullet_config) override;
 
+        const uint32_t m_id;
         const int m_percent_units;
     };
 }

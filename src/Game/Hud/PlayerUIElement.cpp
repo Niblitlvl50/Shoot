@@ -5,6 +5,7 @@
 #include "UIElements.h"
 #include "Resources.h"
 #include "Weapons/WeaponSystem.h"
+#include "Weapons/WeaponModifierTypes.h"
 
 #include "Math/EasingFunctions.h"
 
@@ -24,6 +25,7 @@
 
 #include <cstdio>
 #include <unordered_map>
+#include <iterator>
 
 namespace game
 {
@@ -161,6 +163,7 @@ namespace game
             mono::SpriteSystem* sprite_system)
             : m_player_info(player_info)
             , m_timer(0.0f)
+            , m_weapon_system(weapon_system)
         {
             m_position = m_offscreen_position = offscreen_position;
             m_screen_position = onscreen_position;
@@ -238,6 +241,33 @@ namespace game
 
             if(m_player_info.player_state == PlayerState::NOT_SPAWNED)
                 m_states.TransitionTo(States::DISAPPEAR);
+
+
+            std::vector<uint32_t> deactivated_modifiers;
+
+            const auto comp = [](uint32_t left, uint32_t right) {
+                return left < right;
+            };
+
+            std::set_difference(
+                m_previous_active_modifiers.begin(),
+                m_previous_active_modifiers.end(),
+                m_player_info.active_weapon_modifiers.begin(),
+                m_player_info.active_weapon_modifiers.end(),
+                std::back_inserter(deactivated_modifiers),
+                comp);
+
+            m_previous_active_modifiers = m_player_info.active_weapon_modifiers;
+
+            for(uint32_t modifier_id : m_player_info.active_weapon_modifiers)
+            {
+                const std::string& sprite_file = m_weapon_system->GetModifierSpriteFileForNameId(modifier_id);
+                if(!sprite_file.empty())
+                    m_effects_sprites->PushSprite(modifier_id, sprite_file.c_str());
+            }
+
+            for(uint32_t modifier_id : deactivated_modifiers)
+                m_effects_sprites->RemoveSprite(modifier_id);
         }
 
         void ToDisappear()
@@ -262,6 +292,7 @@ namespace game
         math::Vector m_screen_position;
         math::Vector m_offscreen_position;
         float m_timer;
+        game::WeaponSystem* m_weapon_system;
 
         std::unordered_map<uint32_t, uint32_t> m_weapon_hash_to_index;
         class UITextElement* m_chips_text;
@@ -271,6 +302,8 @@ namespace game
 
         MugshotElement* m_mugshot_element;
         WeaponElement* m_weapon_element;
+
+        std::vector<uint32_t> m_previous_active_modifiers;
 
         enum class States
         {
