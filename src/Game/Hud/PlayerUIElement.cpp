@@ -181,7 +181,7 @@ namespace game
             m_healthbar->SetPosition(-0.95f, -0.45f);
 
             m_effects_sprites = new UISpriteBarElement();
-            m_effects_sprites->SetPosition(0.0f, 1.0f);
+            m_effects_sprites->SetPosition(0.0f, 0.35f);
 
             m_mugshot_element = new MugshotElement(player_info, sprite_system);
             m_weapon_element = new WeaponElement(player_info, weapon_system);
@@ -245,17 +245,12 @@ namespace game
 
             std::vector<uint32_t> deactivated_modifiers;
 
-            const auto comp = [](uint32_t left, uint32_t right) {
-                return left < right;
-            };
-
             std::set_difference(
                 m_previous_active_modifiers.begin(),
                 m_previous_active_modifiers.end(),
                 m_player_info.active_weapon_modifiers.begin(),
                 m_player_info.active_weapon_modifiers.end(),
-                std::back_inserter(deactivated_modifiers),
-                comp);
+                std::back_inserter(deactivated_modifiers));
 
             m_previous_active_modifiers = m_player_info.active_weapon_modifiers;
 

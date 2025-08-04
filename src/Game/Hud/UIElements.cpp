@@ -380,6 +380,7 @@ void UISpriteBarElement::RecalculateLayout()
 
         const math::Quad& local_bounds = sprite_data.ui_sprite->LocalBoundingBox();
         offset_x += math::Width(local_bounds);
+        offset_x += 0.01f; // padding
     }
 }
 

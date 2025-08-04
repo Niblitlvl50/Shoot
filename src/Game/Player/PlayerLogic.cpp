@@ -359,6 +359,8 @@ void PlayerLogic::UpdatePlayerInfo(uint32_t timestamp)
     for(const IWeaponModifier* modifier : modifier_list)
         m_player_info->active_weapon_modifiers.push_back(modifier->Id());
 
+    std::sort(m_player_info->active_weapon_modifiers.begin(), m_player_info->active_weapon_modifiers.end());
+
     m_player_info->last_used_input = m_input_context->most_recent_input;
 }
 

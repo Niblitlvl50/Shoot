@@ -9,7 +9,7 @@
             "sprite_file": "res/sprites/powerup_damage_icon.sprite"
         },
         {
-            "name": "bullet_spread",
+            "name": "bullet_wall",
             "sprite_file": "res/sprites/powerup_spread_icon.sprite"
         },
         {
