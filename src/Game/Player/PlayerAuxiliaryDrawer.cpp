@@ -7,6 +7,7 @@
 #include "Math/CriticalDampedSpring.h"
 #include "Player/PlayerInfo.h"
 #include "Player/PlayerAbilities.h"
+#include "Weapons/WeaponSystem.h"
 #include "Weapons/WeaponModifierTypes.h"
 
 #include "Camera/ICamera.h"
@@ -124,8 +125,9 @@ namespace
     constexpr float stamina_bar_width = 0.05f;
 }
 
-PlayerAuxiliaryDrawer::PlayerAuxiliaryDrawer(const game::CameraSystem* camera_system, const mono::TransformSystem* transform_system)
+PlayerAuxiliaryDrawer::PlayerAuxiliaryDrawer(const game::CameraSystem* camera_system, const game::WeaponSystem* weapon_system, const mono::TransformSystem* transform_system)
     : m_camera_system(camera_system)
+    , m_weapon_system(weapon_system)
     , m_transform_system(transform_system)
 {
     for(const char* sprite_file : g_ability_to_sprite)
@@ -136,12 +138,15 @@ PlayerAuxiliaryDrawer::PlayerAuxiliaryDrawer(const game::CameraSystem* camera_sy
         m_ability_render_datas.push_back(std::move(render_data));
     }
 
-    for(const char* sprite_file : g_weapon_modifier_to_sprite)
+    const ModifiersConfig& modifiers_config = m_weapon_system->GetModifiersConfig();
+
+    for(const auto& pair : modifiers_config.modifier_id_to_sprite)
     {
         AbilityRenderData render_data;
-        render_data.sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite(sprite_file);
+        render_data.sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite(pair.second.c_str());
         render_data.sprite_buffers = mono::BuildSpriteDrawBuffers(render_data.sprite->GetSpriteData());
-        m_powerup_render_datas.push_back(std::move(render_data));
+
+        m_powerup_render_datas.insert_or_assign(pair.first, std::move(render_data));
     }
 
     m_crosshair_render_data.sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite(g_player_crosshair_sprite);
@@ -338,8 +343,12 @@ void PlayerAuxiliaryDrawer::DrawPowerups(const std::vector<const game::PlayerInf
         const math::Matrix& transform = math::CreateMatrixWithPositionScale(powerup.point, 0.65f);
         const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
 
-        const AbilityRenderData& render_data = m_powerup_render_datas[powerup.render_data_index];
-        renderer.DrawSprite(render_data.sprite.get(), &render_data.sprite_buffers, m_indices.get(), 0);
+        const auto it = m_powerup_render_datas.find(powerup.render_data_index);
+        if(it != m_powerup_render_datas.end())
+        {
+            const AbilityRenderData& render_data = it->second;
+            renderer.DrawSprite(render_data.sprite.get(), &render_data.sprite_buffers, m_indices.get(), 0);
+        }
     }
 }
 

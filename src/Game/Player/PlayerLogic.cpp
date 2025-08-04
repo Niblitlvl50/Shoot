@@ -686,9 +686,6 @@ void PlayerLogic::HandlePickup(PickupType type, int meta_data)
         case WeaponModifier::CRIT_CHANCE:
             AddCritChanceBuff(meta_data);
             break;
-
-            case WeaponModifier::N_MODIFIERS:
-            break;
         }
 
         break;
@@ -719,28 +716,34 @@ void PlayerLogic::PreviousWeapon()
 void PlayerLogic::AddDamageBuff(int meta_data)
 {
     constexpr float duration_s = 10.0f;
-    m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, new DamageModifier("double_damage_10s", 2.0f));
+    
+    DamageModifier* damage_modifier = new DamageModifier("double_damage_10s", 2.0f);
+    m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, damage_modifier);
     m_weapon_modifier_effect->EmitForDuration(duration_s);
 
-    m_player_info->powerup_id = WeaponModifier::DAMAGE;
+    m_player_info->powerup_id = damage_modifier->Id();
 }
 
 void PlayerLogic::AddBulletWallBuff(int meta_data)
 {
     constexpr float duration_s = 10.0f;
-    m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, new BulletWallModifier());
+
+    BulletWallModifier* bullet_wall_modifier = new BulletWallModifier();
+    m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, bullet_wall_modifier);
     m_weapon_modifier_effect->EmitForDuration(duration_s);
 
-    m_player_info->powerup_id = WeaponModifier::SPREAD;
+    m_player_info->powerup_id = bullet_wall_modifier->Id();
 }
 
 void PlayerLogic::AddCritChanceBuff(int meta_data)
 {
     constexpr float duration_s = 10.0f;
-    m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, new CritChanceModifier("crit_chance_10", 10));
+
+    CritChanceModifier* crit_chance_modifier = new CritChanceModifier("crit_chance_10", 10);
+    m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, crit_chance_modifier);
     m_weapon_modifier_effect->EmitForDuration(duration_s);
 
-    m_player_info->powerup_id = WeaponModifier::CRIT_CHANCE;
+    m_player_info->powerup_id = crit_chance_modifier->Id();
 }
 
 void PlayerLogic::TriggerHookshot()

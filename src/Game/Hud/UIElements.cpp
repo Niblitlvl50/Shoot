@@ -333,7 +333,13 @@ math::Quad UISpriteElement::LocalBoundingBox() const
 
 
 UISpriteBarElement::UISpriteBarElement()
+    : m_spacing(0.1f)
 { }
+
+void UISpriteBarElement::SetSpacing(float spacing)
+{
+    m_spacing = spacing;
+}
 
 void UISpriteBarElement::PushSprite(int sprite_handle, const char* sprite_file)
 {
@@ -380,7 +386,7 @@ void UISpriteBarElement::RecalculateLayout()
 
         const math::Quad& local_bounds = sprite_data.ui_sprite->LocalBoundingBox();
         offset_x += math::Width(local_bounds);
-        offset_x += 0.01f; // padding
+        offset_x += m_spacing;
     }
 }
 

@@ -11,10 +11,12 @@
 
 #include <memory>
 #include <vector>
+#include <unordered_map>
 
 namespace game
 {
     class CameraSystem;
+    class WeaponSystem;
 
     struct AbilityInstanceData
     {
@@ -35,7 +37,7 @@ namespace game
     {
     public:
 
-        PlayerAuxiliaryDrawer(const game::CameraSystem* camera_system, const mono::TransformSystem* transform_system);
+        PlayerAuxiliaryDrawer(const game::CameraSystem* camera_system, const game::WeaponSystem* weapon_system, const mono::TransformSystem* transform_system);
 
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
@@ -47,10 +49,11 @@ namespace game
         void DrawCrosshair(const std::vector<const game::PlayerInfo*>& players, mono::IRenderer& renderer) const;
 
         const game::CameraSystem* m_camera_system;
+        const game::WeaponSystem* m_weapon_system;
         const mono::TransformSystem* m_transform_system;
 
         std::vector<AbilityRenderData> m_ability_render_datas;
-        std::vector<AbilityRenderData> m_powerup_render_datas;
+        std::unordered_map<uint32_t, AbilityRenderData> m_powerup_render_datas;
         AbilityRenderData m_crosshair_render_data;
         std::unique_ptr<mono::IElementBuffer> m_indices;
 

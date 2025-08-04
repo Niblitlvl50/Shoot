@@ -353,6 +353,11 @@ WeaponModifierList WeaponSystem::GetWeaponModifiersForIdAndWeapon(uint32_t id, u
     return modifier_list;
 }
 
+const ModifiersConfig& WeaponSystem::GetModifiersConfig() const
+{
+    return m_modifier_configuration;
+}
+
 const std::string& WeaponSystem::GetModifierSpriteFileForNameId(uint32_t weapon_modifier_hash) const
 {
     const auto it = m_modifier_configuration.modifier_id_to_sprite.find(weapon_modifier_hash);

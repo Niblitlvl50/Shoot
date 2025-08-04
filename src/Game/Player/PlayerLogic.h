@@ -190,7 +190,6 @@ namespace game
         //ItemSlot m_item_slots[ItemSlotIndex::N_SLOTS];
 
         float m_active_cooldowns[PlayerAbility::N_ABILITIES];
-        float m_active_weapon_modifiers[WeaponModifier::N_MODIFIERS];
 
         int m_damage_modifier_handle;
 

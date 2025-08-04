@@ -181,7 +181,9 @@ namespace game
             m_healthbar->SetPosition(-0.95f, -0.45f);
 
             m_effects_sprites = new UISpriteBarElement();
-            m_effects_sprites->SetPosition(0.0f, 0.35f);
+            m_effects_sprites->SetPosition(-0.1f, 0.3f);
+            m_effects_sprites->SetScale(0.75f);
+            m_effects_sprites->SetSpacing(0.02f);
 
             m_mugshot_element = new MugshotElement(player_info, sprite_system);
             m_weapon_element = new WeaponElement(player_info, weapon_system);

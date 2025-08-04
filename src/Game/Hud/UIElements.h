@@ -154,10 +154,15 @@ namespace game
     public:
 
         UISpriteBarElement();
+        void SetSpacing(float spacing);
         void PushSprite(int sprite_handle, const char* sprite_file);
         void RemoveSprite(int sprite_handle);
+
+    private:
         void RecalculateLayout();
 
+        float m_spacing;
+        
         struct UISpriteData
         {
             int handle;

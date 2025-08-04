@@ -63,6 +63,7 @@
 #include "TriggerSystem/TriggerDebugDrawer.h"
 #include "SpawnSystem/SpawnSystem.h"
 #include "SpawnSystem/SpawnSystemDrawer.h"
+#include "Weapons/WeaponSystem.h"
 #include "World/WorldBoundsSystem.h"
 #include "World/WorldBoundsDrawer.h"
 #include "World/RegionDrawer.h"
@@ -120,6 +121,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     game::TargetSystem* target_system = m_system_context->GetSystem<TargetSystem>();
     game::EntityLogicSystem* logic_system = m_system_context->GetSystem<EntityLogicSystem>();
     game::MissionSystem* mission_system = m_system_context->GetSystem<game::MissionSystem>();
+    game::WeaponSystem* weapon_system = m_system_context->GetSystem<game::WeaponSystem>();
 
     m_leveldata = ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
     const game::LevelMetadata& metadata = m_leveldata.metadata;
@@ -158,7 +160,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new game::SpawnSystemDrawer(spawn_system, transform_system, particle_system, entity_system), LayerId::POST_GAMEOBJECTS);
 
     // Game Objects UI
-    AddDrawable(new game::PlayerAuxiliaryDrawer(camera_system, transform_system), LayerId::GAMEOBJECTS_UI);
+    AddDrawable(new game::PlayerAuxiliaryDrawer(camera_system, weapon_system, transform_system), LayerId::GAMEOBJECTS_UI);
     m_healthbar_drawer = new game::HealthbarDrawer(damage_system, animation_system, text_system, transform_system, entity_system);
     AddUpdatableDrawable(m_healthbar_drawer, LayerId::GAMEOBJECTS_UI);
     AddDrawable(new game::InteractionSystemDrawer(interaction_system, sprite_system, transform_system, entity_system), LayerId::GAMEOBJECTS_UI);

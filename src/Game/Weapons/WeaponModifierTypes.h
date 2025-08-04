@@ -8,14 +8,6 @@ namespace game
         DAMAGE,
         SPREAD,
         CRIT_CHANCE,
-
-        N_MODIFIERS
-    };
-
-    constexpr const char* g_weapon_modifier_to_sprite[] = {
-        "res/sprites/powerup_damage_icon.sprite",
-        "res/sprites/powerup_spread_icon.sprite",
-        "res/sprites/powerup_crit_icon.sprite",
     };
 
     constexpr const char* g_weapon_modifier_type_names[] = {
