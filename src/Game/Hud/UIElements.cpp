@@ -191,6 +191,9 @@ UITextElement::UITextElement(int font_id, const std::string& text, const mono::C
     : m_font_id(font_id)
     , m_text(text)
     , m_color(color)
+    , m_shadow_color(mono::Color::BLACK)
+    , m_shadow_offset(-0.1f, -0.1f)
+    , m_draw_shadow(false)
 {
     SetText(text);
 }
@@ -207,6 +210,21 @@ void UITextElement::SetColor(const mono::Color::RGBA& new_color)
     m_color = new_color;
 }
 
+void UITextElement::SetShadowColor(const mono::Color::RGBA& shadow_color)
+{
+    m_shadow_color = shadow_color;
+}
+
+void UITextElement::SetShadowOffset(float x, float y)
+{
+    m_shadow_offset = math::Vector(x, y);
+}
+
+void UITextElement::SetEnableShadow(bool shadow)
+{
+    m_draw_shadow = shadow;
+}
+
 void UITextElement::SetAlpha(float alpha)
 {
     m_color.alpha = alpha;
@@ -221,6 +239,24 @@ void UITextElement::DrawElement(mono::IRenderer& renderer) const
         return;
 
     const mono::ITexturePtr texture = mono::GetFontTexture(m_font_id);
+
+    if(m_draw_shadow)
+    {
+        math::Matrix shadow_world_transform = renderer.GetTransform();
+        math::Translate(shadow_world_transform, m_shadow_offset);
+
+        auto shadow_transform_scope = mono::MakeTransformScope(shadow_world_transform, &renderer);
+
+        renderer.DrawGeometry(
+            m_draw_buffers.vertices.get(),
+            m_draw_buffers.uv.get(),
+            m_draw_buffers.indices.get(),
+            texture.get(),
+            m_shadow_color,
+            false,
+            m_draw_buffers.indices->Size());
+    }
+
     renderer.DrawGeometry(
         m_draw_buffers.vertices.get(),
         m_draw_buffers.uv.get(),
@@ -553,6 +589,46 @@ const mono::Color::RGBA& UISquareElement::GetBorderColor() const
     return m_border_color;
 }
 
+
+
+UICircleElement::UICircleElement(float radii, const mono::Color::RGBA& color)
+    : m_radii(radii)
+    , m_color(color)
+{
+   const float half_width = m_radii;
+   const float half_height = m_radii;
+
+    const std::vector<math::Vector> vertex_data = {
+        { -half_width, -half_height }, 
+        { -half_width, half_height },
+        { half_width, half_height },
+        { half_width, -half_height }
+    };
+
+    const std::vector<mono::Color::RGBA> color_data(4, color);
+
+    m_vertices = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, 4, vertex_data.data());
+    m_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, color_data.data());
+
+    constexpr uint16_t indices[] = {
+        0, 1, 2, 0, 2, 3,   // Two triangles
+        0, 1, 2, 3, 0       // Outline
+    };
+    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, std::size(indices), indices);
+}
+
+UICircleElement::~UICircleElement() = default;
+
+void UICircleElement::DrawElement(mono::IRenderer& renderer) const
+{
+    renderer.DrawFilledCircle(math::ZeroVec, math::Vector(m_radii, m_radii), 16, m_color);
+    //renderer.DrawTrianges(m_vertices.get(), m_colors.get(), m_indices.get(), 0, 6);
+}
+
+math::Quad UICircleElement::LocalBoundingBox() const
+{
+    return math::Quad(math::ZeroVec, m_radii, m_radii);
+}
 
 
 UIBarElement::UIBarElement(

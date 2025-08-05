@@ -88,6 +88,9 @@ namespace game
         UITextElement(int font_id, const std::string& text, const mono::Color::RGBA& color);
         void SetText(const std::string& new_text);
         void SetColor(const mono::Color::RGBA& new_color);
+        void SetShadowColor(const mono::Color::RGBA& shadow_color);
+        void SetShadowOffset(float x, float y);
+        void SetEnableShadow(bool shadow);
         void SetAlpha(float alpha);
 
         math::Quad LocalBoundingBox() const override;
@@ -99,6 +102,9 @@ namespace game
         int m_font_id;
         std::string m_text;
         mono::Color::RGBA m_color;
+        mono::Color::RGBA m_shadow_color;
+        math::Vector m_shadow_offset;
+        bool m_draw_shadow;
 
         mono::TextDrawBuffers m_draw_buffers;
     };
@@ -223,6 +229,26 @@ namespace game
         const float m_border_width;
         mono::Color::RGBA m_color;
         mono::Color::RGBA m_border_color;
+    };
+
+    class UICircleElement : public UIElement
+    {
+    public:
+      
+        UICircleElement(float radii, const mono::Color::RGBA& color);
+        ~UICircleElement();
+
+        void DrawElement(mono::IRenderer& renderer) const override;
+        math::Quad LocalBoundingBox() const override;
+
+    private:
+
+        float m_radii;
+        mono::Color::RGBA m_color;
+
+        std::unique_ptr<mono::IRenderBuffer> m_vertices;
+        std::unique_ptr<mono::IRenderBuffer> m_colors;
+        std::unique_ptr<mono::IElementBuffer> m_indices;
     };
 
     class UIBarElement : public UIElement
