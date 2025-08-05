@@ -44,16 +44,19 @@ namespace game
             m_mugshot_hud = new UISpriteElement();
             m_mugshot_hud->SetPosition(-0.6f, 0.0f);
 
-            m_player_level_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::GOLDEN_YELLOW);
-            m_player_level_text->SetPosition(-0.85f, -0.15f);
-            m_player_level_text->SetScale(0.5f);
-
             m_expbar = new UIBarElement(0.65f, 0.025f, mono::Color::GRAY, mono::Color::GREEN_VIVID);
             m_expbar->SetPosition(-0.92f, -0.3f);
 
+            m_player_level_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::GOLDEN_YELLOW);
+            m_player_level_text->SetPosition(-0.85f, -0.2f);
+            m_player_level_text->SetScale(0.5f);
+            m_player_level_text->SetEnableShadow(true);
+            m_player_level_text->SetShadowOffset(0.0f, -0.01f);
+            m_player_level_text->SetShadowColor(mono::Color::BLACK);
+
             AddChild(m_mugshot_hud);
-            AddChild(m_player_level_text);
             AddChild(m_expbar);
+            AddChild(m_player_level_text);
         }
 
         void Update(const mono::UpdateContext& update_context) override
@@ -77,9 +80,9 @@ namespace game
         const PlayerInfo& m_player_info;
         mono::SpriteSystem* m_sprite_system;
 
-        class UITextElement* m_player_level_text;
         class UISpriteElement* m_mugshot_hud;
         class UIBarElement* m_expbar;
+        class UITextElement* m_player_level_text;
     };
 
     class WeaponElement : public game::UIElement
@@ -108,26 +111,20 @@ namespace game
             m_ammo_text->SetPosition(0.7f, -0.1f);
             m_ammo_text->SetScale(0.5f);
 
-            m_weapon_level_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::GOLDEN_YELLOW);
-            m_weapon_level_text->SetPosition(-0.1f, -0.15f);
-            m_weapon_level_text->SetScale(0.5f);
-            m_weapon_level_text->SetEnableShadow(true);
-            m_weapon_level_text->SetShadowOffset(0.0f, -0.02f);
-            m_weapon_level_text->SetShadowColor(mono::Color::BLUE_GRAY);
-
-            
-            //UICircleElement* level_text_background = new UICircleElement(0.1f, mono::Color::GRAY);
-            //level_text_background->SetPosition(-0.1f, -0.2f);
-            //level_text_background->AddChild(m_weapon_level_text);
-
             static const mono::Color::RGBA DamageColor_Turquise = mono::Color::MakeFromBytes(115, 238, 220); // https://coolors.co/73eedc
             m_weapon_expbar = new UIBarElement(1.1f, 0.025f, mono::Color::GRAY, DamageColor_Turquise);
             m_weapon_expbar->SetPosition(-0.175f, -0.3f);
 
+            m_weapon_level_text = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::GOLDEN_YELLOW);
+            m_weapon_level_text->SetPosition(-0.1f, -0.2f);
+            m_weapon_level_text->SetScale(0.5f);
+            m_weapon_level_text->SetEnableShadow(true);
+            m_weapon_level_text->SetShadowOffset(0.0f, -0.01f);
+            m_weapon_level_text->SetShadowColor(mono::Color::BLACK);
+
             AddChild(m_weapon_sprites);
             AddChild(m_ammo_text);
             AddChild(m_weapon_expbar);
-            //AddChild(level_text_background);
             AddChild(m_weapon_level_text);
         }
 
