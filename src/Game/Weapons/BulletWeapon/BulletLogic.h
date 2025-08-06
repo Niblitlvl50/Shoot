@@ -32,6 +32,7 @@ namespace game
             const CollisionConfiguration& collision_config,
             mono::TransformSystem* transform_system,
             mono::PhysicsSystem* physics_system,
+            class DamageSystem* damage_system,
             class TargetSystem* target_system);
         
         void Update(const mono::UpdateContext& update_context) override;
@@ -52,6 +53,7 @@ namespace game
         BulletImpactCallback m_collision_callback;
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
+        class DamageSystem* m_damage_system;
         class TargetSystem* m_target_system;
 
         bool m_critical_hit;

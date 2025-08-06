@@ -74,7 +74,7 @@ WeaponSystem::WeaponSystem(
     : m_transform_system(transform_system)
     , m_entity_manager(entity_manager)
     , m_system_context(system_context)
-    , m_weapon_entity_factory(entity_manager, sprite_system, transform_system, physics_system, logic_system, target_system)
+    , m_weapon_entity_factory(entity_manager, sprite_system, transform_system, physics_system, damage_system, logic_system, target_system)
     , m_modifier_id(0)
 {
     m_weapon_configuration = LoadWeaponConfig("res/configs/weapon_config.json");

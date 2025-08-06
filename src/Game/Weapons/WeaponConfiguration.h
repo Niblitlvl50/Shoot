@@ -52,6 +52,7 @@ namespace game
         JUMPER          = ENUM_BIT(1),
         PASS_THROUGH    = ENUM_BIT(2),
         EXPLODES        = ENUM_BIT(3),
+        VAMPERIC        = ENUM_BIT(4),
     };
 
     enum BulletMovementFlag : uint8_t
@@ -72,7 +73,9 @@ namespace game
             return BulletCollisionFlag::PASS_THROUGH;
         else if(std::strcmp(string, "explodes") == 0)
             return BulletCollisionFlag::EXPLODES;
-
+        else if(std::strcmp(string, "vameric") == 0)
+            return BulletCollisionFlag::VAMPERIC;
+            
         return 0;
     }
 

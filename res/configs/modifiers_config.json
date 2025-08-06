@@ -19,6 +19,10 @@
         {
             "name": "crit_chance_10",
             "sprite_file": "res/sprites/powerup_crit_icon.sprite"
+        },
+        {
+            "name": "vamperic",
+            "sprite_file": "res/sprites/powerup_crit_icon.sprite"
         }
     ]
 }
