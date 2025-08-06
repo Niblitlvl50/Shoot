@@ -270,7 +270,7 @@ void PlayerDaemonSystem::SpawnLocalPlayer(int player_index, System::ControllerId
     
     m_camera_system->FollowEntity(spawned_id);
 
-    allocated_player_info->familiar_entity_id = SpawnPlayerFamiliar(spawned_id, m_entity_system, m_system_context);
+    allocated_player_info->familiar_entity_id = SpawnPlayerFamiliar(spawned_id, actual_player_index, m_entity_system, m_system_context);
 }
 
 void PlayerDaemonSystem::DespawnPlayer(PlayerInfo* player_info)
@@ -341,9 +341,9 @@ uint32_t PlayerDaemonSystem::SpawnPlayer(
 }
 
 uint32_t PlayerDaemonSystem::SpawnPlayerFamiliar(
-    uint32_t owner_entity_id, mono::IEntityManager* entity_system, mono::SystemContext* system_context)
+    uint32_t owner_entity_id, uint32_t player_index, mono::IEntityManager* entity_system, mono::SystemContext* system_context)
 {
-    const std::string familiar_entity_file = m_familiar_entities.front();
+    const std::string familiar_entity_file = m_familiar_entities[player_index];
     mono::Entity player_familiar_entity = entity_system->SpawnEntity(familiar_entity_file.c_str());
 
     game::EntityLogicSystem* logic_system = system_context->GetSystem<EntityLogicSystem>();

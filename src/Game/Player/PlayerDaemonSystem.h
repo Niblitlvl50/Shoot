@@ -70,6 +70,7 @@ namespace game
 
         uint32_t SpawnPlayerFamiliar(
             uint32_t owner_entity_id,
+            uint32_t player_index,
             mono::IEntityManager* entity_system,
             mono::SystemContext* system_context);
 
