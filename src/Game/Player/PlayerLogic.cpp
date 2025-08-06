@@ -133,11 +133,13 @@ PlayerLogic::PlayerLogic(
     m_logic_system = system_context->GetSystem<game::EntityLogicSystem>();
     m_target_system = system_context->GetSystem<game::TargetSystem>();
 
+    const System::ControllerId controller_id = player_info->controller_id;
+
     m_input_context = m_input_system->CreateContext(1, mono::InputContextBehaviour::ConsumeIfHandled, "PlayerLogicInput");
-    m_input_context->keyboard_input = &m_keyboard_controller;
-    m_input_context->mouse_input = &m_keyboard_controller;
+    m_input_context->keyboard_input = (controller_id == System::ControllerId::Primary) ? &m_keyboard_controller : nullptr;
+    m_input_context->mouse_input = (controller_id == System::ControllerId::Primary) ? &m_keyboard_controller : nullptr;
     m_input_context->controller_input = &m_gamepad_controller;
-    m_input_context->controller_id = player_info->controller_id;
+    m_input_context->controller_id = controller_id;
 
     mono::ISprite* sprite = m_sprite_system->GetSprite(entity_id);
     m_idle_anim_id = sprite->GetAnimationIdFromName("idle");
