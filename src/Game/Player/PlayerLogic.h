@@ -68,6 +68,7 @@ namespace game
         void AddDamageBuff(int meta_data);
         void AddBulletWallBuff(int meta_data);
         void AddCritChanceBuff(int meta_data);
+        void AddVampericHitBuff(int meta_data);
 
         void TriggerHookshot();
         void ReleaseHookshot();

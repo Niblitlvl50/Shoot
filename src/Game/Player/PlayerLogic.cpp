@@ -28,6 +28,7 @@
 #include "Weapons/IWeapon.h"
 #include "Weapons/WeaponSystem.h"
 #include "Weapons/Modifiers/DamageModifier.h"
+#include "Weapons/Modifiers/BulletBehaviourModifiers.h"
 #include "Entity/TargetSystem.h"
 
 #include "EntitySystem/IEntityManager.h"
@@ -688,6 +689,9 @@ void PlayerLogic::HandlePickup(PickupType type, int meta_data)
         case WeaponModifier::CRIT_CHANCE:
             AddCritChanceBuff(meta_data);
             break;
+        case WeaponModifier::VAMPERIC_HIT:
+            AddVampericHitBuff(meta_data);
+            break;
         }
 
         break;
@@ -746,6 +750,17 @@ void PlayerLogic::AddCritChanceBuff(int meta_data)
     m_weapon_modifier_effect->EmitForDuration(duration_s);
 
     m_player_info->powerup_id = crit_chance_modifier->Id();
+}
+
+void PlayerLogic::AddVampericHitBuff(int meta_data)
+{
+    constexpr float duration_s = 10.0f;
+
+    BulletBehaviourModifier* vamperic_hit_modifier = new BulletBehaviourModifier("vamperic", BulletCollisionFlag::VAMPERIC);
+    m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, vamperic_hit_modifier);
+    m_weapon_modifier_effect->EmitForDuration(duration_s);
+
+    m_player_info->powerup_id = vamperic_hit_modifier->Id();
 }
 
 void PlayerLogic::TriggerHookshot()

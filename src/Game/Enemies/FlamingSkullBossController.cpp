@@ -106,7 +106,7 @@ mono::CollisionResolve FlamingSkullBossController::OnCollideWith(
         game::ShockwaveAt(m_physics_system, entity_position, tweak_values::shockwave_radius, tweak_values::shockwave_magnitude);
 
         const uint32_t other_entity_id = mono::PhysicsSystem::GetIdFromBody(body);
-        m_damage_system->ApplyDamage(other_entity_id, m_entity_id, NO_WEAPON_IDENTIFIER, DamageDetails(tweak_values::collision_damage, false));
+        m_damage_system->ApplyDamage(other_entity_id, m_entity_id, NO_WEAPON_IDENTIFIER, DamageDetails(tweak_values::collision_damage, false, false));
     }
     else if(category == CollisionCategory::PLAYER_BULLET)
     {

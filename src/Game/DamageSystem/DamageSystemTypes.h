@@ -28,14 +28,17 @@ namespace game
         DamageDetails()
             : damage(0)
             , critical_hit(false)
+            , vamperic_hit(false)
         { }
 
-        DamageDetails(int damage, bool critical_hit)
+        DamageDetails(int damage, bool critical_hit, bool vamperic)
             : damage(damage)
             , critical_hit(critical_hit)
+            , vamperic_hit(vamperic)
         { }
 
         int damage;
         bool critical_hit;
+        bool vamperic_hit;
     };
 }

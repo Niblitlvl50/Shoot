@@ -30,7 +30,10 @@ namespace
     std::unique_ptr<game::IParticleEffect> g_impact_effects[game::PhysicsMaterial::NUM_MATERIALS];
     std::vector<audio::ISoundPtr> g_death_sounds; 
 
+    std::unique_ptr<game::IParticleEffect> g_vamperic_hit_effect;
+
     audio::ISoundPtr g_critical_hit_sound;
+    audio::ISoundPtr g_vamperic_hit_sound;
 }
 
 void game::InitWeaponCallbacks(mono::SystemContext* system_context)
@@ -55,6 +58,9 @@ void game::InitWeaponCallbacks(mono::SystemContext* system_context)
     g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish10.wav", audio::SoundPlayback::ONCE));
 
     g_critical_hit_sound = audio::CreateSound("res/sound/Impact/arrow-impact1.wav", audio::SoundPlayback::ONCE);
+    g_vamperic_hit_sound = audio::CreateNullSound();
+
+    g_vamperic_hit_effect = std::make_unique<game::ImpactEffect>(particle_system, entity_system);
 }
 
 void game::CleanupWeaponCallbacks()
@@ -64,6 +70,9 @@ void game::CleanupWeaponCallbacks()
 
     g_death_sounds.clear();
     g_critical_hit_sound.reset();
+    g_vamperic_hit_sound.reset();
+
+    g_vamperic_hit_effect.reset();
 }
 
 uint32_t game::SpawnEntityWithAnimation(
@@ -141,6 +150,13 @@ void game::StandardCollision(
                 // Play critical hit sound
                 if(!g_critical_hit_sound->IsPlaying())
                     g_critical_hit_sound->Play();
+            }
+
+            if(damage_details.vamperic_hit)
+            {
+                damage_system->GainHealth(owner_entity_id, 10);
+                g_vamperic_hit_sound->Play();
+                g_vamperic_hit_effect->EmitAt(collision_details.point);
             }
         }
     }

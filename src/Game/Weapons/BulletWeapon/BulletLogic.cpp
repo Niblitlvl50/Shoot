@@ -39,7 +39,6 @@ BulletLogic::BulletLogic(
     const CollisionConfiguration& collision_config,
     mono::TransformSystem* transform_system,
     mono::PhysicsSystem* physics_system,
-    DamageSystem* damage_system,
     TargetSystem* target_system)
     : m_entity_id(entity_id)
     , m_owner_entity_id(owner_entity_id)
@@ -48,7 +47,6 @@ BulletLogic::BulletLogic(
     , m_collision_callback(collision_config.collision_callback)
     , m_transform_system(transform_system)
     , m_physics_system(physics_system)
-    , m_damage_system(damage_system)
     , m_target_system(target_system)
     , m_damage(0)
     , m_impact_entity(bullet_config.impact_entity_file)
@@ -197,18 +195,12 @@ mono::CollisionResolve BulletLogic::OnCollideWith(
     {
         //System::Log("EXPLODE THE BULLET PLX");
     }
-
-    if(m_bullet_collision_behaviour & BulletCollisionFlag::VAMPERIC)
-    {
-        const float gained_health = float(m_damage) * 0.1f;
-        m_damage_system->GainHealth(m_owner_entity_id, gained_health);
-    }
-
+   
     const char* impact_entity = m_impact_entity.empty() ? nullptr : m_impact_entity.c_str();
-
+    
     mono::CollisionResolve resolve_type = mono::CollisionResolve::NORMAL;
     BulletImpactFlag collision_flags = BulletImpactFlag(APPLY_DAMAGE | DESTROY_THIS);
-
+    
     if(m_jumps_left > 0 && (m_bullet_collision_behaviour & BulletCollisionFlag::JUMPER))
     {
         resolve_type = mono::CollisionResolve::IGNORE;
@@ -218,6 +210,7 @@ mono::CollisionResolve BulletLogic::OnCollideWith(
     DamageDetails damage_details;
     damage_details.damage = m_damage;
     damage_details.critical_hit = m_critical_hit;
+    damage_details.vamperic_hit = (m_bullet_collision_behaviour & BulletCollisionFlag::VAMPERIC);
 
     CollisionDetails collision_details;
     collision_details.body = colliding_body;

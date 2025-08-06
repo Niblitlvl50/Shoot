@@ -22,14 +22,12 @@ WeaponEntityFactory::WeaponEntityFactory(
     mono::SpriteSystem* sprite_system,
     mono::TransformSystem* transform_system,
     mono::PhysicsSystem* physics_system,
-    game::DamageSystem* damage_system,
     game::EntityLogicSystem* logic_system,
     game::TargetSystem* target_system)
     : m_entity_manager(entity_manager)
     , m_sprite_system(sprite_system)
     , m_transform_system(transform_system)
     , m_physics_system(physics_system)
-    , m_damage_system(damage_system)
     , m_logic_system(logic_system)
     , m_target_system(target_system)
 { }
@@ -78,7 +76,6 @@ mono::Entity WeaponEntityFactory::CreateBulletEntity(
             collision_config,
             m_transform_system,
             m_physics_system,
-            m_damage_system,
             m_target_system);
     }
 

@@ -17,7 +17,6 @@ namespace game
             mono::SpriteSystem* sprite_system,
             mono::TransformSystem* transform_system,
             mono::PhysicsSystem* physics_system,
-            class DamageSystem* damage_system,
             class EntityLogicSystem* logic_system,
             class TargetSystem* target_system);
 
@@ -40,7 +39,6 @@ namespace game
         mono::SpriteSystem* m_sprite_system;
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
-        game::DamageSystem* m_damage_system;
         game::EntityLogicSystem* m_logic_system;
         game::TargetSystem* m_target_system;
     };
