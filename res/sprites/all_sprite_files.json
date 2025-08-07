@@ -199,6 +199,7 @@
         "res/sprites/powerup_crit_icon.sprite",
         "res/sprites/powerup_damage_icon.sprite",
         "res/sprites/powerup_spread_icon.sprite",
+        "res/sprites/powerup_vampiric_icon.sprite",
         "res/sprites/ps_circle.sprite",
         "res/sprites/ps_cross.sprite",
         "res/sprites/ps_options.sprite",

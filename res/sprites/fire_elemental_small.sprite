@@ -41,14 +41,14 @@
             "h": 14,
             "name": "fire_elemental_small_idle_2",
             "w": 9,
-            "x": 570,
+            "x": 583,
             "y": 508
         },
         {
             "h": 16,
             "name": "fire_elemental_small_idle_3",
             "w": 9,
-            "x": 944,
+            "x": 957,
             "y": 507
         },
         {
@@ -83,21 +83,21 @@
             "h": 11,
             "name": "fire_elemental_small_move_2",
             "w": 15,
-            "x": 1214,
+            "x": 1195,
             "y": 526
         },
         {
             "h": 12,
             "name": "fire_elemental_small_move_3",
             "w": 14,
-            "x": 536,
+            "x": 572,
             "y": 526
         },
         {
             "h": 13,
             "name": "fire_elemental_small_move_4",
             "w": 15,
-            "x": 807,
+            "x": 845,
             "y": 508
         },
         {
@@ -118,14 +118,14 @@
             "h": 13,
             "name": "fire_elemental_small_move_7",
             "w": 15,
-            "x": 845,
+            "x": 807,
             "y": 508
         },
         {
             "h": 12,
             "name": "fire_elemental_small_move_8",
             "w": 15,
-            "x": 480,
+            "x": 442,
             "y": 526
         }
     ],

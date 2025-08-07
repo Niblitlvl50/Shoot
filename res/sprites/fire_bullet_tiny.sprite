@@ -17,7 +17,7 @@
             "h": 6,
             "name": "fire_bullet_tiny_idle_1",
             "w": 9,
-            "x": 683,
+            "x": 694,
             "y": 554
         },
         {
@@ -31,14 +31,14 @@
             "h": 6,
             "name": "fire_bullet_tiny_idle_3",
             "w": 5,
-            "x": 760,
+            "x": 771,
             "y": 554
         },
         {
             "h": 6,
             "name": "fire_bullet_tiny_idle_4",
             "w": 7,
-            "x": 708,
+            "x": 730,
             "y": 554
         }
     ],

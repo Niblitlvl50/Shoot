@@ -22,7 +22,7 @@
         },
         {
             "name": "vamperic",
-            "sprite_file": "res/sprites/powerup_crit_icon.sprite"
+            "sprite_file": "res/sprites/powerup_vampiric_icon.sprite"
         }
     ]
 }

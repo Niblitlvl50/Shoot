@@ -54,28 +54,28 @@
             "h": 12,
             "name": "bat_medium_attack_3",
             "w": 15,
-            "x": 461,
+            "x": 423,
             "y": 526
         },
         {
             "h": 13,
             "name": "bat_medium_attack_4",
             "w": 13,
-            "x": 754,
+            "x": 856,
             "y": 525
         },
         {
             "h": 14,
             "name": "bat_medium_attack_5",
             "w": 11,
-            "x": 470,
+            "x": 455,
             "y": 508
         },
         {
             "h": 15,
             "name": "bat_medium_attack_6",
             "w": 12,
-            "x": 1273,
+            "x": 1289,
             "y": 507
         },
         {
@@ -159,14 +159,14 @@
             "h": 7,
             "name": "bat_medium_idle_8",
             "w": 17,
-            "x": 1932,
+            "x": 1911,
             "y": 542
         },
         {
             "h": 7,
             "name": "bat_medium_idle_9",
             "w": 17,
-            "x": 1911,
+            "x": 1932,
             "y": 542
         },
         {

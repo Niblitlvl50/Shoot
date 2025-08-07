@@ -11,10 +11,10 @@
     ],
     "frames": [
         {
-            "h": 6,
-            "name": "pebble_tiny_3",
-            "w": 11,
-            "x": 665,
+            "h": 7,
+            "name": "powerup_vampiric_icon",
+            "w": 7,
+            "x": 508,
             "y": 554
         }
     ],
@@ -24,7 +24,7 @@
             "y": 0.0
         }
     ],
-    "source_folder": "res/images/rocks/",
+    "source_folder": "res/images/icons/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,
