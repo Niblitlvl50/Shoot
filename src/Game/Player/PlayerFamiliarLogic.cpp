@@ -38,9 +38,17 @@ PlayerFamiliarLogic::PlayerFamiliarLogic(uint32_t entity_id, uint32_t owner_enti
 
 void PlayerFamiliarLogic::Update(const mono::UpdateContext& update_context)
 {
-    m_idle_timer += update_context.delta_s;
+    const game::PlayerInfo* player_info = game::FindPlayerInfoFromEntityId(m_owner_entity_id);
+    if(!player_info)
+        return;
 
-    const bool show_sprite = true; //(m_idle_timer < tweak_values::idle_threshold_s);
+    const float velocity_length = math::Length(player_info->velocity);
+    if(math::IsPrettyMuchEquals(velocity_length, 0.0f))
+        m_idle_timer += update_context.delta_s;
+    else
+        m_idle_timer = 0.0f;
+
+    const bool show_sprite = (m_idle_timer < tweak_values::idle_threshold_s) && (player_info->player_state == PlayerState::ALIVE);
     m_entity_system->SetEntityEnabled(m_entity_id, show_sprite);
 
     if(show_sprite != m_last_show_state)
@@ -54,9 +62,6 @@ void PlayerFamiliarLogic::Update(const mono::UpdateContext& update_context)
 
     if(show_sprite)
     {
-        const game::PlayerInfo* player_info = game::FindPlayerInfoFromEntityId(m_owner_entity_id);
-        MONO_ASSERT(player_info);
-
         math::Vector current_position = m_transform_system->GetWorldPosition(m_entity_id);
         const math::Vector target_position =
             player_info->position - (math::RotateAroundZero(player_info->aim_direction, math::ToRadians(65.0f)) * 0.75f);
