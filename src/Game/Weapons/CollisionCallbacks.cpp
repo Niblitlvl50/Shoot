@@ -8,6 +8,7 @@
 #include "Camera/ICamera.h"
 #include "Effects/DamageEffect.h"
 #include "Effects/ImpactEffect.h"
+#include "Effects/VampericEffect.h"
 
 #include "EntitySystem/Entity.h"
 #include "EntitySystem/IEntityManager.h"
@@ -60,7 +61,7 @@ void game::InitWeaponCallbacks(mono::SystemContext* system_context)
     g_critical_hit_sound = audio::CreateSound("res/sound/Impact/arrow-impact1.wav", audio::SoundPlayback::ONCE);
     g_vamperic_hit_sound = audio::CreateNullSound();
 
-    g_vamperic_hit_effect = std::make_unique<game::ImpactEffect>(particle_system, entity_system);
+    g_vamperic_hit_effect = std::make_unique<game::VampericEffect>(particle_system, entity_system);
 }
 
 void game::CleanupWeaponCallbacks()
@@ -154,7 +155,8 @@ void game::StandardCollision(
 
             if(damage_details.vamperic_hit)
             {
-                damage_system->GainHealth(owner_entity_id, 10);
+                const float vamperic_gain = float(damage_details.damage) * 0.1f;
+                damage_system->GainHealth(owner_entity_id, vamperic_gain);
                 g_vamperic_hit_sound->Play();
                 g_vamperic_hit_effect->EmitAt(collision_details.point);
             }
