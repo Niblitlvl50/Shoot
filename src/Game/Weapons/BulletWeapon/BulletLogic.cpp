@@ -57,6 +57,10 @@ BulletLogic::BulletLogic(
     m_critical_hit = mono::Chance(bullet_config.critical_hit_chance);
     m_damage = mono::RandomInt(bullet_config.min_damage, bullet_config.max_damage) * (m_critical_hit ? 2.0f : 1.0f);
 
+    m_effective_range_min = bullet_config.effective_range_min;
+    m_effective_range_max = bullet_config.effective_range_max;
+    m_effective_range_multiplier = bullet_config.effective_range_multiplier;
+
     m_life_span = bullet_config.life_span + (mono::Random() * bullet_config.fuzzy_life_span);
     m_is_player_faction = (collision_config.collision_category & CollisionCategory::PLAYER_BULLET);
     m_jumps_left = 3;
@@ -209,12 +213,15 @@ mono::CollisionResolve BulletLogic::OnCollideWith(
         collision_flags = BulletImpactFlag(collision_flags & ~DESTROY_THIS);
     }
 
+    const float distance_to_impact = math::DistanceBetween(m_origin, collision_point);
+    const float effective_range_multiplier = 
+        (distance_to_impact >= m_effective_range_min && distance_to_impact <= m_effective_range_max) ? m_effective_range_multiplier : 1.0f;
+
     DamageDetails damage_details;
-    damage_details.damage = m_damage;
+    damage_details.damage = m_damage * effective_range_multiplier;
     damage_details.critical_hit = m_critical_hit;
     damage_details.vamperic_hit = (m_bullet_collision_behaviour & BulletCollisionFlag::VAMPERIC);
 
-    const float distance_to_impact = math::DistanceBetween(m_origin, collision_point);
 
     CollisionDetails collision_details;
     collision_details.body = colliding_body;

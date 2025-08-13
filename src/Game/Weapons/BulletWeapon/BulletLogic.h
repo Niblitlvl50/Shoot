@@ -47,10 +47,10 @@ namespace game
         const uint32_t m_entity_id;
         const uint32_t m_owner_entity_id;
         uint32_t m_weapon_identifier_hash;
+        const math::Vector m_target;
 
         math::Vector m_origin;
 
-        const math::Vector m_target;
         BulletImpactCallback m_collision_callback;
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
@@ -61,6 +61,10 @@ namespace game
         std::string m_impact_entity;
         uint32_t m_bullet_collision_behaviour;
         uint32_t m_bullet_movement_behaviour;
+
+        float m_effective_range_min;
+        float m_effective_range_max;
+        float m_effective_range_multiplier;
 
         float m_life_span;
         bool m_is_player_faction;
