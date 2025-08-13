@@ -13,6 +13,9 @@ namespace game
         bullet_config.min_damage                    = json["min_damage"].get<int>();
         bullet_config.max_damage                    = json["max_damage"].get<int>();
         bullet_config.critical_hit_chance           = json["critical_hit_chance"].get<int>();
+        bullet_config.effective_range_min           = json["effective_range_min"].get<float>();
+        bullet_config.effective_range_max           = json["effective_range_max"].get<float>();
+        bullet_config.effective_range_multiplier    = json["effective_range_multiplier"].get<float>();
         bullet_config.life_span                     = json["life_span"].get<float>();
         bullet_config.fuzzy_life_span               = json["fuzzy_life_span"].get<float>();
         bullet_config.bullet_want_direction         = json["bullet_want_direction"].get<bool>();

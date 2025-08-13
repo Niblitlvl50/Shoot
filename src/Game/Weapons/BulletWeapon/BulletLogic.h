@@ -48,6 +48,8 @@ namespace game
         const uint32_t m_owner_entity_id;
         uint32_t m_weapon_identifier_hash;
 
+        math::Vector m_origin;
+
         const math::Vector m_target;
         BulletImpactCallback m_collision_callback;
         mono::TransformSystem* m_transform_system;

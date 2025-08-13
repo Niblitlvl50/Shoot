@@ -87,6 +87,8 @@ BulletLogic::BulletLogic(
     m_circulating_behaviour.Initialize(owner_entity_id, radius, direction, bullet_body);
 
     m_sinewave_behaviour.Initialize(bullet_body, bullet_position);
+
+    m_origin = bullet_position;
 }
 
 void BulletLogic::Update(const mono::UpdateContext& update_context)
@@ -211,6 +213,8 @@ mono::CollisionResolve BulletLogic::OnCollideWith(
     damage_details.damage = m_damage;
     damage_details.critical_hit = m_critical_hit;
     damage_details.vamperic_hit = (m_bullet_collision_behaviour & BulletCollisionFlag::VAMPERIC);
+
+    const float distance_to_impact = math::DistanceBetween(m_origin, collision_point);
 
     CollisionDetails collision_details;
     collision_details.body = colliding_body;

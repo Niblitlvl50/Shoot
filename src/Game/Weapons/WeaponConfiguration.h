@@ -98,6 +98,9 @@ namespace game
         std::string name;
         int min_damage;
         int max_damage;
+        float effective_range_min;
+        float effective_range_max;
+        float effective_range_multiplier;
         int critical_hit_chance;
         float life_span;
         float fuzzy_life_span;
