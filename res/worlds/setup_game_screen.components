@@ -12600,7 +12600,6 @@
             "y": 0.0
         },
         "spawn_package": false,
-        "time_limit_s": 0,
         "triggers": [
             "goto_scene_1",
             "goto_scene_2",
