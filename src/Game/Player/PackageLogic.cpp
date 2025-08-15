@@ -130,7 +130,7 @@ mono::CollisionResolve PackageLogic::OnCollideWith(
     if(in_throwing_state && is_enemy)
     {
         const uint32_t body_id = mono::PhysicsSystem::GetIdFromBody(body);
-        m_damage_system->ApplyDamage(body_id, m_entity_id, NO_WEAPON_IDENTIFIER, DamageDetails(100, false, false));
+        m_damage_system->ApplyDamage(body_id, m_entity_id, NO_WEAPON_IDENTIFIER, DamageDetails(100, false, false, false));
     }
 
     return mono::CollisionResolve::NORMAL;

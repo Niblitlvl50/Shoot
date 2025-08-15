@@ -33,6 +33,7 @@ namespace game
         uint32_t weapon_identifier;
         int damage;
         bool critical_hit;
+        bool within_effective_range;
         DamageType damage_result;
     };
 

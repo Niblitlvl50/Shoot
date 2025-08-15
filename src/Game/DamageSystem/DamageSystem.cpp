@@ -231,10 +231,16 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id_damaged_entity, uint32_t id_w
     result.did_damage = true;
     result.health_left = damage_record.health;
 
-    const DamageType damage_type = (result.health_left <= 0) ? DamageType::DESTROYED : DamageType::DAMAGED;
-    m_damage_events.push_back(
-        { id_damaged_entity, id_who_did_damage, weapon_identifier, damage_details.damage, damage_details.critical_hit, damage_type }
-    );
+    DamageEvent damage_event;
+    damage_event.id_damaged_entity = id_damaged_entity;
+    damage_event.id_who_did_damage = id_who_did_damage;
+    damage_event.weapon_identifier = weapon_identifier;
+    damage_event.damage = damage_details.damage;
+    damage_event.critical_hit = damage_details.critical_hit;
+    damage_event.within_effective_range = damage_details.within_effective_range;
+    damage_event.damage_result = (result.health_left <= 0) ? DamageType::DESTROYED : DamageType::DAMAGED;
+
+    m_damage_events.push_back(damage_event);
 
     return result;
 }

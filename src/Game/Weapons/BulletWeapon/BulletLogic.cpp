@@ -214,14 +214,14 @@ mono::CollisionResolve BulletLogic::OnCollideWith(
     }
 
     const float distance_to_impact = math::DistanceBetween(m_origin, collision_point);
-    const float effective_range_multiplier = 
-        (distance_to_impact >= m_effective_range_min && distance_to_impact <= m_effective_range_max) ? m_effective_range_multiplier : 1.0f;
+    const bool is_within_effective_range = (distance_to_impact >= m_effective_range_min && distance_to_impact <= m_effective_range_max);
+    const float effective_range_multiplier = is_within_effective_range ? m_effective_range_multiplier : 1.0f;
 
     DamageDetails damage_details;
     damage_details.damage = m_damage * effective_range_multiplier;
     damage_details.critical_hit = m_critical_hit;
+    damage_details.within_effective_range = is_within_effective_range;
     damage_details.vamperic_hit = (m_bullet_collision_behaviour & BulletCollisionFlag::VAMPERIC);
-
 
     CollisionDetails collision_details;
     collision_details.body = colliding_body;

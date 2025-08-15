@@ -28,17 +28,20 @@ namespace game
         DamageDetails()
             : damage(0)
             , critical_hit(false)
+            , within_effective_range(false)
             , vamperic_hit(false)
         { }
 
-        DamageDetails(int damage, bool critical_hit, bool vamperic)
+        DamageDetails(int damage, bool critical_hit, bool within_effective_range, bool vamperic)
             : damage(damage)
             , critical_hit(critical_hit)
+            , within_effective_range(within_effective_range)
             , vamperic_hit(vamperic)
         { }
 
         int damage;
         bool critical_hit;
+        bool within_effective_range;
         bool vamperic_hit;
     };
 }
