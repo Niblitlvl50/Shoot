@@ -72,112 +72,112 @@
             "h": 11,
             "name": "eye_monster_small_attack_1",
             "w": 12,
-            "x": 1483,
+            "x": 1477,
             "y": 526
         },
         {
             "h": 11,
             "name": "eye_monster_small_attack_2",
             "w": 12,
-            "x": 2,
-            "y": 527
+            "x": 1461,
+            "y": 526
         },
         {
             "h": 11,
             "name": "eye_monster_small_attack_3",
             "w": 12,
-            "x": 1451,
+            "x": 1445,
             "y": 526
         },
         {
             "h": 11,
             "name": "eye_monster_small_attack_4",
             "w": 12,
-            "x": 1435,
+            "x": 1429,
             "y": 526
         },
         {
             "h": 11,
             "name": "eye_monster_small_blink_1",
             "w": 12,
-            "x": 1419,
+            "x": 1413,
             "y": 526
         },
         {
             "h": 11,
             "name": "eye_monster_small_blink_2",
             "w": 12,
-            "x": 1403,
-            "y": 526
+            "x": 50,
+            "y": 527
         },
         {
             "h": 11,
             "name": "eye_monster_small_blink_3",
             "w": 12,
-            "x": 1387,
-            "y": 526
+            "x": 34,
+            "y": 527
         },
         {
             "h": 11,
             "name": "eye_monster_small_blink_4",
-            "w": 12,
-            "x": 1371,
-            "y": 526
-        },
-        {
-            "h": 11,
-            "name": "eye_monster_small_idle_1",
-            "w": 12,
-            "x": 1355,
-            "y": 526
-        },
-        {
-            "h": 11,
-            "name": "eye_monster_small_idle_2",
-            "w": 12,
-            "x": 1467,
-            "y": 526
-        },
-        {
-            "h": 11,
-            "name": "eye_monster_small_idle_3",
             "w": 12,
             "x": 18,
             "y": 527
         },
         {
             "h": 11,
+            "name": "eye_monster_small_idle_1",
+            "w": 12,
+            "x": 1397,
+            "y": 526
+        },
+        {
+            "h": 11,
+            "name": "eye_monster_small_idle_2",
+            "w": 12,
+            "x": 1493,
+            "y": 526
+        },
+        {
+            "h": 11,
+            "name": "eye_monster_small_idle_3",
+            "w": 12,
+            "x": 1525,
+            "y": 526
+        },
+        {
+            "h": 11,
             "name": "eye_monster_small_idle_4",
             "w": 12,
-            "x": 1339,
+            "x": 1541,
             "y": 526
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_5",
             "w": 12,
-            "x": 1499,
+            "x": 1557,
             "y": 526
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_6",
             "w": 12,
-            "x": 1515,
+            "x": 1990,
             "y": 526
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_7",
             "w": 12,
-            "x": 1531,
+            "x": 2006,
             "y": 526
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_8",
             "w": 12,
-            "x": 1992,
+            "x": 2022,
             "y": 526
         }
     ],

@@ -11,10 +11,10 @@
     ],
     "frames": [
         {
-            "h": 15,
-            "name": "grass_patch_3",
-            "w": 29,
-            "x": 1014,
+            "h": 16,
+            "name": "bubble_small_default_1",
+            "w": 16,
+            "x": 42,
             "y": 507
         }
     ],
@@ -24,7 +24,7 @@
             "y": 0.0
         }
     ],
-    "source_folder": "res/images/vegetation/",
+    "source_folder": "res/images/bullets/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

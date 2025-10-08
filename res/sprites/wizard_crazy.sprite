@@ -40,28 +40,28 @@
             "h": 31,
             "name": "wizard_crazy_idle_1",
             "w": 16,
-            "x": 1477,
-            "y": 372
-        },
-        {
-            "h": 31,
-            "name": "wizard_crazy_idle_2",
-            "w": 16,
             "x": 332,
             "y": 355
         },
         {
             "h": 31,
+            "name": "wizard_crazy_idle_2",
+            "w": 16,
+            "x": 299,
+            "y": 356
+        },
+        {
+            "h": 31,
             "name": "wizard_crazy_idle_3",
             "w": 14,
-            "x": 1935,
+            "x": 1971,
             "y": 373
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_4",
             "w": 14,
-            "x": 1971,
+            "x": 1935,
             "y": 373
         },
         {
@@ -82,42 +82,42 @@
             "h": 31,
             "name": "wizard_crazy_idle_7",
             "w": 16,
-            "x": 299,
+            "x": 279,
             "y": 356
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_8",
             "w": 16,
-            "x": 279,
+            "x": 239,
             "y": 356
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_9",
             "w": 16,
-            "x": 239,
+            "x": 259,
             "y": 356
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_10",
             "w": 16,
-            "x": 219,
-            "y": 356
+            "x": 1477,
+            "y": 372
         },
         {
             "h": 31,
             "name": "wizard_crazy_run_1",
             "w": 16,
-            "x": 259,
+            "x": 219,
             "y": 356
         },
         {
             "h": 31,
             "name": "wizard_crazy_run_2",
             "w": 15,
-            "x": 1400,
+            "x": 1808,
             "y": 373
         },
         {
@@ -131,8 +131,8 @@
             "h": 31,
             "name": "wizard_crazy_run_4",
             "w": 15,
-            "x": 1497,
-            "y": 372
+            "x": 1172,
+            "y": 373
         },
         {
             "h": 30,
