@@ -197,6 +197,11 @@ mono::CollisionResolve BulletLogic::OnCollideWith(
         }
     }
 
+    if(m_bullet_collision_behaviour & BulletCollisionFlag::PASS_THROUGH)
+    {
+        m_damage = m_damage * 0.75f;
+    }
+
     if(m_bullet_collision_behaviour & BulletCollisionFlag::EXPLODES)
     {
         //System::Log("EXPLODE THE BULLET PLX");
@@ -207,7 +212,10 @@ mono::CollisionResolve BulletLogic::OnCollideWith(
     mono::CollisionResolve resolve_type = mono::CollisionResolve::NORMAL;
     BulletImpactFlag collision_flags = BulletImpactFlag(APPLY_DAMAGE | DESTROY_THIS);
     
-    if(m_jumps_left > 0 && (m_bullet_collision_behaviour & BulletCollisionFlag::JUMPER))
+    const bool has_jumps_left = (m_jumps_left > 0 && (m_bullet_collision_behaviour & BulletCollisionFlag::JUMPER));
+    const bool has_pass_through = (m_bullet_collision_behaviour & BulletCollisionFlag::PASS_THROUGH);
+
+    if(has_jumps_left || has_pass_through)
     {
         resolve_type = mono::CollisionResolve::IGNORE;
         collision_flags = BulletImpactFlag(collision_flags & ~DESTROY_THIS);

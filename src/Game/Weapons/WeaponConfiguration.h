@@ -46,16 +46,17 @@ namespace game
             const DamageDetails& damage_details,
             const CollisionDetails& details)>;
 
-    enum BulletCollisionFlag : uint8_t
+    enum BulletCollisionFlag : uint32_t
     {
         BOUNCE          = ENUM_BIT(0),
         JUMPER          = ENUM_BIT(1),
         PASS_THROUGH    = ENUM_BIT(2),
         EXPLODES        = ENUM_BIT(3),
         VAMPERIC        = ENUM_BIT(4),
+        DOUBLE_STRIKE   = ENUM_BIT(5),
     };
 
-    enum BulletMovementFlag : uint8_t
+    enum BulletMovementFlag : uint32_t
     {
         HOMING          = ENUM_BIT(0),
         CIRCULATING     = ENUM_BIT(1),
@@ -63,7 +64,7 @@ namespace game
         ARC_TRAJECTORY  = ENUM_BIT(3),
     };
 
-    inline uint8_t StringToBulletCollisionFlag(const char* string)
+    inline uint32_t StringToBulletCollisionFlag(const char* string)
     {
         if(std::strcmp(string, "bounce") == 0)
             return BulletCollisionFlag::BOUNCE;
@@ -79,7 +80,7 @@ namespace game
         return 0;
     }
 
-    inline uint8_t StringToBulletMovementFlag(const char* string)
+    inline uint32_t StringToBulletMovementFlag(const char* string)
     {
         if(std::strcmp(string, "homing") == 0)
             return BulletMovementFlag::HOMING;
