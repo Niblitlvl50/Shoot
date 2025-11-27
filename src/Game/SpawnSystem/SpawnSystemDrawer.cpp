@@ -99,12 +99,13 @@ void SpawnSystemDrawer::DebugDrawSpawnPoints(mono::IRenderer& renderer) const
         std::snprintf(
             text_buffer,
             std::size(text_buffer),
-            "%s|%d/%d|%d/%d[%d]|%d",
+            "%s|%d/%d|%d/%d[%d/%d]|%d",
             active_string,
             spawn_point.counter_ms,
             spawn_point.interval_ms,
             (int)spawn_point.active_spawns.size(),
             spawn_point.spawn_limit_concurrent,
+            spawn_point.num_spawns,
             spawn_point.spawn_limit_total,
             spawn_point.spawn_score);
 
