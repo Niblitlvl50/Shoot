@@ -9,6 +9,7 @@ namespace game
     extern bool g_draw_navmesh;
     extern uint32_t g_draw_navmesh_subcomponents;
     extern bool g_draw_transformsystem;
+    extern bool g_draw_rendersystem;
     extern bool g_draw_triggers;
     extern bool g_draw_targets;
     extern bool g_draw_physics;

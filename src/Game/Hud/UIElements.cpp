@@ -189,7 +189,6 @@ math::Quad UIOverlay::LocalBoundingBox() const
 
 UITextElement::UITextElement(int font_id, const std::string& text, const mono::Color::RGBA& color)
     : m_font_id(font_id)
-    , m_text(text)
     , m_color(color)
     , m_shadow_color(mono::Color::BLACK)
     , m_shadow_offset(-0.1f, -0.1f)
@@ -200,9 +199,20 @@ UITextElement::UITextElement(int font_id, const std::string& text, const mono::C
 
 void UITextElement::SetText(const std::string& new_text)
 {
+    if(m_text == new_text)
+        return;
+
+    const bool need_reallocating = (m_text.length() < new_text.length());
+
     m_text = new_text;
+
     if(!m_text.empty())
-        m_draw_buffers = mono::BuildTextDrawBuffers(m_font_id, m_text.c_str(), mono::FontCentering::HORIZONTAL_VERTICAL);
+    {
+        if(!m_draw_buffers.vertices || need_reallocating)
+            m_draw_buffers = mono::AllocateTextDrawBuffers(m_text.size());
+    
+        mono::UpdateTextBuffer(m_font_id, m_text.c_str(), mono::FontCentering::HORIZONTAL_VERTICAL, m_draw_buffers);
+    }
 }
 
 void UITextElement::SetColor(const mono::Color::RGBA& new_color)

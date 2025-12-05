@@ -26,6 +26,7 @@
 #include "Math/MathFunctions.h"
 #include "Math/Matrix.h"
 #include "Rendering/IRenderer.h"
+#include "Rendering/RenderSystem.h"
 
 #include "Entity/Component.h"
 
@@ -35,6 +36,7 @@ bool game::g_draw_client_viewport = false;
 bool game::g_draw_navmesh = false;
 uint32_t game::g_draw_navmesh_subcomponents = game::NavigationDebugComponents::DRAW_RECENT_PATHS;
 bool game::g_draw_transformsystem = false;
+bool game::g_draw_rendersystem = true;
 bool game::g_draw_physics = false;
 bool game::g_interact_physics = false;
 bool game::g_body_introspection = false;
@@ -72,6 +74,7 @@ void DrawDebugMenu(game::EntityLogicSystem* logic_system, mono::EventHandler* ev
     if(ImGui::BeginMenu("Options"))
     {
         ImGui::Checkbox("Transform System",     &game::g_draw_transformsystem);
+        ImGui::Checkbox("Render System",        &game::g_draw_rendersystem);
         ImGui::Checkbox("Navmesh",              &game::g_draw_navmesh);
         ImGui::PushID("NavmeshBitField");
         mono::DrawBitFieldType(
@@ -415,6 +418,32 @@ void DrawDebugEntityIntrospection(bool& show_window, mono::IEntityManager* entit
     ImGui::End();
 }
 
+void DrawDebugRendersystem(bool& show_window)
+{
+    constexpr int flags =
+        ImGuiWindowFlags_AlwaysAutoResize |
+        ImGuiWindowFlags_NoResize;
+
+    const mono::BufferStatus& buffer_status = mono::RenderSystem::GetBufferStatus();
+
+    ImGui::Begin("Rendersystem", &show_window, flags);
+
+    ImGui::TextDisabled("Buffers");
+    ImGui::Text("maked: %d", buffer_status.make_buffers);
+    ImGui::Text("destroyed: %d", buffer_status.destroyed_buffers);
+    ImGui::Text("diff: %d", buffer_status.make_buffers - buffer_status.destroyed_buffers);
+
+    ImGui::Separator();
+
+    ImGui::TextDisabled("Images");
+    ImGui::Text("maked: %d", buffer_status.make_images);
+    ImGui::Text("destroyed: %d", buffer_status.destroy_images);
+    ImGui::Text("diff: %d", buffer_status.make_images - buffer_status.destroy_images);
+
+    ImGui::End();
+}
+
+
 using namespace game;
 
 class DebugUpdater::PlayerDebugHandler
@@ -582,6 +611,11 @@ void DebugUpdater::Draw(mono::IRenderer& renderer) const
 
     if(game::g_draw_entity_introspection)
         DrawDebugEntityIntrospection(game::g_draw_entity_introspection, m_entity_manager);
+
+    if(game::g_draw_rendersystem)
+    {
+        DrawDebugRendersystem(game::g_draw_rendersystem);
+    }
 }
 
 math::Quad DebugUpdater::BoundingBox() const
