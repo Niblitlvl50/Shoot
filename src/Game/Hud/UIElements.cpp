@@ -291,7 +291,7 @@ UISpriteElement::UISpriteElement()
     constexpr uint16_t indices[] = {
         0, 1, 2, 0, 2, 3
     };
-    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices);
+    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices, "ui_sprite_element");
 }
 
 UISpriteElement::UISpriteElement(const std::string& sprite_file)

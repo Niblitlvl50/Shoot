@@ -50,8 +50,8 @@ GridVisualizer::GridVisualizer(const bool& draw_grid)
     constexpr mono::Color::RGBA gray_color(1.0f, 1.0f, 1.0f, 0.2f);
     const std::vector<mono::Color::RGBA> color(grid_vertices.size(), gray_color);
 
-    m_vertices = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, grid_vertices.size(), grid_vertices.data());
-    m_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, color.size(), color.data());
+    m_vertices = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, grid_vertices.size(), grid_vertices.data(), "grid_draw_buffer");
+    m_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, color.size(), color.data(), "grid_draw_buffer");
 }
 
 void GridVisualizer::Draw(mono::IRenderer& renderer) const

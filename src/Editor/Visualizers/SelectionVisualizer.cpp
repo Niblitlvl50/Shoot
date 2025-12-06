@@ -121,11 +121,11 @@ void SelectionVisualizer::Draw(mono::IRenderer& renderer) const
     if(!vertices.empty())
     {
         std::unique_ptr<mono::IRenderBuffer> vertices_buffer =
-            mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, vertices.size(), vertices.data());
+            mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, vertices.size(), vertices.data(), "selection_draw_buffer");
         std::unique_ptr<mono::IRenderBuffer> colors_buffer =
-            mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, colors.size(), colors.data());
+            mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, colors.size(), colors.data(), "selection_draw_buffer");
         std::unique_ptr<mono::IElementBuffer> index_buffer
-            = mono::CreateElementBuffer(mono::BufferType::STATIC, indices.size(), indices.data());
+            = mono::CreateElementBuffer(mono::BufferType::STATIC, indices.size(), indices.data(), "selection_draw_buffer");
 
         renderer.DrawLines(vertices_buffer.get(), colors_buffer.get(), index_buffer.get(), 0, index_buffer->Size());
     }

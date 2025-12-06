@@ -30,7 +30,7 @@ WorldEntityTrackingDrawer::WorldEntityTrackingDrawer(
     constexpr uint16_t indices[] = {
         0, 1, 2, 0, 2, 3
     };
-    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices);
+    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices, "world_entity_tracking_drawer");
 }
 
 void WorldEntityTrackingDrawer::Draw(mono::IRenderer& renderer) const

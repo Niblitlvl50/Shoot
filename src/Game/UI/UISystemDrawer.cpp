@@ -33,7 +33,7 @@ UISystemDrawer::UISystemDrawer(const UISystem* ui_system, mono::TransformSystem*
     constexpr uint16_t indices[] = {
         0, 1, 2, 0, 2, 3
     };
-    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices);
+    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices, "ui_system_drawer");
 }
 
 void UISystemDrawer::Draw(mono::IRenderer& renderer) const
