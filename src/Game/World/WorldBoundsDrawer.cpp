@@ -106,21 +106,25 @@ void WorldBoundsDrawer::BuildBuffers(const WorldBoundsComponent& component) cons
         mono::BufferData::FLOAT,
         2,
         n_vertices,
-        component.triangulated_points.vertices.data());
+        component.triangulated_points.vertices.data(),
+        "world_bounds_buffer");
     render_data.colors = mono::CreateRenderBuffer(
         mono::BufferType::STATIC,
         mono::BufferData::FLOAT,
         4,
         colors.size(),
-        colors.data());
+        colors.data(),
+        "world_bounds_buffer");
     render_data.uvs = mono::CreateRenderBuffer(
         mono::BufferType::STATIC,
         mono::BufferData::FLOAT,
         2,
         uv_data.size(),
-        uv_data.data());
+        uv_data.data(),
+        "world_bounds_buffer");
     render_data.indices = mono::CreateElementBuffer(
         mono::BufferType::STATIC,
         n_indices,
-        component.triangulated_points.triangles.data());
+        component.triangulated_points.triangles.data(),
+        "world_bounds_buffer");
 }

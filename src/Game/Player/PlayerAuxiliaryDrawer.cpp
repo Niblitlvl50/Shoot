@@ -63,9 +63,12 @@ namespace
         };
 
         AimlineRenderData render_data;
-        render_data.vertices = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, std::size(aim_lines_vertices), aim_lines_vertices);
-        render_data.colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, std::size(aim_lines_colors), aim_lines_colors);
-        render_data.indices = mono::CreateElementBuffer(mono::BufferType::STATIC, std::size(aim_lines_indices), aim_lines_indices);
+        render_data.vertices =
+            mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, std::size(aim_lines_vertices), aim_lines_vertices, "aimline_render_buffer");
+        render_data.colors =
+            mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, std::size(aim_lines_colors), aim_lines_colors, "aimline_render_buffer");
+        render_data.indices =
+            mono::CreateElementBuffer(mono::BufferType::STATIC, std::size(aim_lines_indices), aim_lines_indices, "aimline_render_buffer");
 
         return render_data;
     }
@@ -109,9 +112,9 @@ namespace
         };
 
         AimlineRenderData render_data;
-        render_data.vertices = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, std::size(vertices), vertices);
-        render_data.colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, std::size(colors), colors);
-        render_data.indices = mono::CreateElementBuffer(mono::BufferType::STATIC, std::size(indices), indices);
+        render_data.vertices = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, std::size(vertices), vertices, "stamina_bar_buffer");
+        render_data.colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, std::size(colors), colors, "stamina_bar_buffer");
+        render_data.indices = mono::CreateElementBuffer(mono::BufferType::STATIC, std::size(indices), indices, "stamina_bar_buffer");
 
         return render_data;
     }

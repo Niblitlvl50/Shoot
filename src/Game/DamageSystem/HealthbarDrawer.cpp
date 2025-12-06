@@ -357,11 +357,11 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
     const uint32_t n_healthbar_indices = indices.size();
 
     auto vertex_buffer = mono::CreateRenderBuffer(
-        mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, vertices_needed, vertices.data());
+        mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, vertices_needed, vertices.data(), "healthbar_draw_buffer");
     auto color_buffer = mono::CreateRenderBuffer(
-        mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, vertices_needed, colors.data());
+        mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, vertices_needed, colors.data(), "healthbar_draw_buffer");
     auto index_buffer = mono::CreateElementBuffer(
-        mono::BufferType::STATIC, indices_needed, indices.data());
+        mono::BufferType::STATIC, indices_needed, indices.data(), "healthbar_draw_buffer");
 
     if(!healthbars.empty())
         renderer.DrawTrianges(vertex_buffer.get(), color_buffer.get(), index_buffer.get(), 0, n_healthbar_indices);

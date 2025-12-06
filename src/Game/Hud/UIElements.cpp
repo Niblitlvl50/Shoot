@@ -551,7 +551,7 @@ UISquareElement::UISquareElement(
         { half_width, -half_height }
     };
 
-    m_vertices = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, 4, vertex_data.data());
+    m_vertices = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, 4, vertex_data.data(), "ui_square_element");
 
     SetColor(m_color);
     SetBorderColor(m_border_color);
@@ -560,7 +560,7 @@ UISquareElement::UISquareElement(
         0, 1, 2, 0, 2, 3,   // Two triangles
         0, 1, 2, 3, 0       // Outline
     };
-    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, std::size(indices), indices);
+    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, std::size(indices), indices, "ui_square_element");
 }
 
 UISquareElement::~UISquareElement() = default;
@@ -580,7 +580,7 @@ math::Quad UISquareElement::LocalBoundingBox() const
 void UISquareElement::SetColor(const mono::Color::RGBA& color)
 {
     const std::vector<mono::Color::RGBA> color_data(4, color);
-    m_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, color_data.data());
+    m_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, color_data.data(), "ui_square_element");
 }
 
 const mono::Color::RGBA& UISquareElement::GetColor() const
@@ -591,7 +591,7 @@ const mono::Color::RGBA& UISquareElement::GetColor() const
 void UISquareElement::SetBorderColor(const mono::Color::RGBA& color)
 {
     const std::vector<mono::Color::RGBA> border_color_data(4, color);
-    m_border_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, border_color_data.data());
+    m_border_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, border_color_data.data(), "ui_square_element");
 }
 
 const mono::Color::RGBA& UISquareElement::GetBorderColor() const
@@ -617,14 +617,14 @@ UICircleElement::UICircleElement(float radii, const mono::Color::RGBA& color)
 
     const std::vector<mono::Color::RGBA> color_data(4, color);
 
-    m_vertices = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, 4, vertex_data.data());
-    m_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, color_data.data());
+    m_vertices = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, 4, vertex_data.data(), "ui_circle_element");
+    m_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, color_data.data(), "ui_circle_element");
 
     constexpr uint16_t indices[] = {
         0, 1, 2, 0, 2, 3,   // Two triangles
         0, 1, 2, 3, 0       // Outline
     };
-    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, std::size(indices), indices);
+    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, std::size(indices), indices, "ui_circle_element");
 }
 
 UICircleElement::~UICircleElement() = default;
@@ -675,10 +675,10 @@ UIBarElement::UIBarElement(
         0, 1, 2, 0, 2, 3,   // Two triangles
     };
 
-    m_vertices = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, 4, vertex_data.data());
-    m_background_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, background_color_data.data());
-    m_foreground_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, foreground_color_data.data());
-    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, std::size(indices), indices);
+    m_vertices = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, 4, vertex_data.data(), "ui_bar_element");
+    m_background_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, background_color_data.data(), "ui_bar_element");
+    m_foreground_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, foreground_color_data.data(), "ui_bar_element");
+    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, std::size(indices), indices, "ui_bar_element");
 }
 
 void UIBarElement::SetFraction(float fraction)
