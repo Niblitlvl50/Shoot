@@ -18,7 +18,7 @@ jobs:
             app_suffix: ''
             exe_suffix: ''
             channel: linux
-          - os: macos-13
+          - os: macos-15-intel
             bin_subdir: ''
             app_suffix: '.app'
             exe_suffix: ''
