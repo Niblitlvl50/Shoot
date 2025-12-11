@@ -10,6 +10,7 @@
 #include "Rendering/Color.h"
 #include "Rendering/IDrawable.h"
 #include "Rendering/Sprite/ISpriteFactory.h"
+#include "Rendering/Sprite/SpriteBufferFactory.h"
 #include "Rendering/Text/TextFlags.h"
 #include "Rendering/Texture/ITextureFactory.h"
 #include "Rendering/Texture/TextureBufferFactory.h"
