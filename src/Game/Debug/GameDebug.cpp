@@ -27,6 +27,7 @@
 #include "Math/Matrix.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/RenderSystem.h"
+#include "Rendering/RenderBuffer/RenderBufferImpl.h"
 
 #include "Entity/Component.h"
 
@@ -418,7 +419,7 @@ void DrawDebugEntityIntrospection(bool& show_window, mono::IEntityManager* entit
     ImGui::End();
 }
 
-void DrawDebugRendersystem(bool& show_window)
+void DrawDebugRendersystem(bool& show_window, mono::RenderSystem* render_system)
 {
     constexpr int flags =
         ImGuiWindowFlags_AlwaysAutoResize |
@@ -426,12 +427,42 @@ void DrawDebugRendersystem(bool& show_window)
 
     const mono::BufferStatus& buffer_status = mono::RenderSystem::GetBufferStatus();
 
+    const std::unordered_map<const char*, uint32_t>& buffer_count = render_system->GetBufferCount();
+
+    struct LocalLabelCount
+    {
+        const char* label;
+        uint32_t count;
+    };
+
+    std::vector<LocalLabelCount> buffer_debug_list;
+    buffer_debug_list.reserve(buffer_count.size());
+
+    for(const auto& pair : buffer_count)
+    {
+        buffer_debug_list.push_back({
+            pair.first, pair.second
+        });
+    }
+
+    const auto sort_by_count = [](const LocalLabelCount& left, const LocalLabelCount& right) {
+        return left.count > right.count;
+    };
+    std::sort(buffer_debug_list.begin(), buffer_debug_list.end(), sort_by_count);
+
     ImGui::Begin("Rendersystem", &show_window, flags);
 
-    ImGui::TextDisabled("Buffers");
-    ImGui::Text("maked: %d", buffer_status.make_buffers);
-    ImGui::Text("destroyed: %d", buffer_status.destroyed_buffers);
-    ImGui::Text("diff: %d", buffer_status.make_buffers - buffer_status.destroyed_buffers);
+    ImGui::TextDisabled("Counter: %d", mono::RenderBufferImpl::s_counter);
+
+
+    ImGui::TextDisabled(
+        "Buffers | %d/%d | diff: %d",
+        buffer_status.make_buffers,
+        buffer_status.destroyed_buffers,
+        buffer_status.make_buffers - buffer_status.destroyed_buffers);
+
+    for(const LocalLabelCount& label_count : buffer_debug_list)
+        ImGui::Text("%s: %d", label_count.label, label_count.count);
 
     ImGui::Separator();
 
@@ -553,6 +584,7 @@ DebugUpdater::DebugUpdater(
     , m_draw_trigger_input(false)
     , m_pause(false)
 {
+    m_render_system = system_context->GetSystem<mono::RenderSystem>();
     m_trigger_system = system_context->GetSystem<mono::TriggerSystem>();
     m_damage_system = system_context->GetSystem<DamageSystem>();
     m_logic_system = system_context->GetSystem<EntityLogicSystem>();
@@ -614,7 +646,7 @@ void DebugUpdater::Draw(mono::IRenderer& renderer) const
 
     if(game::g_draw_rendersystem)
     {
-        DrawDebugRendersystem(game::g_draw_rendersystem);
+        DrawDebugRendersystem(game::g_draw_rendersystem, m_render_system);
     }
 }
 

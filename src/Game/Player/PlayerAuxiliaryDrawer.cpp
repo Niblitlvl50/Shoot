@@ -137,7 +137,8 @@ PlayerAuxiliaryDrawer::PlayerAuxiliaryDrawer(const game::CameraSystem* camera_sy
     {
         AbilityRenderData render_data;
         render_data.sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite(sprite_file);
-        render_data.sprite_buffers = mono::BuildSpriteDrawBuffers(render_data.sprite->GetSpriteData());
+        render_data.sprite_buffers =
+            mono::BuildSpriteDrawBuffers(render_data.sprite->GetSpriteData(), "sprite_buffer-player_aux_drawer");
         m_ability_render_datas.push_back(std::move(render_data));
     }
 
@@ -147,13 +148,15 @@ PlayerAuxiliaryDrawer::PlayerAuxiliaryDrawer(const game::CameraSystem* camera_sy
     {
         AbilityRenderData render_data;
         render_data.sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite(pair.second.c_str());
-        render_data.sprite_buffers = mono::BuildSpriteDrawBuffers(render_data.sprite->GetSpriteData());
+        render_data.sprite_buffers =
+            mono::BuildSpriteDrawBuffers(render_data.sprite->GetSpriteData(), "sprite_buffer-player_aux_drawer");
 
         m_powerup_render_datas.insert_or_assign(pair.first, std::move(render_data));
     }
 
     m_crosshair_render_data.sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite(g_player_crosshair_sprite);
-    m_crosshair_render_data.sprite_buffers = mono::BuildSpriteDrawBuffers(m_crosshair_render_data.sprite->GetSpriteData());
+    m_crosshair_render_data.sprite_buffers =
+        mono::BuildSpriteDrawBuffers(m_crosshair_render_data.sprite->GetSpriteData(), "sprite_buffer-player_aux_drawer");
 
     m_crosshair_render_data.sprite->SetShade(mono::Color::RGBA(1.0f, 0.65f, 0.65f));
 
@@ -163,6 +166,11 @@ PlayerAuxiliaryDrawer::PlayerAuxiliaryDrawer(const game::CameraSystem* camera_sy
     m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices, "aux_drawer");
 
     std::memset(m_ability_data, 0, sizeof(m_ability_data));
+}
+
+PlayerAuxiliaryDrawer::~PlayerAuxiliaryDrawer()
+{
+    System::Log("PlayerAuxiliaryDrawer Destructor");
 }
 
 void PlayerAuxiliaryDrawer::Draw(mono::IRenderer& renderer) const

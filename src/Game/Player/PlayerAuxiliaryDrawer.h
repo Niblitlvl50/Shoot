@@ -38,6 +38,7 @@ namespace game
     public:
 
         PlayerAuxiliaryDrawer(const game::CameraSystem* camera_system, const game::WeaponSystem* weapon_system, const mono::TransformSystem* transform_system);
+        ~PlayerAuxiliaryDrawer();
 
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;

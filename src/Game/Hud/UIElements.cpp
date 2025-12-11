@@ -319,7 +319,6 @@ void UISpriteElement::SetSprites(const std::vector<std::string>& sprite_files)
     for(const std::string& sprite_file : sprite_files)
     {
         m_sprites.push_back(mono::RenderSystem::GetSpriteFactory()->CreateSprite(sprite_file.c_str()));
-        m_sprite_buffers.push_back(mono::BuildSpriteDrawBuffers(m_sprites.back()->GetSpriteData()));
 
         const mono::ISprite* sprite = m_sprites.back().get();
         const mono::SpriteData* sprite_data = sprite->GetSpriteData();
@@ -360,11 +359,20 @@ void UISpriteElement::Update(const mono::UpdateContext& update_context)
 
 void UISpriteElement::DrawElement(mono::IRenderer& renderer) const
 {
-    if(m_sprites.empty() || m_sprite_buffers.empty())
+    if(m_sprites.empty())
         return;
 
     const mono::ISprite* sprite = m_sprites[m_active_sprite].get();
-    const mono::SpriteDrawBuffers& buffers = m_sprite_buffers[m_active_sprite];
+    const uint32_t sprite_hash = sprite->GetSpriteHash();
+
+    const auto it = m_sprite_buffers.find(sprite_hash);
+    if(it == m_sprite_buffers.end())
+    {
+        m_sprite_buffers[sprite_hash] = BuildSpriteDrawBuffers(
+            sprite->GetSpriteData(), "sprite_buffer-ui_sprite_element");
+    }
+
+    const mono::SpriteDrawBuffers& buffers = m_sprite_buffers[sprite_hash];
     renderer.DrawSprite(
         sprite, &buffers, m_indices.get(), sprite->GetCurrentFrameIndex() * buffers.vertices_per_sprite);
 }

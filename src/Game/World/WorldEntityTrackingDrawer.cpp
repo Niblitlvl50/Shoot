@@ -19,13 +19,13 @@ WorldEntityTrackingDrawer::WorldEntityTrackingDrawer(
     , m_transform_system(transform_system)
 {
     m_package_sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite("res/sprites/cardboard_box_small.sprite");
-    m_package_sprite_buffers = mono::BuildSpriteDrawBuffers(m_package_sprite->GetSpriteData());
+    m_package_sprite_buffers = mono::BuildSpriteDrawBuffers(m_package_sprite->GetSpriteData(), "sprite_buffer-world_entity_tracking");
 
     m_boss_sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite("res/sprites/squid.sprite");
-    m_boss_sprite_buffers = mono::BuildSpriteDrawBuffers(m_boss_sprite->GetSpriteData());
+    m_boss_sprite_buffers = mono::BuildSpriteDrawBuffers(m_boss_sprite->GetSpriteData(), "sprite_buffer-world_entity_tracking");
 
     m_loot_sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite("res/sprites/bunny.sprite");
-    m_loot_sprite_buffers = mono::BuildSpriteDrawBuffers(m_loot_sprite->GetSpriteData());
+    m_loot_sprite_buffers = mono::BuildSpriteDrawBuffers(m_loot_sprite->GetSpriteData(), "sprite_buffer-world_entity_tracking");
 
     constexpr uint16_t indices[] = {
         0, 1, 2, 0, 2, 3

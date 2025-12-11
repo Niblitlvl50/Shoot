@@ -73,13 +73,15 @@ InteractionSystemDrawer::InteractionSystemDrawer(
 
         VerbSpriteBuffer verb_sprite_buffer_gamepad;
         verb_sprite_buffer_gamepad.sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite(g_interaction_type_sprite_gamepad[index]);
-        verb_sprite_buffer_gamepad.sprite_buffer = mono::BuildSpriteDrawBuffers(verb_sprite_buffer_gamepad.sprite->GetSpriteData());
+        verb_sprite_buffer_gamepad.sprite_buffer =
+            mono::BuildSpriteDrawBuffers(verb_sprite_buffer_gamepad.sprite->GetSpriteData(), "sprite_buffer-interaction_sys");
 
         m_verb_sprites_buffers_gamepad.push_back(std::move(verb_sprite_buffer_gamepad));
 
         VerbSpriteBuffer verb_sprite_buffer_keyboard;
         verb_sprite_buffer_keyboard.sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite(g_interaction_type_sprite_keyboard[index]);
-        verb_sprite_buffer_keyboard.sprite_buffer = mono::BuildSpriteDrawBuffers(verb_sprite_buffer_keyboard.sprite->GetSpriteData());
+        verb_sprite_buffer_keyboard.sprite_buffer =
+            mono::BuildSpriteDrawBuffers(verb_sprite_buffer_keyboard.sprite->GetSpriteData(), "sprite_buffer-interaction_sys");
 
         m_verb_sprites_buffers_keyboard.push_back(std::move(verb_sprite_buffer_keyboard));
     }

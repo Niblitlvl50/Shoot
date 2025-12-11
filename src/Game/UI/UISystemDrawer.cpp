@@ -25,10 +25,11 @@ UISystemDrawer::UISystemDrawer(const UISystem* ui_system, mono::TransformSystem*
     , m_transform_system(transform_system)
 {
     m_item_selection_sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite("res/sprites/ui_item_selection.sprite");
-    m_item_selection_sprite_buffer = mono::BuildSpriteDrawBuffers(m_item_selection_sprite->GetSpriteData());
+    m_item_selection_sprite_buffer =
+        mono::BuildSpriteDrawBuffers(m_item_selection_sprite->GetSpriteData(), "sprite_buffer-ui_system");
 
     m_cursor_sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite("res/sprites/arrow_pointer.sprite");
-    m_cursor_sprite_buffer = mono::BuildSpriteDrawBuffers(m_cursor_sprite->GetSpriteData());
+    m_cursor_sprite_buffer = mono::BuildSpriteDrawBuffers(m_cursor_sprite->GetSpriteData(), "sprite_buffer-ui_system");
 
     constexpr uint16_t indices[] = {
         0, 1, 2, 0, 2, 3

@@ -38,6 +38,7 @@ namespace game
         mutable bool m_draw_trigger_input;
         bool m_pause;
 
+        mono::RenderSystem* m_render_system;
         mono::TriggerSystem* m_trigger_system;
         mono::IEntityManager* m_entity_manager;
         DamageSystem* m_damage_system;
