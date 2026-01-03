@@ -427,12 +427,13 @@ void DrawDebugRendersystem(bool& show_window, mono::RenderSystem* render_system)
 
     const mono::BufferStatus& buffer_status = mono::RenderSystem::GetBufferStatus();
 
-    const std::unordered_map<const char*, uint32_t>& buffer_count = render_system->GetBufferCount();
+    const std::unordered_map<const char*, mono::BufferDebug>& buffer_count = render_system->GetBufferCount();
 
     struct LocalLabelCount
     {
         const char* label;
-        uint32_t count;
+        int current;
+        int total;
     };
 
     std::vector<LocalLabelCount> buffer_debug_list;
@@ -441,12 +442,12 @@ void DrawDebugRendersystem(bool& show_window, mono::RenderSystem* render_system)
     for(const auto& pair : buffer_count)
     {
         buffer_debug_list.push_back({
-            pair.first, pair.second
+            pair.first, pair.second.current, pair.second.total
         });
     }
 
     const auto sort_by_count = [](const LocalLabelCount& left, const LocalLabelCount& right) {
-        return left.count > right.count;
+        return left.current > right.current;
     };
     std::sort(buffer_debug_list.begin(), buffer_debug_list.end(), sort_by_count);
 
@@ -462,7 +463,7 @@ void DrawDebugRendersystem(bool& show_window, mono::RenderSystem* render_system)
         buffer_status.make_buffers - buffer_status.destroyed_buffers);
 
     for(const LocalLabelCount& label_count : buffer_debug_list)
-        ImGui::Text("%s: %d", label_count.label, label_count.count);
+        ImGui::Text("%s: %d (%d)", label_count.label, label_count.current, label_count.total);
 
     ImGui::Separator();
 
