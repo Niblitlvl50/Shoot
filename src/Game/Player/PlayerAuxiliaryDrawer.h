@@ -33,12 +33,18 @@ namespace game
         mono::SpriteDrawBuffers sprite_buffers;
     };
 
+    struct AimlineRenderData
+    {
+        std::unique_ptr<mono::IRenderBuffer> vertices;
+        std::unique_ptr<mono::IRenderBuffer> colors;
+        std::unique_ptr<mono::IElementBuffer> indices;
+    };
+
     class PlayerAuxiliaryDrawer : public mono::IDrawable
     {
     public:
 
         PlayerAuxiliaryDrawer(const game::CameraSystem* camera_system, const game::WeaponSystem* weapon_system, const mono::TransformSystem* transform_system);
-        ~PlayerAuxiliaryDrawer();
 
         void Draw(mono::IRenderer& renderer) const override;
         math::Quad BoundingBox() const override;
@@ -56,6 +62,7 @@ namespace game
         std::vector<AbilityRenderData> m_ability_render_datas;
         std::unordered_map<uint32_t, AbilityRenderData> m_powerup_render_datas;
         AbilityRenderData m_crosshair_render_data;
+        mutable AimlineRenderData m_aimline_render_data;
         std::unique_ptr<mono::IElementBuffer> m_indices;
 
         mutable AbilityInstanceData m_ability_data[n_players];
