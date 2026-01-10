@@ -7,6 +7,7 @@
 #include "Rendering/RenderBuffer/IRenderBuffer.h"
 #include "Rendering/Sprite/ISpriteFactory.h"
 #include "Rendering/Sprite/SpriteBufferFactory.h"
+#include "Rendering/Primitives/PrimitiveBufferFactory.h"
 
 namespace game
 {
@@ -33,6 +34,9 @@ namespace game
         mono::ISpritePtr m_loot_sprite;
         mono::SpriteDrawBuffers m_loot_sprite_buffers;
 
-        std::unique_ptr<mono::IElementBuffer> m_indices;
+        std::unique_ptr<mono::IElementBuffer> m_sprite_indices;
+
+        mono::PrimitiveDrawBuffers m_circle_draw_buffers;
+        mono::PrimitiveDrawBuffers m_circle_outline_draw_buffers;
     };
 }

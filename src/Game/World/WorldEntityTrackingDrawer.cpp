@@ -30,7 +30,10 @@ WorldEntityTrackingDrawer::WorldEntityTrackingDrawer(
     constexpr uint16_t indices[] = {
         0, 1, 2, 0, 2, 3
     };
-    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices, "world_entity_tracking_drawer");
+    m_sprite_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices, "world_entity_tracking_drawer");
+
+    m_circle_draw_buffers = mono::BuildCircleDrawBuffers(math::Vector(0.25f, 0.25f), 32, mono::Color::BLACK);
+    m_circle_outline_draw_buffers = mono::BuildCircleDrawBuffers(math::Vector(0.225f, 0.225f), 32, mono::Color::GRAY);
 }
 
 void WorldEntityTrackingDrawer::Draw(mono::IRenderer& renderer) const
@@ -77,15 +80,26 @@ void WorldEntityTrackingDrawer::Draw(mono::IRenderer& renderer) const
         const math::Matrix& transform = math::CreateMatrixWithPosition(closest_point);
         const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
 
-        renderer.DrawFilledCircle(math::Vector(0.25f, 0.25f), 32, mono::Color::BLACK);
-        renderer.DrawFilledCircle(math::Vector(0.225f, 0.225f), 32, mono::Color::GRAY);
+        renderer.DrawTrianges(
+            m_circle_draw_buffers.vertices.get(),
+            m_circle_draw_buffers.colors.get(),
+            m_circle_draw_buffers.indices.get(),
+            0,
+            m_circle_draw_buffers.indices->Size());
+        
+        renderer.DrawTrianges(
+            m_circle_outline_draw_buffers.vertices.get(),
+            m_circle_outline_draw_buffers.colors.get(),
+            m_circle_outline_draw_buffers.indices.get(),
+            0,
+            m_circle_outline_draw_buffers.indices->Size());
 
         if(tracking_entity.type == game::EntityType::Package)
-            renderer.DrawSprite(m_package_sprite.get(), &m_package_sprite_buffers, m_indices.get(), 0);
+            renderer.DrawSprite(m_package_sprite.get(), &m_package_sprite_buffers, m_sprite_indices.get(), 0);
         else if(tracking_entity.type == game::EntityType::Boss)
-            renderer.DrawSprite(m_boss_sprite.get(), &m_boss_sprite_buffers, m_indices.get(), 0);
+            renderer.DrawSprite(m_boss_sprite.get(), &m_boss_sprite_buffers, m_sprite_indices.get(), 0);
         else if(tracking_entity.type == game::EntityType::Loot)
-            renderer.DrawSprite(m_loot_sprite.get(), &m_loot_sprite_buffers, m_indices.get(), 0);
+            renderer.DrawSprite(m_loot_sprite.get(), &m_loot_sprite_buffers, m_sprite_indices.get(), 0);
     }
 }
 
