@@ -5,6 +5,7 @@
 #include "Rendering/Color.h"
 #include "Math/Quad.h"
 #include "Math/MathFunctions.h"
+#include "Math/Matrix.h"
 
 #include "CollisionConfiguration.h"
 #include "TriggerSystem/TriggerTypes.h"
@@ -52,8 +53,11 @@ void editor::DrawCircleShapeDetails(mono::IRenderer& renderer, const std::vector
 
     radius_value = std::max(radius_value, 0.0001f);
 
+    const math::Matrix& transform = math::CreateMatrixWithPosition(offset);
+    const auto scope = mono::MakeTransformScope(transform, &renderer);
+
     const mono::Color::RGBA color = is_sensor ? g_sensor_color : g_collision_color;
-    renderer.DrawFilledCircle(offset, math::Vector(radius_value, radius_value), 20, color);
+    renderer.DrawFilledCircle(math::Vector(radius_value, radius_value), 20, color);
 }
 
 void editor::DrawBoxShapeDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
@@ -119,14 +123,19 @@ void editor::DrawSpawnPointDetails(mono::IRenderer& renderer, const std::vector<
     FindAttribute(SPAWN_POINTS_ATTRIBUTE, component_properties, spawn_points, FallbackMode::SET_DEFAULT);
 
     for(const math::Vector& spawn_point : spawn_points)
-        renderer.DrawFilledCircle(spawn_point, math::Vector(radius, radius), 16, g_spawn_point_color);
+    {
+        const math::Matrix& transform = math::CreateMatrixWithPosition(spawn_point);
+        const auto scope = mono::MakeTransformScope(transform, &renderer);
+
+        renderer.DrawFilledCircle(math::Vector(radius, radius), 16, g_spawn_point_color);
+    }
 }
 
 void editor::DrawEntitySpawnPointDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     float radius = 1.0f;
     FindAttribute(RADIUS_ATTRIBUTE, component_properties, radius, FallbackMode::SET_DEFAULT);
-    renderer.DrawFilledCircle(math::ZeroVec, math::Vector(radius, radius), 16, g_spawn_point_color);
+    renderer.DrawFilledCircle(math::Vector(radius, radius), 16, g_spawn_point_color);
 }
 
 void editor::DrawShapeTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
@@ -279,7 +288,7 @@ void editor::DrawCameraPoint(mono::IRenderer& renderer, const std::vector<Attrib
 void editor::DrawTeleportPlayerPoint(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     const float radius = 0.25f;
-    renderer.DrawFilledCircle(math::ZeroVec, math::Vector(radius, radius), 16, mono::Color::MakeWithAlpha(mono::Color::GRAY, 0.5f));
+    renderer.DrawFilledCircle(math::Vector(radius, radius), 16, mono::Color::MakeWithAlpha(mono::Color::GRAY, 0.5f));
     renderer.DrawCircle(math::ZeroVec, radius, 16, 1.0f, mono::Color::GOLDEN_YELLOW);
     renderer.DrawPoints({ math::ZeroVec }, mono::Color::GOLDEN_YELLOW, 16.0f);
 }
@@ -289,7 +298,7 @@ void editor::DrawShockwaveComponentDetails(mono::IRenderer& renderer, const std:
     float radius;
     FindAttribute(RADIUS_ATTRIBUTE, component_properties, radius, FallbackMode::SET_DEFAULT);
 
-    renderer.DrawFilledCircle(math::ZeroVec, math::Vector(radius, radius), 24, mono::Color::MakeWithAlpha(mono::Color::GRAY, 0.25f));
+    renderer.DrawFilledCircle(math::Vector(radius, radius), 24, mono::Color::MakeWithAlpha(mono::Color::GRAY, 0.25f));
     renderer.DrawCircle(math::ZeroVec, radius, 24, 1.0f, mono::Color::RED);
 }
 

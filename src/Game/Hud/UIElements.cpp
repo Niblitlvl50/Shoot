@@ -639,7 +639,7 @@ UICircleElement::~UICircleElement() = default;
 
 void UICircleElement::DrawElement(mono::IRenderer& renderer) const
 {
-    renderer.DrawFilledCircle(math::ZeroVec, math::Vector(m_radii, m_radii), 16, m_color);
+    renderer.DrawFilledCircle(math::Vector(m_radii, m_radii), 16, m_color);
     //renderer.DrawTrianges(m_vertices.get(), m_colors.get(), m_indices.get(), 0, 6);
 }
 
