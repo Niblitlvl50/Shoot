@@ -18,6 +18,7 @@
 #include "Rendering/Sprite/ISprite.h"
 #include "Rendering/Sprite/ISpriteFactory.h"
 #include "Rendering/RenderSystem.h"
+#include "Rendering/Primitives/PrimitiveBufferFactory.h"
 #include "TransformSystem/TransformSystem.h"
 
 using namespace game;
@@ -159,6 +160,18 @@ PlayerAuxiliaryDrawer::PlayerAuxiliaryDrawer(const game::CameraSystem* camera_sy
     m_aimline_render_data.indices =
         mono::CreateElementBuffer(mono::BufferType::DYNAMIC, 12 * game::n_players, nullptr, "aimline_render_buffer");
 
+    const std::vector<math::Vector> aim_line_target_positions = {
+        math::ZeroVec,
+        math::ZeroVec,
+        math::ZeroVec
+    };
+    const std::vector<mono::Color::RGBA> aim_line_colors = {
+        mono::Color::MakeWithAlpha(mono::Color::RED, 0.5f),
+        mono::Color::MakeWithAlpha(mono::Color::GREEN, 0.5f),
+        mono::Color::MakeWithAlpha(mono::Color::BLUE, 0.5f),
+    };
+    m_aimline_targets_render_data = mono::BuildMutablePointsDrawBuffers(aim_line_target_positions, aim_line_colors);
+    UpdateMutablePointColors(aim_line_colors, m_aimline_targets_render_data);
 
     m_crosshair_render_data.sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite(g_player_crosshair_sprite);
     m_crosshair_render_data.sprite_buffers =
@@ -203,7 +216,6 @@ void PlayerAuxiliaryDrawer::DrawLasers(const std::vector<const game::PlayerInfo*
     mono::Color::RGBA aimline_colors[game::n_players];
 
     std::vector<math::Vector> aim_target_points;
-    std::vector<mono::Color::RGBA> aim_target_colors;
 
     constexpr mono::Color::RGBA aim_line_colors[game::n_players] = {
         mono::Color::RED,
@@ -227,11 +239,11 @@ void PlayerAuxiliaryDrawer::DrawLasers(const std::vector<const game::PlayerInfo*
         aimline_colors[index] = laser_color;
 
         aim_target_points.push_back(player_info->aim_target);
-        aim_target_colors.push_back(mono::Color::MakeWithAlpha(laser_color, 0.5f));
     }
 
     UpdateAimLine(aimline_lengths, aimline_colors, players.size(), m_aimline_render_data);
-    
+    UpdateMutablePoints(aim_target_points, m_aimline_targets_render_data);
+
     for(uint32_t index = 0; index < players.size(); ++index)
     {
         const auto transform_scope = mono::MakeTransformScope(aimline_transforms[index], &renderer);
@@ -243,7 +255,12 @@ void PlayerAuxiliaryDrawer::DrawLasers(const std::vector<const game::PlayerInfo*
             12);
     }
 
-    renderer.DrawPoints(aim_target_points, aim_target_colors, 12.0f);
+    renderer.DrawPoints(
+        m_aimline_targets_render_data.vertices.get(),
+        m_aimline_targets_render_data.colors.get(),
+        12.0f,
+        0,
+        players.size());
 }
 
 void PlayerAuxiliaryDrawer::DrawStaminaBar(const std::vector<const game::PlayerInfo*>& players, mono::IRenderer& renderer) const

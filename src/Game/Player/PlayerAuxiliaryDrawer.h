@@ -6,6 +6,7 @@
 #include "Rendering/RenderBuffer/IRenderBuffer.h"
 #include "Rendering/Sprite/ISpriteFactory.h"
 #include "Rendering/Sprite/SpriteBufferFactory.h"
+#include "Rendering/Primitives/PrimitiveBufferFactory.h"
 
 #include "Player/PlayerInfo.h"
 
@@ -63,6 +64,7 @@ namespace game
         std::unordered_map<uint32_t, AbilityRenderData> m_powerup_render_datas;
         AbilityRenderData m_crosshair_render_data;
         mutable AimlineRenderData m_aimline_render_data;
+        mutable mono::PrimitiveDrawBuffers m_aimline_targets_render_data;
         std::unique_ptr<mono::IElementBuffer> m_indices;
 
         mutable AbilityInstanceData m_ability_data[n_players];
