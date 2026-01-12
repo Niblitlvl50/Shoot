@@ -155,7 +155,7 @@ void DrawDebugMenu(game::EntityLogicSystem* logic_system, mono::EventHandler* ev
 
         ImGui::EndMenu();
 
-        if(selected_index != -1)
+        if(selected_index != uint32_t(-1))
         {
             game::ZoneManager::SwitchToLevel(levels[selected_index]);
             event_handler->DispatchEvent(event::QuitEvent());
@@ -453,18 +453,25 @@ void DrawDebugRendersystem(bool& show_window, mono::RenderSystem* render_system)
 
     ImGui::Begin("Rendersystem", &show_window, flags);
 
-    ImGui::TextDisabled("Counter: %d", mono::RenderBufferImpl::s_counter);
-
-
     ImGui::TextDisabled(
         "Buffers | %d/%d | diff: %d",
         buffer_status.make_buffers,
         buffer_status.destroyed_buffers,
         buffer_status.make_buffers - buffer_status.destroyed_buffers);
 
+    ImGui::Spacing();
+
+    char buffer[256] = {};
+    std::snprintf(buffer, std::size(buffer), "%d/%d", mono::RenderBufferImpl::s_counter, 2048);
+    const float fraction = float(mono::RenderBufferImpl::s_counter) / 2048.0f;
+    ImGui::ProgressBar(fraction, ImVec2(-FLT_MIN, 15.0f), buffer);
+
+    ImGui::Spacing();
+
     for(const LocalLabelCount& label_count : buffer_debug_list)
         ImGui::Text("%s: %d (%d)", label_count.label, label_count.current, label_count.total);
 
+    ImGui::Spacing();
     ImGui::Separator();
 
     ImGui::TextDisabled("Images");
