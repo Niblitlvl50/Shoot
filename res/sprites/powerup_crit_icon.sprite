@@ -14,8 +14,8 @@
             "h": 7,
             "name": "powerup_crit_icon",
             "w": 7,
-            "x": 662,
-            "y": 554
+            "x": 514,
+            "y": 555
         }
     ],
     "frames_offsets": [

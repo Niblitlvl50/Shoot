@@ -1,0 +1,299 @@
+{
+    "animations": [
+        {
+            "frame_duration": 100,
+            "frames": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9
+            ],
+            "loop": true,
+            "name": "attack"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                10,
+                11,
+                12,
+                13,
+                14
+            ],
+            "loop": true,
+            "name": "idle"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21
+            ],
+            "loop": true,
+            "name": "walk"
+        }
+    ],
+    "frames": [
+        {
+            "h": 10,
+            "name": "golem_tiny_attack_1",
+            "w": 13,
+            "x": 53,
+            "y": 542
+        },
+        {
+            "h": 11,
+            "name": "golem_tiny_attack_2",
+            "w": 13,
+            "x": 1495,
+            "y": 526
+        },
+        {
+            "h": 11,
+            "name": "golem_tiny_attack_3",
+            "w": 12,
+            "x": 1512,
+            "y": 526
+        },
+        {
+            "h": 11,
+            "name": "golem_tiny_attack_4",
+            "w": 13,
+            "x": 1478,
+            "y": 526
+        },
+        {
+            "h": 11,
+            "name": "golem_tiny_attack_5",
+            "w": 13,
+            "x": 1393,
+            "y": 526
+        },
+        {
+            "h": 9,
+            "name": "golem_tiny_attack_6",
+            "w": 22,
+            "x": 503,
+            "y": 542
+        },
+        {
+            "h": 10,
+            "name": "golem_tiny_attack_7",
+            "w": 28,
+            "x": 1220,
+            "y": 541
+        },
+        {
+            "h": 10,
+            "name": "golem_tiny_attack_8",
+            "w": 30,
+            "x": 273,
+            "y": 533
+        },
+        {
+            "h": 10,
+            "name": "golem_tiny_attack_9",
+            "w": 30,
+            "x": 239,
+            "y": 533
+        },
+        {
+            "h": 10,
+            "name": "golem_tiny_attack_10",
+            "w": 15,
+            "x": 1446,
+            "y": 541
+        },
+        {
+            "h": 10,
+            "name": "golem_tiny_idle_1",
+            "w": 13,
+            "x": 1988,
+            "y": 541
+        },
+        {
+            "h": 10,
+            "name": "golem_tiny_idle_2",
+            "w": 13,
+            "x": 2005,
+            "y": 541
+        },
+        {
+            "h": 8,
+            "name": "golem_tiny_idle_3",
+            "w": 13,
+            "x": 1909,
+            "y": 542
+        },
+        {
+            "h": 10,
+            "name": "golem_tiny_idle_4",
+            "w": 13,
+            "x": 2022,
+            "y": 541
+        },
+        {
+            "h": 10,
+            "name": "golem_tiny_idle_5",
+            "w": 13,
+            "x": 2,
+            "y": 542
+        },
+        {
+            "h": 10,
+            "name": "golem_tiny_walk_1",
+            "w": 13,
+            "x": 36,
+            "y": 542
+        },
+        {
+            "h": 13,
+            "name": "golem_tiny_walk_2",
+            "w": 13,
+            "x": 1576,
+            "y": 525
+        },
+        {
+            "h": 11,
+            "name": "golem_tiny_walk_3",
+            "w": 13,
+            "x": 1410,
+            "y": 526
+        },
+        {
+            "h": 10,
+            "name": "golem_tiny_walk_4",
+            "w": 13,
+            "x": 1555,
+            "y": 541
+        },
+        {
+            "h": 9,
+            "name": "golem_tiny_walk_5",
+            "w": 13,
+            "x": 772,
+            "y": 542
+        },
+        {
+            "h": 13,
+            "name": "golem_tiny_walk_6",
+            "w": 13,
+            "x": 894,
+            "y": 525
+        },
+        {
+            "h": 11,
+            "name": "golem_tiny_walk_7",
+            "w": 13,
+            "x": 1461,
+            "y": 526
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "source_folder": "res/images/creatures/golem_tiny/",
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}

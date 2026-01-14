@@ -21,21 +21,21 @@
             "h": 20,
             "name": "explosion_medium_idle_1",
             "w": 20,
-            "x": 686,
+            "x": 662,
             "y": 463
         },
         {
             "h": 24,
             "name": "explosion_medium_idle_2",
             "w": 24,
-            "x": 784,
+            "x": 1095,
             "y": 408
         },
         {
             "h": 33,
             "name": "explosion_medium_idle_3",
             "w": 33,
-            "x": 686,
+            "x": 464,
             "y": 338
         },
         {
@@ -63,8 +63,8 @@
             "h": 42,
             "name": "explosion_medium_idle_7",
             "w": 46,
-            "x": 240,
-            "y": 270
+            "x": 699,
+            "y": 292
         },
         {
             "h": 42,
