@@ -269,6 +269,18 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 522866682,
+                    "name": "entity_behaviour",
+                    "properties": [
+                        {
+                            "id": 2951636756,
+                            "name": "behaviour",
+                            "variant_type": 1,
+                            "variant_value": 14
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
