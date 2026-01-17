@@ -84,6 +84,8 @@ const std::vector<math::Vector>& NavigationSystem::FindPath(const math::Vector& 
         const game::NavigationResult& nav_path = game::AStar(m_navmesh, start_position, end_position);
         if(nav_path.result == AStarResult::FAILED)
             return empty_path;
+        else if(nav_path.result == AStarResult::SUCCESS && nav_path.path_indices.empty())
+            return empty_path;
 
         MONO_ASSERT(!nav_path.path_indices.empty());
 
