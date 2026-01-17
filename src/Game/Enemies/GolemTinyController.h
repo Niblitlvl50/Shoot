@@ -9,7 +9,6 @@
 #include "Physics/IBody.h"
 #include "StateMachine.h"
 
-#include "Behaviour/HomingBehaviour.h"
 #include "Behaviour/TrackingBehaviour.h"
 
 #include <memory>
@@ -35,28 +34,27 @@ namespace game
 
         enum class States
         {
-            SLEEPING,
-            AWAKE,
-            RETARGET,
+            IDLE,
+            WANDER,
             TRACKING,
-            HUNT
+            STOMP_ATTACK,
+            ROLL_ATTACK,
         };
 
-        void ToSleep();
-        void SleepState(const mono::UpdateContext& update_context);
+        void ToIdle();
+        void IdleState(const mono::UpdateContext& update_context);
 
-        void ToAwake();
-        void AwakeState(const mono::UpdateContext& update_context);
-
-        void ToRetarget();
-        void RetargetState(const mono::UpdateContext& update_context);
-
+        void ToWander();
         void ToTracking();
         void TrackingState(const mono::UpdateContext& update_context);
 
-        void ToHunt();
-        void HuntState(const mono::UpdateContext& update_context);
-        void ExitHunt();
+        void ToStompAttack();
+        void StompAttackState(const mono::UpdateContext& update_context);
+        
+        void ToRollAttack();
+        void RollAttackState(const mono::UpdateContext& update_context);
+
+        void ExitAttack();
 
         mono::TransformSystem* m_transform_system;
         mono::IEntityManager* m_entity_manager;
@@ -68,11 +66,10 @@ namespace game
         const uint32_t m_entity_id;
         float m_visibility_check_timer_s;
         float m_retarget_timer_s;
-        bool m_force_update_path;
 
         using MyStateMachine = StateMachine<States, const mono::UpdateContext&>;
         MyStateMachine m_states;
-        HomingBehaviour m_homing_movement;
+
         TrackingBehaviour m_tracking_movement;
         mono::ISprite* m_sprite;
         ITargetPtr m_aquired_target;

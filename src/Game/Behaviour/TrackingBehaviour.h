@@ -54,6 +54,7 @@ namespace game
         const math::Vector& GetTrackingPosition() const;
         TrackingDebugData GetDebugData() const;
 
+        TrackingResult Run(const mono::UpdateContext& update_context);
         TrackingResult Run(const mono::UpdateContext& update_context, const math::Vector& tracking_position);
 
     private:

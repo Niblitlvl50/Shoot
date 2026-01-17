@@ -35,6 +35,11 @@ void TrackingBehaviour::SetTrackingSpeed(float meter_per_second)
     m_meter_per_second = meter_per_second;
 }
 
+TrackingResult TrackingBehaviour::Run(const mono::UpdateContext& update_context)
+{
+    return Run(update_context, m_path->GetEndPoint());
+}
+
 TrackingResult TrackingBehaviour::Run(const mono::UpdateContext& update_context, const math::Vector& tracking_position)
 {
     TrackingResult result;
