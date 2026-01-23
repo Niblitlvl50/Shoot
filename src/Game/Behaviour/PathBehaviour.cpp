@@ -47,24 +47,26 @@ PathResult PathBehaviour::Run(float delta_s)
     m_current_position += m_meter_per_second * delta_s;
     math::Vector current_position = m_entity_body->GetPosition();
     const mono::PositionResult position_result = m_path->GetPositionByLength(m_current_position);
-    const math::Vector& path_position = position_result.path_position;
-
-    if(path_position == math::ZeroVec)
+    if(position_result.valid_position)
     {
-
+       constexpr float move_halflife = 0.3f;
+        
+        math::critical_spring_damper(
+            current_position,
+            m_move_velocity,
+            position_result.path_position,
+            math::ZeroVec,
+            move_halflife,
+            delta_s);
+            
+        m_entity_body->SetVelocity(m_move_velocity);
     }
 
-    constexpr float move_halflife = 0.3f;
-
-    math::critical_spring_damper(
-        current_position,
-        m_move_velocity,
-        path_position,
-        math::ZeroVec,
-        move_halflife,
-        delta_s);
-
-    m_entity_body->SetVelocity(m_move_velocity);
+    const mono::LengthResult length_result = m_path->GetLengthFromPosition(m_entity_body->GetPosition());
+    if(length_result.valid_length)
+    {
+        result.distance_to_target = m_path->Length() - length_result.path_length;
+    }
 
     //const math::Vector mass_adjusted_impulse = m_move_velocity * m_entity_body->GetMass() * update_context.delta_s;
     //m_entity_body->ApplyLocalImpulse(mass_adjusted_impulse, math::ZeroVec);
