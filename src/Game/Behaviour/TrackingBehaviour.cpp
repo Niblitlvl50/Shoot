@@ -80,7 +80,8 @@ TrackingResult TrackingBehaviour::Run(const mono::UpdateContext& update_context,
     {
         m_current_position += m_meter_per_second * update_context.delta_s;
         math::Vector current_position = m_entity_body->GetPosition();
-        const math::Vector& path_position = m_path->GetPositionByLength(m_current_position);
+        const mono::PositionResult position_result = m_path->GetPositionByLength(m_current_position);
+        const math::Vector& path_position = position_result.path_position;
 
         constexpr float move_halflife = 0.3f;
 
@@ -111,7 +112,8 @@ bool TrackingBehaviour::UpdatePath(const math::Vector& tracking_position)
     if(find_path_result.result == AStarResult::SUCCESS)
     {
         m_path = mono::CreatePath(find_path_result.nav_points);
-        m_current_position = m_path->GetLengthFromPosition(position);
+        const mono::LengthResult result = m_path->GetLengthFromPosition(position);
+        m_current_position = result.valid_length;
         return true;
     }
 

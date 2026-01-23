@@ -46,7 +46,13 @@ PathResult PathBehaviour::Run(float delta_s)
 
     m_current_position += m_meter_per_second * delta_s;
     math::Vector current_position = m_entity_body->GetPosition();
-    const math::Vector& path_position = m_path->GetPositionByLength(m_current_position);
+    const mono::PositionResult position_result = m_path->GetPositionByLength(m_current_position);
+    const math::Vector& path_position = position_result.path_position;
+
+    if(path_position == math::ZeroVec)
+    {
+
+    }
 
     constexpr float move_halflife = 0.3f;
 

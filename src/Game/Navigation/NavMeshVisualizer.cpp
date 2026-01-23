@@ -135,8 +135,8 @@ void NavmeshVisualizer::DrawInteractivePath(mono::IRenderer& renderer) const
         const std::vector<math::Vector>& path_points = m_path->GetPathPoints();
         renderer.DrawPolyline(path_points, mono::Color::MAGENTA, 2.0f);
 
-        const math::Vector point_on_line = m_path->GetPositionByLength(m_at_length);
-        renderer.DrawPoints({ point_on_line }, mono::Color::CYAN, 4.0f);
+        const mono::PositionResult result = m_path->GetPositionByLength(m_at_length);
+        renderer.DrawPoints({ result.path_position }, mono::Color::CYAN, 4.0f);
     }
 
     std::vector<math::Vector> start_node_points;
@@ -177,7 +177,10 @@ mono::EventResult NavmeshVisualizer::OnMouseUp(const event::MouseUpEvent& event)
 mono::EventResult NavmeshVisualizer::OnMouseMove(const event::MouseMotionEvent& event)
 {
     if(game::g_draw_navmesh && m_path)
-        m_at_length = m_path->GetLengthFromPosition(math::Vector(event.world_x, event.world_y));
+    {
+        const mono::LengthResult result = m_path->GetLengthFromPosition(math::Vector(event.world_x, event.world_y));
+        m_at_length = result.path_length;
+    }
 
     return mono::EventResult::PASS_ON;
 }

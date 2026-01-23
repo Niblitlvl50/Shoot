@@ -39,7 +39,8 @@ namespace tweak_values
     //constexpr uint32_t collision_damage = 25;
 
     constexpr float stomp_distance = 1.0f;
-    constexpr float roll_distance = 3.0f;
+    constexpr float roll_min_distance = 1.5f;
+    constexpr float roll_max_distance = 2.5f;
     constexpr float shockwave_radius = 2.0f;
     constexpr float shockwave_magnitude = 5.0f;
 
@@ -69,6 +70,7 @@ GolemTinyController::GolemTinyController(uint32_t entity_id, mono::SystemContext
     m_tracking_movement.SetTrackingSpeed(tweak_values::velocity_m_per_s);
 
     m_path_behaviour.Init(body);
+    m_path_behaviour.SetTrackingSpeed(2.5f);
 
     using namespace std::placeholders;
 
@@ -95,11 +97,15 @@ void GolemTinyController::Update(const mono::UpdateContext& update_context)
 
     m_states.UpdateState(update_context);
 
-    if(m_aquired_target && m_aquired_target->IsValid())
+    const States active_state = m_states.ActiveState();
+    const bool can_perform_attach = (active_state != States::STOMP_ATTACK && active_state != States::ROLL_ATTACK);
+    const bool has_valid_target = m_aquired_target && m_aquired_target->IsValid();
+    if(can_perform_attach && has_valid_target)
     {
         const math::Vector& entity_position = m_transform_system->GetWorldPosition(m_entity_id);
         
-        const bool perform_roll_attack = m_aquired_target->IsWithinDistance(entity_position, tweak_values::roll_distance);
+        const bool perform_roll_attack = m_aquired_target->IsWithinRange(
+            entity_position, tweak_values::roll_min_distance, tweak_values::roll_max_distance);
         if(perform_roll_attack)
             m_states.TransitionTo(States::ROLL_ATTACK);
 
@@ -121,7 +127,8 @@ void GolemTinyController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
     const math::Vector world_position = m_transform_system->GetWorldPosition(m_entity_id);
     debug_drawer->DrawCircle(world_position, tweak_values::engage_distance, mono::Color::MAGENTA);
     debug_drawer->DrawCircle(world_position, tweak_values::stomp_distance, mono::Color::RED);
-    debug_drawer->DrawCircle(world_position, tweak_values::roll_distance, mono::Color::ORANGE);
+    debug_drawer->DrawCircle(world_position, tweak_values::roll_min_distance, mono::Color::ORANGE);
+    debug_drawer->DrawCircle(world_position, tweak_values::roll_max_distance, mono::Color::ORANGE);
 
     const auto state_to_string = [](States state) {
         switch(state)
