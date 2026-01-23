@@ -138,7 +138,7 @@ void FlamingSkullBossController::SleepState(const mono::UpdateContext& update_co
     if(!m_aquired_target->IsValid())
         return;
 
-    const bool within_engage_range = m_aquired_target->IsWithinRange(entity_position, tweak_values::trigger_distance);
+    const bool within_engage_range = m_aquired_target->IsWithinDistance(entity_position, tweak_values::trigger_distance);
     if(within_engage_range)
     {
         const bool sees_target = m_target_system->SeesTarget(m_entity_id, m_aquired_target.get());

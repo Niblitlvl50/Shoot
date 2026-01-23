@@ -2,6 +2,7 @@
 #pragma once
 
 #include "IGameSystem.h"
+#include "NavMesh.h"
 #include "NavmeshData.h"
 #include "Physics/PhysicsFwd.h"
 
@@ -13,6 +14,12 @@ namespace game
         float time_ms;
         int nodes_evaluated;
         std::vector<math::Vector> points;
+    };
+
+    struct FindPathResult
+    {
+        AStarResult result;
+        std::vector<math::Vector> nav_points;
     };
 
     class NavigationSystem : public mono::IGameSystem
@@ -27,7 +34,7 @@ namespace game
 
         void SetupNavmesh(const math::Vector& start, const math::Vector& end, float density, mono::PhysicsSpace* physics_space);
         const NavmeshContext* GetNavmeshContext() const;
-        const std::vector<math::Vector>& FindPath(const math::Vector& start, const math::Vector& end);
+        FindPathResult FindPath(const math::Vector& start, const math::Vector& end);
         const std::vector<RecentPath>& GetRecentPaths() const;
         int GetNumFindPath() const;
 

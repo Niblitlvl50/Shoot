@@ -10,6 +10,7 @@
 #include "StateMachine.h"
 
 #include "Behaviour/TrackingBehaviour.h"
+#include "Behaviour/PathBehaviour.h"
 
 #include <memory>
 
@@ -45,7 +46,10 @@ namespace game
         void IdleState(const mono::UpdateContext& update_context);
 
         void ToWander();
+
         void ToTracking();
+        void ExitTracking();
+
         void TrackingState(const mono::UpdateContext& update_context);
 
         void ToStompAttack();
@@ -67,10 +71,17 @@ namespace game
         float m_visibility_check_timer_s;
         float m_retarget_timer_s;
 
+        bool m_update_spawn_position = true;
+        math::Vector m_spawn_position;
+
+        bool m_perform_roll_attack = false;
+
         using MyStateMachine = StateMachine<States, const mono::UpdateContext&>;
         MyStateMachine m_states;
 
         TrackingBehaviour m_tracking_movement;
+        PathBehaviour m_path_behaviour;
+
         mono::ISprite* m_sprite;
         ITargetPtr m_aquired_target;
     };

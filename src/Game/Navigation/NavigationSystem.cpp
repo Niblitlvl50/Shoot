@@ -67,12 +67,16 @@ const NavmeshContext* NavigationSystem::GetNavmeshContext() const
     return &m_navmesh;
 }
 
-const std::vector<math::Vector>& NavigationSystem::FindPath(const math::Vector& start_position, const math::Vector& end_position)
+FindPathResult NavigationSystem::FindPath(const math::Vector& start_position, const math::Vector& end_position)
 {
+    FindPathResult find_path_result;
+    find_path_result.result = AStarResult::FAILED;
+
+    if(m_findpath_this_frame == NumRecentPaths)
+        return find_path_result;
+    
     m_findpath_this_frame++;
-
-    static const std::vector<math::Vector> empty_path;
-
+    
     RecentPath& recent_path = m_recent_paths[m_current_path_index % NumRecentPaths];
 
     {
@@ -82,10 +86,12 @@ const std::vector<math::Vector>& NavigationSystem::FindPath(const math::Vector& 
         SCOPED_TIMER_AUTO_CB(timer_callback);
 
         const game::NavigationResult& nav_path = game::AStar(m_navmesh, start_position, end_position);
+        find_path_result.result = nav_path.result;
+
         if(nav_path.result == AStarResult::FAILED)
-            return empty_path;
+            return find_path_result;
         else if(nav_path.result == AStarResult::SUCCESS && nav_path.path_indices.empty())
-            return empty_path;
+            return find_path_result;
 
         MONO_ASSERT(!nav_path.path_indices.empty());
 
@@ -100,9 +106,11 @@ const std::vector<math::Vector>& NavigationSystem::FindPath(const math::Vector& 
         recent_path.points.front() = start_position;
     }
 
+    find_path_result.nav_points = recent_path.points;
+
     m_current_path_index++;
 
-    return recent_path.points;
+    return find_path_result;
 }
 
 const std::vector<RecentPath>& NavigationSystem::GetRecentPaths() const

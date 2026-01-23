@@ -1,31 +1,33 @@
 
 #include "PathBehaviour.h"
 
+#include "Math/CriticalDampedSpring.h"
 #include "Paths/IPath.h"
 #include "Physics/IBody.h"
-#include "Physics/IConstraint.h"
-#include "Physics/PhysicsSystem.h"
 #include "System/Debug.h"
-
 
 using namespace game;
 
-PathBehaviour::PathBehaviour(
-    mono::IBody* entity_body, const mono::IPath* path, mono::PhysicsSystem* physics_system)
-    : m_path(path)
-    , m_physics_system(physics_system)
-    , m_current_position(0.0f)
-    , m_meter_per_second(1.0f)
+PathBehaviour::PathBehaviour()
+{ }
+
+PathBehaviour::PathBehaviour(mono::IBody* entity_body, mono::IPathPtr path)
 {
-    MONO_ASSERT(entity_body->GetType() == mono::BodyType::DYNAMIC);
-    m_control_body = m_physics_system->CreateKinematicBody();
-    m_spring = m_physics_system->CreateSpring(m_control_body, entity_body, math::ZeroVec, math::ZeroVec, 0.0f, 200.0f, 10.0f);
+    Init(entity_body);
+    SetPath(std::move(path));
 }
 
 PathBehaviour::~PathBehaviour()
+{ }
+
+void PathBehaviour::Init(mono::IBody* entity_body)
 {
-    m_physics_system->ReleaseConstraint(m_spring);
-    m_physics_system->ReleaseKinematicBody(m_control_body);
+    m_entity_body = entity_body;
+}
+
+void PathBehaviour::SetPath(mono::IPathPtr path)
+{
+    m_path = std::move(path);
 }
 
 void PathBehaviour::SetTrackingSpeed(float meter_per_second)
@@ -33,13 +35,33 @@ void PathBehaviour::SetTrackingSpeed(float meter_per_second)
     m_meter_per_second = meter_per_second;
 }
 
-void PathBehaviour::Run(const mono::UpdateContext& update_context)
+PathResult PathBehaviour::Run(float delta_s)
 {
-    m_current_position += m_meter_per_second * update_context.delta_s;
+    PathResult result;
+    result.distance_to_target = math::INF;
+    result.is_stuck = false;
 
+    if(!m_path)
+        return result;
+
+    m_current_position += m_meter_per_second * delta_s;
+    math::Vector current_position = m_entity_body->GetPosition();
     const math::Vector& path_position = m_path->GetPositionByLength(m_current_position);
-    m_control_body->SetPosition(path_position);
 
-    if(m_current_position > m_path->Length())
-        m_current_position = 0.0f;
+    constexpr float move_halflife = 0.3f;
+
+    math::critical_spring_damper(
+        current_position,
+        m_move_velocity,
+        path_position,
+        math::ZeroVec,
+        move_halflife,
+        delta_s);
+
+    m_entity_body->SetVelocity(m_move_velocity);
+
+    //const math::Vector mass_adjusted_impulse = m_move_velocity * m_entity_body->GetMass() * update_context.delta_s;
+    //m_entity_body->ApplyLocalImpulse(mass_adjusted_impulse, math::ZeroVec);
+
+    return result;
 }

@@ -49,8 +49,8 @@ InvaderPathController::InvaderPathController(uint32_t entity_id, uint32_t path_e
     const mono::PathComponent* path_component = path_system->GetPath(path_entity_id);
     const math::Matrix& path_entity_transform = transform_system->GetWorld(path_entity_id);
 
-    m_path = mono::CreatePath(path_component->points, path_entity_transform);
-    m_path_behaviour = std::make_unique<PathBehaviour>(m_body, m_path.get(), physics_system);
+    mono::IPathPtr path = mono::CreatePath(path_component->points, path_entity_transform);
+    m_path_behaviour = std::make_unique<PathBehaviour>(m_body, std::move(path));
     m_path_behaviour->SetTrackingSpeed(tweak_values::path_speed);
 
     game::WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
@@ -64,7 +64,7 @@ InvaderPathController::~InvaderPathController()
 
 void InvaderPathController::Update(const mono::UpdateContext& update_context)
 {
-    m_path_behaviour->Run(update_context);
+    m_path_behaviour->Run(update_context.delta_s);
 
     const math::Vector velocity = m_body->GetVelocity();
     const bool is_going_left = (velocity.x < 0.0f);

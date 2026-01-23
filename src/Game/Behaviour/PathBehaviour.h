@@ -2,30 +2,45 @@
 #pragma once
 
 #include "MonoFwd.h"
+#include "MonoPtrFwd.h"
 #include "Physics/PhysicsFwd.h"
+#include "Math/Vector.h"
+
 #include <cstdint>
 
 namespace game
 {
+    struct PathResult
+    {
+        float distance_to_target;
+        bool is_stuck;
+    };
+
+    struct PathDebugData
+    {
+
+    };
+
     class PathBehaviour
     {
     public:
 
-        PathBehaviour(mono::IBody* body, const mono::IPath* path, mono::PhysicsSystem* physics_system);
+        PathBehaviour();
+        PathBehaviour(mono::IBody* body, mono::IPathPtr path);
         ~PathBehaviour();
 
+        void Init(mono::IBody* body);
+        void SetPath(const mono::IPathPtr path);
         void SetTrackingSpeed(float meter_per_second);
-        void Run(const mono::UpdateContext& update_context);
+        PathResult Run(float delta_s);
 
     private:
 
-        const mono::IPath* m_path;
-        mono::PhysicsSystem* m_physics_system;
+        mono::IPathPtr m_path;
+        mono::IBody* m_entity_body;
 
-        float m_current_position;
-        float m_meter_per_second;
-
-        mono::IBody* m_control_body;
-        mono::IConstraint* m_spring;
+        float m_current_position = 0.0f;
+        float m_meter_per_second = 1.0f;
+        math::Vector m_move_velocity;
     };
 }

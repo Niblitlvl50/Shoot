@@ -37,6 +37,14 @@ void TrackingBehaviour::SetTrackingSpeed(float meter_per_second)
 
 TrackingResult TrackingBehaviour::Run(const mono::UpdateContext& update_context)
 {
+    if(!m_path)
+    {
+        TrackingResult result;
+        result.state = TrackingState::NO_PATH;
+        result.distance_to_target = math::INF;
+        return result;
+    }
+
     return Run(update_context, m_path->GetEndPoint());
 }
 
@@ -98,14 +106,16 @@ TrackingResult TrackingBehaviour::Run(const mono::UpdateContext& update_context,
 bool TrackingBehaviour::UpdatePath(const math::Vector& tracking_position)
 {
     const math::Vector position = m_entity_body->GetPosition();
-    const std::vector<math::Vector>& found_path = m_navigation_system->FindPath(position, tracking_position);
-    if(found_path.empty())
-        return false;
+    const FindPathResult& find_path_result = m_navigation_system->FindPath(position, tracking_position);
+    
+    if(find_path_result.result == AStarResult::SUCCESS)
+    {
+        m_path = mono::CreatePath(find_path_result.nav_points);
+        m_current_position = m_path->GetLengthFromPosition(position);
+        return true;
+    }
 
-    m_path = mono::CreatePath(found_path);
-    m_current_position = m_path->GetLengthFromPosition(position);
-
-    return true;
+    return false;
 }
 
 const math::Vector& TrackingBehaviour::GetTrackingPosition() const

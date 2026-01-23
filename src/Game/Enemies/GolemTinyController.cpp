@@ -21,6 +21,8 @@
 #include "Rendering/Sprite/SpriteProperties.h"
 #include "SystemContext.h"
 
+#include "Paths/IPath.h"
+#include "Paths/PathFactory.h"
 #include "EntitySystem/IEntityManager.h"
 #include "TransformSystem/TransformSystem.h"
 
@@ -28,19 +30,20 @@
 namespace tweak_values
 {
     constexpr float engage_distance = 4.0f;
-    constexpr float disengage_distance = 5.0f;
+    //constexpr float disengage_distance = 5.0f;
 
-    constexpr float time_before_hunt_s = 0.3f;
-    constexpr float visibility_check_interval_s = 1.0f;
-    constexpr float retarget_delay_s = 0.5f;
+    //constexpr float time_before_hunt_s = 0.3f;
+    //constexpr float visibility_check_interval_s = 1.0f;
+    constexpr float retarget_delay_s = 1.5f;
 
-    constexpr uint32_t collision_damage = 25;
+    //constexpr uint32_t collision_damage = 25;
 
     constexpr float stomp_distance = 1.0f;
+    constexpr float roll_distance = 3.0f;
     constexpr float shockwave_radius = 2.0f;
     constexpr float shockwave_magnitude = 5.0f;
 
-    constexpr float degrees_per_second = 180.0f;
+    //constexpr float degrees_per_second = 180.0f;
     constexpr float velocity_m_per_s = 0.4f;
 }
 
@@ -52,26 +55,27 @@ GolemTinyController::GolemTinyController(uint32_t entity_id, mono::SystemContext
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     m_navigation_system = system_context->GetSystem<game::NavigationSystem>();
+    m_entity_manager = system_context->GetSystem<mono::IEntityManager>();
+    m_damage_system = system_context->GetSystem<game::DamageSystem>();
+    m_target_system = system_context->GetSystem<game::TargetSystem>();
 
     mono::SpriteSystem* sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_sprite = sprite_system->GetSprite(entity_id);
 
     mono::IBody* body = m_physics_system->GetBody(entity_id);
     body->AddCollisionHandler(this);
-
+    
     m_tracking_movement.Init(body, m_navigation_system);
     m_tracking_movement.SetTrackingSpeed(tweak_values::velocity_m_per_s);
 
-    m_entity_manager = system_context->GetSystem<mono::IEntityManager>();
-    m_damage_system = system_context->GetSystem<game::DamageSystem>();
-    m_target_system = system_context->GetSystem<game::TargetSystem>();
+    m_path_behaviour.Init(body);
 
     using namespace std::placeholders;
 
     const MyStateMachine::StateTable& state_table = {
         MyStateMachine::MakeState(States::IDLE,         &GolemTinyController::ToIdle,       &GolemTinyController::IdleState, this),
         MyStateMachine::MakeState(States::WANDER,       &GolemTinyController::ToWander,     &GolemTinyController::TrackingState, this),
-        MyStateMachine::MakeState(States::TRACKING,     &GolemTinyController::ToTracking,   &GolemTinyController::TrackingState, this),
+        MyStateMachine::MakeState(States::TRACKING,     &GolemTinyController::ToTracking,   &GolemTinyController::TrackingState, &GolemTinyController::ExitTracking, this),
         MyStateMachine::MakeState(States::STOMP_ATTACK, &GolemTinyController::ToStompAttack,&GolemTinyController::StompAttackState, &GolemTinyController::ExitAttack, this),
         MyStateMachine::MakeState(States::ROLL_ATTACK,  &GolemTinyController::ToRollAttack, &GolemTinyController::RollAttackState, &GolemTinyController::ExitAttack, this),
     };
@@ -83,18 +87,26 @@ GolemTinyController::~GolemTinyController()
 
 void GolemTinyController::Update(const mono::UpdateContext& update_context)
 {
+    if(m_update_spawn_position)
+    {
+        m_spawn_position = m_transform_system->GetWorldPosition(m_entity_id);
+        m_update_spawn_position = false;
+    }
+
     m_states.UpdateState(update_context);
 
     if(m_aquired_target && m_aquired_target->IsValid())
     {
         const math::Vector& entity_position = m_transform_system->GetWorldPosition(m_entity_id);
-        const bool perform_stomp_attack = m_aquired_target->IsWithinRange(entity_position, tweak_values::stomp_distance);
+        
+        const bool perform_roll_attack = m_aquired_target->IsWithinDistance(entity_position, tweak_values::roll_distance);
+        if(perform_roll_attack)
+            m_states.TransitionTo(States::ROLL_ATTACK);
+
+        const bool perform_stomp_attack = m_aquired_target->IsWithinDistance(entity_position, tweak_values::stomp_distance);
         if(perform_stomp_attack)
             m_states.TransitionTo(States::STOMP_ATTACK);
     }
-
-    // When roll attack?
-    //m_states.TransitionTo(States::ROLL_ATTACK);
 
     const mono::IBody* body = m_physics_system->GetBody(m_entity_id);
     const math::Vector& velocity = body->GetVelocity();
@@ -108,7 +120,8 @@ void GolemTinyController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
 {
     const math::Vector world_position = m_transform_system->GetWorldPosition(m_entity_id);
     debug_drawer->DrawCircle(world_position, tweak_values::engage_distance, mono::Color::MAGENTA);
-    debug_drawer->DrawCircle(world_position, tweak_values::disengage_distance, mono::Color::CYAN);
+    debug_drawer->DrawCircle(world_position, tweak_values::stomp_distance, mono::Color::RED);
+    debug_drawer->DrawCircle(world_position, tweak_values::roll_distance, mono::Color::ORANGE);
 
     const auto state_to_string = [](States state) {
         switch(state)
@@ -168,6 +181,7 @@ void GolemTinyController::OnSeparateFrom(mono::IBody* body)
 void GolemTinyController::ToIdle()
 {
     m_retarget_timer_s = 0.0f;
+    m_sprite->SetAnimation("idle");
 }
 
 void GolemTinyController::IdleState(const mono::UpdateContext& update_context)
@@ -188,9 +202,8 @@ void GolemTinyController::IdleState(const mono::UpdateContext& update_context)
 
 void GolemTinyController::ToWander()
 {
-    const math::Vector& entity_position = m_transform_system->GetWorldPosition(m_entity_id);
     const math::Vector& point_1m_away = math::RandomPointInCircle(1.0f);
-    m_tracking_movement.UpdatePath(entity_position + point_1m_away);
+    m_tracking_movement.UpdatePath(m_spawn_position + point_1m_away);
 
     m_sprite->SetAnimation("walk");
 }
@@ -200,14 +213,19 @@ void GolemTinyController::ToTracking()
     const bool target_is_valid = m_aquired_target->IsValid();
     if(target_is_valid)
         m_tracking_movement.UpdatePath(m_aquired_target->Position());
+    else
+        m_states.TransitionTo(States::IDLE);
 
     m_sprite->SetAnimation("walk");
 }
 
+void GolemTinyController::ExitTracking()
+{
+    m_update_spawn_position = true;
+}
+
 void GolemTinyController::TrackingState(const mono::UpdateContext& update_context)
 {
-    //const math::Vector& target_position = m_aquired_target->Position();
-
     const TrackingResult result = m_tracking_movement.Run(update_context);
     switch(result.state)
     {
@@ -249,41 +267,42 @@ void GolemTinyController::StompAttackState(const mono::UpdateContext& update_con
 
 void GolemTinyController::ToRollAttack()
 {
-    m_sprite->SetAnimation("idle");
-
-    const math::Vector& entity_position = m_transform_system->GetWorldPosition(m_entity_id);
-    const math::Vector& target_position = m_aquired_target->Position();
-
-    const math::Vector delta = (target_position - entity_position);
-    const float angle = math::AngleFromVector(delta);
-    //m_homing_movement.SetHeading(angle);
-}
-
-void GolemTinyController::RollAttackState(const mono::UpdateContext& update_context)
-{
-    if(!m_aquired_target->IsValid())
+    if(!m_aquired_target || !m_aquired_target->IsValid())
     {
         m_states.TransitionTo(States::IDLE);
         return;
     }
 
-    const math::Vector& target_entity_position = m_transform_system->GetWorldPosition(m_aquired_target->TargetId());
+    const math::Vector& entity_position = m_transform_system->GetWorldPosition(m_entity_id);
+    const math::Vector& target_position = m_aquired_target->Position();
 
-    //m_homing_movement.SetTargetPosition(target_entity_position);
-    //const game::HomingResult result = m_homing_movement.Run(update_context);
-    //const math::Vector new_direction = math::VectorFromAngle(result.new_heading);
+    const std::vector<math::Vector>& path_points = {
+        entity_position, target_position
+    };
 
-    /*
-    if(new_direction.x < 0.0f)
-    m_sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
-    else
-    m_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
-    */
-    
-    m_states.TransitionTo(States::IDLE);
+    mono::IPathPtr path_ptr = mono::CreatePath(path_points);
+    m_path_behaviour.SetPath(std::move(path_ptr));
+
+    m_perform_roll_attack = false;
+
+    const auto callback = [this](uint32_t sprite_id) {
+        m_perform_roll_attack = true;
+    };
+    m_sprite->SetAnimation("prepare_roll", callback);
+}
+
+void GolemTinyController::RollAttackState(const mono::UpdateContext& update_context)
+{
+    if(!m_perform_roll_attack)
+        return;
+
+    const PathResult path_result = m_path_behaviour.Run(update_context.delta_s);
+    if(path_result.distance_to_target < 0.1f || path_result.is_stuck)
+        m_states.TransitionTo(States::IDLE);
 }
 
 void GolemTinyController::ExitAttack()
 {
+    m_update_spawn_position = true;
     m_aquired_target = nullptr;
 }

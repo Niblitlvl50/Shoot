@@ -100,7 +100,7 @@ void BombThrowerController::Idle(const mono::UpdateContext& update_context)
     else 
         sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 
-    const bool is_within_range = m_aquired_target->IsWithinRange(world_position, tweak_values::attack_range);
+    const bool is_within_range = m_aquired_target->IsWithinDistance(world_position, tweak_values::attack_range);
     if(is_within_range)
     {
         m_states.TransitionTo(States::PREPARE_ATTACK);

@@ -30,7 +30,7 @@
             "name": "idle"
         },
         {
-            "frame_duration": 140,
+            "frame_duration": 120,
             "frames": [
                 15,
                 16,
@@ -42,6 +42,21 @@
             ],
             "loop": true,
             "name": "walk"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19
+            ],
+            "loop": false,
+            "name": "prepare_roll"
         }
     ],
     "frames": [

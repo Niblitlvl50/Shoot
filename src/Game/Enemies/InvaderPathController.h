@@ -25,7 +25,6 @@ namespace game
 
         int m_fire_count;
         float m_fire_cooldown_s;
-        mono::IPathPtr m_path;
 
         std::unique_ptr<class PathBehaviour> m_path_behaviour;
         IWeaponPtr m_weapon;

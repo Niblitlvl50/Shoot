@@ -5,6 +5,7 @@
 #include "Util/Algorithm.h"
 #include "CollisionConfiguration.h"
 
+#include "Math/MathFunctions.h"
 #include "Physics/PhysicsSystem.h"
 #include "Physics/PhysicsSpace.h"
 #include "TransformSystem/TransformSystem.h"
@@ -37,9 +38,17 @@ namespace game
             return m_transform_system->GetWorldPosition(m_target_id);
         }
 
-        bool IsWithinRange(const math::Vector& position, float distance) const override
+        bool IsWithinDistance(const math::Vector& position, float distance) const override
         {
-            return math::DistanceBetweenSquared(Position(), position) <= (distance * distance);
+            return math::DistanceBetweenSquared(Position(), position) <= math::Square(distance);
+        }
+
+        bool IsWithinRange(const math::Vector& position, float min_range, float max_range) const override
+        {
+            const float distance_sq = math::DistanceBetweenSquared(Position(), position);
+            return 
+                distance_sq >= math::Square(min_range) && 
+                distance_sq <= math::Square(max_range);
         }
 
         void InvalidateTarget()

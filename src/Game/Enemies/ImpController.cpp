@@ -142,7 +142,7 @@ void ImpController::Idle(const mono::UpdateContext& update_context)
     else 
         m_sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
 
-    const bool is_within_range = m_aquired_target->IsWithinRange(world_position, tweak_values::activate_distance_to_player_threshold);
+    const bool is_within_range = m_aquired_target->IsWithinDistance(world_position, tweak_values::activate_distance_to_player_threshold);
     if(is_within_range)
     {
         const bool transition_to_attack =
