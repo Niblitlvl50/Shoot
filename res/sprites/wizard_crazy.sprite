@@ -40,85 +40,85 @@
             "h": 31,
             "name": "wizard_crazy_idle_1",
             "w": 16,
-            "x": 332,
-            "y": 355
+            "x": 1477,
+            "y": 372
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_2",
             "w": 16,
-            "x": 279,
-            "y": 356
+            "x": 332,
+            "y": 355
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_3",
-            "w": 14,
-            "x": 1953,
-            "y": 373
-        },
-        {
-            "h": 31,
-            "name": "wizard_crazy_idle_4",
             "w": 14,
             "x": 1971,
             "y": 373
         },
         {
             "h": 31,
-            "name": "wizard_crazy_idle_5",
+            "name": "wizard_crazy_idle_4",
             "w": 14,
             "x": 1935,
             "y": 373
         },
         {
             "h": 31,
+            "name": "wizard_crazy_idle_5",
+            "w": 14,
+            "x": 1953,
+            "y": 373
+        },
+        {
+            "h": 31,
             "name": "wizard_crazy_idle_6",
             "w": 15,
-            "x": 1400,
-            "y": 373
+            "x": 1976,
+            "y": 338
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_7",
             "w": 16,
-            "x": 239,
+            "x": 279,
             "y": 356
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_8",
             "w": 16,
-            "x": 219,
+            "x": 259,
             "y": 356
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_9",
             "w": 16,
-            "x": 299,
+            "x": 239,
             "y": 356
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_10",
             "w": 16,
-            "x": 259,
+            "x": 299,
             "y": 356
         },
         {
             "h": 31,
             "name": "wizard_crazy_run_1",
             "w": 16,
-            "x": 1477,
-            "y": 372
+            "x": 219,
+            "y": 356
         },
         {
             "h": 31,
             "name": "wizard_crazy_run_2",
             "w": 15,
-            "x": 1976,
-            "y": 338
+            "x": 1172,
+            "y": 373
         },
         {
             "h": 31,
@@ -138,7 +138,7 @@
             "h": 30,
             "name": "wizard_crazy_run_5",
             "w": 16,
-            "x": 1124,
+            "x": 1013,
             "y": 374
         },
         {
@@ -173,7 +173,7 @@
             "h": 30,
             "name": "wizard_crazy_run_10",
             "w": 16,
-            "x": 1013,
+            "x": 1124,
             "y": 374
         }
     ],

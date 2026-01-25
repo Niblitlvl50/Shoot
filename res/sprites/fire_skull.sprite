@@ -36,49 +36,49 @@
             "h": 23,
             "name": "fire_skull_active_1",
             "w": 17,
-            "x": 65,
+            "x": 107,
             "y": 437
         },
         {
             "h": 23,
             "name": "fire_skull_active_2",
             "w": 17,
-            "x": 44,
+            "x": 128,
             "y": 437
         },
         {
             "h": 26,
             "name": "fire_skull_active_3",
             "w": 17,
-            "x": 1756,
+            "x": 1630,
             "y": 407
         },
         {
             "h": 26,
             "name": "fire_skull_active_4",
             "w": 17,
-            "x": 1735,
+            "x": 1651,
             "y": 407
         },
         {
             "h": 23,
             "name": "fire_skull_active_5",
             "w": 17,
-            "x": 128,
+            "x": 149,
             "y": 437
         },
         {
             "h": 23,
             "name": "fire_skull_active_6",
             "w": 17,
-            "x": 149,
+            "x": 2,
             "y": 437
         },
         {
             "h": 26,
             "name": "fire_skull_active_7",
             "w": 17,
-            "x": 1714,
+            "x": 1672,
             "y": 407
         },
         {
@@ -92,28 +92,28 @@
             "h": 23,
             "name": "fire_skull_idle_1",
             "w": 17,
-            "x": 2,
+            "x": 23,
             "y": 437
         },
         {
             "h": 23,
             "name": "fire_skull_idle_2",
             "w": 17,
-            "x": 23,
+            "x": 44,
             "y": 437
         },
         {
             "h": 26,
             "name": "fire_skull_idle_3",
             "w": 17,
-            "x": 1609,
+            "x": 1714,
             "y": 407
         },
         {
             "h": 26,
             "name": "fire_skull_idle_4",
             "w": 17,
-            "x": 1672,
+            "x": 1735,
             "y": 407
         },
         {
@@ -127,21 +127,21 @@
             "h": 23,
             "name": "fire_skull_idle_6",
             "w": 17,
-            "x": 107,
+            "x": 65,
             "y": 437
         },
         {
             "h": 26,
             "name": "fire_skull_idle_7",
             "w": 17,
-            "x": 1651,
+            "x": 1609,
             "y": 407
         },
         {
             "h": 26,
             "name": "fire_skull_idle_8",
             "w": 17,
-            "x": 1630,
+            "x": 1756,
             "y": 407
         }
     ],

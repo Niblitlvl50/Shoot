@@ -34,14 +34,14 @@
             "h": 15,
             "name": "fire_elemental_small_idle_1",
             "w": 9,
-            "x": 1503,
+            "x": 1451,
             "y": 507
         },
         {
             "h": 14,
             "name": "fire_elemental_small_idle_2",
             "w": 9,
-            "x": 629,
+            "x": 642,
             "y": 508
         },
         {
@@ -55,7 +55,7 @@
             "h": 16,
             "name": "fire_elemental_small_idle_4",
             "w": 9,
-            "x": 1001,
+            "x": 988,
             "y": 507
         },
         {
@@ -69,35 +69,35 @@
             "h": 13,
             "name": "fire_elemental_small_idle_6",
             "w": 9,
-            "x": 1962,
+            "x": 1949,
             "y": 525
         },
         {
             "h": 11,
             "name": "fire_elemental_small_move_1",
             "w": 12,
-            "x": 50,
+            "x": 2,
             "y": 527
         },
         {
             "h": 11,
             "name": "fire_elemental_small_move_2",
             "w": 15,
-            "x": 1283,
+            "x": 1264,
             "y": 526
         },
         {
             "h": 12,
             "name": "fire_elemental_small_move_3",
             "w": 14,
-            "x": 605,
+            "x": 641,
             "y": 526
         },
         {
             "h": 13,
             "name": "fire_elemental_small_move_4",
             "w": 15,
-            "x": 827,
+            "x": 846,
             "y": 508
         },
         {
@@ -111,21 +111,21 @@
             "h": 12,
             "name": "fire_elemental_small_move_6",
             "w": 16,
-            "x": 432,
+            "x": 452,
             "y": 526
         },
         {
             "h": 13,
             "name": "fire_elemental_small_move_7",
             "w": 15,
-            "x": 846,
+            "x": 827,
             "y": 508
         },
         {
             "h": 12,
             "name": "fire_elemental_small_move_8",
             "w": 15,
-            "x": 568,
+            "x": 549,
             "y": 526
         }
     ],

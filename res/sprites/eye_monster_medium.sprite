@@ -51,92 +51,92 @@
             "h": 17,
             "name": "eye_monster_medium_blink_1",
             "w": 17,
-            "x": 1261,
+            "x": 1240,
             "y": 486
         },
         {
             "h": 16,
             "name": "eye_monster_medium_blink_2",
             "w": 17,
-            "x": 206,
+            "x": 290,
             "y": 496
         },
         {
             "h": 16,
             "name": "eye_monster_medium_blink_3",
             "w": 17,
-            "x": 227,
-            "y": 496
+            "x": 390,
+            "y": 488
         },
         {
             "h": 16,
             "name": "eye_monster_medium_blink_4",
             "w": 17,
-            "x": 248,
+            "x": 227,
             "y": 496
         },
         {
             "h": 16,
             "name": "eye_monster_medium_blink_5",
             "w": 17,
-            "x": 269,
+            "x": 206,
             "y": 496
         },
         {
             "h": 16,
             "name": "eye_monster_medium_blink_6",
             "w": 17,
-            "x": 170,
+            "x": 432,
             "y": 488
         },
         {
             "h": 16,
             "name": "eye_monster_medium_blink_7",
             "w": 17,
-            "x": 290,
-            "y": 496
+            "x": 411,
+            "y": 488
         },
         {
             "h": 16,
             "name": "eye_monster_medium_blink_8",
             "w": 17,
-            "x": 432,
+            "x": 170,
             "y": 488
         },
         {
             "h": 17,
             "name": "eye_monster_medium_idle_1",
             "w": 17,
-            "x": 1219,
+            "x": 1261,
             "y": 486
         },
         {
             "h": 17,
             "name": "eye_monster_medium_idle_2",
             "w": 17,
-            "x": 1198,
+            "x": 1282,
             "y": 486
         },
         {
             "h": 16,
             "name": "eye_monster_medium_idle_3",
             "w": 17,
-            "x": 411,
-            "y": 488
+            "x": 269,
+            "y": 496
         },
         {
             "h": 16,
             "name": "eye_monster_medium_idle_4",
             "w": 17,
-            "x": 390,
-            "y": 488
+            "x": 248,
+            "y": 496
         },
         {
             "h": 17,
             "name": "eye_monster_medium_idle_5",
             "w": 17,
-            "x": 1051,
-            "y": 486
+            "x": 464,
+            "y": 487
         },
         {
             "h": 17,
@@ -156,28 +156,28 @@
             "h": 17,
             "name": "eye_monster_medium_idle_8",
             "w": 16,
-            "x": 546,
+            "x": 526,
             "y": 487
         },
         {
             "h": 14,
             "name": "eye_monster_medium_run_1",
             "w": 20,
-            "x": 1681,
+            "x": 1657,
             "y": 507
         },
         {
             "h": 14,
             "name": "eye_monster_medium_run_2",
             "w": 20,
-            "x": 1841,
+            "x": 1681,
             "y": 507
         },
         {
             "h": 14,
             "name": "eye_monster_medium_run_3",
             "w": 20,
-            "x": 1729,
+            "x": 1705,
             "y": 507
         },
         {
@@ -191,21 +191,21 @@
             "h": 14,
             "name": "eye_monster_medium_run_5",
             "w": 20,
-            "x": 1705,
+            "x": 1729,
             "y": 507
         },
         {
             "h": 14,
             "name": "eye_monster_medium_run_6",
             "w": 20,
-            "x": 1633,
+            "x": 1753,
             "y": 507
         },
         {
             "h": 14,
             "name": "eye_monster_medium_run_7",
             "w": 20,
-            "x": 1657,
+            "x": 1777,
             "y": 507
         },
         {
