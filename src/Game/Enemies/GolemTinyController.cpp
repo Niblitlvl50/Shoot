@@ -294,6 +294,7 @@ void GolemTinyController::ToRollAttack()
 
     const auto callback = [this](uint32_t sprite_id) {
         m_perform_roll_attack = true;
+        m_sprite->SetAnimation("roll");
     };
     m_sprite->SetAnimation("prepare_roll", callback);
 }
