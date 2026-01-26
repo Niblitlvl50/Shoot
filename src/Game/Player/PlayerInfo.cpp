@@ -175,6 +175,18 @@ bool game::IsPlayerOrFamiliar(uint32_t entity_id)
     return (player_info != std::end(g_players));
 }
 
+bool game::IsAnyPlayerAlive()
+{
+    for(int index = 0; index < game::n_players; ++index)
+    {
+        game::PlayerInfo& player_info = g_players[index];
+        if(player_info.player_state == game::PlayerState::ALIVE)
+            return true;
+    }
+
+    return false;
+}
+
 int game::GetPersistentExperienceForWeapon(uint32_t entity_id, uint32_t weapon_identifier_hash)
 {
     const game::PlayerInfo* player_info = FindPlayerInfoFromEntityId(entity_id);

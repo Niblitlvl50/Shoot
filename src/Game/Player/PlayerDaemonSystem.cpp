@@ -247,6 +247,10 @@ void PlayerDaemonSystem::SpawnLocalPlayer(int player_index, System::ControllerId
                 const int random_index = mono::RandomInt(0, m_death_sounds.size() -1);
                 m_death_sounds[random_index]->Play();
             }
+
+            const bool any_player_alive = game::IsAnyPlayerAlive();
+            if(!any_player_alive)
+                m_event_handler->DispatchEvent(game::GameOverEvent());
         }
         else if(type == DamageType::DAMAGED)
         {
