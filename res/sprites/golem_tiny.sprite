@@ -54,7 +54,7 @@
             "name": "prepare_roll"
         },
         {
-            "frame_duration": 100,
+            "frame_duration": 50,
             "frames": [
                 17,
                 18,
