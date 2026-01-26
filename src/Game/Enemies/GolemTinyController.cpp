@@ -36,7 +36,7 @@ namespace tweak_values
     //constexpr float visibility_check_interval_s = 1.0f;
     constexpr float retarget_delay_s = 1.5f;
 
-    //constexpr uint32_t collision_damage = 25;
+    constexpr uint32_t collision_damage = 25;
 
     constexpr float stomp_distance = 1.0f;
     constexpr float roll_min_distance = 1.5f;
@@ -98,9 +98,9 @@ void GolemTinyController::Update(const mono::UpdateContext& update_context)
     m_states.UpdateState(update_context);
 
     const States active_state = m_states.ActiveState();
-    const bool can_perform_attach = (active_state != States::STOMP_ATTACK && active_state != States::ROLL_ATTACK);
+    const bool can_perform_attack = (active_state != States::STOMP_ATTACK && active_state != States::ROLL_ATTACK);
     const bool has_valid_target = m_aquired_target && m_aquired_target->IsValid();
-    if(can_perform_attach && has_valid_target)
+    if(can_perform_attack && has_valid_target)
     {
         const math::Vector& entity_position = m_transform_system->GetWorldPosition(m_entity_id);
         
@@ -154,6 +154,12 @@ void GolemTinyController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
     char buffer[1024] = { };
     std::snprintf(buffer, std::size(buffer), "%s (%s)", active_state, previous_state);
     debug_drawer->DrawWorldText(buffer, world_position, mono::Color::OFF_WHITE);
+
+    if(m_aquired_target && m_aquired_target->IsValid())
+    {
+        const math::Vector& target_position = m_aquired_target->Position();
+        debug_drawer->DrawLine(world_position, target_position, 1.0f, mono::Color::MAGENTA);
+    }
 }
 
 const char* GolemTinyController::GetDebugCategory() const
@@ -164,20 +170,20 @@ const char* GolemTinyController::GetDebugCategory() const
 mono::CollisionResolve GolemTinyController::OnCollideWith(
     mono::IBody* body, const math::Vector& collision_point, const math::Vector& collision_normal, uint32_t category)
 {
-    /*
-    if(m_states.ActiveState() == States::IDLE)
-        m_visibility_check_timer_s = tweak_values::visibility_check_interval_s;
-
-    if(category == CollisionCategory::PLAYER || category == CollisionCategory::PROPS)
+    if(m_states.ActiveState() == States::ROLL_ATTACK)
     {
-        const math::Vector& entity_position = m_transform_system->GetWorldPosition(m_entity_id);
-        game::ShockwaveAt(m_physics_system, entity_position, tweak_values::shockwave_radius, tweak_values::shockwave_magnitude);
-        
-        const uint32_t other_entity_id = mono::PhysicsSystem::GetIdFromBody(body);
-        m_damage_system->ApplyDamage(other_entity_id, m_entity_id, NO_WEAPON_IDENTIFIER, DamageDetails(tweak_values::collision_damage, false, false, false));
-        m_damage_system->ApplyDamage(m_entity_id, m_entity_id, NO_WEAPON_IDENTIFIER, DamageDetails(1000, false, false, false));
+        if(category == CollisionCategory::PLAYER)
+        {
+            const uint32_t other_entity_id = mono::PhysicsSystem::GetIdFromBody(body);
+            m_damage_system->ApplyDamage(
+                other_entity_id,
+                m_entity_id,
+                NO_WEAPON_IDENTIFIER,
+                DamageDetails(tweak_values::collision_damage, false, false, false));
+
+            body->ApplyImpulse((-collision_normal) * 100.0f, math::ZeroVec);
+        }
     }
-    */
 
     return mono::CollisionResolve::NORMAL;
 }
