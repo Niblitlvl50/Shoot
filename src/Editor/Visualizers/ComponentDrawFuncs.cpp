@@ -53,7 +53,7 @@ void editor::DrawCircleShapeDetails(mono::IRenderer& renderer, const std::vector
 
     radius_value = std::max(radius_value, 0.0001f);
 
-    const math::Matrix& transform = math::CreateMatrixWithPosition(offset);
+    const math::Matrix& transform = math::CreateMatrixWithPosition(offset) * renderer.GetTransform();
     const auto scope = mono::MakeTransformScope(transform, &renderer);
 
     const mono::Color::RGBA color = is_sensor ? g_sensor_color : g_collision_color;
@@ -124,7 +124,7 @@ void editor::DrawSpawnPointDetails(mono::IRenderer& renderer, const std::vector<
 
     for(const math::Vector& spawn_point : spawn_points)
     {
-        const math::Matrix& transform = math::CreateMatrixWithPosition(spawn_point);
+        const math::Matrix& transform = math::CreateMatrixWithPosition(spawn_point) * renderer.GetTransform();
         const auto scope = mono::MakeTransformScope(transform, &renderer);
 
         renderer.DrawFilledCircle(math::Vector(radius, radius), 16, g_spawn_point_color);

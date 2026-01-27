@@ -413,16 +413,14 @@ namespace
             return false;
         }
 
-        uint32_t faction;
         bool emit_once;
-        FindAttribute(FACTION_PICKER_ATTRIBUTE, properties, faction, FallbackMode::SET_DEFAULT);
         FindAttribute(EMIT_ONCE_ATTRIBUTE, properties, emit_once, FallbackMode::SET_DEFAULT);
 
         const uint32_t enter_trigger_hash = hash::Hash(enter_trigger_name.text.c_str());
         const uint32_t exit_trigger_hash = hash::Hash(exit_trigger_name.text.c_str());
 
         mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
-        trigger_system->AddShapeTrigger(entity->id, enter_trigger_hash, exit_trigger_hash, faction, emit_once);
+        trigger_system->AddShapeTrigger(entity->id, enter_trigger_hash, exit_trigger_hash, emit_once);
 
         hash::HashRegisterString(enter_trigger_name.text.c_str());
         hash::HashRegisterString(exit_trigger_name.text.c_str());
