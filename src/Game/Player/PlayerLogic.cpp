@@ -70,7 +70,7 @@ namespace
     {
         int level;
         int current_level_experience;
-        int next_level_experience;        
+        int next_level_experience;
     };
     
     PlayerLevelExperience GetPlayerLevelExperience(int player_experience, const std::vector<int>& player_levels)
