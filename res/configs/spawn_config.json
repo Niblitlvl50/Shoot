@@ -8,5 +8,8 @@
         { "value": 10, "entity": "res/entities/monster_evil_putto.entity" },
         { "value": 10, "entity": "res/entities/monster_flying.entity" },
         { "value": 15, "entity": "res/entities/monster_fire_skull_boss.entity" }
+    ],
+    "spawn_sounds": [
+        "res/sound/impact/arrow-impact1.wav"
     ]
 }

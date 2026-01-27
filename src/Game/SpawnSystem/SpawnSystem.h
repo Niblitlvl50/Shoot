@@ -7,6 +7,7 @@
 #include "MonoFwd.h"
 
 #include "Util/ActiveVector.h"
+#include "System/Audio.h"
 
 #include <vector>
 #include <string>
@@ -133,6 +134,7 @@ namespace game
         mono::IEntityManager* m_entity_manager;
         mono::TransformSystem* m_transform_system;
 
+        std::vector<audio::ISoundPtr> m_spawn_sounds;
         std::vector<SpawnDefinition> m_spawn_definitions;
 
         mono::ActiveVector<SpawnPointComponent> m_spawn_points;

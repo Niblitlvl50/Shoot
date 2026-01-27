@@ -9,6 +9,7 @@
 #include "Util/Random.h"
 #include "Util/Algorithm.h"
 #include "System/File.h"
+#include "System/Audio.h"
 
 #include "nlohmann/json.hpp"
 
@@ -33,6 +34,12 @@ SpawnSystem::SpawnSystem(uint32_t n, mono::TriggerSystem* trigger_system, mono::
 {
     const std::vector<byte> file_data = file::FileReadAll("res/configs/spawn_config.json");
     const nlohmann::json& json = nlohmann::json::parse(file_data);
+
+    const std::vector<std::string> spawn_sounds = json["spawn_sounds"];
+    for(const std::string& sound : spawn_sounds)
+    {
+        m_spawn_sounds.push_back(audio::CreateSound(sound.c_str(), audio::SoundPlayback::ONCE));
+    }
 
     for(const auto& spawn_definition : json["spawn_definitions"])
     {
@@ -344,6 +351,15 @@ void SpawnSystem::Update(const mono::UpdateContext& update_context)
         }
 
         mono::Entity spawned_entity = m_entity_manager->SpawnEntity(spawn_definition.entity_file.c_str());
+        m_transform_system->SetTransform(spawned_entity.id, spawn_event.transform, mono::TransformState::CLIENT);
+        spawn_event.spawned_entity_id = spawned_entity.id;
+
+        if(!m_spawn_sounds.empty())
+        {
+            const audio::ISoundPtr& sound = m_spawn_sounds.front();
+            if(!sound->IsPlaying())
+                sound->Play();
+        }
 
         // This spawn might be from a entity spawn point.
         const bool has_spawn_point_component = m_spawn_points.IsActive(spawn_event.spawner_id);
@@ -367,10 +383,6 @@ void SpawnSystem::Update(const mono::UpdateContext& update_context)
                 spawn_component->active_spawns.push_back(spawn_callback_id);
             }
         }
-
-        m_transform_system->SetTransform(spawned_entity.id, spawn_event.transform, mono::TransformState::CLIENT);
-
-        spawn_event.spawned_entity_id = spawned_entity.id;
     }
 }
 
