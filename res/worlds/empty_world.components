@@ -19780,12 +19780,6 @@
                     "name": "shape_trigger",
                     "properties": [
                         {
-                            "id": 3614677686,
-                            "name": "faction_picker",
-                            "variant_type": 2,
-                            "variant_value": 256
-                        },
-                        {
                             "id": 2603146703,
                             "name": "trigger_name",
                             "variant_type": 11,
