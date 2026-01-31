@@ -108,7 +108,7 @@ bool ComponentProxy::IsLocked() const
 bool ComponentProxy::Intersects(const math::Vector& position) const
 {
     const bool is_locked = IsLocked();
-    if(is_locked)
+    if(is_locked && !System::IsKeyDown(Keycode::L_ALT))
         return false;
 
     const math::Quad& world_bb = m_transform_system->GetWorldBoundingBox(m_entity_id);
