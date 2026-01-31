@@ -211,8 +211,9 @@ PlayerLogic::PlayerLogic(
 
 PlayerLogic::~PlayerLogic()
 {
-    m_input_system->ReleaseContext(m_input_context);
+    Throw(0.0f);
 
+    m_input_system->ReleaseContext(m_input_context);
     m_pickup_system->UnregisterPickupTarget(m_entity_id);
     m_entity_system->ReleaseEntity(m_weapon_entity);
 }

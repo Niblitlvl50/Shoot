@@ -78,8 +78,6 @@ void game::CreateGameSystems(
 
     game::DamageSystem* damage_system =
         system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, physics_system, entity_system, trigger_system);
-    game::EntityLogicSystem* logic_system =
-        system_context.CreateSystem<game::EntityLogicSystem>(max_entities, &system_context, &event_handler);
     game::SpawnSystem* spawn_system =
         system_context.CreateSystem<game::SpawnSystem>(max_entities, trigger_system, entity_system, transform_system);
     system_context.CreateSystem<game::PickupSystem>(
@@ -102,6 +100,10 @@ void game::CreateGameSystems(
     system_context.CreateSystem<game::WorldEntityTrackingSystem>();
     game::TargetSystem* target_system =
         system_context.CreateSystem<game::TargetSystem>(transform_system, physics_system, damage_system);
+
+    game::EntityLogicSystem* logic_system =
+        system_context.CreateSystem<game::EntityLogicSystem>(max_entities, &system_context, &event_handler);
+
     system_context.CreateSystem<game::WeaponSystem>(
         transform_system, sprite_system, physics_system, entity_system, damage_system, camera_system, logic_system, target_system, &system_context);
 
