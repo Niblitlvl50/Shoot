@@ -10,7 +10,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "stone_lantern_2"
+                            "variant_value": "Lantern"
                         },
                         {
                             "id": 3647911389,
@@ -56,6 +56,52 @@
                             "name": "entity_reference",
                             "variant_type": 2,
                             "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 2050902347,
+                    "name": "interaction",
+                    "properties": [
+                        {
+                            "id": 648402708,
+                            "name": "interaction_type",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3146177751,
+                            "name": "sound_file",
+                            "variant_type": 6,
+                            "variant_value": "res/sound/pickups/pickup_gold.wav"
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "",
+                                "type": 0
+                            }
+                        },
+                        {
+                            "id": 3732203999,
+                            "name": "draw_name",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 1162497497,
+                    "name": "entity_tracker",
+                    "properties": [
+                        {
+                            "id": 282636455,
+                            "name": "entity_type",
+                            "variant_type": 1,
+                            "variant_value": 3
                         }
                     ]
                 },
@@ -167,7 +213,7 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "stone_lantern_2",
+            "name": "Lantern",
             "uuid_hash": 2692228689
         },
         {
