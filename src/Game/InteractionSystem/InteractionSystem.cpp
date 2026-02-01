@@ -6,6 +6,7 @@
 #include "Math/MathFunctions.h"
 #include "TransformSystem/TransformSystem.h"
 #include "System/Hash.h"
+#include "Util/Algorithm.h"
 
 #include <iterator>
 
@@ -30,6 +31,11 @@ void InteractionSystem::ReleaseComponent(uint32_t entity_id)
 {
     m_component_details[entity_id] = { false, true, nullptr };
     m_components.Release(entity_id);
+
+    const auto remove_by_id = [entity_id](const InteractionAndTrigger& interaction) {
+        return interaction.interaction_id == entity_id;
+    }; 
+    mono::remove_if(m_previous_active_interactions, remove_by_id);
 }
 
 void InteractionSystem::AddComponent(
