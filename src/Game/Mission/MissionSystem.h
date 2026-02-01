@@ -118,7 +118,6 @@ namespace game
         mono::TransformSystem* m_transform_system;
         mono::TriggerSystem* m_trigger_system;
 
-        uint32_t m_point_index;
         std::vector<std::string> m_spawnable_missions;
 
         std::vector<MissionTrackerComponent> m_mission_trackers;

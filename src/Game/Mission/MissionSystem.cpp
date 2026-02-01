@@ -38,7 +38,6 @@ MissionSystem::MissionSystem(mono::IEntityManager* entity_manager, mono::Transfo
     : m_entity_manager(entity_manager)
     , m_transform_system(transform_system)
     , m_trigger_system(trigger_system)
-    , m_point_index(0)
 {
     file::FilePtr config_file = file::OpenAsciiFile("res/configs/mission_config.json");
     if(config_file)
@@ -88,14 +87,12 @@ void MissionSystem::ActivateMission()
 {
     if(m_mission_locations.empty())
         return;
-
-    if(m_point_index >= m_mission_locations.size())
-        return;
  
     if(m_spawnable_missions.empty())
         return;
 
-    const MissionLocation& mission_location = m_mission_locations[m_point_index];
+    const int picked_index = mono::RandomInt(0, m_mission_locations.size() -1);
+    const MissionLocation& mission_location = m_mission_locations[picked_index];
     const math::Vector& world_position = m_transform_system->GetWorldPosition(mission_location.entity_id);
 
     // Just the first mission for now
@@ -108,8 +105,6 @@ void MissionSystem::ActivateMission()
         math::Matrix& transform = m_transform_system->GetTransform(entity.id);
         math::Translate(transform, world_position);
     }
-
-    m_point_index++;
 }
 
 const std::vector<MissionStatusEvent>& MissionSystem::GetMissionStatusEvents() const
