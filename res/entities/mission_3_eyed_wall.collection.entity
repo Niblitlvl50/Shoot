@@ -10,7 +10,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "Lantern"
+                            "variant_value": "stone_lantern_2"
                         },
                         {
                             "id": 3647911389,
@@ -35,7 +35,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.375,
+                                "x": 0.25,
                                 "y": -0.375
                             }
                         },
@@ -179,7 +179,7 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "Lantern",
+            "name": "stone_lantern_2",
             "uuid_hash": 2692228689
         },
         {
@@ -217,7 +217,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.0,
+                                "x": -0.125,
                                 "y": -0.125
                             }
                         },
@@ -421,7 +421,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -0.375,
+                                "x": -0.5,
                                 "y": -0.5
                             }
                         },
@@ -748,7 +748,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.5,
+                                "x": 0.375,
                                 "y": 0.25
                             }
                         },
@@ -1075,7 +1075,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -0.625,
+                                "x": -0.75,
                                 "y": 0.375
                             }
                         },
@@ -1370,6 +1370,82 @@
         {
             "components": [
                 {
+                    "hash": 3299710812,
+                    "name": "entity_name",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "mission_3_eyed_wall"
+                        }
+                    ]
+                },
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "name"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -0.25,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "name",
+            "uuid_hash": 3400070302
+        },
+        {
+            "components": [
+                {
                     "hash": 2340204639,
                     "name": "name_folder",
                     "properties": [
@@ -1402,7 +1478,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.0,
+                                "x": -0.125,
                                 "y": -0.875
                             }
                         },
