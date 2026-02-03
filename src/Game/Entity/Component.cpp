@@ -297,6 +297,7 @@ extern const uint32_t STRENGTH_ATTRIBUTE                    = default_attributes
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
+extern const uint32_t ENTITY_NAME_COMPONENT         = hash::Hash("entity_name");
 extern const uint32_t TRANSFORM_COMPONENT           = hash::Hash("transform");
 extern const uint32_t LAYER_COMPONENT               = hash::Hash("layer");
 extern const uint32_t TAG_COMPONENT                 = hash::Hash("tag");
@@ -358,6 +359,8 @@ const char* component::ComponentNameFromHash(uint32_t hash)
         return "null";
     if(hash == NAME_FOLDER_COMPONENT)
         return "name_folder";
+    if(hash == ENTITY_NAME_COMPONENT)
+        return "entity_name";
     else if(hash == TRANSFORM_COMPONENT)
         return "transform";
     else if(hash == LAYER_COMPONENT)
@@ -481,6 +484,7 @@ Component MakeComponent(
 }
 
 const Component default_components[] = {
+    MakeComponent(ENTITY_NAME_COMPONENT,        NULL_COMPONENT,             false,  "general",      { NAME_ATTRIBUTE }),
     MakeComponent(NAME_FOLDER_COMPONENT,        NULL_COMPONENT,             false,  "general",      { NAME_ATTRIBUTE, FOLDER_ATTRIBUTE, EDITOR_PROPERTIES_ATTRIBUTE }),
     MakeComponent(TRANSFORM_COMPONENT,          NULL_COMPONENT,             false,  "general",      { POSITION_ATTRIBUTE, ROTATION_ATTRIBUTE, SCALE_ATTRIBUTE, ENTITY_REFERENCE_ATTRIBUTE }),
     MakeComponent(TAG_COMPONENT,                NULL_COMPONENT,             false,  "general",      { TAG_ATTRIBUTE }),
@@ -488,7 +492,7 @@ const Component default_components[] = {
     MakeComponent(INTERACTION_SWITCH_COMPONENT, NULL_COMPONENT,             false,  "general",      { INTERACTION_TYPE_ATTRIBUTE, SOUND_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, DRAW_NAME_ATTRIBUTE }),
     MakeComponent(PATH_COMPONENT,               NULL_COMPONENT,             false,  "general",      { PATH_TYPE_ATTRIBUTE, PATH_POINTS_ATTRIBUTE, PATH_CLOSED_ATTRIBUTE }),
     MakeComponent(SOUND_COMPONENT,              NULL_COMPONENT,             false,  "general",      { SOUND_ATTRIBUTE, SOUND_PLAY_PARAMETERS, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE }),
-    MakeComponent(ENTITY_TRACKING_COMPONENT,    NULL_COMPONENT,             false,  "general",      { ENTITY_TYPE_ATTRIBUTE } ),
+    MakeComponent(ENTITY_TRACKING_COMPONENT,    NULL_COMPONENT,             false,  "general",      { ENTITY_TYPE_ATTRIBUTE }),
 
     MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,             false,  "damage",       { HEALTH_ATTRIBUTE, RELEASE_ON_DEATH_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }),
     MakeComponent(SHOCKWAVE_COMPONENT,          NULL_COMPONENT,             false,  "damage",       { TRIGGER_NAME_ATTRIBUTE, RADIUS_ATTRIBUTE, MAGNITUDE_INTERVAL_ATTRIBUTE, HEALTH_ATTRIBUTE }),

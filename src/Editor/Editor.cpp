@@ -565,15 +565,8 @@ void Editor::ExportAsEntityCollection()
         proxy->SetPosition(new_position);
     }
 
-    std::string filename = "res/entities/" + std::string(proxies.front()->Name()) + ".collection.entity";
-    std::replace(filename.begin(), filename.end(), ' ', '_');
-
-    const auto to_lower = [](unsigned char c) {
-        return std::tolower(c);
-    };
-    std::transform(filename.begin(), filename.end(), filename.begin(), to_lower);
-
     game::LevelMetadata metadata;
+    std::string entity_collection_name;
 
     for(const IObjectProxy* proxy : proxies)
     {
@@ -585,10 +578,29 @@ void Editor::ExportAsEntityCollection()
                 if(event && !event->text.empty())
                     metadata.triggers.push_back(event->text);
             }
+
+            if(component.hash == ENTITY_NAME_COMPONENT && entity_collection_name.empty())
+            {
+                FindAttribute(NAME_ATTRIBUTE, component.properties, entity_collection_name, FallbackMode::SET_DEFAULT);
+            }
         }
     }
 
+    if(entity_collection_name.empty())
+    {
+        m_context.notifications.emplace_back(information_texture, "Failed to Exported entity collection, unable to find a name", 2.0f);
+        return;
+    }
+
     mono::make_unique(metadata.triggers);
+
+    std::string filename = "res/entities/" + entity_collection_name + ".collection.entity";
+    std::replace(filename.begin(), filename.end(), ' ', '_');
+
+    const auto to_lower = [](unsigned char c) {
+        return std::tolower(c);
+    };
+    std::transform(filename.begin(), filename.end(), filename.begin(), to_lower);
 
     editor::WriteComponentEntities(filename, metadata, proxies);
     editor::AddNewEntity(filename.c_str());

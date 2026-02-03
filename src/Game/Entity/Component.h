@@ -204,6 +204,7 @@ inline void SetAttribute(uint32_t id, std::vector<Attribute>& attributes, const 
 
 extern const uint32_t NULL_COMPONENT;
 extern const uint32_t NAME_FOLDER_COMPONENT;
+extern const uint32_t ENTITY_NAME_COMPONENT;
 extern const uint32_t TRANSFORM_COMPONENT;
 extern const uint32_t LAYER_COMPONENT;
 extern const uint32_t TAG_COMPONENT;
