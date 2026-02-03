@@ -1,5 +1,6 @@
 {
     "missions": [
+        "res/entities/mission_2_angry_golems.collection.entity",
         "res/entities/mission_3_eyed_wall.collection.entity",
         "res/entities/monster_goblin.collection.entity"
     ]

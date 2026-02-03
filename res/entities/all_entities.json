@@ -27,6 +27,7 @@
         "res/entities/familiar_jellyfish.entity",
         "res/entities/hookshot_grappler.entity",
         "res/entities/loot_box.entity",
+        "res/entities/mission_2_angry_golems.collection.entity",
         "res/entities/mission_3_eyed_wall.collection.entity",
         "res/entities/monster_bat_medium.entity",
         "res/entities/monster_dragonfly.entity",

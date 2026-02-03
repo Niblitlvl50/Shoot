@@ -61537,9 +61537,9 @@
         "aborted_trigger": "level_aborted",
         "ambient_shade": {
             "alpha": 1.0,
-            "blue": 0.2647058963775635,
-            "green": 0.2647058963775635,
-            "red": 0.2647058963775635
+            "blue": 0.0,
+            "green": 0.0,
+            "red": 0.0
         },
         "background_color": {
             "alpha": 1.0,
