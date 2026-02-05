@@ -121,6 +121,16 @@
             }
         },
         {
+            "name": "empty",
+            "filename": "res/worlds/empty.components",
+            "transitions": {
+                "gameover": "gameover_screen",
+                "completed": "end_screen",
+                "completed_alt": "",
+                "aborted": "title_screen"
+            }
+        },
+        {
             "name": "mission_test_world",
             "filename": "res/worlds/mission_test.components",
             "transitions": {

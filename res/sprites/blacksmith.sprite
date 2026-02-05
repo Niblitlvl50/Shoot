@@ -3,20 +3,56 @@
         {
             "frame_duration": 100,
             "frames": [
-                0,
-                1,
                 2,
                 3,
                 4,
                 5,
                 6,
-                7
+                7,
+                8,
+                9
             ],
             "loop": true,
             "name": "idle"
+        },
+        {
+            "frame_duration": 200,
+            "frames": [
+                0,
+                1,
+                0,
+                1,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "loop": true,
+            "name": "blink"
         }
     ],
     "frames": [
+        {
+            "h": 27,
+            "name": "blacksmith_blink_1",
+            "w": 15,
+            "x": 661,
+            "y": 407
+        },
+        {
+            "h": 27,
+            "name": "blacksmith_blink_2",
+            "w": 15,
+            "x": 642,
+            "y": 407
+        },
         {
             "h": 27,
             "name": "blacksmith_idle_1",
@@ -42,7 +78,7 @@
             "h": 28,
             "name": "blacksmith_idle_4",
             "w": 16,
-            "x": 1073,
+            "x": 846,
             "y": 375
         },
         {
@@ -63,7 +99,7 @@
             "h": 27,
             "name": "blacksmith_idle_7",
             "w": 19,
-            "x": 540,
+            "x": 517,
             "y": 407
         },
         {
@@ -75,6 +111,14 @@
         }
     ],
     "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
         {
             "x": 0.0,
             "y": 0.0

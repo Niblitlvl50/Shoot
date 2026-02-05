@@ -46,21 +46,21 @@
             "h": 15,
             "name": "cactus_small_idle_1",
             "w": 10,
-            "x": 1396,
+            "x": 1724,
             "y": 507
         },
         {
             "h": 15,
             "name": "cactus_small_idle_2",
             "w": 10,
-            "x": 1410,
+            "x": 1682,
             "y": 507
         },
         {
             "h": 15,
             "name": "cactus_small_idle_3",
             "w": 10,
-            "x": 1424,
+            "x": 1696,
             "y": 507
         }
     ],

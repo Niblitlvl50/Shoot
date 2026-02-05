@@ -51,35 +51,35 @@
             "h": 21,
             "name": "flame_blob_attack_1",
             "w": 21,
-            "x": 206,
-            "y": 449
+            "x": 657,
+            "y": 438
         },
         {
             "h": 20,
             "name": "flame_blob_attack_2",
             "w": 19,
-            "x": 734,
+            "x": 899,
             "y": 463
         },
         {
             "h": 24,
             "name": "flame_blob_attack_3",
             "w": 19,
-            "x": 1175,
+            "x": 1924,
             "y": 408
         },
         {
             "h": 27,
             "name": "flame_blob_attack_4",
             "w": 19,
-            "x": 517,
+            "x": 540,
             "y": 407
         },
         {
             "h": 21,
             "name": "flame_blob_attack_5",
             "w": 20,
-            "x": 280,
+            "x": 286,
             "y": 449
         },
         {
@@ -107,7 +107,7 @@
             "h": 58,
             "name": "flame_blob_attack_9",
             "w": 41,
-            "x": 1019,
+            "x": 567,
             "y": 184
         },
         {
@@ -128,91 +128,91 @@
             "h": 20,
             "name": "flame_blob_idle_1",
             "w": 20,
-            "x": 662,
+            "x": 803,
             "y": 463
         },
         {
             "h": 22,
             "name": "flame_blob_idle_2",
             "w": 19,
-            "x": 1449,
+            "x": 1529,
             "y": 437
         },
         {
             "h": 20,
             "name": "flame_blob_idle_3",
             "w": 19,
-            "x": 780,
+            "x": 922,
             "y": 463
         },
         {
             "h": 21,
             "name": "flame_blob_idle_4",
             "w": 21,
-            "x": 231,
+            "x": 261,
             "y": 449
         },
         {
             "h": 20,
             "name": "flame_blob_idle_5",
             "w": 19,
-            "x": 757,
+            "x": 945,
             "y": 463
         },
         {
             "h": 21,
             "name": "flame_blob_idle_6",
             "w": 19,
-            "x": 304,
-            "y": 449
+            "x": 208,
+            "y": 450
         },
         {
             "h": 23,
             "name": "flame_blob_idle_7",
             "w": 19,
-            "x": 2015,
-            "y": 436
+            "x": 80,
+            "y": 437
         },
         {
             "h": 22,
             "name": "flame_blob_idle_8",
             "w": 19,
-            "x": 1426,
+            "x": 1506,
             "y": 437
         },
         {
             "h": 17,
             "name": "flame_blob_run_1",
             "w": 21,
-            "x": 958,
+            "x": 1164,
             "y": 486
         },
         {
             "h": 18,
             "name": "flame_blob_run_2",
             "w": 22,
-            "x": 1396,
+            "x": 1602,
             "y": 463
         },
         {
             "h": 18,
             "name": "flame_blob_run_3",
             "w": 23,
-            "x": 1342,
+            "x": 1549,
             "y": 463
         },
         {
             "h": 18,
             "name": "flame_blob_run_4",
             "w": 22,
-            "x": 1422,
+            "x": 1576,
             "y": 463
         },
         {
             "h": 19,
             "name": "flame_blob_run_5",
             "w": 22,
-            "x": 1060,
+            "x": 1292,
             "y": 463
         }
     ],

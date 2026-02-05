@@ -66,70 +66,70 @@
             "h": 8,
             "name": "totem_fire_appear_1",
             "w": 15,
-            "x": 1747,
-            "y": 542
+            "x": 525,
+            "y": 543
         },
         {
             "h": 12,
             "name": "totem_fire_appear_2",
             "w": 22,
-            "x": 363,
+            "x": 769,
             "y": 526
         },
         {
             "h": 17,
             "name": "totem_fire_appear_3",
             "w": 28,
-            "x": 2,
+            "x": 127,
             "y": 486
         },
         {
             "h": 19,
             "name": "totem_fire_appear_4",
             "w": 34,
-            "x": 958,
+            "x": 1138,
             "y": 463
         },
         {
             "h": 17,
             "name": "totem_fire_appear_5",
             "w": 15,
-            "x": 566,
+            "x": 752,
             "y": 487
         },
         {
             "h": 19,
             "name": "totem_fire_appear_6",
             "w": 15,
-            "x": 1226,
+            "x": 1406,
             "y": 463
         },
         {
             "h": 18,
             "name": "totem_fire_damaged_1",
             "w": 17,
-            "x": 1602,
+            "x": 1740,
             "y": 463
         },
         {
             "h": 17,
             "name": "totem_fire_damaged_2",
             "w": 18,
-            "x": 2028,
-            "y": 485
+            "x": 1257,
+            "y": 486
         },
         {
             "h": 26,
             "name": "totem_fire_damaged_3",
             "w": 15,
-            "x": 1884,
+            "x": 1848,
             "y": 407
         },
         {
             "h": 26,
             "name": "totem_fire_damaged_4",
             "w": 15,
-            "x": 1865,
+            "x": 1886,
             "y": 407
         },
         {
@@ -143,42 +143,42 @@
             "h": 31,
             "name": "totem_fire_damaged_6",
             "w": 15,
-            "x": 1400,
-            "y": 373
+            "x": 1497,
+            "y": 372
         },
         {
             "h": 10,
             "name": "totem_fire_dead_1",
             "w": 7,
-            "x": 2039,
-            "y": 541
+            "x": 1072,
+            "y": 542
         },
         {
             "h": 18,
             "name": "totem_fire_die_1",
             "w": 17,
-            "x": 1581,
+            "x": 1719,
             "y": 463
         },
         {
             "h": 17,
             "name": "totem_fire_die_2",
             "w": 18,
-            "x": 1029,
+            "x": 1235,
             "y": 486
         },
         {
             "h": 26,
             "name": "totem_fire_die_3",
             "w": 15,
-            "x": 1827,
+            "x": 1905,
             "y": 407
         },
         {
             "h": 26,
             "name": "totem_fire_die_4",
             "w": 32,
-            "x": 1245,
+            "x": 814,
             "y": 407
         },
         {
@@ -192,35 +192,35 @@
             "h": 19,
             "name": "totem_fire_die_6",
             "w": 7,
-            "x": 2038,
-            "y": 462
+            "x": 1910,
+            "y": 437
         },
         {
             "h": 19,
             "name": "totem_fire_idle_1",
             "w": 15,
-            "x": 1207,
+            "x": 1387,
             "y": 463
         },
         {
             "h": 20,
             "name": "totem_fire_idle_2",
             "w": 15,
-            "x": 868,
+            "x": 1033,
             "y": 463
         },
         {
             "h": 23,
             "name": "totem_fire_idle_3",
             "w": 15,
-            "x": 1189,
-            "y": 436
+            "x": 1400,
+            "y": 408
         },
         {
             "h": 26,
             "name": "totem_fire_idle_4",
             "w": 15,
-            "x": 1846,
+            "x": 1867,
             "y": 407
         },
         {
@@ -234,8 +234,8 @@
             "h": 31,
             "name": "totem_fire_idle_6",
             "w": 15,
-            "x": 1497,
-            "y": 372
+            "x": 1808,
+            "y": 373
         }
     ],
     "frames_offsets": [
