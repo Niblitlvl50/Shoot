@@ -18,6 +18,7 @@ namespace game
         GameZone(const ZoneCreationContext& context);
         ~GameZone();
         void OnLoad(mono::ICamera* camera, mono::IRenderer* renderer) override;
+        void PostLoad() override;
         int OnUnload() override;
 
     protected:

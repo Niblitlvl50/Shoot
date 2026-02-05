@@ -107,7 +107,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     mono::PathSystem* path_system = m_system_context->GetSystem<mono::PathSystem>();
     mono::RoadSystem* road_system = m_system_context->GetSystem<mono::RoadSystem>();
     mono::TriggerSystem* trigger_system = m_system_context->GetSystem<mono::TriggerSystem>();
-
+    
     game::AnimationSystem* animation_system = m_system_context->GetSystem<game::AnimationSystem>();
     game::CameraSystem* camera_system = m_system_context->GetSystem<CameraSystem>();
     game::DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
@@ -122,6 +122,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     game::EntityLogicSystem* logic_system = m_system_context->GetSystem<EntityLogicSystem>();
     game::MissionSystem* mission_system = m_system_context->GetSystem<game::MissionSystem>();
     game::WeaponSystem* weapon_system = m_system_context->GetSystem<game::WeaponSystem>();
+    game::NavigationSystem* navigation_system = m_system_context->GetSystem<game::NavigationSystem>();
 
     m_leveldata = ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
     const game::LevelMetadata& metadata = m_leveldata.metadata;
@@ -133,11 +134,6 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     SoundSystem* sound_system = m_system_context->GetSystem<SoundSystem>();
     sound_system->PlayBackgroundMusic(metadata.background_music, SoundTransition::CrossFade);
-
-    // Nav mesh
-    game::NavigationSystem* navigation_system = m_system_context->GetSystem<game::NavigationSystem>();
-    navigation_system->SetupNavmesh(
-        metadata.navmesh_start, metadata.navmesh_end, metadata.navmesh_density, physics_system->GetSpace());
 
     m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
 
@@ -194,6 +190,17 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     m_game_mode = CreateGameMode();
     m_game_mode->Begin(this, renderer, m_system_context, m_event_handler, metadata);
     AddUpdatable(m_game_mode.get());
+}
+
+void GameZone::PostLoad()
+{
+    const game::LevelMetadata& metadata = m_leveldata.metadata;
+
+    // Nav mesh
+    mono::PhysicsSystem* physics_system = m_system_context->GetSystem<mono::PhysicsSystem>();
+    game::NavigationSystem* navigation_system = m_system_context->GetSystem<game::NavigationSystem>();
+    navigation_system->SetupNavmesh(
+        metadata.navmesh_start, metadata.navmesh_end, metadata.navmesh_density, physics_system->GetSpace());
 }
 
 int GameZone::OnUnload()
