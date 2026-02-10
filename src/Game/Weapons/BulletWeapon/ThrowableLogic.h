@@ -37,7 +37,7 @@ namespace game
         void Spawning(const mono::UpdateContext& update_context);
 
         const uint32_t m_entity_id;
-        const uint32_t m_owner_entity_id;
+        //const uint32_t m_owner_entity_id;
         const std::string m_spawned_entity;
         const math::Vector m_target;
         mono::SpriteSystem* m_sprite_system;
@@ -52,7 +52,7 @@ namespace game
         float m_life_span;
         float m_move_timer_s;
         float m_settle_timer_s;
-        float m_spawn_timer_s;
+        //float m_spawn_timer_s;
 
         enum class ThrowableStates
         {

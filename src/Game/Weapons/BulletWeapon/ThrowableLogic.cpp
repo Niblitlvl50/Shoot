@@ -31,7 +31,7 @@ ThrowableLogic::ThrowableLogic(
     mono::TransformSystem* transform_system,
     mono::IEntityManager* entity_manager)
     : m_entity_id(entity_id)
-    , m_owner_entity_id(entity_id)
+    //, m_owner_entity_id(entity_id)
     , m_spawned_entity(bullet_config.impact_entity_file)
     , m_target(target)
     , m_sprite_system(sprite_system)
