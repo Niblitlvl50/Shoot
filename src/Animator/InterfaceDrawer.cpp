@@ -185,7 +185,7 @@ namespace
 
         for(size_t index = 0; index < active_animation.frames.size(); ++index)
         {
-            int frame = active_animation.frames.at(index);
+            mono::SpriteAnimationFrame animation_frame = active_animation.frames.at(index);
             const std::string string_index = std::to_string(index + 1);
 
             ImGui::PushID(index);
@@ -202,8 +202,8 @@ namespace
 
             ImGui::NextColumn();
             ImGui::SetNextItemWidth(second_column_item_width);
-            if(ImGui::SliderInt("", &frame, 0, context.sprite_data->frames.size() -1))
-                context.animation_frame_updated(index, frame);
+            if(ImGui::SliderInt("", &animation_frame.frame, 0, context.sprite_data->frames.size() -1))
+                context.animation_frame_updated(index, animation_frame.frame);
             ImGui::NextColumn();
 
             ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);

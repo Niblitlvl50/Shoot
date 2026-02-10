@@ -365,7 +365,11 @@ void Animator::OnAddAnimation()
     new_animation.name = "new";
     new_animation.looping = false;
     new_animation.frame_duration = 100;
-    new_animation.frames.push_back(0);
+
+    mono::SpriteAnimationFrame animation_frame;
+    animation_frame.frame = 0;
+    animation_frame.notify;
+    new_animation.frames.push_back(animation_frame);
 
     const int animation_id = m_sprite_data->animations.size();
     m_sprite_data->animations.push_back(new_animation);
@@ -389,7 +393,11 @@ void Animator::OnDeleteAnimation()
 void Animator::OnAddFrame()
 {
     const int current_id = m_sprite->GetActiveAnimation();
-    m_sprite_data->animations[current_id].frames.push_back(0);
+
+    mono::SpriteAnimationFrame animation_frame;
+    animation_frame.frame = 0;
+    animation_frame.notify;
+    m_sprite_data->animations[current_id].frames.push_back(animation_frame);
 
     m_sprite_batch_drawer->ReloadSpriteData(m_sprite_data->hash);
 }
@@ -397,7 +405,7 @@ void Animator::OnAddFrame()
 void Animator::OnDeleteFrame(int id)
 {
     const int current_id = m_sprite->GetActiveAnimation();
-    std::vector<int>& frames = m_sprite_data->animations[current_id].frames;
+    std::vector<mono::SpriteAnimationFrame>& frames = m_sprite_data->animations[current_id].frames;
     frames.erase(frames.begin() + id);
 
     int new_id = current_id - 1;
@@ -447,7 +455,7 @@ void Animator::SetActiveFrame(int frame)
     m_context.selected_frame = frame;
 
     const int active_animation = m_sprite->GetActiveAnimation();
-    const int frame_index = m_sprite_data->animations[active_animation].frames[frame];
+    const int frame_index = m_sprite_data->animations[active_animation].frames[frame].frame;
 
     m_context.frame_offset_pixels = m_sprite_data->frames[frame_index].center_offset * m_pixels_per_meter;
 }
@@ -455,7 +463,7 @@ void Animator::SetActiveFrame(int frame)
 void Animator::SetAnimationFrame(int animation_frame_index, int new_frame)
 {
     const int active_animation = m_sprite->GetActiveAnimation();
-    m_sprite_data->animations[active_animation].frames[animation_frame_index] = new_frame;
+    m_sprite_data->animations[active_animation].frames[animation_frame_index].frame = new_frame;
 }
 
 void Animator::SetFrameOffset(const math::Vector& frame_offset_pixels)
@@ -464,8 +472,9 @@ void Animator::SetFrameOffset(const math::Vector& frame_offset_pixels)
 
     const int active_animation = m_sprite->GetActiveAnimation();
     const int active_frame = m_sprite->GetActiveAnimationFrame();
-    const int frame_index = m_sprite_data->animations[active_animation].frames[active_frame];
-    m_sprite_data->frames[frame_index].center_offset = new_frame_offset;
+    const mono::SpriteAnimationFrame& animation_frame
+        = m_sprite_data->animations[active_animation].frames[active_frame];
+    m_sprite_data->frames[animation_frame.frame].center_offset = new_frame_offset;
 
     m_sprite_batch_drawer->ReloadSpriteData(m_sprite_data->hash);
 }
