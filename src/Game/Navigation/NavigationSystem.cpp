@@ -88,7 +88,7 @@ FindPathResult NavigationSystem::FindPath(const math::Vector& start_position, co
         const game::NavigationResult& nav_path = game::AStar(m_navmesh, start_position, end_position);
         find_path_result.result = nav_path.result;
 
-        if(nav_path.result == AStarResult::FAILED)
+        if(nav_path.result == AStarResult::FAILED || nav_path.result == AStarResult::NO_PATH)
             return find_path_result;
         else if(nav_path.result == AStarResult::SUCCESS && nav_path.path_indices.empty())
             return find_path_result;
