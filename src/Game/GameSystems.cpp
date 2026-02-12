@@ -69,8 +69,8 @@ void game::CreateGameSystems(
     physics_system_params.n_polygon_shapes = max_entities;
 
     mono::PhysicsSystem* physics_system = system_context.CreateSystem<mono::PhysicsSystem>(physics_system_params, transform_system);
-    mono::TriggerSystem* trigger_system = system_context.CreateSystem<mono::TriggerSystem>(max_entities, physics_system);
     mono::SpriteSystem* sprite_system = system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
+    mono::TriggerSystem* trigger_system = system_context.CreateSystem<mono::TriggerSystem>(max_entities, physics_system, sprite_system);
     system_context.CreateSystem<mono::TextSystem>(max_entities, transform_system);
     system_context.CreateSystem<mono::PathSystem>(max_entities, transform_system);
     system_context.CreateSystem<mono::RoadSystem>(max_entities);

@@ -156,6 +156,7 @@ const DefaultAttribute default_attributes[] = {
     { "weapon_modifier_type",       Variant(0) },
     { "use_custom_damping",         Variant(false) },
     { "strength",                   Variant(1.0f) },
+    { "anim_notify",                Variant(std::string()) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -294,6 +295,7 @@ extern const uint32_t RELEASE_ON_DEATH_ATTRIBUTE            = default_attributes
 extern const uint32_t WEAPON_MODIFIER_TYPE_ATTRIBUTE        = default_attributes[114].hash;
 extern const uint32_t USE_CUSTOM_DAMPING                    = default_attributes[115].hash;
 extern const uint32_t STRENGTH_ATTRIBUTE                    = default_attributes[116].hash;
+extern const uint32_t ANIM_NOTIFY_ATTRIBUTE                 = default_attributes[117].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -320,6 +322,7 @@ extern const uint32_t AREA_TRIGGER_COMPONENT        = hash::Hash("area_entity_tr
 extern const uint32_t TIME_TRIGGER_COMPONENT        = hash::Hash("time_trigger");
 extern const uint32_t COUNTER_TRIGGER_COMPONENT     = hash::Hash("counter_trigger");
 extern const uint32_t RELAY_TRIGGER_COMPONENT       = hash::Hash("relay_trigger");
+extern const uint32_t ANIM_NOTIFY_TRIGGER_COMPONENT = hash::Hash("anim_notify_trigger");
 extern const uint32_t PICKUP_COMPONENT              = hash::Hash("pickup");
 extern const uint32_t WEAPON_PICKUP_COMPONENT       = hash::Hash("weapon_pickup");
 extern const uint32_t LOOTBOX_COMPONENT             = hash::Hash("loot_box");
@@ -405,6 +408,8 @@ const char* component::ComponentNameFromHash(uint32_t hash)
         return "counter_trigger";
     else if(hash == RELAY_TRIGGER_COMPONENT)
         return "relay_trigger";
+    else if(hash == ANIM_NOTIFY_TRIGGER_COMPONENT)
+        return "anim_notify";
     else if(hash == PICKUP_COMPONENT)
         return "pickup";
     else if(hash == WEAPON_PICKUP_COMPONENT)
@@ -528,6 +533,7 @@ const Component default_components[] = {
     MakeComponent(SHAPE_TRIGGER_COMPONENT,      NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, EMIT_ONCE_ATTRIBUTE }),
     MakeComponent(TIME_TRIGGER_COMPONENT,       NULL_COMPONENT,             false,  "triggers",     { TIME_STAMP_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, REPEATING_ATTRIBUTE }),
     MakeComponent(RELAY_TRIGGER_COMPONENT,      NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, TRIGGER_NAME_COMPLETED_ATTRIBUTE }),
+    MakeComponent(ANIM_NOTIFY_TRIGGER_COMPONENT,NULL_COMPONENT,             false,  "triggers",     { ANIM_NOTIFY_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
 
     MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,             false,  "spawning",     { SPAWN_SCORE_ATTRIBUTE, SPAWN_LIMIT_ATTRIBUTE, SPAWN_LIMIT_CONCURRENT_ATTRIBUTE, RADIUS_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE, SPAWN_POINTS_ATTRIBUTE }),
     MakeComponent(ENTITY_SPAWN_POINT_COMPONENT, NULL_COMPONENT,             false,  "spawning",     { ENTITY_FILE_ATTRIBUTE, RADIUS_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),

@@ -630,6 +630,39 @@ namespace
         return true;
     }
 
+    bool CreateAnimNotifyTrigger(mono::Entity* entity, mono::SystemContext* context)
+    {
+        mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
+        trigger_system->AllocateAnimNotifyTrigger(entity->id);
+        return true;
+    }
+    bool ReleaseAnimNotifyTrigger(mono::Entity* entity, mono::SystemContext* context)
+    {
+        mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
+        trigger_system->ReleaseAnimNotifyTrigger(entity->id);
+        return true;
+    }
+    bool UpdateAnimNotifyTrigger(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        std::string anim_notify;
+        FindAttribute(ANIM_NOTIFY_ATTRIBUTE, properties, anim_notify, FallbackMode::SET_DEFAULT);
+        
+        mono::Event trigger_name;
+        const bool found_trigger_name =
+            FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::REQUIRE_ATTRIBUTE);
+
+        if(!found_trigger_name || anim_notify.empty())
+            return false;
+
+        const uint32_t anim_notify_hash = hash::Hash(anim_notify.c_str());
+        const uint32_t trigger_hash = hash::Hash(trigger_name.text.c_str());
+
+        mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
+        trigger_system->AddAnimNotifyTrigger(entity->id, anim_notify_hash, trigger_hash);
+        
+        return true;
+    }
+
     bool CreatePickup(mono::Entity* entity, mono::SystemContext* context)
     {
         game::PickupSystem* pickup_system = context->GetSystem<game::PickupSystem>();
@@ -1290,6 +1323,7 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(TIME_TRIGGER_COMPONENT, CreateTimeTrigger, ReleaseTimeTrigger, UpdateTimeTrigger);
     entity_manager->RegisterComponent(COUNTER_TRIGGER_COMPONENT, CreateCounterTrigger, ReleaseCounterTrigger, UpdateCounterTrigger);
     entity_manager->RegisterComponent(RELAY_TRIGGER_COMPONENT, CreateRelayTrigger, ReleaseRelayTrigger, UpdateRelayTrigger);
+    entity_manager->RegisterComponent(ANIM_NOTIFY_TRIGGER_COMPONENT, CreateAnimNotifyTrigger, ReleaseAnimNotifyTrigger, UpdateAnimNotifyTrigger);
     entity_manager->RegisterComponent(PICKUP_COMPONENT, CreatePickup, ReleasePickup, UpdatePickup);
     entity_manager->RegisterComponent(WEAPON_PICKUP_COMPONENT, CreatePickup, ReleasePickup, UpdateWeaponPickup);
     entity_manager->RegisterComponent(LOOTBOX_COMPONENT, CreateLootBox, ReleaseLootBox, UpdateLootBox);
