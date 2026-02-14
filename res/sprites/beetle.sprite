@@ -14,8 +14,8 @@
             "h": 8,
             "name": "beetle",
             "w": 8,
-            "x": 353,
-            "y": 555
+            "x": 1847,
+            "y": 563
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/healthbar/",
     "texture": "res/sprite_atlas.png",

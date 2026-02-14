@@ -49,36 +49,36 @@
             "h": 13,
             "name": "button_indication_down_1",
             "w": 13,
-            "x": 36,
-            "y": 526
+            "x": 1235,
+            "y": 533
         },
         {
             "h": 13,
             "name": "button_indication_left_1",
             "w": 13,
-            "x": 19,
-            "y": 526
+            "x": 1252,
+            "y": 533
         },
         {
             "h": 13,
             "name": "button_indication_neutral_1",
             "w": 13,
-            "x": 2,
-            "y": 526
+            "x": 1269,
+            "y": 533
         },
         {
             "h": 13,
             "name": "button_indication_right_1",
             "w": 13,
-            "x": 2026,
-            "y": 525
+            "x": 1286,
+            "y": 533
         },
         {
             "h": 13,
             "name": "button_indication_up_1",
             "w": 13,
-            "x": 2009,
-            "y": 525
+            "x": 1467,
+            "y": 533
         }
     ],
     "frames_offsets": [
@@ -102,6 +102,13 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/ui/",
     "texture": "res/sprite_atlas.png",

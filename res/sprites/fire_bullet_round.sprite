@@ -17,29 +17,29 @@
             "h": 10,
             "name": "fire_bullet_round_idle_1",
             "w": 8,
-            "x": 1048,
-            "y": 542
+            "x": 1262,
+            "y": 550
         },
         {
             "h": 8,
             "name": "fire_bullet_round_idle_2",
             "w": 10,
-            "x": 1972,
-            "y": 554
+            "x": 1696,
+            "y": 563
         },
         {
             "h": 10,
             "name": "fire_bullet_round_idle_3",
             "w": 8,
-            "x": 1060,
-            "y": 542
+            "x": 1274,
+            "y": 550
         },
         {
             "h": 8,
             "name": "fire_bullet_round_idle_4",
             "w": 10,
-            "x": 250,
-            "y": 548
+            "x": 1682,
+            "y": 563
         }
     ],
     "frames_offsets": [
@@ -59,6 +59,12 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/bullets/fire_bullets/",
     "texture": "res/sprite_atlas.png",

@@ -14,8 +14,8 @@
             "h": 30,
             "name": "bush_large_yellow_1",
             "w": 50,
-            "x": 19,
-            "y": 374
+            "x": 522,
+            "y": 378
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/vegetation/",
     "texture": "res/sprite_atlas.png",

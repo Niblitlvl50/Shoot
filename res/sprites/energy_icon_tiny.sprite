@@ -14,8 +14,8 @@
             "h": 5,
             "name": "energy_icon_tiny",
             "w": 4,
-            "x": 1678,
-            "y": 555
+            "x": 1198,
+            "y": 564
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/icons/",
     "texture": "res/sprite_atlas.png",

@@ -18,36 +18,36 @@
             "h": 6,
             "name": "bat_default_1",
             "w": 16,
-            "x": 1353,
-            "y": 555
+            "x": 893,
+            "y": 564
         },
         {
             "h": 8,
             "name": "bat_default_2",
             "w": 13,
-            "x": 649,
-            "y": 543
+            "x": 1520,
+            "y": 563
         },
         {
             "h": 9,
             "name": "bat_default_3",
             "w": 12,
-            "x": 1396,
-            "y": 542
+            "x": 178,
+            "y": 551
         },
         {
             "h": 10,
             "name": "bat_default_4",
             "w": 11,
-            "x": 936,
-            "y": 542
+            "x": 1013,
+            "y": 550
         },
         {
             "h": 10,
             "name": "bat_default_5",
             "w": 11,
-            "x": 876,
-            "y": 542
+            "x": 998,
+            "y": 550
         }
     ],
     "frames_offsets": [
@@ -71,6 +71,13 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/creatures/bat/",
     "texture": "res/sprite_atlas.png",

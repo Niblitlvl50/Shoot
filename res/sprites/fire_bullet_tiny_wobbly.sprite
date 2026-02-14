@@ -15,15 +15,15 @@
             "h": 7,
             "name": "fire_bullet_tiny_wobbly_idle_1",
             "w": 7,
-            "x": 1311,
-            "y": 555
+            "x": 809,
+            "y": 564
         },
         {
             "h": 6,
             "name": "fire_bullet_tiny_wobbly_idle_2",
             "w": 6,
-            "x": 1541,
-            "y": 555
+            "x": 1041,
+            "y": 564
         }
     ],
     "frames_offsets": [
@@ -35,6 +35,10 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        ""
     ],
     "source_folder": "res/images/bullets/fire_bullets/",
     "texture": "res/sprite_atlas.png",

@@ -17,29 +17,29 @@
             "h": 10,
             "name": "fire_bullet_shuriken_idle_1",
             "w": 10,
-            "x": 979,
-            "y": 542
+            "x": 1221,
+            "y": 550
         },
         {
             "h": 10,
             "name": "fire_bullet_shuriken_idle_2",
             "w": 10,
-            "x": 951,
-            "y": 542
+            "x": 1207,
+            "y": 550
         },
         {
             "h": 10,
             "name": "fire_bullet_shuriken_idle_3",
             "w": 10,
-            "x": 1021,
-            "y": 542
+            "x": 1193,
+            "y": 550
         },
         {
             "h": 10,
             "name": "fire_bullet_shuriken_idle_4",
             "w": 10,
-            "x": 1007,
-            "y": 542
+            "x": 1179,
+            "y": 550
         }
     ],
     "frames_offsets": [
@@ -59,6 +59,12 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/bullets/fire_bullets/",
     "texture": "res/sprite_atlas.png",

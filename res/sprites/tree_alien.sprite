@@ -15,14 +15,14 @@
             "h": 50,
             "name": "tree_alien_idle_1",
             "w": 24,
-            "x": 870,
+            "x": 1911,
             "y": 242
         },
         {
             "h": 50,
             "name": "tree_alien_idle_2",
             "w": 24,
-            "x": 898,
+            "x": 1883,
             "y": 242
         }
     ],
@@ -35,6 +35,10 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        ""
     ],
     "source_folder": "res/images/vegetation/tree_alien/",
     "texture": "res/sprite_atlas.png",

@@ -14,8 +14,8 @@
             "h": 5,
             "name": "ui_icon_check_idle_1",
             "w": 6,
-            "x": 1668,
-            "y": 555
+            "x": 1178,
+            "y": 564
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/ui/",
     "texture": "res/sprite_atlas.png",

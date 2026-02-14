@@ -17,29 +17,29 @@
             "h": 41,
             "name": "goblin_king_idle_1",
             "w": 34,
-            "x": 649,
-            "y": 293
+            "x": 1125,
+            "y": 296
         },
         {
             "h": 42,
             "name": "goblin_king_idle_2",
             "w": 34,
-            "x": 569,
-            "y": 246
+            "x": 1585,
+            "y": 295
         },
         {
             "h": 42,
             "name": "goblin_king_idle_3",
             "w": 34,
-            "x": 426,
-            "y": 248
+            "x": 1547,
+            "y": 295
         },
         {
             "h": 41,
             "name": "goblin_king_idle_4",
             "w": 35,
-            "x": 197,
-            "y": 293
+            "x": 565,
+            "y": 296
         }
     ],
     "frames_offsets": [
@@ -59,6 +59,12 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/creatures/goblin_king/",
     "texture": "res/sprite_atlas.png",

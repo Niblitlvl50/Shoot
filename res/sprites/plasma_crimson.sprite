@@ -18,36 +18,36 @@
             "h": 13,
             "name": "plasma_crimson_idle_1",
             "w": 13,
-            "x": 70,
-            "y": 526
+            "x": 1218,
+            "y": 533
         },
         {
             "h": 11,
             "name": "plasma_crimson_idle_2",
             "w": 11,
-            "x": 218,
-            "y": 533
+            "x": 2026,
+            "y": 549
         },
         {
             "h": 9,
             "name": "plasma_crimson_idle_3",
             "w": 9,
-            "x": 1925,
-            "y": 542
+            "x": 343,
+            "y": 551
         },
         {
             "h": 7,
             "name": "plasma_crimson_idle_4",
             "w": 7,
-            "x": 1267,
-            "y": 555
+            "x": 831,
+            "y": 564
         },
         {
             "h": 7,
             "name": "plasma_crimson_idle_5",
             "w": 7,
-            "x": 1157,
-            "y": 555
+            "x": 820,
+            "y": 564
         }
     ],
     "frames_offsets": [
@@ -71,6 +71,13 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/bullets/plasma_crimson/",
     "texture": "res/sprite_atlas.png",

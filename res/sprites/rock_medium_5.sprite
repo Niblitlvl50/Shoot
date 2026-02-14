@@ -14,8 +14,8 @@
             "h": 57,
             "name": "rock_medium_5",
             "w": 63,
-            "x": 654,
-            "y": 186
+            "x": 465,
+            "y": 187
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/rocks/",
     "texture": "res/sprite_atlas.png",

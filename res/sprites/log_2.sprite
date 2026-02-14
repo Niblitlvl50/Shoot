@@ -14,8 +14,8 @@
             "h": 22,
             "name": "log_2",
             "w": 41,
-            "x": 1200,
-            "y": 437
+            "x": 1975,
+            "y": 442
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/vegetation/",
     "texture": "res/sprite_atlas.png",

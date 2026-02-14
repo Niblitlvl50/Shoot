@@ -16,22 +16,22 @@
             "h": 48,
             "name": "caco_explosion_default_1",
             "w": 45,
-            "x": 1727,
-            "y": 242
+            "x": 612,
+            "y": 245
         },
         {
             "h": 42,
             "name": "caco_explosion_default_2",
             "w": 50,
-            "x": 1019,
-            "y": 246
+            "x": 2,
+            "y": 253
         },
         {
             "h": 47,
             "name": "caco_explosion_default_3",
             "w": 53,
-            "x": 1776,
-            "y": 242
+            "x": 1161,
+            "y": 245
         }
     ],
     "frames_offsets": [
@@ -47,6 +47,11 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/explosions/caco_explosion/",
     "texture": "res/sprite_atlas.png",

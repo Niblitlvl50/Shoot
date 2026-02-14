@@ -14,8 +14,8 @@
             "h": 62,
             "name": "japanese_banner_tall_red",
             "w": 23,
-            "x": 837,
-            "y": 176
+            "x": 1310,
+            "y": 179
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/flags/",
     "texture": "res/sprite_atlas.png",

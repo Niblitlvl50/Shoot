@@ -19,43 +19,43 @@
             "h": 8,
             "name": "coin_spin_1",
             "w": 8,
-            "x": 451,
-            "y": 555
+            "x": 86,
+            "y": 564
         },
         {
             "h": 8,
             "name": "coin_spin_2",
             "w": 8,
-            "x": 2010,
-            "y": 554
+            "x": 98,
+            "y": 564
         },
         {
             "h": 8,
             "name": "coin_spin_3",
             "w": 8,
-            "x": 50,
-            "y": 555
+            "x": 110,
+            "y": 564
         },
         {
             "h": 8,
             "name": "coin_spin_4",
             "w": 6,
-            "x": 507,
-            "y": 555
+            "x": 280,
+            "y": 564
         },
         {
             "h": 8,
             "name": "coin_spin_5",
             "w": 4,
-            "x": 278,
-            "y": 548
+            "x": 300,
+            "y": 564
         },
         {
             "h": 8,
             "name": "coin_spin_6",
             "w": 6,
-            "x": 517,
-            "y": 555
+            "x": 290,
+            "y": 564
         }
     ],
     "frames_offsets": [
@@ -83,6 +83,14 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/misc/coin/",
     "texture": "res/sprite_atlas.png",

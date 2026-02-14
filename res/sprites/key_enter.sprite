@@ -25,15 +25,15 @@
             "h": 30,
             "name": "key_enter_neutral_1",
             "w": 30,
-            "x": 947,
-            "y": 374
+            "x": 1080,
+            "y": 378
         },
         {
             "h": 29,
             "name": "key_enter_pushed_1",
             "w": 30,
-            "x": 1772,
-            "y": 374
+            "x": 1939,
+            "y": 378
         }
     ],
     "frames_offsets": [
@@ -45,6 +45,10 @@
             "x": 0.0,
             "y": -0.015625
         }
+    ],
+    "notifies": [
+        "",
+        ""
     ],
     "source_folder": "res/images/ui/",
     "texture": "res/sprite_atlas.png",

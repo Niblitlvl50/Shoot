@@ -40,141 +40,141 @@
             "h": 8,
             "name": "bat_medium_attack_1",
             "w": 18,
-            "x": 363,
-            "y": 543
+            "x": 403,
+            "y": 563
         },
         {
             "h": 9,
             "name": "bat_medium_attack_2",
             "w": 18,
-            "x": 1165,
-            "y": 542
+            "x": 1495,
+            "y": 550
         },
         {
             "h": 12,
             "name": "bat_medium_attack_3",
             "w": 15,
-            "x": 917,
-            "y": 526
+            "x": 40,
+            "y": 534
         },
         {
             "h": 13,
             "name": "bat_medium_attack_4",
             "w": 13,
-            "x": 1110,
-            "y": 525
+            "x": 1450,
+            "y": 533
         },
         {
             "h": 14,
             "name": "bat_medium_attack_5",
             "w": 11,
-            "x": 752,
-            "y": 508
+            "x": 272,
+            "y": 523
         },
         {
             "h": 15,
             "name": "bat_medium_attack_6",
             "w": 12,
-            "x": 1636,
-            "y": 507
+            "x": 1911,
+            "y": 514
         },
         {
             "h": 12,
             "name": "bat_medium_attack_7",
             "w": 17,
-            "x": 817,
-            "y": 526
+            "x": 1956,
+            "y": 533
         },
         {
             "h": 10,
             "name": "bat_medium_attack_8",
             "w": 18,
-            "x": 1814,
-            "y": 541
+            "x": 546,
+            "y": 550
         },
         {
             "h": 9,
             "name": "bat_medium_attack_9",
             "w": 16,
-            "x": 1187,
-            "y": 542
+            "x": 1517,
+            "y": 550
         },
         {
             "h": 8,
             "name": "bat_medium_attack_10",
             "w": 20,
-            "x": 26,
-            "y": 543
+            "x": 465,
+            "y": 551
         },
         {
             "h": 8,
             "name": "bat_medium_idle_1",
             "w": 18,
-            "x": 341,
-            "y": 543
+            "x": 194,
+            "y": 557
         },
         {
             "h": 10,
             "name": "bat_medium_idle_2",
             "w": 16,
-            "x": 87,
-            "y": 542
+            "x": 650,
+            "y": 550
         },
         {
             "h": 11,
             "name": "bat_medium_idle_3",
             "w": 12,
-            "x": 321,
-            "y": 527
+            "x": 1117,
+            "y": 549
         },
         {
             "h": 11,
             "name": "bat_medium_idle_4",
             "w": 14,
-            "x": 1765,
-            "y": 526
+            "x": 1420,
+            "y": 534
         },
         {
             "h": 9,
             "name": "bat_medium_idle_5",
             "w": 18,
-            "x": 1143,
-            "y": 542
+            "x": 1473,
+            "y": 550
         },
         {
             "h": 8,
             "name": "bat_medium_idle_6",
             "w": 20,
-            "x": 2,
-            "y": 543
+            "x": 233,
+            "y": 556
         },
         {
             "h": 7,
             "name": "bat_medium_idle_7",
             "w": 21,
-            "x": 535,
-            "y": 555
+            "x": 316,
+            "y": 564
         },
         {
             "h": 7,
             "name": "bat_medium_idle_8",
             "w": 17,
-            "x": 560,
-            "y": 555
+            "x": 341,
+            "y": 564
         },
         {
             "h": 7,
             "name": "bat_medium_idle_9",
             "w": 17,
-            "x": 581,
-            "y": 555
+            "x": 362,
+            "y": 564
         },
         {
             "h": 8,
             "name": "bat_medium_idle_10",
             "w": 19,
-            "x": 50,
-            "y": 543
+            "x": 257,
+            "y": 556
         }
     ],
     "frames_offsets": [
@@ -258,6 +258,28 @@
             "x": -0.015625,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/creatures/bat/",
     "texture": "res/sprite_atlas.png",

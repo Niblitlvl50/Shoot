@@ -20,57 +20,57 @@
             "h": 9,
             "name": "brain_monster_idle_1",
             "w": 13,
-            "x": 1277,
-            "y": 542
+            "x": 1674,
+            "y": 550
         },
         {
             "h": 9,
             "name": "brain_monster_idle_2",
             "w": 13,
-            "x": 1379,
-            "y": 542
+            "x": 1555,
+            "y": 550
         },
         {
             "h": 9,
             "name": "brain_monster_idle_3",
             "w": 13,
-            "x": 1260,
-            "y": 542
+            "x": 1657,
+            "y": 550
         },
         {
             "h": 9,
             "name": "brain_monster_idle_4",
             "w": 13,
-            "x": 1243,
-            "y": 542
+            "x": 1640,
+            "y": 550
         },
         {
             "h": 9,
             "name": "brain_monster_idle_5",
             "w": 13,
-            "x": 1345,
-            "y": 542
+            "x": 1623,
+            "y": 550
         },
         {
             "h": 9,
             "name": "brain_monster_idle_6",
             "w": 13,
-            "x": 1328,
-            "y": 542
+            "x": 1606,
+            "y": 550
         },
         {
             "h": 9,
             "name": "brain_monster_idle_7",
             "w": 13,
-            "x": 1311,
-            "y": 542
+            "x": 1589,
+            "y": 550
         },
         {
             "h": 9,
             "name": "brain_monster_idle_8",
             "w": 13,
-            "x": 1294,
-            "y": 542
+            "x": 1572,
+            "y": 550
         }
     ],
     "frames_offsets": [
@@ -106,6 +106,16 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/creatures/brain_monster/",
     "texture": "res/sprite_atlas.png",

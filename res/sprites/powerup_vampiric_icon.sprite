@@ -14,8 +14,8 @@
             "h": 7,
             "name": "powerup_vampiric_icon",
             "w": 7,
-            "x": 1179,
-            "y": 555
+            "x": 688,
+            "y": 564
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/icons/",
     "texture": "res/sprite_atlas.png",

@@ -14,8 +14,8 @@
             "h": 41,
             "name": "stone_stairs_1",
             "w": 48,
-            "x": 464,
-            "y": 293
+            "x": 368,
+            "y": 296
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/unique_pieces/",
     "texture": "res/sprite_atlas.png",

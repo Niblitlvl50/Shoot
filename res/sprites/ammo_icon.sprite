@@ -14,8 +14,8 @@
             "h": 17,
             "name": "ammo_icon",
             "w": 7,
-            "x": 191,
-            "y": 486
+            "x": 1439,
+            "y": 513
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/icons/",
     "texture": "res/sprite_atlas.png",

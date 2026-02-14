@@ -14,8 +14,8 @@
             "h": 27,
             "name": "crystal_4",
             "w": 31,
-            "x": 307,
-            "y": 391
+            "x": 77,
+            "y": 412
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/rocks/crystals/",
     "texture": "res/sprite_atlas.png",

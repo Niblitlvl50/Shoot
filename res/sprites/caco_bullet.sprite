@@ -15,15 +15,15 @@
             "h": 16,
             "name": "caco_bullet_default_1",
             "w": 16,
-            "x": 133,
-            "y": 507
+            "x": 865,
+            "y": 514
         },
         {
             "h": 15,
             "name": "caco_bullet_default_2",
             "w": 15,
-            "x": 1528,
-            "y": 507
+            "x": 1735,
+            "y": 514
         }
     ],
     "frames_offsets": [
@@ -35,6 +35,10 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        ""
     ],
     "source_folder": "res/images/bullets/",
     "texture": "res/sprite_atlas.png",

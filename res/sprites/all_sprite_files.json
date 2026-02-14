@@ -1,5 +1,6 @@
 {
     "all_sprites": [
+        "res/sprites/add.sprite",
         "res/sprites/alien.sprite",
         "res/sprites/ammo_icon.sprite",
         "res/sprites/ammo_icon_tiny.sprite",
@@ -73,6 +74,7 @@
         "res/sprites/crystal_2.sprite",
         "res/sprites/crystal_3.sprite",
         "res/sprites/crystal_4.sprite",
+        "res/sprites/delete.sprite",
         "res/sprites/demon_green.sprite",
         "res/sprites/demon_minion.sprite",
         "res/sprites/device_computer.sprite",
@@ -195,6 +197,7 @@
         "res/sprites/plasma_crimson.sprite",
         "res/sprites/plasmaball.sprite",
         "res/sprites/player_background_hud.sprite",
+        "res/sprites/plus.sprite",
         "res/sprites/portal.sprite",
         "res/sprites/portal_green.sprite",
         "res/sprites/potatoe_1.sprite",
@@ -247,6 +250,7 @@
         "res/sprites/rock_tiny_7.sprite",
         "res/sprites/rocket.sprite",
         "res/sprites/rope.sprite",
+        "res/sprites/save.sprite",
         "res/sprites/screen_cross.sprite",
         "res/sprites/screen_neutral.sprite",
         "res/sprites/screen_question.sprite",

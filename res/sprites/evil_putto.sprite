@@ -17,22 +17,22 @@
             "h": 15,
             "name": "evil_putto_idle_1",
             "w": 12,
-            "x": 1620,
-            "y": 507
+            "x": 1943,
+            "y": 514
         },
         {
             "h": 12,
             "name": "evil_putto_idle_2",
             "w": 16,
-            "x": 838,
-            "y": 526
+            "x": 2017,
+            "y": 533
         },
         {
             "h": 9,
             "name": "evil_putto_idle_3",
             "w": 12,
-            "x": 1428,
-            "y": 542
+            "x": 1756,
+            "y": 550
         }
     ],
     "frames_offsets": [
@@ -48,6 +48,11 @@
             "x": -0.03125,
             "y": -0.015625
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/creatures/evil_putto/",
     "texture": "res/sprite_atlas.png",

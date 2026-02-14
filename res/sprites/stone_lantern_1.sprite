@@ -14,8 +14,8 @@
             "h": 20,
             "name": "stone_lantern_1",
             "w": 14,
-            "x": 1090,
-            "y": 463
+            "x": 962,
+            "y": 469
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/structures/",
     "texture": "res/sprite_atlas.png",

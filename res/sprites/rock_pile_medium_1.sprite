@@ -14,8 +14,8 @@
             "h": 55,
             "name": "rock_pile_medium_1",
             "w": 47,
-            "x": 465,
-            "y": 187
+            "x": 150,
+            "y": 188
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/rocks/",
     "texture": "res/sprite_atlas.png",

@@ -14,8 +14,8 @@
             "h": 16,
             "name": "signpost_two1",
             "w": 15,
-            "x": 404,
-            "y": 507
+            "x": 1022,
+            "y": 514
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/props/signs/",
     "texture": "res/sprite_atlas.png",

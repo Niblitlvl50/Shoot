@@ -14,8 +14,8 @@
             "h": 54,
             "name": "rock_pile_3",
             "w": 55,
-            "x": 381,
-            "y": 190
+            "x": 77,
+            "y": 195
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/rocks/",
     "texture": "res/sprite_atlas.png",

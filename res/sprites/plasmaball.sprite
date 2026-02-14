@@ -17,29 +17,29 @@
             "h": 12,
             "name": "plasmaball_idle_1",
             "w": 14,
-            "x": 1350,
-            "y": 526
+            "x": 115,
+            "y": 534
         },
         {
             "h": 14,
             "name": "plasmaball_idle_2",
             "w": 15,
-            "x": 618,
-            "y": 508
+            "x": 668,
+            "y": 515
         },
         {
             "h": 14,
             "name": "plasmaball_idle_3",
             "w": 15,
-            "x": 561,
-            "y": 508
+            "x": 687,
+            "y": 515
         },
         {
             "h": 15,
             "name": "plasmaball_idle_4",
             "w": 15,
-            "x": 1547,
-            "y": 507
+            "x": 1892,
+            "y": 514
         }
     ],
     "frames_offsets": [
@@ -59,6 +59,12 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/explosions/plasma_ball/",
     "texture": "res/sprite_atlas.png",

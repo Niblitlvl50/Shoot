@@ -17,15 +17,15 @@
             "h": 14,
             "name": "key_f_neutral_1",
             "w": 13,
-            "x": 74,
-            "y": 508
+            "x": 779,
+            "y": 515
         },
         {
             "h": 13,
             "name": "key_f_pushed_1",
             "w": 13,
-            "x": 1992,
-            "y": 525
+            "x": 1167,
+            "y": 533
         }
     ],
     "frames_offsets": [
@@ -37,6 +37,10 @@
             "x": 0.0,
             "y": -0.015625
         }
+    ],
+    "notifies": [
+        "",
+        ""
     ],
     "source_folder": "res/images/ui/",
     "texture": "res/sprite_atlas.png",

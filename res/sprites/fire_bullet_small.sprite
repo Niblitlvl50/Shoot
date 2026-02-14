@@ -17,29 +17,29 @@
             "h": 8,
             "name": "fire_bullet_small_idle_1",
             "w": 8,
-            "x": 365,
-            "y": 555
+            "x": 1763,
+            "y": 563
         },
         {
             "h": 8,
             "name": "fire_bullet_small_idle_2",
             "w": 8,
-            "x": 26,
-            "y": 555
+            "x": 1811,
+            "y": 563
         },
         {
             "h": 8,
             "name": "fire_bullet_small_idle_3",
             "w": 8,
-            "x": 62,
-            "y": 555
+            "x": 1823,
+            "y": 563
         },
         {
             "h": 8,
             "name": "fire_bullet_small_idle_4",
             "w": 8,
-            "x": 2022,
-            "y": 554
+            "x": 1835,
+            "y": 563
         }
     ],
     "frames_offsets": [
@@ -59,6 +59,12 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/bullets/fire_bullets/",
     "texture": "res/sprite_atlas.png",

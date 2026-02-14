@@ -36,15 +36,15 @@
             "h": 13,
             "name": "switch_small_default_1",
             "w": 8,
-            "x": 719,
-            "y": 526
+            "x": 1811,
+            "y": 533
         },
         {
             "h": 13,
             "name": "switch_small_default_2",
             "w": 8,
-            "x": 731,
-            "y": 526
+            "x": 1859,
+            "y": 533
         }
     ],
     "frames_offsets": [
@@ -56,6 +56,10 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        ""
     ],
     "source_folder": "res/images/switches/",
     "texture": "res/sprite_atlas.png",

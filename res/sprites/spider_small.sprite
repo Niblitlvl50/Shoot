@@ -31,78 +31,78 @@
             "h": 8,
             "name": "spider_small_idle_1",
             "w": 12,
-            "x": 714,
-            "y": 543
+            "x": 1634,
+            "y": 563
         },
         {
             "h": 7,
             "name": "spider_small_idle_2",
             "w": 14,
-            "x": 622,
-            "y": 555
+            "x": 496,
+            "y": 564
         },
         {
             "h": 7,
             "name": "spider_small_idle_3",
             "w": 14,
-            "x": 658,
-            "y": 555
+            "x": 514,
+            "y": 564
         },
         {
             "h": 8,
             "name": "spider_small_idle_4",
             "w": 12,
-            "x": 286,
-            "y": 547
+            "x": 1602,
+            "y": 563
         },
         {
             "h": 9,
             "name": "spider_small_idle_5",
             "w": 12,
-            "x": 1444,
-            "y": 542
+            "x": 162,
+            "y": 551
         },
         {
             "h": 7,
             "name": "spider_small_move_1",
             "w": 11,
-            "x": 724,
-            "y": 555
+            "x": 613,
+            "y": 564
         },
         {
             "h": 8,
             "name": "spider_small_move_2",
             "w": 12,
-            "x": 218,
-            "y": 548
+            "x": 1666,
+            "y": 563
         },
         {
             "h": 8,
             "name": "spider_small_move_3",
             "w": 13,
-            "x": 598,
-            "y": 543
+            "x": 216,
+            "y": 557
         },
         {
             "h": 7,
             "name": "spider_small_move_4",
             "w": 11,
-            "x": 1093,
-            "y": 555
+            "x": 598,
+            "y": 564
         },
         {
             "h": 8,
             "name": "spider_small_move_5",
             "w": 10,
-            "x": 73,
-            "y": 543
+            "x": 1724,
+            "y": 563
         },
         {
             "h": 8,
             "name": "spider_small_move_6",
             "w": 12,
-            "x": 2034,
-            "y": 542
+            "x": 1586,
+            "y": 563
         }
     ],
     "frames_offsets": [
@@ -150,6 +150,19 @@
             "x": 0.0,
             "y": 0.015625
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/creatures/spider/",
     "texture": "res/sprite_atlas.png",

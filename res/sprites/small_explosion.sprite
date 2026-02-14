@@ -20,50 +20,50 @@
             "h": 8,
             "name": "small_explosion_default_1",
             "w": 8,
-            "x": 427,
-            "y": 555
+            "x": 1787,
+            "y": 563
         },
         {
             "h": 8,
             "name": "small_explosion_default_2",
             "w": 8,
-            "x": 377,
-            "y": 555
+            "x": 1799,
+            "y": 563
         },
         {
             "h": 10,
             "name": "small_explosion_default_3",
             "w": 11,
-            "x": 921,
-            "y": 542
+            "x": 1043,
+            "y": 550
         },
         {
             "h": 10,
             "name": "small_explosion_default_4",
             "w": 11,
-            "x": 906,
-            "y": 542
+            "x": 1028,
+            "y": 550
         },
         {
             "h": 10,
             "name": "small_explosion_default_5",
             "w": 10,
-            "x": 965,
-            "y": 542
+            "x": 1165,
+            "y": 550
         },
         {
             "h": 10,
             "name": "small_explosion_default_6",
             "w": 11,
-            "x": 891,
-            "y": 542
+            "x": 983,
+            "y": 550
         },
         {
             "h": 11,
             "name": "small_explosion_default_7",
             "w": 11,
-            "x": 1287,
-            "y": 527
+            "x": 2,
+            "y": 550
         }
     ],
     "frames_offsets": [
@@ -95,6 +95,15 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/explosions/small_explosion/",
     "texture": "res/sprite_atlas.png",

@@ -72,113 +72,113 @@
             "h": 11,
             "name": "eye_monster_small_attack_1",
             "w": 12,
-            "x": 154,
-            "y": 527
+            "x": 1085,
+            "y": 549
         },
         {
             "h": 11,
             "name": "eye_monster_small_attack_2",
             "w": 12,
-            "x": 170,
-            "y": 527
+            "x": 1369,
+            "y": 549
         },
         {
             "h": 11,
             "name": "eye_monster_small_attack_3",
             "w": 12,
-            "x": 186,
-            "y": 527
+            "x": 1353,
+            "y": 549
         },
         {
             "h": 11,
             "name": "eye_monster_small_attack_4",
             "w": 12,
-            "x": 202,
-            "y": 527
+            "x": 1337,
+            "y": 549
         },
         {
             "h": 11,
             "name": "eye_monster_small_blink_1",
             "w": 12,
-            "x": 305,
-            "y": 527
+            "x": 1149,
+            "y": 549
         },
         {
             "h": 11,
             "name": "eye_monster_small_blink_2",
             "w": 12,
-            "x": 401,
-            "y": 527
+            "x": 1133,
+            "y": 549
         },
         {
             "h": 11,
             "name": "eye_monster_small_blink_3",
             "w": 12,
-            "x": 417,
-            "y": 527
+            "x": 2010,
+            "y": 549
         },
         {
             "h": 11,
             "name": "eye_monster_small_blink_4",
             "w": 12,
-            "x": 1127,
-            "y": 527
+            "x": 1994,
+            "y": 549
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_1",
             "w": 12,
-            "x": 1143,
-            "y": 527
+            "x": 1978,
+            "y": 549
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_2",
             "w": 12,
-            "x": 1159,
-            "y": 527
+            "x": 1962,
+            "y": 549
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_3",
             "w": 12,
-            "x": 1175,
-            "y": 527
+            "x": 1946,
+            "y": 549
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_4",
             "w": 12,
-            "x": 1191,
-            "y": 527
+            "x": 1930,
+            "y": 549
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_5",
             "w": 12,
-            "x": 1207,
-            "y": 527
+            "x": 1914,
+            "y": 549
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_6",
             "w": 12,
-            "x": 1223,
-            "y": 527
+            "x": 1898,
+            "y": 549
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_7",
             "w": 12,
-            "x": 1239,
-            "y": 527
+            "x": 1882,
+            "y": 549
         },
         {
             "h": 11,
             "name": "eye_monster_small_idle_8",
             "w": 12,
-            "x": 1255,
-            "y": 527
+            "x": 1420,
+            "y": 549
         }
     ],
     "frames_offsets": [
@@ -246,6 +246,24 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/creatures/eye_monster_small/",
     "texture": "res/sprite_atlas.png",

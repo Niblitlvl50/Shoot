@@ -17,29 +17,29 @@
             "h": 11,
             "name": "fire_bullet_wobbly_idle_1",
             "w": 9,
-            "x": 248,
-            "y": 533
+            "x": 1436,
+            "y": 549
         },
         {
             "h": 9,
             "name": "fire_bullet_wobbly_idle_2",
             "w": 11,
-            "x": 1588,
-            "y": 542
+            "x": 284,
+            "y": 551
         },
         {
             "h": 11,
             "name": "fire_bullet_wobbly_idle_3",
             "w": 9,
-            "x": 261,
-            "y": 533
+            "x": 17,
+            "y": 550
         },
         {
             "h": 9,
             "name": "fire_bullet_wobbly_idle_4",
             "w": 11,
-            "x": 1603,
-            "y": 542
+            "x": 314,
+            "y": 551
         }
     ],
     "frames_offsets": [
@@ -59,6 +59,12 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/bullets/fire_bullets/",
     "texture": "res/sprite_atlas.png",

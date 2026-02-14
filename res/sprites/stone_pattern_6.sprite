@@ -14,8 +14,8 @@
             "h": 28,
             "name": "stone_pattern_6",
             "w": 30,
-            "x": 600,
-            "y": 375
+            "x": 712,
+            "y": 380
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/rocks/",
     "texture": "res/sprite_atlas.png",

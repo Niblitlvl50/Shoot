@@ -17,29 +17,29 @@
             "h": 9,
             "name": "splash_idle_1",
             "w": 10,
-            "x": 1898,
-            "y": 542
+            "x": 1868,
+            "y": 550
         },
         {
             "h": 20,
             "name": "splash_idle_2",
             "w": 18,
-            "x": 990,
-            "y": 463
+            "x": 862,
+            "y": 469
         },
         {
             "h": 21,
             "name": "splash_idle_3",
             "w": 24,
-            "x": 603,
-            "y": 438
+            "x": 1990,
+            "y": 468
         },
         {
             "h": 20,
             "name": "splash_idle_4",
             "w": 30,
-            "x": 707,
-            "y": 463
+            "x": 579,
+            "y": 469
         }
     ],
     "frames_offsets": [
@@ -59,6 +59,12 @@
             "x": 0.0,
             "y": -0.0625
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/explosions/splash/",
     "texture": "res/sprite_atlas.png",

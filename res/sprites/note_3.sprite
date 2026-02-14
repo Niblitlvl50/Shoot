@@ -14,8 +14,8 @@
             "h": 9,
             "name": "note_3",
             "w": 7,
-            "x": 1951,
-            "y": 542
+            "x": 382,
+            "y": 551
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/props/notes/",
     "texture": "res/sprite_atlas.png",

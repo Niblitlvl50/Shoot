@@ -46,22 +46,22 @@
             "h": 15,
             "name": "cactus_small_idle_1",
             "w": 10,
-            "x": 1724,
-            "y": 507
+            "x": 2017,
+            "y": 514
         },
         {
             "h": 15,
             "name": "cactus_small_idle_2",
             "w": 10,
-            "x": 1682,
-            "y": 507
+            "x": 2031,
+            "y": 514
         },
         {
             "h": 15,
             "name": "cactus_small_idle_3",
             "w": 10,
-            "x": 1696,
-            "y": 507
+            "x": 1989,
+            "y": 514
         }
     ],
     "frames_offsets": [
@@ -77,6 +77,11 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/creatures/cactus_small/",
     "texture": "res/sprite_atlas.png",

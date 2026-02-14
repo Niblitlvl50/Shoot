@@ -14,8 +14,8 @@
             "h": 20,
             "name": "tombstone_small_1",
             "w": 18,
-            "x": 968,
-            "y": 463
+            "x": 840,
+            "y": 469
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/structures/tombstones/",
     "texture": "res/sprite_atlas.png",

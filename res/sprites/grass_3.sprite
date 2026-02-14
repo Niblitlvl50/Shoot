@@ -14,8 +14,8 @@
             "h": 14,
             "name": "grass_3",
             "w": 21,
-            "x": 1939,
-            "y": 507
+            "x": 324,
+            "y": 515
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/vegetation/",
     "texture": "res/sprite_atlas.png",

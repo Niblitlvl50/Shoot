@@ -14,8 +14,8 @@
             "h": 15,
             "name": "wooden_pole_skulls_4",
             "w": 7,
-            "x": 1840,
-            "y": 507
+            "x": 104,
+            "y": 515
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/props/wooden_poles/",
     "texture": "res/sprite_atlas.png",

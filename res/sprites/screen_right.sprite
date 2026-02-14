@@ -14,8 +14,8 @@
             "h": 23,
             "name": "screen_right",
             "w": 26,
-            "x": 2014,
-            "y": 436
+            "x": 974,
+            "y": 442
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/props/screens/",
     "texture": "res/sprite_atlas.png",

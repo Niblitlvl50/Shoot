@@ -14,8 +14,8 @@
             "h": 19,
             "name": "boulder_2",
             "w": 30,
-            "x": 1176,
-            "y": 463
+            "x": 1033,
+            "y": 469
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/rocks/",
     "texture": "res/sprite_atlas.png",

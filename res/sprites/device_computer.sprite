@@ -14,8 +14,8 @@
             "h": 24,
             "name": "device_computer",
             "w": 27,
-            "x": 1095,
-            "y": 408
+            "x": 225,
+            "y": 427
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/props/screens/",
     "texture": "res/sprite_atlas.png",

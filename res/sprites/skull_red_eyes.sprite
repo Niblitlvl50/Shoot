@@ -15,15 +15,15 @@
             "h": 13,
             "name": "skull_red_eyes_laugh_1",
             "w": 11,
-            "x": 530,
-            "y": 526
+            "x": 1645,
+            "y": 533
         },
         {
             "h": 14,
             "name": "skull_red_eyes_laugh_2",
             "w": 11,
-            "x": 737,
-            "y": 508
+            "x": 203,
+            "y": 524
         }
     ],
     "frames_offsets": [
@@ -35,6 +35,10 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        ""
     ],
     "source_folder": "res/images/misc/",
     "texture": "res/sprite_atlas.png",

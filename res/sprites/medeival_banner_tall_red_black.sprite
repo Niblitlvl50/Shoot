@@ -14,7 +14,7 @@
             "h": 62,
             "name": "medeival_banner_tall_red_black",
             "w": 18,
-            "x": 1328,
+            "x": 1418,
             "y": 179
         }
     ],
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/flags/",
     "texture": "res/sprite_atlas.png",

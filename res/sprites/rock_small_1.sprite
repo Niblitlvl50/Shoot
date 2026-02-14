@@ -14,8 +14,8 @@
             "h": 16,
             "name": "rock_small_1",
             "w": 20,
-            "x": 480,
-            "y": 488
+            "x": 1564,
+            "y": 513
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/rocks/",
     "texture": "res/sprite_atlas.png",

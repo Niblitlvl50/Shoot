@@ -16,22 +16,22 @@
             "h": 24,
             "name": "beating_heart_idle_1",
             "w": 16,
-            "x": 1947,
-            "y": 408
+            "x": 1839,
+            "y": 441
         },
         {
             "h": 24,
             "name": "beating_heart_idle_2",
             "w": 16,
-            "x": 1967,
-            "y": 408
+            "x": 1799,
+            "y": 441
         },
         {
             "h": 24,
             "name": "beating_heart_idle_3",
             "w": 16,
-            "x": 216,
-            "y": 422
+            "x": 1819,
+            "y": 441
         }
     ],
     "frames_offsets": [
@@ -47,6 +47,11 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/misc/",
     "texture": "res/sprite_atlas.png",

@@ -14,8 +14,8 @@
             "h": 32,
             "name": "rock_pointy_5",
             "w": 32,
-            "x": 1772,
-            "y": 338
+            "x": 310,
+            "y": 353
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/rocks/",
     "texture": "res/sprite_atlas.png",

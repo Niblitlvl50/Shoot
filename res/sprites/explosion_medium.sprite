@@ -21,57 +21,57 @@
             "h": 20,
             "name": "explosion_medium_idle_1",
             "w": 20,
-            "x": 851,
-            "y": 463
+            "x": 747,
+            "y": 469
         },
         {
             "h": 24,
             "name": "explosion_medium_idle_2",
             "w": 24,
-            "x": 1126,
-            "y": 408
+            "x": 641,
+            "y": 441
         },
         {
             "h": 33,
             "name": "explosion_medium_idle_3",
             "w": 33,
-            "x": 501,
-            "y": 338
+            "x": 1127,
+            "y": 341
         },
         {
             "h": 38,
             "name": "explosion_medium_idle_4",
             "w": 39,
-            "x": 870,
-            "y": 296
+            "x": 313,
+            "y": 311
         },
         {
             "h": 41,
             "name": "explosion_medium_idle_5",
             "w": 44,
-            "x": 516,
-            "y": 293
+            "x": 1016,
+            "y": 296
         },
         {
             "h": 40,
             "name": "explosion_medium_idle_6",
             "w": 44,
-            "x": 1148,
-            "y": 294
+            "x": 1824,
+            "y": 296
         },
         {
             "h": 42,
             "name": "explosion_medium_idle_7",
             "w": 46,
-            "x": 240,
-            "y": 270
+            "x": 467,
+            "y": 295
         },
         {
             "h": 42,
             "name": "explosion_medium_idle_8",
             "w": 44,
-            "x": 987,
-            "y": 292
+            "x": 517,
+            "y": 295
         }
     ],
     "frames_offsets": [
@@ -107,6 +107,16 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/explosions/explosion_medium_1/",
     "texture": "res/sprite_atlas.png",

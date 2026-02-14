@@ -20,50 +20,50 @@
             "h": 10,
             "name": "explosion_small_idle_1",
             "w": 10,
-            "x": 993,
-            "y": 542
+            "x": 1235,
+            "y": 550
         },
         {
             "h": 18,
             "name": "explosion_small_idle_2",
             "w": 18,
-            "x": 1676,
-            "y": 463
+            "x": 1591,
+            "y": 469
         },
         {
             "h": 28,
             "name": "explosion_small_idle_3",
             "w": 28,
-            "x": 814,
-            "y": 375
+            "x": 596,
+            "y": 381
         },
         {
             "h": 27,
             "name": "explosion_small_idle_4",
             "w": 27,
-            "x": 456,
-            "y": 407
+            "x": 144,
+            "y": 412
         },
         {
             "h": 28,
             "name": "explosion_small_idle_5",
             "w": 28,
-            "x": 1419,
-            "y": 375
+            "x": 1866,
+            "y": 380
         },
         {
             "h": 25,
             "name": "explosion_small_idle_6",
             "w": 27,
-            "x": 156,
-            "y": 408
+            "x": 1878,
+            "y": 412
         },
         {
             "h": 19,
             "name": "explosion_small_idle_7",
             "w": 26,
-            "x": 1210,
-            "y": 463
+            "x": 1067,
+            "y": 469
         }
     ],
     "frames_offsets": [
@@ -95,6 +95,15 @@
             "x": -0.078125,
             "y": 0.140625
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/explosions/explosion_small/",
     "texture": "res/sprite_atlas.png",

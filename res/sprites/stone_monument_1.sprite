@@ -24,6 +24,9 @@
             "y": 0.0
         }
     ],
+    "notifies": [
+        ""
+    ],
     "source_folder": "res/images/structures/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {

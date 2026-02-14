@@ -14,8 +14,8 @@
             "h": 21,
             "name": "device_medical",
             "w": 20,
-            "x": 310,
-            "y": 449
+            "x": 101,
+            "y": 469
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/props/screens/",
     "texture": "res/sprite_atlas.png",

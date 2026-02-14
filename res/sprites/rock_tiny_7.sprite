@@ -14,8 +14,8 @@
             "h": 14,
             "name": "rock_tiny_7",
             "w": 16,
-            "x": 481,
-            "y": 508
+            "x": 628,
+            "y": 515
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/rocks/",
     "texture": "res/sprite_atlas.png",

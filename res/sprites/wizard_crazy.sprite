@@ -40,141 +40,141 @@
             "h": 31,
             "name": "wizard_crazy_idle_1",
             "w": 16,
-            "x": 259,
-            "y": 356
+            "x": 1629,
+            "y": 376
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_2",
             "w": 16,
-            "x": 1477,
-            "y": 372
+            "x": 1500,
+            "y": 377
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_3",
             "w": 14,
-            "x": 1971,
-            "y": 373
+            "x": 451,
+            "y": 378
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_4",
             "w": 14,
-            "x": 1953,
-            "y": 373
+            "x": 487,
+            "y": 378
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_5",
             "w": 14,
-            "x": 1935,
-            "y": 373
+            "x": 469,
+            "y": 378
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_6",
             "w": 15,
-            "x": 1172,
-            "y": 373
+            "x": 21,
+            "y": 378
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_7",
             "w": 16,
-            "x": 219,
-            "y": 356
+            "x": 1480,
+            "y": 377
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_8",
             "w": 16,
-            "x": 332,
-            "y": 355
+            "x": 1373,
+            "y": 377
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_9",
             "w": 16,
-            "x": 299,
-            "y": 356
+            "x": 1353,
+            "y": 377
         },
         {
             "h": 31,
             "name": "wizard_crazy_idle_10",
             "w": 16,
-            "x": 239,
-            "y": 356
+            "x": 1520,
+            "y": 377
         },
         {
             "h": 31,
             "name": "wizard_crazy_run_1",
             "w": 16,
-            "x": 279,
-            "y": 356
+            "x": 1333,
+            "y": 377
         },
         {
             "h": 31,
             "name": "wizard_crazy_run_2",
             "w": 15,
-            "x": 1976,
-            "y": 338
+            "x": 432,
+            "y": 378
         },
         {
             "h": 31,
             "name": "wizard_crazy_run_3",
             "w": 13,
-            "x": 2,
-            "y": 374
+            "x": 505,
+            "y": 378
         },
         {
             "h": 31,
             "name": "wizard_crazy_run_4",
             "w": 15,
-            "x": 1400,
-            "y": 373
+            "x": 1540,
+            "y": 377
         },
         {
             "h": 30,
             "name": "wizard_crazy_run_5",
             "w": 16,
-            "x": 1124,
-            "y": 374
+            "x": 1808,
+            "y": 378
         },
         {
             "h": 31,
             "name": "wizard_crazy_run_6",
             "w": 17,
-            "x": 802,
-            "y": 339
+            "x": 174,
+            "y": 376
         },
         {
             "h": 31,
             "name": "wizard_crazy_run_7",
             "w": 19,
-            "x": 1172,
-            "y": 338
+            "x": 1979,
+            "y": 340
         },
         {
             "h": 31,
             "name": "wizard_crazy_run_8",
             "w": 18,
-            "x": 780,
-            "y": 339
+            "x": 174,
+            "y": 341
         },
         {
             "h": 31,
             "name": "wizard_crazy_run_9",
             "w": 18,
-            "x": 758,
-            "y": 339
+            "x": 1979,
+            "y": 375
         },
         {
             "h": 30,
             "name": "wizard_crazy_run_10",
             "w": 16,
-            "x": 1013,
-            "y": 374
+            "x": 576,
+            "y": 378
         }
     ],
     "frames_offsets": [
@@ -258,6 +258,28 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/creatures/wizard/",
     "texture": "res/sprite_atlas.png",

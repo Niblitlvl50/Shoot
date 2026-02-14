@@ -14,8 +14,8 @@
             "h": 23,
             "name": "simple_banner",
             "w": 6,
-            "x": 1400,
-            "y": 435
+            "x": 1396,
+            "y": 442
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/flags/",
     "texture": "res/sprite_atlas.png",

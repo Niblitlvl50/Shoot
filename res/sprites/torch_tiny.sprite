@@ -16,22 +16,22 @@
             "h": 11,
             "name": "torch_tiny_default_1",
             "w": 4,
-            "x": 337,
-            "y": 527
+            "x": 2041,
+            "y": 549
         },
         {
             "h": 11,
             "name": "torch_tiny_default_2",
             "w": 4,
-            "x": 993,
-            "y": 526
+            "x": 54,
+            "y": 550
         },
         {
             "h": 12,
             "name": "torch_tiny_default_3",
             "w": 4,
-            "x": 393,
-            "y": 525
+            "x": 233,
+            "y": 524
         }
     ],
     "frames_offsets": [
@@ -47,6 +47,11 @@
             "x": 0.0,
             "y": 0.015625
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/props/torch/",
     "texture": "res/sprite_atlas.png",

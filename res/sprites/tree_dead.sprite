@@ -14,7 +14,7 @@
             "h": 61,
             "name": "tree_dead",
             "w": 56,
-            "x": 1350,
+            "x": 1440,
             "y": 179
         }
     ],
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/vegetation/",
     "texture": "res/sprite_atlas.png",

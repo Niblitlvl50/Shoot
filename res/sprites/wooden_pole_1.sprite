@@ -14,8 +14,8 @@
             "h": 22,
             "name": "wooden_pole_1",
             "w": 15,
-            "x": 1779,
-            "y": 437
+            "x": 211,
+            "y": 455
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/props/wooden_poles/",
     "texture": "res/sprite_atlas.png",

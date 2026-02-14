@@ -14,8 +14,8 @@
             "h": 46,
             "name": "rock_black_1",
             "w": 31,
-            "x": 1521,
-            "y": 243
+            "x": 565,
+            "y": 246
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/rocks/",
     "texture": "res/sprite_atlas.png",

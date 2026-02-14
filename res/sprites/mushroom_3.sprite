@@ -14,8 +14,8 @@
             "h": 13,
             "name": "mushroom_3",
             "w": 12,
-            "x": 361,
-            "y": 526
+            "x": 1501,
+            "y": 533
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/vegetation/",
     "texture": "res/sprite_atlas.png",

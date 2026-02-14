@@ -14,8 +14,8 @@
             "h": 37,
             "name": "board_1",
             "w": 50,
-            "x": 33,
-            "y": 298
+            "x": 658,
+            "y": 340
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/props/screens/",
     "texture": "res/sprite_atlas.png",

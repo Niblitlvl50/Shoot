@@ -35,8 +35,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
+                                "x": 0.053595978766679764,
+                                "y": 0.05166993662714958
                             }
                         },
                         {
@@ -123,8 +123,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
+                                "x": 0.053595978766679764,
+                                "y": 0.05166993662714958
                             }
                         },
                         {
@@ -187,8 +187,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.0,
-                                "y": -0.125
+                                "x": 0.053595978766679764,
+                                "y": -0.07333005964756012
                             }
                         },
                         {
@@ -208,6 +208,78 @@
                             "name": "entity_reference",
                             "variant_type": 2,
                             "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 2050902347,
+                    "name": "interaction",
+                    "properties": [
+                        {
+                            "id": 648402708,
+                            "name": "interaction_type",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 3146177751,
+                            "name": "sound_file",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "",
+                                "type": 0
+                            }
+                        },
+                        {
+                            "id": 3732203999,
+                            "name": "draw_name",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 235771284,
+                    "name": "sound",
+                    "properties": [
+                        {
+                            "id": 3146177751,
+                            "name": "sound_file",
+                            "variant_type": 6,
+                            "variant_value": "res/sound/pickups/money-pickup.wav"
+                        },
+                        {
+                            "id": 2209811736,
+                            "name": "sound_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2200757869,
+                            "name": "enable_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "trigger_sound",
+                                "type": 2
+                            }
+                        },
+                        {
+                            "id": 3946117592,
+                            "name": "disable_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "",
+                                "type": 0
+                            }
                         }
                     ]
                 },
@@ -316,6 +388,185 @@
                             "variant_value": 0.5
                         }
                     ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3996803839,
+                    "name": "circle_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.30000001192092896
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 3676170277,
+                    "name": "shape_trigger",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "blacksmit_blink",
+                                "type": 2
+                            }
+                        },
+                        {
+                            "id": 1984386624,
+                            "name": "trigger_name_exit",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "blacksmit_idle",
+                                "type": 2
+                            }
+                        },
+                        {
+                            "id": 3210410026,
+                            "name": "emit_once",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 1382230295,
+                    "name": "anim_notify",
+                    "properties": [
+                        {
+                            "id": 1447260660,
+                            "name": "anim_notify",
+                            "variant_type": 6,
+                            "variant_value": "an_hammer_hit"
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "trigger_sound",
+                                "type": 2
+                            }
+                        }
+                    ]
+                },
+                {
+                    "hash": 1052622306,
+                    "name": "set_animation",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "blacksmit_idle",
+                                "type": 2
+                            }
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 1052622306,
+                    "name": "set_animation",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "blacksmit_blink",
+                                "type": 2
+                            }
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -357,8 +608,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.25,
-                                "y": 0.25
+                                "x": 0.30359598994255066,
+                                "y": 0.3016699254512787
                             }
                         },
                         {
@@ -477,8 +728,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -0.5,
-                                "y": 0.375
+                                "x": -0.44640401005744934,
+                                "y": 0.4266699254512787
                             }
                         },
                         {
@@ -597,8 +848,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -0.625,
-                                "y": 0.25
+                                "x": -0.5714040398597717,
+                                "y": 0.3016699254512787
                             }
                         },
                         {
@@ -735,8 +986,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.0,
-                                "y": -0.375
+                                "x": 0.053595978766679764,
+                                "y": -0.3233300745487213
                             }
                         },
                         {
@@ -873,8 +1124,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.625,
-                                "y": -0.125
+                                "x": 0.6785959601402283,
+                                "y": -0.07333005964756012
                             }
                         },
                         {
@@ -993,8 +1244,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -0.625,
-                                "y": -0.125
+                                "x": -0.5567479133605957,
+                                "y": -0.05720885470509529
                             }
                         },
                         {
@@ -1113,8 +1364,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -0.25,
-                                "y": -0.375
+                                "x": -0.19640402495861053,
+                                "y": -0.3233300745487213
                             }
                         },
                         {
@@ -1233,8 +1484,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -0.25,
-                                "y": -0.5
+                                "x": -0.19640402495861053,
+                                "y": -0.4483300745487213
                             }
                         },
                         {
@@ -1353,8 +1604,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.125,
-                                "y": -0.5
+                                "x": 0.17859597504138947,
+                                "y": -0.4483300745487213
                             }
                         },
                         {
@@ -1473,8 +1724,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.25,
-                                "y": -0.375
+                                "x": 0.30359598994255066,
+                                "y": -0.3233300745487213
                             }
                         },
                         {
@@ -1593,8 +1844,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.25,
-                                "y": 0.625
+                                "x": 0.30359598994255066,
+                                "y": 0.6766699552536011
                             }
                         },
                         {
@@ -1687,7 +1938,7 @@
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -1799,6 +2050,301 @@
             "entity_properties": 0,
             "name": "bird_brown",
             "uuid_hash": 810233351
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "collision"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.053595978766679764,
+                                "y": 0.05166993662714958
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 958098175,
+                    "name": "polygon_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 85768329,
+                            "name": "polygon",
+                            "variant_type": 7,
+                            "variant_value": [
+                                {
+                                    "x": -0.9172306060791016,
+                                    "y": -0.03245997428894043
+                                },
+                                {
+                                    "x": -0.3996288776397705,
+                                    "y": 0.39733433723449707
+                                },
+                                {
+                                    "x": 0.26585912704467773,
+                                    "y": 0.425062894821167
+                                },
+                                {
+                                    "x": 0.7048964500427246,
+                                    "y": -0.13875341415405273
+                                },
+                                {
+                                    "x": 0.007058143615722656,
+                                    "y": -0.36058270931243896
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "collision",
+            "uuid_hash": 2551541441
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "torch_tiny"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.4757647216320038,
+                                "y": -0.14540912210941315
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "tomato_1.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "torch_tiny",
+            "uuid_hash": 3036543716
         }
     ],
     "metadata": {
@@ -1833,7 +2379,7 @@
         "completed_trigger": "",
         "failed_trigger": "",
         "level_description": "",
-        "level_game_mode": "",
+        "level_game_mode": "package_delivery_mode",
         "level_name": "empty",
         "navmesh_density": 1.0,
         "navmesh_end": {
@@ -1846,16 +2392,19 @@
         },
         "package_spawn_position": {
             "x": 0.0,
-            "y": 0.0
+            "y": -4.0
         },
         "player_spawn_point": {
             "x": 0.0,
-            "y": 0.0
+            "y": -2.0
         },
-        "spawn_package": true,
+        "spawn_package": false,
         "triggers": [
+            "blacksmit_blink",
+            "blacksmit_idle",
             "trigger_idle",
-            "trigger_peck"
+            "trigger_peck",
+            "trigger_sound"
         ],
         "use_custom_package_spawn_position": false
     }

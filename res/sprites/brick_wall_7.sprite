@@ -15,7 +15,7 @@
             "name": "brick_wall_7",
             "w": 4,
             "x": 2041,
-            "y": 2
+            "y": 88
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/structures/bricks/",
     "texture": "res/sprite_atlas.png",

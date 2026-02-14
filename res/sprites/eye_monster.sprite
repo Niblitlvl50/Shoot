@@ -17,29 +17,29 @@
             "h": 24,
             "name": "eye_monster_idle_0",
             "w": 34,
-            "x": 747,
-            "y": 408
+            "x": 647,
+            "y": 413
         },
         {
             "h": 25,
             "name": "eye_monster_idle_1",
             "w": 35,
-            "x": 1989,
-            "y": 407
+            "x": 1504,
+            "y": 412
         },
         {
             "h": 24,
             "name": "eye_monster_idle_2",
             "w": 27,
-            "x": 987,
-            "y": 408
+            "x": 579,
+            "y": 441
         },
         {
             "h": 25,
             "name": "eye_monster_idle_3",
             "w": 35,
-            "x": 19,
-            "y": 408
+            "x": 1776,
+            "y": 412
         }
     ],
     "frames_offsets": [
@@ -59,6 +59,12 @@
             "x": 0.0,
             "y": -0.0625
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/creatures/eye_monster/",
     "texture": "res/sprite_atlas.png",

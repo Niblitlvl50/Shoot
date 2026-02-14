@@ -14,8 +14,8 @@
             "h": 63,
             "name": "japanese_banner_mid_white_black",
             "w": 23,
-            "x": 1972,
-            "y": 174
+            "x": 754,
+            "y": 176
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/flags/",
     "texture": "res/sprite_atlas.png",
