@@ -175,13 +175,16 @@ namespace
         ImGui::Separator();
         ImGui::BeginChild(666);
 
-        const float second_column_width = 160.0f;
+        const float second_column_width = 120.0f;
         const float second_column_item_width = second_column_width - style.ItemSpacing.x * 2.0f;
 
-        ImGui::Columns(3, "animation_data", false);
-        ImGui::SetColumnWidth(0, 50.0f);
+        bool show_anim_notify_modal = false;
+
+        ImGui::Columns(4, "animation_data", false);
+        ImGui::SetColumnWidth(0, 30.0f);
         ImGui::SetColumnWidth(1, second_column_width);
-        //ImGui::SetColumnWidth(2, 25.0f);
+        ImGui::SetColumnWidth(2, 60.0f);
+        //ImGui::SetColumnWidth(3, 50.0f);
 
         for(size_t index = 0; index < active_animation.frames.size(); ++index)
         {
@@ -195,7 +198,7 @@ namespace
             const bool is_clicked = ImGui::Selectable(
                 string_index.c_str(),
                 &value,
-                ImGuiSelectableFlags_SpanAllColumns | ImGuiSelectableFlags_AllowItemOverlap);
+                ImGuiSelectableFlags_SpanAllColumns | ImGuiSelectableFlags_AllowOverlap);
 
             if(is_clicked && !selected)
                 context.set_active_frame(index);
@@ -204,6 +207,22 @@ namespace
             ImGui::SetNextItemWidth(second_column_item_width);
             if(ImGui::SliderInt("", &animation_frame.frame, 0, context.sprite_data->frames.size() -1))
                 context.animation_frame_updated(index, animation_frame.frame);
+
+            ImGui::NextColumn();
+
+            const ImColor notify_color =
+                animation_frame.notify.empty() ? ImColor(70, 70, 70) : ImColor(150, 150, 0);
+
+            ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
+            ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)notify_color);
+            if(ImGui::Button("Notify"))
+            {
+                context.set_active_frame(index);
+                show_anim_notify_modal = true;
+            }
+            ImGui::PopStyleVar();
+            ImGui::PopStyleColor();
+
             ImGui::NextColumn();
 
             ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.0f);
@@ -222,6 +241,37 @@ namespace
         ImGui::End();
 
         ImGui::PopStyleVar(2);
+
+        // NOTIFY MODAL DIALOG
+        constexpr const char* notify_modal_name = "Notify";
+        if(show_anim_notify_modal)
+        {
+            ImGui::OpenPopup(notify_modal_name);
+        }
+
+        if(ImGui::BeginPopupModal(notify_modal_name, nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+        {
+            mono::SpriteAnimationFrame& anim_frame = active_animation.frames[context.selected_frame];
+
+            char text_buffer[1024] = { 0 };
+            std::snprintf(text_buffer, std::size(text_buffer), "%s", anim_frame.notify.c_str());
+            const bool changed = ImGui::InputText("##notify_input", text_buffer, std::size(text_buffer));
+            if(changed)
+            {
+                anim_frame.notify = text_buffer;
+            }
+
+            ImGui::SameLine();
+
+            if(ImGui::Button("Done", ImVec2(120, 0)))
+            {
+                ImGui::CloseCurrentPopup();
+                //context.quit_callback();
+            }
+
+            ImGui::EndPopup();
+        }
+
     }
 
     void DrawOffsetWindow(animator::UIContext& context)
