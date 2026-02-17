@@ -145,8 +145,10 @@ PlayerAuxiliaryDrawer::PlayerAuxiliaryDrawer(const game::CameraSystem* camera_sy
 
     for(const auto& pair : modifiers_config.modifier_id_to_sprite)
     {
+        const ModifierInfo& modifier_info = pair.second;
+
         AbilityRenderData render_data;
-        render_data.sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite(pair.second.c_str());
+        render_data.sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite(modifier_info.sprite.c_str());
         render_data.sprite_buffers =
             mono::BuildSpriteDrawBuffers(render_data.sprite->GetSpriteData(), "sprite_buffer-player_aux_drawer");
 

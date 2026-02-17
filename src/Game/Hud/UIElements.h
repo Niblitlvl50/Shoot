@@ -53,6 +53,7 @@ namespace game
 
         void AddChild(UIElement* element);
         void RemoveChild(UIElement* element);
+        void DeleteChild(UIElement* element);
 
     protected:
 
@@ -177,6 +178,29 @@ namespace game
         {
             int handle;
             UISpriteElement* ui_sprite;
+        };
+        std::vector<UISpriteData> m_sprites;
+    };
+
+    class UIActivePowerupsElement : public UIElement
+    {
+    public:
+
+        UIActivePowerupsElement();
+        void SetSpacing(float spacing);
+        void PushSprite(int sprite_handle, const char* sprite_file, const char* text);
+        void RemoveSprite(int sprite_handle);
+
+    private:
+        void RecalculateLayout();
+
+        float m_spacing;
+        
+        struct UISpriteData
+        {
+            int handle;
+            UISpriteElement* ui_sprite;
+            UITextElement* ui_text;
         };
         std::vector<UISpriteData> m_sprites;
     };

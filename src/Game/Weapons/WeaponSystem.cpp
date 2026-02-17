@@ -358,12 +358,12 @@ const ModifiersConfig& WeaponSystem::GetModifiersConfig() const
     return m_modifier_configuration;
 }
 
-const std::string& WeaponSystem::GetModifierSpriteFileForNameId(uint32_t weapon_modifier_hash) const
+const ModifierInfo& WeaponSystem::GetModifierSpriteFileForNameId(uint32_t weapon_modifier_hash) const
 {
     const auto it = m_modifier_configuration.modifier_id_to_sprite.find(weapon_modifier_hash);
     if(it != m_modifier_configuration.modifier_id_to_sprite.end())
         return it->second;
 
-    static std::string modifier_config;
-    return modifier_config;
+    static const ModifierInfo s_modifier_info;
+    return s_modifier_info;
 }

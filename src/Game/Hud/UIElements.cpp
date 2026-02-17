@@ -1,5 +1,6 @@
 
 #include "UIElements.h"
+#include "FontIds.h"
 
 #include "Rendering/RenderSystem.h"
 #include "Rendering/IRenderer.h"
@@ -56,6 +57,9 @@ void UIElement::Draw(mono::IRenderer& renderer) const
     {
         const math::Quad& bounds = BoundingBox();
         renderer.DrawQuad(bounds, mono::Color::CYAN, 1.0f);
+
+        const math::Vector& anchor_offset = mono::CalculateOffsetFromCenter(m_anchor_point, math::Size(bounds), 1.0f);
+        renderer.DrawPoints({ anchor_offset }, mono::Color::MAGENTA, 10.0f);
     }
 }
 
@@ -132,9 +136,9 @@ math::Matrix UIElement::LocalTransform() const
     const math::Vector& anchor_offset = GetAnchorOffset();
     return 
         math::CreateMatrixWithPosition(m_position) *
-        math::CreateMatrixWithPosition(anchor_offset) * 
         math::CreateMatrixFromZRotation(m_rotation) *
-        math::CreateMatrixWithScale(m_scale);
+        math::CreateMatrixWithScale(m_scale) *
+        math::CreateMatrixWithPosition(anchor_offset);
 }
 
 math::Matrix UIElement::Transform() const
@@ -160,6 +164,12 @@ void UIElement::RemoveChild(UIElement* element)
 {
     mono::remove(m_ui_elements, element);
     element->m_parent = nullptr;
+}
+
+void UIElement::DeleteChild(UIElement* element)
+{
+    RemoveChild(element);
+    delete element;
 }
 
 
@@ -419,7 +429,7 @@ void UISpriteBarElement::RemoveSprite(int sprite_handle)
     const auto find_by_handle = [this, sprite_handle](const UISpriteData& sprite_data) {
         const bool this_is_the_one = (sprite_data.handle == sprite_handle);
         if(this_is_the_one)
-            RemoveChild(sprite_data.ui_sprite);
+            DeleteChild(sprite_data.ui_sprite);
 
         return this_is_the_one;
     };
@@ -441,6 +451,79 @@ void UISpriteBarElement::RecalculateLayout()
         const math::Quad& local_bounds = sprite_data.ui_sprite->LocalBoundingBox();
         offset_x += math::Width(local_bounds);
         offset_x += m_spacing;
+    }
+}
+
+
+UIActivePowerupsElement::UIActivePowerupsElement()
+    : m_spacing(0.1f)
+{ }
+
+void UIActivePowerupsElement::SetSpacing(float spacing)
+{
+    m_spacing = spacing;
+}
+
+void UIActivePowerupsElement::PushSprite(int sprite_handle, const char* sprite_file, const char* text)
+{
+    const auto check_id = [sprite_handle](const UISpriteData& sprite_data) {
+        return sprite_data.handle == sprite_handle;
+    };
+    const bool invalid_handle = mono::contains(m_sprites, check_id);
+    if(invalid_handle)
+        return;
+
+    UISpriteElement* ui_sprite = new UISpriteElement(sprite_file);
+    ui_sprite->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
+
+    UITextElement* ui_text = new UITextElement(FontId::RUSSOONE_TINY, text, mono::Color::OFF_WHITE);
+    //ui_text->SetEnableShadow(true);
+    ui_text->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
+    ui_text->SetScale(0.4f);
+    
+    AddChild(ui_sprite);
+    AddChild(ui_text);
+
+    m_sprites.push_back(
+        { sprite_handle, ui_sprite, ui_text }
+    );
+
+    RecalculateLayout();
+}
+
+void UIActivePowerupsElement::RemoveSprite(int sprite_handle)
+{
+    const auto find_by_handle = [this, sprite_handle](const UISpriteData& sprite_data) {
+        const bool this_is_the_one = (sprite_data.handle == sprite_handle);
+        if(this_is_the_one)
+        {
+            DeleteChild(sprite_data.ui_sprite);
+            DeleteChild(sprite_data.ui_text);
+        }
+
+        return this_is_the_one;
+    };
+    
+    const bool element_removed = mono::remove_if(m_sprites, find_by_handle);
+
+    if(element_removed)
+        RecalculateLayout();
+}
+
+void UIActivePowerupsElement::RecalculateLayout()
+{
+    float offset_y = 0.0f;
+
+    for(const UISpriteData& sprite_data : m_sprites)
+    {
+        const math::Quad& local_bounds = sprite_data.ui_sprite->LocalBoundingBox();
+        const float offset_x = math::Width(local_bounds);
+
+        sprite_data.ui_sprite->SetPosition(0.0f, offset_y);
+        sprite_data.ui_text->SetPosition(0.0f + offset_x + m_spacing, offset_y);
+
+        offset_y += math::Height(local_bounds);
+        offset_y += m_spacing;
     }
 }
 

@@ -171,6 +171,8 @@ namespace game
             , m_timer(0.0f)
             , m_weapon_system(weapon_system)
         {
+            SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
+
             m_position = m_offscreen_position = offscreen_position;
             m_screen_position = onscreen_position;
 
@@ -186,10 +188,18 @@ namespace game
             m_healthbar = new UIBarElement(1.9f, 0.05f, mono::Color::GRAY, healthbar_red);
             m_healthbar->SetPosition(-0.95f, -0.45f);
 
+            /*
             m_effects_sprites = new UISpriteBarElement();
             m_effects_sprites->SetPosition(-0.1f, 0.3f);
             m_effects_sprites->SetScale(0.75f);
             m_effects_sprites->SetSpacing(0.02f);
+            */
+
+            m_effects_sprites = new UIActivePowerupsElement();
+            m_effects_sprites->SetPosition(-1.0f, 0.4f);
+            //m_effects_sprites->SetScale(0.75f);
+            m_effects_sprites->SetSpacing(0.02f);
+
 
             m_mugshot_element = new MugshotElement(player_info, sprite_system);
             m_weapon_element = new WeaponElement(player_info, weapon_system);
@@ -264,9 +274,12 @@ namespace game
 
             for(uint32_t modifier_id : m_player_info.active_weapon_modifiers)
             {
-                const std::string& sprite_file = m_weapon_system->GetModifierSpriteFileForNameId(modifier_id);
-                if(!sprite_file.empty())
-                    m_effects_sprites->PushSprite(modifier_id, sprite_file.c_str());
+                const ModifierInfo& modifier_info = m_weapon_system->GetModifierSpriteFileForNameId(modifier_id);
+                if(!modifier_info.sprite.empty())
+                {
+                    m_effects_sprites->PushSprite(
+                        modifier_id, modifier_info.sprite.c_str(), modifier_info.name.c_str());
+                }
             }
 
             for(uint32_t modifier_id : deactivated_modifiers)
@@ -301,7 +314,8 @@ namespace game
         class UITextElement* m_chips_text;
         class UITextElement* m_rubble_text;
         class UIBarElement* m_healthbar;
-        class UISpriteBarElement* m_effects_sprites;
+        //class UISpriteBarElement* m_effects_sprites;
+        class UIActivePowerupsElement* m_effects_sprites;
 
         MugshotElement* m_mugshot_element;
         WeaponElement* m_weapon_element;

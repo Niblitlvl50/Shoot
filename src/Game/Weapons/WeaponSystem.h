@@ -75,7 +75,7 @@ namespace game
         WeaponModifierList GetWeaponModifiersForIdAndWeapon(uint32_t id, uint32_t weapon_identifier_hash) const;
 
         const ModifiersConfig& GetModifiersConfig() const;
-        const std::string& GetModifierSpriteFileForNameId(uint32_t weapon_modifier_hash) const; 
+        const ModifierInfo& GetModifierSpriteFileForNameId(uint32_t weapon_modifier_hash) const; 
 
     private:
 
