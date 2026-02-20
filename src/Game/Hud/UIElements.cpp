@@ -520,7 +520,7 @@ void UIActivePowerupsElement::RecalculateLayout()
         const float offset_x = math::Width(local_bounds);
 
         sprite_data.ui_sprite->SetPosition(0.0f, offset_y);
-        sprite_data.ui_text->SetPosition(0.0f + offset_x + m_spacing, offset_y);
+        sprite_data.ui_text->SetPosition(0.0f + offset_x + m_spacing, offset_y + 0.05f);
 
         offset_y += math::Height(local_bounds);
         offset_y += m_spacing;
