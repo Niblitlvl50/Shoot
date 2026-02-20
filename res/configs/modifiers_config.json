@@ -1,27 +1,33 @@
 {
     "modifiers": [
         {
-            "name": "double_damage_10s",
+            "id": "double_damage_10s",
+            "name": "Dmg x2",
             "sprite_file": "res/sprites/powerup_damage_icon.sprite"
         },
         {
-            "name": "damage_up_10",
+            "id": "damage_up_10",
+            "name": "Dmg +10",
             "sprite_file": "res/sprites/powerup_damage_icon.sprite"
         },
         {
-            "name": "bullet_wall",
+            "id": "bullet_wall",
+            "name": "Bullet Wall",
             "sprite_file": "res/sprites/powerup_spread_icon.sprite"
         },
         {
-            "name": "behaviour_mod_pass_through",
+            "id": "behaviour_mod_pass_through",
+            "name": "Piercing",
             "sprite_file": "res/sprites/powerup_spread_icon.sprite"
         },
         {
-            "name": "crit_chance_10",
+            "id": "crit_chance_10",
+            "name": "Crit+",
             "sprite_file": "res/sprites/powerup_crit_icon.sprite"
         },
         {
-            "name": "vamperic",
+            "id": "vamperic",
+            "name": "Vamp",
             "sprite_file": "res/sprites/powerup_vampiric_icon.sprite"
         }
     ]

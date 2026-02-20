@@ -65,11 +65,13 @@ game::ModifiersConfig game::LoadModifiersConfig(const char* modifiers_config_fil
 
     for(const auto& modifier_json : json["modifiers"])
     {
+        const std::string modifier_id = modifier_json.value("id", "");
+
         ModifierInfo modifier_info;
         modifier_info.name = modifier_json.value("name", "");
         modifier_info.sprite = modifier_json.value("sprite_file", "");
 
-        config.modifier_id_to_sprite.insert_or_assign(hash::Hash(modifier_info.name.c_str()), modifier_info);
+        config.modifier_id_to_sprite.insert_or_assign(hash::Hash(modifier_id.c_str()), modifier_info);
     }
 
     return config;
