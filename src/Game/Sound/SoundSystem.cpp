@@ -74,6 +74,10 @@ void SoundSystem::PlayBackgroundMusic(uint32_t track, SoundTransition transition
     if(track == m_current_track)
         return;
 
+    const bool track_exists = m_music_tracks.count(track) > 0;
+    if(!track_exists)
+        return;
+
     if(m_current_transition != SoundTransition::None)
     {
         // We are already in a transition
