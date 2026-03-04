@@ -42,13 +42,15 @@ namespace game
     {
         SP_TRIGGER_ACTIVATED   = ENUM_BIT(0),
         SP_ACTIVE_ON_LOAD      = ENUM_BIT(1),
-        SP_LOOPING             = ENUM_BIT(2)
+        SP_LOOPING             = ENUM_BIT(2),
+        SP_SPATIAL             = ENUM_BIT(3),
     };
 
     static const std::vector<uint32_t> all_sound_play_parameters = {
         SoundInstancePlayParameter::SP_TRIGGER_ACTIVATED,
         SoundInstancePlayParameter::SP_ACTIVE_ON_LOAD,
         SoundInstancePlayParameter::SP_LOOPING,
+        SoundInstancePlayParameter::SP_SPATIAL,
     };
 
     inline const char* SoundInstancePlayParamterToString(uint32_t parameter)
@@ -59,6 +61,8 @@ namespace game
             return "Play on Load";
         else if(parameter == SP_LOOPING)
             return "Looping";
+        else if(parameter == SP_SPATIAL)
+            return "Spatial";
 
         return "Unknown";
     }
@@ -68,6 +72,7 @@ namespace game
         audio::ISoundPtr sound;
         uint32_t play_trigger;
         uint32_t stop_trigger;
+        bool is_spatial;
 
         uint32_t play_callback_id;
         uint32_t stop_callback_id;
@@ -77,7 +82,11 @@ namespace game
     {
     public:
 
-        SoundSystem(uint32_t n, mono::TriggerSystem* trigger_system);
+        SoundSystem(
+            uint32_t n,
+            class CameraSystem* camera_system,
+            mono::TransformSystem* transform_system,
+            mono::TriggerSystem* trigger_system);
         ~SoundSystem();
 
         void PlayBackgroundMusic(const std::string& name, SoundTransition transition);
@@ -94,6 +103,8 @@ namespace game
 
         void DrawDebug(const mono::UpdateContext& update_context);
 
+        game::CameraSystem* m_camera_system;
+        mono::TransformSystem* m_transform_system;
         mono::TriggerSystem* m_trigger_system;
         mono::ActiveVector<SoundInstanceComponent> m_sound_components;
 

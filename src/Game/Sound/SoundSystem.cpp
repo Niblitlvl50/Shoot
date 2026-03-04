@@ -1,7 +1,10 @@
 
 #include "SoundSystem.h"
+#include "GameCamera/CameraSystem.h"
+#include "TransformSystem/TransformSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
 
+#include "Camera/ICamera.h"
 #include "System/Audio.h"
 #include "System/Hash.h"
 
@@ -30,8 +33,14 @@ namespace
 
 using namespace game;
 
-SoundSystem::SoundSystem(uint32_t n, mono::TriggerSystem* trigger_system)
-    : m_trigger_system(trigger_system)
+SoundSystem::SoundSystem(
+    uint32_t n,
+    CameraSystem* camera_system,
+    mono::TransformSystem* transform_system,
+    mono::TriggerSystem* trigger_system)
+    : m_camera_system(camera_system)
+    , m_transform_system(transform_system)
+    , m_trigger_system(trigger_system)
     , m_sound_components(n)
     , m_master_volume(1.0f)
     , m_current_track(0)
@@ -121,6 +130,7 @@ SoundInstanceComponent* SoundSystem::AllocateSoundComponent(uint32_t entity_id)
     SoundInstanceComponent component;
     component.play_trigger = 0;
     component.stop_trigger = 0;
+    component.is_spatial = false;
     component.play_callback_id = NO_CALLBACK_SET;
     component.stop_callback_id = NO_CALLBACK_SET;
 
@@ -149,6 +159,7 @@ void SoundSystem::SetSoundComponentData(
     component->sound = audio::CreateSound(sound_file.c_str(), playback_param);
     component->play_trigger = play_trigger;
     component->stop_trigger = stop_trigger;
+    component->is_spatial = (play_parameters & SoundInstancePlayParameter::SP_SPATIAL);
 
     if(component->play_callback_id != NO_CALLBACK_SET)
         m_trigger_system->RemoveTriggerCallback(component->play_trigger, component->play_callback_id, entity_id);
@@ -224,6 +235,21 @@ void SoundSystem::Update(const mono::UpdateContext& update_context)
             m_current_track = m_requested_track;
             m_current_transition = SoundTransition::None;
         }
+    }
+
+    const auto update_spatiallity = [this](uint32_t entity_id, const SoundInstanceComponent& component) {
+        if(component.is_spatial)
+        {
+            const math::Vector& world_position = m_transform_system->GetWorldPosition(entity_id);
+            component.sound->SetPosition(world_position.x, world_position.y);
+        }
+    };
+    m_sound_components.ForEach(update_spatiallity);
+
+    {
+        const mono::ICamera* camera = m_camera_system->GetActiveCamera();
+        const math::Vector& camera_position = camera->GetPosition();
+        audio::SetListenerPosition(camera_position.x, camera_position.y);
     }
 
     if(game::g_mute_soundsystem)
