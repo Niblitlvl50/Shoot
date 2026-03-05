@@ -56,16 +56,16 @@ Weapon::Weapon(
     m_reload_finished_sound = audio::CreateNullSound();
 
     if(!m_weapon_config.fire_sound.empty())
-        m_fire_sound = audio::CreateSound(m_weapon_config.fire_sound.c_str(), audio::SoundPlayback::ONCE);
+        m_fire_sound = audio::CreateSound(m_weapon_config.fire_sound.c_str(), audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
 
     if(!m_weapon_config.out_of_ammo_sound.empty())
-        m_ooa_sound = audio::CreateSound(m_weapon_config.out_of_ammo_sound.c_str(), audio::SoundPlayback::ONCE);
+        m_ooa_sound = audio::CreateSound(m_weapon_config.out_of_ammo_sound.c_str(), audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
     
     if(!m_weapon_config.reload_sound.empty())
-        m_reload_sound = audio::CreateSound(m_weapon_config.reload_sound.c_str(), audio::SoundPlayback::ONCE);
+        m_reload_sound = audio::CreateSound(m_weapon_config.reload_sound.c_str(), audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
 
     if(!m_weapon_config.reload_finished_sound.empty())
-        m_reload_finished_sound = audio::CreateSound(m_weapon_config.reload_sound.c_str(), audio::SoundPlayback::ONCE);
+        m_reload_finished_sound = audio::CreateSound(m_weapon_config.reload_sound.c_str(), audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
 
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();

@@ -31,7 +31,7 @@ ExplodableController::ExplodableController(uint32_t entity_id, mono::SystemConte
     , m_draw_explosion_once(false)
 {
     m_explosion_sound =
-        audio::CreateSound("res/sound/explosion_metallic.wav", audio::SoundPlayback::ONCE);
+        audio::CreateSound("res/sound/explosion_metallic.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
 
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();

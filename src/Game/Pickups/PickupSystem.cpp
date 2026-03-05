@@ -101,10 +101,14 @@ PickupSystem::PickupSystem(
         m_pickup_annotation_entity = json["pickup_annotation"];
     }
 
-    m_pickup_sound = audio::CreateSound("res/sound/pickups/money-pickup.wav", audio::SoundPlayback::ONCE);
-    m_coins_sound = audio::CreateSound("res/sound/pickups/pickup_gold.wav", audio::SoundPlayback::ONCE);
-    m_experience_sound = audio::CreateSound("res/sound/pickups/pickup_gold.wav", audio::SoundPlayback::ONCE);
-    m_lootbox_sound = audio::CreateSound("res/sound/pickups/smoke_bomb.wav", audio::SoundPlayback::ONCE);
+    m_pickup_sound = audio::CreateSound(
+        "res/sound/pickups/money-pickup.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
+    m_coins_sound = audio::CreateSound(
+        "res/sound/pickups/pickup_gold.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
+    m_experience_sound = audio::CreateSound(
+        "res/sound/pickups/pickup_gold.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
+    m_lootbox_sound = audio::CreateSound(
+        "res/sound/pickups/smoke_bomb.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
 }
 
 void PickupSystem::Begin()

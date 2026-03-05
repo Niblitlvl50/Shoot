@@ -58,7 +58,8 @@ SoundSystem::SoundSystem(
         {
             const std::string name = json_music_track["name"];
             const std::string filename = json_music_track["filename"];
-            m_music_tracks[hash::Hash(name.c_str())] = audio::CreateSound(filename.c_str(), audio::SoundPlayback::LOOPING);
+            m_music_tracks[hash::Hash(name.c_str())] = audio::CreateSound(
+                filename.c_str(), audio::SoundPlayback::LOOPING, audio::SoundSpatiality::NONE);
 
             hash::HashRegisterString(name.c_str());
         }
@@ -155,11 +156,14 @@ void SoundSystem::SetSoundComponentData(
     const audio::SoundPlayback playback_param =
         (play_parameters & SoundInstancePlayParameter::SP_LOOPING) ? audio::SoundPlayback::LOOPING : audio::SoundPlayback::ONCE;
 
+    const audio::SoundSpatiality spatiality_param = 
+        (play_parameters & SoundInstancePlayParameter::SP_SPATIAL) ? audio::SoundSpatiality::SPATIAL : audio::SoundSpatiality::NONE;
+
     SoundInstanceComponent* component = m_sound_components.Get(entity_id);
-    component->sound = audio::CreateSound(sound_file.c_str(), playback_param);
+    component->sound = audio::CreateSound(sound_file.c_str(), playback_param, spatiality_param);
     component->play_trigger = play_trigger;
     component->stop_trigger = stop_trigger;
-    component->is_spatial = (play_parameters & SoundInstancePlayParameter::SP_SPATIAL);
+    component->is_spatial = (spatiality_param == audio::SoundSpatiality::SPATIAL);
 
     if(component->play_callback_id != NO_CALLBACK_SET)
         m_trigger_system->RemoveTriggerCallback(component->play_trigger, component->play_callback_id, entity_id);

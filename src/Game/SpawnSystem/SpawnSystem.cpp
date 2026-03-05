@@ -38,7 +38,9 @@ SpawnSystem::SpawnSystem(uint32_t n, mono::TriggerSystem* trigger_system, mono::
     const std::vector<std::string> spawn_sounds = json["spawn_sounds"];
     for(const std::string& sound : spawn_sounds)
     {
-        m_spawn_sounds.push_back(audio::CreateSound(sound.c_str(), audio::SoundPlayback::ONCE));
+        m_spawn_sounds.push_back(
+            audio::CreateSound(sound.c_str(), audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE)
+        );
     }
 
     for(const auto& spawn_definition : json["spawn_definitions"])

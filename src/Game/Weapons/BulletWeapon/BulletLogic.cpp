@@ -67,7 +67,7 @@ BulletLogic::BulletLogic(
 
     m_sound = bullet_config.sound_file.empty() ?
         audio::CreateNullSound() :
-        audio::CreateSound(bullet_config.sound_file.c_str(), audio::SoundPlayback::LOOPING);
+        audio::CreateSound(bullet_config.sound_file.c_str(), audio::SoundPlayback::LOOPING, audio::SoundSpatiality::NONE);
     m_sound->Play();
 
     mono::IBody* bullet_body = m_physics_system->GetBody(entity_id);

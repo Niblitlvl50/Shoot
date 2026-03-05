@@ -154,13 +154,19 @@ PlayerLogic::PlayerLogic(
     game::PickupCallback handle_pickups = std::bind(&PlayerLogic::HandlePickup, this, _1, _2);
     m_pickup_system->RegisterPickupTarget(m_entity_id, handle_pickups);
 
-    m_switch_weapon_sound = audio::CreateSound("res/sound/weapon_switch.wav", audio::SoundPlayback::ONCE);
-    m_blink_sound = audio::CreateSound("res/sound/punch.wav", audio::SoundPlayback::ONCE);
-    m_drop_box_sound = audio::CreateSound("res/sound/punch.wav", audio::SoundPlayback::ONCE);
-    m_pickup_box_sound = audio::CreateSound("res/sound/punch.wav", audio::SoundPlayback::ONCE);
+    m_switch_weapon_sound = audio::CreateSound(
+        "res/sound/weapon_switch.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
+    m_blink_sound = audio::CreateSound(
+        "res/sound/punch.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
+    m_drop_box_sound = audio::CreateSound(
+        "res/sound/punch.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
+    m_pickup_box_sound = audio::CreateSound(
+        "res/sound/punch.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
     
-    m_running_sounds[0] = audio::CreateSound("res/sound/footsteps/grass/steps1.wav", audio::SoundPlayback::ONCE);
-    m_running_sounds[1] = audio::CreateSound("res/sound/footsteps/grass/steps2.wav", audio::SoundPlayback::ONCE);
+    m_running_sounds[0] = audio::CreateSound(
+        "res/sound/footsteps/grass/steps1.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
+    m_running_sounds[1] = audio::CreateSound(
+        "res/sound/footsteps/grass/steps2.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
     //m_running_sounds[2] = audio::CreateSound("res/sound/footsteps/grass/steps3.wav", audio::SoundPlayback::ONCE);
     //m_running_sounds[3] = audio::CreateSound("res/sound/footsteps/grass/steps4.wav", audio::SoundPlayback::ONCE);
 

@@ -47,18 +47,18 @@ void game::InitWeaponCallbacks(mono::SystemContext* system_context)
     g_impact_effects[game::PhysicsMaterial::TREE]           = std::make_unique<game::ImpactEffect>(particle_system, entity_system);
     g_impact_effects[game::PhysicsMaterial::FLESH]          = std::make_unique<game::DamageEffect>(particle_system, entity_system);
 
-    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish01.wav", audio::SoundPlayback::ONCE));
-    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish02.wav", audio::SoundPlayback::ONCE));
-    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish03.wav", audio::SoundPlayback::ONCE));
-    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish04.wav", audio::SoundPlayback::ONCE));
-    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish05.wav", audio::SoundPlayback::ONCE));
-    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish06.wav", audio::SoundPlayback::ONCE));
-    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish07.wav", audio::SoundPlayback::ONCE));
-    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish08.wav", audio::SoundPlayback::ONCE));
-    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish09.wav", audio::SoundPlayback::ONCE));
-    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish10.wav", audio::SoundPlayback::ONCE));
+    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish01.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE));
+    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish02.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE));
+    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish03.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE));
+    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish04.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE));
+    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish05.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE));
+    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish06.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE));
+    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish07.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE));
+    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish08.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE));
+    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish09.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE));
+    g_death_sounds.push_back(audio::CreateSound("res/sound/death/death_squish10.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE));
 
-    g_critical_hit_sound = audio::CreateSound("res/sound/Impact/arrow-impact1.wav", audio::SoundPlayback::ONCE);
+    g_critical_hit_sound = audio::CreateSound("res/sound/Impact/arrow-impact1.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
     g_vamperic_hit_sound = audio::CreateNullSound();
 
     g_vamperic_hit_effect = std::make_unique<game::VampericEffect>(particle_system, entity_system);

@@ -64,7 +64,7 @@ void InteractionSystem::AddComponent(
     component->sound = audio::CreateNullSound();
     
     if(!interaction_sound.empty())
-        component->sound = audio::CreateSound(interaction_sound.c_str(), audio::SoundPlayback::ONCE);
+        component->sound = audio::CreateSound(interaction_sound.c_str(), audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
 
     // Internal data
     InteractionComponentDetails& details = m_component_details[entity_id];

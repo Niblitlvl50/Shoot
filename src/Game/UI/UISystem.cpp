@@ -45,8 +45,8 @@ UISystem::UISystem(
     m_input_context->mouse_input = this;
     m_input_context->controller_input = this;
 
-    m_selection_sound = audio::CreateSound("res/sound/ui/tiny-click_minimal-ui-sounds.wav", audio::SoundPlayback::ONCE);
-    m_click_sound = audio::CreateSound("res/sound/ui/click-04_minimal-ui-sounds.wav", audio::SoundPlayback::ONCE);
+    m_selection_sound = audio::CreateSound("res/sound/ui/tiny-click_minimal-ui-sounds.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
+    m_click_sound = audio::CreateSound("res/sound/ui/click-04_minimal-ui-sounds.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
 }
 
 UISystem::~UISystem()

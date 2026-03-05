@@ -68,10 +68,18 @@ PlayerDaemonSystem::PlayerDaemonSystem(
     const std::vector<std::string> player_death_sounds = json["player_death_sounds"];
 
     for(const std::string& sound_file : player_damage_sounds)
-        m_damage_sounds.push_back(audio::CreateSound(sound_file.c_str(), audio::SoundPlayback::ONCE));
+    {
+        m_damage_sounds.push_back(
+            audio::CreateSound(sound_file.c_str(), audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE)
+        );
+    }
 
     for(const std::string& sound_file : player_death_sounds)
-        m_death_sounds.push_back(audio::CreateSound(sound_file.c_str(), audio::SoundPlayback::ONCE));
+    {
+        m_death_sounds.push_back(
+            audio::CreateSound(sound_file.c_str(), audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE)
+        );
+    }
 
     mono::UniformRandomBitGenerator random_bit_generator(System::GetMilliseconds());
     //std::shuffle(m_player_entities.begin(), m_player_entities.end(), random_bit_generator);

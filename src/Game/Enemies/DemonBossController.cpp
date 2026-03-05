@@ -52,8 +52,8 @@ DemonBossController::DemonBossController(uint32_t entity_id, mono::SystemContext
     m_secondary_weapon = weapon_system->CreateSecondaryWeapon(entity_id, WeaponFaction::ENEMY);
     m_tertiary_weapon = weapon_system->CreateTertiaryWeapon(entity_id, WeaponFaction::ENEMY);
 
-    m_damage_sound = audio::CreateSound("res/sound/blaster-ricochet.wav", audio::SoundPlayback::ONCE);
-    m_death_sound = audio::CreateSound("res/sound/demon_death.wav", audio::SoundPlayback::ONCE);
+    m_damage_sound = audio::CreateSound("res/sound/blaster-ricochet.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
+    m_death_sound = audio::CreateSound("res/sound/demon_death.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
 
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
