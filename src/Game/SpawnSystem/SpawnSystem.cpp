@@ -39,7 +39,7 @@ SpawnSystem::SpawnSystem(uint32_t n, mono::TriggerSystem* trigger_system, mono::
     for(const std::string& sound : spawn_sounds)
     {
         m_spawn_sounds.push_back(
-            audio::CreateSound(sound.c_str(), audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE)
+            audio::CreateSound(sound.c_str(), audio::SoundPlayback::ONCE, audio::SoundSpatiality::SPATIAL)
         );
     }
 
@@ -360,7 +360,11 @@ void SpawnSystem::Update(const mono::UpdateContext& update_context)
         {
             const audio::ISoundPtr& sound = m_spawn_sounds.front();
             if(!sound->IsPlaying())
+            {
+                const math::Vector& spawn_event_position = math::GetPosition(spawn_event.transform);
+                sound->SetPosition(spawn_event_position.x, spawn_event_position.y);
                 sound->Play();
+            }
         }
 
         // This spawn might be from a entity spawn point.

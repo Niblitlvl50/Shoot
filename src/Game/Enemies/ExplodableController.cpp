@@ -31,7 +31,7 @@ ExplodableController::ExplodableController(uint32_t entity_id, mono::SystemConte
     , m_draw_explosion_once(false)
 {
     m_explosion_sound =
-        audio::CreateSound("res/sound/explosion_metallic.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
+        audio::CreateSound("res/sound/explosion_metallic.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::SPATIAL);
 
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
@@ -89,10 +89,12 @@ void ExplodableController::Idle(const mono::UpdateContext& update_context)
 
 void ExplodableController::OnDead()
 {
-    m_explosion_sound->Play();
-    m_sprite_system->SetSpriteEnabled(m_entity_id, false);
-
     const math::Vector world_position = m_transform_system->GetWorldPosition(m_entity_id);
+    
+    m_explosion_sound->SetPosition(world_position.x, world_position.y);
+    m_explosion_sound->Play();
+
+    m_sprite_system->SetSpriteEnabled(m_entity_id, false);
     m_explosion_effect->ExplodeAt(world_position);
 
     game::ShockwaveAndDamageAt(
