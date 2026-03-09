@@ -79,7 +79,7 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "tomato_1.sprite"
+                            "variant_value": "powerup_crit_icon.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -102,7 +102,7 @@
                             "id": 1160474912,
                             "name": "sprite_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 2
                         },
                         {
                             "id": 4153965,
@@ -110,14 +110,14 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.0
+                                "y": -0.20000000298023224
                             }
                         },
                         {
                             "id": 429836675,
                             "name": "shadow_size",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 0.20000000298023224
                         },
                         {
                             "id": 1015133031,
@@ -152,9 +152,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.4076557159423828,
-                                "green": 0.4076557159423828,
-                                "red": 0.9558823704719543
+                                "blue": 0.0,
+                                "green": 0.9705882668495178,
+                                "red": 1.0
                             }
                         },
                         {
@@ -256,6 +256,15 @@
                             "name": "emitter_type",
                             "variant_type": 1,
                             "variant_value": 0
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
                         },
                         {
                             "id": 597743964,
@@ -406,6 +415,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },

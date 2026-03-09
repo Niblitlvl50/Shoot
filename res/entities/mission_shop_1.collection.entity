@@ -36,7 +36,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.053595978766679764,
-                                "y": -0.07333005964756012
+                                "y": -0.07333005219697952
                             }
                         },
                         {
@@ -90,6 +90,44 @@
                             "name": "draw_name",
                             "variant_type": 0,
                             "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 235771284,
+                    "name": "sound",
+                    "properties": [
+                        {
+                            "id": 3146177751,
+                            "name": "sound_file",
+                            "variant_type": 6,
+                            "variant_value": "res/sound/pickups/money-pickup.wav"
+                        },
+                        {
+                            "id": 2209811736,
+                            "name": "sound_properties",
+                            "variant_type": 2,
+                            "variant_value": 8
+                        },
+                        {
+                            "id": 2200757869,
+                            "name": "enable_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "trigger_sound",
+                                "type": 2
+                            }
+                        },
+                        {
+                            "id": 3946117592,
+                            "name": "disable_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "",
+                                "type": 0
+                            }
                         }
                     ]
                 },
@@ -309,6 +347,28 @@
                             "name": "emit_once",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 1382230295,
+                    "name": "anim_notify",
+                    "properties": [
+                        {
+                            "id": 1447260660,
+                            "name": "anim_notify",
+                            "variant_type": 6,
+                            "variant_value": "an_hammer_hit"
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "trigger_sound",
+                                "type": 2
+                            }
                         }
                     ]
                 },
@@ -913,7 +973,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.6785959601402283,
-                                "y": -0.07333005964756012
+                                "y": -0.07333005219697952
                             }
                         },
                         {
@@ -1033,7 +1093,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": -0.5567479133605957,
-                                "y": -0.05720885470509529
+                                "y": -0.057208847254514694
                             }
                         },
                         {
@@ -1875,7 +1935,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.053595978766679764,
-                                "y": 0.05166993662714958
+                                "y": 0.05166994407773018
                             }
                         },
                         {
@@ -2137,82 +2197,6 @@
         {
             "components": [
                 {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
-                            "variant_value": "logic"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
-                            "id": 3923852156,
-                            "name": "editor_properties",
-                            "variant_type": 2,
-                            "variant_value": 1
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.053595978766679764,
-                                "y": 0.05166993662714958
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        },
-                        {
-                            "id": 2190941297,
-                            "name": "scale",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1150083244,
-                            "name": "entity_reference",
-                            "variant_type": 2,
-                            "variant_value": 4294967295
-                        }
-                    ]
-                },
-                {
-                    "hash": 1162497497,
-                    "name": "entity_tracker",
-                    "properties": [
-                        {
-                            "id": 282636455,
-                            "name": "entity_type",
-                            "variant_type": 1,
-                            "variant_value": 3
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "name": "logic",
-            "uuid_hash": 2852373362
-        },
-        {
-            "components": [
-                {
                     "hash": 3299710812,
                     "name": "entity_name",
                     "properties": [
@@ -2258,7 +2242,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.053595978766679764,
-                                "y": 0.05166993662714958
+                                "y": 0.05166994407773018
                             }
                         },
                         {
@@ -2285,6 +2269,82 @@
             "entity_properties": 0,
             "name": "entity_name",
             "uuid_hash": 3400070302
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "logic"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 1
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.053595978766679764,
+                                "y": 0.05166994407773018
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 1162497497,
+                    "name": "entity_tracker",
+                    "properties": [
+                        {
+                            "id": 282636455,
+                            "name": "entity_type",
+                            "variant_type": 1,
+                            "variant_value": 3
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "logic",
+            "uuid_hash": 2852373362
         }
     ],
     "metadata": {
@@ -2343,7 +2403,8 @@
             "blacksmit_blink",
             "blacksmit_idle",
             "trigger_idle",
-            "trigger_peck"
+            "trigger_peck",
+            "trigger_sound"
         ],
         "use_custom_package_spawn_position": false
     }

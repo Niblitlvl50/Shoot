@@ -10,7 +10,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "pickup_damage_x2"
+                            "variant_value": "pickup_bullet_wall"
                         },
                         {
                             "id": 3647911389,
@@ -67,7 +67,7 @@
                             "id": 3617358384,
                             "name": "weapon_modifier_type",
                             "variant_type": 1,
-                            "variant_value": 0
+                            "variant_value": 1
                         }
                     ]
                 },
@@ -79,7 +79,7 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "tiny_skull.sprite"
+                            "variant_value": "powerup_spread_icon.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -152,9 +152,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.4076557159423828,
-                                "green": 0.4076557159423828,
-                                "red": 0.9558823704719543
+                                "blue": 0.9607843160629272,
+                                "green": 0.9607843160629272,
+                                "red": 1.0
                             }
                         },
                         {
@@ -508,8 +508,8 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "pickup_damage_x2",
-            "uuid_hash": 649432792
+            "name": "pickup_bullet_wall",
+            "uuid_hash": 868827852
         }
     ],
     "metadata": {
