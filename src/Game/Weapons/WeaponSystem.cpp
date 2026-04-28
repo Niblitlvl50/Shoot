@@ -290,7 +290,14 @@ WeaponLevelExperience WeaponSystem::GetWeaponLevelForExperience(uint32_t weapon_
 {
     auto it = std::lower_bound(
         m_weapon_configuration.weapon_levels.begin(), m_weapon_configuration.weapon_levels.end(), weapon_experience);
-    const int level_index = std::distance(m_weapon_configuration.weapon_levels.begin(), it);
+    int level_index = std::distance(m_weapon_configuration.weapon_levels.begin(), it);
+
+    // This can get outside of the bounds of the vector, it will crash if it does. Fix this.
+    if(level_index >= m_weapon_configuration.weapon_levels.size())
+    {
+        level_index -= 1;
+        it--;
+    }
 
     WeaponLevelExperience weapon_level_exp;
     weapon_level_exp.level = level_index;
