@@ -1,0 +1,22 @@
+{
+    "perks": [
+        {
+            "id": 1,
+            "name": "Double Jump",
+            "description": "Allows the player to jump a second time while in the air.",
+            "icon": "double_jump_icon.png"
+        },
+        {
+            "id": 2,
+            "name": "Speed Boost",
+            "description": "Increases the player's movement speed for a short duration.",
+            "icon": "speed_boost_icon.png"
+        },
+        {
+            "id": 3,
+            "name": "Shield",
+            "description": "Provides temporary invincibility against damage.",
+            "icon": "shield_icon.png"
+        }
+    ]
+}

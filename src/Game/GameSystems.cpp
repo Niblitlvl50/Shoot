@@ -27,6 +27,7 @@
 #include "Mission/MissionSystem.h"
 #include "Navigation/NavigationSystem.h"
 #include "Pickups/PickupSystem.h"
+#include "Perks/PerkSystem.h"
 #include "Player/PlayerDaemonSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "ShopSystem/ShopSystem.h"
@@ -108,6 +109,7 @@ void game::CreateGameSystems(
         transform_system, sprite_system, physics_system, entity_system, damage_system, camera_system, logic_system, target_system, &system_context);
 
     system_context.CreateSystem<game::MissionSystem>(entity_system, transform_system, trigger_system);
+    system_context.CreateSystem<game::PerkSystem>();
 
     game::ServerManager* server_manager = system_context.CreateSystem<game::ServerManager>(&event_handler, &game_config);
     system_context.CreateSystem<game::ClientManager>(&event_handler, &game_config);
