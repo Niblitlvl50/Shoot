@@ -12,7 +12,7 @@ namespace game
         HordeWaveDrawer();
         void Update(const mono::UpdateContext& update_context) override;
 
-        void ShowNextWave(int wave_index, const std::string& sub_text);
+        void ShowNextWave(int wave_index, const std::string& sub_text, const std::string& sub_text_description);
     
     private:
 
@@ -22,6 +22,7 @@ namespace game
         UISquareElement* m_background;
         UITextElement* m_wave_text;
         UITextElement* m_wave_subtext;
+        UITextElement* m_wave_subtext_description;
         float m_text_timer_s;
     };
 }

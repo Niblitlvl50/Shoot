@@ -83,6 +83,7 @@ namespace game
         class EntityLogicSystem* m_entity_logic_system;
         class SpawnSystem* m_spawn_system;
         class MissionSystem* m_mission_system;
+        class PerkSystem* m_perk_system;
 
         mono::EventToken<struct GameOverEvent> m_gameover_token;
         mono::EventToken<struct PlayerLevelUpEvent> m_levelup_token;

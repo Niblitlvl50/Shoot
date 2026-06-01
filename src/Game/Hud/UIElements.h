@@ -110,6 +110,7 @@ namespace game
         bool m_draw_shadow;
 
         mono::TextDrawBuffers m_draw_buffers;
+        uint32_t m_indices_to_draw;
     };
 
     class UISpriteElement : public UIElement

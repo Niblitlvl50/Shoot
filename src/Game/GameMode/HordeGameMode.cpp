@@ -17,6 +17,7 @@
 #include "Pickups/PickupSystem.h"
 #include "Player/PlayerDaemonSystem.h"
 #include "Player/PlayerAuxiliaryDrawer.h"
+#include "Perks/PerkSystem.h"
 #include "RenderLayers.h"
 #include "ShopSystem/ShopSystem.h"
 #include "SpawnSystem/SpawnSystem.h"
@@ -59,7 +60,7 @@ namespace tweak_values
 {
     constexpr float level_result_duration_s = 1.5f;
     constexpr float fade_duration_s = 0.7f;
-    constexpr float spawn_wave_interval_s = 45.0f;
+    constexpr float spawn_wave_interval_s = 30.0f;
 }
 
 using namespace game;
@@ -67,7 +68,7 @@ using namespace game;
 HordeGameMode::HordeGameMode()
     : m_package_spawned(false)
     , m_package_entity_id(mono::INVALID_ID)
-    , m_spawn_wave_timer(10.0f)
+    , m_spawn_wave_timer(5.0f)
     , m_wave_index(0)
     , m_loot_box_index(0)
 {
@@ -105,6 +106,7 @@ void HordeGameMode::Begin(
     m_pickup_system = system_context->GetSystem<game::PickupSystem>();
     m_spawn_system = system_context->GetSystem<game::SpawnSystem>();
     m_mission_system = system_context->GetSystem<game::MissionSystem>();
+    m_perk_system = system_context->GetSystem<game::PerkSystem>();
 
     const uint32_t loot_tag = hash::Hash("loot_point");
     m_loot_box_entities = m_entity_manager->CollectEntitiesWithTag(loot_tag);
@@ -348,8 +350,11 @@ void HordeGameMode::SpawnNextWave()
         return;
     }
 
+    m_perk_system->RollForNewEnemyPerk();
+    const PerkDefinition& enemy_perk = m_perk_system->GetCurrentEnemyPerk();
+
     m_wave_index++;
-    m_horde_wave_ui->ShowNextWave(m_wave_index, "Watch Out!");
+    m_horde_wave_ui->ShowNextWave(m_wave_index, enemy_perk.name, enemy_perk.description);
 
     const auto increment_spawn_score = [](uint32_t index, game::SpawnSystem::SpawnPointComponent& spawn_point) {
         spawn_point.spawn_score += 1;

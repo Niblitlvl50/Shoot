@@ -8,6 +8,11 @@
 
 namespace game
 {
+    inline void from_json(const nlohmann::json& json, PerkSetup& perk_setup)
+    {
+        perk_setup.reroll_duration = json["reroll_duration"].get<float>();
+    }
+
     inline void from_json(const nlohmann::json& json, PerkDefinition& weapon_config)
     {
         weapon_config.id                    = json["id"].get<uint32_t>();

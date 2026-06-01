@@ -29,6 +29,11 @@ namespace game
         Count
     };
 
+    struct PerkSetup
+    {
+        float reroll_duration;
+    };
+
     struct PerkDefinition
     {
         uint32_t id;

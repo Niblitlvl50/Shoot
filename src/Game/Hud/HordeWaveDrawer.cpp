@@ -14,7 +14,7 @@ HordeWaveDrawer::HordeWaveDrawer()
     m_onscreen_position = math::Vector(40.0f, m_height - 8.0f);
     m_offscreen_position = m_onscreen_position + math::Vector(10.0f, 0.0f);
 
-    m_background = new UISquareElement(15.0f, 3.5f, mono::Color::MakeWithAlpha(mono::Color::GRAY, 0.25f));
+    m_background = new UISquareElement(15.0f, 4.0f, mono::Color::MakeWithAlpha(mono::Color::DIM_GRAY, 0.25f));
     m_background->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
     m_background->SetPosition(m_offscreen_position);
 
@@ -22,14 +22,19 @@ HordeWaveDrawer::HordeWaveDrawer()
 
     m_wave_text = new UITextElement(FontId::RUSSOONE_LARGE, "", mono::Color::GOLDEN_YELLOW);
     m_wave_text->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
-    m_wave_text->SetPosition(-anchor_offset + math::Vector(0.5f, 2.0f));
+    m_wave_text->SetPosition(-anchor_offset + math::Vector(0.5f, 2.5f));
 
-    m_wave_subtext = new UITextElement(FontId::RUSSOONE_MEDIUM, "", mono::Color::LIGHT_GRAY);
+    m_wave_subtext = new UITextElement(FontId::RUSSOONE_SMALL, "", mono::Color::BLUE_GRAY);
     m_wave_subtext->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
-    m_wave_subtext->SetPosition(-anchor_offset + math::Vector(0.75f, 0.5f));
+    m_wave_subtext->SetPosition(-anchor_offset + math::Vector(0.75f, 1.0f));
+
+    m_wave_subtext_description = new UITextElement(FontId::RUSSOONE_TINY, "", mono::Color::BLUE_GRAY);
+    m_wave_subtext_description->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
+    m_wave_subtext_description->SetPosition(-anchor_offset + math::Vector(0.75f, 0.5f));
 
     m_background->AddChild(m_wave_text);
     m_background->AddChild(m_wave_subtext);
+    m_background->AddChild(m_wave_subtext_description);
 
     AddChild(m_background);
 }
@@ -41,7 +46,7 @@ void HordeWaveDrawer::Update(const mono::UpdateContext& update_context)
 
     constexpr float transition_duration_s = 0.8f;
     constexpr float ease_in_out_time_s = 1.0f;
-    constexpr float display_time_s = 3.0f;
+    constexpr float display_time_s = 15.0f;
     constexpr float ease_out_time_s = ease_in_out_time_s + display_time_s;
 
     math::Vector background_position = m_background->GetPosition();
@@ -59,11 +64,12 @@ void HordeWaveDrawer::Update(const mono::UpdateContext& update_context)
     m_background->SetPosition(background_position);
 }
 
-void HordeWaveDrawer::ShowNextWave(int wave_index, const std::string& sub_text)
+void HordeWaveDrawer::ShowNextWave(int wave_index, const std::string& sub_text, const std::string& sub_text_description)
 {
     m_text_timer_s = 0.0f;
 
     const std::string wave_text = "Wave " + std::to_string(wave_index);
     m_wave_text->SetText(wave_text);
     m_wave_subtext->SetText(sub_text);
+    m_wave_subtext_description->SetText(sub_text_description);
 }

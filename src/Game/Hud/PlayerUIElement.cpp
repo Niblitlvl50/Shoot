@@ -137,7 +137,7 @@ namespace game
             m_ammo_text->SetText(ammo_text);
 
             char weapon_level_text[32] = { '\0' };
-            std::snprintf(weapon_level_text, std::size(weapon_level_text), "%d", m_player_info.weapon_level);
+            std::snprintf(weapon_level_text, std::size(weapon_level_text), "%d", m_player_info.weapon_level +1);
             m_weapon_level_text->SetText(weapon_level_text);
 
             const uint32_t weapon_index = m_weapon_hash_to_index[m_player_info.weapon_type.weapon_hash];

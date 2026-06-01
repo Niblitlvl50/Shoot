@@ -203,6 +203,7 @@ UITextElement::UITextElement(int font_id, const std::string& text, const mono::C
     , m_shadow_color(mono::Color::BLACK)
     , m_shadow_offset(-0.1f, -0.1f)
     , m_draw_shadow(false)
+    , m_indices_to_draw(0)
 {
     SetText(text);
 }
@@ -215,13 +216,15 @@ void UITextElement::SetText(const std::string& new_text)
     const bool need_reallocating = (m_text.length() < new_text.length());
 
     m_text = new_text;
+    m_indices_to_draw = 0;
 
     if(!m_text.empty())
     {
         if(!m_draw_buffers.vertices || need_reallocating)
             m_draw_buffers = mono::AllocateTextDrawBuffers(m_text.size());
-    
+        
         mono::UpdateTextBuffer(m_font_id, m_text.c_str(), mono::FontCentering::HORIZONTAL_VERTICAL, m_draw_buffers);
+        m_indices_to_draw = m_text.size() * 6;
     }
 }
 
@@ -274,7 +277,7 @@ void UITextElement::DrawElement(mono::IRenderer& renderer) const
             texture.get(),
             m_shadow_color,
             false,
-            m_draw_buffers.indices->Size());
+            m_indices_to_draw);
     }
 
     renderer.DrawGeometry(
@@ -284,7 +287,7 @@ void UITextElement::DrawElement(mono::IRenderer& renderer) const
         texture.get(),
         m_color,
         false,
-        m_draw_buffers.indices->Size());
+        m_indices_to_draw);
 }
 
 math::Quad UITextElement::LocalBoundingBox() const
