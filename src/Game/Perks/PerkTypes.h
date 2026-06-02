@@ -39,6 +39,6 @@ namespace game
         uint32_t id;
         std::string name;
         std::string description;
-        uint32_t icon_sprite_id;
+        std::string icon_sprite_file;
     };
 }

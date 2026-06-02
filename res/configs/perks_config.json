@@ -7,31 +7,31 @@
             "id": 1,
             "name": "Vampires",
             "description": "Enemies heal for a portion of the damage they deal",
-            "icon": "double_jump_icon.png"
+            "sprite_file": "res/sprites/powerup_vampiric_icon.sprite"
         },
         {
             "id": 2,
             "name": "Spectral",
             "description": "There is a chance that bullets will pass through enemies without dealing damage",
-            "icon": "speed_boost_icon.png"
+            "sprite_file": "res/sprites/powerup_spread_icon.sprite"
         },
         {
             "id": 3,
             "name": "Durable",
             "description": "Enemies are more resistant to damage",
-            "icon": "shield_icon.png"
+            "sprite_file": "res/sprites/powerup_damage_icon.sprite"
         },
         {
             "id": 4,
             "name": "Caffeinated",
             "description": "Enemies are extra twitchy and fast",
-            "icon": "shield_icon.png"
+            "sprite_file": "res/sprites/powerup_crit_icon.sprite"
         },
         {
             "id": 5,
             "name": "Slugish",
             "description": "Slower enemies, but they are more resistant to damage",
-            "icon": "shield_icon.png"
+            "sprite_file": "res/sprites/wooden_stick1.sprite"
         }
     ]
 }

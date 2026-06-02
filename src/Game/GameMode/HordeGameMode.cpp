@@ -354,7 +354,7 @@ void HordeGameMode::SpawnNextWave()
     const PerkDefinition& enemy_perk = m_perk_system->GetCurrentEnemyPerk();
 
     m_wave_index++;
-    m_horde_wave_ui->ShowNextWave(m_wave_index, enemy_perk.name, enemy_perk.description);
+    m_horde_wave_ui->ShowNextWave(m_wave_index, enemy_perk.name, enemy_perk.description, enemy_perk.icon_sprite_file);
 
     const auto increment_spawn_score = [](uint32_t index, game::SpawnSystem::SpawnPointComponent& spawn_point) {
         spawn_point.spawn_score += 1;

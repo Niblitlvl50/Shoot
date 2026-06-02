@@ -18,6 +18,6 @@ namespace game
         weapon_config.id                    = json["id"].get<uint32_t>();
         weapon_config.name                  = json["name"].get<std::string>();
         weapon_config.description           = json["description"].get<std::string>();
-        weapon_config.icon_sprite_id        = hash::Hash(json["icon"].get<std::string>().c_str());
+        weapon_config.icon_sprite_file      = json["sprite_file"].get<std::string>();
     }
 }
