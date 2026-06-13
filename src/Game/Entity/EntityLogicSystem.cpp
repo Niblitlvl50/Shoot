@@ -5,6 +5,10 @@
 #include "Debug/IDebugDrawer.h"
 
 #include "EntitySystem/ObjectAttribute.h"
+#include "SystemContext.h"
+
+#include "Perks/PerkSystem.h"
+#include "Weapons/WeaponSystem.h"
 
 
 #include "Enemies/BatController.h"
@@ -148,7 +152,18 @@ std::vector<EntityDebugCategory> EntityLogicSystem::GetDebugCategories() const
 
 IEntityLogic* EntityLogicSystem::CreateLogic(EntityLogicType type, const std::vector<Attribute>& properties, uint32_t entity_id)
 {
-    return create_functions[static_cast<uint32_t>(type)](entity_id, m_system_context, m_event_handler);
+    IEntityLogic* logic = create_functions[static_cast<uint32_t>(type)](entity_id, m_system_context, m_event_handler);
+
+    PerkSystem* perk_system = m_system_context->GetSystem<PerkSystem>();
+    WeaponSystem* weapon_system = m_system_context->GetSystem<WeaponSystem>();
+    if(perk_system && weapon_system)
+    {
+        IWeaponModifier* enemy_modifier = perk_system->GetCurrentEnemyModifier();
+        if(enemy_modifier)
+            weapon_system->AddModifierForId(entity_id, enemy_modifier);
+    }
+
+    return logic;
 }
 
 const char* EntityLogicSystem::Name() const

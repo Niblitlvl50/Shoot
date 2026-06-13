@@ -67,6 +67,7 @@ namespace game
         int AddModifierForId(uint32_t id, IWeaponModifier* weapon_modifier);
         int AddModifierForIdWithDuration(uint32_t id, float duration_s, IWeaponModifier* weapon_modifier);
         int AddModifierForIdAndWeapon(uint32_t id, uint32_t weapon_identifier_hash, IWeaponModifier* weapon_modifier);
+        void RemoveModifierForEntity(uint32_t entity_id, int modifier_slot_id);
 
         WeaponLevelExperience GetWeaponLevelForExperience(uint32_t weapon_identifier_hash, int weapon_experience);
         void ApplyModifiersForWeaponLevel(uint32_t entity_id, uint32_t weapon_identifier_hash, int weapon_experience);

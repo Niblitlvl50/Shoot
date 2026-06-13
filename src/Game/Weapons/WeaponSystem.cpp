@@ -286,6 +286,23 @@ int WeaponSystem::AddModifierForIdAndWeapon(uint32_t id, uint32_t weapon_identif
     return m_modifier_id;
 }
 
+void WeaponSystem::RemoveModifierForEntity(uint32_t entity_id, int modifier_slot_id)
+{
+    const auto it = m_weapon_modifiers.find(entity_id);
+    if(it == m_weapon_modifiers.end())
+        return;
+
+    WeaponModifierContext& context = it->second;
+    const auto id_it = std::find(context.ids.begin(), context.ids.end(), (uint32_t)modifier_slot_id);
+    if(id_it == context.ids.end())
+        return;
+
+    const size_t index = std::distance(context.ids.begin(), id_it);
+    context.modifiers.erase(context.modifiers.begin() + index);
+    context.durations.erase(context.durations.begin() + index);
+    context.ids.erase(id_it);
+}
+
 WeaponLevelExperience WeaponSystem::GetWeaponLevelForExperience(uint32_t weapon_identifier_hash, int weapon_experience)
 {
     auto it = std::lower_bound(

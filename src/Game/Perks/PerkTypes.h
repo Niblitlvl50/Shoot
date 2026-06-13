@@ -37,6 +37,7 @@ namespace game
     struct PerkDefinition
     {
         uint32_t id;
+        PerkType type = PerkType::None;
         std::string name;
         std::string description;
         std::string icon_sprite_file;
