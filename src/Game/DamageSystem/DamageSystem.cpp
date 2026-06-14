@@ -1,6 +1,7 @@
 
 #include "DamageSystem.h"
 #include "Shockwave.h"
+#include "Util/Algorithm.h"
 #include "Weapons/CollisionCallbacks.h"
 #include "Debug/GameDebugVariables.h"
 #include "Debug/IDebugDrawer.h"
@@ -105,6 +106,7 @@ void DamageSystem::ReleaseRecord(uint32_t id)
         callback.callback = nullptr;
 
     ClearDamageFilter(id);
+    m_damage_modifiers.erase(id);
     m_active[id] = false;
 }
 
@@ -223,7 +225,20 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id_damaged_entity, uint32_t id_w
             return result;
     }
 
-    damage_record.health -= damage_details.damage * damage_record.multipier;
+    DamageDetails modified_details = damage_details;
+    const auto modifier_it = m_damage_modifiers.find(id_damaged_entity);
+    if(modifier_it != m_damage_modifiers.end())
+    {
+        for(IDamageModifier* modifier : modifier_it->second.modifiers)
+        {
+            const FilterResult filter = modifier->FilterDamage(id_damaged_entity, id_who_did_damage, weapon_identifier, modified_details.damage);
+            if(filter == FilterResult::FILTER_OUT)
+                return result;
+            modified_details = modifier->ModifyDamage(modified_details);
+        }
+    }
+
+    damage_record.health -= modified_details.damage * damage_record.multipier;
     damage_record.last_damaged_timestamp = m_timestamp;
 
     damage_record.health = std::max(0, damage_record.health);
@@ -235,14 +250,44 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id_damaged_entity, uint32_t id_w
     damage_event.id_damaged_entity = id_damaged_entity;
     damage_event.id_who_did_damage = id_who_did_damage;
     damage_event.weapon_identifier = weapon_identifier;
-    damage_event.damage = damage_details.damage;
-    damage_event.critical_hit = damage_details.critical_hit;
-    damage_event.within_effective_range = damage_details.within_effective_range;
+    damage_event.damage = modified_details.damage;
+    damage_event.critical_hit = modified_details.critical_hit;
+    damage_event.within_effective_range = modified_details.within_effective_range;
     damage_event.damage_result = (result.health_left <= 0) ? DamageType::DESTROYED : DamageType::DAMAGED;
 
     m_damage_events.push_back(damage_event);
 
     return result;
+}
+
+int DamageSystem::AddDamageModifierForId(uint32_t id, IDamageModifier* modifier)
+{
+    const auto identify_by_id = [modifier](const IDamageModifier* m) { return modifier->Id() == m->Id(); };
+    DamageModifierContext& context = m_damage_modifiers[id];
+    const bool has_modifier = mono::contains(context.modifiers, identify_by_id);
+    if(has_modifier)
+        return -1;
+
+    m_damage_modifier_id++;
+    context.modifiers.push_back(modifier);
+    context.ids.push_back(m_damage_modifier_id);
+    return m_damage_modifier_id;
+}
+
+void DamageSystem::RemoveDamageModifierForId(uint32_t id, int slot_id)
+{
+    const auto it = m_damage_modifiers.find(id);
+    if(it == m_damage_modifiers.end())
+        return;
+
+    DamageModifierContext& context = it->second;
+    const auto id_it = std::find(context.ids.begin(), context.ids.end(), (uint32_t)slot_id);
+    if(id_it == context.ids.end())
+        return;
+
+    const size_t index = std::distance(context.ids.begin(), id_it);
+    context.modifiers.erase(context.modifiers.begin() + index);
+    context.ids.erase(id_it);
 }
 
 void DamageSystem::GainHealth(uint32_t id, int health_gain)

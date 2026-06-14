@@ -3,6 +3,7 @@
 
 #include "IGameSystem.h"
 #include "DamageSystemTypes.h"
+#include "IDamageModifier.h"
 
 #include "MonoFwd.h"
 
@@ -91,6 +92,9 @@ namespace game
 
         void ApplyShockwave(uint32_t entity_id);
 
+        int AddDamageModifierForId(uint32_t id, IDamageModifier* modifier);
+        void RemoveDamageModifierForId(uint32_t id, int slot_id);
+
         bool IsInvincible(uint32_t id) const;
         void SetInvincible(uint32_t id, bool invincible);
 
@@ -142,5 +146,13 @@ namespace game
         std::vector<DamageEvent> m_damage_events;
 
         std::unordered_map<uint32_t, ShockwaveComponent> m_shockwave_components;
+
+        struct DamageModifierContext
+        {
+            std::vector<IDamageModifier*> modifiers;
+            std::vector<uint32_t> ids;
+        };
+        std::unordered_map<uint32_t, DamageModifierContext> m_damage_modifiers;
+        uint32_t m_damage_modifier_id = 0;
     };
 }
