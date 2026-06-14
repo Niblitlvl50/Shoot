@@ -11,13 +11,15 @@
 namespace game
 {
     class WeaponSystem;
+    class DamageSystem;
     class IWeaponModifier;
+    class IDamageModifier;
 
     class PerkSystem : public mono::IGameSystem
     {
     public:
 
-        PerkSystem(WeaponSystem* weapon_system);
+        PerkSystem(WeaponSystem* weapon_system, DamageSystem* damage_system);
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
 
@@ -29,6 +31,7 @@ namespace game
         const PerkDefinition& GetCurrentEnemyPerk() const;
 
         IWeaponModifier* GetCurrentEnemyModifier() const;
+        IDamageModifier* GetCurrentEnemyDamageModifier() const;
 
     private:
 
@@ -38,8 +41,10 @@ namespace game
         void RemoveCurrentPlayerPerk();
 
         static IWeaponModifier* CreateModifierForPerk(PerkType type);
+        static IDamageModifier* CreateDamageModifierForPerk(PerkType type);
 
         WeaponSystem* m_weapon_system;
+        DamageSystem* m_damage_system;
 
         PerkSetup m_perk_setup;
         std::vector<PerkDefinition> m_perk_definitions;
@@ -52,6 +57,10 @@ namespace game
         std::unique_ptr<IWeaponModifier> m_player_modifier;
         std::unique_ptr<IWeaponModifier> m_enemy_modifier;
 
+        std::unique_ptr<IDamageModifier> m_player_damage_modifier;
+        std::unique_ptr<IDamageModifier> m_enemy_damage_modifier;
+
         std::unordered_map<uint32_t, int> m_player_modifier_slots;
+        std::unordered_map<uint32_t, int> m_player_damage_modifier_slots;
     };
 }

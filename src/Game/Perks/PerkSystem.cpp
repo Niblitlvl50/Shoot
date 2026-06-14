@@ -7,6 +7,8 @@
 #include "Util/Random.h"
 
 #include "Player/PlayerInfo.h"
+#include "DamageSystem/DamageSystem.h"
+#include "DamageSystem/DamageModifiers.h"
 #include "Weapons/WeaponSystem.h"
 #include "Weapons/IWeaponModifier.h"
 #include "Weapons/Modifiers/BulletBehaviourModifiers.h"
@@ -17,8 +19,9 @@
 
 using namespace game;
 
-PerkSystem::PerkSystem(WeaponSystem* weapon_system)
+PerkSystem::PerkSystem(WeaponSystem* weapon_system, DamageSystem* damage_system)
     : m_weapon_system(weapon_system)
+    , m_damage_system(damage_system)
 {
     const std::vector<byte> file_data = file::FileReadAll("res/configs/perks_config.json");
     const nlohmann::json& json = nlohmann::json::parse(file_data);
@@ -62,13 +65,20 @@ void PerkSystem::RollForNewPlayerPerk()
 void PerkSystem::RollForNewEnemyPerk()
 {
     m_current_enemy_perk_id = RerollPerkAvoidId(m_current_enemy_perk_id);
-    m_enemy_modifier.reset(CreateModifierForPerk(GetCurrentEnemyPerk().type));
+    const PerkType type = GetCurrentEnemyPerk().type;
+    m_enemy_modifier.reset(CreateModifierForPerk(type));
+    m_enemy_damage_modifier.reset(CreateDamageModifierForPerk(type));
     System::Log("PerkSystem|Enemy perk: %s", GetCurrentEnemyPerk().name.c_str());
 }
 
 IWeaponModifier* PerkSystem::GetCurrentEnemyModifier() const
 {
     return m_enemy_modifier.get();
+}
+
+IDamageModifier* PerkSystem::GetCurrentEnemyDamageModifier() const
+{
+    return m_enemy_damage_modifier.get();
 }
 
 uint32_t PerkSystem::RerollPerkAvoidId(uint32_t perk_id_to_avoid)
@@ -83,16 +93,23 @@ uint32_t PerkSystem::RerollPerkAvoidId(uint32_t perk_id_to_avoid)
 void PerkSystem::ApplyPerkToPlayers(const PerkDefinition& perk)
 {
     m_player_modifier.reset(CreateModifierForPerk(perk.type));
-    if(!m_player_modifier)
-        return;
+    m_player_damage_modifier.reset(CreateDamageModifierForPerk(perk.type));
 
     const PlayerArray players = GetSpawnedPlayers();
     for(const PlayerInfo* player : players)
     {
         if(!player)
             continue;
-        const int slot_id = m_weapon_system->AddModifierForId(player->entity_id, m_player_modifier.get());
-        m_player_modifier_slots[player->entity_id] = slot_id;
+        if(m_player_modifier)
+        {
+            const int slot_id = m_weapon_system->AddModifierForId(player->entity_id, m_player_modifier.get());
+            m_player_modifier_slots[player->entity_id] = slot_id;
+        }
+        if(m_player_damage_modifier)
+        {
+            const int slot_id = m_damage_system->AddDamageModifierForId(player->entity_id, m_player_damage_modifier.get());
+            m_player_damage_modifier_slots[player->entity_id] = slot_id;
+        }
     }
 }
 
@@ -102,8 +119,26 @@ void PerkSystem::RemoveCurrentPlayerPerk()
         m_weapon_system->RemoveModifierForEntity(pair.first, pair.second);
     m_player_modifier_slots.clear();
     m_player_modifier.reset();
+
+    for(const auto& pair : m_player_damage_modifier_slots)
+        m_damage_system->RemoveDamageModifierForId(pair.first, pair.second);
+    m_player_damage_modifier_slots.clear();
+    m_player_damage_modifier.reset();
 }
 
+
+IDamageModifier* PerkSystem::CreateDamageModifierForPerk(PerkType type)
+{
+    switch(type)
+    {
+    case PerkType::ReducedDamageTaken:
+        return new DamageReductionModifier("perk_reduced_damage_taken", 0.5f);
+    case PerkType::DodgeChance:
+        return new DodgeChanceModifier("perk_dodge_chance", 0.25f);
+    default:
+        return nullptr;
+    }
+}
 
 IWeaponModifier* PerkSystem::CreateModifierForPerk(PerkType type)
 {

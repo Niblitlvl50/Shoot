@@ -20,6 +20,8 @@ namespace game
         ExplosiveBullets,
         HomingBullets,
         RicochetBullets,
+        ReducedDamageTaken,
+        DodgeChance,
         FireBullets,
         IceBullets,
         ElectricBullets,

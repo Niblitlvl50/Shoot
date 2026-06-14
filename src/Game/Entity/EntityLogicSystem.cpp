@@ -9,6 +9,7 @@
 
 #include "Perks/PerkSystem.h"
 #include "Weapons/WeaponSystem.h"
+#include "DamageSystem/DamageSystem.h"
 
 
 #include "Enemies/BatController.h"
@@ -155,12 +156,23 @@ IEntityLogic* EntityLogicSystem::CreateLogic(EntityLogicType type, const std::ve
     IEntityLogic* logic = create_functions[static_cast<uint32_t>(type)](entity_id, m_system_context, m_event_handler);
 
     PerkSystem* perk_system = m_system_context->GetSystem<PerkSystem>();
-    WeaponSystem* weapon_system = m_system_context->GetSystem<WeaponSystem>();
-    if(perk_system && weapon_system)
+    if(perk_system)
     {
-        IWeaponModifier* enemy_modifier = perk_system->GetCurrentEnemyModifier();
-        if(enemy_modifier)
-            weapon_system->AddModifierForId(entity_id, enemy_modifier);
+        WeaponSystem* weapon_system = m_system_context->GetSystem<WeaponSystem>();
+        if(weapon_system)
+        {
+            IWeaponModifier* enemy_modifier = perk_system->GetCurrentEnemyModifier();
+            if(enemy_modifier)
+                weapon_system->AddModifierForId(entity_id, enemy_modifier);
+        }
+
+        DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
+        if(damage_system)
+        {
+            IDamageModifier* enemy_damage_modifier = perk_system->GetCurrentEnemyDamageModifier();
+            if(enemy_damage_modifier)
+                damage_system->AddDamageModifierForId(entity_id, enemy_damage_modifier);
+        }
     }
 
     return logic;

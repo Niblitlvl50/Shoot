@@ -21,6 +21,8 @@ namespace game
         if(str == "ExplosiveBullets")        return PerkType::ExplosiveBullets;
         if(str == "HomingBullets")           return PerkType::HomingBullets;
         if(str == "RicochetBullets")         return PerkType::RicochetBullets;
+        if(str == "ReducedDamageTaken")      return PerkType::ReducedDamageTaken;
+        if(str == "DodgeChance")             return PerkType::DodgeChance;
         if(str == "FireBullets")             return PerkType::FireBullets;
         if(str == "IceBullets")              return PerkType::IceBullets;
         if(str == "ElectricBullets")         return PerkType::ElectricBullets;
