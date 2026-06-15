@@ -18,6 +18,7 @@
 #include "DamageSystem/DamageSystem.h"
 #include "DialogSystem/DialogSystem.h"
 #include "Entity/AnimationSystem.h"
+#include "Entity/EntityAnnotationSystem.h"
 #include "Entity/EntityLogicSystem.h"
 #include "Entity/TargetSystem.h"
 #include "Entity/EntityLifetimeTriggerSystem.h"
@@ -82,8 +83,10 @@ void game::CreateGameSystems(
         system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, physics_system, entity_system, trigger_system);
     game::SpawnSystem* spawn_system =
         system_context.CreateSystem<game::SpawnSystem>(max_entities, trigger_system, entity_system, transform_system);
+    game::EntityAnnotationSystem* annotation_system =
+        system_context.CreateSystem<game::EntityAnnotationSystem>(transform_system, entity_system);
     system_context.CreateSystem<game::PickupSystem>(
-        max_entities, damage_system, spawn_system, transform_system, particle_system, physics_system, entity_system);
+        max_entities, damage_system, spawn_system, annotation_system, transform_system, particle_system, physics_system, entity_system);
     system_context.CreateSystem<game::AnimationSystem>(max_entities, trigger_system, transform_system, sprite_system);
     game::CameraSystem* camera_system =
         system_context.CreateSystem<game::CameraSystem>(max_entities, &camera, transform_system, &event_handler, trigger_system);

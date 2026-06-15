@@ -1,6 +1,7 @@
 
 #include "PickupSystem.h"
 #include "DamageSystem/DamageSystem.h"
+#include "Entity/EntityAnnotationSystem.h"
 #include "SpawnSystem/SpawnSystem.h"
 
 #include "TransformSystem/TransformSystem.h"
@@ -53,12 +54,14 @@ PickupSystem::PickupSystem(
     uint32_t n,
     game::DamageSystem* damage_system,
     game::SpawnSystem* spawn_system,
+    game::EntityAnnotationSystem* annotation_system,
     mono::TransformSystem* transform_system,
     mono::ParticleSystem* particle_system,
     mono::PhysicsSystem* physics_system,
     mono::IEntityManager* entity_manager)
     : m_damage_system(damage_system)
     , m_spawn_system(spawn_system)
+    , m_annotation_system(annotation_system)
     , m_transform_system(transform_system)
     , m_particle_system(particle_system)
     , m_physics_system(physics_system)
@@ -362,14 +365,7 @@ void PickupSystem::HandleEnemySpawn(uint32_t entity_id, int spawn_score)
 
     m_garanteed_drop.insert(entity_id);
 
-    const math::Quad& bb = m_transform_system->GetBoundingBox(entity_id);
-    const math::Vector& top_right = math::TopRight(bb) / 2.0f;
-    const math::Matrix transform = math::CreateMatrixWithPosition(top_right);
-
-    mono::Entity spawned_entity = m_entity_manager->SpawnEntity(m_pickup_annotation_entity.c_str());
-    m_transform_system->SetTransform(spawned_entity.id, transform, mono::TransformState::CLIENT);
-    m_transform_system->ChildTransform(spawned_entity.id, entity_id);
-    m_entity_manager->SetLifetimeDependency(entity_id, spawned_entity.id);
+    m_annotation_system->AddAnnotation(entity_id, m_pickup_annotation_entity, AnnotationCorner::TopRight);
 }
 
 void PickupSystem::PlayPickupSound(PickupType type)

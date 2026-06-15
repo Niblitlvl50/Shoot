@@ -23,6 +23,7 @@ namespace game
 {
     class DamageSystem;
     class SpawnSystem;
+    class EntityAnnotationSystem;
 
     struct Pickup
     {
@@ -53,6 +54,7 @@ namespace game
             uint32_t n,
             game::DamageSystem* damage_system,
             game::SpawnSystem* spawn_system,
+            game::EntityAnnotationSystem* annotation_system,
             mono::TransformSystem* transform_system,
             mono::ParticleSystem* particle_system,
             mono::PhysicsSystem* physics_system,
@@ -88,6 +90,7 @@ namespace game
 
         game::DamageSystem* m_damage_system;
         game::SpawnSystem* m_spawn_system;
+        game::EntityAnnotationSystem* m_annotation_system;
         mono::TransformSystem* m_transform_system;
         mono::ParticleSystem* m_particle_system;
         mono::PhysicsSystem* m_physics_system;
