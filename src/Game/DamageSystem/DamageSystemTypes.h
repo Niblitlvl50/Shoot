@@ -43,5 +43,6 @@ namespace game
         bool critical_hit;
         bool within_effective_range;
         bool vamperic_hit;
+        bool slows_hit;
     };
 }

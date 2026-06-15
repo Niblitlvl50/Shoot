@@ -4,6 +4,7 @@
 #include "PhysicsMaterialConfiguration.h"
 
 #include "DamageSystem/DamageSystem.h"
+#include "StatusEffect/StatusEffectSystem.h"
 #include "GameCamera/CameraSystem.h"
 #include "Camera/ICamera.h"
 #include "Effects/DamageEffect.h"
@@ -35,6 +36,11 @@ namespace
 
     audio::ISoundPtr g_critical_hit_sound;
     audio::ISoundPtr g_vamperic_hit_sound;
+
+    game::StatusEffectSystem* g_status_effect_system = nullptr;
+
+    constexpr float SLOW_MULTIPLIER = 0.3f;
+    constexpr float SLOW_DURATION_S = 2.0f;
 }
 
 void game::InitWeaponCallbacks(mono::SystemContext* system_context)
@@ -62,6 +68,8 @@ void game::InitWeaponCallbacks(mono::SystemContext* system_context)
     g_vamperic_hit_sound = audio::CreateNullSound();
 
     g_vamperic_hit_effect = std::make_unique<game::VampericEffect>(particle_system, entity_system);
+
+    g_status_effect_system = system_context->GetSystem<game::StatusEffectSystem>();
 }
 
 void game::CleanupWeaponCallbacks()
@@ -74,6 +82,7 @@ void game::CleanupWeaponCallbacks()
     g_vamperic_hit_sound.reset();
 
     g_vamperic_hit_effect.reset();
+    g_status_effect_system = nullptr;
 }
 
 uint32_t game::SpawnEntityWithAnimation(
@@ -160,6 +169,9 @@ void game::StandardCollision(
                 g_vamperic_hit_sound->Play();
                 g_vamperic_hit_effect->EmitAt(collision_details.point);
             }
+
+            if(g_status_effect_system && damage_details.slows_hit)
+                g_status_effect_system->ApplySlowEffect(other_entity_id, SLOW_MULTIPLIER, SLOW_DURATION_S);
         }
     }
 

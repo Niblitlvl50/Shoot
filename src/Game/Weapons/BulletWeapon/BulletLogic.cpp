@@ -230,6 +230,7 @@ mono::CollisionResolve BulletLogic::OnCollideWith(
     damage_details.critical_hit = m_critical_hit;
     damage_details.within_effective_range = is_within_effective_range;
     damage_details.vamperic_hit = (m_bullet_collision_behaviour & BulletCollisionFlag::VAMPERIC);
+    damage_details.slows_hit = (m_bullet_collision_behaviour & BulletCollisionFlag::SLOWS);
 
     CollisionDetails collision_details;
     collision_details.body = colliding_body;

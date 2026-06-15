@@ -54,6 +54,7 @@ namespace game
         EXPLODES        = ENUM_BIT(3),
         VAMPERIC        = ENUM_BIT(4),
         DOUBLE_STRIKE   = ENUM_BIT(5),
+        SLOWS           = ENUM_BIT(6),
     };
 
     enum BulletMovementFlag : uint32_t

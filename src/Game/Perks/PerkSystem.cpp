@@ -168,6 +168,8 @@ IWeaponModifier* PerkSystem::CreateModifierForPerk(PerkType type)
         return new BulletBehaviourModifier("perk_ricochet", BulletCollisionFlag::BOUNCE);
     case PerkType::VampiricBullets:
         return new BulletBehaviourModifier("perk_vampiric", BulletCollisionFlag::VAMPERIC);
+    case PerkType::IceBullets:
+        return new BulletBehaviourModifier("perk_ice_bullets", BulletCollisionFlag::SLOWS);
     default:
         return nullptr;
     }
