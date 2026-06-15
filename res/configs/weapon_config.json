@@ -134,7 +134,7 @@
             "entity_file": "res/entities/bullet_plasma_crimson.entity",
             "impact_entity_file": "",
             "sound_file": "",
-            "collision_behaviour": "",
+            "collision_behaviour": "slows",
             "movement_behaviour": "sinewave"
         },
         {

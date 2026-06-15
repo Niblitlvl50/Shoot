@@ -101,7 +101,7 @@ void game::CreateGameSystems(
     system_context.CreateSystem<game::UISystem>(input_system, transform_system, trigger_system, camera_system);
     system_context.CreateSystem<game::ShopSystem>();
     system_context.CreateSystem<game::NavigationSystem>();
-    system_context.CreateSystem<game::StatusEffectSystem>(physics_system);
+    system_context.CreateSystem<game::StatusEffectSystem>(physics_system, annotation_system);
     system_context.CreateSystem<game::TeleportSystem>(camera_system, trigger_system, render_system, transform_system);
     system_context.CreateSystem<game::WorldEntityTrackingSystem>();
     game::TargetSystem* target_system =

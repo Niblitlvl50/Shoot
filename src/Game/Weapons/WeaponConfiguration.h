@@ -77,6 +77,8 @@ namespace game
             return BulletCollisionFlag::EXPLODES;
         else if(std::strcmp(string, "vameric") == 0)
             return BulletCollisionFlag::VAMPERIC;
+        else if(std::strcmp(string, "slows") == 0)
+            return BulletCollisionFlag::SLOWS;
         
         return 0;
     }
