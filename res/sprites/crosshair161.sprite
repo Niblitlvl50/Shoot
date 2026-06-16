@@ -14,7 +14,7 @@
             "h": 20,
             "name": "crosshair161",
             "w": 20,
-            "x": 723,
+            "x": 747,
             "y": 469
         }
     ],
@@ -23,9 +23,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        ""
     ],
     "source_folder": "res/images/ui/cursor/",
     "texture": "res/sprite_atlas.png",

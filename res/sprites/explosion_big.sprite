@@ -25,14 +25,14 @@
             "h": 15,
             "name": "explosion_big_idle_1",
             "w": 15,
-            "x": 1854,
+            "x": 1892,
             "y": 514
         },
         {
             "h": 50,
             "name": "explosion_big_idle_2",
             "w": 50,
-            "x": 1721,
+            "x": 1829,
             "y": 242
         },
         {
@@ -155,20 +155,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
     ],
     "source_folder": "res/images/explosions/explosion_big/",
     "texture": "res/sprite_atlas.png",

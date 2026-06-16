@@ -88,8 +88,8 @@
             "h": 22,
             "name": "fire_zombie_attack_1",
             "w": 16,
-            "x": 1700,
-            "y": 443
+            "x": 290,
+            "y": 449
         },
         {
             "h": 21,
@@ -109,14 +109,14 @@
             "h": 13,
             "name": "fire_zombie_die_2",
             "w": 19,
-            "x": 496,
+            "x": 519,
             "y": 533
         },
         {
             "h": 12,
             "name": "fire_zombie_die_3",
             "w": 12,
-            "x": 836,
+            "x": 902,
             "y": 534
         },
         {
@@ -144,7 +144,7 @@
             "h": 20,
             "name": "fire_zombie_idle_down_2",
             "w": 15,
-            "x": 905,
+            "x": 943,
             "y": 469
         },
         {
@@ -165,7 +165,7 @@
             "h": 21,
             "name": "fire_zombie_walk_1",
             "w": 17,
-            "x": 190,
+            "x": 148,
             "y": 469
         },
         {
@@ -273,25 +273,6 @@
             "x": 0.0,
             "y": -0.015625
         }
-    ],
-    "notifies": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
     ],
     "source_folder": "res/images/creatures/fire_zombie/",
     "texture": "res/sprite_atlas.png",

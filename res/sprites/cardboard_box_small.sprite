@@ -36,28 +36,28 @@
             "h": 9,
             "name": "cardboard_box_small_idle_1",
             "w": 10,
-            "x": 329,
+            "x": 359,
             "y": 551
         },
         {
             "h": 12,
             "name": "cardboard_box_small_open_1",
             "w": 10,
-            "x": 1040,
+            "x": 1056,
             "y": 534
         },
         {
             "h": 11,
             "name": "cardboard_box_small_open_2",
             "w": 20,
-            "x": 1068,
+            "x": 1083,
             "y": 534
         },
         {
             "h": 9,
             "name": "cardboard_box_small_open_3",
             "w": 20,
-            "x": 1449,
+            "x": 1475,
             "y": 550
         }
     ],
@@ -78,12 +78,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        "",
-        "",
-        "",
-        ""
     ],
     "source_folder": "res/images/props/cardboard_box/",
     "texture": "res/sprite_atlas.png",

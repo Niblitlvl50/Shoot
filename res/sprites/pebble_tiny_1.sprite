@@ -14,7 +14,7 @@
             "h": 7,
             "name": "pebble_tiny_1",
             "w": 12,
-            "x": 566,
+            "x": 706,
             "y": 564
         }
     ],
@@ -23,9 +23,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        ""
     ],
     "source_folder": "res/images/rocks/",
     "texture": "res/sprite_atlas.png",

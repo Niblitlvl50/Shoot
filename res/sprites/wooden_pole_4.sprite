@@ -14,7 +14,7 @@
             "h": 15,
             "name": "wooden_pole_4",
             "w": 4,
-            "x": 155,
+            "x": 115,
             "y": 515
         }
     ],
@@ -23,9 +23,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        ""
     ],
     "source_folder": "res/images/props/wooden_poles/",
     "texture": "res/sprite_atlas.png",

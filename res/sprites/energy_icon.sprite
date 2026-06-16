@@ -14,7 +14,7 @@
             "h": 18,
             "name": "energy_icon",
             "w": 12,
-            "x": 618,
+            "x": 682,
             "y": 493
         }
     ],
@@ -23,9 +23,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        ""
     ],
     "source_folder": "res/images/icons/",
     "texture": "res/sprite_atlas.png",

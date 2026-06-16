@@ -14,7 +14,7 @@
             "h": 10,
             "name": "flask_tiny",
             "w": 6,
-            "x": 1058,
+            "x": 1327,
             "y": 550
         }
     ],
@@ -23,9 +23,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        ""
     ],
     "source_folder": "res/images/props/",
     "texture": "res/sprite_atlas.png",

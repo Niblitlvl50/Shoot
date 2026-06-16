@@ -20,49 +20,49 @@
             "h": 8,
             "name": "small_explosion_default_1",
             "w": 8,
-            "x": 1787,
-            "y": 563
+            "x": 129,
+            "y": 564
         },
         {
             "h": 8,
             "name": "small_explosion_default_2",
             "w": 8,
-            "x": 1799,
-            "y": 563
+            "x": 177,
+            "y": 564
         },
         {
             "h": 10,
             "name": "small_explosion_default_3",
             "w": 11,
-            "x": 1043,
+            "x": 1165,
             "y": 550
         },
         {
             "h": 10,
             "name": "small_explosion_default_4",
             "w": 11,
-            "x": 1028,
+            "x": 1180,
             "y": 550
         },
         {
             "h": 10,
             "name": "small_explosion_default_5",
             "w": 10,
-            "x": 1165,
+            "x": 1251,
             "y": 550
         },
         {
             "h": 10,
             "name": "small_explosion_default_6",
             "w": 11,
-            "x": 983,
+            "x": 1029,
             "y": 550
         },
         {
             "h": 11,
             "name": "small_explosion_default_7",
             "w": 11,
-            "x": 2,
+            "x": 34,
             "y": 550
         }
     ],
@@ -95,15 +95,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
     ],
     "source_folder": "res/images/explosions/small_explosion/",
     "texture": "res/sprite_atlas.png",

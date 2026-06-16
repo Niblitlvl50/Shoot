@@ -14,8 +14,8 @@
             "h": 8,
             "name": "crosshair006",
             "w": 8,
-            "x": 1775,
-            "y": 563
+            "x": 296,
+            "y": 564
         }
     ],
     "frames_offsets": [
@@ -23,9 +23,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        ""
     ],
     "source_folder": "res/images/ui/cursor/",
     "texture": "res/sprite_atlas.png",

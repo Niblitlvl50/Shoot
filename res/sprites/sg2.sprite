@@ -14,7 +14,7 @@
             "h": 5,
             "name": "sg2",
             "w": 12,
-            "x": 1135,
+            "x": 1247,
             "y": 564
         }
     ],
@@ -23,9 +23,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        ""
     ],
     "source_folder": "res/images/weapons/",
     "texture": "res/sprite_atlas.png",

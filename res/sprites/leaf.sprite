@@ -14,7 +14,7 @@
             "h": 16,
             "name": "leaf",
             "w": 15,
-            "x": 984,
+            "x": 965,
             "y": 514
         }
     ],
@@ -23,9 +23,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        ""
     ],
     "source_folder": "res/images/bullets/",
     "texture": "res/sprite_atlas.png",

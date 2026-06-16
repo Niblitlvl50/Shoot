@@ -17,8 +17,8 @@
             "h": 9,
             "name": "splash_idle_1",
             "w": 10,
-            "x": 1868,
-            "y": 550
+            "x": 373,
+            "y": 551
         },
         {
             "h": 20,
@@ -59,12 +59,6 @@
             "x": 0.0,
             "y": -0.0625
         }
-    ],
-    "notifies": [
-        "",
-        "",
-        "",
-        ""
     ],
     "source_folder": "res/images/explosions/splash/",
     "texture": "res/sprite_atlas.png",

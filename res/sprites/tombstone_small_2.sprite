@@ -14,7 +14,7 @@
             "h": 18,
             "name": "tombstone_small_2",
             "w": 13,
-            "x": 1085,
+            "x": 1306,
             "y": 492
         }
     ],
@@ -23,9 +23,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        ""
     ],
     "source_folder": "res/images/structures/tombstones/",
     "texture": "res/sprite_atlas.png",

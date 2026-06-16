@@ -15,14 +15,14 @@
             "h": 14,
             "name": "plasma_default_1",
             "w": 15,
-            "x": 725,
+            "x": 668,
             "y": 515
         },
         {
             "h": 13,
             "name": "plasma_default_2",
             "w": 13,
-            "x": 1201,
+            "x": 1269,
             "y": 533
         }
     ],
@@ -35,10 +35,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        "",
-        ""
     ],
     "source_folder": "res/images/bullets/",
     "texture": "res/sprite_atlas.png",

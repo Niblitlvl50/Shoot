@@ -17,28 +17,28 @@
             "h": 11,
             "name": "dragonfly_idle_1",
             "w": 15,
-            "x": 1131,
+            "x": 1146,
             "y": 534
         },
         {
             "h": 10,
             "name": "dragonfly_idle_2",
             "w": 16,
-            "x": 630,
+            "x": 696,
             "y": 550
         },
         {
             "h": 7,
             "name": "dragonfly_idle_3",
             "w": 16,
-            "x": 383,
+            "x": 616,
             "y": 564
         },
         {
             "h": 6,
             "name": "dragonfly_idle_4",
             "w": 16,
-            "x": 873,
+            "x": 1033,
             "y": 564
         }
     ],
@@ -59,12 +59,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        "",
-        "",
-        "",
-        ""
     ],
     "source_folder": "res/images/creatures/dragonfly/",
     "texture": "res/sprite_atlas.png",

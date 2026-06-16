@@ -21,7 +21,7 @@
             "h": 24,
             "name": "explosion_medium_2_idle_1",
             "w": 24,
-            "x": 669,
+            "x": 641,
             "y": 441
         },
         {
@@ -107,16 +107,6 @@
             "x": 0.0,
             "y": 0.421875
         }
-    ],
-    "notifies": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
     ],
     "source_folder": "res/images/explosions/explosion_medium_2/",
     "texture": "res/sprite_atlas.png",

@@ -46,14 +46,14 @@
             "h": 15,
             "name": "cactus_small_idle_1",
             "w": 10,
-            "x": 2017,
+            "x": 2003,
             "y": 514
         },
         {
             "h": 15,
             "name": "cactus_small_idle_2",
             "w": 10,
-            "x": 2031,
+            "x": 2017,
             "y": 514
         },
         {
@@ -77,11 +77,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        "",
-        "",
-        ""
     ],
     "source_folder": "res/images/creatures/cactus_small/",
     "texture": "res/sprite_atlas.png",

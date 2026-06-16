@@ -14,7 +14,7 @@
             "h": 13,
             "name": "rock_tiny_5",
             "w": 19,
-            "x": 519,
+            "x": 496,
             "y": 533
         }
     ],
@@ -23,9 +23,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        ""
     ],
     "source_folder": "res/images/rocks/",
     "texture": "res/sprite_atlas.png",

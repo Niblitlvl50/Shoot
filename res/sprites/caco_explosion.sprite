@@ -48,11 +48,6 @@
             "y": 0.0
         }
     ],
-    "notifies": [
-        "",
-        "",
-        ""
-    ],
     "source_folder": "res/images/explosions/caco_explosion/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {

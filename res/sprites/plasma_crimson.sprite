@@ -25,28 +25,28 @@
             "h": 11,
             "name": "plasma_crimson_idle_2",
             "w": 11,
-            "x": 2026,
-            "y": 549
+            "x": 49,
+            "y": 550
         },
         {
             "h": 9,
             "name": "plasma_crimson_idle_3",
             "w": 9,
-            "x": 343,
+            "x": 400,
             "y": 551
         },
         {
             "h": 7,
             "name": "plasma_crimson_idle_4",
             "w": 7,
-            "x": 831,
+            "x": 894,
             "y": 564
         },
         {
             "h": 7,
             "name": "plasma_crimson_idle_5",
             "w": 7,
-            "x": 820,
+            "x": 960,
             "y": 564
         }
     ],
@@ -71,13 +71,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        "",
-        "",
-        "",
-        "",
-        ""
     ],
     "source_folder": "res/images/bullets/plasma_crimson/",
     "texture": "res/sprite_atlas.png",

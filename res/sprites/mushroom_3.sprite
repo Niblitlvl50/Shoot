@@ -14,7 +14,7 @@
             "h": 13,
             "name": "mushroom_3",
             "w": 12,
-            "x": 1501,
+            "x": 1566,
             "y": 533
         }
     ],
@@ -23,9 +23,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        ""
     ],
     "source_folder": "res/images/vegetation/",
     "texture": "res/sprite_atlas.png",

@@ -120,17 +120,6 @@
             "y": 0.0
         }
     ],
-    "notifies": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
-    ],
     "source_folder": "res/images/portals/blue/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {

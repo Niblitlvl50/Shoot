@@ -14,7 +14,7 @@
             "h": 7,
             "name": "tiny_skull_idle_1",
             "w": 7,
-            "x": 710,
+            "x": 938,
             "y": 564
         }
     ],
@@ -23,9 +23,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        ""
     ],
     "source_folder": "res/images/misc/",
     "texture": "res/sprite_atlas.png",

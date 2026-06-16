@@ -14,7 +14,7 @@
             "h": 8,
             "name": "flak_bullet",
             "w": 8,
-            "x": 158,
+            "x": 117,
             "y": 564
         }
     ],
@@ -23,9 +23,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        ""
     ],
     "source_folder": "res/images/bullets/",
     "texture": "res/sprite_atlas.png",

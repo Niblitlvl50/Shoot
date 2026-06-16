@@ -15,7 +15,7 @@
             "h": 13,
             "name": "skull_red_eyes_laugh_1",
             "w": 11,
-            "x": 1645,
+            "x": 1662,
             "y": 533
         },
         {
@@ -35,10 +35,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        "",
-        ""
     ],
     "source_folder": "res/images/misc/",
     "texture": "res/sprite_atlas.png",

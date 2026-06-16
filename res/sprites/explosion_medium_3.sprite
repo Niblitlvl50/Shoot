@@ -24,21 +24,21 @@
             "h": 16,
             "name": "explosion_medium_3_idle_1",
             "w": 16,
-            "x": 925,
+            "x": 885,
             "y": 514
         },
         {
             "h": 16,
             "name": "explosion_medium_3_idle_2",
             "w": 16,
-            "x": 905,
+            "x": 945,
             "y": 514
         },
         {
             "h": 16,
             "name": "explosion_medium_3_idle_3",
             "w": 16,
-            "x": 885,
+            "x": 865,
             "y": 514
         },
         {
@@ -66,14 +66,14 @@
             "h": 20,
             "name": "explosion_medium_3_idle_7",
             "w": 27,
-            "x": 613,
+            "x": 644,
             "y": 469
         },
         {
             "h": 20,
             "name": "explosion_medium_3_idle_8",
             "w": 27,
-            "x": 644,
+            "x": 613,
             "y": 469
         },
         {
@@ -94,7 +94,7 @@
             "h": 31,
             "name": "explosion_medium_3_idle_11",
             "w": 31,
-            "x": 1231,
+            "x": 1266,
             "y": 377
         }
     ],
@@ -143,19 +143,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
     ],
     "source_folder": "res/images/explosions/explosion_medium_3/",
     "texture": "res/sprite_atlas.png",

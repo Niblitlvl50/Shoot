@@ -14,8 +14,8 @@
             "h": 8,
             "name": "carrot_1",
             "w": 7,
-            "x": 1871,
-            "y": 563
+            "x": 496,
+            "y": 564
         }
     ],
     "frames_offsets": [
@@ -23,9 +23,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        ""
     ],
     "source_folder": "res/images/misc/",
     "texture": "res/sprite_atlas.png",

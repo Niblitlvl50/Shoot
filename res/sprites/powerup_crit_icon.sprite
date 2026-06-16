@@ -14,7 +14,7 @@
             "h": 7,
             "name": "powerup_crit_icon",
             "w": 7,
-            "x": 699,
+            "x": 949,
             "y": 564
         }
     ],
@@ -23,9 +23,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        ""
     ],
     "source_folder": "res/images/icons/",
     "texture": "res/sprite_atlas.png",

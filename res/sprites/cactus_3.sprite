@@ -14,7 +14,7 @@
             "h": 26,
             "name": "cactus_3",
             "w": 32,
-            "x": 807,
+            "x": 771,
             "y": 412
         }
     ],
@@ -23,9 +23,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        ""
     ],
     "source_folder": "res/images/vegetation/cacti/",
     "texture": "res/sprite_atlas.png",

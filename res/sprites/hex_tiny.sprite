@@ -17,15 +17,15 @@
             "h": 9,
             "name": "hex_tiny_idle_1",
             "w": 11,
-            "x": 299,
+            "x": 315,
             "y": 551
         },
         {
             "h": 11,
             "name": "hex_tiny_idle_2",
             "w": 13,
-            "x": 250,
-            "y": 541
+            "x": 199,
+            "y": 542
         },
         {
             "h": 17,
@@ -59,12 +59,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        "",
-        "",
-        "",
-        ""
     ],
     "source_folder": "res/images/explosions/hex_tiny/",
     "texture": "res/sprite_atlas.png",

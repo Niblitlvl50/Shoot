@@ -30,14 +30,14 @@
             "h": 15,
             "name": "jellyfish_idle_1",
             "w": 9,
-            "x": 15,
+            "x": 2,
             "y": 515
         },
         {
             "h": 15,
             "name": "jellyfish_idle_2",
             "w": 9,
-            "x": 2,
+            "x": 15,
             "y": 515
         },
         {
@@ -51,7 +51,7 @@
             "h": 16,
             "name": "jellyfish_idle_4",
             "w": 9,
-            "x": 1119,
+            "x": 1132,
             "y": 514
         },
         {
@@ -65,7 +65,7 @@
             "h": 12,
             "name": "jellyfish_move_1",
             "w": 10,
-            "x": 1054,
+            "x": 1028,
             "y": 534
         },
         {
@@ -79,7 +79,7 @@
             "h": 16,
             "name": "jellyfish_move_3",
             "w": 11,
-            "x": 1090,
+            "x": 1075,
             "y": 514
         },
         {
@@ -93,7 +93,7 @@
             "h": 12,
             "name": "jellyfish_move_5",
             "w": 10,
-            "x": 1026,
+            "x": 1042,
             "y": 534
         }
     ],
@@ -138,18 +138,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
     ],
     "source_folder": "res/images/creatures/jellyfish/",
     "texture": "res/sprite_atlas.png",

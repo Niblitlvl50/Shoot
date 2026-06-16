@@ -14,7 +14,7 @@
             "h": 50,
             "name": "add",
             "w": 50,
-            "x": 1829,
+            "x": 1721,
             "y": 242
         }
     ],
@@ -23,9 +23,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        ""
     ],
     "source_folder": "res/images/ui/editor/",
     "texture": "res/sprite_atlas.png",

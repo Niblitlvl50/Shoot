@@ -29,7 +29,7 @@
             "h": 27,
             "name": "small_fire_idle_1",
             "w": 16,
-            "x": 371,
+            "x": 331,
             "y": 412
         },
         {
@@ -64,29 +64,29 @@
             "h": 28,
             "name": "small_fire_idle_6",
             "w": 16,
-            "x": 692,
-            "y": 381
+            "x": 746,
+            "y": 380
         },
         {
             "h": 22,
             "name": "small_fire_idle_7",
             "w": 16,
-            "x": 1660,
+            "x": 1700,
             "y": 443
         },
         {
             "h": 24,
             "name": "small_fire_idle_8",
             "w": 16,
-            "x": 1556,
+            "x": 1799,
             "y": 441
         },
         {
             "h": 8,
             "name": "small_fire_put_out_1",
             "w": 16,
-            "x": 465,
-            "y": 563
+            "x": 264,
+            "y": 556
         }
     ],
     "frames_offsets": [
@@ -126,17 +126,6 @@
             "x": 0.0,
             "y": -0.3125
         }
-    ],
-    "notifies": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
     ],
     "source_folder": "res/images/props/campfire/",
     "texture": "res/sprite_atlas.png",

@@ -31,77 +31,77 @@
             "h": 8,
             "name": "spider_small_idle_1",
             "w": 12,
-            "x": 1634,
+            "x": 1757,
             "y": 563
         },
         {
             "h": 7,
             "name": "spider_small_idle_2",
             "w": 14,
-            "x": 496,
+            "x": 636,
             "y": 564
         },
         {
             "h": 7,
             "name": "spider_small_idle_3",
             "w": 14,
-            "x": 514,
+            "x": 654,
             "y": 564
         },
         {
             "h": 8,
             "name": "spider_small_idle_4",
             "w": 12,
-            "x": 1602,
+            "x": 1773,
             "y": 563
         },
         {
             "h": 9,
             "name": "spider_small_idle_5",
             "w": 12,
-            "x": 162,
-            "y": 551
+            "x": 1782,
+            "y": 550
         },
         {
             "h": 7,
             "name": "spider_small_move_1",
             "w": 11,
-            "x": 613,
+            "x": 738,
             "y": 564
         },
         {
             "h": 8,
             "name": "spider_small_move_2",
             "w": 12,
-            "x": 1666,
+            "x": 1805,
             "y": 563
         },
         {
             "h": 8,
             "name": "spider_small_move_3",
             "w": 13,
-            "x": 216,
-            "y": 557
+            "x": 1642,
+            "y": 563
         },
         {
             "h": 7,
             "name": "spider_small_move_4",
             "w": 11,
-            "x": 598,
+            "x": 753,
             "y": 564
         },
         {
             "h": 8,
             "name": "spider_small_move_5",
             "w": 10,
-            "x": 1724,
+            "x": 1863,
             "y": 563
         },
         {
             "h": 8,
             "name": "spider_small_move_6",
             "w": 12,
-            "x": 1586,
+            "x": 1725,
             "y": 563
         }
     ],
@@ -150,19 +150,6 @@
             "x": 0.0,
             "y": 0.015625
         }
-    ],
-    "notifies": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
     ],
     "source_folder": "res/images/creatures/spider/",
     "texture": "res/sprite_atlas.png",

@@ -41,14 +41,14 @@
             "h": 14,
             "name": "fire_elemental_small_idle_2",
             "w": 9,
-            "x": 360,
+            "x": 373,
             "y": 533
         },
         {
             "h": 16,
             "name": "fire_elemental_small_idle_3",
             "w": 9,
-            "x": 1132,
+            "x": 1119,
             "y": 514
         },
         {
@@ -62,21 +62,21 @@
             "h": 12,
             "name": "fire_elemental_small_idle_5",
             "w": 9,
-            "x": 2037,
-            "y": 533
+            "x": 1070,
+            "y": 534
         },
         {
             "h": 13,
             "name": "fire_elemental_small_idle_6",
             "w": 9,
-            "x": 1759,
+            "x": 1789,
             "y": 533
         },
         {
             "h": 11,
             "name": "fire_elemental_small_move_1",
             "w": 12,
-            "x": 1385,
+            "x": 1915,
             "y": 549
         },
         {
@@ -90,28 +90,28 @@
             "h": 12,
             "name": "fire_elemental_small_move_3",
             "w": 14,
-            "x": 151,
+            "x": 153,
             "y": 534
         },
         {
             "h": 13,
             "name": "fire_elemental_small_move_4",
             "w": 15,
-            "x": 622,
+            "x": 584,
             "y": 533
         },
         {
             "h": 12,
             "name": "fire_elemental_small_move_5",
             "w": 14,
-            "x": 97,
+            "x": 117,
             "y": 534
         },
         {
             "h": 12,
             "name": "fire_elemental_small_move_6",
             "w": 16,
-            "x": 1977,
+            "x": 1994,
             "y": 533
         },
         {
@@ -125,7 +125,7 @@
             "h": 12,
             "name": "fire_elemental_small_move_8",
             "w": 15,
-            "x": 21,
+            "x": 41,
             "y": 534
         }
     ],
@@ -186,22 +186,6 @@
             "x": -0.09375,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
     ],
     "source_folder": "res/images/creatures/fire_elemental/",
     "texture": "res/sprite_atlas.png",

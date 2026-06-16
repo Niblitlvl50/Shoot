@@ -74,189 +74,189 @@
             "h": 10,
             "name": "golem_tiny_attack_1",
             "w": 13,
-            "x": 901,
+            "x": 947,
             "y": 550
         },
         {
             "h": 11,
             "name": "golem_tiny_attack_2",
             "w": 13,
-            "x": 233,
+            "x": 250,
             "y": 541
         },
         {
             "h": 11,
             "name": "golem_tiny_attack_3",
             "w": 12,
-            "x": 1101,
+            "x": 1420,
             "y": 549
         },
         {
             "h": 11,
             "name": "golem_tiny_attack_4",
             "w": 13,
-            "x": 1068,
-            "y": 549
+            "x": 233,
+            "y": 541
         },
         {
             "h": 11,
             "name": "golem_tiny_attack_5",
             "w": 13,
-            "x": 1150,
-            "y": 534
+            "x": 216,
+            "y": 542
         },
         {
             "h": 9,
             "name": "golem_tiny_attack_6",
             "w": 22,
-            "x": 1297,
+            "x": 1449,
             "y": 550
         },
         {
             "h": 10,
             "name": "golem_tiny_attack_7",
             "w": 28,
-            "x": 130,
+            "x": 530,
             "y": 550
         },
         {
             "h": 10,
             "name": "golem_tiny_attack_8",
             "w": 30,
-            "x": 62,
+            "x": 117,
             "y": 550
         },
         {
             "h": 10,
             "name": "golem_tiny_attack_9",
             "w": 30,
-            "x": 96,
+            "x": 496,
             "y": 550
         },
         {
             "h": 10,
             "name": "golem_tiny_attack_10",
             "w": 15,
-            "x": 690,
+            "x": 736,
             "y": 550
         },
         {
             "h": 10,
             "name": "golem_tiny_idle_1",
             "w": 13,
-            "x": 799,
+            "x": 964,
             "y": 550
         },
         {
             "h": 10,
             "name": "golem_tiny_idle_2",
             "w": 13,
-            "x": 918,
+            "x": 879,
             "y": 550
         },
         {
             "h": 8,
             "name": "golem_tiny_idle_3",
             "w": 13,
-            "x": 1503,
+            "x": 1625,
             "y": 563
         },
         {
             "h": 10,
             "name": "golem_tiny_idle_4",
             "w": 13,
-            "x": 850,
+            "x": 913,
             "y": 550
         },
         {
             "h": 10,
             "name": "golem_tiny_idle_5",
             "w": 13,
-            "x": 867,
+            "x": 930,
             "y": 550
         },
         {
             "h": 7,
             "name": "golem_tiny_prepare_roll_1",
             "w": 9,
-            "x": 628,
+            "x": 768,
             "y": 564
         },
         {
             "h": 7,
             "name": "golem_tiny_prepare_roll_2",
             "w": 7,
-            "x": 721,
+            "x": 916,
             "y": 564
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_1",
             "w": 7,
-            "x": 732,
+            "x": 817,
             "y": 564
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_2",
             "w": 7,
-            "x": 743,
+            "x": 828,
             "y": 564
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_3",
             "w": 7,
-            "x": 677,
+            "x": 850,
             "y": 564
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_4",
             "w": 7,
-            "x": 754,
+            "x": 905,
             "y": 564
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_5",
             "w": 7,
-            "x": 765,
+            "x": 839,
             "y": 564
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_6",
             "w": 7,
-            "x": 776,
+            "x": 872,
             "y": 564
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_7",
             "w": 7,
-            "x": 787,
+            "x": 883,
             "y": 564
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_8",
             "w": 7,
-            "x": 798,
+            "x": 971,
             "y": 564
         },
         {
             "h": 10,
             "name": "golem_tiny_walk_1",
             "w": 13,
-            "x": 816,
+            "x": 845,
             "y": 550
         },
         {
             "h": 13,
             "name": "golem_tiny_walk_2",
             "w": 13,
-            "x": 1184,
+            "x": 1252,
             "y": 533
         },
         {
@@ -270,29 +270,29 @@
             "h": 10,
             "name": "golem_tiny_walk_4",
             "w": 13,
-            "x": 833,
+            "x": 862,
             "y": 550
         },
         {
             "h": 9,
             "name": "golem_tiny_walk_5",
             "w": 13,
-            "x": 1691,
+            "x": 1649,
             "y": 550
         },
         {
             "h": 13,
             "name": "golem_tiny_walk_6",
             "w": 13,
-            "x": 1484,
+            "x": 1184,
             "y": 533
         },
         {
             "h": 11,
             "name": "golem_tiny_walk_7",
             "w": 13,
-            "x": 216,
-            "y": 542
+            "x": 1083,
+            "y": 549
         }
     ],
     "frames_offsets": [
@@ -424,40 +424,6 @@
             "x": 0.0,
             "y": 0.015625
         }
-    ],
-    "notifies": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
     ],
     "source_folder": "res/images/creatures/golem_tiny/",
     "texture": "res/sprite_atlas.png",

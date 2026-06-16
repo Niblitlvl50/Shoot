@@ -14,7 +14,7 @@
             "h": 22,
             "name": "skull_pile_1",
             "w": 25,
-            "x": 1736,
+            "x": 2020,
             "y": 442
         }
     ],
@@ -23,9 +23,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        ""
     ],
     "source_folder": "res/images/props/",
     "texture": "res/sprite_atlas.png",

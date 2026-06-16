@@ -24,21 +24,21 @@
             "h": 28,
             "name": "blue_shield_idle_1",
             "w": 28,
-            "x": 1674,
-            "y": 411
+            "x": 868,
+            "y": 380
         },
         {
             "h": 28,
             "name": "blue_shield_idle_2",
             "w": 28,
-            "x": 1642,
+            "x": 1610,
             "y": 411
         },
         {
             "h": 28,
             "name": "blue_shield_idle_3",
             "w": 28,
-            "x": 1610,
+            "x": 1674,
             "y": 411
         },
         {
@@ -52,50 +52,50 @@
             "h": 28,
             "name": "blue_shield_idle_5",
             "w": 28,
-            "x": 1898,
-            "y": 380
+            "x": 596,
+            "y": 381
         },
         {
             "h": 28,
             "name": "blue_shield_idle_6",
             "w": 28,
-            "x": 868,
-            "y": 380
+            "x": 258,
+            "y": 394
         },
         {
             "h": 28,
             "name": "blue_shield_idle_7",
-            "w": 28,
-            "x": 1578,
-            "y": 411
-        },
-        {
-            "h": 28,
-            "name": "blue_shield_idle_8",
             "w": 28,
             "x": 1434,
             "y": 411
         },
         {
             "h": 28,
+            "name": "blue_shield_idle_8",
+            "w": 28,
+            "x": 1578,
+            "y": 411
+        },
+        {
+            "h": 28,
             "name": "blue_shield_idle_9",
+            "w": 28,
+            "x": 1642,
+            "y": 411
+        },
+        {
+            "h": 28,
+            "name": "blue_shield_idle_10",
             "w": 28,
             "x": 226,
             "y": 395
         },
         {
             "h": 28,
-            "name": "blue_shield_idle_10",
+            "name": "blue_shield_idle_11",
             "w": 28,
             "x": 660,
             "y": 381
-        },
-        {
-            "h": 28,
-            "name": "blue_shield_idle_11",
-            "w": 28,
-            "x": 258,
-            "y": 394
         }
     ],
     "frames_offsets": [
@@ -143,19 +143,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
     ],
     "source_folder": "res/images/misc/shield/",
     "texture": "res/sprite_atlas.png",

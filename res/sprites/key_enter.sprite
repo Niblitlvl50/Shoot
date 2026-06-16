@@ -46,10 +46,6 @@
             "y": -0.015625
         }
     ],
-    "notifies": [
-        "",
-        ""
-    ],
     "source_folder": "res/images/ui/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {

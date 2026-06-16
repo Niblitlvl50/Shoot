@@ -14,7 +14,7 @@
             "h": 16,
             "name": "box_wooden_small",
             "w": 16,
-            "x": 945,
+            "x": 925,
             "y": 514
         }
     ],
@@ -23,9 +23,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        ""
     ],
     "source_folder": "res/images/props/",
     "texture": "res/sprite_atlas.png",

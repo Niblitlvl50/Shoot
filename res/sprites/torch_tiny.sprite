@@ -16,14 +16,14 @@
             "h": 11,
             "name": "torch_tiny_default_1",
             "w": 4,
-            "x": 2041,
-            "y": 549
+            "x": 101,
+            "y": 550
         },
         {
             "h": 11,
             "name": "torch_tiny_default_2",
             "w": 4,
-            "x": 54,
+            "x": 109,
             "y": 550
         },
         {
@@ -47,11 +47,6 @@
             "x": 0.0,
             "y": 0.015625
         }
-    ],
-    "notifies": [
-        "",
-        "",
-        ""
     ],
     "source_folder": "res/images/props/torch/",
     "texture": "res/sprite_atlas.png",

@@ -49,35 +49,35 @@
             "h": 13,
             "name": "button_indication_down_1",
             "w": 13,
-            "x": 1235,
+            "x": 1501,
             "y": 533
         },
         {
             "h": 13,
             "name": "button_indication_left_1",
             "w": 13,
-            "x": 1252,
+            "x": 1484,
             "y": 533
         },
         {
             "h": 13,
             "name": "button_indication_neutral_1",
             "w": 13,
-            "x": 1269,
+            "x": 1467,
             "y": 533
         },
         {
             "h": 13,
             "name": "button_indication_right_1",
             "w": 13,
-            "x": 1286,
+            "x": 1450,
             "y": 533
         },
         {
             "h": 13,
             "name": "button_indication_up_1",
             "w": 13,
-            "x": 1467,
+            "x": 1403,
             "y": 533
         }
     ],
@@ -102,13 +102,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        "",
-        "",
-        "",
-        "",
-        ""
     ],
     "source_folder": "res/images/ui/",
     "texture": "res/sprite_atlas.png",

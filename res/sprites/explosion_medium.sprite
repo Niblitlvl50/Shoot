@@ -21,21 +21,21 @@
             "h": 20,
             "name": "explosion_medium_idle_1",
             "w": 20,
-            "x": 747,
+            "x": 699,
             "y": 469
         },
         {
             "h": 24,
             "name": "explosion_medium_idle_2",
             "w": 24,
-            "x": 641,
+            "x": 669,
             "y": 441
         },
         {
             "h": 33,
             "name": "explosion_medium_idle_3",
             "w": 33,
-            "x": 1127,
+            "x": 1016,
             "y": 341
         },
         {
@@ -63,7 +63,7 @@
             "h": 42,
             "name": "explosion_medium_idle_7",
             "w": 46,
-            "x": 467,
+            "x": 1075,
             "y": 295
         },
         {
@@ -107,16 +107,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
     ],
     "source_folder": "res/images/explosions/explosion_medium_1/",
     "texture": "res/sprite_atlas.png",

@@ -14,7 +14,7 @@
             "h": 9,
             "name": "note_3",
             "w": 7,
-            "x": 382,
+            "x": 187,
             "y": 551
         }
     ],
@@ -23,9 +23,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        ""
     ],
     "source_folder": "res/images/props/notes/",
     "texture": "res/sprite_atlas.png",

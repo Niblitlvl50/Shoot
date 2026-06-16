@@ -74,22 +74,22 @@
             "h": 18,
             "name": "goblin_black_attack_1",
             "w": 14,
-            "x": 1049,
-            "y": 492
+            "x": 1675,
+            "y": 491
         },
         {
             "h": 18,
             "name": "goblin_black_attack_2",
             "w": 16,
-            "x": 211,
-            "y": 481
+            "x": 249,
+            "y": 480
         },
         {
             "h": 18,
             "name": "goblin_black_attack_3",
             "w": 16,
-            "x": 1349,
-            "y": 491
+            "x": 211,
+            "y": 481
         },
         {
             "h": 18,
@@ -109,7 +109,7 @@
             "h": 21,
             "name": "goblin_black_attack_6",
             "w": 16,
-            "x": 368,
+            "x": 408,
             "y": 469
         },
         {
@@ -144,29 +144,29 @@
             "h": 18,
             "name": "goblin_black_gesture_1",
             "w": 14,
-            "x": 1031,
+            "x": 1049,
             "y": 492
         },
         {
             "h": 18,
             "name": "goblin_black_gesture_2",
             "w": 16,
-            "x": 249,
-            "y": 480
+            "x": 1349,
+            "y": 491
         },
         {
             "h": 18,
             "name": "goblin_black_gesture_3",
             "w": 17,
-            "x": 1807,
+            "x": 1697,
             "y": 469
         },
         {
             "h": 18,
             "name": "goblin_black_gesture_4",
             "w": 17,
-            "x": 1613,
-            "y": 469
+            "x": 290,
+            "y": 475
         },
         {
             "h": 21,
@@ -179,14 +179,14 @@
             "h": 22,
             "name": "goblin_black_gesture_6",
             "w": 15,
-            "x": 230,
+            "x": 211,
             "y": 455
         },
         {
             "h": 21,
             "name": "goblin_black_gesture_7",
             "w": 16,
-            "x": 408,
+            "x": 368,
             "y": 469
         },
         {
@@ -207,98 +207,98 @@
             "h": 18,
             "name": "goblin_black_gesture_10",
             "w": 17,
-            "x": 1697,
+            "x": 1655,
             "y": 469
         },
         {
             "h": 18,
             "name": "goblin_black_idle_1",
             "w": 14,
-            "x": 1013,
-            "y": 492
+            "x": 1621,
+            "y": 491
         },
         {
             "h": 18,
             "name": "goblin_black_idle_2",
             "w": 14,
-            "x": 1837,
-            "y": 491
+            "x": 1067,
+            "y": 492
         },
         {
             "h": 18,
             "name": "goblin_black_idle_3",
+            "w": 14,
+            "x": 231,
+            "y": 481
+        },
+        {
+            "h": 18,
+            "name": "goblin_black_idle_4",
             "w": 14,
             "x": 1819,
             "y": 491
         },
         {
             "h": 18,
-            "name": "goblin_black_idle_4",
-            "w": 14,
-            "x": 1801,
-            "y": 491
-        },
-        {
-            "h": 18,
             "name": "goblin_black_idle_5",
             "w": 14,
-            "x": 1783,
+            "x": 1837,
             "y": 491
         },
         {
             "h": 18,
             "name": "goblin_black_idle_6",
             "w": 14,
-            "x": 1765,
-            "y": 491
+            "x": 1031,
+            "y": 492
         },
         {
             "h": 18,
             "name": "goblin_black_idle_7",
             "w": 14,
-            "x": 1693,
-            "y": 491
+            "x": 1013,
+            "y": 492
         },
         {
             "h": 18,
             "name": "goblin_black_idle_8",
             "w": 14,
-            "x": 1675,
+            "x": 1801,
             "y": 491
         },
         {
             "h": 18,
             "name": "goblin_black_idle_9",
             "w": 14,
-            "x": 1657,
+            "x": 1765,
             "y": 491
         },
         {
             "h": 18,
             "name": "goblin_black_idle_10",
             "w": 14,
-            "x": 995,
-            "y": 492
+            "x": 1567,
+            "y": 491
         },
         {
             "h": 18,
             "name": "goblin_black_walk_1",
             "w": 14,
-            "x": 1639,
+            "x": 1693,
             "y": 491
         },
         {
             "h": 18,
             "name": "goblin_black_walk_2",
             "w": 14,
-            "x": 1621,
+            "x": 1657,
             "y": 491
         },
         {
             "h": 18,
             "name": "goblin_black_walk_3",
             "w": 15,
-            "x": 1548,
+            "x": 1491,
             "y": 491
         },
         {
@@ -312,42 +312,42 @@
             "h": 18,
             "name": "goblin_black_walk_5",
             "w": 15,
-            "x": 1529,
+            "x": 1424,
             "y": 491
         },
         {
             "h": 17,
             "name": "goblin_black_walk_6",
             "w": 14,
-            "x": 289,
-            "y": 497
+            "x": 1406,
+            "y": 493
         },
         {
             "h": 18,
             "name": "goblin_black_walk_7",
             "w": 14,
-            "x": 1603,
+            "x": 1388,
             "y": 491
         },
         {
             "h": 18,
             "name": "goblin_black_walk_8",
             "w": 15,
-            "x": 1424,
+            "x": 1529,
             "y": 491
         },
         {
             "h": 18,
             "name": "goblin_black_walk_9",
             "w": 15,
-            "x": 1491,
+            "x": 1510,
             "y": 491
         },
         {
             "h": 18,
             "name": "goblin_black_walk_10",
             "w": 15,
-            "x": 1510,
+            "x": 1548,
             "y": 491
         }
     ],
@@ -512,48 +512,6 @@
             "x": -0.015625,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
     ],
     "source_folder": "res/images/creatures/goblin/",
     "texture": "res/sprite_atlas.png",

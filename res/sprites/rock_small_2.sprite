@@ -14,7 +14,7 @@
             "h": 21,
             "name": "rock_small_2",
             "w": 21,
-            "x": 52,
+            "x": 27,
             "y": 469
         }
     ],
@@ -23,9 +23,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        ""
     ],
     "source_folder": "res/images/rocks/",
     "texture": "res/sprite_atlas.png",

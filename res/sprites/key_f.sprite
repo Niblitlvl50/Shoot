@@ -17,7 +17,7 @@
             "h": 14,
             "name": "key_f_neutral_1",
             "w": 13,
-            "x": 779,
+            "x": 1450,
             "y": 515
         },
         {
@@ -37,10 +37,6 @@
             "x": 0.0,
             "y": -0.015625
         }
-    ],
-    "notifies": [
-        "",
-        ""
     ],
     "source_folder": "res/images/ui/",
     "texture": "res/sprite_atlas.png",

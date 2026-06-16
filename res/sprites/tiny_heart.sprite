@@ -19,42 +19,42 @@
             "h": 6,
             "name": "tiny_heart_spin_1",
             "w": 8,
-            "x": 1007,
+            "x": 1158,
             "y": 564
         },
         {
             "h": 6,
             "name": "tiny_heart_spin_2",
             "w": 6,
-            "x": 1061,
+            "x": 1212,
             "y": 564
         },
         {
             "h": 6,
             "name": "tiny_heart_spin_3",
             "w": 4,
-            "x": 1097,
+            "x": 1222,
             "y": 564
         },
         {
             "h": 6,
             "name": "tiny_heart_spin_4",
             "w": 2,
-            "x": 1112,
-            "y": 564
+            "x": 2043,
+            "y": 559
         },
         {
             "h": 6,
             "name": "tiny_heart_spin_5",
             "w": 4,
-            "x": 1089,
+            "x": 440,
             "y": 564
         },
         {
             "h": 6,
             "name": "tiny_heart_spin_6",
             "w": 6,
-            "x": 1051,
+            "x": 1192,
             "y": 564
         }
     ],
@@ -83,14 +83,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
     ],
     "source_folder": "res/images/misc/heart/",
     "texture": "res/sprite_atlas.png",

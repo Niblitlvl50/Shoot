@@ -70,21 +70,21 @@
             "h": 27,
             "name": "blacksmith_blink_1",
             "w": 15,
-            "x": 560,
+            "x": 522,
             "y": 412
         },
         {
             "h": 27,
             "name": "blacksmith_blink_2",
             "w": 15,
-            "x": 522,
+            "x": 541,
             "y": 412
         },
         {
             "h": 27,
             "name": "blacksmith_idle_1",
             "w": 15,
-            "x": 541,
+            "x": 560,
             "y": 412
         },
         {
@@ -105,8 +105,8 @@
             "h": 28,
             "name": "blacksmith_idle_4",
             "w": 16,
-            "x": 746,
-            "y": 380
+            "x": 692,
+            "y": 381
         },
         {
             "h": 28,
@@ -119,15 +119,15 @@
             "h": 27,
             "name": "blacksmith_idle_6",
             "w": 16,
-            "x": 331,
+            "x": 371,
             "y": 412
         },
         {
             "h": 27,
             "name": "blacksmith_idle_7",
             "w": 19,
-            "x": 406,
-            "y": 411
+            "x": 202,
+            "y": 412
         },
         {
             "h": 27,
@@ -178,18 +178,6 @@
             "x": -0.0625,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
     ],
     "source_folder": "res/images/creatures/blacksmith/",
     "texture": "res/sprite_atlas.png",

@@ -19,42 +19,42 @@
             "h": 12,
             "name": "bush_vfx_idle_1",
             "w": 15,
-            "x": 59,
+            "x": 98,
             "y": 534
         },
         {
             "h": 10,
             "name": "bush_vfx_idle_2",
             "w": 14,
-            "x": 709,
+            "x": 827,
             "y": 550
         },
         {
             "h": 10,
             "name": "bush_vfx_idle_3",
             "w": 12,
-            "x": 951,
+            "x": 997,
             "y": 550
         },
         {
             "h": 8,
             "name": "bush_vfx_idle_4",
             "w": 14,
-            "x": 1485,
+            "x": 1571,
             "y": 563
         },
         {
             "h": 7,
             "name": "bush_vfx_idle_5",
             "w": 12,
-            "x": 582,
+            "x": 722,
             "y": 564
         },
         {
             "h": 6,
             "name": "bush_vfx_idle_6",
             "w": 12,
-            "x": 949,
+            "x": 1100,
             "y": 564
         }
     ],
@@ -83,14 +83,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
     ],
     "source_folder": "res/images/explosions/bush_vfx/",
     "texture": "res/sprite_atlas.png",

@@ -14,7 +14,7 @@
             "h": 14,
             "name": "cardboard_box_idle_1",
             "w": 15,
-            "x": 706,
+            "x": 725,
             "y": 515
         }
     ],
@@ -23,9 +23,6 @@
             "x": 0.0,
             "y": 0.0
         }
-    ],
-    "notifies": [
-        ""
     ],
     "source_folder": "res/images/props/cardboard_box/",
     "texture": "res/sprite_atlas.png",
