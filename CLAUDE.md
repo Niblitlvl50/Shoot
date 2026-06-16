@@ -35,12 +35,12 @@ Run a single GTest: append `--gtest_filter=TestSuiteName.TestName`.
 
 **Run binaries** (from repo root — working directory matters for resource loading):
 ```
-./bin/game_exe.exe
-./bin/editor.exe
-./bin/animator.exe res/sprites/alien.sprite
+./bin/<Config>/game_exe.exe
+./bin/<Config>/editor.exe
+./bin/<Config>/animator.exe res/sprites/alien.sprite
 ```
 
-Outputs go to `bin/`. No separate install step is needed.
+Outputs go to `bin/<Config>/` where `<Config>` is `Debug` or `Release` depending on the CMake build type. No separate install step is needed.
 
 ## Scripts
 
