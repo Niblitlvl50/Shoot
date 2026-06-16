@@ -42,6 +42,24 @@ Run a single GTest: append `--gtest_filter=TestSuiteName.TestName`.
 
 Outputs go to `bin/`. No separate install step is needed.
 
+## Scripts
+
+All scripts are in `scripts/` and require Python 3.
+
+**Bake sprite atlas** (run after adding/changing images in `res/images/`):
+```
+python scripts/bake_sprites.py
+```
+Packs all PNGs from `res/images/` into `res/sprite_atlas.png` (2048×1024) and regenerates `.sprite` files in `res/sprites/`. Requires `bin/Debug/spritebaker` to be built.
+
+**Embed sprites as C headers** (run after baking if sprites are embedded in code):
+```
+python scripts/embed_all_sprites.py
+```
+Walks `res/sprites/` and generates a `.h` file next to each `.sprite` file containing the data as a `constexpr const char*`.
+
+`generate_icons_file.py` is macOS-only (uses `sips`/`iconutil`) for generating `.icns` app icons.
+
 ## Repository Structure
 
 ```

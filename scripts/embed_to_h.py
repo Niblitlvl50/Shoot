@@ -18,7 +18,7 @@ def write_header(array_name, array_length):
 
 def write_hex_data(hex_data):
     def chunker(seq, size):
-        return (seq[pos:pos + size] for pos in xrange(0, len(seq), size))
+        return (seq[pos:pos + size] for pos in range(0, len(seq), size))
     
     hex_string = '\t'
     for hex in chunker(hex_data, 2):
@@ -47,7 +47,7 @@ def write_ascii_data(variable_name, data):
 
 def convert_file(data_type, input_file):
     if data_type != '-binary' and data_type != '-ascii':
-        print 'No data type specified, or unknown: ' + data_type
+        print('No data type specified, or unknown: ' + data_type)
         return
 
     output_file = os.path.splitext(input_file)[0] + '.h'
@@ -71,4 +71,4 @@ if __name__  == "__main__":
     if len(sys.argv) > 2:
         convert_file(sys.argv[1], sys.argv[2])
     else:
-        print 'Invalid amount of arguments'
+        print('Invalid amount of arguments')
