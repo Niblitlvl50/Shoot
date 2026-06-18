@@ -9,34 +9,40 @@
                 3
             ],
             "loop": true,
-            "name": "spin"
+            "name": "spin",
+            "notifies": [
+                "",
+                "",
+                "",
+                ""
+            ]
         }
     ],
     "frames": [
         {
             "h": 13,
-            "name": "star_small_spin_1",
+            "name": "",
             "w": 13,
             "x": 1320,
             "y": 533
         },
         {
             "h": 9,
-            "name": "star_small_spin_2",
+            "name": "",
             "w": 9,
             "x": 413,
             "y": 551
         },
         {
             "h": 5,
-            "name": "star_small_spin_3",
+            "name": "",
             "w": 5,
             "x": 1310,
             "y": 564
         },
         {
             "h": 3,
-            "name": "star_small_spin_4",
+            "name": "",
             "w": 3,
             "x": 1385,
             "y": 564
