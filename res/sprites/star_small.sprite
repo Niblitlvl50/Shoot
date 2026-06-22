@@ -20,29 +20,29 @@
     ],
     "frames": [
         {
-            "h": 13,
-            "name": "",
-            "w": 13,
-            "x": 1320,
-            "y": 533
+            "h": 9,
+            "name": "star_small_spin_1",
+            "w": 9,
+            "x": 356,
+            "y": 551
         },
         {
             "h": 9,
-            "name": "",
+            "name": "star_small_spin_2",
             "w": 9,
-            "x": 413,
+            "x": 382,
             "y": 551
         },
         {
             "h": 5,
-            "name": "",
+            "name": "star_small_spin_3",
             "w": 5,
-            "x": 1310,
+            "x": 1218,
             "y": 564
         },
         {
             "h": 3,
-            "name": "",
+            "name": "star_small_spin_4",
             "w": 3,
             "x": 1385,
             "y": 564
