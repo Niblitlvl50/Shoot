@@ -7,6 +7,8 @@
 #include "EntitySystem/IEntityManager.h"
 #include "EntitySystem/Entity.h"
 
+#include <algorithm>
+
 using namespace game;
 
 EntityAnnotationSystem::EntityAnnotationSystem(
@@ -15,25 +17,25 @@ EntityAnnotationSystem::EntityAnnotationSystem(
     , m_entity_manager(entity_manager)
 { }
 
-uint32_t EntityAnnotationSystem::AddAnnotation(
-    uint32_t entity_id, const std::string& entity_file, AnnotationCorner corner)
+uint32_t EntityAnnotationSystem::AddAnnotation(uint32_t entity_id, const std::string& entity_file, AnnotationCorner corner)
 {
     const math::Quad& bb = m_transform_system->GetBoundingBox(entity_id);
+    const float half = std::max(math::Width(bb), math::Height(bb)) / 2.0f;
 
     math::Vector corner_position;
     switch(corner)
     {
     case AnnotationCorner::TopRight:
-        corner_position = math::TopRight(bb) / 2.0f;
+        corner_position = {  half,  half };
         break;
     case AnnotationCorner::TopLeft:
-        corner_position = math::TopLeft(bb) / 2.0f;
+        corner_position = { -half,  half };
         break;
     case AnnotationCorner::BottomRight:
-        corner_position = math::BottomRight(bb) / 2.0f;
+        corner_position = {  half, -half };
         break;
     case AnnotationCorner::BottomLeft:
-        corner_position = math::BottomLeft(bb) / 2.0f;
+        corner_position = { -half, -half };
         break;
     }
 
