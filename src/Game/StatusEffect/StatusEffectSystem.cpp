@@ -5,6 +5,7 @@
 #include "Physics/IBody.h"
 #include "Physics/PhysicsSystem.h"
 #include "System/File.h"
+#include "EntitySystem/IEntityManager.h"
 
 #include "nlohmann/json.hpp"
 
@@ -12,9 +13,11 @@
 
 using namespace game;
 
-StatusEffectSystem::StatusEffectSystem(mono::PhysicsSystem* physics_system, game::EntityAnnotationSystem* annotation_system)
+StatusEffectSystem::StatusEffectSystem(
+    mono::PhysicsSystem* physics_system, game::EntityAnnotationSystem* annotation_system, mono::IEntityManager* entity_manager)
     : m_physics_system(physics_system)
     , m_annotation_system(annotation_system)
+    , m_entity_manager(entity_manager)
 {
     file::FilePtr config_file = file::OpenAsciiFile("res/configs/status_effect_config.json");
     if(config_file)
@@ -39,18 +42,38 @@ void StatusEffectSystem::ApplySlowEffect(uint32_t entity_id, float multiplier, f
     if(m_annotation_system && !m_slow_annotation_entity.empty())
         annotation_id = m_annotation_system->AddAnnotation(entity_id, m_slow_annotation_entity, AnnotationCorner::TopLeft);
 
-    m_slow_effects[entity_id] = { multiplier, duration_s, annotation_id };
+    // The annotation is a lifetime dependency of entity_id, so it gets released
+    // automatically if entity_id dies while still under this effect. Drop our
+    // bookkeeping when that happens so a later expiry doesn't try to release the
+    // (already gone) annotation again.
+    const uint32_t callback_id = m_entity_manager->AddReleaseCallback(
+        entity_id,
+        mono::ReleasePhase::PRE_RELEASE,
+        [this](uint32_t released_entity_id, mono::ReleasePhase)
+        {
+            m_slow_effects.erase(released_entity_id);
+        });
+
+    m_slow_effects[entity_id] = { multiplier, duration_s, annotation_id, callback_id };
+}
+
+void StatusEffectSystem::RemoveEffect(uint32_t entity_id)
+{
+    const auto it = m_slow_effects.find(entity_id);
+    if(it == m_slow_effects.end())
+        return;
+
+    m_entity_manager->RemoveReleaseCallback(entity_id, it->second.release_callback_id);
+
+    if(it->second.annotation_id != mono::INVALID_ID)
+        m_annotation_system->RemoveAnnotation(it->second.annotation_id);
+
+    m_slow_effects.erase(it);
 }
 
 void StatusEffectSystem::ClearEffects(uint32_t entity_id)
 {
-    auto it = m_slow_effects.find(entity_id);
-    if(it != m_slow_effects.end())
-    {
-        if(it->second.annotation_id != mono::INVALID_ID)
-            m_annotation_system->RemoveAnnotation(it->second.annotation_id);
-        m_slow_effects.erase(it);
-    }
+    RemoveEffect(entity_id);
 }
 
 const char* StatusEffectSystem::Name() const
@@ -74,10 +97,5 @@ void StatusEffectSystem::Update(const mono::UpdateContext& update_context)
     }
 
     for(uint32_t id : expired)
-    {
-        auto it = m_slow_effects.find(id);
-        if(it->second.annotation_id != mono::INVALID_ID)
-            m_annotation_system->RemoveAnnotation(it->second.annotation_id);
-        m_slow_effects.erase(it);
-    }
+        RemoveEffect(id);
 }

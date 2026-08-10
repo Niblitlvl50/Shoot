@@ -11,6 +11,7 @@
 namespace mono
 {
     class PhysicsSystem;
+    class IEntityManager;
 }
 
 namespace game
@@ -21,7 +22,8 @@ namespace game
     {
     public:
 
-        StatusEffectSystem(mono::PhysicsSystem* physics_system, game::EntityAnnotationSystem* annotation_system);
+        StatusEffectSystem(
+            mono::PhysicsSystem* physics_system, game::EntityAnnotationSystem* annotation_system, mono::IEntityManager* entity_manager);
 
         void ApplySlowEffect(uint32_t entity_id, float multiplier, float duration_s);
         void ClearEffects(uint32_t entity_id);
@@ -36,10 +38,14 @@ namespace game
             float multiplier;
             float remaining_s;
             uint32_t annotation_id;
+            uint32_t release_callback_id;
         };
+
+        void RemoveEffect(uint32_t entity_id);
 
         mono::PhysicsSystem* m_physics_system;
         game::EntityAnnotationSystem* m_annotation_system;
+        mono::IEntityManager* m_entity_manager;
         std::unordered_map<uint32_t, SlowEffect> m_slow_effects;
         std::string m_slow_annotation_entity;
     };
