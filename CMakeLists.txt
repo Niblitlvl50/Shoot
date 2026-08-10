@@ -26,8 +26,8 @@ else()
     add_compile_options("-Wall" "-Wextra" "-Wno-unused-parameter" "$<$<CONFIG:RELEASE>:-O3>")
 endif()
 
-# Disable debug checks for Chipmunk
-add_compile_definitions(NDEBUG)
+# Disable debug checks for Chipmunk in Release builds
+add_compile_definitions("$<$<CONFIG:Release>:NDEBUG>")
 
 
 ########### Projects ###########
