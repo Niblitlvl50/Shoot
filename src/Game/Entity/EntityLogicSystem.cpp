@@ -26,6 +26,8 @@
 #include "Enemies/BombThrowerController.h"
 #include "Enemies/DemonMinionController.h"
 #include "Enemies/GolemTinyController.h"
+#include "Enemies/ShamanController.h"
+#include "Enemies/SummonerController.h"
 
 #include "World/ReactivePropLogic.h"
 
@@ -72,6 +74,8 @@ namespace
         MakeController<game::DemonMinionController>,
         MakeController<game::ReactivePropLogic>,
         MakeController<game::GolemTinyController>,
+        MakeController<game::ShamanController>,
+        MakeController<game::SummonerController>,
     };
 }
 

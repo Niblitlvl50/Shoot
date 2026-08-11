@@ -1,0 +1,4 @@
+{
+    "minion_entity": "res/entities/monster_bat_medium.entity",
+    "max_minions": 3
+}

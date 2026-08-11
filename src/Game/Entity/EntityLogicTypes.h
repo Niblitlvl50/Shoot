@@ -22,6 +22,8 @@ namespace game
         DEMON_MINION_BOSS,
         REACTIVE_PROP,
         GOLEM_TINY,
+        SHAMAN,
+        SUMMONER,
     };
 
     constexpr const char* g_entity_logic_strings[] = {
@@ -40,6 +42,8 @@ namespace game
         "Demon Minion Boss",
         "Reactive Prop",
         "Golem Tiny",
+        "Shaman",
+        "Summoner",
     };
 
     inline const char* EntityLogicToString(EntityLogicType logic_type)
