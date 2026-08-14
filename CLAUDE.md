@@ -116,6 +116,10 @@ Components are identified by hashed names (constants in `src/Game/Entity/Compone
 
 Entity data is stored in fixed-size pools per system. `mono::ActiveVector<T>` (`Mono1/src/Util/ActiveVector.h`) provides sparse indexed storage with O(1) activation checks.
 
+## Coding Style
+
+**`auto`** — avoid it. Write the explicit type. The only exception is genuinely unwritable types such as lambdas or deeply nested iterator/template instantiations where spelling the type out adds no clarity.
+
 ### Key Conventions
 
 **Hashing** — `hash::Hash(const char*)` (FNV-1a, `Mono1/src/System/Hash.h`) is used everywhere: component IDs, trigger names, game mode names, attribute keys. The same string always produces the same `uint32_t`. Register debug strings with `hash::HashRegisterString()` so they appear in logs.
