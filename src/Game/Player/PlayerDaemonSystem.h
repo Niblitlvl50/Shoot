@@ -104,6 +104,7 @@ namespace game
         std::vector<std::string> m_weapon_entities;
 
         std::vector<int> m_player_levels;
+        std::unordered_map<uint32_t, int> m_player_last_levels;
 
         mono::EventToken<event::ControllerAddedEvent> m_added_token;
         mono::EventToken<event::ControllerRemovedEvent> m_removed_token;

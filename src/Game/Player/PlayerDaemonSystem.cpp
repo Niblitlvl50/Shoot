@@ -135,7 +135,18 @@ const char* PlayerDaemonSystem::Name() const
 
 void PlayerDaemonSystem::Update(const mono::UpdateContext& update_context)
 {
+    for(const PlayerInfo* player : game::GetActivePlayers())
+    {
+        if(!player)
+            continue;
 
+        int& last_level = m_player_last_levels[player->entity_id];
+        if(player->player_level > last_level)
+        {
+            last_level = player->player_level;
+            m_event_handler->DispatchEvent(PlayerLevelUpEvent(player->entity_id));
+        }
+    }
 }
 
 void PlayerDaemonSystem::Begin()
@@ -281,6 +292,7 @@ void PlayerDaemonSystem::SpawnLocalPlayer(int player_index, System::ControllerId
         destroyed_func);
     
     m_camera_system->FollowEntity(spawned_id);
+    m_player_last_levels[spawned_id] = allocated_player_info->player_level;
 
     allocated_player_info->familiar_entity_id = SpawnPlayerFamiliar(spawned_id, actual_player_index, m_entity_system, m_system_context);
 }
@@ -288,6 +300,7 @@ void PlayerDaemonSystem::SpawnLocalPlayer(int player_index, System::ControllerId
 void PlayerDaemonSystem::DespawnPlayer(PlayerInfo* player_info)
 {
     m_camera_system->Unfollow(player_info->entity_id);
+    m_player_last_levels.erase(player_info->entity_id);
     m_entity_system->ReleaseEntity(player_info->entity_id);
     m_entity_system->ReleaseEntity(player_info->familiar_entity_id);
 

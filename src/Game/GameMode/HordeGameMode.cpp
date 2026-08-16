@@ -255,9 +255,11 @@ void HordeGameMode::SetupEvents(const LevelMetadata& level_metadata)
     };
     m_gameover_token = m_event_handler->AddListener(on_game_over);
 
-    const PlayerLevelUpFunc on_level_up = [](const game::PlayerLevelUpEvent& level_up_event) {
-        //const mono::ICamera* camera = m_camera_system->GetActiveCamera();
-        //m_levelup_screen->ShowAt(camera->GetTargetPosition());
+    const PlayerLevelUpFunc on_level_up = [this](const game::PlayerLevelUpEvent& level_up_event) {
+        m_perk_system->RollForNewPlayerPerk();
+        const PerkDefinition& perk = m_perk_system->GetCurrentPlayerPerk();
+        const mono::ICamera* camera = m_camera_system->GetActiveCamera();
+        m_levelup_screen->ShowWithPerk(camera->GetTargetPosition(), perk.name, perk.description);
         return mono::EventResult::PASS_ON;
     };
     m_levelup_token = m_event_handler->AddListener(on_level_up);
@@ -290,6 +292,7 @@ void HordeGameMode::SetupEvents(const LevelMetadata& level_metadata)
         }
     };
     m_level_completed_trigger = m_trigger_system->RegisterTriggerCallback(m_level_completed_hash, level_event_callback, mono::INVALID_ID);
+    m_level_completed_alt_trigger = m_trigger_system->RegisterTriggerCallback(m_level_completed_alt_hash, level_event_callback, mono::INVALID_ID);
     m_level_failed_trigger = m_trigger_system->RegisterTriggerCallback(m_level_failed_hash, level_event_callback, mono::INVALID_ID);
     m_level_aborted_trigger = m_trigger_system->RegisterTriggerCallback(m_level_aborted_hash, level_event_callback, mono::INVALID_ID);
     m_show_shop_screen_trigger = m_trigger_system->RegisterTriggerCallback(g_show_shop_screen_hash, level_event_callback, mono::INVALID_ID);

@@ -27,8 +27,14 @@ LevelUpScreen::LevelUpScreen(
 
     const FontId font_id = FontId::RUSSOONE_TINY;
 
-    UITextElement* title_text = new UITextElement(font_id, "LEVEL UP", mono::Color::GRAY);
+    UITextElement* title_text = new UITextElement(font_id, "LEVEL UP", mono::Color::GOLDEN_YELLOW);
     title_text->SetPosition(background_half_width, background_height - 0.75f);
+
+    m_perk_name_text = new UITextElement(font_id, "", mono::Color::WHITE);
+    m_perk_name_text->SetPosition(background_half_width, background_height - 1.1f);
+
+    m_perk_description_text = new UITextElement(font_id, "", mono::Color::GRAY);
+    m_perk_description_text->SetPosition(background_half_width, background_height - 1.5f);
 
     const char* close_text = "Close";
     const mono::TextMeasurement close_text_measurement = mono::MeasureString(font_id, close_text);
@@ -39,11 +45,20 @@ LevelUpScreen::LevelUpScreen(
         new UISquareElement(background_width, background_height, mono::Color::BLACK, mono::Color::GRAY, 1.0f);
     background_element->SetPosition(-background_half_width - 2.5f, -background_half_height + 0.25);
     background_element->AddChild(title_text);
+    background_element->AddChild(m_perk_name_text);
+    background_element->AddChild(m_perk_description_text);
     background_element->AddChild(m_close_text);
 
     m_close_proxy.SetItemState(UIItemState::Disabled);
 
     AddChild(background_element);
+}
+
+void LevelUpScreen::ShowWithPerk(const math::Vector& position, const std::string& perk_name, const std::string& perk_description)
+{
+    m_perk_name_text->SetText(perk_name);
+    m_perk_description_text->SetText(perk_description);
+    ShowAt(position);
 }
 
 void LevelUpScreen::ShowAt(const math::Vector& position)
