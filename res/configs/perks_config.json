@@ -6,31 +6,41 @@
         {
             "id": 1,
             "name": "Vampires",
+            "adjective": "Vampiric",
             "description": "Enemies heal for a portion of the damage they deal",
+            "type": "VampiricBullets",
             "sprite_file": "res/sprites/powerup_vampiric_icon.sprite"
         },
         {
             "id": 2,
             "name": "Spectral",
+            "adjective": "Spectral",
             "description": "There is a chance that bullets will pass through enemies without dealing damage",
+            "type": "DodgeChance",
             "sprite_file": "res/sprites/powerup_spread_icon.sprite"
         },
         {
             "id": 3,
             "name": "Durable",
+            "adjective": "Durable",
             "description": "Enemies are more resistant to damage",
+            "type": "ReducedDamageTaken",
             "sprite_file": "res/sprites/powerup_damage_icon.sprite"
         },
         {
             "id": 4,
             "name": "Caffeinated",
+            "adjective": "Caffeinated",
             "description": "Enemies are extra twitchy and fast",
+            "type": "IncreasedFireRate",
             "sprite_file": "res/sprites/powerup_crit_icon.sprite"
         },
         {
             "id": 5,
-            "name": "Slugish",
-            "description": "Slower enemies, but they are more resistant to damage",
+            "name": "Sluggish",
+            "adjective": "Sluggish",
+            "description": "Enemies are more resistant to damage",
+            "type": "ReducedDamageTaken",
             "sprite_file": "res/sprites/wooden_stick1.sprite"
         }
     ]

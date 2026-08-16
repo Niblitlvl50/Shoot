@@ -229,7 +229,7 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id_damaged_entity, uint32_t id_w
     const auto modifier_it = m_damage_modifiers.find(id_damaged_entity);
     if(modifier_it != m_damage_modifiers.end())
     {
-        for(IDamageModifier* modifier : modifier_it->second.modifiers)
+        for(const std::unique_ptr<IDamageModifier>& modifier : modifier_it->second.modifiers)
         {
             const FilterResult filter = modifier->FilterDamage(id_damaged_entity, id_who_did_damage, weapon_identifier, modified_details.damage);
             if(filter == FilterResult::FILTER_OUT)
@@ -260,16 +260,16 @@ DamageResult DamageSystem::ApplyDamage(uint32_t id_damaged_entity, uint32_t id_w
     return result;
 }
 
-int DamageSystem::AddDamageModifierForId(uint32_t id, IDamageModifier* modifier)
+int DamageSystem::AddDamageModifierForId(uint32_t id, std::unique_ptr<IDamageModifier> modifier)
 {
-    const auto identify_by_id = [modifier](const IDamageModifier* m) { return modifier->Id() == m->Id(); };
+    const uint32_t modifier_id_hash = modifier->Id();
+    const auto identify_by_id = [modifier_id_hash](const std::unique_ptr<IDamageModifier>& m) { return modifier_id_hash == m->Id(); };
     DamageModifierContext& context = m_damage_modifiers[id];
-    const bool has_modifier = mono::contains(context.modifiers, identify_by_id);
-    if(has_modifier)
+    if(mono::contains(context.modifiers, identify_by_id))
         return -1;
 
     m_damage_modifier_id++;
-    context.modifiers.push_back(modifier);
+    context.modifiers.push_back(std::move(modifier));
     context.ids.push_back(m_damage_modifier_id);
     return m_damage_modifier_id;
 }

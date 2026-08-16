@@ -28,6 +28,7 @@
 #include "Enemies/GolemTinyController.h"
 #include "Enemies/ShamanController.h"
 #include "Enemies/SummonerController.h"
+#include "Enemies/SniperController.h"
 
 #include "World/ReactivePropLogic.h"
 
@@ -76,6 +77,7 @@ namespace
         MakeController<game::GolemTinyController>,
         MakeController<game::ShamanController>,
         MakeController<game::SummonerController>,
+        MakeController<game::SniperController>,
     };
 }
 
@@ -162,21 +164,15 @@ IEntityLogic* EntityLogicSystem::CreateLogic(EntityLogicType type, const std::ve
     PerkSystem* perk_system = m_system_context->GetSystem<PerkSystem>();
     if(perk_system)
     {
+        EnemyPerkModifiers enemy_perks = perk_system->GetCurrentEnemyPerkModifiers();
+
         WeaponSystem* weapon_system = m_system_context->GetSystem<WeaponSystem>();
-        if(weapon_system)
-        {
-            IWeaponModifier* enemy_modifier = perk_system->GetCurrentEnemyModifier();
-            if(enemy_modifier)
-                weapon_system->AddModifierForId(entity_id, enemy_modifier);
-        }
+        if(weapon_system && enemy_perks.weapon_modifier)
+            weapon_system->AddModifierForId(entity_id, std::move(enemy_perks.weapon_modifier));
 
         DamageSystem* damage_system = m_system_context->GetSystem<DamageSystem>();
-        if(damage_system)
-        {
-            IDamageModifier* enemy_damage_modifier = perk_system->GetCurrentEnemyDamageModifier();
-            if(enemy_damage_modifier)
-                damage_system->AddDamageModifierForId(entity_id, enemy_damage_modifier);
-        }
+        if(damage_system && enemy_perks.damage_modifier)
+            damage_system->AddDamageModifierForId(entity_id, std::move(enemy_perks.damage_modifier));
     }
 
     return logic;

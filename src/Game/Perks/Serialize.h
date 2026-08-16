@@ -41,6 +41,7 @@ namespace game
         perk_def.id             = json["id"].get<uint32_t>();
         perk_def.type           = PerkTypeFromString(json.value("type", std::string()));
         perk_def.name           = json["name"].get<std::string>();
+        perk_def.adjective      = json.value("adjective", perk_def.name);
         perk_def.description    = json["description"].get<std::string>();
         perk_def.icon_sprite_file = json["sprite_file"].get<std::string>();
     }

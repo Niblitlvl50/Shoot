@@ -729,45 +729,41 @@ void PlayerLogic::PreviousWeapon()
 void PlayerLogic::AddDamageBuff(int meta_data)
 {
     constexpr float duration_s = 10.0f;
-    
-    DamageModifier* damage_modifier = new DamageModifier("double_damage_10s", 2.0f);
-    m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, damage_modifier);
-    m_weapon_modifier_effect->EmitForDuration(duration_s);
 
-    m_player_info->powerup_id = damage_modifier->Id();
+    std::unique_ptr<IWeaponModifier> modifier(new DamageModifier("double_damage_10s", 2.0f));
+    m_player_info->powerup_id = modifier->Id();
+    m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, std::move(modifier));
+    m_weapon_modifier_effect->EmitForDuration(duration_s);
 }
 
 void PlayerLogic::AddBulletWallBuff(int meta_data)
 {
     constexpr float duration_s = 10.0f;
 
-    BulletWallModifier* bullet_wall_modifier = new BulletWallModifier();
-    m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, bullet_wall_modifier);
+    std::unique_ptr<IWeaponModifier> modifier(new BulletWallModifier());
+    m_player_info->powerup_id = modifier->Id();
+    m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, std::move(modifier));
     m_weapon_modifier_effect->EmitForDuration(duration_s);
-
-    m_player_info->powerup_id = bullet_wall_modifier->Id();
 }
 
 void PlayerLogic::AddCritChanceBuff(int meta_data)
 {
     constexpr float duration_s = 10.0f;
 
-    CritChanceModifier* crit_chance_modifier = new CritChanceModifier("crit_chance_10", 10);
-    m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, crit_chance_modifier);
+    std::unique_ptr<IWeaponModifier> modifier(new CritChanceModifier("crit_chance_10", 10));
+    m_player_info->powerup_id = modifier->Id();
+    m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, std::move(modifier));
     m_weapon_modifier_effect->EmitForDuration(duration_s);
-
-    m_player_info->powerup_id = crit_chance_modifier->Id();
 }
 
 void PlayerLogic::AddVampericHitBuff(int meta_data)
 {
     constexpr float duration_s = 10.0f;
 
-    BulletBehaviourModifier* vamperic_hit_modifier = new BulletBehaviourModifier("vamperic", BulletCollisionFlag::VAMPERIC);
-    m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, vamperic_hit_modifier);
+    std::unique_ptr<IWeaponModifier> modifier(new BulletBehaviourModifier("vamperic", BulletCollisionFlag::VAMPERIC));
+    m_player_info->powerup_id = modifier->Id();
+    m_damage_modifier_handle = m_weapon_system->AddModifierForIdWithDuration(m_entity_id, duration_s, std::move(modifier));
     m_weapon_modifier_effect->EmitForDuration(duration_s);
-
-    m_player_info->powerup_id = vamperic_hit_modifier->Id();
 }
 
 void PlayerLogic::TriggerHookshot()

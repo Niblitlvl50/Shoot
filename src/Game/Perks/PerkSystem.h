@@ -4,6 +4,7 @@
 #include "IGameSystem.h"
 #include "PerkTypes.h"
 
+#include <array>
 #include <memory>
 #include <unordered_map>
 #include <vector>
@@ -14,6 +15,12 @@ namespace game
     class DamageSystem;
     class IWeaponModifier;
     class IDamageModifier;
+
+    struct EnemyPerkModifiers
+    {
+        std::unique_ptr<IWeaponModifier> weapon_modifier;
+        std::unique_ptr<IDamageModifier> damage_modifier;
+    };
 
     class PerkSystem : public mono::IGameSystem
     {
@@ -30,14 +37,15 @@ namespace game
         const PerkDefinition& GetCurrentPlayerPerk() const;
         const PerkDefinition& GetCurrentEnemyPerk() const;
 
-        IWeaponModifier* GetCurrentEnemyModifier() const;
-        IDamageModifier* GetCurrentEnemyDamageModifier() const;
+        EnemyPerkModifiers GetCurrentEnemyPerkModifiers() const;
 
     private:
 
-        uint32_t RerollPerkAvoidId(uint32_t perk_id_to_avoid);
+        uint32_t RerollPerkAvoidId(uint32_t current_id) const;
+        std::array<uint32_t, 2> RerollPerkCombo(const std::array<uint32_t, 2>& current_ids) const;
+        PerkDefinition MakeComboDisplay(uint32_t id_a, uint32_t id_b) const;
 
-        void ApplyPerkToPlayers(const PerkDefinition& perk);
+        void ApplyPerkToPlayers(uint32_t perk_id);
         void RemoveCurrentPlayerPerk();
 
         static IWeaponModifier* CreateModifierForPerk(PerkType type);
@@ -48,17 +56,16 @@ namespace game
 
         PerkSetup m_perk_setup;
         std::vector<PerkDefinition> m_perk_definitions;
+        std::vector<uint32_t> m_weapon_perk_indices;
+        std::vector<uint32_t> m_damage_perk_indices;
 
         float m_current_reroll_time = 0.0f;
 
         uint32_t m_current_player_perk_id = 0;
-        uint32_t m_current_enemy_perk_id = 0;
+        std::array<uint32_t, 2> m_current_enemy_perk_ids = { 0, 1 };
 
-        std::unique_ptr<IWeaponModifier> m_player_modifier;
-        std::unique_ptr<IWeaponModifier> m_enemy_modifier;
+        PerkDefinition m_enemy_combo_display;
 
-        std::unique_ptr<IDamageModifier> m_player_damage_modifier;
-        std::unique_ptr<IDamageModifier> m_enemy_damage_modifier;
 
         std::unordered_map<uint32_t, int> m_player_modifier_slots;
         std::unordered_map<uint32_t, int> m_player_damage_modifier_slots;

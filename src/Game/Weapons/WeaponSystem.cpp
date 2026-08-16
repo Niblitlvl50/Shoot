@@ -126,9 +126,6 @@ void WeaponSystem::Update(const mono::UpdateContext& update_context)
         std::reverse(indices_to_remove.begin(), indices_to_remove.end());
 
         for(uint32_t index_to_remove : indices_to_remove)
-            delete pair.second.modifiers[index_to_remove];
-
-        for(uint32_t index_to_remove : indices_to_remove)
         {
             pair.second.durations.erase(pair.second.durations.begin() + index_to_remove);
             pair.second.modifiers.erase(pair.second.modifiers.begin() + index_to_remove);
@@ -240,18 +237,19 @@ uint32_t WeaponSystem::SpawnWeaponPickupAt(const WeaponSetup& setup, const math:
     return spawned_entity.id;
 }
 
-int WeaponSystem::AddModifierForId(uint32_t id, IWeaponModifier* weapon_modifier)
+int WeaponSystem::AddModifierForId(uint32_t id, std::unique_ptr<IWeaponModifier> weapon_modifier)
 {
-    return AddModifierForIdWithDuration(id, -1.0f, weapon_modifier);
+    return AddModifierForIdWithDuration(id, -1.0f, std::move(weapon_modifier));
 }
 
-int WeaponSystem::AddModifierForIdWithDuration(uint32_t id, float duration_s, IWeaponModifier* weapon_modifier)
+int WeaponSystem::AddModifierForIdWithDuration(uint32_t id, float duration_s, std::unique_ptr<IWeaponModifier> weapon_modifier)
 {
-    const auto identify_modifier_by_id = [weapon_modifier](const IWeaponModifier* modifier) {
-        return weapon_modifier->Id() == modifier->Id();
+    const uint32_t modifier_id_hash = weapon_modifier->Id();
+    const auto identify_modifier_by_id = [modifier_id_hash](const std::unique_ptr<IWeaponModifier>& modifier) {
+        return modifier_id_hash == modifier->Id();
     };
-    const bool has_modifier = mono::contains(m_weapon_modifiers[id].modifiers, identify_modifier_by_id);
-    if(has_modifier)
+    WeaponModifierContext& context = m_weapon_modifiers[id];
+    if(mono::contains(context.modifiers, identify_modifier_by_id))
         return -1;
 
     m_modifier_id++;
@@ -260,15 +258,14 @@ int WeaponSystem::AddModifierForIdWithDuration(uint32_t id, float duration_s, IW
     duration.duration = duration_s;
     duration.duration_counter = duration_s;
 
-    WeaponModifierContext& context = m_weapon_modifiers[id];
     context.durations.push_back(duration);
-    context.modifiers.push_back(weapon_modifier);
+    context.modifiers.push_back(std::move(weapon_modifier));
     context.ids.push_back(m_modifier_id);
 
     return m_modifier_id;
 }
 
-int WeaponSystem::AddModifierForIdAndWeapon(uint32_t id, uint32_t weapon_identifier_hash, IWeaponModifier* weapon_modifier)
+int WeaponSystem::AddModifierForIdAndWeapon(uint32_t id, uint32_t weapon_identifier_hash, std::unique_ptr<IWeaponModifier> weapon_modifier)
 {
     const uint32_t id_weapon_hash = id | weapon_identifier_hash;
 
@@ -280,7 +277,7 @@ int WeaponSystem::AddModifierForIdAndWeapon(uint32_t id, uint32_t weapon_identif
 
     WeaponModifierContext& context = m_weapon_level_modifiers[id_weapon_hash];
     context.durations.push_back(duration);
-    context.modifiers.push_back(weapon_modifier);
+    context.modifiers.push_back(std::move(weapon_modifier));
     context.ids.push_back(m_modifier_id);
 
     return m_modifier_id;
@@ -330,9 +327,9 @@ void WeaponSystem::ApplyModifiersForWeaponLevel(uint32_t entity_id, uint32_t wea
 
     for(int index = 0; index < weapon_level_exp.level; ++index)
     {
-        IWeaponModifier* modifier = WeaponModifierFactory::CreateModifierForWeaponAndLevel(weapon_identifier_hash, index +1);
+        std::unique_ptr<IWeaponModifier> modifier(WeaponModifierFactory::CreateModifierForWeaponAndLevel(weapon_identifier_hash, index + 1));
         if(modifier)
-            AddModifierForIdAndWeapon(entity_id, weapon_identifier_hash, modifier);
+            AddModifierForIdAndWeapon(entity_id, weapon_identifier_hash, std::move(modifier));
     }
 }
 
@@ -353,10 +350,13 @@ float WeaponSystem::GetDurationFractionForModifierOnEntity(uint32_t entity_id, u
 WeaponModifierList WeaponSystem::GetWeaponModifiersForEntity(uint32_t entity_id) const
 {
     WeaponModifierList modifier_list;
-    
+
     const auto it = m_weapon_modifiers.find(entity_id);
     if(it != m_weapon_modifiers.end())
-        modifier_list.insert(modifier_list.end(), it->second.modifiers.begin(), it->second.modifiers.end());
+    {
+        for(const std::unique_ptr<IWeaponModifier>& modifier : it->second.modifiers)
+            modifier_list.push_back(modifier.get());
+    }
 
     return modifier_list;
 }
@@ -364,15 +364,21 @@ WeaponModifierList WeaponSystem::GetWeaponModifiersForEntity(uint32_t entity_id)
 WeaponModifierList WeaponSystem::GetWeaponModifiersForIdAndWeapon(uint32_t id, uint32_t weapon_identifier_hash) const
 {
     WeaponModifierList modifier_list;
-    
+
     const auto it = m_weapon_modifiers.find(id);
     if(it != m_weapon_modifiers.end())
-        modifier_list.insert(modifier_list.end(), it->second.modifiers.begin(), it->second.modifiers.end());
+    {
+        for(const std::unique_ptr<IWeaponModifier>& modifier : it->second.modifiers)
+            modifier_list.push_back(modifier.get());
+    }
 
     const uint32_t id_weapon_hash = id | weapon_identifier_hash;
     const auto weapon_level_it = m_weapon_level_modifiers.find(id_weapon_hash);
     if(weapon_level_it != m_weapon_level_modifiers.end())
-        modifier_list.insert(modifier_list.end(), weapon_level_it->second.modifiers.begin(), weapon_level_it->second.modifiers.end());
+    {
+        for(const std::unique_ptr<IWeaponModifier>& modifier : weapon_level_it->second.modifiers)
+            modifier_list.push_back(modifier.get());
+    }
 
     return modifier_list;
 }

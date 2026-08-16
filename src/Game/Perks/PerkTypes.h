@@ -41,6 +41,7 @@ namespace game
         uint32_t id;
         PerkType type = PerkType::None;
         std::string name;
+        std::string adjective;
         std::string description;
         std::string icon_sprite_file;
     };

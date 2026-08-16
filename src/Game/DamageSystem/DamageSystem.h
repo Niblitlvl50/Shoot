@@ -92,7 +92,7 @@ namespace game
 
         void ApplyShockwave(uint32_t entity_id);
 
-        int AddDamageModifierForId(uint32_t id, IDamageModifier* modifier);
+        int AddDamageModifierForId(uint32_t id, std::unique_ptr<IDamageModifier> modifier);
         void RemoveDamageModifierForId(uint32_t id, int slot_id);
 
         bool IsInvincible(uint32_t id) const;
@@ -149,7 +149,7 @@ namespace game
 
         struct DamageModifierContext
         {
-            std::vector<IDamageModifier*> modifiers;
+            std::vector<std::unique_ptr<IDamageModifier>> modifiers;
             std::vector<uint32_t> ids;
         };
         std::unordered_map<uint32_t, DamageModifierContext> m_damage_modifiers;

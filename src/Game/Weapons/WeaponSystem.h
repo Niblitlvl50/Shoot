@@ -64,9 +64,9 @@ namespace game
 
         uint32_t SpawnWeaponPickupAt(const WeaponSetup& setup, const math::Vector& world_position);
 
-        int AddModifierForId(uint32_t id, IWeaponModifier* weapon_modifier);
-        int AddModifierForIdWithDuration(uint32_t id, float duration_s, IWeaponModifier* weapon_modifier);
-        int AddModifierForIdAndWeapon(uint32_t id, uint32_t weapon_identifier_hash, IWeaponModifier* weapon_modifier);
+        int AddModifierForId(uint32_t id, std::unique_ptr<IWeaponModifier> weapon_modifier);
+        int AddModifierForIdWithDuration(uint32_t id, float duration_s, std::unique_ptr<IWeaponModifier> weapon_modifier);
+        int AddModifierForIdAndWeapon(uint32_t id, uint32_t weapon_identifier_hash, std::unique_ptr<IWeaponModifier> weapon_modifier);
         void RemoveModifierForEntity(uint32_t entity_id, int modifier_slot_id);
 
         WeaponLevelExperience GetWeaponLevelForExperience(uint32_t weapon_identifier_hash, int weapon_experience);
@@ -106,7 +106,7 @@ namespace game
 
         struct WeaponModifierContext
         {
-            WeaponModifierList modifiers;
+            std::vector<std::unique_ptr<IWeaponModifier>> modifiers;
             std::vector<WeaponModifierDuration> durations;
             std::vector<uint32_t> ids;
         };
