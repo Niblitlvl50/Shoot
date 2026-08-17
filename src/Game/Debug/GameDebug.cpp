@@ -251,7 +251,7 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
     ImGui::SetNextWindowSize(ImVec2(1100, -1));
     ImGui::Begin("DebugPlayers", &show_window, flags);
 
-    const bool table_result = ImGui::BeginTable("player_table", 10, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_SizingFixedFit);
+    const bool table_result = ImGui::BeginTable("player_table", 12, ImGuiTableFlags_BordersInnerV | ImGuiTableFlags_SizingFixedFit);
     if(table_result)
     {
         ImGui::TableSetupColumn("Index", 0, 60);
@@ -264,6 +264,8 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
         ImGui::TableSetupColumn("DamageScalar", 0, 80);
         ImGui::TableSetupColumn("AutoAim", 0, 60);
         ImGui::TableSetupColumn("AutoReload", 0, 80);
+        ImGui::TableSetupColumn("Chips", 0, 80);
+        ImGui::TableSetupColumn("Experience", 0, 80);
         ImGui::TableSetupColumn("Actions", 0, 150);
         ImGui::TableHeadersRow();
 
@@ -316,6 +318,14 @@ void DrawDebugPlayers(bool& show_window, game::DamageSystem* damage_system, mono
 
             ImGui::TableNextColumn();
             ImGui::Checkbox("##autoreload_id", &player_info.persistent_data.auto_reload);
+
+            ImGui::TableNextColumn();
+            ImGui::SetNextItemWidth(75.0f);
+            ImGui::InputInt("##chips_id", &player_info.persistent_data.chips, 1, 1, ImGuiInputTextFlags_EnterReturnsTrue);
+
+            ImGui::TableNextColumn();
+            ImGui::SetNextItemWidth(75.0f);
+            ImGui::InputInt("##experience_id", &player_info.persistent_data.experience, 1, 1, ImGuiInputTextFlags_EnterReturnsTrue);
 
             {
                 // Buttons

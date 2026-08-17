@@ -651,7 +651,7 @@ void PlayerLogic::UseItemSlot(ItemSlotIndex slot_index)
 
 void PlayerLogic::HandlePickup(PickupType type, int meta_data)
 {
-    m_player_info->persistent_data.experience++;
+    m_player_info->persistent_data.experience += 10;
 
     switch(type)
     {
