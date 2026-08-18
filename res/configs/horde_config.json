@@ -1,0 +1,6 @@
+{
+    "num_waves": 10,
+    "initial_wave_delay_s": 5.0,
+    "wave_interval_s": 30.0,
+    "spawn_score_increment": 1
+}

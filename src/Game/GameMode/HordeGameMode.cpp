@@ -24,6 +24,9 @@
 #include "TriggerSystem/TriggerSystem.h"
 #include "Weapons/WeaponSystem.h"
 #include "WorldFile.h"
+#include "Serialize.h"
+#include "System/File.h"
+#include "nlohmann/json.hpp"
 #include "World/WorldEntityTrackingSystem.h"
 #include "Zones/ZoneFlow.h"
 
@@ -36,7 +39,6 @@
 #include "Camera/ICamera.h"
 #include "Math/EasingFunctions.h"
 #include "EntitySystem/IEntityManager.h"
-#include "Entity/EntityLogicSystem.h"
 #include "Entity/TargetSystem.h"
 #include "Pickups/LootBoxLogic.h"
 #include "Rendering/RenderSystem.h"
@@ -60,7 +62,6 @@ namespace tweak_values
 {
     constexpr float level_result_duration_s = 1.5f;
     constexpr float fade_duration_s = 0.7f;
-    constexpr float spawn_wave_interval_s = 30.0f;
 }
 
 using namespace game;
@@ -68,7 +69,7 @@ using namespace game;
 HordeGameMode::HordeGameMode()
     : m_package_spawned(false)
     , m_package_entity_id(mono::INVALID_ID)
-    , m_spawn_wave_timer(5.0f)
+    , m_spawn_wave_timer(0.0f)
     , m_wave_index(0)
     , m_loot_box_index(0)
 {
@@ -95,13 +96,20 @@ void HordeGameMode::Begin(
 {
     m_event_handler = event_handler;
 
+    {
+        const std::vector<byte> file_data = file::FileReadAll("res/configs/horde_config.json");
+        const nlohmann::json json = nlohmann::json::parse(file_data);
+        m_horde_config = json.get<HordeConfig>();
+    }
+
+    m_spawn_wave_timer = m_horde_config.initial_wave_delay_s;
+
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_render_system = system_context->GetSystem<mono::RenderSystem>();
     m_trigger_system = system_context->GetSystem<mono::TriggerSystem>();
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_entity_manager = system_context->GetSystem<mono::IEntityManager>();
     m_camera_system = system_context->GetSystem<game::CameraSystem>();
-    m_entity_logic_system = system_context->GetSystem<game::EntityLogicSystem>();
     m_interaction_system = system_context->GetSystem<game::InteractionSystem>();
     m_pickup_system = system_context->GetSystem<game::PickupSystem>();
     m_spawn_system = system_context->GetSystem<game::SpawnSystem>();
@@ -257,9 +265,6 @@ void HordeGameMode::SetupEvents(const LevelMetadata& level_metadata)
 
     const PlayerLevelUpFunc on_level_up = [this](const game::PlayerLevelUpEvent& level_up_event) {
         m_perk_system->RollForNewPlayerPerk();
-        const PerkDefinition& perk = m_perk_system->GetCurrentPlayerPerk();
-        const mono::ICamera* camera = m_camera_system->GetActiveCamera();
-        m_levelup_screen->ShowWithPerk(camera->GetTargetPosition(), perk.name, perk.description);
         return mono::EventResult::PASS_ON;
     };
     m_levelup_token = m_event_handler->AddListener(on_level_up);
@@ -347,7 +352,7 @@ void HordeGameMode::SpawnPackage(const math::Vector& position)
 
 void HordeGameMode::SpawnNextWave()
 {
-    if(m_wave_index == 10)
+    if(m_wave_index == m_horde_config.num_waves)
     {
         m_states.TransitionTo(GameModeStates::LEVEL_COMPLETED);
         return;
@@ -359,8 +364,9 @@ void HordeGameMode::SpawnNextWave()
     m_wave_index++;
     m_horde_wave_ui->ShowNextWave(m_wave_index, enemy_perk.name, enemy_perk.description, enemy_perk.icon_sprite_file);
 
-    const auto increment_spawn_score = [](uint32_t index, game::SpawnSystem::SpawnPointComponent& spawn_point) {
-        spawn_point.spawn_score += 1;
+    const int score_increment = m_horde_config.spawn_score_increment;
+    const auto increment_spawn_score = [score_increment](uint32_t index, game::SpawnSystem::SpawnPointComponent& spawn_point) {
+        spawn_point.spawn_score += score_increment;
         spawn_point.num_spawns = 0;
     };
     m_spawn_system->ForEachSpawnPoint(increment_spawn_score);
@@ -415,7 +421,7 @@ void HordeGameMode::RunGameMode(const mono::UpdateContext& update_context)
     {
         SpawnNextWave();
         SpawnLootBoxes();
-        m_spawn_wave_timer = tweak_values::spawn_wave_interval_s;
+        m_spawn_wave_timer = m_horde_config.wave_interval_s;
     }
 }
 

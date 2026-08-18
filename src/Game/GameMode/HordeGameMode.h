@@ -14,6 +14,17 @@
 
 namespace game
 {
+    struct HordeConfig
+    {
+        int num_waves = 10;
+        float initial_wave_delay_s = 5.0f;
+        float wave_interval_s = 30.0f;
+        int spawn_score_increment = 1;
+    };
+}
+
+namespace game
+{
     class HordeGameMode : public IGameMode
     {
     public:
@@ -80,7 +91,6 @@ namespace game
         class CameraSystem* m_camera_system;
         class InteractionSystem* m_interaction_system;
         class PickupSystem* m_pickup_system;
-        class EntityLogicSystem* m_entity_logic_system;
         class SpawnSystem* m_spawn_system;
         class MissionSystem* m_mission_system;
         class PerkSystem* m_perk_system;
@@ -119,6 +129,7 @@ namespace game
         uint32_t m_package_release_callback;
         uint32_t m_package_entity_id;
 
+        HordeConfig m_horde_config;
         float m_spawn_wave_timer;
         int m_wave_index;
 
