@@ -355,7 +355,7 @@ namespace game
             UISpriteElement* skull_sprite = new UISpriteElement("res/sprites/skull_red_eyes.sprite");
             skull_sprite->SetPosition(0.4f, 0.5f);
 
-            UITextElement* death_text = new UITextElement(FontId::RUSSOONE_TINY, "You are dead!", mono::Color::OFF_WHITE);
+            UITextElement* death_text = new UITextElement(FontId::RUSSOONE_TINY, "You got squished!", mono::Color::OFF_WHITE);
             death_text->SetPosition(1.75f, 0.60f);
             death_text->SetScale(0.7f);
 

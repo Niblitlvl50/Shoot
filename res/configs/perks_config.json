@@ -5,41 +5,41 @@
     "perks": [
         {
             "id": 1,
-            "name": "Vampires",
-            "adjective": "Vampiric",
-            "description": "Enemies heal for a portion of the damage they deal",
+            "name": "Snacky",
+            "adjective": "Snacky",
+            "description": "Enemies snack on your energy when they tag you",
             "type": "VampiricBullets",
             "sprite_file": "res/sprites/powerup_vampiric_icon.sprite"
         },
         {
             "id": 2,
-            "name": "Spectral",
-            "adjective": "Spectral",
-            "description": "There is a chance that bullets will pass through enemies without dealing damage",
+            "name": "Ghostly",
+            "adjective": "Ghostly",
+            "description": "Some squishes might pass right through!",
             "type": "DodgeChance",
             "sprite_file": "res/sprites/powerup_spread_icon.sprite"
         },
         {
             "id": 3,
-            "name": "Durable",
-            "adjective": "Durable",
-            "description": "Enemies are more resistant to damage",
+            "name": "Tough Cookie",
+            "adjective": "Tough",
+            "description": "Enemies have extra tough shells",
             "type": "ReducedDamageTaken",
             "sprite_file": "res/sprites/powerup_damage_icon.sprite"
         },
         {
             "id": 4,
-            "name": "Caffeinated",
-            "adjective": "Caffeinated",
-            "description": "Enemies are extra twitchy and fast",
+            "name": "Jittery",
+            "adjective": "Jittery",
+            "description": "Enemies are super hyper and zoomy",
             "type": "IncreasedFireRate",
             "sprite_file": "res/sprites/powerup_crit_icon.sprite"
         },
         {
             "id": 5,
-            "name": "Sluggish",
-            "adjective": "Sluggish",
-            "description": "Enemies are more resistant to damage",
+            "name": "Fluffy",
+            "adjective": "Fluffy",
+            "description": "Enemies have extra padding",
             "type": "ReducedDamageTaken",
             "sprite_file": "res/sprites/wooden_stick1.sprite"
         }

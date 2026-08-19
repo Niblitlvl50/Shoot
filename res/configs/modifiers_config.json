@@ -2,17 +2,17 @@
     "modifiers": [
         {
             "id": "double_damage_10s",
-            "name": "Dmg x2",
+            "name": "Squish x2",
             "sprite_file": "res/sprites/powerup_damage_icon.sprite"
         },
         {
             "id": "damage_up_10",
-            "name": "Dmg +10",
+            "name": "Squish +10",
             "sprite_file": "res/sprites/powerup_damage_icon.sprite"
         },
         {
             "id": "bullet_wall",
-            "name": "Bullet Wall",
+            "name": "Confetti Wall",
             "sprite_file": "res/sprites/powerup_spread_icon.sprite"
         },
         {
@@ -22,12 +22,12 @@
         },
         {
             "id": "crit_chance_10",
-            "name": "Crit+",
+            "name": "Lucky+",
             "sprite_file": "res/sprites/powerup_crit_icon.sprite"
         },
         {
             "id": "vamperic",
-            "name": "Vamp",
+            "name": "Snack",
             "sprite_file": "res/sprites/powerup_vampiric_icon.sprite"
         }
     ]

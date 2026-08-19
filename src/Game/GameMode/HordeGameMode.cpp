@@ -343,7 +343,7 @@ void HordeGameMode::SpawnPackage(const math::Vector& position)
 
     const mono::ReleaseCallback release_callback = [this](uint32_t entity_id, mono::ReleasePhase phase) {
         m_states.TransitionTo(GameModeStates::PACKAGE_DESTROYED);
-        m_big_text_screen->SetSubText("Your package was destroyed.");
+        m_big_text_screen->SetSubText("Your delivery got squished!");
     };
     m_package_release_callback = m_entity_manager->AddReleaseCallback(m_package_entity_id, mono::ReleasePhase::POST_RELEASE, release_callback);
 
