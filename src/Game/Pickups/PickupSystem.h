@@ -45,6 +45,7 @@ namespace game
     };
 
     using PickupCallback = std::function<void (PickupType type, int meta_data)>;
+    using GlobalPickupCallback = std::function<void (uint32_t target_id, PickupType type, int meta_data)>;
 
     class PickupSystem : public mono::IGameSystem
     {
@@ -75,6 +76,9 @@ namespace game
         void RegisterPickupTarget(uint32_t target_id, PickupCallback callback);
         void UnregisterPickupTarget(uint32_t target_id);
 
+        uint32_t AddGlobalPickupCallback(GlobalPickupCallback callback);
+        void RemoveGlobalPickupCallback(uint32_t callback_id);
+
         uint32_t SpawnLootBox(const math::Vector& world_position) const;
 
         // IGameSystem
@@ -100,6 +104,14 @@ namespace game
         mono::ActiveVector<LootBox> m_lootboxes;
         std::vector<std::unique_ptr<mono::ICollisionHandler>> m_collision_handlers;
         std::unordered_map<uint32_t, PickupCallback> m_pickup_targets;
+
+        struct GlobalPickupCallbackEntry
+        {
+            uint32_t id;
+            GlobalPickupCallback callback;
+        };
+        std::vector<GlobalPickupCallbackEntry> m_global_pickup_callbacks;
+        uint32_t m_global_callback_id_counter = 0;
 
         std::unordered_set<uint32_t> m_garanteed_drop;
 

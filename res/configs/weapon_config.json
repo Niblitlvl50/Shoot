@@ -565,109 +565,127 @@
     ],
     "weapon_setups": [
         {
-            "name": "Pea Shooter",
+            "name": "Generic",
+            "display_name": "Pea Shooter",
             "weapon": "generic",
             "bullet": "generic_bullet",
             "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
-            "name": "Wiggly Pea Shooter",
+            "name": "Generic Wavey",
+            "display_name": "Wiggly Pea Shooter",
             "weapon": "generic",
             "bullet": "fire_wobbly_bullet",
             "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
-            "name": "Buddy Blaster",
+            "name": "Familiar Generic",
+            "display_name": "Buddy Blaster",
             "weapon": "plasma_gun_familiar",
             "bullet": "familiar_bullet",
             "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
-            "name": "Boomerang Blaster",
+            "name": "Generic Homing",
+            "display_name": "Boomerang Blaster",
             "weapon": "generic_homing_gun",
             "bullet": "flak_bullet_homing",
             "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
-            "name": "Rainbow Sprayer",
+            "name": "Plasma Gun",
+            "display_name": "Rainbow Sprayer",
             "weapon": "plasma_gun",
             "bullet": "plasma_bullet",
             "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
-            "name": "Confetti Cannon",
+            "name": "Flak Canon",
+            "display_name": "Confetti Cannon",
             "weapon": "flak_gun",
             "bullet": "flak_bullet",
             "sprite_file": "res/sprites/troll_hand1.sprite"
         },
         {
-            "name": "Sparkle Cannon",
+            "name": "Plasma Canon",
+            "display_name": "Sparkle Cannon",
             "weapon": "flak_gun",
             "bullet": "plasma_bullet",
             "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
-            "name": "Glitter Burst",
+            "name": "Burst Plasma",
+            "display_name": "Glitter Burst",
             "weapon": "burst_gun",
             "bullet": "burst_gun_bullet",
             "sprite_file": "res/sprites/bone_wand1.sprite"
         },
         {
-            "name": "Slime Squirter",
+            "name": "Cacodemon Plasma",
+            "display_name": "Slime Squirter",
             "weapon": "cacodemon_plasma",
             "bullet": "caco_bullet_homing",
             "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
-            "name": "Swirly Squirter",
+            "name": "Cacodemon Plasma Circulating",
+            "display_name": "Swirly Squirter",
             "weapon": "boss_circulating_weapon",
             "bullet": "generic_circulating",
             "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
-            "name": "Long Range Slimer",
+            "name": "Cacodemon Long Attack",
+            "display_name": "Long Range Slimer",
             "weapon": "boss_cacoplasma",
             "bullet": "boss_caco_bullet",
             "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
-            "name": "Blob Blaster",
+            "name": "Caco Plasma",
+            "display_name": "Blob Blaster",
             "weapon": "cacoplasma",
             "bullet": "caco_bullet",
             "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
-            "name": "Balloon Launcher",
+            "name": "Rocket Launcher",
+            "display_name": "Balloon Launcher",
             "weapon": "rocketlauncher",
             "bullet": "rocket",
             "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
-            "name": "Rainbow Zapper",
+            "name": "Laser Blaster",
+            "display_name": "Rainbow Zapper",
             "weapon": "blaster",
             "bullet": "laset",
             "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
-            "name": "Silly String Sprayer",
+            "name": "Webber Gun",
+            "display_name": "Silly String Sprayer",
             "weapon": "webber_gun",
             "bullet": "webber_bullet",
             "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
-            "name": "Pop-Pop Turret",
+            "name": "Turret",
+            "display_name": "Pop-Pop Turret",
             "weapon": "generic",
             "bullet": "generic_bullet",
             "sprite_file": "res/sprites/wooden_stick1.sprite"
         },
         {
-            "name": "Seeking Squishy",
+            "name": "Temp Homing Gun",
+            "display_name": "Seeking Squishy",
             "weapon": "temp_homing_gun",
             "bullet": "flak_bullet_homing",
             "sprite_file": "res/sprites/wooden_stick_lantern1.sprite"
         },
         {
-            "name": "Stink Bomb",
+            "name": "Stinky Bomb",
+            "display_name": "Stink Bomb",
             "weapon": "throwing_stinky_bomb",
             "bullet": "stinky_bomb",
             "sprite_file": "res/sprites/wooden_stick_lantern1.sprite"

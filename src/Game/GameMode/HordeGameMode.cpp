@@ -149,7 +149,7 @@ void HordeGameMode::Begin(
     m_package_spawn_position = level_metadata.use_package_spawn_position ?
         level_metadata.package_spawn_position : level_metadata.player_spawn_point;
 
-    m_player_ui = std::make_unique<PlayerUIElement>(game::g_players, game::n_players, weapon_system, m_sprite_system);
+    m_player_ui = std::make_unique<PlayerUIElement>(game::g_players, game::n_players, weapon_system, m_pickup_system, m_sprite_system);
     m_timer_screen = std::make_unique<LevelTimerUIElement>();
     m_horde_wave_ui = std::make_unique<HordeWaveDrawer>();
 

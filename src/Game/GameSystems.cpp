@@ -108,15 +108,14 @@ void game::CreateGameSystems(
     
     system_context.CreateSystem<game::MissionSystem>(entity_system, transform_system, trigger_system);
         
-    game::WeaponSystem* weapon_system = system_context.GetSystem<game::WeaponSystem>();
-    system_context.CreateSystem<game::PerkSystem>(weapon_system, damage_system);
-    system_context.CreateSystem<game::StatusEffectSystem>(physics_system, annotation_system, entity_system);
-
     game::EntityLogicSystem* logic_system =
         system_context.CreateSystem<game::EntityLogicSystem>(max_entities, &system_context, &event_handler);
-    
-    system_context.CreateSystem<game::WeaponSystem>(
+
+    game::WeaponSystem* weapon_system = system_context.CreateSystem<game::WeaponSystem>(
         transform_system, sprite_system, physics_system, entity_system, damage_system, camera_system, logic_system, target_system, &system_context);
+
+    system_context.CreateSystem<game::PerkSystem>(weapon_system, damage_system);
+    system_context.CreateSystem<game::StatusEffectSystem>(physics_system, annotation_system, entity_system);
 
     game::ServerManager* server_manager = system_context.CreateSystem<game::ServerManager>(&event_handler, &game_config);
     system_context.CreateSystem<game::ClientManager>(&event_handler, &game_config);

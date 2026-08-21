@@ -11,6 +11,7 @@
 #include "Events/GameEventFuncFwd.h"
 #include "Events/PlayerEvents.h"
 #include "DamageSystem/DamageSystem.h"
+#include "Pickups/PickupSystem.h"
 #include "Player/PlayerDaemonSystem.h"
 #include "GameCamera/CameraSystem.h"
 #include "ShopSystem/ShopSystem.h"
@@ -98,6 +99,7 @@ void PacketDeliveryGameMode::Begin(
 
     DamageSystem* damage_system = system_context->GetSystem<game::DamageSystem>();
     WeaponSystem* weapon_system = system_context->GetSystem<game::WeaponSystem>();
+    PickupSystem* pickup_system = system_context->GetSystem<game::PickupSystem>();
     UISystem* ui_system = system_context->GetSystem<game::UISystem>();
     ShopSystem* shop_system = system_context->GetSystem<game::ShopSystem>();
 
@@ -175,7 +177,7 @@ void PacketDeliveryGameMode::Begin(
     m_shop_screen = std::make_unique<ShopScreen>(m_transform_system, m_entity_manager, event_handler, ui_system, shop_system);
     m_shop_screen->Hide();
 
-    m_player_ui = std::make_unique<PlayerUIElement>(game::g_players, game::n_players, weapon_system, m_sprite_system);
+    m_player_ui = std::make_unique<PlayerUIElement>(game::g_players, game::n_players, weapon_system, pickup_system, m_sprite_system);
 
     zone->AddUpdatable(m_coop_power_manager.get());
     zone->AddUpdatableDrawable(m_big_text_screen.get(), LayerId::UI);

@@ -232,6 +232,21 @@ void PickupSystem::UnregisterPickupTarget(uint32_t target_id)
     m_pickup_targets.erase(target_id);
 }
 
+uint32_t PickupSystem::AddGlobalPickupCallback(GlobalPickupCallback callback)
+{
+    const uint32_t id = m_global_callback_id_counter++;
+    m_global_pickup_callbacks.push_back({ id, std::move(callback) });
+    return id;
+}
+
+void PickupSystem::RemoveGlobalPickupCallback(uint32_t callback_id)
+{
+    const auto remove_pred = [callback_id](const GlobalPickupCallbackEntry& entry) {
+        return entry.id == callback_id;
+    };
+    mono::remove_if(m_global_pickup_callbacks, remove_pred);
+}
+
 uint32_t PickupSystem::SpawnLootBox(const math::Vector& world_position) const
 {
     const int picked_index = mono::RandomInt(0, m_lootbox_definition.size() - 1);
@@ -251,13 +266,19 @@ void PickupSystem::Update(const mono::UpdateContext& update_context)
 {
     for(const PickupToTarget& pickup : m_pickups_to_process)
     {
+        const Pickup* pickup_data = m_pickups.Get(pickup.pickup_id);
+        if(!pickup_data)
+            continue;
+
         const auto it = m_pickup_targets.find(pickup.target_id);
         if(it != m_pickup_targets.end())
         {
-            const Pickup* pickup_data = m_pickups.Get(pickup.pickup_id);
             it->second(pickup_data->type, pickup_data->meta_data);
             PlayPickupSound(pickup_data->type);
         }
+
+        for(const GlobalPickupCallbackEntry& entry : m_global_pickup_callbacks)
+            entry.callback(pickup.target_id, pickup_data->type, pickup_data->meta_data);
 
         const math::Vector& world_position = m_transform_system->GetWorldPosition(pickup.pickup_id);
         m_pickup_effect->EmitAt(world_position);

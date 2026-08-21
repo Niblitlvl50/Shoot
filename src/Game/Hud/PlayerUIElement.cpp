@@ -1,5 +1,7 @@
 
 #include "PlayerUIElement.h"
+#include "Pickups/PickupSystem.h"
+#include "Pickups/PickupTypes.h"
 #include "Player/PlayerInfo.h"
 #include "FontIds.h"
 #include "UIElements.h"
@@ -439,6 +441,49 @@ namespace game
    };
 
 
+    class PickupNotificationElement : public game::UIElement
+    {
+    public:
+
+        static constexpr float notification_duration_s = 2.5f;
+        static constexpr float fade_duration_s = 0.5f;
+
+        PickupNotificationElement()
+            : m_timer(0.0f)
+        {
+            m_text = new UITextElement(FontId::RUSSOONE_SMALL, "", mono::Color::GOLDEN_YELLOW);
+            m_text->SetAchorPoint(mono::AnchorPoint::CENTER);
+            m_text->SetEnableShadow(true);
+            m_text->SetShadowOffset(0.0f, -0.01f);
+            m_text->SetShadowColor(mono::Color::BLACK);
+            m_text->SetScale(0.5f);
+            AddChild(m_text);
+        }
+
+        void Show(const std::string& text)
+        {
+            m_text->SetText(text);
+            m_timer = notification_duration_s;
+        }
+
+        void Update(const mono::UpdateContext& update_context) override
+        {
+            UIElement::Update(update_context);
+
+            m_timer -= update_context.delta_s;
+            m_show = (m_timer > 0.0f);
+
+            if(m_show)
+            {
+                const float alpha = std::min(1.0f, m_timer / fade_duration_s);
+                m_text->SetAlpha(alpha);
+            }
+        }
+
+        float m_timer;
+        UITextElement* m_text;
+    };
+
     class PlayerCoopPowerupElement : public game::UIElement
     {
     public:
@@ -486,8 +531,10 @@ PlayerUIElement::PlayerUIElement(
     const PlayerInfo* player_infos,
     int num_players,
     game::WeaponSystem* weapon_system,
+    game::PickupSystem* pickup_system,
     mono::SpriteSystem* sprite_system)
     : UIOverlay(12.0f, 12.0f / mono::RenderSystem::GetWindowAspect())
+    , m_pickup_system(pickup_system)
 {
     const float position_x = m_width - g_player_element_half_width;
 
@@ -515,6 +562,14 @@ PlayerUIElement::PlayerUIElement(
         { 0.0f, -2.0f },
     };
 
+    const math::Vector notification_offsets[] = {
+        { g_player_element_half_width, 1.8f },
+        { position_x, 1.8f },
+        { m_width / 2.0f, 1.8f },
+    };
+
+    std::vector<PickupNotificationElement*> notifications;
+
     for(int index = 0; index < num_players; ++index)
     {
         const PlayerInfo& player_info = player_infos[index];
@@ -526,7 +581,67 @@ PlayerUIElement::PlayerUIElement(
         const math::Vector on_screen_death_position = on_screen_position + death_element_offset[index];
         const math::Vector off_screen_death_position = on_screen_death_position + death_element_offscreen_delta[index];
         AddChild(new PlayerDeathElement(player_info, on_screen_death_position, off_screen_death_position));
+
+        PickupNotificationElement* notification = new PickupNotificationElement();
+        notification->SetPosition(notification_offsets[index]);
+        AddChild(notification);
+        notifications.push_back(notification);
     }
 
+    const game::GlobalPickupCallback on_pickup = [player_infos, num_players, notifications](uint32_t target_id, PickupType type, int meta_data) {
+
+        // Find which player slot this target belongs to
+        int player_index = -1;
+        for(int i = 0; i < num_players; ++i)
+        {
+            if(player_infos[i].entity_id == target_id)
+            {
+                player_index = i;
+                break;
+            }
+        }
+
+        if(player_index < 0 || player_index >= (int)notifications.size())
+            return;
+
+        // Build display text
+        std::string text;
+        switch(type)
+        {
+        case PickupType::AMMO:          text = "Bubble Reload!";    break;
+        case PickupType::HEALTH:        text = "Feeling Better!";   break;
+        case PickupType::SECOND_WIND:   text = "Second Wind!";      break;
+        case PickupType::EXPERIENCE:    text = "+XP!";              break;
+        case PickupType::COINS:
+        {
+            char buf[32] = { '\0' };
+            std::snprintf(buf, std::size(buf), "+%d Chips!", meta_data);
+            text = buf;
+            break;
+        }
+        case PickupType::WEAPON_MODIFIER:
+        {
+            switch(WeaponModifier(meta_data))
+            {
+            case WeaponModifier::DAMAGE:        text = "Squish x2!";        break;
+            case WeaponModifier::SPREAD:        text = "Confetti Wall!";    break;
+            case WeaponModifier::CRIT_CHANCE:   text = "Lucky+!";           break;
+            case WeaponModifier::VAMPERIC_HIT:  text = "Snack Time!";       break;
+            default:                            text = "Power-Up!";         break;
+            }
+            break;
+        }
+        }
+
+        notifications[player_index]->Show(text);
+    };
+
+    m_pickup_callback_id = pickup_system->AddGlobalPickupCallback(on_pickup);
+
     AddChild(new PlayerCoopPowerupElement(player_infos, num_players, m_width - 2.5f, m_height - 0.3f));
+}
+
+PlayerUIElement::~PlayerUIElement()
+{
+    m_pickup_system->RemoveGlobalPickupCallback(m_pickup_callback_id);
 }

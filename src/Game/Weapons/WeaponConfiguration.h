@@ -141,6 +141,7 @@ namespace game
     struct WeaponBulletCombination
     {
         std::string name;
+        std::string display_name;
         std::string weapon;
         std::string bullet;
         std::string sprite_file;
