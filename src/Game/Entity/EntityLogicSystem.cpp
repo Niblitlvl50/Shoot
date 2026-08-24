@@ -162,7 +162,7 @@ IEntityLogic* EntityLogicSystem::CreateLogic(EntityLogicType type, const std::ve
     IEntityLogic* logic = create_functions[static_cast<uint32_t>(type)](entity_id, m_system_context, m_event_handler);
 
     PerkSystem* perk_system = m_system_context->GetSystem<PerkSystem>();
-    if(perk_system)
+    if(perk_system && perk_system->HasActiveEnemyPerk())
     {
         EnemyPerkModifiers enemy_perks = perk_system->GetCurrentEnemyPerkModifiers();
 

@@ -30,6 +30,8 @@ namespace game
         const char* Name() const override;
         void Update(const mono::UpdateContext& update_context) override;
 
+        void Reset() override;
+
         void RollForNewPlayerPerk();
         void RollForNewEnemyPerk();
         float GetCurrentRerollFraction() const;
@@ -37,6 +39,7 @@ namespace game
         const PerkDefinition& GetCurrentPlayerPerk() const;
         const PerkDefinition& GetCurrentEnemyPerk() const;
 
+        bool HasActiveEnemyPerk() const;
         EnemyPerkModifiers GetCurrentEnemyPerkModifiers() const;
 
     private:
@@ -61,6 +64,7 @@ namespace game
 
         float m_current_reroll_time = 0.0f;
 
+        bool m_enemy_perk_active = false;
         uint32_t m_current_player_perk_id = 0;
         std::array<uint32_t, 2> m_current_enemy_perk_ids = { 0, 1 };
 

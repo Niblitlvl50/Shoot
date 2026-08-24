@@ -110,6 +110,16 @@ const PerkDefinition& PerkSystem::GetCurrentEnemyPerk() const
     return m_enemy_combo_display;
 }
 
+void PerkSystem::Reset()
+{
+    m_enemy_perk_active = false;
+}
+
+bool PerkSystem::HasActiveEnemyPerk() const
+{
+    return m_enemy_perk_active;
+}
+
 EnemyPerkModifiers PerkSystem::GetCurrentEnemyPerkModifiers() const
 {
     EnemyPerkModifiers result;
@@ -130,6 +140,7 @@ void PerkSystem::RollForNewEnemyPerk()
 {
     m_current_enemy_perk_ids = RerollPerkCombo(m_current_enemy_perk_ids);
     m_enemy_combo_display = MakeComboDisplay(m_current_enemy_perk_ids[0], m_current_enemy_perk_ids[1]);
+    m_enemy_perk_active = true;
     System::Log("PerkSystem|Enemy perk: %s", m_enemy_combo_display.name.c_str());
 }
 
