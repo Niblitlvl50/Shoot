@@ -4540,7 +4540,6 @@
             "y": 0.0
         },
         "spawn_package": true,
-        "time_limit_s": 0,
         "triggers": [
             "level_completed"
         ],

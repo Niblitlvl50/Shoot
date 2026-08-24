@@ -1,145 +1,145 @@
 {
     "levels": [
         {
-            "name": "title_screen",
-            "filename": "res/worlds/title_screen_new.components",
+            "name": "screen_title",
+            "filename": "res/worlds/screen_title_new.components",
             "transitions": {
                 "gameover": "quit",
-                "completed": "setup_game_screen",
+                "completed": "screen_setup_game",
                 "completed_alt": "horde_arena",
                 "aborted": "quit"
             }
         },
         {
-            "name": "options_screen",
-            "filename": "res/worlds/options_screen.components",
+            "name": "screen_options",
+            "filename": "res/worlds/screen_options.components",
             "transitions": {
-                "gameover": "title_screen",
-                "completed": "title_screen",
+                "gameover": "screen_title",
+                "completed": "screen_title",
                 "completed_alt": "",
-                "aborted": "title_screen"
+                "aborted": "screen_title"
             }
         },
         {
-            "name": "setup_game_screen",
-            "filename": "res/worlds/setup_game_screen.components",
+            "name": "screen_setup_game",
+            "filename": "res/worlds/screen_setup_game.components",
             "transitions": {
-                "gameover": "title_screen",
-                "completed": "tiny_arena",
+                "gameover": "screen_title",
+                "completed": "level1_tiny_arena",
                 "completed_alt": "",
-                "aborted": "title_screen"
+                "aborted": "screen_title"
             }
         },
         {
-            "name": "gameover_screen",
-            "filename": "res/worlds/game_over.components",
+            "name": "screen_gameover",
+            "filename": "res/worlds/screen_game_over.components",
             "transitions": {
-                "gameover": "title_screen",
-                "completed": "title_screen",
+                "gameover": "screen_title",
+                "completed": "screen_title",
                 "completed_alt": "",
-                "aborted": "title_screen"
+                "aborted": "screen_title"
             }
         },
         {
-            "name": "end_screen",
-            "filename": "res/worlds/end_screen.components",
+            "name": "screen_end",
+            "filename": "res/worlds/screen_end_game.components",
             "transitions": {
-                "gameover": "title_screen",
-                "completed": "title_screen",
+                "gameover": "screen_title",
+                "completed": "screen_title",
                 "completed_alt": "",
-                "aborted": "title_screen"
+                "aborted": "screen_title"
             }
         },
         {
-            "name": "tiny_arena",
-            "filename": "res/worlds/tiny_arena.components",
+            "name": "level1_tiny_arena",
+            "filename": "res/worlds/level1_tiny_arena.components",
             "transitions": {
-                "gameover": "gameover_screen",
-                "completed": "pickup_arena",
+                "gameover": "screen_gameover",
+                "completed": "level2_pickup_arena",
                 "completed_alt": "",
-                "aborted": "title_screen"
+                "aborted": "screen_title"
             }
         },
         {
-            "name": "pickup_arena",
-            "filename": "res/worlds/pickup_arena.components",
+            "name": "level2_pickup_arena",
+            "filename": "res/worlds/level2_pickup_arena.components",
             "transitions": {
-                "gameover": "gameover_screen",
-                "completed": "boss_arena",
+                "gameover": "screen_gameover",
+                "completed": "level3_boss_arena",
                 "completed_alt": "",
-                "aborted": "title_screen"
+                "aborted": "screen_title"
             }
         },
         {
-            "name": "boss_arena",
-            "filename": "res/worlds/boss_arena.components",
+            "name": "level3_boss_arena",
+            "filename": "res/worlds/level3_boss_arena.components",
             "transitions": {
-                "gameover": "gameover_screen",
-                "completed": "end_screen",
+                "gameover": "screen_gameover",
+                "completed": "screen_end",
                 "completed_alt": "",
-                "aborted": "title_screen"
+                "aborted": "screen_title"
             }
         },
         {
             "name": "horde_arena",
             "filename": "res/worlds/horde_arena.components",
             "transitions": {
-                "gameover": "gameover_screen",
-                "completed": "end_screen",
+                "gameover": "screen_gameover",
+                "completed": "screen_end",
                 "completed_alt": "",
-                "aborted": "title_screen"
+                "aborted": "screen_title"
             }
         },
         {
-            "name": "tiny_alien_arena",
-            "filename": "res/worlds/tiny_alien_world.components",
+            "name": "level0_tiny_alien_arena",
+            "filename": "res/worlds/level0_tiny_alien_world.components",
             "transitions": {
-                "gameover": "gameover_screen",
-                "completed": "end_screen",
+                "gameover": "screen_gameover",
+                "completed": "screen_end",
                 "completed_alt": "",
-                "aborted": "title_screen"
+                "aborted": "screen_title"
             }
         },
         {
-            "name": "deep_forest",
-            "filename": "res/worlds/deep_forest.components",
+            "name": "level0_deep_forest",
+            "filename": "res/worlds/level0_deep_forest.components",
             "transitions": {
-                "gameover": "gameover_screen",
-                "completed": "end_screen",
+                "gameover": "screen_gameover",
+                "completed": "screen_end",
                 "completed_alt": "",
-                "aborted": "title_screen"
+                "aborted": "screen_title"
             }
         },
         {
-            "name": "empty_world",
-            "filename": "res/worlds/empty_world.components",
+            "name": "test_empty_world",
+            "filename": "res/worlds/test_empty_world.components",
             "transitions": {
-                "gameover": "gameover_screen",
-                "completed": "end_screen",
+                "gameover": "screen_gameover",
+                "completed": "screen_end",
                 "completed_alt": "",
-                "aborted": "title_screen"
+                "aborted": "screen_title"
             }
         },
         {
-            "name": "empty",
-            "filename": "res/worlds/empty.components",
+            "name": "test_empty",
+            "filename": "res/worlds/test_empty.components",
             "transitions": {
-                "gameover": "gameover_screen",
-                "completed": "end_screen",
+                "gameover": "screen_gameover",
+                "completed": "screen_end",
                 "completed_alt": "",
-                "aborted": "title_screen"
+                "aborted": "screen_title"
             }
         },
         {
-            "name": "mission_test_world",
-            "filename": "res/worlds/mission_test.components",
+            "name": "test_mission_world",
+            "filename": "res/worlds/test_mission.components",
             "transitions": {
-                "gameover": "gameover_screen",
-                "completed": "end_screen",
+                "gameover": "screen_gameover",
+                "completed": "screen_end",
                 "completed_alt": "",
-                "aborted": "title_screen"
+                "aborted": "screen_title"
             }
         }
     ],
-    "start_level": "title_screen"
+    "start_level": "screen_title"
 }

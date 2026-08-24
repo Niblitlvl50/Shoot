@@ -1,18 +1,18 @@
 {
     "all_worlds": [
-        "res/worlds/boss_arena.components",
-        "res/worlds/deep_forest.components",
-        "res/worlds/empty.components",
-        "res/worlds/empty_world.components",
-        "res/worlds/end_screen.components",
-        "res/worlds/game_over.components",
         "res/worlds/horde_arena.components",
-        "res/worlds/mission_test.components",
-        "res/worlds/options_screen.components",
-        "res/worlds/pickup_arena.components",
-        "res/worlds/setup_game_screen.components",
-        "res/worlds/tiny_alien_world.components",
-        "res/worlds/tiny_arena.components",
-        "res/worlds/title_screen_new.components"
+        "res/worlds/level0_deep_forest.components",
+        "res/worlds/level0_tiny_alien_world.components",
+        "res/worlds/level1_tiny_arena.components",
+        "res/worlds/level2_pickup_arena.components",
+        "res/worlds/level3_boss_arena.components",
+        "res/worlds/screen_end_game.components",
+        "res/worlds/screen_game_over.components",
+        "res/worlds/screen_options.components",
+        "res/worlds/screen_setup_game.components",
+        "res/worlds/screen_title_new.components",
+        "res/worlds/test_empty_world.components",
+        "res/worlds/test_empty.components",
+        "res/worlds/test_mission.components"
     ]
 }

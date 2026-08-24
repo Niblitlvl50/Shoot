@@ -450,6 +450,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -660,6 +672,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -867,6 +891,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -1074,6 +1110,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -1281,6 +1329,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -1470,6 +1530,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -1662,6 +1734,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -1851,6 +1935,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -2040,6 +2136,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -2313,6 +2421,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -7140,6 +7260,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -7329,6 +7461,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -7518,6 +7662,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -7707,6 +7863,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -7896,6 +8064,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -8085,6 +8265,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -8274,6 +8466,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -8463,6 +8667,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -8652,6 +8868,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -8841,6 +9069,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -9030,6 +9270,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -9477,6 +9729,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -9666,6 +9930,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -9855,6 +10131,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -10044,6 +10332,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -10233,6 +10533,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -10422,6 +10734,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -10611,6 +10935,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -10800,6 +11136,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -10989,6 +11337,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -11178,6 +11538,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -11379,6 +11751,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -11580,6 +11964,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -11781,6 +12177,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -11982,6 +12390,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -12183,6 +12603,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -12384,6 +12816,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -12585,6 +13029,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -12786,6 +13242,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -12987,6 +13455,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -13188,6 +13668,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -13389,6 +13881,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -13594,6 +14098,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -13799,6 +14315,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -14004,6 +14532,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -14205,6 +14745,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -14406,6 +14958,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -14607,6 +15171,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -14808,6 +15384,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -15009,6 +15597,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -15210,6 +15810,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -16011,6 +16623,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -16212,6 +16836,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -16413,6 +17049,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -16614,6 +17262,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -16815,6 +17475,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -17016,6 +17688,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -17217,6 +17901,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -17418,6 +18114,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -17619,6 +18327,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -17820,6 +18540,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -18021,6 +18753,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -18222,6 +18966,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -18423,6 +19179,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -18602,6 +19370,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -18645,12 +19425,6 @@
                     "hash": 3676170277,
                     "name": "shape_trigger",
                     "properties": [
-                        {
-                            "id": 3614677686,
-                            "name": "faction_picker",
-                            "variant_type": 2,
-                            "variant_value": 128
-                        },
                         {
                             "id": 2603146703,
                             "name": "trigger_name",
@@ -19192,6 +19966,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -19393,6 +20179,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -19594,6 +20392,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -19795,6 +20605,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -19996,6 +20818,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -20197,6 +21031,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -20398,6 +21244,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -20599,6 +21457,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -20800,6 +21670,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -21001,6 +21883,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -21202,6 +22096,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -21403,6 +22309,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -21604,6 +22522,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -21805,6 +22735,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -22006,6 +22948,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -22207,6 +23161,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -22408,6 +23374,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -22609,6 +23587,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -22810,6 +23800,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -23011,6 +24013,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -23212,6 +24226,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -23413,6 +24439,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -23614,6 +24652,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -23815,6 +24865,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -24016,6 +25078,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -24217,6 +25291,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -24418,6 +25504,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -24619,6 +25717,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -24820,6 +25930,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -25021,6 +26143,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -25222,6 +26356,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -25423,6 +26569,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -25624,6 +26782,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -25825,6 +26995,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -26026,6 +27208,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -26227,6 +27421,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -26428,6 +27634,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -26629,6 +27847,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -26830,6 +28060,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -27031,6 +28273,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -27232,6 +28486,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -27433,6 +28699,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -27634,6 +28912,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -27835,6 +29125,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -28156,6 +29458,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -28473,6 +29787,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -28794,6 +30120,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -28991,6 +30329,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -29188,6 +30538,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -29389,6 +30751,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -30070,6 +31444,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -30747,6 +32133,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -31064,6 +32462,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -31253,6 +32663,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -31442,6 +32864,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -31631,6 +33065,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -31940,6 +33386,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -33472,6 +34930,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -33673,6 +35143,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -33874,6 +35356,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -34075,6 +35569,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -34400,6 +35906,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -34597,6 +36115,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -34794,6 +36324,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -34995,6 +36537,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -35196,6 +36750,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -35397,6 +36963,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -35594,6 +37172,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -35791,6 +37381,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -35988,6 +37590,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -36185,6 +37799,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -36456,6 +38082,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": true
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -36758,6 +38396,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": true
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -36986,6 +38636,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -37187,6 +38849,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -37388,6 +39062,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -37589,6 +39275,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -37790,6 +39488,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -38591,6 +40301,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -38788,6 +40510,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -39345,6 +41079,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -39534,6 +41280,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -39723,6 +41481,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -39912,6 +41682,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -40101,6 +41883,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -40290,6 +42084,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -40479,6 +42285,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -40668,6 +42486,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -40857,6 +42687,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -41046,6 +42888,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -41235,6 +43089,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -41424,6 +43290,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -41613,6 +43491,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -41802,6 +43692,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -41991,6 +43893,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -42180,6 +44094,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -42369,6 +44295,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -42558,6 +44496,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -42747,6 +44697,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -42936,6 +44898,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -43125,6 +45099,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -43314,6 +45300,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -43503,6 +45501,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -43692,6 +45702,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -43881,6 +45903,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -44070,6 +46104,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -44259,6 +46305,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -44448,6 +46506,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -44637,6 +46707,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -44826,6 +46908,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -45015,6 +47109,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -45204,6 +47310,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -45393,6 +47511,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -45582,6 +47712,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -45771,6 +47913,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -45960,6 +48114,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -46149,6 +48315,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -46338,6 +48516,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -46527,6 +48717,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -47260,6 +49462,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -48088,6 +50302,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -48295,6 +50521,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -48484,6 +50722,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -48685,6 +50935,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -48886,6 +51148,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -49087,6 +51361,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -49288,6 +51574,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -49489,6 +51787,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -49678,6 +51988,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -49867,6 +52189,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -50056,6 +52390,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -50245,6 +52591,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -50434,6 +52792,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -50623,6 +52993,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -50812,6 +53194,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -51001,6 +53395,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -51190,6 +53596,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -51379,6 +53797,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -51568,6 +53998,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -52837,6 +55279,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -53026,6 +55480,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -53215,6 +55681,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -54570,6 +57048,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -54762,6 +57252,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -55142,6 +57644,18 @@
                             "name": "prevent_rotation",
                             "variant_type": 0,
                             "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
                         }
                     ]
                 },
