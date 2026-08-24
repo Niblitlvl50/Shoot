@@ -162,7 +162,7 @@ void game::StandardCollision(
                     g_critical_hit_sound->Play();
             }
 
-            if(damage_details.vamperic_hit)
+            if(damage_details.vamperic_hit && entity_manager->IsAllocated(owner_entity_id))
             {
                 const float vamperic_gain = float(damage_details.damage) * 0.1f;
                 damage_system->GainHealth(owner_entity_id, vamperic_gain);
