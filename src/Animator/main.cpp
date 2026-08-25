@@ -34,23 +34,29 @@ int main(int argc, const char* argv[])
         mono::RenderInitParams render_params;
         render_params.window = window;
 
-        mono::EventHandler event_handler;
         mono::SystemContext system_context;
-    
+        
         mono::RenderSystem* render_system = system_context.CreateSystem<mono::RenderSystem>(max_entities, render_params);
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
         mono::SpriteSystem* sprite_system = system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
         mono::EntitySystem* entity_system = system_context.CreateSystem<mono::EntitySystem>(max_entities, &system_context, nullptr, nullptr);
-
+        
         mono::LoadFontRaw(0, pixelette_data, pixelette_data_length, 48.0f, 0.01f);
         mono::LoadFontRaw(1, pixelette_data, pixelette_data_length, 48.0f, 0.05f);
+        
+        {
+            mono::Camera camera;
+            mono::EventHandler event_handler;
+            mono::Engine engine(window, &camera, &system_context, &event_handler);
+            
+            animator::Animator animator(
+                transform_system, sprite_system, render_system, entity_system, &event_handler, render_params.pixels_per_meter);
+                engine.Run(&animator);
+       }
 
-        mono::Camera camera;
-        mono::Engine engine(window, &camera, &system_context, &event_handler);
+       mono::UnloadFonts();
 
-        animator::Animator animator(
-            transform_system, sprite_system, render_system, entity_system, &event_handler, render_params.pixels_per_meter);
-        engine.Run(&animator);
+        system_context.DestroySystems();
     }
 
     delete window;
