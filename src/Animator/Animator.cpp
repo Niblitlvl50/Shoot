@@ -481,7 +481,8 @@ void Animator::SetFrameOffset(const math::Vector& frame_offset_pixels)
 
 void Animator::SaveSprite()
 {
-    WriteSpriteFile(m_context.sprite_file.c_str(), m_sprite_data);
+    if(m_sprite_data)
+        WriteSpriteFile(m_context.sprite_file.c_str(), m_sprite_data);
 }
 
 void Animator::SetSpeed(float new_speed)
