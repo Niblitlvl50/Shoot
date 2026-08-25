@@ -69,16 +69,20 @@ namespace
             options.color = mono::Color::WHITE;
             options.uv_mode = mono::UVMode(mono::UVMode::DISTANCE | mono::UVMode::NORMALIZED_WIDTH);
 
-            mono::PathDrawBuffer m_path_buffers = mono::BuildPathDrawBuffers(mono::PathType::REGULAR, points, options);
-
-            renderer.DrawAnnotatedTrianges(
-                m_path_buffers.vertices.get(),
-                m_path_buffers.anotations.get(),
-                m_path_buffers.indices.get(),
-                m_texture.get(),
-                mono::Color::WHITE,
-                0,
-                m_path_buffers.indices->Size());
+            const bool valid_path = mono::ValidatePathParameters(mono::PathType::REGULAR, points);
+            if(valid_path)
+            {
+                mono::PathDrawBuffer m_path_buffers = mono::BuildPathDrawBuffers(mono::PathType::REGULAR, points, options);
+                
+                renderer.DrawAnnotatedTrianges(
+                    m_path_buffers.vertices.get(),
+                    m_path_buffers.anotations.get(),
+                    m_path_buffers.indices.get(),
+                    m_texture.get(),
+                    mono::Color::WHITE,
+                    0,
+                    m_path_buffers.indices->Size());
+            }
         }
 
         void DrawDebugInfo(game::IDebugDrawer* debug_drawer) const override
