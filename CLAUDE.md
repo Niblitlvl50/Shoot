@@ -122,6 +122,8 @@ Entity data is stored in fixed-size pools per system. `mono::ActiveVector<T>` (`
 
 ### Key Conventions
 
+**Angles** — always express angles in degrees and convert with `math::ToRadians()` (`Mono1/src/Math/MathFunctions.h`). Never write radian literals directly in code.
+
 **Hashing** — `hash::Hash(const char*)` (FNV-1a, `Mono1/src/System/Hash.h`) is used everywhere: component IDs, trigger names, game mode names, attribute keys. The same string always produces the same `uint32_t`. Register debug strings with `hash::HashRegisterString()` so they appear in logs.
 
 **Entity IDs** — `mono::INVALID_ID = (uint32_t)-1`. Entity IDs are dense indices into pre-allocated arrays; systems assume IDs never exceed the capacity passed at creation.
