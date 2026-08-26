@@ -63,9 +63,8 @@ SummonerController::SummonerController(uint32_t entity_id, mono::SystemContext* 
     m_sprite = sprite_system->GetSprite(entity_id);
 
     m_idle_anim_id = m_sprite->GetAnimationIdFromName("idle");
+    m_walk_anim_id = m_sprite->GetAnimationIdFromName("walk");
     m_cast_anim_id = m_sprite->GetAnimationIdFromName("attack");
-    if(m_cast_anim_id == -1)
-        m_cast_anim_id = m_idle_anim_id;
 
     file::FilePtr config_file = file::OpenAsciiFile("res/configs/summoner_config.json");
     if(config_file)
@@ -154,9 +153,12 @@ void SummonerController::Idle(const mono::UpdateContext& update_context)
     const float distance = math::DistanceBetween(world_position, m_player_target->Position());
     if(distance > tweak_values::preferred_distance)
     {
+        m_sprite->SetAnimation(m_walk_anim_id);
         m_tracking_movement.Run(update_context, m_player_target->Position());
         return;
     }
+
+    m_sprite->SetAnimation(m_idle_anim_id);
 
     // In range — summon if we have room and the cooldown is done.
     if(m_cooldown_timer_s <= 0.0f && CountActiveMinions() < m_max_minions)
@@ -180,7 +182,7 @@ void SummonerController::Prepare(const mono::UpdateContext& update_context)
 void SummonerController::ToSummon()
 {
     const math::Vector world_position = m_transform_system->GetWorldPosition(m_entity_id);
-    const float angle = mono::Random(0.0f, 6.2831853f);
+    const float angle = mono::Random(0.0f, math::ToRadians(360.0f));
     const float r = mono::Random(0.5f, tweak_values::summon_radius);
     const math::Vector spawn_pos = world_position + math::Vector(std::cos(angle) * r, std::sin(angle) * r);
 

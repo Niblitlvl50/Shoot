@@ -50,6 +50,7 @@ namespace game
         class TargetSystem* m_target_system;
         mono::ISprite* m_sprite;
         int m_idle_anim_id;
+        int m_walk_anim_id;
         int m_cast_anim_id;
 
         using SummonerStateMachine = StateMachine<States, const mono::UpdateContext&>;

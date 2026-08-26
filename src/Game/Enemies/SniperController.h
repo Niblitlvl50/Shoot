@@ -8,6 +8,7 @@
 #include "StateMachine.h"
 #include "Math/Vector.h"
 #include "Behaviour/HomingBehaviour.h"
+#include "Behaviour/TrackingBehaviour.h"
 #include "Weapons/WeaponFwd.h"
 
 namespace game
@@ -32,13 +33,16 @@ namespace game
         void ToRetreat();
         void Retreat(const mono::UpdateContext& update_context);
 
+        void ToSearch();
+        void Search(const mono::UpdateContext& update_context);
+
         void ToAim();
         void Aim(const mono::UpdateContext& update_context);
 
         void ToFire();
         void Fire(const mono::UpdateContext& update_context);
 
-        enum class States { IDLE, REPOSITION, RETREAT, AIM, FIRE };
+        enum class States { IDLE, REPOSITION, RETREAT, SEARCH, AIM, FIRE };
 
         uint32_t m_entity_id;
         mono::TransformSystem* m_transform_system;
@@ -53,7 +57,10 @@ namespace game
 
         float m_aim_timer_s;
         float m_fire_timer_s;
+        bool m_reposition_from_search;
         HomingBehaviour m_homing_movement;
+        TrackingBehaviour m_tracking_movement;
         ITargetPtr m_aquired_target;
+        class NavigationSystem* m_navigation_system;
     };
 }
