@@ -19,43 +19,43 @@
             "h": 8,
             "name": "splatter_small_idle_1",
             "w": 9,
-            "x": 1777,
-            "y": 563
+            "x": 1559,
+            "y": 568
         },
         {
             "h": 18,
             "name": "splatter_small_idle_2",
             "w": 17,
-            "x": 1807,
-            "y": 469
+            "x": 216,
+            "y": 486
         },
         {
             "h": 22,
             "name": "splatter_small_idle_3",
             "w": 24,
-            "x": 35,
-            "y": 443
+            "x": 1603,
+            "y": 446
         },
         {
             "h": 24,
             "name": "splatter_small_idle_4",
             "w": 27,
-            "x": 579,
-            "y": 441
+            "x": 1817,
+            "y": 445
         },
         {
             "h": 15,
             "name": "splatter_small_idle_5",
             "w": 28,
-            "x": 1200,
-            "y": 514
+            "x": 352,
+            "y": 519
         },
         {
             "h": 14,
             "name": "splatter_small_idle_6",
             "w": 28,
-            "x": 171,
-            "y": 515
+            "x": 876,
+            "y": 519
         }
     ],
     "frames_offsets": [
@@ -83,6 +83,14 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/explosions/splatter_small/",
     "texture": "res/sprite_atlas.png",

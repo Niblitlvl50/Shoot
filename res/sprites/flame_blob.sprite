@@ -51,169 +51,169 @@
             "h": 21,
             "name": "flame_blob_attack_1",
             "w": 21,
-            "x": 52,
-            "y": 469
+            "x": 1998,
+            "y": 472
         },
         {
             "h": 20,
             "name": "flame_blob_attack_2",
             "w": 19,
-            "x": 794,
-            "y": 469
+            "x": 847,
+            "y": 473
         },
         {
             "h": 24,
             "name": "flame_blob_attack_3",
             "w": 19,
-            "x": 1776,
-            "y": 441
+            "x": 2,
+            "y": 446
         },
         {
             "h": 27,
             "name": "flame_blob_attack_4",
             "w": 19,
-            "x": 406,
-            "y": 411
+            "x": 1560,
+            "y": 415
         },
         {
             "h": 21,
             "name": "flame_blob_attack_5",
             "w": 20,
-            "x": 77,
-            "y": 469
+            "x": 1948,
+            "y": 472
         },
         {
             "h": 27,
             "name": "flame_blob_attack_6",
             "w": 26,
-            "x": 2020,
-            "y": 411
+            "x": 1134,
+            "y": 415
         },
         {
             "h": 47,
             "name": "flame_blob_attack_7",
             "w": 36,
-            "x": 1317,
-            "y": 245
+            "x": 1094,
+            "y": 247
         },
         {
             "h": 51,
             "name": "flame_blob_attack_8",
             "w": 39,
-            "x": 973,
-            "y": 242
+            "x": 1744,
+            "y": 243
         },
         {
             "h": 58,
             "name": "flame_blob_attack_9",
             "w": 41,
-            "x": 666,
-            "y": 186
+            "x": 473,
+            "y": 189
         },
         {
             "h": 62,
             "name": "flame_blob_attack_10",
             "w": 43,
-            "x": 1788,
-            "y": 176
+            "x": 1357,
+            "y": 179
         },
         {
             "h": 59,
             "name": "flame_blob_attack_11",
             "w": 43,
-            "x": 619,
-            "y": 182
+            "x": 670,
+            "y": 186
         },
         {
             "h": 20,
             "name": "flame_blob_idle_1",
             "w": 20,
-            "x": 723,
-            "y": 469
+            "x": 752,
+            "y": 473
         },
         {
             "h": 22,
             "name": "flame_blob_idle_2",
             "w": 19,
-            "x": 351,
-            "y": 443
+            "x": 65,
+            "y": 447
         },
         {
             "h": 20,
             "name": "flame_blob_idle_3",
             "w": 19,
-            "x": 817,
-            "y": 469
+            "x": 870,
+            "y": 473
         },
         {
             "h": 21,
             "name": "flame_blob_idle_4",
             "w": 21,
-            "x": 2,
-            "y": 469
+            "x": 65,
+            "y": 473
         },
         {
             "h": 20,
             "name": "flame_blob_idle_5",
             "w": 19,
-            "x": 771,
-            "y": 469
+            "x": 824,
+            "y": 473
         },
         {
             "h": 21,
             "name": "flame_blob_idle_6",
             "w": 19,
-            "x": 125,
-            "y": 469
+            "x": 151,
+            "y": 473
         },
         {
             "h": 23,
             "name": "flame_blob_idle_7",
             "w": 19,
-            "x": 1169,
-            "y": 442
+            "x": 1074,
+            "y": 446
         },
         {
             "h": 22,
             "name": "flame_blob_idle_8",
             "w": 19,
-            "x": 374,
-            "y": 443
+            "x": 2017,
+            "y": 446
         },
         {
             "h": 17,
             "name": "flame_blob_run_1",
             "w": 21,
-            "x": 1711,
-            "y": 493
+            "x": 2017,
+            "y": 497
         },
         {
             "h": 18,
             "name": "flame_blob_run_2",
             "w": 22,
-            "x": 1517,
-            "y": 469
+            "x": 1886,
+            "y": 473
         },
         {
             "h": 18,
             "name": "flame_blob_run_3",
             "w": 23,
-            "x": 1424,
-            "y": 469
+            "x": 1806,
+            "y": 473
         },
         {
             "h": 18,
             "name": "flame_blob_run_4",
             "w": 22,
-            "x": 1491,
-            "y": 469
+            "x": 1860,
+            "y": 473
         },
         {
             "h": 19,
             "name": "flame_blob_run_5",
             "w": 22,
-            "x": 1149,
-            "y": 469
+            "x": 1165,
+            "y": 473
         }
     ],
     "frames_offsets": [
@@ -313,6 +313,32 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/creatures/flame_blob/",
     "texture": "res/sprite_atlas.png",

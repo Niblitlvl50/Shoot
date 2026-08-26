@@ -1,7 +1,7 @@
 {
     "animations": [
         {
-            "frame_duration": 100,
+            "frame_duration": 150,
             "frames": [
                 0,
                 1,
@@ -9,7 +9,13 @@
                 3
             ],
             "loop": true,
-            "name": "idle"
+            "name": "idle",
+            "notifies": [
+                "",
+                "",
+                "",
+                ""
+            ]
         }
     ],
     "frames": [
@@ -17,29 +23,29 @@
             "h": 41,
             "name": "goblin_king_idle_1",
             "w": 34,
-            "x": 1125,
-            "y": 296
+            "x": 545,
+            "y": 299
         },
         {
             "h": 42,
             "name": "goblin_king_idle_2",
             "w": 34,
-            "x": 1547,
-            "y": 295
+            "x": 1222,
+            "y": 297
         },
         {
             "h": 42,
             "name": "goblin_king_idle_3",
             "w": 34,
-            "x": 1585,
-            "y": 295
+            "x": 1041,
+            "y": 298
         },
         {
             "h": 41,
             "name": "goblin_king_idle_4",
             "w": 35,
-            "x": 565,
-            "y": 296
+            "x": 180,
+            "y": 299
         }
     ],
     "frames_offsets": [
@@ -49,16 +55,22 @@
         },
         {
             "x": 0.0,
-            "y": 0.0
+            "y": 0.015625
         },
         {
             "x": 0.0,
-            "y": 0.0
+            "y": 0.015625
         },
         {
-            "x": 0.0,
+            "x": -0.015625,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/creatures/goblin_king/",
     "texture": "res/sprite_atlas.png",

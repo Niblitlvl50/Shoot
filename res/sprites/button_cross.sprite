@@ -58,36 +58,36 @@
             "h": 12,
             "name": "button_cross_down_1",
             "w": 12,
-            "x": 980,
-            "y": 534
+            "x": 2026,
+            "y": 538
         },
         {
             "h": 12,
             "name": "button_cross_left_1",
             "w": 12,
-            "x": 948,
-            "y": 534
+            "x": 2010,
+            "y": 538
         },
         {
             "h": 12,
             "name": "button_cross_neutral_1",
             "w": 12,
-            "x": 900,
-            "y": 534
+            "x": 1994,
+            "y": 538
         },
         {
             "h": 12,
             "name": "button_cross_right_1",
             "w": 12,
-            "x": 884,
-            "y": 534
+            "x": 1978,
+            "y": 538
         },
         {
             "h": 12,
             "name": "button_cross_up_1",
             "w": 12,
-            "x": 820,
-            "y": 534
+            "x": 1962,
+            "y": 538
         }
     ],
     "frames_offsets": [
@@ -111,6 +111,13 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/ui/",
     "texture": "res/sprite_atlas.png",

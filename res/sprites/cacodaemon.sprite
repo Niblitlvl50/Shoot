@@ -43,113 +43,113 @@
             "h": 42,
             "name": "cacodaemon_attack_1",
             "w": 48,
-            "x": 316,
-            "y": 265
+            "x": 1487,
+            "y": 297
         },
         {
             "h": 42,
             "name": "cacodaemon_attack_2",
             "w": 48,
-            "x": 697,
-            "y": 294
+            "x": 1435,
+            "y": 297
         },
         {
             "h": 42,
             "name": "cacodaemon_attack_3",
             "w": 46,
-            "x": 467,
-            "y": 295
+            "x": 1539,
+            "y": 297
         },
         {
             "h": 42,
             "name": "cacodaemon_attack_4",
             "w": 48,
-            "x": 230,
-            "y": 271
+            "x": 1170,
+            "y": 297
         },
         {
             "h": 42,
             "name": "cacodaemon_attack_5",
             "w": 49,
-            "x": 56,
-            "y": 253
+            "x": 300,
+            "y": 274
         },
         {
             "h": 42,
             "name": "cacodaemon_attack_6",
             "w": 46,
-            "x": 1357,
-            "y": 295
+            "x": 831,
+            "y": 298
         },
         {
             "h": 39,
             "name": "cacodaemon_hurt_1",
             "w": 48,
-            "x": 827,
-            "y": 298
+            "x": 929,
+            "y": 300
         },
         {
             "h": 44,
             "name": "cacodaemon_hurt_2",
             "w": 53,
-            "x": 410,
-            "y": 248
+            "x": 507,
+            "y": 251
         },
         {
             "h": 40,
             "name": "cacodaemon_hurt_3",
             "w": 46,
-            "x": 1774,
-            "y": 296
+            "x": 1909,
+            "y": 299
         },
         {
             "h": 39,
             "name": "cacodaemon_hurt_4",
             "w": 48,
-            "x": 775,
-            "y": 298
+            "x": 245,
+            "y": 320
         },
         {
             "h": 39,
             "name": "cacodaemon_idle_1",
             "w": 48,
-            "x": 1660,
-            "y": 297
+            "x": 35,
+            "y": 301
         },
         {
             "h": 38,
             "name": "cacodaemon_idle_2",
             "w": 48,
-            "x": 54,
-            "y": 299
+            "x": 422,
+            "y": 343
         },
         {
             "h": 37,
             "name": "cacodaemon_idle_3",
             "w": 46,
-            "x": 1889,
-            "y": 339
+            "x": 1337,
+            "y": 343
         },
         {
             "h": 39,
             "name": "cacodaemon_idle_4",
             "w": 48,
-            "x": 2,
-            "y": 299
+            "x": 370,
+            "y": 302
         },
         {
             "h": 40,
             "name": "cacodaemon_idle_5",
             "w": 49,
-            "x": 1721,
-            "y": 296
+            "x": 1639,
+            "y": 299
         },
         {
             "h": 39,
             "name": "cacodaemon_idle_6",
             "w": 46,
-            "x": 1889,
-            "y": 296
+            "x": 297,
+            "y": 320
         }
     ],
     "frames_offsets": [
@@ -217,6 +217,24 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/creatures/cacodaemon/",
     "texture": "res/sprite_atlas.png",

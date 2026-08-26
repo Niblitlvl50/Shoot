@@ -14,8 +14,8 @@
             "h": 8,
             "name": "brick_single_2",
             "w": 4,
-            "x": 1874,
-            "y": 563
+            "x": 518,
+            "y": 569
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/structures/bricks/",
     "texture": "res/sprite_atlas.png",

@@ -34,99 +34,99 @@
             "h": 15,
             "name": "fire_elemental_small_idle_1",
             "w": 9,
-            "x": 15,
-            "y": 515
+            "x": 743,
+            "y": 519
         },
         {
             "h": 14,
             "name": "fire_elemental_small_idle_2",
             "w": 9,
-            "x": 347,
-            "y": 533
+            "x": 1305,
+            "y": 537
         },
         {
             "h": 16,
             "name": "fire_elemental_small_idle_3",
             "w": 9,
-            "x": 1119,
-            "y": 514
+            "x": 94,
+            "y": 519
         },
         {
             "h": 16,
             "name": "fire_elemental_small_idle_4",
             "w": 9,
-            "x": 1145,
-            "y": 514
+            "x": 2037,
+            "y": 518
         },
         {
             "h": 12,
             "name": "fire_elemental_small_idle_5",
             "w": 9,
-            "x": 2037,
-            "y": 533
+            "x": 122,
+            "y": 539
         },
         {
             "h": 13,
             "name": "fire_elemental_small_idle_6",
             "w": 9,
-            "x": 1772,
-            "y": 533
+            "x": 1383,
+            "y": 538
         },
         {
             "h": 11,
             "name": "fire_elemental_small_move_1",
             "w": 12,
-            "x": 1882,
-            "y": 549
+            "x": 1834,
+            "y": 554
         },
         {
             "h": 11,
             "name": "fire_elemental_small_move_2",
             "w": 15,
-            "x": 1337,
-            "y": 534
+            "x": 306,
+            "y": 546
         },
         {
             "h": 12,
             "name": "fire_elemental_small_move_3",
             "w": 14,
-            "x": 97,
-            "y": 534
+            "x": 1896,
+            "y": 538
         },
         {
             "h": 13,
             "name": "fire_elemental_small_move_4",
             "w": 15,
-            "x": 584,
-            "y": 533
+            "x": 362,
+            "y": 538
         },
         {
             "h": 12,
             "name": "fire_elemental_small_move_5",
             "w": 14,
-            "x": 115,
-            "y": 534
+            "x": 1842,
+            "y": 538
         },
         {
             "h": 12,
             "name": "fire_elemental_small_move_6",
             "w": 16,
-            "x": 2017,
-            "y": 533
+            "x": 1707,
+            "y": 538
         },
         {
             "h": 13,
             "name": "fire_elemental_small_move_7",
             "w": 15,
-            "x": 622,
-            "y": 533
+            "x": 343,
+            "y": 538
         },
         {
             "h": 12,
             "name": "fire_elemental_small_move_8",
             "w": 15,
-            "x": 78,
-            "y": 534
+            "x": 1804,
+            "y": 538
         }
     ],
     "frames_offsets": [
@@ -186,6 +186,22 @@
             "x": -0.09375,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/creatures/fire_elemental/",
     "texture": "res/sprite_atlas.png",

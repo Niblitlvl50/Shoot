@@ -74,225 +74,225 @@
             "h": 10,
             "name": "golem_tiny_attack_1",
             "w": 13,
-            "x": 901,
-            "y": 550
+            "x": 662,
+            "y": 555
         },
         {
             "h": 11,
             "name": "golem_tiny_attack_2",
             "w": 13,
-            "x": 216,
-            "y": 542
+            "x": 1589,
+            "y": 554
         },
         {
             "h": 11,
             "name": "golem_tiny_attack_3",
             "w": 12,
-            "x": 1978,
-            "y": 549
+            "x": 1850,
+            "y": 554
         },
         {
             "h": 11,
             "name": "golem_tiny_attack_4",
             "w": 13,
-            "x": 267,
-            "y": 541
+            "x": 1462,
+            "y": 554
         },
         {
             "h": 11,
             "name": "golem_tiny_attack_5",
             "w": 13,
-            "x": 199,
-            "y": 542
+            "x": 1606,
+            "y": 554
         },
         {
             "h": 9,
             "name": "golem_tiny_attack_6",
             "w": 22,
-            "x": 1297,
-            "y": 550
+            "x": 978,
+            "y": 555
         },
         {
             "h": 10,
             "name": "golem_tiny_attack_7",
             "w": 28,
-            "x": 130,
-            "y": 550
+            "x": 82,
+            "y": 555
         },
         {
             "h": 10,
             "name": "golem_tiny_attack_8",
             "w": 30,
-            "x": 62,
-            "y": 550
+            "x": 48,
+            "y": 555
         },
         {
             "h": 10,
             "name": "golem_tiny_attack_9",
             "w": 30,
-            "x": 96,
-            "y": 550
+            "x": 14,
+            "y": 555
         },
         {
             "h": 10,
             "name": "golem_tiny_attack_10",
             "w": 15,
-            "x": 690,
-            "y": 550
+            "x": 164,
+            "y": 555
         },
         {
             "h": 10,
             "name": "golem_tiny_idle_1",
             "w": 13,
-            "x": 918,
-            "y": 550
+            "x": 628,
+            "y": 555
         },
         {
             "h": 10,
             "name": "golem_tiny_idle_2",
             "w": 13,
-            "x": 799,
-            "y": 550
+            "x": 611,
+            "y": 555
         },
         {
             "h": 8,
             "name": "golem_tiny_idle_3",
             "w": 13,
-            "x": 1541,
-            "y": 563
+            "x": 1347,
+            "y": 568
         },
         {
             "h": 10,
             "name": "golem_tiny_idle_4",
             "w": 13,
-            "x": 850,
-            "y": 550
+            "x": 679,
+            "y": 555
         },
         {
             "h": 10,
             "name": "golem_tiny_idle_5",
             "w": 13,
-            "x": 833,
-            "y": 550
+            "x": 696,
+            "y": 555
         },
         {
             "h": 7,
             "name": "golem_tiny_prepare_roll_1",
             "w": 9,
-            "x": 648,
-            "y": 564
+            "x": 745,
+            "y": 569
         },
         {
             "h": 7,
             "name": "golem_tiny_prepare_roll_2",
             "w": 7,
-            "x": 741,
-            "y": 564
+            "x": 948,
+            "y": 569
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_1",
             "w": 7,
-            "x": 708,
-            "y": 564
+            "x": 882,
+            "y": 569
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_2",
             "w": 7,
-            "x": 730,
-            "y": 564
+            "x": 937,
+            "y": 569
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_3",
             "w": 7,
-            "x": 785,
-            "y": 564
+            "x": 926,
+            "y": 569
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_4",
             "w": 7,
-            "x": 774,
-            "y": 564
+            "x": 915,
+            "y": 569
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_5",
             "w": 7,
-            "x": 818,
-            "y": 564
+            "x": 904,
+            "y": 569
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_6",
             "w": 7,
-            "x": 752,
-            "y": 564
+            "x": 816,
+            "y": 569
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_7",
             "w": 7,
-            "x": 763,
-            "y": 564
+            "x": 871,
+            "y": 569
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_8",
             "w": 7,
-            "x": 851,
-            "y": 564
+            "x": 838,
+            "y": 569
         },
         {
             "h": 10,
             "name": "golem_tiny_walk_1",
             "w": 13,
-            "x": 816,
-            "y": 550
+            "x": 594,
+            "y": 555
         },
         {
             "h": 13,
             "name": "golem_tiny_walk_2",
             "w": 13,
-            "x": 1167,
-            "y": 533
+            "x": 579,
+            "y": 538
         },
         {
             "h": 11,
             "name": "golem_tiny_walk_3",
             "w": 13,
-            "x": 1068,
-            "y": 549
+            "x": 1572,
+            "y": 554
         },
         {
             "h": 10,
             "name": "golem_tiny_walk_4",
             "w": 13,
-            "x": 867,
-            "y": 550
+            "x": 577,
+            "y": 555
         },
         {
             "h": 9,
             "name": "golem_tiny_walk_5",
             "w": 13,
-            "x": 1555,
-            "y": 550
+            "x": 1298,
+            "y": 555
         },
         {
             "h": 13,
             "name": "golem_tiny_walk_6",
             "w": 13,
-            "x": 1467,
-            "y": 533
+            "x": 783,
+            "y": 538
         },
         {
             "h": 11,
             "name": "golem_tiny_walk_7",
             "w": 13,
-            "x": 1150,
-            "y": 534
+            "x": 1640,
+            "y": 554
         }
     ],
     "frames_offsets": [
@@ -424,6 +424,40 @@
             "x": 0.0,
             "y": 0.015625
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/creatures/golem_tiny/",
     "texture": "res/sprite_atlas.png",

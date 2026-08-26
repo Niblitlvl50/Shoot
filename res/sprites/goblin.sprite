@@ -29,64 +29,64 @@
             "h": 17,
             "name": "goblin_idle_1",
             "w": 12,
-            "x": 1340,
-            "y": 513
+            "x": 1889,
+            "y": 517
         },
         {
             "h": 16,
             "name": "goblin_idle_2",
             "w": 12,
-            "x": 1695,
-            "y": 513
+            "x": 2005,
+            "y": 518
         },
         {
             "h": 17,
             "name": "goblin_idle_3",
             "w": 12,
-            "x": 1356,
-            "y": 513
+            "x": 34,
+            "y": 518
         },
         {
             "h": 17,
             "name": "goblin_walk_1",
             "w": 12,
-            "x": 210,
-            "y": 503
+            "x": 1873,
+            "y": 517
         },
         {
             "h": 17,
             "name": "goblin_walk_2",
             "w": 11,
-            "x": 1388,
-            "y": 513
+            "x": 1055,
+            "y": 518
         },
         {
             "h": 18,
             "name": "goblin_walk_3",
             "w": 11,
-            "x": 760,
-            "y": 493
+            "x": 1560,
+            "y": 497
         },
         {
             "h": 17,
             "name": "goblin_walk_4",
             "w": 12,
-            "x": 1372,
-            "y": 513
+            "x": 18,
+            "y": 518
         },
         {
             "h": 17,
             "name": "goblin_walk_5",
             "w": 12,
-            "x": 266,
-            "y": 502
+            "x": 2,
+            "y": 518
         },
         {
             "h": 17,
             "name": "goblin_walk_6",
             "w": 12,
-            "x": 226,
-            "y": 503
+            "x": 1971,
+            "y": 517
         }
     ],
     "frames_offsets": [
@@ -126,6 +126,17 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/creatures/goblin/",
     "texture": "res/sprite_atlas.png",

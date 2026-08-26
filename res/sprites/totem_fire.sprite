@@ -66,176 +66,176 @@
             "h": 8,
             "name": "totem_fire_appear_1",
             "w": 15,
-            "x": 1468,
-            "y": 563
+            "x": 1256,
+            "y": 568
         },
         {
             "h": 12,
             "name": "totem_fire_appear_2",
             "w": 22,
-            "x": 1882,
-            "y": 533
+            "x": 1444,
+            "y": 538
         },
         {
             "h": 17,
             "name": "totem_fire_appear_3",
             "w": 28,
-            "x": 839,
-            "y": 493
+            "x": 1654,
+            "y": 497
         },
         {
             "h": 19,
             "name": "totem_fire_appear_4",
             "w": 34,
-            "x": 995,
-            "y": 469
+            "x": 1063,
+            "y": 473
         },
         {
             "h": 17,
             "name": "totem_fire_appear_5",
             "w": 15,
-            "x": 423,
-            "y": 494
+            "x": 315,
+            "y": 507
         },
         {
             "h": 19,
             "name": "totem_fire_appear_6",
             "w": 15,
-            "x": 1244,
-            "y": 469
+            "x": 1417,
+            "y": 473
         },
         {
             "h": 18,
             "name": "totem_fire_damaged_1",
             "w": 17,
-            "x": 1765,
-            "y": 469
+            "x": 237,
+            "y": 486
         },
         {
             "h": 17,
             "name": "totem_fire_damaged_2",
             "w": 18,
-            "x": 1878,
-            "y": 493
+            "x": 104,
+            "y": 498
         },
         {
             "h": 26,
             "name": "totem_fire_damaged_3",
             "w": 15,
-            "x": 1466,
-            "y": 412
+            "x": 1308,
+            "y": 416
         },
         {
             "h": 26,
             "name": "totem_fire_damaged_4",
             "w": 15,
-            "x": 1397,
-            "y": 412
+            "x": 1327,
+            "y": 416
         },
         {
             "h": 30,
             "name": "totem_fire_damaged_5",
             "w": 15,
-            "x": 1847,
-            "y": 378
+            "x": 1903,
+            "y": 381
         },
         {
             "h": 31,
             "name": "totem_fire_damaged_6",
             "w": 15,
-            "x": 432,
-            "y": 378
+            "x": 382,
+            "y": 381
         },
         {
             "h": 10,
             "name": "totem_fire_dead_1",
             "w": 7,
-            "x": 1286,
-            "y": 550
+            "x": 957,
+            "y": 555
         },
         {
             "h": 18,
             "name": "totem_fire_die_1",
             "w": 17,
-            "x": 1634,
-            "y": 469
+            "x": 302,
+            "y": 485
         },
         {
             "h": 17,
             "name": "totem_fire_die_2",
             "w": 18,
-            "x": 1900,
-            "y": 493
+            "x": 82,
+            "y": 498
         },
         {
             "h": 26,
             "name": "totem_fire_die_3",
             "w": 15,
-            "x": 1485,
-            "y": 412
+            "x": 1346,
+            "y": 416
         },
         {
             "h": 26,
             "name": "totem_fire_die_4",
             "w": 32,
-            "x": 843,
-            "y": 412
+            "x": 1886,
+            "y": 415
         },
         {
             "h": 30,
             "name": "totem_fire_die_5",
             "w": 48,
-            "x": 766,
-            "y": 378
+            "x": 831,
+            "y": 381
         },
         {
             "h": 19,
             "name": "totem_fire_die_6",
             "w": 7,
             "x": 1765,
-            "y": 442
+            "y": 473
         },
         {
             "h": 19,
             "name": "totem_fire_idle_1",
             "w": 15,
-            "x": 1263,
-            "y": 469
+            "x": 1436,
+            "y": 473
         },
         {
             "h": 20,
             "name": "totem_fire_idle_2",
             "w": 15,
-            "x": 905,
-            "y": 469
+            "x": 958,
+            "y": 473
         },
         {
             "h": 23,
             "name": "totem_fire_idle_3",
             "w": 15,
-            "x": 1360,
-            "y": 442
+            "x": 1998,
+            "y": 445
         },
         {
             "h": 26,
             "name": "totem_fire_idle_4",
             "w": 15,
-            "x": 1378,
-            "y": 412
+            "x": 1365,
+            "y": 416
         },
         {
             "h": 30,
             "name": "totem_fire_idle_5",
             "w": 15,
-            "x": 1828,
-            "y": 378
+            "x": 1884,
+            "y": 381
         },
         {
             "h": 31,
             "name": "totem_fire_idle_6",
             "w": 15,
-            "x": 2,
-            "y": 378
+            "x": 191,
+            "y": 381
         }
     ],
     "frames_offsets": [
@@ -339,6 +339,33 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/creatures/totem_fire/",
     "texture": "res/sprite_atlas.png",

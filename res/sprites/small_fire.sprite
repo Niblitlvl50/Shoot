@@ -29,64 +29,64 @@
             "h": 27,
             "name": "small_fire_idle_1",
             "w": 16,
-            "x": 331,
-            "y": 412
+            "x": 1643,
+            "y": 415
         },
         {
             "h": 28,
             "name": "small_fire_idle_2",
             "w": 16,
-            "x": 900,
-            "y": 380
+            "x": 338,
+            "y": 399
         },
         {
             "h": 26,
             "name": "small_fire_idle_3",
             "w": 16,
-            "x": 1358,
-            "y": 412
+            "x": 1288,
+            "y": 416
         },
         {
             "h": 25,
             "name": "small_fire_idle_4",
             "w": 16,
-            "x": 1909,
-            "y": 412
+            "x": 772,
+            "y": 417
         },
         {
             "h": 27,
             "name": "small_fire_idle_5",
             "w": 16,
-            "x": 351,
-            "y": 412
+            "x": 1663,
+            "y": 415
         },
         {
             "h": 28,
             "name": "small_fire_idle_6",
             "w": 16,
-            "x": 746,
-            "y": 380
+            "x": 690,
+            "y": 414
         },
         {
             "h": 22,
             "name": "small_fire_idle_7",
             "w": 16,
-            "x": 1700,
-            "y": 443
+            "x": 203,
+            "y": 460
         },
         {
             "h": 24,
             "name": "small_fire_idle_8",
             "w": 16,
-            "x": 1799,
-            "y": 441
+            "x": 1902,
+            "y": 445
         },
         {
             "h": 8,
             "name": "small_fire_put_out_1",
             "w": 16,
-            "x": 473,
-            "y": 563
+            "x": 1177,
+            "y": 568
         }
     ],
     "frames_offsets": [
@@ -126,6 +126,17 @@
             "x": 0.0,
             "y": -0.3125
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/props/campfire/",
     "texture": "res/sprite_atlas.png",

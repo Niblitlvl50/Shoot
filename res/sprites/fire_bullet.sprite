@@ -15,15 +15,15 @@
             "h": 43,
             "name": "fire_bullet_default_1",
             "w": 15,
-            "x": 1417,
-            "y": 245
+            "x": 1882,
+            "y": 243
         },
         {
             "h": 43,
             "name": "fire_bullet_default_2",
             "w": 15,
-            "x": 1141,
-            "y": 246
+            "x": 727,
+            "y": 249
         }
     ],
     "frames_offsets": [
@@ -35,6 +35,10 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        ""
     ],
     "source_folder": "res/images/bullets/",
     "texture": "res/sprite_atlas.png",

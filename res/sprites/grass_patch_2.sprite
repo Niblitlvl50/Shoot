@@ -14,8 +14,8 @@
             "h": 24,
             "name": "grass_patch_2",
             "w": 28,
-            "x": 258,
-            "y": 426
+            "x": 1459,
+            "y": 445
         }
     ],
     "frames_offsets": [
@@ -23,6 +23,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/vegetation/",
     "texture": "res/sprite_atlas.png",

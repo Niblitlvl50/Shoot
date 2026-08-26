@@ -70,71 +70,71 @@
             "h": 27,
             "name": "blacksmith_blink_1",
             "w": 15,
-            "x": 522,
-            "y": 412
+            "x": 1702,
+            "y": 415
         },
         {
             "h": 27,
             "name": "blacksmith_blink_2",
             "w": 15,
-            "x": 541,
-            "y": 412
+            "x": 1683,
+            "y": 415
         },
         {
             "h": 27,
             "name": "blacksmith_idle_1",
             "w": 15,
-            "x": 560,
-            "y": 412
+            "x": 1721,
+            "y": 415
         },
         {
             "h": 28,
             "name": "blacksmith_idle_2",
             "w": 14,
-            "x": 1146,
-            "y": 378
+            "x": 1954,
+            "y": 414
         },
         {
             "h": 28,
             "name": "blacksmith_idle_3",
             "w": 17,
-            "x": 1750,
-            "y": 379
+            "x": 774,
+            "y": 385
         },
         {
             "h": 28,
             "name": "blacksmith_idle_4",
             "w": 16,
-            "x": 692,
-            "y": 381
+            "x": 903,
+            "y": 414
         },
         {
             "h": 28,
             "name": "blacksmith_idle_5",
             "w": 14,
-            "x": 1146,
-            "y": 410
+            "x": 482,
+            "y": 415
         },
         {
             "h": 27,
             "name": "blacksmith_idle_6",
             "w": 16,
-            "x": 371,
-            "y": 412
+            "x": 1623,
+            "y": 415
         },
         {
             "h": 27,
             "name": "blacksmith_idle_7",
             "w": 19,
-            "x": 202,
-            "y": 412
+            "x": 1537,
+            "y": 415
         },
         {
             "h": 27,
             "name": "blacksmith_idle_8",
             "w": 23,
-            "x": 175,
-            "y": 412
+            "x": 1510,
+            "y": 415
         }
     ],
     "frames_offsets": [
@@ -178,6 +178,18 @@
             "x": -0.0625,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/creatures/blacksmith/",
     "texture": "res/sprite_atlas.png",

@@ -42,50 +42,50 @@
             "h": 13,
             "name": "switch_block_default_1",
             "w": 14,
-            "x": 641,
-            "y": 533
+            "x": 472,
+            "y": 538
         },
         {
             "h": 13,
             "name": "switch_block_default_2",
             "w": 14,
-            "x": 749,
-            "y": 533
+            "x": 526,
+            "y": 538
         },
         {
             "h": 13,
             "name": "switch_block_default_3",
             "w": 14,
-            "x": 659,
-            "y": 533
+            "x": 544,
+            "y": 538
         },
         {
             "h": 13,
             "name": "switch_block_default_4",
             "w": 14,
-            "x": 695,
-            "y": 533
+            "x": 508,
+            "y": 538
         },
         {
             "h": 13,
             "name": "switch_block_default_5",
             "w": 14,
-            "x": 713,
-            "y": 533
+            "x": 490,
+            "y": 538
         },
         {
             "h": 13,
             "name": "switch_block_default_6",
             "w": 14,
-            "x": 785,
-            "y": 533
+            "x": 400,
+            "y": 538
         },
         {
             "h": 13,
             "name": "switch_block_default_7",
             "w": 14,
-            "x": 731,
-            "y": 533
+            "x": 418,
+            "y": 538
         }
     ],
     "frames_offsets": [
@@ -117,6 +117,15 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/switches/",
     "texture": "res/sprite_atlas.png",

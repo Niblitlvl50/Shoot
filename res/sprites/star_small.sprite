@@ -23,29 +23,29 @@
             "h": 9,
             "name": "star_small_spin_1",
             "w": 9,
-            "x": 356,
-            "y": 551
+            "x": 324,
+            "y": 561
         },
         {
             "h": 9,
             "name": "star_small_spin_2",
             "w": 9,
-            "x": 382,
-            "y": 551
+            "x": 191,
+            "y": 562
         },
         {
             "h": 5,
             "name": "star_small_spin_3",
             "w": 5,
-            "x": 1218,
-            "y": 564
+            "x": 1853,
+            "y": 569
         },
         {
             "h": 3,
             "name": "star_small_spin_4",
             "w": 3,
-            "x": 1385,
-            "y": 564
+            "x": 2007,
+            "y": 569
         }
     ],
     "frames_offsets": [
@@ -65,6 +65,12 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        ""
     ],
     "source_folder": "res/images/misc/star/",
     "texture": "res/sprite_atlas.png",
