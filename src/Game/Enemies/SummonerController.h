@@ -9,9 +9,10 @@
 #include "Math/Vector.h"
 #include "Behaviour/HomingBehaviour.h"
 #include "Behaviour/TrackingBehaviour.h"
+#include "SpawnSystem/SpawnSystem.h"
 
 #include <cstdint>
-#include <string>
+#include <memory>
 #include <vector>
 
 namespace game
@@ -21,6 +22,7 @@ namespace game
     public:
 
         SummonerController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler* event_handler);
+        ~SummonerController();
         void Update(const mono::UpdateContext& update_context) override;
         void DrawDebugInfo(class IDebugDrawer* debug_drawer) const override;
         const char* GetDebugCategory() const override;
@@ -39,15 +41,21 @@ namespace game
         void ToCooldown();
         void Cooldown(const mono::UpdateContext& update_context);
 
-        int CountActiveMinions() const;
+        void ToHeal();
+        void Heal(const mono::UpdateContext& update_context);
 
-        enum class States { IDLE, PREPARE, SUMMON, COOLDOWN };
+        int CountActiveMinions() const;
+        bool HasInjuredMinionInRange(const math::Vector& world_position) const;
+
+        enum class States { IDLE, PREPARE, SUMMON, COOLDOWN, HEAL };
 
         uint32_t m_entity_id;
         mono::TransformSystem* m_transform_system;
         mono::IEntityManager* m_entity_manager;
         class NavigationSystem* m_navigation_system;
         class TargetSystem* m_target_system;
+        class DamageSystem* m_damage_system;
+        class SpawnSystem* m_spawn_system;
         mono::ISprite* m_sprite;
         int m_idle_anim_id;
         int m_walk_anim_id;
@@ -56,15 +64,18 @@ namespace game
         using SummonerStateMachine = StateMachine<States, const mono::UpdateContext&>;
         SummonerStateMachine m_states;
 
-        std::string m_minion_entity_file;
         int m_max_minions;
-        std::vector<uint32_t> m_summoned_ids;
+        game::SpawnSystem::SpawnPointComponent* m_spawn_point_component;
 
         float m_prepare_timer_s;
         float m_cooldown_timer_s;
+        float m_heal_duration_timer_s;
+        float m_heal_cooldown_timer_s;
+        float m_heal_tick_timer_s;
 
         ITargetPtr m_player_target;
         HomingBehaviour m_homing_movement;
         TrackingBehaviour m_tracking_movement;
+        std::unique_ptr<class HealEffect> m_heal_effect;
     };
 }

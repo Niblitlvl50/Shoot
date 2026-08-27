@@ -41,7 +41,9 @@ namespace game
             uint32_t disable_trigger;
 
             // Internal data
+            uint32_t entity_id;
             bool active;
+            bool pending_manual_spawn;
             int counter_ms;
             int num_spawns;
             uint32_t enable_callback_id;
@@ -58,6 +60,7 @@ namespace game
             // Internal data
             uint32_t entity_id;
             uint32_t callback_id;
+            std::vector<SpawnIdAndCallback> active_spawns;
         };
 
         struct DespawnEntityComponent
@@ -96,10 +99,13 @@ namespace game
         void ReleaseSpawnPoint(uint32_t entity_id);
         bool IsAllocated(uint32_t entity_id);
         void SetSpawnPointData(uint32_t entity_id, const SpawnPointComponent& component_data);
+        SpawnPointComponent* GetSpawnPoint(uint32_t entity_id);
+        void SpawnFromSpawnPoint(uint32_t entity_id);
 
         EntitySpawnPointComponent* AllocateEntitySpawnPoint(uint32_t entity_id);
         void ReleaseEntitySpawnPoint(uint32_t entity_id);
         void SetEntitySpawnPointData(uint32_t entity_id, const std::string& entity_file, float spawn_radius, uint32_t spawn_trigger);
+        EntitySpawnPointComponent* GetEntitySpawnPoint(uint32_t entity_id);
 
         void AllocateDespawnTrigger(uint32_t entity_id);
         void ReleaseDespawnTrigger(uint32_t entity_id);
@@ -107,6 +113,8 @@ namespace game
 
         int GetActiveSpawns(const SpawnPointComponent* spawn_point);
         const std::vector<SpawnEvent>& GetSpawnEvents() const;
+
+        void SpawnFromEntitySpawnPoint(uint32_t entity_id);
 
         uint32_t AddGlobalSpawnCallback(const SpawnCallback& callback);
         void RemoveGlobalSpawnCallback(uint32_t callback_id);

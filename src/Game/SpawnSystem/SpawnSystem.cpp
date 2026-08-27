@@ -60,10 +60,12 @@ SpawnSystem::SpawnSystem(uint32_t n, mono::TriggerSystem* trigger_system, mono::
 SpawnSystem::SpawnPointComponent* SpawnSystem::AllocateSpawnPoint(uint32_t entity_id)
 {
     SpawnPointComponent component = {};
+    component.entity_id = entity_id;
     component.enable_callback_id = NO_CALLBACK_SET;
     component.disable_callback_id = NO_CALLBACK_SET;
     component.counter_ms = 0;
     component.num_spawns = 0;
+    component.pending_manual_spawn = false;
 
     return m_spawn_points.Set(entity_id, std::move(component));
 }
@@ -89,6 +91,21 @@ void SpawnSystem::ReleaseSpawnPoint(uint32_t entity_id)
     mono::remove_if(m_spawn_events, remove_if_spawn_id);
 
     m_spawn_points.Release(entity_id);
+}
+
+SpawnSystem::SpawnPointComponent* SpawnSystem::GetSpawnPoint(uint32_t entity_id)
+{
+    if(!m_spawn_points.IsActive(entity_id))
+        return nullptr;
+    return m_spawn_points.Get(entity_id);
+}
+
+void SpawnSystem::SpawnFromSpawnPoint(uint32_t entity_id)
+{
+    if(!m_spawn_points.IsActive(entity_id))
+        return;
+
+    m_spawn_points.Get(entity_id)->pending_manual_spawn = true;
 }
 
 bool SpawnSystem::IsAllocated(uint32_t entity_id)
@@ -146,12 +163,23 @@ void SpawnSystem::ReleaseEntitySpawnPoint(uint32_t entity_id)
         component->callback_id = NO_CALLBACK_SET;
     }
 
+    for(const SpawnIdAndCallback& spawn : component->active_spawns)
+        m_entity_manager->RemoveReleaseCallback(spawn.spawned_entity_id, spawn.callback_id);
+    component->active_spawns.clear();
+
     const auto remove_if_spawn_id = [entity_id](const SpawnEvent& spawn_event) {
         return (spawn_event.spawner_id == entity_id);
     };
     mono::remove_if(m_spawn_events, remove_if_spawn_id);
 
     m_entity_spawn_points.Release(entity_id);
+}
+
+SpawnSystem::EntitySpawnPointComponent* SpawnSystem::GetEntitySpawnPoint(uint32_t entity_id)
+{
+    if(!m_entity_spawn_points.IsActive(entity_id))
+        return nullptr;
+    return m_entity_spawn_points.Get(entity_id);
 }
 
 void SpawnSystem::SetEntitySpawnPointData(uint32_t entity_id, const std::string& entity_file, float spawn_radius, uint32_t spawn_trigger)
@@ -225,6 +253,17 @@ const std::vector<SpawnSystem::SpawnEvent>& SpawnSystem::GetSpawnEvents() const
     return m_spawn_events;
 }
 
+void SpawnSystem::SpawnFromEntitySpawnPoint(uint32_t entity_id)
+{
+    if(!m_entity_spawn_points.IsActive(entity_id))
+        return;
+
+    EntitySpawnPointComponent* component = m_entity_spawn_points.Get(entity_id);
+    const bool is_added = mono::contains(m_active_entity_spawn_points, component);
+    if(!is_added)
+        m_active_entity_spawn_points.push_back(component);
+}
+
 uint32_t SpawnSystem::AddGlobalSpawnCallback(const SpawnSystem::SpawnCallback& callback)
 {
     uint32_t free_index = std::numeric_limits<uint32_t>::max();
@@ -256,35 +295,35 @@ const char* SpawnSystem::Name() const
 void SpawnSystem::Update(const mono::UpdateContext& update_context)
 {
     const auto collect_spawn_points = [&](uint32_t entity_id, SpawnPointComponent& spawn_point) {
-        if(!spawn_point.active)
+        const bool manual = spawn_point.pending_manual_spawn;
+        spawn_point.pending_manual_spawn = false;
+
+        if(!spawn_point.active && !manual)
             return;
 
         if(spawn_point.points.empty())
             return;
 
-        if(spawn_point.spawn_limit_total > 0)
+        if(!manual)
         {
-            if(spawn_point.num_spawns >= spawn_point.spawn_limit_total)
+            if(spawn_point.spawn_limit_total > 0 && spawn_point.num_spawns >= spawn_point.spawn_limit_total)
+                return;
+
+            if(spawn_point.spawn_limit_concurrent > 0 && spawn_point.active_spawns.size() >= size_t(spawn_point.spawn_limit_concurrent))
+                return;
+
+            spawn_point.counter_ms += update_context.delta_ms;
+            if(spawn_point.counter_ms < spawn_point.interval_ms)
                 return;
         }
-
-        if(spawn_point.spawn_limit_concurrent > 0)
-        {
-            if(spawn_point.active_spawns.size() >= size_t(spawn_point.spawn_limit_concurrent))
-                return;
-        }
-
-        spawn_point.counter_ms += update_context.delta_ms;
-        if(spawn_point.counter_ms < spawn_point.interval_ms)
-            return;
-
+            
         spawn_point.counter_ms = 0;
         spawn_point.num_spawns++;
 
         const float random_length = mono::Random(0.0f, spawn_point.radius);
         const math::Vector random_vector = math::VectorFromAngle(mono::Random(0.0f, math::PI() * 2.0f)) * random_length;
 
-        const int spawn_point_index = mono::RandomInt(0, spawn_point.points.size() -1);
+        const int spawn_point_index = mono::RandomInt(0, int(spawn_point.points.size()) - 1);
         const math::Vector& local_offset = spawn_point.points[spawn_point_index];
 
         math::Matrix world_transform = m_transform_system->GetWorld(entity_id);
@@ -388,6 +427,27 @@ void SpawnSystem::Update(const mono::UpdateContext& update_context)
 
                 spawn_component->active_spawns.push_back(spawn_callback_id);
             }
+        }
+
+        const bool has_entity_spawn_point_component = m_entity_spawn_points.IsActive(spawn_event.spawner_id);
+        if(has_entity_spawn_point_component)
+        {
+            EntitySpawnPointComponent* spawn_component = m_entity_spawn_points.Get(spawn_event.spawner_id);
+
+            m_entity_manager->SetLifetimeDependency(spawn_event.spawner_id, spawned_entity.id);
+
+            SpawnIdAndCallback spawn_callback_id;
+            spawn_callback_id.spawned_entity_id = spawned_entity.id;
+
+            const mono::ReleaseCallback release_callback = [spawn_component](uint32_t entity_id, mono::ReleasePhase phase) {
+                const auto find_spawn_id = [entity_id](const SpawnIdAndCallback& item) {
+                    return item.spawned_entity_id == entity_id;
+                };
+                mono::remove_if(spawn_component->active_spawns, find_spawn_id);
+            };
+            spawn_callback_id.callback_id = m_entity_manager->AddReleaseCallback(spawned_entity.id, mono::ReleasePhase::POST_RELEASE, release_callback);
+
+            spawn_component->active_spawns.push_back(spawn_callback_id);
         }
     }
 }
