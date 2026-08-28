@@ -304,8 +304,8 @@ void editor::DrawShockwaveComponentDetails(mono::IRenderer& renderer, const std:
 
 void editor::DrawPhysicsImpulseComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
-    float impulse_strength;
-    FindAttribute(STRENGTH_ATTRIBUTE, component_properties, impulse_strength, FallbackMode::SET_DEFAULT);
+    //float impulse_strength;
+    //FindAttribute(STRENGTH_ATTRIBUTE, component_properties, impulse_strength, FallbackMode::SET_DEFAULT);
 
-    renderer.DrawLines({ math::ZeroVec, math::Vector(0.0f, 1.0f) * impulse_strength }, mono::Color::CYAN, 1.0f);
+    renderer.DrawLines({ math::ZeroVec, math::Vector(0.0f, 2.0f) }, mono::Color::CYAN, 1.0f);
 }

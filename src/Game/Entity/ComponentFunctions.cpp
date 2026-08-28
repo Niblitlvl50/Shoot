@@ -15,6 +15,7 @@
 #include "TransformSystem/TransformSystem.h"
 #include "World/RegionSystem.h"
 #include "RoadSystem/RoadSystem.h"
+#include "RiverSystem/RiverSystem.h"
 #include "World/WorldBoundsSystem.h"
 #include "UI/UISystem.h"
 
@@ -262,6 +263,33 @@ namespace
 
         mono::RoadSystem* road_system = context->GetSystem<mono::RoadSystem>();
         road_system->SetData(entity->id, component);
+
+        return true;
+    }
+
+    bool CreateRiver(mono::Entity* entity, mono::SystemContext* context)
+    {
+        mono::RiverSystem* river_system = context->GetSystem<mono::RiverSystem>();
+        river_system->Allocate(entity->id);
+        return true;
+    }
+
+    bool ReleaseRiver(mono::Entity* entity, mono::SystemContext* context)
+    {
+        mono::RiverSystem* river_system = context->GetSystem<mono::RiverSystem>();
+        river_system->Release(entity->id);
+        return true;
+    }
+
+    bool UpdateRiver(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        mono::RiverComponent component;
+        FindAttribute(WIDTH_ATTRIBUTE, properties, component.width, FallbackMode::SET_DEFAULT);
+        FindAttribute(COLOR_ATTRIBUTE, properties, component.color, FallbackMode::SET_DEFAULT);
+        FindAttribute(TEXTURE_ATTRIBUTE, properties, component.texture_name, FallbackMode::SET_DEFAULT);
+
+        mono::RiverSystem* river_system = context->GetSystem<mono::RiverSystem>();
+        river_system->SetData(entity->id, component);
 
         return true;
     }
@@ -558,6 +586,7 @@ void game::RegisterSharedComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(TEXT_COMPONENT, CreateText, ReleaseText, UpdateText);
     entity_manager->RegisterComponent(PATH_COMPONENT, CreatePath, ReleasePath, UpdatePath);
     entity_manager->RegisterComponent(ROAD_COMPONENT, CreateRoad, ReleaseRoad, UpdateRoad);
+    entity_manager->RegisterComponent(RIVER_COMPONENT, CreateRiver, ReleaseRiver, UpdateRiver);
     entity_manager->RegisterComponent(LIGHT_COMPONENT, CreateLight, ReleaseLight, UpdateLight, EnableLight);
     entity_manager->RegisterComponent(PARTICLE_SYSTEM_COMPONENT, CreateParticleSystem, ReleaseParticleSystem, UpdateParticleSystem);
     entity_manager->RegisterComponent(AREA_EMITTER_COMPONENT, CreateBoxEmitter, ReleaseBoxEmitter, UpdateBoxEmitter);

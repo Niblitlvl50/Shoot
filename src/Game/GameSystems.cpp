@@ -35,6 +35,7 @@
 #include "ShopSystem/ShopSystem.h"
 #include "SpawnSystem/SpawnSystem.h"
 #include "RoadSystem/RoadSystem.h"
+#include "RiverSystem/RiverSystem.h"
 #include "Sound/SoundSystem.h"
 #include "UI/UISystem.h"
 #include "Weapons/WeaponSystem.h"
@@ -77,6 +78,7 @@ void game::CreateGameSystems(
     system_context.CreateSystem<mono::TextSystem>(max_entities, transform_system);
     system_context.CreateSystem<mono::PathSystem>(max_entities, transform_system);
     system_context.CreateSystem<mono::RoadSystem>(max_entities);
+    system_context.CreateSystem<mono::RiverSystem>(max_entities);
     system_context.CreateSystem<mono::LightSystem>(max_entities);
 
     game::DamageSystem* damage_system =

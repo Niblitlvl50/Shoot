@@ -16,6 +16,8 @@
 
 #include "RoadSystem/RoadSystem.h"
 #include "RoadSystem/RoadBatchDrawer.h"
+#include "RiverSystem/RiverSystem.h"
+#include "RiverSystem/RiverBatchDrawer.h"
 #include "Particle/ParticleSystem.h"
 #include "Particle/ParticleSystemDrawer.h"
 
@@ -315,6 +317,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     mono::LightSystem* light_system = m_system_context.GetSystem<mono::LightSystem>();
     mono::PathSystem* path_system = m_system_context.GetSystem<mono::PathSystem>();
     mono::RoadSystem* road_system = m_system_context.GetSystem<mono::RoadSystem>();
+    mono::RiverSystem* river_system = m_system_context.GetSystem<mono::RiverSystem>();
     mono::ParticleSystem* particle_system = m_system_context.GetSystem<mono::ParticleSystem>();
     game::WorldBoundsSystem* world_bounds_system = m_system_context.GetSystem<game::WorldBoundsSystem>();
     game::UISystem* ui_system = m_system_context.GetSystem<game::UISystem>();
@@ -364,6 +367,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system, game::PolygonDrawLayer::PRE_GAMEOBJECTS), game::LayerId::BACKGROUND);
     AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system, game::PolygonDrawLayer::POST_GAMEOBJECTS), game::LayerId::POST_GAMEOBJECTS);
     AddDrawable(new mono::RoadBatchDrawer(road_system, path_system, transform_system), game::LayerId::BACKGROUND);
+    AddDrawable(new mono::RiverBatchDrawer(river_system, path_system, transform_system), game::LayerId::BACKGROUND);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), game::LayerId::POST_GAMEOBJECTS);
     AddDrawable(new game::UISystemDrawer(ui_system, transform_system), game::LayerId::UI);
 }

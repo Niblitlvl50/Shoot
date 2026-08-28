@@ -338,6 +338,7 @@ extern const uint32_t INTERACTION_COMPONENT         = hash::Hash("interaction");
 extern const uint32_t INTERACTION_SWITCH_COMPONENT  = hash::Hash("interaction_switch");
 extern const uint32_t PATH_COMPONENT                = hash::Hash("path");
 extern const uint32_t ROAD_COMPONENT                = hash::Hash("road");
+extern const uint32_t RIVER_COMPONENT               = hash::Hash("river");
 extern const uint32_t LIGHT_COMPONENT               = hash::Hash("light");
 extern const uint32_t DIALOG_COMPONENT              = hash::Hash("message");
 extern const uint32_t PARTICLE_SYSTEM_COMPONENT     = hash::Hash("particle_system");
@@ -440,6 +441,8 @@ const char* component::ComponentNameFromHash(uint32_t hash)
         return "path";
     else if(hash == ROAD_COMPONENT)
         return "road";
+    else if(hash == RIVER_COMPONENT)
+        return "river";
     else if(hash == LIGHT_COMPONENT)
         return "light";
     else if(hash == DIALOG_COMPONENT)
@@ -510,6 +513,7 @@ const Component default_components[] = {
     MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,             false,  "rendering",    { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE }),
     MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,             false,  "rendering",    { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, CENTER_FLAGS_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE, OFFSET_ATTRIBUTE, SHADOW_COLOR_ATTRIBUTE }),
     MakeComponent(ROAD_COMPONENT,               PATH_COMPONENT,             false,  "rendering",    { WIDTH_ATTRIBUTE, COLOR_ATTRIBUTE, TEXTURE_ATTRIBUTE }),
+    MakeComponent(RIVER_COMPONENT,              PATH_COMPONENT,             false,  "rendering",    { WIDTH_ATTRIBUTE, COLOR_ATTRIBUTE, TEXTURE_ATTRIBUTE }),
     MakeComponent(LIGHT_COMPONENT,              NULL_COMPONENT,             false,  "rendering",    { RADIUS_ATTRIBUTE, OFFSET_ATTRIBUTE, COLOR_ATTRIBUTE, FLICKER_ATTRIBUTE, FREQUENCY_ATTRIBUTE, PERCENTAGE_ATTRIBUTE }),
     MakeComponent(DIALOG_COMPONENT,             NULL_COMPONENT,             false,  "rendering",    { TEXT_ATTRIBUTE, DURATION_ATTRIBUTE }),
 

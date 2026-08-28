@@ -21,6 +21,8 @@
 #include "Paths/PathSystem.h"
 #include "RoadSystem/RoadSystem.h"
 #include "RoadSystem/RoadBatchDrawer.h"
+#include "RiverSystem/RiverSystem.h"
+#include "RiverSystem/RiverBatchDrawer.h"
 
 #include "SystemContext.h"
 #include "EntitySystem/EntitySystem.h"
@@ -106,6 +108,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     mono::LightSystem* light_system = m_system_context->GetSystem<mono::LightSystem>();
     mono::PathSystem* path_system = m_system_context->GetSystem<mono::PathSystem>();
     mono::RoadSystem* road_system = m_system_context->GetSystem<mono::RoadSystem>();
+    mono::RiverSystem* river_system = m_system_context->GetSystem<mono::RiverSystem>();
     mono::TriggerSystem* trigger_system = m_system_context->GetSystem<mono::TriggerSystem>();
     
     game::AnimationSystem* animation_system = m_system_context->GetSystem<game::AnimationSystem>();
@@ -140,6 +143,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     // Background
     AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system, PolygonDrawLayer::PRE_GAMEOBJECTS), LayerId::BACKGROUND);
     AddDrawable(new mono::RoadBatchDrawer(road_system, path_system, transform_system), LayerId::BACKGROUND);
+    AddDrawable(new mono::RiverBatchDrawer(river_system, path_system, transform_system), LayerId::BACKGROUND);
 
     // Pre Game Objects
     AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system, mono::ParticleDrawLayer::PRE_GAMEOBJECTS), LayerId::PRE_GAMEOBJECTS);
