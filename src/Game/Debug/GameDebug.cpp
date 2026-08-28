@@ -57,7 +57,7 @@ bool game::g_draw_debug_uisystem = false;
 bool game::g_draw_ui_element_bounds = false;
 
 bool game::g_debug_camera = false;
-bool game::g_debug_draw_damage_words = false;
+bool game::g_debug_draw_damage_words = true;
 bool game::g_debug_draw_shockwaves = false;
 
 
