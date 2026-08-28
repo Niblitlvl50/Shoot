@@ -413,7 +413,7 @@
             "magazine_size": 30,
             "infinite_ammo": false,
             "reload_time": 1.0,
-            "projectiles_per_fire": 6,
+            "projectiles_per_fire": 2,
             "rounds_per_second": 2.5,
             "fire_rate_multiplier": 1.0,
             "max_fire_rate": 1.0,
