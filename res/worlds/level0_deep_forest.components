@@ -140,9 +140,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.3360966742038727,
-                                "green": 0.687926173210144,
-                                "red": 0.9656862616539001
+                                "blue": 0.33725491166114807,
+                                "green": 0.686274528503418,
+                                "red": 0.9647058844566345
                             }
                         },
                         {
@@ -262,24 +262,24 @@
                             "variant_type": 7,
                             "variant_value": [
                                 {
-                                    "x": 1.6517963409423828,
-                                    "y": 15.238676071166992
+                                    "x": 26.511756896972656,
+                                    "y": 15.73575210571289
                                 },
                                 {
-                                    "x": 1.6721172332763672,
-                                    "y": 12.271785736083984
+                                    "x": 27.933082580566406,
+                                    "y": 0.8638534545898438
                                 },
                                 {
                                     "x": 1.6380605697631836,
                                     "y": -1.8988752365112305
                                 },
                                 {
-                                    "x": 1.5095481872558594,
-                                    "y": -10.365989685058594
+                                    "x": 22.109119415283203,
+                                    "y": -13.765382766723633
                                 },
                                 {
-                                    "x": 1.2656936645507813,
-                                    "y": -13.698659896850586
+                                    "x": -0.5973949432373047,
+                                    "y": -14.320045471191406
                                 },
                                 {
                                     "x": -14.227380752563477,
@@ -59584,7 +59584,7 @@
                             "id": 2508680735,
                             "name": "width",
                             "variant_type": 3,
-                            "variant_value": 2.0
+                            "variant_value": 2.700000047683716
                         },
                         {
                             "id": 1031692888,
@@ -59592,9 +59592,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
+                                "blue": 0.593137264251709,
+                                "green": 0.4361303448677063,
+                                "red": 0.39542481303215027
                             }
                         },
                         {
@@ -59602,6 +59602,18 @@
                             "name": "texture",
                             "variant_type": 6,
                             "variant_value": "res/textures/background/water_tiling.png"
+                        },
+                        {
+                            "id": 1968558015,
+                            "name": "edge_fade",
+                            "variant_type": 3,
+                            "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 111750881,
+                            "name": "stretch_to_width",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 }
@@ -61066,6 +61078,126 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 4.0,
+                                "y": 0.6000000238418579
+                            }
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": -0.6000000238418579
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 103600384,
+                    "name": "box_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 6
+                        },
+                        {
+                            "id": 597743964,
+                            "name": "size",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 4.0,
+                                "y": 0.30000001192092896
+                            }
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 1.0
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -62121,8 +62253,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 3.375,
-                                "y": 5.25
+                                "x": 0.875,
+                                "y": 5.375
                             }
                         },
                         {
@@ -62556,138 +62688,6 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "background_right"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": "background"
-                        },
-                        {
-                            "id": 3923852156,
-                            "name": "editor_properties",
-                            "variant_type": 2,
-                            "variant_value": 1
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 21.375,
-                                "y": 2.25
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        },
-                        {
-                            "id": 2190941297,
-                            "name": "scale",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1150083244,
-                            "name": "entity_reference",
-                            "variant_type": 2,
-                            "variant_value": 4294967295
-                        }
-                    ]
-                },
-                {
-                    "hash": 2771478017,
-                    "name": "textured_polygon",
-                    "properties": [
-                        {
-                            "id": 1013213428,
-                            "name": "texture",
-                            "variant_type": 6,
-                            "variant_value": "res/textures/background/grass/grass_05.png"
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 0.13100728392601013,
-                                "green": 0.6192951798439026,
-                                "red": 0.9215686321258545
-                            }
-                        },
-                        {
-                            "id": 3148264498,
-                            "name": "polygon_draw_layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 85768329,
-                            "name": "polygon",
-                            "variant_type": 7,
-                            "variant_value": [
-                                {
-                                    "x": 1.6517963409423828,
-                                    "y": 15.238676071166992
-                                },
-                                {
-                                    "x": 1.6721172332763672,
-                                    "y": 12.271785736083984
-                                },
-                                {
-                                    "x": 1.6380605697631836,
-                                    "y": -1.8988752365112305
-                                },
-                                {
-                                    "x": 1.5095481872558594,
-                                    "y": -10.365989685058594
-                                },
-                                {
-                                    "x": 1.2656936645507813,
-                                    "y": -13.698659896850586
-                                },
-                                {
-                                    "x": -17.58843231201172,
-                                    "y": -16.934120178222656
-                                },
-                                {
-                                    "x": -18.279937744140625,
-                                    "y": 6.73750114440918
-                                },
-                                {
-                                    "x": -17.992454528808594,
-                                    "y": 15.89590072631836
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "name": "background_right",
-            "uuid_hash": 2042324484
-        },
-        {
-            "components": [
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
                             "variant_value": "leaves_small_4"
                         },
                         {
@@ -62713,7 +62713,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 1.625,
+                                "x": 1.5,
                                 "y": 0.25
                             }
                         },
@@ -62851,7 +62851,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 1.5,
+                                "x": 1.375,
                                 "y": -0.75
                             }
                         },
@@ -62989,7 +62989,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 1.5,
+                                "x": 1.375,
                                 "y": -1.5
                             }
                         },
@@ -63127,7 +63127,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 1.5,
+                                "x": 1.375,
                                 "y": -2.375
                             }
                         },
@@ -63265,8 +63265,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 1.625,
-                                "y": -3.125
+                                "x": 1.25,
+                                "y": -3.0
                             }
                         },
                         {
@@ -63403,8 +63403,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 1.5,
-                                "y": -3.875
+                                "x": 1.25,
+                                "y": -4.0
                             }
                         },
                         {
@@ -63541,8 +63541,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 1.5,
-                                "y": -4.875
+                                "x": 1.25,
+                                "y": -5.0
                             }
                         },
                         {
@@ -63817,8 +63817,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 3.375,
-                                "y": -2.75
+                                "x": 3.625,
+                                "y": -3.0
                             }
                         },
                         {
@@ -63956,7 +63956,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 3.375,
-                                "y": -1.875
+                                "y": -1.5
                             }
                         },
                         {
@@ -64093,8 +64093,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 3.25,
-                                "y": -1.125
+                                "x": 3.5,
+                                "y": -1.0
                             }
                         },
                         {
@@ -65437,8 +65437,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 3.625,
-                                "y": -6.5
+                                "x": 3.375,
+                                "y": -2.125
                             }
                         },
                         {
@@ -65521,6 +65521,798 @@
             "entity_properties": 0,
             "name": "rock_pile_small_1",
             "uuid_hash": 3030661441
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "dirt_patch_medium_1"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -3.5,
+                                "y": -9.875
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": -1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "dirt_patch_medium_1.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.8186274766921997,
+                                "green": 0.8186274766921997,
+                                "red": 0.8186274766921997
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "dirt_patch_medium_1",
+            "uuid_hash": 4013983672
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "dirt_patch_medium_1"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -2.375,
+                                "y": -9.375
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": -1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "dirt_patch_medium_1.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.7450979948043823,
+                                "green": 0.7450979948043823,
+                                "red": 0.7450979948043823
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "dirt_patch_medium_1",
+            "uuid_hash": 3900107931
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "rock_pile_small_1"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 3.5,
+                                "y": -2.5
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "rock_tiny_2.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "rock_pile_small_1",
+            "uuid_hash": 850355247
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "stone_slab_2"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "bridge_1"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 3.625,
+                                "y": 7.25
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": -1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "rock_tiny_5.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.4019607901573181,
+                                "green": 0.4019607901573181,
+                                "red": 0.4019607901573181
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "stone_slab_2",
+            "uuid_hash": 1233905038
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "stone_slab_2"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "bridge_1"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.875,
+                                "y": 7.25
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": -1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "grass_tiny_5.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.4019607901573181,
+                                "green": 0.4019607901573181,
+                                "red": 0.4019607901573181
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "stone_slab_2",
+            "uuid_hash": 2741272381
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "stone_slab_2"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "bridge_1"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 3.75,
+                                "y": 7.125
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "grass_tiny_5.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 0.4019607901573181,
+                                "green": 0.4019607901573181,
+                                "red": 0.4019607901573181
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "stone_slab_2",
+            "uuid_hash": 2160627953
         }
     ],
     "metadata": {
