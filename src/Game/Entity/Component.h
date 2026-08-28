@@ -154,6 +154,7 @@ extern const uint32_t WEAPON_MODIFIER_TYPE_ATTRIBUTE;
 extern const uint32_t STRENGTH_ATTRIBUTE;
 extern const uint32_t ANIM_NOTIFY_ATTRIBUTE;
 extern const uint32_t EDGE_FADE_ATTRIBUTE;
+extern const uint32_t STRETCH_TO_WIDTH_ATTRIBUTE;
 
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);

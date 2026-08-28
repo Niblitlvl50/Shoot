@@ -260,6 +260,7 @@ namespace
         FindAttribute(WIDTH_ATTRIBUTE, properties, component.width, FallbackMode::SET_DEFAULT);
         FindAttribute(COLOR_ATTRIBUTE, properties, component.color, FallbackMode::SET_DEFAULT);
         FindAttribute(TEXTURE_ATTRIBUTE, properties, component.texture_name, FallbackMode::SET_DEFAULT);
+        FindAttribute(STRETCH_TO_WIDTH_ATTRIBUTE, properties, component.stretch_to_width, FallbackMode::SET_DEFAULT);
 
         mono::RoadSystem* road_system = context->GetSystem<mono::RoadSystem>();
         road_system->SetData(entity->id, component);
@@ -288,6 +289,7 @@ namespace
         FindAttribute(COLOR_ATTRIBUTE, properties, component.color, FallbackMode::SET_DEFAULT);
         FindAttribute(TEXTURE_ATTRIBUTE, properties, component.texture_name, FallbackMode::SET_DEFAULT);
         FindAttribute(EDGE_FADE_ATTRIBUTE, properties, component.edge_fade, FallbackMode::SET_DEFAULT);
+        FindAttribute(STRETCH_TO_WIDTH_ATTRIBUTE, properties, component.stretch_to_width, FallbackMode::SET_DEFAULT);
 
         mono::RiverSystem* river_system = context->GetSystem<mono::RiverSystem>();
         river_system->SetData(entity->id, component);

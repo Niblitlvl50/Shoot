@@ -158,6 +158,7 @@ const DefaultAttribute default_attributes[] = {
     { "strength",                   Variant(1.0f) },
     { "anim_notify",                Variant(std::string()) },
     { "edge_fade",                  Variant(0.1f) },
+    { "stretch_to_width",           Variant(false) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -298,6 +299,7 @@ extern const uint32_t USE_CUSTOM_DAMPING                    = default_attributes
 extern const uint32_t STRENGTH_ATTRIBUTE                    = default_attributes[116].hash;
 extern const uint32_t ANIM_NOTIFY_ATTRIBUTE                 = default_attributes[117].hash;
 extern const uint32_t EDGE_FADE_ATTRIBUTE                   = default_attributes[118].hash;
+extern const uint32_t STRETCH_TO_WIDTH_ATTRIBUTE            = default_attributes[119].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -514,8 +516,8 @@ const Component default_components[] = {
     MakeComponent(LAYER_COMPONENT,              NULL_COMPONENT,             false,  "rendering",    { LAYER_ATTRIBUTE, SORT_OFFSET_ATTRIBUTE }),
     MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,             false,  "rendering",    { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE }),
     MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,             false,  "rendering",    { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, CENTER_FLAGS_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE, OFFSET_ATTRIBUTE, SHADOW_COLOR_ATTRIBUTE }),
-    MakeComponent(ROAD_COMPONENT,               PATH_COMPONENT,             false,  "rendering",    { WIDTH_ATTRIBUTE, COLOR_ATTRIBUTE, TEXTURE_ATTRIBUTE }),
-    MakeComponent(RIVER_COMPONENT,              PATH_COMPONENT,             false,  "rendering",    { WIDTH_ATTRIBUTE, COLOR_ATTRIBUTE, TEXTURE_ATTRIBUTE, EDGE_FADE_ATTRIBUTE }),
+    MakeComponent(ROAD_COMPONENT,               PATH_COMPONENT,             false,  "rendering",    { WIDTH_ATTRIBUTE, COLOR_ATTRIBUTE, TEXTURE_ATTRIBUTE, STRETCH_TO_WIDTH_ATTRIBUTE }),
+    MakeComponent(RIVER_COMPONENT,              PATH_COMPONENT,             false,  "rendering",    { WIDTH_ATTRIBUTE, COLOR_ATTRIBUTE, TEXTURE_ATTRIBUTE, EDGE_FADE_ATTRIBUTE, STRETCH_TO_WIDTH_ATTRIBUTE }),
     MakeComponent(LIGHT_COMPONENT,              NULL_COMPONENT,             false,  "rendering",    { RADIUS_ATTRIBUTE, OFFSET_ATTRIBUTE, COLOR_ATTRIBUTE, FLICKER_ATTRIBUTE, FREQUENCY_ATTRIBUTE, PERCENTAGE_ATTRIBUTE }),
     MakeComponent(DIALOG_COMPONENT,             NULL_COMPONENT,             false,  "rendering",    { TEXT_ATTRIBUTE, DURATION_ATTRIBUTE }),
 
