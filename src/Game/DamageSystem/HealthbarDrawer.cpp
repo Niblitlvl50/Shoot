@@ -203,7 +203,7 @@ namespace
 
     const DamageWord& DamageToWord(int damage)
     {
-        const int index = std::clamp(damage / 5, 0, (int)std::size(damage_words));
+        const int index = std::clamp(damage / 5, 0, (int)std::size(damage_words) -1);
         return damage_words[index];
     }
 
