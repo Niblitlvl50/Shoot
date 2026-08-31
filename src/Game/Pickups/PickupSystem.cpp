@@ -144,6 +144,8 @@ void PickupSystem::Reset()
     };
     m_lootboxes.ForEach(release_callback);
 
+    m_spawned_pickups.clear();
+
     m_damage_system->RemoveGlobalDamageCallback(m_damage_callback_id);
     m_spawn_system->RemoveGlobalSpawnCallback(m_spawn_callback_id);
 }
