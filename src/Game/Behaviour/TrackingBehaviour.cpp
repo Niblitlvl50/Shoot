@@ -14,6 +14,7 @@ using namespace game;
 
 TrackingBehaviour::TrackingBehaviour()
     : m_tracking_position(math::INF, math::INF)
+    , m_avoidance_offset(math::ZeroVec)
     , m_current_position(0.0f)
     , m_meter_per_second(1.0f)
     , m_timestamp_last_updated(0.0f)

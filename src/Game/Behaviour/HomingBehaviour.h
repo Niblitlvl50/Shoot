@@ -32,6 +32,7 @@ namespace game
         void SetAngularVelocity(float degrees_per_second);
         void SetHomingStartDelay(float delay_s);
         void SetHomingDuration(float duration_s);
+        void SetAvoidanceOffset(const math::Vector& offset);
 
         HomingResult Run(const mono::UpdateContext& update_context);
 
@@ -43,6 +44,7 @@ namespace game
         float m_current_heading;
 
         math::Vector m_target_position;
+        math::Vector m_avoidance_offset;
         float m_forward_velocity;
         float m_angular_velocity; // Degrees per second
 

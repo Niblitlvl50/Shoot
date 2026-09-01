@@ -18,6 +18,7 @@ using namespace game;
 HomingBehaviour::HomingBehaviour()
     : m_body(nullptr)
     , m_current_heading(0.0f)
+    , m_avoidance_offset(math::ZeroVec)
     , m_forward_velocity(1.0f)
     , m_angular_velocity(180.0f)
     , m_homing_start_delay_s(0.0f)
@@ -68,10 +69,16 @@ void HomingBehaviour::SetHomingDuration(float duration_s)
     m_homing_duration_s = duration_s;
 }
 
+void HomingBehaviour::SetAvoidanceOffset(const math::Vector& offset)
+{
+    m_avoidance_offset = offset;
+}
+
 HomingResult HomingBehaviour::Run(const mono::UpdateContext& update_context)
 {
     const math::Vector body_position = m_body->GetPosition();
-    const math::Vector& delta = math::Normalized(m_target_position - body_position);
+    const math::Vector& delta = math::Normalized((m_target_position + m_avoidance_offset) - body_position);
+    m_avoidance_offset = math::ZeroVec;
 
     HomingResult result;
     result.distance_to_target = math::DistanceBetween(m_target_position, body_position);
