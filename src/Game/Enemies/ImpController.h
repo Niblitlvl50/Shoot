@@ -74,6 +74,7 @@ namespace game
 
         HomingBehaviour m_homing_movement;
         TrackingBehaviour m_tracking_movement;
+        class SeparationSystem* m_separation_system;
         ITargetPtr m_aquired_target;
     };
 }

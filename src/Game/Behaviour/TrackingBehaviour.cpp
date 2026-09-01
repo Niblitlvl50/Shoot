@@ -35,6 +35,11 @@ void TrackingBehaviour::SetTrackingSpeed(float meter_per_second)
     m_meter_per_second = meter_per_second;
 }
 
+void TrackingBehaviour::SetAvoidanceOffset(const math::Vector& offset)
+{
+    m_avoidance_offset = offset;
+}
+
 TrackingResult TrackingBehaviour::Run(const mono::UpdateContext& update_context)
 {
     if(!m_path)
@@ -88,11 +93,12 @@ TrackingResult TrackingBehaviour::Run(const mono::UpdateContext& update_context,
         math::critical_spring_damper(
             current_position,
             m_move_velocity,
-            path_position,
+            path_position + m_avoidance_offset,
             math::ZeroVec,
             move_halflife,
             update_context.delta_s);
 
+        m_avoidance_offset = math::ZeroVec;
         m_entity_body->SetVelocity(m_move_velocity);
 
         //const math::Vector mass_adjusted_impulse = m_move_velocity * m_entity_body->GetMass() * update_context.delta_s;

@@ -29,6 +29,8 @@
 #include "Network/INetworkPipe.h"
 #include "Network/NetworkSerialize.h"
 
+#include "Player/PlayerConfig.h"
+
 #include "System/Hash.h"
 #include "System/File.h"
 #include "Entity/Component.h"
@@ -53,38 +55,18 @@ PlayerDaemonSystem::PlayerDaemonSystem(
     , m_damage_system(damage_system)
     , m_spawn_players(false)
 {
-    const std::vector<byte> file_data = file::FileReadAll("res/configs/player_config.json");
-    const nlohmann::json& json = nlohmann::json::parse(file_data);
+    LoadPlayerConfig("res/configs/player_config.json", m_player_config);
 
-    m_player_entities = json["player_entities"];
-    m_familiar_entities = json["familiar_entities"];
-    m_package_entities = json["package_entities"];
-    m_decoy_entities = json["decoy_entities"];
-    m_weapon_entities = json["weapon_entities"];
+    for(const std::string& sound_file : m_player_config.player_damage_sounds)
+        m_damage_sounds.push_back(audio::CreateSound(sound_file.c_str(), audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE));
 
-    m_player_levels = json.value("player_levels", std::vector<int>());
-
-    const std::vector<std::string> player_damage_sounds = json["player_damage_sounds"];
-    const std::vector<std::string> player_death_sounds = json["player_death_sounds"];
-
-    for(const std::string& sound_file : player_damage_sounds)
-    {
-        m_damage_sounds.push_back(
-            audio::CreateSound(sound_file.c_str(), audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE)
-        );
-    }
-
-    for(const std::string& sound_file : player_death_sounds)
-    {
-        m_death_sounds.push_back(
-            audio::CreateSound(sound_file.c_str(), audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE)
-        );
-    }
+    for(const std::string& sound_file : m_player_config.player_death_sounds)
+        m_death_sounds.push_back(audio::CreateSound(sound_file.c_str(), audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE));
 
     mono::UniformRandomBitGenerator random_bit_generator(System::GetMilliseconds());
-    //std::shuffle(m_player_entities.begin(), m_player_entities.end(), random_bit_generator);
-    std::shuffle(m_familiar_entities.begin(), m_familiar_entities.end(), random_bit_generator);
-    //std::shuffle(m_package_entities.begin(), m_package_entities.end(), random_bit_generator);
+    //std::shuffle(m_player_config.player_entities.begin(), m_player_config.player_entities.end(), random_bit_generator);
+    std::shuffle(m_player_config.familiar_entities.begin(), m_player_config.familiar_entities.end(), random_bit_generator);
+    //std::shuffle(m_player_config.package_entities.begin(), m_player_config.package_entities.end(), random_bit_generator);
 
     game::LoadPlayerData(System::GetUserPath(), 0, m_save_slot_0);
 
@@ -199,7 +181,7 @@ void PlayerDaemonSystem::SpawnPlayersAt(const math::Vector& spawn_position, cons
 
 uint32_t PlayerDaemonSystem::SpawnPackageAt(const math::Vector& spawn_position)
 {
-    const std::string& package_entity_file = m_package_entities.front();
+    const std::string& package_entity_file = m_player_config.package_entities.front();
     const mono::Entity package_entity = m_entity_system->SpawnEntity(package_entity_file.c_str());
 
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
@@ -319,7 +301,7 @@ uint32_t PlayerDaemonSystem::SpawnPlayer(
     const game::DamageCallback& damage_callback)
 {
     const uint32_t player_index = game::FindPlayerIndex(player_info);
-    const std::string player_entity_file = m_player_entities[player_index];
+    const std::string player_entity_file = m_player_config.player_entities[player_index];
     mono::Entity player_entity = entity_system->SpawnEntity(player_entity_file.c_str());
 
     System::Log(
@@ -348,12 +330,7 @@ uint32_t PlayerDaemonSystem::SpawnPlayer(
 
     mono::InputSystem* input_system = system_context->GetSystem<mono::InputSystem>();
 
-    PlayerConfig player_config;
-    player_config.decoy_entity = m_decoy_entities.front();
-    player_config.weapon_entity = m_weapon_entities.front();
-    player_config.player_levels = m_player_levels;
-
-    IEntityLogic* player_logic = new PlayerLogic(player_entity.id, player_info, player_config, input_system, event_handler, system_context);
+    IEntityLogic* player_logic = new PlayerLogic(player_entity.id, player_info, m_player_config, input_system, event_handler, system_context);
     logic_system->AddLogic(player_entity.id, player_logic);
 
     player_info->entity_id = player_entity.id;
@@ -368,7 +345,7 @@ uint32_t PlayerDaemonSystem::SpawnPlayer(
 uint32_t PlayerDaemonSystem::SpawnPlayerFamiliar(
     uint32_t owner_entity_id, uint32_t player_index, mono::IEntityManager* entity_system, mono::SystemContext* system_context)
 {
-    const std::string familiar_entity_file = m_familiar_entities[player_index];
+    const std::string familiar_entity_file = m_player_config.familiar_entities[player_index];
     mono::Entity player_familiar_entity = entity_system->SpawnEntity(familiar_entity_file.c_str());
 
     game::EntityLogicSystem* logic_system = system_context->GetSystem<EntityLogicSystem>();

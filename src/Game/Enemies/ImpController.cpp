@@ -13,6 +13,7 @@
 #include "Debug/IDebugDrawer.h"
 #include "Entity/TargetSystem.h"
 #include "Navigation/NavigationSystem.h"
+#include "Separation/SeparationSystem.h"
 #include "Weapons/IWeapon.h"
 #include "Weapons/WeaponSystem.h"
 
@@ -46,6 +47,9 @@ ImpController::ImpController(uint32_t entity_id, mono::SystemContext* system_con
     mono::PhysicsSystem* physics_system = system_context->GetSystem<mono::PhysicsSystem>();
     mono::IBody* body = physics_system->GetBody(entity_id);
 
+    m_separation_system = system_context->GetSystem<game::SeparationSystem>();
+    m_separation_system->Register(entity_id, body);
+
     m_homing_movement.SetBody(body);
     m_homing_movement.SetForwardVelocity(tweak_values::move_speed);
     m_homing_movement.SetAngularVelocity(tweak_values::degrees_per_second);
@@ -71,7 +75,9 @@ ImpController::ImpController(uint32_t entity_id, mono::SystemContext* system_con
 }
 
 ImpController::~ImpController()
-{ }
+{
+    m_separation_system->Unregister(m_entity_id);
+}
 
 void ImpController::Update(const mono::UpdateContext& update_context)
 {
@@ -169,6 +175,7 @@ void ImpController::Tracking(const mono::UpdateContext& update_context)
         return;
     }
 
+    m_tracking_movement.SetAvoidanceOffset(m_separation_system->GetSeparation(m_entity_id));
     const TrackingResult result = m_tracking_movement.Run(update_context, m_aquired_target->Position());
     switch(result.state)
     {

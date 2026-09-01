@@ -20,6 +20,7 @@ namespace game
     public:
 
         GoblinFireController(uint32_t entity_id, mono::SystemContext* system_context, mono::EventHandler* event_handler);
+        ~GoblinFireController();
         void Update(const mono::UpdateContext& update_context) override;
         void DrawDebugInfo(class IDebugDrawer* debug_drawer) const override;
         const char* GetDebugCategory() const override;
@@ -69,6 +70,7 @@ namespace game
 
         HomingBehaviour m_homing_movement;
         TrackingBehaviour m_tracking_movement;
+        class SeparationSystem* m_separation_system;
         ITargetPtr m_aquired_target;
     };
 }

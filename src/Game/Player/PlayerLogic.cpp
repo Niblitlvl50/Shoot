@@ -182,7 +182,7 @@ PlayerLogic::PlayerLogic(
     m_footsteps_effect = std::make_unique<FootStepsEffect>(particle_system, m_entity_system);
     m_weapon_modifier_effect = std::make_unique<WeaponModifierEffect>(m_transform_system, particle_system, m_entity_system);
 
-    const mono::Entity spawned_weapon = m_entity_system->SpawnEntity(m_config.weapon_entity.c_str());
+    const mono::Entity spawned_weapon = m_entity_system->SpawnEntity(m_config.weapon_entities.front().c_str());
     m_weapon_entity = spawned_weapon.id;
     m_transform_system->ChildTransform(m_weapon_entity, m_entity_id);
 
@@ -569,7 +569,7 @@ void PlayerLogic::ToBlink()
 
     const math::Vector& position = m_transform_system->GetWorldPosition(m_entity_id);
 
-    const mono::Entity decoy_entity = m_entity_system->SpawnEntity(m_config.decoy_entity.c_str());
+    const mono::Entity decoy_entity = m_entity_system->SpawnEntity(m_config.decoy_entities.front().c_str());
     m_entity_system->AddComponent(decoy_entity.id, BEHAVIOUR_COMPONENT);
     DecoyLogic* decoy_logic = new DecoyLogic(decoy_entity.id, m_entity_system);
     m_logic_system->AddLogic(decoy_entity.id, decoy_logic);
@@ -651,7 +651,8 @@ void PlayerLogic::UseItemSlot(ItemSlotIndex slot_index)
 
 void PlayerLogic::HandlePickup(PickupType type, int meta_data)
 {
-    m_player_info->persistent_data.experience += 10;
+    m_player_info->persistent_data.experience =
+        std::clamp(m_player_info->persistent_data.experience + 10, 0, m_config.max_experience);
 
     switch(type)
     {

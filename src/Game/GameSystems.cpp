@@ -44,6 +44,8 @@
 #include "World/WorldBoundsSystem.h"
 #include "World/WorldEntityTrackingSystem.h"
 
+#include "Separation/SeparationSystem.h"
+
 #include "Network/ServerManager.h"
 #include "Network/ClientManager.h"
 
@@ -110,6 +112,8 @@ void game::CreateGameSystems(
     
     system_context.CreateSystem<game::MissionSystem>(entity_system, transform_system, trigger_system);
         
+    system_context.CreateSystem<game::SeparationSystem>();
+
     game::EntityLogicSystem* logic_system =
         system_context.CreateSystem<game::EntityLogicSystem>(max_entities, &system_context, &event_handler);
 

@@ -29,6 +29,7 @@
         "res/sound/impact/paind.wav",
         "res/sound/impact/demon-death-05.wav"
     ],
+    "max_experience": 1000,
     "player_levels": [
         100,
         200,

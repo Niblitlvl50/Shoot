@@ -12,6 +12,7 @@
 #include "System/Network.h"
 
 #include "Events/GameEventFuncFwd.h"
+#include "Player/PlayerConfig.h"
 #include "Player/PlayerInfo.h"
 #include "Player/SaveSystem.h"
 
@@ -97,13 +98,8 @@ namespace game
         math::Vector m_player_spawn;
         PlayerSpawnedCallback m_player_spawned_callback;
 
-        std::vector<std::string> m_player_entities;
-        std::vector<std::string> m_familiar_entities;
-        std::vector<std::string> m_package_entities;
-        std::vector<std::string> m_decoy_entities;
-        std::vector<std::string> m_weapon_entities;
+        PlayerConfig m_player_config;
 
-        std::vector<int> m_player_levels;
         std::unordered_map<uint32_t, int> m_player_last_levels;
 
         mono::EventToken<event::ControllerAddedEvent> m_added_token;

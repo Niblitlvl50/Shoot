@@ -15,6 +15,7 @@
 #include "Entity/TargetSystem.h"
 #include "Navigation/NavigationSystem.h"
 #include "Player/PlayerInfo.h"
+#include "Separation/SeparationSystem.h"
 #include "SystemContext.h"
 #include "Weapons/IWeapon.h"
 #include "Weapons/WeaponSystem.h"
@@ -52,6 +53,9 @@ GoblinFireController::GoblinFireController(uint32_t entity_id, mono::SystemConte
     m_tracking_movement.Init(body, m_navigation_system);
     m_tracking_movement.SetTrackingSpeed(tweak_values::move_speed);
 
+    m_separation_system = system_context->GetSystem<game::SeparationSystem>();
+    m_separation_system->Register(entity_id, body);
+
     mono::SpriteSystem* sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_sprite = sprite_system->GetSprite(entity_id);
 
@@ -70,6 +74,11 @@ GoblinFireController::GoblinFireController(uint32_t entity_id, mono::SystemConte
     };
 
     m_states.SetStateTableAndState(state_table, States::IDLE);
+}
+
+GoblinFireController::~GoblinFireController()
+{
+    m_separation_system->Unregister(m_entity_id);
 }
 
 void GoblinFireController::Update(const mono::UpdateContext& update_context)
@@ -176,13 +185,14 @@ void GoblinFireController::Tracking(const mono::UpdateContext& update_context)
         return;
     }
 
+    m_tracking_movement.SetAvoidanceOffset(m_separation_system->GetSeparation(m_entity_id));
     const TrackingResult result = m_tracking_movement.Run(update_context, m_aquired_target->Position());
     switch(result.state)
     {
     case TrackingState::NO_PATH:
         m_states.TransitionTo(States::IDLE);
         break;
- 
+
     case TrackingState::TRACKING:
         if(result.distance_to_target < (tweak_values::activate_distance_to_player_threshold - 1.0f))
             m_states.TransitionTo(States::REPOSITION);

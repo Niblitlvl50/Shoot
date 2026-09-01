@@ -50,6 +50,7 @@ namespace game
         void Init(mono::IBody* body, class NavigationSystem* navigation_system);
 
         void SetTrackingSpeed(float meter_per_second);
+        void SetAvoidanceOffset(const math::Vector& offset);
         bool UpdatePath(const math::Vector& tracking_position);
         const math::Vector& GetTrackingPosition() const;
         TrackingDebugData GetDebugData() const;
@@ -69,6 +70,7 @@ namespace game
         float m_timestamp_last_updated;
 
         math::Vector m_move_velocity;
+        math::Vector m_avoidance_offset;
         mono::IPathPtr m_path;
     };
 }
