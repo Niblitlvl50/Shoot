@@ -88,7 +88,7 @@ namespace editor
 
         float GetPickingDistance() const;
 
-        void NewEntity();
+        void NewEntityInternal(bool with_sprite);
         void OnDeleteObject();
 
         void AddComponent(uint32_t component_hash);

@@ -618,15 +618,18 @@ void Editor::ImportEntity()
     m_context.show_modal_item_selection = true;
 }
 
-void Editor::NewEntity()
+void Editor::NewEntityInternal(bool with_sprite)
 {
     mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
     mono::Entity new_entity = m_entity_manager.CreateEntity("unnamed", { NAME_FOLDER_COMPONENT, TRANSFORM_COMPONENT });
 
-    const std::vector<Component> components = {
+    std::vector<Component> components = {
         component::DefaultComponentFromHash(NAME_FOLDER_COMPONENT),
         component::DefaultComponentFromHash(TRANSFORM_COMPONENT)
     };
+
+    if(with_sprite)
+        components.push_back(component::DefaultComponentFromHash(SPRITE_COMPONENT));
 
     auto proxy = std::make_unique<ComponentProxy>(new_entity.id, components, &m_entity_manager, transform_system, this);
     proxy->SetPosition(m_camera->GetPosition());
@@ -1001,7 +1004,9 @@ void Editor::SelectItemCallback(int index)
 void Editor::EditorMenuCallback(EditorMenuOptions option)
 {
     if(option == EditorMenuOptions::NEW)
-        NewEntity();
+        NewEntityInternal(false);
+    if(option == EditorMenuOptions::NEW_SPRITE)
+        NewEntityInternal(true);
     else if(option == EditorMenuOptions::SAVE)
         Save();
     else if(option == EditorMenuOptions::IMPORT_ENTITY)

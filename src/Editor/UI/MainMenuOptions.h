@@ -6,6 +6,7 @@ namespace editor
     enum class EditorMenuOptions
     {
         NEW,
+        NEW_SPRITE,
         SAVE,
         IMPORT_ENTITY,
         EXPORT_ENTITY,

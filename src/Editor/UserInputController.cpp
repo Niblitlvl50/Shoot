@@ -251,7 +251,10 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
     if(event.key == Keycode::D && event.ctrl)
         m_editor->EditorMenuCallback(editor::EditorMenuOptions::DUPLICATE);
     else if(event.key == Keycode::N && event.ctrl)
-        m_editor->EditorMenuCallback(editor::EditorMenuOptions::NEW);
+    {
+        const editor::EditorMenuOptions option = event.shift ? editor::EditorMenuOptions::NEW_SPRITE : editor::EditorMenuOptions::NEW;
+        m_editor->EditorMenuCallback(option);
+    }
     else if(event.key == Keycode::S && event.ctrl)
         m_editor->EditorMenuCallback(editor::EditorMenuOptions::SAVE);
     else if(event.key == Keycode::F)

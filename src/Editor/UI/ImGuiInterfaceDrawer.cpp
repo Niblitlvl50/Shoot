@@ -141,7 +141,7 @@ namespace
         if(add_world_open)
         {
             std::string world_name;
-            DrawStringProperty("", world_name, ImGuiInputTextFlags_CharsNoBlank);
+            DrawStringProperty("##WorldName", world_name, ImGuiInputTextFlags_CharsNoBlank);
             const bool got_new_name = ImGui::IsItemDeactivatedAfterEdit();
 
             ImGui::SameLine();
