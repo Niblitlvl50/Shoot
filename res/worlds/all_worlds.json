@@ -2,6 +2,7 @@
     "all_worlds": [
         "res/worlds/horde_arena.components",
         "res/worlds/level0_deep_forest.components",
+        "res/worlds/level0_island.components",
         "res/worlds/level0_tiny_alien_world.components",
         "res/worlds/level1_tiny_arena.components",
         "res/worlds/level2_pickup_arena.components",
@@ -11,8 +12,8 @@
         "res/worlds/screen_options.components",
         "res/worlds/screen_setup_game.components",
         "res/worlds/screen_title_new.components",
-        "res/worlds/test_empty_world.components",
         "res/worlds/test_empty.components",
+        "res/worlds/test_empty_world.components",
         "res/worlds/test_mission.components"
     ]
 }
