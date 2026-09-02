@@ -22,6 +22,19 @@ using namespace editor;
 
 ComponentProxy::ComponentProxy(
     uint32_t entity_id,
+    mono::IEntityManager* entity_manager,
+    mono::TransformSystem* transform_system,
+    Editor* editor)
+    : m_entity_id(entity_id)
+    , m_entity_manager(entity_manager)
+    , m_transform_system(transform_system)
+    , m_editor(editor)
+{
+
+}
+
+ComponentProxy::ComponentProxy(
+    uint32_t entity_id,
     const std::vector<Component>& components,
     mono::IEntityManager* entity_manager,
     mono::TransformSystem* transform_system,

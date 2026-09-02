@@ -250,7 +250,7 @@ Editor::Editor(
         TeleportToProxyObject(proxy);
     };
 
-    m_context.add_component = std::bind(&Editor::AddComponent, this, _1);
+    m_context.add_component = std::bind(&Editor::AddComponentToSelection, this, _1);
     m_context.delete_component = std::bind(&Editor::DeleteComponent, this, _1);
 
     m_context.editor_menu_callback = std::bind(&Editor::EditorMenuCallback, this, _1);
@@ -623,17 +623,14 @@ void Editor::NewEntityInternal(bool with_sprite)
     mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
     mono::Entity new_entity = m_entity_manager.CreateEntity("unnamed", { NAME_FOLDER_COMPONENT, TRANSFORM_COMPONENT });
 
-    std::vector<Component> components = {
-        component::DefaultComponentFromHash(NAME_FOLDER_COMPONENT),
-        component::DefaultComponentFromHash(TRANSFORM_COMPONENT)
-    };
+    auto proxy = std::make_unique<ComponentProxy>(new_entity.id, &m_entity_manager, transform_system, this);
 
+    AddComponentToProxy(NAME_FOLDER_COMPONENT, proxy.get());
+    AddComponentToProxy(TRANSFORM_COMPONENT, proxy.get());
     if(with_sprite)
-        components.push_back(component::DefaultComponentFromHash(SPRITE_COMPONENT));
+        AddComponentToProxy(SPRITE_COMPONENT, proxy.get());
 
-    auto proxy = std::make_unique<ComponentProxy>(new_entity.id, components, &m_entity_manager, transform_system, this);
     proxy->SetPosition(m_camera->GetPosition());
-
     m_proxies.push_back(std::move(proxy));
 
     const Selection new_selection = { new_entity.id };
@@ -930,21 +927,24 @@ void Editor::OnDeleteObject()
     m_grabbers.clear();
 }
 
-void Editor::AddComponent(uint32_t component_hash)
+void Editor::AddComponentToProxy(uint32_t component_hash, IObjectProxy* proxy_object)
+{
+    std::vector<Component>& components = proxy_object->GetComponents();
+
+    const std::vector<Component*> added_components = component::AddComponent(component_hash, components);
+    for(Component* component : added_components)
+        m_entity_manager.AddComponent(proxy_object->Id(), component->hash);
+
+    component::SortComponentsByPriority(components);
+}
+
+void Editor::AddComponentToSelection(uint32_t component_hash)
 {
     for(uint32_t id : m_selected_ids)
     {
         IObjectProxy* proxy_object = FindProxyObject(id);
-        if(!proxy_object)
-            continue;
-
-        std::vector<Component>& components = proxy_object->GetComponents();
-
-        const std::vector<Component*> added_components = component::AddComponent(component_hash, components);
-        for(Component* component : added_components)
-            m_entity_manager.AddComponent(id, component->hash);
-
-        component::SortComponentsByPriority(components);
+        if(proxy_object)
+            AddComponentToProxy(component_hash, proxy_object);
     }
 }
 

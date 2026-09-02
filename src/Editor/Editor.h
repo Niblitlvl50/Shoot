@@ -91,7 +91,8 @@ namespace editor
         void NewEntityInternal(bool with_sprite);
         void OnDeleteObject();
 
-        void AddComponent(uint32_t component_hash);
+        void AddComponentToProxy(uint32_t component_hash, IObjectProxy* proxy_object);
+        void AddComponentToSelection(uint32_t component_hash);
         void DeleteComponent(uint32_t index);
         void AddComponentUI();
 
