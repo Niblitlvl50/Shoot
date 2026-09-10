@@ -531,6 +531,8 @@ namespace
             context.wants_quit = false;
         }
 
+        const ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+        ImGui::SetNextWindowPos(center, ImGuiCond_Always, ImVec2(0.5f, 0.5f));
         if(ImGui::BeginPopupModal(popup_name, nullptr, ImGuiWindowFlags_AlwaysAutoResize))
         {
             if(ImGui::Button("Yes", ImVec2(120, 0)))
