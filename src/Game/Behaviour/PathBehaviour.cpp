@@ -73,3 +73,20 @@ PathResult PathBehaviour::Run(float delta_s)
 
     return result;
 }
+
+PathDebugData PathBehaviour::GetDebugData() const
+{
+    PathDebugData data;
+    data.has_path = (m_path != nullptr);
+    data.path_points = data.has_path ? &m_path->GetPathPoints() : nullptr;
+    data.target_position = math::ZeroVec;
+
+    if(data.has_path)
+    {
+        const mono::PositionResult pos_result = m_path->GetPositionByLength(m_current_position);
+        if(pos_result.valid_position)
+            data.target_position = pos_result.path_position;
+    }
+
+    return data;
+}

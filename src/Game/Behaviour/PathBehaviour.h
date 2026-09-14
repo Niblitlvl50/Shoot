@@ -7,6 +7,7 @@
 #include "Math/Vector.h"
 
 #include <cstdint>
+#include <vector>
 
 namespace game
 {
@@ -18,7 +19,9 @@ namespace game
 
     struct PathDebugData
     {
-
+        bool has_path = false;
+        math::Vector target_position;
+        const std::vector<math::Vector>* path_points = nullptr;
     };
 
     class PathBehaviour
@@ -33,6 +36,7 @@ namespace game
         void SetPath(const mono::IPathPtr path);
         void SetTrackingSpeed(float meter_per_second);
         PathResult Run(float delta_s);
+        PathDebugData GetDebugData() const;
 
     private:
 
