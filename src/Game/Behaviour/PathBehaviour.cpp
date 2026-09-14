@@ -35,6 +35,11 @@ void PathBehaviour::SetTrackingSpeed(float meter_per_second)
     m_meter_per_second = meter_per_second;
 }
 
+void PathBehaviour::SetPingPong(bool ping_pong)
+{
+    m_ping_pong = ping_pong;
+}
+
 PathResult PathBehaviour::Run(float delta_s)
 {
     PathResult result;
@@ -44,7 +49,22 @@ PathResult PathBehaviour::Run(float delta_s)
     if(!m_path)
         return result;
 
-    m_current_position += m_meter_per_second * delta_s;
+    m_current_position += m_meter_per_second * m_direction * delta_s;
+
+    if(m_ping_pong)
+    {
+        if(m_current_position >= m_path->Length())
+        {
+            m_current_position = m_path->Length();
+            m_direction = -1.0f;
+        }
+        else if(m_current_position <= 0.0f)
+        {
+            m_current_position = 0.0f;
+            m_direction = 1.0f;
+        }
+    }
+
     math::Vector current_position = m_entity_body->GetPosition();
     const mono::PositionResult position_result = m_path->GetPositionByLength(m_current_position);
     if(position_result.valid_position)

@@ -49,6 +49,7 @@ InvaderPathController::InvaderPathController(uint32_t entity_id, mono::SystemCon
 
     m_path_behaviour.Init(m_body);
     m_path_behaviour.SetTrackingSpeed(tweak_values::path_speed);
+    m_path_behaviour.SetPingPong(true);
 
     m_spawn_position = m_transform_system->GetWorldPosition(entity_id);
 
@@ -79,10 +80,10 @@ void InvaderPathController::DrawDebugInfo(IDebugDrawer* debug_drawer) const
         debug_drawer->DrawLine(world_position, debug_data.target_position, 1.0f, mono::Color::GREEN);
     }
 
-    debug_drawer->DrawCircle(world_position, tweak_values::attack_distance, mono::Color::RED);
+    //debug_drawer->DrawCircle(world_position, tweak_values::attack_distance, mono::Color::RED);
 
-    const char* state_string = (m_states.ActiveState() == States::FIND_PATH) ? "Find Path" : "Follow Path";
-    debug_drawer->DrawWorldText(state_string, world_position, mono::Color::OFF_WHITE);
+    //const char* state_string = (m_states.ActiveState() == States::FIND_PATH) ? "Find Path" : "Follow Path";
+    //debug_drawer->DrawWorldText(state_string, world_position, mono::Color::OFF_WHITE);
 }
 
 const char* InvaderPathController::GetDebugCategory() const
