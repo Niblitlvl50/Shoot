@@ -111,6 +111,16 @@
             }
         },
         {
+            "name": "level0_island",
+            "filename": "res/worlds/level0_island.components",
+            "transitions": {
+                "gameover": "screen_gameover",
+                "completed": "screen_end",
+                "completed_alt": "",
+                "aborted": "screen_title"
+            }
+        },
+        {
             "name": "test_empty_world",
             "filename": "res/worlds/test_empty_world.components",
             "transitions": {
