@@ -14,7 +14,7 @@
             "h": 13,
             "name": "flower_poppy",
             "w": 9,
-            "x": 1357,
+            "x": 1496,
             "y": 538
         }
     ],
@@ -27,7 +27,7 @@
     "notifies": [
         ""
     ],
-    "source_folder": "res/images/vegetation/",
+    "source_folder": "res/images/vegetation/flowers/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

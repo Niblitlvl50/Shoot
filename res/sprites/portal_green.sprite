@@ -49,28 +49,28 @@
             "h": 1,
             "name": "portal_green_begin_1",
             "w": 23,
-            "x": 297,
-            "y": 574
+            "x": 432,
+            "y": 577
         },
         {
             "h": 3,
             "name": "portal_green_begin_2",
             "w": 27,
-            "x": 1976,
-            "y": 569
+            "x": 391,
+            "y": 570
         },
         {
             "h": 8,
             "name": "portal_green_begin_3",
             "w": 27,
-            "x": 1009,
+            "x": 1346,
             "y": 568
         },
         {
             "h": 17,
             "name": "portal_green_begin_4",
             "w": 17,
-            "x": 373,
+            "x": 533,
             "y": 498
         },
         {
@@ -112,36 +112,36 @@
             "h": 17,
             "name": "portal_green_end_2",
             "w": 26,
-            "x": 1918,
-            "y": 497
+            "x": 350,
+            "y": 498
         },
         {
             "h": 8,
             "name": "portal_green_end_3",
             "w": 27,
-            "x": 978,
+            "x": 1315,
             "y": 568
         },
         {
             "h": 3,
             "name": "portal_green_end_4",
             "w": 27,
-            "x": 1945,
-            "y": 569
+            "x": 422,
+            "y": 570
         },
         {
             "h": 1,
             "name": "portal_green_end_5",
             "w": 37,
-            "x": 1945,
-            "y": 576
+            "x": 391,
+            "y": 577
         },
         {
             "h": 1,
             "name": "portal_green_end_6",
             "w": 43,
-            "x": 250,
-            "y": 574
+            "x": 199,
+            "y": 575
         },
         {
             "h": 43,
@@ -154,8 +154,8 @@
             "h": 41,
             "name": "portal_green_idle_2",
             "w": 19,
-            "x": 1260,
-            "y": 299
+            "x": 727,
+            "y": 296
         },
         {
             "h": 43,
@@ -196,8 +196,8 @@
             "h": 41,
             "name": "portal_green_idle_8",
             "w": 19,
-            "x": 727,
-            "y": 296
+            "x": 1260,
+            "y": 299
         }
     ],
     "frames_offsets": [

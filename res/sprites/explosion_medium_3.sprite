@@ -24,28 +24,28 @@
             "h": 16,
             "name": "explosion_medium_3_idle_1",
             "w": 16,
-            "x": 1698,
+            "x": 2008,
             "y": 518
         },
         {
             "h": 16,
             "name": "explosion_medium_3_idle_2",
             "w": 16,
-            "x": 1718,
-            "y": 518
+            "x": 169,
+            "y": 519
         },
         {
             "h": 16,
             "name": "explosion_medium_3_idle_3",
             "w": 16,
-            "x": 1658,
-            "y": 518
+            "x": 62,
+            "y": 519
         },
         {
             "h": 23,
             "name": "explosion_medium_3_idle_4",
             "w": 29,
-            "x": 757,
+            "x": 852,
             "y": 446
         },
         {
@@ -59,43 +59,43 @@
             "h": 21,
             "name": "explosion_medium_3_idle_6",
             "w": 29,
-            "x": 1659,
+            "x": 1719,
             "y": 472
         },
         {
             "h": 20,
             "name": "explosion_medium_3_idle_7",
             "w": 27,
-            "x": 697,
+            "x": 810,
             "y": 473
         },
         {
             "h": 20,
             "name": "explosion_medium_3_idle_8",
             "w": 27,
-            "x": 666,
+            "x": 779,
             "y": 473
         },
         {
             "h": 21,
             "name": "explosion_medium_3_idle_9",
             "w": 29,
-            "x": 1626,
+            "x": 1904,
             "y": 472
         },
         {
             "h": 28,
             "name": "explosion_medium_3_idle_10",
             "w": 32,
-            "x": 1279,
-            "y": 384
+            "x": 1591,
+            "y": 382
         },
         {
             "h": 31,
             "name": "explosion_medium_3_idle_11",
             "w": 31,
-            "x": 38,
-            "y": 381
+            "x": 1135,
+            "y": 380
         }
     ],
     "frames_offsets": [

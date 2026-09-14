@@ -74,224 +74,224 @@
             "h": 10,
             "name": "golem_tiny_attack_1",
             "w": 13,
-            "x": 662,
+            "x": 897,
             "y": 555
         },
         {
             "h": 11,
             "name": "golem_tiny_attack_2",
             "w": 13,
-            "x": 1589,
+            "x": 1938,
             "y": 554
         },
         {
             "h": 11,
             "name": "golem_tiny_attack_3",
             "w": 12,
-            "x": 1850,
-            "y": 554
+            "x": 323,
+            "y": 555
         },
         {
             "h": 11,
             "name": "golem_tiny_attack_4",
             "w": 13,
-            "x": 1462,
-            "y": 554
+            "x": 243,
+            "y": 547
         },
         {
             "h": 11,
             "name": "golem_tiny_attack_5",
             "w": 13,
-            "x": 1606,
+            "x": 1955,
             "y": 554
         },
         {
             "h": 9,
             "name": "golem_tiny_attack_6",
             "w": 22,
-            "x": 978,
+            "x": 1281,
             "y": 555
         },
         {
             "h": 10,
             "name": "golem_tiny_attack_7",
             "w": 28,
-            "x": 82,
+            "x": 545,
             "y": 555
         },
         {
             "h": 10,
             "name": "golem_tiny_attack_8",
             "w": 30,
-            "x": 48,
+            "x": 511,
             "y": 555
         },
         {
             "h": 10,
             "name": "golem_tiny_attack_9",
             "w": 30,
-            "x": 14,
+            "x": 477,
             "y": 555
         },
         {
             "h": 10,
             "name": "golem_tiny_attack_10",
             "w": 15,
-            "x": 164,
+            "x": 771,
             "y": 555
         },
         {
             "h": 10,
             "name": "golem_tiny_idle_1",
             "w": 13,
-            "x": 628,
+            "x": 982,
             "y": 555
         },
         {
             "h": 10,
             "name": "golem_tiny_idle_2",
             "w": 13,
-            "x": 611,
+            "x": 965,
             "y": 555
         },
         {
             "h": 8,
             "name": "golem_tiny_idle_3",
             "w": 13,
-            "x": 1347,
+            "x": 1746,
             "y": 568
         },
         {
             "h": 10,
             "name": "golem_tiny_idle_4",
             "w": 13,
-            "x": 679,
+            "x": 931,
             "y": 555
         },
         {
             "h": 10,
             "name": "golem_tiny_idle_5",
             "w": 13,
-            "x": 696,
+            "x": 999,
             "y": 555
         },
         {
             "h": 7,
             "name": "golem_tiny_prepare_roll_1",
             "w": 9,
-            "x": 745,
+            "x": 1123,
             "y": 569
         },
         {
             "h": 7,
             "name": "golem_tiny_prepare_roll_2",
             "w": 7,
-            "x": 948,
+            "x": 1871,
             "y": 569
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_1",
             "w": 7,
-            "x": 882,
+            "x": 1172,
             "y": 569
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_2",
             "w": 7,
-            "x": 937,
+            "x": 1260,
             "y": 569
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_3",
             "w": 7,
-            "x": 926,
+            "x": 1860,
             "y": 569
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_4",
             "w": 7,
-            "x": 915,
+            "x": 1849,
             "y": 569
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_5",
             "w": 7,
-            "x": 904,
+            "x": 1838,
             "y": 569
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_6",
             "w": 7,
-            "x": 816,
+            "x": 1827,
             "y": 569
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_7",
             "w": 7,
-            "x": 871,
+            "x": 1249,
             "y": 569
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_8",
             "w": 7,
-            "x": 838,
+            "x": 1194,
             "y": 569
         },
         {
             "h": 10,
             "name": "golem_tiny_walk_1",
             "w": 13,
-            "x": 594,
+            "x": 948,
             "y": 555
         },
         {
             "h": 13,
             "name": "golem_tiny_walk_2",
             "w": 13,
-            "x": 579,
+            "x": 875,
             "y": 538
         },
         {
             "h": 11,
             "name": "golem_tiny_walk_3",
             "w": 13,
-            "x": 1572,
+            "x": 1904,
             "y": 554
         },
         {
             "h": 10,
             "name": "golem_tiny_walk_4",
             "w": 13,
-            "x": 577,
+            "x": 880,
             "y": 555
         },
         {
             "h": 9,
             "name": "golem_tiny_walk_5",
             "w": 13,
-            "x": 1298,
+            "x": 1499,
             "y": 555
         },
         {
             "h": 13,
             "name": "golem_tiny_walk_6",
             "w": 13,
-            "x": 783,
+            "x": 1011,
             "y": 538
         },
         {
             "h": 11,
             "name": "golem_tiny_walk_7",
             "w": 13,
-            "x": 1640,
+            "x": 1887,
             "y": 554
         }
     ],

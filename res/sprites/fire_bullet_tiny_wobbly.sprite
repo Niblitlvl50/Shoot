@@ -15,15 +15,15 @@
             "h": 7,
             "name": "fire_bullet_tiny_wobbly_idle_1",
             "w": 7,
-            "x": 860,
+            "x": 1205,
             "y": 569
         },
         {
             "h": 6,
             "name": "fire_bullet_tiny_wobbly_idle_2",
             "w": 6,
-            "x": 1705,
-            "y": 569
+            "x": 24,
+            "y": 570
         }
     ],
     "frames_offsets": [

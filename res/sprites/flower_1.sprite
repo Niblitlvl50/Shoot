@@ -14,7 +14,7 @@
             "h": 21,
             "name": "flower_1",
             "w": 16,
-            "x": 498,
+            "x": 591,
             "y": 473
         }
     ],
@@ -27,7 +27,7 @@
     "notifies": [
         ""
     ],
-    "source_folder": "res/images/vegetation/",
+    "source_folder": "res/images/vegetation/flowers/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

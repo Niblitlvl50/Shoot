@@ -15,15 +15,15 @@
             "h": 43,
             "name": "fire_bullet_default_1",
             "w": 15,
-            "x": 1882,
-            "y": 243
+            "x": 727,
+            "y": 249
         },
         {
             "h": 43,
             "name": "fire_bullet_default_2",
             "w": 15,
-            "x": 727,
-            "y": 249
+            "x": 1882,
+            "y": 243
         }
     ],
     "frames_offsets": [
