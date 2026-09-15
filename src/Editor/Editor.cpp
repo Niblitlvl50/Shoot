@@ -1048,26 +1048,71 @@ void Editor::AddPathPoint(const math::Vector& world_position)
                 points->insert(points->begin() + insert_after + 1, local_pos);
             }
         }
-        else if(path_type == mono::PathType::BEZIER_CUBIC)
+        else if(path_type == mono::PathType::BEZIER_CUBIC || path_type == mono::PathType::BEZIER_QUADRATIC)
         {
-            // Layout: P0, C1out, C2in, P3, [C2in, P3]*
-            // Append a new segment: C2in (1/3 toward new anchor) + new anchor.
-            if(points->size() >= 4)
+            // Find the anchor-to-anchor segment (straight-line approximation between anchor
+            // positions) that the click landed nearest to, then split that segment in two.
+            std::vector<int> anchors;
+            for(int index = 0; index < int(points->size()); ++index)
             {
-                const math::Vector last_anchor = points->back();
-                points->push_back(last_anchor + (local_pos - last_anchor) * (1.0f / 3.0f));
-                points->push_back(local_pos);
+                if(mono::IsAnchorPoint(path_type, index))
+                    anchors.push_back(index);
             }
-        }
-        else if(path_type == mono::PathType::BEZIER_QUADRATIC)
-        {
-            // Layout: A0, C0, A1, C1, ...
-            // Append control (midpoint) then new anchor.
-            if(points->size() >= 3)
+
+            if(anchors.size() >= 2)
             {
-                const math::Vector last_anchor = points->back();
-                points->push_back(last_anchor + (local_pos - last_anchor) * 0.5f);
-                points->push_back(local_pos);
+                float best_dist = math::INF;
+                int best_j = 0;
+                for(int j = 0; j < int(anchors.size()) - 1; ++j)
+                {
+                    const math::Vector& a = (*points)[anchors[j]];
+                    const math::Vector& b = (*points)[anchors[j + 1]];
+                    const math::PointOnLineResult r = math::ClosestPointOnLine(a, b, local_pos);
+                    const float d = math::DistanceBetween(r.point, local_pos);
+                    if(d < best_dist)
+                    {
+                        best_dist = d;
+                        best_j = j;
+                    }
+                }
+
+                const int idx_a = anchors[best_j];
+                const math::Vector p_a = (*points)[idx_a];
+                const math::Vector p_b = (*points)[anchors[best_j + 1]];
+
+                if(path_type == mono::PathType::BEZIER_CUBIC)
+                {
+                    // Layout: P0, C1out, C2in, P3, [C2in, P3]*
+                    // Split segment [p_a, p_b] into two, placing new controls a third of the
+                    // way in from each anchor toward the new anchor at the click position.
+                    const math::Vector c_end = local_pos + (p_b - local_pos) * (2.0f / 3.0f);
+
+                    if(idx_a == 0)
+                    {
+                        // First segment carries both controls explicitly; rebuild it in full.
+                        const math::Vector c1 = p_a + (local_pos - p_a) * (1.0f / 3.0f);
+                        const math::Vector c2 = p_a + (local_pos - p_a) * (2.0f / 3.0f);
+                        points->erase(points->begin() + 1, points->begin() + 4);
+                        points->insert(points->begin() + 1, { c1, c2, local_pos, c_end, p_b });
+                    }
+                    else
+                    {
+                        // Later segments store only the incoming control; replace it with the
+                        // new anchor's pair of controls.
+                        const math::Vector c2 = p_a + (local_pos - p_a) * (2.0f / 3.0f);
+                        points->erase(points->begin() + idx_a + 1, points->begin() + idx_a + 2);
+                        points->insert(points->begin() + idx_a + 1, { c2, local_pos, c_end });
+                    }
+                }
+                else
+                {
+                    // Layout: A0, C0, A1, C1, ... — replace the segment's control with a
+                    // control/anchor/control triple straddling the new anchor.
+                    const math::Vector c1 = p_a + (local_pos - p_a) * 0.5f;
+                    const math::Vector c2 = local_pos + (p_b - local_pos) * 0.5f;
+                    points->erase(points->begin() + idx_a + 1, points->begin() + idx_a + 2);
+                    points->insert(points->begin() + idx_a + 1, { c1, local_pos, c2 });
+                }
             }
         }
 
@@ -1079,7 +1124,95 @@ void Editor::AddPathPoint(const math::Vector& world_position)
 
 void Editor::RemovePathPoint(const math::Vector& world_position)
 {
+    for(uint32_t id : m_selected_ids)
+    {
+        IObjectProxy* proxy = FindProxyObject(id);
+        if(!proxy)
+            continue;
 
+        Component* path_component = proxy->GetComponentFromHash(PATH_COMPONENT);
+        if(!path_component)
+            continue;
+
+        int path_type_int = 0;
+        FindAttribute(PATH_TYPE_ATTRIBUTE, path_component->properties, path_type_int, FallbackMode::SET_DEFAULT);
+        const mono::PathType path_type = mono::PathType(path_type_int);
+
+        std::vector<math::Vector>* points = nullptr;
+        for(Attribute& attr : path_component->properties)
+        {
+            if(attr.id == PATH_POINTS_ATTRIBUTE)
+            {
+                points = &std::get<std::vector<math::Vector>>(attr.value);
+                break;
+            }
+        }
+        if(!points)
+            continue;
+
+        const int num_points = int(points->size());
+        const int min_points =
+            (path_type == mono::PathType::BEZIER_CUBIC) ? 4 :
+            (path_type == mono::PathType::BEZIER_QUADRATIC) ? 3 : 2;
+        if(num_points <= min_points)
+            continue;
+
+        mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
+        const math::Matrix& local_to_world = transform_system->GetTransform(id);
+        const math::Matrix world_to_local = math::Inverse(local_to_world);
+        const math::Vector local_pos = math::Transformed(world_to_local, world_position);
+
+        // Only consider anchor (on-curve) points, never control points.
+        float best_dist = math::INF;
+        int closest_anchor = -1;
+        for(int index = 0; index < num_points; ++index)
+        {
+            if(!mono::IsAnchorPoint(path_type, index))
+                continue;
+
+            // The first cubic anchor carries both explicit controls for the first segment;
+            // there's no clean way to fold it away, so it's not a removal candidate.
+            if(path_type == mono::PathType::BEZIER_CUBIC && index == 0)
+                continue;
+
+            const float d = math::DistanceBetween((*points)[index], local_pos);
+            if(d < best_dist)
+            {
+                best_dist = d;
+                closest_anchor = index;
+            }
+        }
+
+        if(closest_anchor == -1)
+            continue;
+
+        if(path_type == mono::PathType::REGULAR)
+        {
+            points->erase(points->begin() + closest_anchor);
+        }
+        else if(path_type == mono::PathType::BEZIER_QUADRATIC)
+        {
+            // Layout: A0, C0, A1, C1, ... — drop the anchor with the control tying it to
+            // its previous neighbour (or the following control when removing A0).
+            if(closest_anchor == 0)
+                points->erase(points->begin(), points->begin() + 2);
+            else
+                points->erase(points->begin() + closest_anchor - 1, points->begin() + closest_anchor + 1);
+        }
+        else if(path_type == mono::PathType::BEZIER_CUBIC)
+        {
+            // Layout: P0, C1out, C2in, P3, [C2in, P3]* — drop the anchor with the control
+            // that was appended alongside it (or the preceding control for the last anchor).
+            if(closest_anchor == num_points - 1)
+                points->erase(points->begin() + closest_anchor - 1, points->begin() + closest_anchor + 1);
+            else
+                points->erase(points->begin() + closest_anchor, points->begin() + closest_anchor + 2);
+        }
+
+        proxy->ComponentChanged(*path_component, PATH_POINTS_ATTRIBUTE);
+        UpdateGrabbers();
+        break;
+    }
 }
 
 void Editor::SelectItemCallback(int index)
