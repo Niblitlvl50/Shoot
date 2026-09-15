@@ -12,6 +12,9 @@
 
 #include "Entity/Component.h"
 #include "FontIds.h"
+#include "Paths/IPath.h"
+#include "Paths/PathFactory.h"
+#include "Paths/PathTypes.h"
 
 namespace
 {
@@ -271,11 +274,63 @@ void editor::DrawAreaEmitterDetails(mono::IRenderer& renderer, const std::vector
 void editor::DrawPath(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
 {
     std::vector<math::Vector> vertices;
-    const bool found_polygon = FindAttribute(PATH_POINTS_ATTRIBUTE, component_properties, vertices, FallbackMode::REQUIRE_ATTRIBUTE);
-    if(!found_polygon)
+    const bool found_path = FindAttribute(PATH_POINTS_ATTRIBUTE, component_properties, vertices, FallbackMode::REQUIRE_ATTRIBUTE);
+    if(!found_path || vertices.empty())
         return;
 
-    renderer.DrawPolyline(vertices, mono::Color::MAGENTA, 1.0f);
+    int path_type_int = 0;
+    FindAttribute(PATH_TYPE_ATTRIBUTE, component_properties, path_type_int, FallbackMode::SET_DEFAULT);
+    const mono::PathType path_type = mono::PathType(path_type_int);
+
+    if(path_type == mono::PathType::REGULAR)
+    {
+        renderer.DrawPolyline(vertices, mono::Color::MAGENTA, 1.0f);
+        return;
+    }
+
+    constexpr mono::Color::RGBA handle_color = { 0.6f, 0.6f, 0.6f, 0.6f };
+
+    if(mono::ValidatePathParameters(path_type, vertices))
+    {
+        const mono::IPathPtr path = mono::CreatePath(vertices, path_type);
+        renderer.DrawPolyline(path->GetPathPoints(), mono::Color::MAGENTA, 1.0f);
+    }
+
+    if(path_type == mono::PathType::BEZIER_CUBIC)
+    {
+        // Layout: P0, C1out, C2in, P3, [C2in, P3]*
+        // Each (even, odd) pair is a handle line; also draw reflected outgoing handles at intermediate anchors.
+        std::vector<math::Vector> handle_lines;
+        const int n = int(vertices.size());
+
+        for(int i = 0; i + 1 < n; i += 2)
+            handle_lines.insert(handle_lines.end(), { vertices[i], vertices[i + 1] });
+
+        for(int k = 1; k * 2 + 1 < n; ++k)
+        {
+            const math::Vector anchor      = vertices[k * 2 + 1];
+            const math::Vector c2in        = vertices[k * 2];
+            const math::Vector c1_reflected = anchor * 2.0f - c2in;
+            handle_lines.insert(handle_lines.end(), { anchor, c1_reflected });
+        }
+
+        renderer.DrawLines(handle_lines, handle_color, 1.0f);
+    }
+    else if(path_type == mono::PathType::BEZIER_QUADRATIC)
+    {
+        // Layout: A0, C0, A1, C1, ... Each control connects to its two adjacent anchors.
+        std::vector<math::Vector> handle_lines;
+        const int n = int(vertices.size());
+
+        for(int i = 1; i < n; i += 2)
+        {
+            handle_lines.insert(handle_lines.end(), { vertices[i - 1], vertices[i] });
+            if(i + 1 < n)
+                handle_lines.insert(handle_lines.end(), { vertices[i], vertices[i + 1] });
+        }
+
+        renderer.DrawLines(handle_lines, handle_color, 1.0f);
+    }
 }
 
 void editor::DrawCameraPoint(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)

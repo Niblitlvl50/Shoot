@@ -49,7 +49,9 @@ InvaderPathController::InvaderPathController(uint32_t entity_id, mono::SystemCon
 
     m_path_behaviour.Init(m_body);
     m_path_behaviour.SetTrackingSpeed(tweak_values::path_speed);
-    m_path_behaviour.SetPingPong(true);
+    //m_path_behaviour.SetPingPong(true);
+    m_path_behaviour.SetLoop(true);
+    m_path_behaviour.SetApplyRotation(true);
 
     m_spawn_position = m_transform_system->GetWorldPosition(entity_id);
 

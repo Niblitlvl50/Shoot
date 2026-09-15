@@ -17,7 +17,6 @@ void GrabberVisualizer::Draw(mono::IRenderer& renderer) const
     if(m_grabbers.empty())
         return;
 
-    constexpr mono::Color::RGBA default_color(1.0f, 0.5f, 0.0f, 0.8f);
     constexpr mono::Color::RGBA hoover_color(0.0f, 0.5f, 1.0f, 1.0f);
 
     std::vector<math::Vector> points;
@@ -29,7 +28,7 @@ void GrabberVisualizer::Draw(mono::IRenderer& renderer) const
     for(const Grabber& grabber : m_grabbers)
     {
         points.push_back(grabber.position);
-        colors.push_back(grabber.hoover ? hoover_color : default_color);
+        colors.push_back(grabber.hoover ? hoover_color : grabber.color);
     }
 
     std::unique_ptr<mono::IRenderBuffer> vertex_buffer = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 2, points.size(), points.data(), "grabber_draw_buffer");

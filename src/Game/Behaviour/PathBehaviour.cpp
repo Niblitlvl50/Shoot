@@ -2,6 +2,7 @@
 #include "PathBehaviour.h"
 
 #include "Math/CriticalDampedSpring.h"
+#include "Math/MathFunctions.h"
 #include "Paths/IPath.h"
 #include "Physics/IBody.h"
 #include "System/Debug.h"
@@ -40,6 +41,11 @@ void PathBehaviour::SetPingPong(bool ping_pong)
     m_ping_pong = ping_pong;
 }
 
+void PathBehaviour::SetLoop(bool loop)
+{
+    m_loop = loop;
+}
+
 PathResult PathBehaviour::Run(float delta_s)
 {
     PathResult result;
@@ -64,6 +70,10 @@ PathResult PathBehaviour::Run(float delta_s)
             m_direction = 1.0f;
         }
     }
+    else if(m_loop && m_current_position >= m_path->Length())
+    {
+        m_current_position = 0.0f;
+    }
 
     math::Vector current_position = m_entity_body->GetPosition();
     const mono::PositionResult position_result = m_path->GetPositionByLength(m_current_position);
@@ -80,6 +90,12 @@ PathResult PathBehaviour::Run(float delta_s)
             delta_s);
             
         m_entity_body->SetVelocity(m_move_velocity);
+
+        if(m_apply_rotation)
+        {
+            const math::Vector tangent = m_path->GetTangentByLength(m_current_position) * m_direction;
+            m_entity_body->SetAngle(math::AngleFromVector(tangent));
+        }
     }
 
     const mono::LengthResult length_result = m_path->GetLengthFromPosition(m_entity_body->GetPosition());
@@ -92,6 +108,11 @@ PathResult PathBehaviour::Run(float delta_s)
     //m_entity_body->ApplyLocalImpulse(mass_adjusted_impulse, math::ZeroVec);
 
     return result;
+}
+
+void PathBehaviour::SetApplyRotation(bool apply_rotation)
+{
+    m_apply_rotation = apply_rotation;
 }
 
 PathDebugData PathBehaviour::GetDebugData() const

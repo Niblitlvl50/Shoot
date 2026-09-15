@@ -5,6 +5,8 @@
 
 #include "EntitySystem/ObjectAttribute.h"
 #include "Entity/Component.h"
+#include "Paths/PathTypes.h"
+#include "Rendering/Color.h"
 #include "UI/UIProperties.h"
 #include "Math/MathFunctions.h"
 #include "Math/Vector.h"
@@ -173,12 +175,27 @@ std::vector<Grabber> ComponentProxy::GetGrabbers()
 
     std::vector<Grabber> grabbers;
 
+    constexpr mono::Color::RGBA anchor_color  = { 1.0f, 0.6f, 0.0f, 1.0f };
+    constexpr mono::Color::RGBA control_color = { 0.0f, 0.8f, 1.0f, 0.8f };
+
     for(ComponentAndAttribute& comp_attr : grabber_attributes)
     {
         const Component* local_component = comp_attr.component;
         std::vector<math::Vector>& points = std::get<std::vector<math::Vector>>(comp_attr.attribute->value);
-        for(math::Vector& point : points)
+
+        // Determine path type for this attribute so we can color anchors vs controls.
+        mono::PathType path_type = mono::PathType::REGULAR;
+        if(comp_attr.attribute->id == PATH_POINTS_ATTRIBUTE)
         {
+            int path_type_int = 0;
+            FindAttribute(PATH_TYPE_ATTRIBUTE, local_component->properties, path_type_int, FallbackMode::SET_DEFAULT);
+            path_type = mono::PathType(path_type_int);
+        }
+
+        for(int point_index = 0; point_index < int(points.size()); ++point_index)
+        {
+            math::Vector& point = points[point_index];
+
             Grabber grabber;
             grabber.position = math::Transformed(local_to_world, static_cast<const math::Vector&>(point));
             grabber.callback = [this, local_component, &local_to_world, &point](const math::Vector& new_position) {
@@ -186,6 +203,9 @@ std::vector<Grabber> ComponentProxy::GetGrabbers()
                 point = math::Transformed(world_to_local, new_position);
                 m_entity_manager->SetComponentData(m_entity_id, local_component->hash, local_component->properties);
             };
+
+            if(path_type != mono::PathType::REGULAR)
+                grabber.color = mono::IsAnchorPoint(path_type, point_index) ? anchor_color : control_color;
 
             grabbers.push_back(grabber);
         }

@@ -36,6 +36,8 @@ namespace game
         void SetPath(const mono::IPathPtr path);
         void SetTrackingSpeed(float meter_per_second);
         void SetPingPong(bool ping_pong);
+        void SetLoop(bool loop);
+        void SetApplyRotation(bool apply_rotation);
         PathResult Run(float delta_s);
         PathDebugData GetDebugData() const;
 
@@ -48,6 +50,8 @@ namespace game
         float m_meter_per_second = 1.0f;
         float m_direction = 1.0f;
         bool m_ping_pong = false;
+        bool m_loop = false;
+        bool m_apply_rotation = false;
         math::Vector m_move_velocity;
     };
 }
