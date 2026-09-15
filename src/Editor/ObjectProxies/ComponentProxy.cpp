@@ -214,6 +214,19 @@ std::vector<Grabber> ComponentProxy::GetGrabbers()
     return grabbers;
 }
 
+void ComponentProxy::AppendContextMenuItems(std::vector<std::string>& items) const
+{
+    for(const Component& component : m_components)
+    {
+        if(component.hash == PATH_COMPONENT)
+        {
+            items.push_back("Add Path Point");
+            items.push_back("Remove Path Point");
+            break;
+        }
+    }
+}
+
 const std::vector<Component>& ComponentProxy::GetComponents() const
 {
     return m_components;

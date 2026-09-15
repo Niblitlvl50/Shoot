@@ -430,13 +430,13 @@ namespace
             for(size_t index = 0; index < context.context_menu_items.size(); ++index)
             {
                 if(ImGui::Selectable(context.context_menu_items.at(index).c_str()))
-                    menu_index = index;
+                    menu_index = int(index);
             }
 
             ImGui::EndPopup();
 
             if(menu_index != -1)
-                context.context_menu_callback(menu_index);
+                context.context_menu_callback(menu_index, context.right_click_world_position);
         }
     }
 

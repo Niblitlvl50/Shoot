@@ -106,6 +106,7 @@ namespace editor
 
         // Context menu
         bool show_context_menu = false;
+        math::Vector right_click_world_position;
         std::vector<std::string> context_menu_items;
 
         // Components
@@ -134,7 +135,7 @@ namespace editor
         std::function<void (IObjectProxy* proxy)> preselect_object_callback;
         std::function<void (uint32_t entity_id)> teleport_to_object_callback;
         
-        std::function<void (int)> context_menu_callback;
+        std::function<void (int item_index, const math::Vector& menu_world_position)> context_menu_callback;
         std::function<void (int)> modal_selection_callback;
         std::function<void (EditorMenuOptions option)> editor_menu_callback;
         std::function<void (ToolsMenuOptions option)> tools_menu_callback;

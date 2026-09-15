@@ -30,6 +30,7 @@
 #include "TransformSystem/TransformSystem.h"
 #include "Paths/PathSystem.h"
 #include "Paths/PathBatchDrawer.h"
+#include "Paths/PathTypes.h"
 #include "World/WorldBoundsDrawer.h"
 #include "World/WorldBoundsSystem.h"
 #include "UI/UISystem.h"
@@ -221,7 +222,7 @@ Editor::Editor(
     m_context.max_entities = max_entities;
     m_context.all_proxy_objects = &m_proxies;
 
-    m_context.context_menu_callback = std::bind(&Editor::OnContextMenu, this, _1);
+    m_context.context_menu_callback = std::bind(&Editor::OnContextMenu, this, _1, _2);
     m_context.modal_selection_callback = std::bind(&Editor::SelectItemCallback, this, _1);
     m_context.pick_callback = [this](uint32_t component_hash, uint32_t* target_data){
         SetPickingTarget(component_hash, target_data);
@@ -967,9 +968,118 @@ void Editor::AddComponentUI()
     m_context.open_add_component = true;
 }
 
-void Editor::OnContextMenu(int index)
+void Editor::OnContextMenu(int index, const math::Vector& menu_world_position)
 {
-    m_user_input_controller->HandleContextMenu(index);
+    const bool handled = m_user_input_controller->HandleContextMenu(index, menu_world_position);
+    if(!handled)
+    {
+        const std::string& menu_item = m_context.context_menu_items[index];
+        if(menu_item == "Add Path Point")
+            AddPathPoint(menu_world_position);
+        else if(menu_item == "Remove Path Point")
+            RemovePathPoint(menu_world_position);
+    }
+}
+
+void Editor::AppendContextMenuItems(std::vector<std::string>& items) const
+{
+    for(uint32_t id : GetSelection())
+    {
+        IObjectProxy* proxy = FindProxyObject(id);
+        if(proxy)
+            proxy->AppendContextMenuItems(items);
+    }
+}
+
+void Editor::AddPathPoint(const math::Vector& world_position)
+{
+    for(uint32_t id : m_selected_ids)
+    {
+        IObjectProxy* proxy = FindProxyObject(id);
+        if(!proxy)
+            continue;
+
+        Component* path_component = proxy->GetComponentFromHash(PATH_COMPONENT);
+        if(!path_component)
+            continue;
+
+        int path_type_int = 0;
+        FindAttribute(PATH_TYPE_ATTRIBUTE, path_component->properties, path_type_int, FallbackMode::SET_DEFAULT);
+        const mono::PathType path_type = mono::PathType(path_type_int);
+
+        std::vector<math::Vector>* points = nullptr;
+        for(Attribute& attr : path_component->properties)
+        {
+            if(attr.id == PATH_POINTS_ATTRIBUTE)
+            {
+                points = &std::get<std::vector<math::Vector>>(attr.value);
+                break;
+            }
+        }
+        if(!points)
+            continue;
+
+        mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
+        const math::Matrix& local_to_world = transform_system->GetTransform(id);
+        const math::Matrix world_to_local = math::Inverse(local_to_world);
+        const math::Vector local_pos = math::Transformed(world_to_local, world_position);
+
+        if(path_type == mono::PathType::REGULAR)
+        {
+            if(points->size() < 2)
+            {
+                points->push_back(local_pos);
+            }
+            else
+            {
+                // Insert after the nearest segment.
+                float best_dist = math::INF;
+                int insert_after = int(points->size()) - 1;
+                for(int i = 0; i < int(points->size()) - 1; ++i)
+                {
+                    const math::PointOnLineResult r = math::ClosestPointOnLine((*points)[i], (*points)[i + 1], local_pos);
+                    const float d = math::DistanceBetween(r.point, local_pos);
+                    if(d < best_dist)
+                    {
+                        best_dist = d;
+                        insert_after = i;
+                    }
+                }
+                points->insert(points->begin() + insert_after + 1, local_pos);
+            }
+        }
+        else if(path_type == mono::PathType::BEZIER_CUBIC)
+        {
+            // Layout: P0, C1out, C2in, P3, [C2in, P3]*
+            // Append a new segment: C2in (1/3 toward new anchor) + new anchor.
+            if(points->size() >= 4)
+            {
+                const math::Vector last_anchor = points->back();
+                points->push_back(last_anchor + (local_pos - last_anchor) * (1.0f / 3.0f));
+                points->push_back(local_pos);
+            }
+        }
+        else if(path_type == mono::PathType::BEZIER_QUADRATIC)
+        {
+            // Layout: A0, C0, A1, C1, ...
+            // Append control (midpoint) then new anchor.
+            if(points->size() >= 3)
+            {
+                const math::Vector last_anchor = points->back();
+                points->push_back(last_anchor + (local_pos - last_anchor) * 0.5f);
+                points->push_back(local_pos);
+            }
+        }
+
+        proxy->ComponentChanged(*path_component, PATH_POINTS_ATTRIBUTE);
+        UpdateGrabbers();
+        break;
+    }
+}
+
+void Editor::RemovePathPoint(const math::Vector& world_position)
+{
+
 }
 
 void Editor::SelectItemCallback(int index)

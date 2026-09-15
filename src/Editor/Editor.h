@@ -96,7 +96,10 @@ namespace editor
         void DeleteComponent(uint32_t index);
         void AddComponentUI();
 
-        void OnContextMenu(int index);
+        void OnContextMenu(int index, const math::Vector& menu_world_position);
+        void AppendContextMenuItems(std::vector<std::string>& items) const;
+        void AddPathPoint(const math::Vector& world_position);
+        void RemovePathPoint(const math::Vector& world_position);
         void SelectItemCallback(int index);
         void EditorMenuCallback(EditorMenuOptions index);
         void ToolsMenuCallback(ToolsMenuOptions index);

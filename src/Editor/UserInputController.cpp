@@ -82,9 +82,17 @@ UserInputController::~UserInputController()
     m_event_handler.RemoveListener(m_key_up_token);
 }
 
-void UserInputController::HandleContextMenu(int item_index)
+bool UserInputController::HandleContextMenu(int item_index, const math::Vector& menu_world_position)
 {
-    m_active_tool->HandleContextMenu(item_index);
+    /*
+    if(item_index < m_tool_context_menu_count)
+    {
+        m_active_tool->HandleContextMenu(item_index);
+        return true;
+    }
+    */
+
+    return false;
 }
 
 void UserInputController::SelectTool(ToolsMenuOptions option)
@@ -101,6 +109,7 @@ void UserInputController::SelectTool(ToolsMenuOptions option)
     m_active_tool = tool_data.tool;
     m_context->notifications.push_back(tool_data.notification);
     m_context->context_menu_items = tool_data.context_menu;
+    m_tool_context_menu_count = int(tool_data.context_menu.size());
     m_context->active_tool_index = static_cast<int>(option);
 
     m_active_tool->Begin();
@@ -190,6 +199,12 @@ mono::EventResult UserInputController::OnMouseUp(const event::MouseUpEvent& even
     }
     else if(event.key == MouseButton::RIGHT)
     {
+        // Rebuild the full context menu: tool items first, then entity items.
+        m_context->context_menu_items.resize(m_tool_context_menu_count);
+        m_editor->AppendContextMenuItems(m_context->context_menu_items);
+        
+        const math::Vector world_position = { event.world_x, event.world_y };
+        m_context->right_click_world_position = world_position;
         m_context->show_context_menu = !m_context->context_menu_items.empty();
     }
 

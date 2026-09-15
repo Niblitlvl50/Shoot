@@ -28,7 +28,7 @@ namespace editor
             mono::EventHandler& event_handler);
         ~UserInputController();
 
-        void HandleContextMenu(int item_index);
+        bool HandleContextMenu(int item_index, const math::Vector& menu_world_position);
         void SelectTool(ToolsMenuOptions option);
 
     private:
@@ -64,6 +64,7 @@ namespace editor
         editor::Grabber* m_grabber;
         bool m_box_selection;
         math::Vector m_click_point;
+        int m_tool_context_menu_count = 0;
     };
 }
 

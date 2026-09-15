@@ -40,6 +40,7 @@ namespace editor
         bool Intersects(const math::Vector& position) const override;
         bool Intersects(const math::Quad& world_bb) const override;
         std::vector<Grabber> GetGrabbers() override;
+        void AppendContextMenuItems(std::vector<std::string>& items) const override;
 
         void SetName(const std::string& name);
         void SetFolder(const std::string& folder);
