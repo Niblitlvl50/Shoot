@@ -156,6 +156,11 @@ extern const uint32_t ANIM_NOTIFY_ATTRIBUTE;
 extern const uint32_t EDGE_FADE_ATTRIBUTE;
 extern const uint32_t STRETCH_TO_WIDTH_ATTRIBUTE;
 
+extern const uint32_t PATH_SPEED_ATTRIBUTE;
+extern const uint32_t PATH_LOOP_ATTRIBUTE;
+extern const uint32_t PING_PONG_ATTRIBUTE;
+extern const uint32_t APPLY_ROTATION_ATTRIBUTE;
+
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);
 const Variant& DefaultAttributeFromHash(uint32_t hash);
@@ -264,6 +269,7 @@ extern const uint32_t MISSION_TRACKER_COMPONENT;
 extern const uint32_t MISSION_ACTIVATION_COMPONENT;
 extern const uint32_t MISSION_LOCATION_COMPONENT;
 extern const uint32_t PHYSICS_IMPULSE_COMPONENT;
+extern const uint32_t PATH_FOLLOWER_COMPONENT;
 
 struct Component
 {

@@ -18,6 +18,9 @@ PathBehaviour::PathBehaviour(mono::IBody* entity_body, mono::IPathPtr path)
     SetPath(std::move(path));
 }
 
+PathBehaviour::PathBehaviour(PathBehaviour&& other) noexcept = default;
+PathBehaviour& PathBehaviour::operator=(PathBehaviour&& other) noexcept = default;
+
 PathBehaviour::~PathBehaviour()
 { }
 
@@ -46,6 +49,16 @@ void PathBehaviour::SetLoop(bool loop)
     m_loop = loop;
 }
 
+void PathBehaviour::SetOffset(const math::Vector& offset)
+{
+    m_offset = offset;
+}
+
+void PathBehaviour::SetPaused(bool paused)
+{
+    m_paused = paused;
+}
+
 PathResult PathBehaviour::Run(float delta_s)
 {
     PathResult result;
@@ -55,46 +68,54 @@ PathResult PathBehaviour::Run(float delta_s)
     if(!m_path)
         return result;
 
-    m_current_position += m_meter_per_second * m_direction * delta_s;
-
-    if(m_ping_pong)
+    if(m_paused)
     {
-        if(m_current_position >= m_path->Length())
+        m_entity_body->SetVelocity(math::ZeroVec);
+    }
+    else
+    {
+        m_current_position += m_meter_per_second * m_direction * delta_s;
+
+        if(m_ping_pong)
         {
-            m_current_position = m_path->Length();
-            m_direction = -1.0f;
+            if(m_current_position >= m_path->Length())
+            {
+                m_current_position = m_path->Length();
+                m_direction = -1.0f;
+            }
+            else if(m_current_position <= 0.0f)
+            {
+                m_current_position = 0.0f;
+                m_direction = 1.0f;
+            }
         }
-        else if(m_current_position <= 0.0f)
+        else if(m_loop && m_current_position >= m_path->Length())
         {
             m_current_position = 0.0f;
-            m_direction = 1.0f;
         }
-    }
-    else if(m_loop && m_current_position >= m_path->Length())
-    {
-        m_current_position = 0.0f;
-    }
 
-    math::Vector current_position = m_entity_body->GetPosition();
-    const mono::PositionResult position_result = m_path->GetPositionByLength(m_current_position);
-    if(position_result.valid_position)
-    {
-       constexpr float move_halflife = 0.3f;
-        
-        math::critical_spring_damper(
-            current_position,
-            m_move_velocity,
-            position_result.path_position,
-            math::ZeroVec,
-            move_halflife,
-            delta_s);
-            
-        m_entity_body->SetVelocity(m_move_velocity);
-
-        if(m_apply_rotation)
+        math::Vector current_position = m_entity_body->GetPosition();
+        const mono::PositionResult position_result = m_path->GetPositionByLength(m_current_position);
+        if(position_result.valid_position)
         {
-            const math::Vector tangent = m_path->GetTangentByLength(m_current_position) * m_direction;
-            m_entity_body->SetAngle(math::AngleFromVector(tangent));
+            constexpr float move_halflife = 0.3f;
+            const math::Vector target_position = position_result.path_position + m_offset;
+
+            math::critical_spring_damper(
+                current_position,
+                m_move_velocity,
+                target_position,
+                math::ZeroVec,
+                move_halflife,
+                delta_s);
+
+            m_entity_body->SetVelocity(m_move_velocity);
+
+            if(m_apply_rotation)
+            {
+                const math::Vector tangent = m_path->GetTangentByLength(m_current_position) * m_direction;
+                m_entity_body->SetAngle(math::AngleFromVector(tangent));
+            }
         }
     }
 
@@ -126,7 +147,7 @@ PathDebugData PathBehaviour::GetDebugData() const
     {
         const mono::PositionResult pos_result = m_path->GetPositionByLength(m_current_position);
         if(pos_result.valid_position)
-            data.target_position = pos_result.path_position;
+            data.target_position = pos_result.path_position + m_offset;
     }
 
     return data;

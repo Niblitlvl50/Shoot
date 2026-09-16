@@ -14,6 +14,7 @@
 #include "Entity/AnimationSystem.h"
 #include "Entity/TargetSystem.h"
 #include "Entity/EntityLifetimeTriggerSystem.h"
+#include "Behaviour/PathFollowerSystem.h"
 #include "GameCamera/CameraSystem.h"
 #include "GamePhysics/GamePhysicsSystem.h"
 #include "InteractionSystem/InteractionSystem.h"
@@ -1302,6 +1303,42 @@ namespace
 
         return true;
     }
+
+    bool CreatePathFollower(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::PathFollowerSystem* path_follower_system = context->GetSystem<game::PathFollowerSystem>();
+        path_follower_system->AllocatePathFollower(entity->id);
+        return true;
+    }
+
+    bool ReleasePathFollower(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::PathFollowerSystem* path_follower_system = context->GetSystem<game::PathFollowerSystem>();
+        path_follower_system->ReleasePathFollower(entity->id);
+        return true;
+    }
+
+    bool UpdatePathFollower(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        uint32_t path_entity_reference = mono::INVALID_ID;
+        float speed;
+        bool loop;
+        bool ping_pong;
+        bool apply_rotation;
+        math::Vector offset;
+
+        FindAttribute(ENTITY_REFERENCE_ATTRIBUTE, properties, path_entity_reference, FallbackMode::SET_DEFAULT);
+        FindAttribute(PATH_SPEED_ATTRIBUTE, properties, speed, FallbackMode::SET_DEFAULT);
+        FindAttribute(PATH_LOOP_ATTRIBUTE, properties, loop, FallbackMode::SET_DEFAULT);
+        FindAttribute(PING_PONG_ATTRIBUTE, properties, ping_pong, FallbackMode::SET_DEFAULT);
+        FindAttribute(APPLY_ROTATION_ATTRIBUTE, properties, apply_rotation, FallbackMode::SET_DEFAULT);
+        FindAttribute(OFFSET_ATTRIBUTE, properties, offset, FallbackMode::SET_DEFAULT);
+
+        game::PathFollowerSystem* path_follower_system = context->GetSystem<game::PathFollowerSystem>();
+        path_follower_system->SetPathFollowerData(entity->id, path_entity_reference, speed, loop, ping_pong, apply_rotation, offset);
+
+        return true;
+    }
 }
 
 void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
@@ -1347,4 +1384,5 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(MISSION_ACTIVATION_COMPONENT, CreateMissionActivator, ReleaseMissionActivator, UpdateMissionActivator);
     entity_manager->RegisterComponent(MISSION_LOCATION_COMPONENT, CreateMissionLocation, ReleaseMissionLocation);
     entity_manager->RegisterComponent(PHYSICS_IMPULSE_COMPONENT, CreatePhysicsImpulse, ReleasePhysicsImpulse, UpdatePhysicsImpulse);
+    entity_manager->RegisterComponent(PATH_FOLLOWER_COMPONENT, CreatePathFollower, ReleasePathFollower, UpdatePathFollower);
 }

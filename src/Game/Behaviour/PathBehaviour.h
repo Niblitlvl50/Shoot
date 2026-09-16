@@ -30,6 +30,8 @@ namespace game
 
         PathBehaviour();
         PathBehaviour(mono::IBody* body, mono::IPathPtr path);
+        PathBehaviour(PathBehaviour&& other) noexcept;
+        PathBehaviour& operator=(PathBehaviour&& other) noexcept;
         ~PathBehaviour();
 
         void Init(mono::IBody* body);
@@ -38,6 +40,8 @@ namespace game
         void SetPingPong(bool ping_pong);
         void SetLoop(bool loop);
         void SetApplyRotation(bool apply_rotation);
+        void SetOffset(const math::Vector& offset);
+        void SetPaused(bool paused);
         PathResult Run(float delta_s);
         PathDebugData GetDebugData() const;
 
@@ -52,6 +56,8 @@ namespace game
         bool m_ping_pong = false;
         bool m_loop = false;
         bool m_apply_rotation = false;
+        bool m_paused = false;
         math::Vector m_move_velocity;
+        math::Vector m_offset;
     };
 }
