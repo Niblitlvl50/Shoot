@@ -52,6 +52,8 @@ namespace game
         void Begin() override;
         void Reset() override;
 
+        void SetTrainMode(bool train_mode);
+
         void SpawnPlayersAt(const math::Vector& spawn_position, const PlayerSpawnedCallback& callback);
         uint32_t SpawnPackageAt(const math::Vector& spawn_position);
 
@@ -95,6 +97,7 @@ namespace game
 
         uint32_t m_collect_weapon_exp_id;
         bool m_spawn_players;
+        bool m_train_logic;
         math::Vector m_player_spawn;
         PlayerSpawnedCallback m_player_spawned_callback;
 

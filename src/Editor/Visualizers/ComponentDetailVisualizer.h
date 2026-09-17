@@ -15,7 +15,7 @@ namespace editor
 {
     class IObjectProxy;
 
-    using ComponentDrawFunc = void(*)(mono::IRenderer& renderer, const std::vector<Attribute>& component_attributes, const math::Quad& entity_bb);
+    using ComponentDrawFunc = void(*)(mono::IRenderer& renderer, const std::vector<Attribute>& component_attributes, const math::Quad& entity_bb, uint32_t entity_id);
     using ComponentDrawMap = std::unordered_map<uint32_t, ComponentDrawFunc>;
 
     class ComponentDetailVisualizer : public mono::IDrawable

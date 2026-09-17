@@ -1,0 +1,565 @@
+
+#include "TrainLogic.h"
+#include "DecoyLogic.h"
+#include "Player/PlayerInfo.h"
+
+#include "Entity/EntityLogicSystem.h"
+#include "Entity/Component.h"
+#include "Events/PackageEvents.h"
+
+#include "SystemContext.h"
+
+#include "Debug/IDebugDrawer.h"
+#include "Input/InputSystem.h"
+#include "TransformSystem/TransformSystem.h"
+#include "Physics/PhysicsSystem.h"
+#include "Physics/IShape.h"
+#include "Physics/IConstraint.h"
+#include "Physics/PhysicsSpace.h"
+#include "Rendering/RenderSystem.h"
+#include "Rendering/Sprite/Sprite.h"
+#include "Rendering/Sprite/SpriteSystem.h"
+#include "Rendering/Sprite/SpriteProperties.h"
+#include "Rendering/Lights/LightSystem.h"
+#include "Particle/ParticleSystem.h"
+
+#include "DamageSystem/DamageSystem.h"
+#include "InteractionSystem/InteractionSystem.h"
+#include "Weapons/IWeapon.h"
+#include "Weapons/WeaponSystem.h"
+#include "Weapons/Modifiers/DamageModifier.h"
+#include "Weapons/Modifiers/BulletBehaviourModifiers.h"
+#include "Entity/TargetSystem.h"
+
+#include "EntitySystem/IEntityManager.h"
+#include "EventHandler/EventHandler.h"
+#include "Events/PauseEvent.h"
+#include "Events/PlayerEvents.h"
+#include "Math/MathFunctions.h"
+#include "Math/CriticalDampedSpring.h"
+#include "Util/Random.h"
+
+#include "Effects/SmokeEffect.h"
+#include "Effects/ShockwaveEffect.h"
+#include "Effects/FootStepsEffect.h"
+#include "Effects/WeaponModifierEffect.h"
+#include "Pickups/PickupSystem.h"
+#include "DamageSystem/Shockwave.h"
+
+#include "HookshotLogic.h"
+
+#include <cmath>
+
+namespace tweak_values
+{
+    constexpr float force_multiplier = 250.0f;
+    constexpr float blink_duration_s = 0.2f;
+    constexpr float blink_distance = 2.0f;
+    constexpr float blink_cooldown_threshold_s = 2.0f;
+    constexpr float shockwave_cooldown_s = 2.0f;
+    constexpr float shield_cooldown_s = 2.0f;
+
+    constexpr float footstep_length = 0.4f;
+    constexpr float stamina_consumption_per_s = 0.5f;
+    constexpr float stamina_recover_thresold_s = 0.75f;
+}
+
+namespace
+{
+    struct PlayerLevelExperience
+    {
+        int level;
+        int current_level_experience;
+        int next_level_experience;
+    };
+    
+    PlayerLevelExperience GetPlayerLevelExperience(int player_experience, const std::vector<int>& player_levels)
+    {
+        auto it = std::lower_bound(player_levels.begin(), player_levels.end(), player_experience);
+        const int level_index = std::distance(player_levels.begin(), it);
+        
+        PlayerLevelExperience weapon_level_exp;
+        weapon_level_exp.level = level_index;
+        weapon_level_exp.next_level_experience = *it;
+        weapon_level_exp.current_level_experience = (it == player_levels.begin()) ? 0 : *(--it);
+        
+        return weapon_level_exp;
+    }
+}
+
+using namespace game;
+
+TrainLogic::TrainLogic(
+    uint32_t entity_id,
+    PlayerInfo* player_info,
+    const PlayerConfig& config,
+    mono::InputSystem* input_system,
+    mono::EventHandler* event_handler,
+    mono::SystemContext* system_context)
+    : m_entity_id(entity_id)
+    , m_player_info(player_info)
+    , m_config(config)
+//    , m_gamepad_controller(this)
+//    , m_keyboard_controller(this)
+    , m_event_handler(event_handler)
+    , m_pause(false)
+    , m_aim_direction(0.0f)
+    , m_aim_target(0.0f)
+    , m_aim_velocity(0.0f)
+    , m_sprint(false)
+    , m_stamina(1.0f)
+    , m_stamina_recover_timer_s(0.0f)
+    , m_accumulated_step_distance(0.0f)
+    , m_blink_cooldown(tweak_values::blink_cooldown_threshold_s)
+    , m_shockwave_cooldown(tweak_values::shockwave_cooldown_s)
+    , m_shield_cooldown(tweak_values::shield_cooldown_s)
+    , m_picked_up_id(mono::INVALID_ID)
+    , m_pickup_constraint(nullptr)
+{
+    m_transform_system = system_context->GetSystem<mono::TransformSystem>();
+    m_input_system = system_context->GetSystem<mono::InputSystem>();
+    m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
+    m_render_system = system_context->GetSystem<mono::RenderSystem>();
+    m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
+    m_light_system = system_context->GetSystem<mono::LightSystem>();
+    m_entity_system = system_context->GetSystem<mono::IEntityManager>();
+    m_damage_system = system_context->GetSystem<DamageSystem>();
+    m_pickup_system = system_context->GetSystem<PickupSystem>();
+    m_interaction_system = system_context->GetSystem<InteractionSystem>();
+    m_logic_system = system_context->GetSystem<game::EntityLogicSystem>();
+    m_target_system = system_context->GetSystem<game::TargetSystem>();
+
+    const System::ControllerId controller_id = player_info->controller_id;
+
+    m_input_context = m_input_system->CreateContext(1, mono::InputContextBehaviour::ConsumeIfHandled, "PlayerLogicInput");
+    //m_input_context->keyboard_input = (controller_id == System::ControllerId::Primary) ? &m_keyboard_controller : nullptr;
+    //m_input_context->mouse_input = (controller_id == System::ControllerId::Primary) ? &m_keyboard_controller : nullptr;
+    //m_input_context->controller_input = &m_gamepad_controller;
+    m_input_context->controller_id = controller_id;
+
+    mono::ISprite* sprite = m_sprite_system->GetSprite(entity_id);
+    m_idle_anim_id = sprite->GetAnimationIdFromName("idle");
+    m_run_anim_id = sprite->GetAnimationIdFromName("run");
+    m_run_up_anim_id = sprite->GetAnimationIdFromName("run_up");
+    if(m_run_up_anim_id == -1)
+        m_run_up_anim_id = m_run_anim_id;
+    m_death_anim_id = sprite->GetAnimationIdFromName("death");
+
+    using namespace std::placeholders;
+    game::PickupCallback handle_pickups = std::bind(&TrainLogic::HandlePickup, this, _1, _2);
+    m_pickup_system->RegisterPickupTarget(m_entity_id, handle_pickups);
+
+    m_drop_box_sound = audio::CreateSound(
+        "res/sound/punch.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
+    m_pickup_box_sound = audio::CreateSound(
+        "res/sound/punch.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
+    
+    m_running_sounds[0] = audio::CreateSound(
+        "res/sound/footsteps/grass/steps1.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
+    m_running_sounds[1] = audio::CreateSound(
+        "res/sound/footsteps/grass/steps2.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
+
+    mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
+    m_smoke_effect = std::make_unique<SmokeEffect>(particle_system, m_entity_system);
+
+    m_aim_target = m_aim_direction = -math::PI_2();
+
+    const TrainStateMachine::StateTable state_table = {
+        TrainStateMachine::MakeState(TrainStates::DEFAULT, &TrainLogic::ToDefault, &TrainLogic::DefaultState, this),
+        TrainStateMachine::MakeState(TrainStates::DEAD, &TrainLogic::ToDead, &TrainLogic::DeadState, &TrainLogic::ExitDead, this),
+    };
+    m_state.SetStateTableAndState(state_table, TrainStates::DEFAULT);
+
+    m_hookshot = std::make_unique<Hookshot>(m_entity_id, m_entity_system, m_physics_system, m_sprite_system, m_transform_system, m_logic_system);
+
+    // Make sure the player info is updated when constructed.
+    UpdatePlayerInfo(0);
+}
+
+TrainLogic::~TrainLogic()
+{
+    Throw(0.0f);
+
+    m_input_system->ReleaseContext(m_input_context);
+    m_pickup_system->UnregisterPickupTarget(m_entity_id);
+}
+
+void TrainLogic::DrawDebugInfo(IDebugDrawer* debug_drawer) const
+{
+    const math::Vector world_position = m_transform_system->GetWorldPosition(m_entity_id);
+
+    char buffer[512] = {};
+    std::snprintf(buffer, std::size(buffer), "%.2f, %s", m_stamina, m_sprint ? "sprint" : "walk");
+    debug_drawer->DrawWorldText(buffer, world_position, mono::Color::OFF_WHITE);
+}
+
+const char* TrainLogic::GetDebugCategory() const
+{
+    return "train";
+}
+
+void TrainLogic::Update(const mono::UpdateContext& update_context)
+{
+    m_state.UpdateState(update_context);
+
+    m_blink_cooldown += update_context.delta_s;
+    m_shockwave_cooldown += update_context.delta_s;
+    m_shield_cooldown += update_context.delta_s;
+
+    float stamina_multiplier;
+    if(m_sprint)
+    {
+        stamina_multiplier = 1.0f;
+    }
+    else if(m_stamina_recover_timer_s < tweak_values::stamina_recover_thresold_s)
+    {
+        m_stamina_recover_timer_s += update_context.delta_s;
+        stamina_multiplier = 0.0f;
+    }
+    else
+    {
+        stamina_multiplier = -1.0f;
+    }
+
+    m_stamina = std::clamp(m_stamina - (update_context.delta_s * tweak_values::stamina_consumption_per_s * stamina_multiplier), 0.0f, 1.0f);
+
+    UpdatePlayerInfo(update_context.timestamp);
+}
+
+void TrainLogic::UpdatePlayerInfo(uint32_t timestamp)
+{
+    const math::Matrix& transform = m_transform_system->GetWorld(m_entity_id);
+    const math::Vector last_position = m_player_info->position;
+    const math::Vector current_position = math::GetPosition(transform);
+
+    m_accumulated_step_distance += math::DistanceBetween(last_position, current_position);
+
+    mono::IBody* body = m_physics_system->GetBody(m_entity_id);
+
+    m_player_info->position = current_position;
+    m_player_info->velocity = body->GetVelocity();
+    m_player_info->direction = math::GetZRotation(transform);
+    m_player_info->aim_direction = math::VectorFromAngle(m_aim_direction);
+    m_player_info->aim_crosshair_screen_position = m_aim_screen_position;
+
+    m_player_info->persistent_data.laser_sight = true;
+
+    m_player_info->cooldown_id = 0;
+    m_player_info->cooldown_fraction = 1.0f;
+
+    const bool is_allocated = m_damage_system->IsAllocated(m_entity_id);
+    if(is_allocated)
+    {
+        const DamageRecord* player_damage_record = m_damage_system->GetDamageRecord(m_entity_id);
+        m_player_info->health_fraction = float(player_damage_record->health) / float(player_damage_record->full_health);
+    }
+
+    const PlayerLevelExperience& player_levels = GetPlayerLevelExperience(m_player_info->persistent_data.experience, m_config.player_levels);
+    m_player_info->player_level = player_levels.level;
+
+    m_player_info->stamina_fraction = m_stamina;
+    m_player_info->player_experience_fraction =
+        math::Scale01Clamped(float(m_player_info->persistent_data.experience), float(player_levels.current_level_experience), float(player_levels.next_level_experience));
+    m_player_info->weapon_experience_fraction = 0.0f;
+
+    m_player_info->active_weapon_modifiers.clear();
+    m_player_info->last_used_input = m_input_context->most_recent_input;
+}
+
+void TrainLogic::UpdateMovement(const mono::UpdateContext& update_context)
+{
+    const float length_squared = math::LengthSquared(m_movement_direction);
+    if(length_squared <= FLT_EPSILON)
+    {
+
+    }
+    else
+    {
+        //const float sprint_multiplier = m_sprint && HasStamina() ? 1.5f : 1.0f;
+        //ApplyForce(m_movement_direction * tweak_values::force_multiplier * sprint_multiplier);
+    }
+}
+
+void TrainLogic::UpdateAnimation(const mono::UpdateContext& update_context, float aim_direction, const math::Vector& world_position, const math::Vector& player_velocity)
+{
+    float anim_speed = 1.0f;
+    int anim_id = m_idle_anim_id;
+
+    const float velocity_magnitude = math::Length(player_velocity);
+
+    const bool facing_left = (aim_direction > 0.0f);
+    const bool facing_down = (std::abs(player_velocity.x) >= player_velocity.y);
+
+    if(velocity_magnitude > 0.2f)
+    {
+        anim_id = facing_down ? m_run_anim_id : m_run_up_anim_id;
+        anim_speed = std::clamp(math::Scale01(velocity_magnitude, 0.0f, 3.0f), 0.5f, 10.0f);
+    }
+
+    if(m_accumulated_step_distance >= tweak_values::footstep_length)
+    {
+        const int sound_index = mono::RandomInt(0, std::size(m_running_sounds) -1);
+        m_running_sounds[sound_index]->Play();
+        m_accumulated_step_distance = 0.0f;
+    }
+
+    mono::Sprite* sprite = m_sprite_system->GetSprite(m_entity_id);
+    if(facing_left)
+        sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
+    else
+        sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
+
+    if(anim_id != sprite->GetActiveAnimation())
+        sprite->SetAnimation(anim_id);
+    sprite->SetAnimationPlaybackSpeed(anim_speed);
+
+    const bool reverse_playback = (facing_left && player_velocity.x > 0.0f) || (!facing_left && player_velocity.x < 0.0f);
+    if(reverse_playback)
+        sprite->SetAnimationPlayback(mono::PlaybackMode::PLAYING_REVERSE);
+    else
+        sprite->SetAnimationPlayback(mono::PlaybackMode::PLAYING);
+
+    const math::Vector aim_target_vector = math::VectorFromAngle(m_aim_target);
+    const math::Vector aim_direction_vector = math::VectorFromAngle(m_aim_direction);
+    const float delta_angle_between = math::AngleBetweenPoints(aim_target_vector, aim_direction_vector);
+
+    math::simple_spring_damper_implicit(
+        m_aim_direction, m_aim_velocity, m_aim_direction - delta_angle_between, 0.1f, update_context.delta_s);
+    m_aim_direction = math::NormalizeAngle(m_aim_direction);
+}
+
+void TrainLogic::UpdateController(const mono::UpdateContext& update_context)
+{
+    /*
+    const uint32_t player_index = FindPlayerIndex(m_player_info);
+    // Select most recent input if player zero, else just go with gamepad. 
+    if(m_input_context->most_recent_input == mono::InputContextType::Controller || player_index > 0)
+    m_gamepad_controller.Update(update_context);
+    else
+    m_keyboard_controller.Update(update_context);
+    */
+}
+
+void TrainLogic::ToDefault()
+{ }
+
+void TrainLogic::DefaultState(const mono::UpdateContext& update_context)
+{
+    UpdateController(update_context);
+
+    const math::Vector& position = m_transform_system->GetWorldPosition(m_entity_id);
+    const math::Vector aim_vector = math::VectorFromAngle(m_aim_direction);
+    const math::Vector fire_position = position + (aim_vector * 0.5f);
+    const math::Vector target_fire_position = position + (aim_vector * 100.0f);
+
+    uint32_t collision_mask = PLAYER_BULLET_MASK;
+    if(HoldingPickup())
+        collision_mask &= ~CollisionCategory::PACKAGE;
+
+    mono::PhysicsSpace* physics_space = m_physics_system->GetSpace();
+    mono::QueryResult query_result = physics_space->QueryFirst(position, target_fire_position, collision_mask);
+    m_player_info->aim_target = (query_result.body != nullptr) ? query_result.point : target_fire_position;
+
+    UpdateMovement(update_context);
+    UpdateAnimation(update_context, m_aim_direction, position, m_player_info->velocity);
+
+    m_hookshot->Update(update_context);
+
+    if(m_player_info->player_state == PlayerState::DEAD)
+        m_state.TransitionTo(TrainStates::DEAD);
+}
+
+void TrainLogic::ToDead()
+{
+    if(m_death_anim_id != -1)
+    {
+        mono::ISprite* sprite = m_sprite_system->GetSprite(m_entity_id);
+        sprite->SetAnimation(m_death_anim_id);
+    }
+
+    m_sprite_system->SetSpriteEnabled(m_entity_id, false);
+    m_light_system->SetLightEnabled(m_entity_id, false);
+    m_target_system->SetTargetEnabled(m_entity_id, false);
+
+    if(HoldingPickup())
+        Throw(0.0f);
+}
+
+void TrainLogic::DeadState(const mono::UpdateContext& update_context)
+{
+    UpdateController(update_context);
+
+    if(m_player_info->player_state == PlayerState::ALIVE)
+        m_state.TransitionTo(TrainStates::DEFAULT);
+}
+
+void TrainLogic::ExitDead()
+{
+    m_sprite_system->SetSpriteEnabled(m_entity_id, true);
+    m_light_system->SetLightEnabled(m_entity_id, true);
+    m_target_system->SetTargetEnabled(m_entity_id, true);
+}
+
+void TrainLogic::HandlePickup(PickupType type, int meta_data)
+{
+    m_player_info->persistent_data.experience =
+        std::clamp(m_player_info->persistent_data.experience + 10, 0, m_config.max_experience);
+
+    switch(type)
+    {
+    case PickupType::AMMO:
+    {
+        break;
+    }
+    case PickupType::HEALTH:
+    {
+        DamageRecord* damage_record = m_damage_system->GetDamageRecord(m_entity_id);
+        damage_record->health = damage_record->full_health;
+        break;
+    }
+    case PickupType::SECOND_WIND:
+    {
+        m_blink_cooldown = tweak_values::blink_cooldown_threshold_s;
+        m_shockwave_cooldown = tweak_values::shockwave_cooldown_s;
+        m_shield_cooldown = tweak_values::shield_cooldown_s;
+        break;
+    }
+    case PickupType::COINS:
+    {
+        m_player_info->persistent_data.chips += meta_data;
+        break;
+    }
+    case PickupType::EXPERIENCE:
+    {
+        break;
+    }
+    case PickupType::WEAPON_MODIFIER:
+    {
+        break;
+    }
+    };
+}
+
+void TrainLogic::TriggerHookshot()
+{
+    const math::Vector& position = m_transform_system->GetWorldPosition(m_entity_id);
+    m_hookshot->TriggerHookshot(position, m_aim_direction);
+}
+
+void TrainLogic::ReleaseHookshot()
+{
+    m_hookshot->DetachHookshot();
+}
+
+void TrainLogic::Throw(float throw_force)
+{
+    if(!HoldingPickup())
+        return;
+
+    mono::IBody* body = m_physics_system->GetBody(m_picked_up_id);
+    if(body)
+    {
+        m_physics_system->ReleaseConstraint(m_pickup_constraint);
+        m_pickup_constraint = nullptr;
+
+        body->SetMass(m_pickup_mass);
+
+        const math::Vector throw_direction = math::Normalized(math::VectorFromAngle(m_aim_direction));
+        body->ApplyLocalImpulse(throw_direction * throw_force, math::ZeroVec);
+
+        const std::vector<mono::IShape*>& shapes = m_physics_system->GetShapesAttachedToBody(m_picked_up_id);
+        for(mono::IShape* shape : shapes)
+            shape->SetCollisionBit(CollisionCategory::PLAYER | CollisionCategory::PLAYER_BULLET);
+    }
+
+    m_interaction_system->SetInteractionEnabled(m_picked_up_id, true);
+
+    const PackageAction action = (throw_force > 0.0f) ? PackageAction::THROWN : PackageAction::DROPPED;
+    m_event_handler->DispatchEvent(PackagePickupEvent(m_entity_id, m_picked_up_id, action));
+    m_drop_box_sound->Play();
+
+    m_picked_up_id = mono::INVALID_ID;
+}
+
+void TrainLogic::ThrowAction()
+{
+    Throw(100.0f);
+}
+
+void TrainLogic::PickupDrop()
+{
+    if(HoldingPickup())
+    {
+        Throw(0.0f);
+        return;
+    }
+
+    const InteractionCallback interaction_callback = [this](uint32_t interaction_id, InteractionType interaction_type) {
+        if(interaction_type == InteractionType::PICKUP && m_picked_up_id == mono::INVALID_ID)
+        {
+            const bool has_body = m_physics_system->IsAllocated(interaction_id);
+            if(!has_body)
+                return;
+
+            m_picked_up_id = interaction_id;
+            m_interaction_system->SetInteractionEnabled(interaction_id, false);
+
+            mono::IBody* player_body = m_physics_system->GetBody(m_entity_id);
+            mono::IBody* pickup_body = m_physics_system->GetBody(m_picked_up_id);
+            m_pickup_constraint = m_physics_system->CreateSlideJoint(player_body, pickup_body, math::ZeroVec, math::ZeroVec, 0.05f, 0.35f);
+
+            const std::vector<mono::IShape*>& shapes = m_physics_system->GetShapesAttachedToBody(m_picked_up_id);
+            for(mono::IShape* shape : shapes)
+                shape->ClearCollisionBit(CollisionCategory::PLAYER | CollisionCategory::PLAYER_BULLET);
+
+            m_pickup_mass = pickup_body->GetMass();
+            pickup_body->SetMass(0.1f);
+
+            m_event_handler->DispatchEvent(PackagePickupEvent(m_entity_id, m_picked_up_id, PackageAction::PICKED_UP));
+            m_pickup_box_sound->Play();
+
+            // Must handle destroyed package while holding it and then player death.
+
+            //const mono::ReleaseCallback release_callback = [this](uint32_t entity_id) {
+            //};
+            //const uint32_t m_package_release_callback = m_entity_system->AddReleaseCallback(m_picked_up_id, release_callback);
+        }
+        else if(interaction_type == InteractionType::WEAPON)
+        {
+        }
+    };
+    m_interaction_system->TryTriggerInteraction(m_entity_id, interaction_callback);
+}
+
+bool TrainLogic::HoldingPickup() const
+{
+    return (m_picked_up_id != mono::INVALID_ID);
+}
+
+void TrainLogic::Sprint()
+{
+    m_sprint = true;
+    m_stamina_recover_timer_s = 0.0f;
+}
+
+void TrainLogic::StopSprint()
+{
+    m_sprint = false;
+}
+
+bool TrainLogic::HasStamina() const
+{
+    return m_stamina > 0.0f;
+}
+
+void TrainLogic::RespawnPlayer()
+{
+    m_event_handler->DispatchEvent(game::RespawnPlayerEvent(m_entity_id));
+}
+
+void TrainLogic::TogglePauseGame()
+{
+    m_pause = !m_pause;
+    m_event_handler->DispatchEvent(event::PauseEvent(m_pause));
+}
+

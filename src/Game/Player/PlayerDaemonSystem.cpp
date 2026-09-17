@@ -1,6 +1,7 @@
 
 #include "PlayerDaemonSystem.h"
 #include "Player/PlayerLogic.h"
+#include "Player/TrainLogic.h"
 #include "Player/PackageLogic.h"
 #include "Player/PlayerInfo.h"
 #include "Player/SaveSystem.h"
@@ -54,6 +55,7 @@ PlayerDaemonSystem::PlayerDaemonSystem(
     , m_camera_system(camera_system)
     , m_damage_system(damage_system)
     , m_spawn_players(false)
+    , m_train_logic(false)
 {
     LoadPlayerConfig("res/configs/player_config.json", m_player_config);
 
@@ -170,6 +172,11 @@ void PlayerDaemonSystem::Reset()
 
     m_player_spawned_callback = nullptr;
     m_spawn_players = false;
+}
+
+void PlayerDaemonSystem::SetTrainMode(bool train_mode)
+{
+    m_train_logic = train_mode;
 }
 
 void PlayerDaemonSystem::SpawnPlayersAt(const math::Vector& spawn_position, const PlayerSpawnedCallback& callback)
@@ -301,7 +308,14 @@ uint32_t PlayerDaemonSystem::SpawnPlayer(
     const game::DamageCallback& damage_callback)
 {
     const uint32_t player_index = game::FindPlayerIndex(player_info);
-    const std::string player_entity_file = m_player_config.player_entities[player_index];
+    
+    std::string player_entity_file;
+
+    if(m_train_logic)
+        player_entity_file = m_player_config.train_entities[player_index];
+    else
+        player_entity_file = m_player_config.player_entities[player_index];
+
     mono::Entity player_entity = entity_system->SpawnEntity(player_entity_file.c_str());
 
     System::Log(
@@ -316,7 +330,8 @@ uint32_t PlayerDaemonSystem::SpawnPlayer(
     transform_system->SetTransformState(player_entity.id, mono::TransformState::CLIENT);
 
     DamageRecord* damage_record = m_damage_system->GetDamageRecord(player_entity.id);
-    damage_record->release_entity_on_death = false;
+    if(damage_record)
+        damage_record->release_entity_on_death = false;
 
     // No need to store the callback id, when destroyed this callback will be cleared up.
     const uint32_t callback_id = m_damage_system->SetDamageCallback(player_entity.id, DamageType::DT_ALL, damage_callback);
@@ -330,8 +345,16 @@ uint32_t PlayerDaemonSystem::SpawnPlayer(
 
     mono::InputSystem* input_system = system_context->GetSystem<mono::InputSystem>();
 
-    IEntityLogic* player_logic = new PlayerLogic(player_entity.id, player_info, m_player_config, input_system, event_handler, system_context);
-    logic_system->AddLogic(player_entity.id, player_logic);
+    if(m_train_logic)
+    {
+        IEntityLogic* train_logic = new TrainLogic(player_entity.id, player_info, m_player_config, input_system, event_handler, system_context);
+        logic_system->AddLogic(player_entity.id, train_logic);
+    }
+    else
+    {
+        IEntityLogic* player_logic = new PlayerLogic(player_entity.id, player_info, m_player_config, input_system, event_handler, system_context);
+        logic_system->AddLogic(player_entity.id, player_logic);
+    }
 
     player_info->entity_id = player_entity.id;
     player_info->player_state = game::PlayerState::ALIVE;

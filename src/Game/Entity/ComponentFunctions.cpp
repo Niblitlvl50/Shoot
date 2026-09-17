@@ -240,6 +240,34 @@ namespace
         return true;
     }
 
+    bool CreatePathNotifier(mono::Entity* entity, mono::SystemContext* context)
+    {
+        mono::PathSystem* path_system = context->GetSystem<mono::PathSystem>();
+        path_system->AllocateNotifier(entity->id);
+        return true;
+    }
+
+    bool ReleasePathNotifier(mono::Entity* entity, mono::SystemContext* context)
+    {
+        mono::PathSystem* path_system = context->GetSystem<mono::PathSystem>();
+        path_system->ReleaseNotifier(entity->id);
+        return true;
+    }
+
+    bool UpdatePathNotifier(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        float distance = 0.0f;
+        std::string tag;
+
+        FindAttribute(PATH_NOTIFY_DISTANCE_ATTRIBUTE, properties, distance, FallbackMode::SET_DEFAULT);
+        FindAttribute(TAG_ATTRIBUTE, properties, tag, FallbackMode::SET_DEFAULT);
+
+        mono::PathSystem* path_system = context->GetSystem<mono::PathSystem>();
+        path_system->SetNotifierData(entity->id, distance, tag);
+
+        return true;
+    }
+
     bool CreateRoad(mono::Entity* entity, mono::SystemContext* context)
     {
         mono::RoadSystem* road_system = context->GetSystem<mono::RoadSystem>();
@@ -588,6 +616,7 @@ void game::RegisterSharedComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(SPRITE_COMPONENT, CreateSprite, ReleaseSprite, UpdateSprite, EnableSprite);
     entity_manager->RegisterComponent(TEXT_COMPONENT, CreateText, ReleaseText, UpdateText);
     entity_manager->RegisterComponent(PATH_COMPONENT, CreatePath, ReleasePath, UpdatePath);
+    entity_manager->RegisterComponent(PATH_NOTIFIER_COMPONENT, CreatePathNotifier, ReleasePathNotifier, UpdatePathNotifier);
     entity_manager->RegisterComponent(ROAD_COMPONENT, CreateRoad, ReleaseRoad, UpdateRoad);
     entity_manager->RegisterComponent(RIVER_COMPONENT, CreateRiver, ReleaseRiver, UpdateRiver);
     entity_manager->RegisterComponent(LIGHT_COMPONENT, CreateLight, ReleaseLight, UpdateLight, EnableLight);

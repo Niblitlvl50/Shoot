@@ -36,7 +36,7 @@ void ComponentDetailVisualizer::Draw(mono::IRenderer& renderer) const
         {
             const auto it = m_component_draw_funcs.find(component.hash);
             if(it != m_component_draw_funcs.end())
-                it->second(renderer, component.properties, entity_bb);
+                it->second(renderer, component.properties, entity_bb, entity_id);
         }
     }
 }

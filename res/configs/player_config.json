@@ -5,6 +5,11 @@
         "res/entities/player_dude.entity",
         "res/entities/player_fire_zombie.entity"
     ],
+    "train_entities": [
+        "res/entities/train.entity",
+        "res/entities/train.entity",
+        "res/entities/train.entity"
+    ],
     "familiar_entities": [
         "res/entities/familiar_bat.entity",
         "res/entities/familiar_jellyfish.entity",

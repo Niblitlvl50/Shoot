@@ -166,6 +166,8 @@ extern const uint32_t SWITCH_PRIMARY_TRACK_ATTRIBUTE;
 extern const uint32_t SWITCH_ALT_TRACK_ATTRIBUTE;
 extern const uint32_t SWITCH_USE_ALT_BRANCH_ATTRIBUTE;
 
+extern const uint32_t PATH_NOTIFY_DISTANCE_ATTRIBUTE;
+
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);
 const Variant& DefaultAttributeFromHash(uint32_t hash);
@@ -277,6 +279,7 @@ extern const uint32_t PHYSICS_IMPULSE_COMPONENT;
 extern const uint32_t PATH_FOLLOWER_COMPONENT;
 extern const uint32_t RAILWAY_SWITCH_COMPONENT;
 extern const uint32_t RAILWAY_STATION_COMPONENT;
+extern const uint32_t PATH_NOTIFIER_COMPONENT;
 
 struct Component
 {

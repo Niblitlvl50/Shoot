@@ -160,13 +160,14 @@ const DefaultAttribute default_attributes[] = {
     { "edge_fade",                  Variant(0.1f) },
     { "stretch_to_width",           Variant(false) },
     { "path_speed",                 Variant(1.0f), "Meters per second" },
-    { "path_loop",                  Variant(true) },
+    { "path_loop",                  Variant(false) },
     { "ping_pong",                  Variant(false) },
     { "apply_rotation",             Variant(false) },
     { "manual_control",             Variant(false), "Position is driven by code instead of advancing automatically" },
     { "switch_primary_track",       Variant(mono::INVALID_ID) },
     { "switch_alt_track",           Variant(mono::INVALID_ID) },
     { "switch_use_alt_branch",      Variant(false) },
+    { "path_notify_distance",       Variant(0.0f), "Meters along the path" },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -317,6 +318,7 @@ extern const uint32_t MANUAL_CONTROL_ATTRIBUTE              = default_attributes
 extern const uint32_t SWITCH_PRIMARY_TRACK_ATTRIBUTE        = default_attributes[125].hash;
 extern const uint32_t SWITCH_ALT_TRACK_ATTRIBUTE            = default_attributes[126].hash;
 extern const uint32_t SWITCH_USE_ALT_BRANCH_ATTRIBUTE       = default_attributes[127].hash;
+extern const uint32_t PATH_NOTIFY_DISTANCE_ATTRIBUTE        = default_attributes[128].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -380,6 +382,7 @@ extern const uint32_t PHYSICS_IMPULSE_COMPONENT     = hash::Hash("physics_impuls
 extern const uint32_t PATH_FOLLOWER_COMPONENT       = hash::Hash("path_follower");
 extern const uint32_t RAILWAY_SWITCH_COMPONENT      = hash::Hash("railway_switch");
 extern const uint32_t RAILWAY_STATION_COMPONENT     = hash::Hash("railway_station");
+extern const uint32_t PATH_NOTIFIER_COMPONENT       = hash::Hash("path_notifier");
 
 const char* component::ComponentNameFromHash(uint32_t hash)
 {
@@ -507,6 +510,8 @@ const char* component::ComponentNameFromHash(uint32_t hash)
         return "railway_switch";
     else if(hash == RAILWAY_STATION_COMPONENT)
         return "railway_station";
+    else if(hash == PATH_NOTIFIER_COMPONENT)
+        return "path_notifier";
 
     return "Unknown";
 }
@@ -528,9 +533,11 @@ const Component default_components[] = {
     MakeComponent(TAG_COMPONENT,                NULL_COMPONENT,             false,  "general",      { TAG_ATTRIBUTE }),
     MakeComponent(INTERACTION_COMPONENT,        NULL_COMPONENT,             false,  "general",      { INTERACTION_TYPE_ATTRIBUTE, SOUND_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DRAW_NAME_ATTRIBUTE }),
     MakeComponent(INTERACTION_SWITCH_COMPONENT, NULL_COMPONENT,             false,  "general",      { INTERACTION_TYPE_ATTRIBUTE, SOUND_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, DRAW_NAME_ATTRIBUTE }),
-    MakeComponent(PATH_COMPONENT,               NULL_COMPONENT,             false,  "general",      { PATH_TYPE_ATTRIBUTE, PATH_POINTS_ATTRIBUTE, PATH_CLOSED_ATTRIBUTE }),
     MakeComponent(SOUND_COMPONENT,              NULL_COMPONENT,             false,  "general",      { SOUND_ATTRIBUTE, SOUND_PLAY_PARAMETERS, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE }),
     MakeComponent(ENTITY_TRACKING_COMPONENT,    NULL_COMPONENT,             false,  "general",      { ENTITY_TYPE_ATTRIBUTE }),
+
+    MakeComponent(PATH_COMPONENT,               NULL_COMPONENT,             false,  "paths",        { PATH_TYPE_ATTRIBUTE, PATH_POINTS_ATTRIBUTE, PATH_CLOSED_ATTRIBUTE }),
+    MakeComponent(PATH_NOTIFIER_COMPONENT,      PATH_COMPONENT,             true,   "paths",        { PATH_NOTIFY_DISTANCE_ATTRIBUTE, TAG_ATTRIBUTE }),
 
     MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,             false,  "damage",       { HEALTH_ATTRIBUTE, RELEASE_ON_DEATH_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }),
     MakeComponent(SHOCKWAVE_COMPONENT,          NULL_COMPONENT,             false,  "damage",       { TRIGGER_NAME_ATTRIBUTE, RADIUS_ATTRIBUTE, MAGNITUDE_INTERVAL_ATTRIBUTE, HEALTH_ATTRIBUTE }),
@@ -558,9 +565,9 @@ const Component default_components[] = {
     MakeComponent(CIRCLE_SHAPE_COMPONENT,       PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, RADIUS_ATTRIBUTE, POSITION_ATTRIBUTE, SENSOR_ATTRIBUTE }),
     MakeComponent(POLYGON_SHAPE_COMPONENT,      PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, POLYGON_ATTRIBUTE, SENSOR_ATTRIBUTE }),
     MakeComponent(SEGMENT_SHAPE_COMPONENT,      PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, START_ATTRIBUTE, END_ATTRIBUTE, RADIUS_ATTRIBUTE, SENSOR_ATTRIBUTE }),
-
     MakeComponent(PHYSICS_IMPULSE_COMPONENT,    PHYSICS_COMPONENT,          false,  "physics",      { STRENGTH_ATTRIBUTE }),
-    MakeComponent(PATH_FOLLOWER_COMPONENT,      PHYSICS_COMPONENT,          false,  "physics",      { ENTITY_REFERENCE_ATTRIBUTE, PATH_SPEED_ATTRIBUTE, PATH_LOOP_ATTRIBUTE, PING_PONG_ATTRIBUTE, APPLY_ROTATION_ATTRIBUTE, OFFSET_ATTRIBUTE, MANUAL_CONTROL_ATTRIBUTE }),
+
+    MakeComponent(PATH_FOLLOWER_COMPONENT,      PHYSICS_COMPONENT,          false,  "movement",     { MANUAL_CONTROL_ATTRIBUTE, PATH_LOOP_ATTRIBUTE, PING_PONG_ATTRIBUTE, APPLY_ROTATION_ATTRIBUTE, PATH_SPEED_ATTRIBUTE, OFFSET_ATTRIBUTE, ENTITY_REFERENCE_ATTRIBUTE }),
 
     MakeComponent(RAILWAY_SWITCH_COMPONENT,     NULL_COMPONENT,             false,  "railway",      { ENTITY_REFERENCE_ATTRIBUTE, SWITCH_PRIMARY_TRACK_ATTRIBUTE, SWITCH_ALT_TRACK_ATTRIBUTE, SWITCH_USE_ALT_BRANCH_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
     MakeComponent(RAILWAY_STATION_COMPONENT,    NULL_COMPONENT,             false,  "railway",      { NAME_ATTRIBUTE }),

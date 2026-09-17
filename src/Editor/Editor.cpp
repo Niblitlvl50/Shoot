@@ -29,7 +29,6 @@
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Paths/PathSystem.h"
-#include "Paths/PathBatchDrawer.h"
 #include "Paths/PathTypes.h"
 #include "World/WorldBoundsDrawer.h"
 #include "World/WorldBoundsSystem.h"
@@ -323,6 +322,8 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     game::WorldBoundsSystem* world_bounds_system = m_system_context.GetSystem<game::WorldBoundsSystem>();
     game::UISystem* ui_system = m_system_context.GetSystem<game::UISystem>();
 
+    editor::SetPathSystemForDebugDraw(path_system);
+
     ComponentDrawMap draw_funcs;
     draw_funcs[CIRCLE_SHAPE_COMPONENT] = editor::DrawCircleShapeDetails;
     draw_funcs[BOX_SHAPE_COMPONENT] = editor::DrawBoxShapeDetails;
@@ -362,7 +363,6 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(m_component_detail_visualizer.get(), game::LayerId::GAMEOBJECTS_UI);
     AddDrawable(new GameCameraVisualizer(m_context.draw_level_metadata, m_context.level_metadata), game::LayerId::UI);
     AddDrawable(new mono::SpriteBatchDrawer(transform_system, sprite_system, render_system), game::LayerId::GAMEOBJECTS);
-    AddDrawable(new mono::PathBatchDrawer(path_system, transform_system), game::LayerId::GAMEOBJECTS);
     AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system, mono::ParticleDrawLayer::PRE_GAMEOBJECTS), game::LayerId::PRE_GAMEOBJECTS);
     AddDrawable(new mono::ParticleSystemDrawer(particle_system, transform_system, mono::ParticleDrawLayer::POST_GAMEOBJECTS), game::LayerId::POST_GAMEOBJECTS);
     AddDrawable(new editor::ImGuiInterfaceDrawer(m_context), game::LayerId::UI);
