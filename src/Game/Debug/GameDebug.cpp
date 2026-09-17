@@ -53,6 +53,7 @@ bool game::g_draw_debug_frametimes = false;
 bool game::g_draw_spawn_points = false;
 bool game::g_draw_camera_debug = false;
 bool game::g_draw_path_follower_debug = false;
+bool game::g_draw_railway_debug = false;
 
 bool game::g_draw_debug_uisystem = false;
 bool game::g_draw_ui_element_bounds = false;
@@ -102,6 +103,7 @@ void DrawDebugMenu(game::EntityLogicSystem* logic_system, mono::EventHandler* ev
         ImGui::Checkbox("Spawn Points",         &game::g_draw_spawn_points);
         ImGui::Checkbox("Camera Debug",         &game::g_draw_camera_debug);
         ImGui::Checkbox("Path Follower Debug",  &game::g_draw_path_follower_debug);
+        ImGui::Checkbox("Railway Debug",        &game::g_draw_railway_debug);
 
         ImGui::Separator();
         ImGui::Checkbox("UI Debug",             &game::g_draw_debug_uisystem);

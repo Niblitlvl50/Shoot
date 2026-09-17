@@ -4,6 +4,7 @@
 #include "PacketDeliveryGameMode.h"
 #include "StartMenuGameMode.h"
 #include "HordeGameMode.h"
+#include "TrainGameMode.h"
 
 #include "System/Hash.h"
 
@@ -32,6 +33,8 @@ game::IGameModePtr game::GameModeFactory::CreateGameMode(uint32_t game_mode)
         return std::make_unique<PacketDeliveryGameMode>();
     else if(game_mode == hash::Hash("horde_mode"))
         return std::make_unique<HordeGameMode>();
+    else if(game_mode == hash::Hash("train_mode"))
+        return std::make_unique<TrainGameMode>();
 
     return std::make_unique<NullGameMode>();
 }
@@ -42,6 +45,7 @@ std::vector<std::string> game::GameModeFactory::GetAllGameModes()
         "none",
         "start_menu_mode",
         "package_delivery_mode",
-        "horde_mode"
+        "horde_mode",
+        "train_mode"
     };
 }

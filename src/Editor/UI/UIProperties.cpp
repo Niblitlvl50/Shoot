@@ -338,7 +338,9 @@ bool editor::DrawProperty(uint32_t component_hash, Attribute& attribute, const s
         attribute.id == UI_LEFT_ITEM_ID_ATTRIBUTE ||
         attribute.id == UI_RIGHT_ITEM_ID_ATTRIBUTE ||
         attribute.id == UI_ABOVE_ITEM_ID_ATTRIBUTE ||
-        attribute.id == UI_BELOW_ITEM_ID_ATTRIBUTE )
+        attribute.id == UI_BELOW_ITEM_ID_ATTRIBUTE ||
+        attribute.id == SWITCH_PRIMARY_TRACK_ATTRIBUTE ||
+        attribute.id == SWITCH_ALT_TRACK_ATTRIBUTE )
     {
         uint32_t& entity_id = std::get<uint32_t>(attribute.value);
         const char* entity_name = ui_context.entity_name_callback(entity_id);
@@ -482,30 +484,18 @@ bool editor::DrawProperty(uint32_t component_hash, Attribute& attribute, const s
 
 void editor::AddDynamicProperties(Component& component)
 {
+    /*
     if(component.hash == BEHAVIOUR_COMPONENT)
     {
         int logic_type = 0;
         const bool found_logic =
-            FindAttribute(ENTITY_BEHAVIOUR_ATTRIBUTE, component.properties, logic_type, FallbackMode::REQUIRE_ATTRIBUTE);
+        FindAttribute(ENTITY_BEHAVIOUR_ATTRIBUTE, component.properties, logic_type, FallbackMode::REQUIRE_ATTRIBUTE);
         if(found_logic)
         {
-            if(game::EntityLogicType(logic_type) == game::EntityLogicType::INVADER_PATH)
-            {
-                uint32_t dummy_value;
-                const bool has_path_file = FindAttribute(ENTITY_REFERENCE_ATTRIBUTE, component.properties, dummy_value, FallbackMode::REQUIRE_ATTRIBUTE);
-                if(!has_path_file)
-                {
-                    component.properties.push_back(
-                        { ENTITY_REFERENCE_ATTRIBUTE, DefaultAttributeFromHash(ENTITY_REFERENCE_ATTRIBUTE) }
-                    );
-                }
-            }
-            else
-            {
-                component::StripUnknownProperties(component);
-            }
+            component::StripUnknownProperties(component);
         }
     }
+    */
 }
 
 editor::DrawComponentsResult editor::DrawComponents(UIContext& ui_context, std::vector<Component>& components)

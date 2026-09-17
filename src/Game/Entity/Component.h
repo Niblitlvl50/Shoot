@@ -160,6 +160,11 @@ extern const uint32_t PATH_SPEED_ATTRIBUTE;
 extern const uint32_t PATH_LOOP_ATTRIBUTE;
 extern const uint32_t PING_PONG_ATTRIBUTE;
 extern const uint32_t APPLY_ROTATION_ATTRIBUTE;
+extern const uint32_t MANUAL_CONTROL_ATTRIBUTE;
+
+extern const uint32_t SWITCH_PRIMARY_TRACK_ATTRIBUTE;
+extern const uint32_t SWITCH_ALT_TRACK_ATTRIBUTE;
+extern const uint32_t SWITCH_USE_ALT_BRANCH_ATTRIBUTE;
 
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);
@@ -270,6 +275,8 @@ extern const uint32_t MISSION_ACTIVATION_COMPONENT;
 extern const uint32_t MISSION_LOCATION_COMPONENT;
 extern const uint32_t PHYSICS_IMPULSE_COMPONENT;
 extern const uint32_t PATH_FOLLOWER_COMPONENT;
+extern const uint32_t RAILWAY_SWITCH_COMPONENT;
+extern const uint32_t RAILWAY_STATION_COMPONENT;
 
 struct Component
 {

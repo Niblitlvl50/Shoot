@@ -9,6 +9,7 @@ namespace game
     struct PlayerConfig
     {
         std::vector<std::string> player_entities;
+        std::vector<std::string> train_entities;
         std::vector<std::string> familiar_entities;
         std::vector<std::string> package_entities;
         std::vector<std::string> decoy_entities;

@@ -7,6 +7,8 @@
 #include "Physics/IBody.h"
 #include "System/Debug.h"
 
+#include <algorithm>
+
 using namespace game;
 
 PathBehaviour::PathBehaviour()
@@ -59,6 +61,41 @@ void PathBehaviour::SetPaused(bool paused)
     m_paused = paused;
 }
 
+void PathBehaviour::SetManualControl(bool manual_control)
+{
+    m_manual_control = manual_control;
+}
+
+void PathBehaviour::SetThrottle(float throttle)
+{
+    m_throttle = std::clamp(throttle, -1.0f, 1.0f);
+}
+
+float PathBehaviour::GetThrottle() const
+{
+    return m_throttle;
+}
+
+void PathBehaviour::SetCurrentPosition(float position)
+{
+    m_current_position = position;
+}
+
+float PathBehaviour::GetCurrentPosition() const
+{
+    return m_current_position;
+}
+
+float PathBehaviour::GetPathLength() const
+{
+    return m_path ? m_path->Length() : 0.0f;
+}
+
+const std::vector<math::Vector>* PathBehaviour::GetPathPoints() const
+{
+    return m_path ? &m_path->GetPathPoints() : nullptr;
+}
+
 PathResult PathBehaviour::Run(float delta_s)
 {
     PathResult result;
@@ -74,24 +111,35 @@ PathResult PathBehaviour::Run(float delta_s)
     }
     else
     {
-        m_current_position += m_meter_per_second * m_direction * delta_s;
-
-        if(m_ping_pong)
+        if(m_manual_control)
         {
-            if(m_current_position >= m_path->Length())
+            m_current_position += m_meter_per_second * m_throttle * delta_s;
+            m_current_position = std::clamp(m_current_position, 0.0f, m_path->Length());
+
+            if(m_throttle != 0.0f)
+                m_direction = (m_throttle > 0.0f) ? 1.0f : -1.0f;
+        }
+        else
+        {
+            m_current_position += m_meter_per_second * m_direction * delta_s;
+
+            if(m_ping_pong)
             {
-                m_current_position = m_path->Length();
-                m_direction = -1.0f;
+                if(m_current_position >= m_path->Length())
+                {
+                    m_current_position = m_path->Length();
+                    m_direction = -1.0f;
+                }
+                else if(m_current_position <= 0.0f)
+                {
+                    m_current_position = 0.0f;
+                    m_direction = 1.0f;
+                }
             }
-            else if(m_current_position <= 0.0f)
+            else if(m_loop && m_current_position >= m_path->Length())
             {
                 m_current_position = 0.0f;
-                m_direction = 1.0f;
             }
-        }
-        else if(m_loop && m_current_position >= m_path->Length())
-        {
-            m_current_position = 0.0f;
         }
 
         math::Vector current_position = m_entity_body->GetPosition();

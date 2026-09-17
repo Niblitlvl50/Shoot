@@ -11,7 +11,10 @@ namespace game
         if(json.contains("player_entities"))
             config.player_entities = json["player_entities"].get<std::vector<std::string>>();
 
-        if(json.contains("familiar_entities"))
+        if(json.contains("train_entities"))
+            config.train_entities = json["train_entities"].get<std::vector<std::string>>();
+
+            if(json.contains("familiar_entities"))
             config.familiar_entities = json["familiar_entities"].get<std::vector<std::string>>();
 
         if(json.contains("package_entities"))

@@ -15,6 +15,7 @@
 #include "Entity/TargetSystem.h"
 #include "Entity/EntityLifetimeTriggerSystem.h"
 #include "Behaviour/PathFollowerSystem.h"
+#include "RailwaySystem/RailwaySystem.h"
 #include "GameCamera/CameraSystem.h"
 #include "GamePhysics/GamePhysicsSystem.h"
 #include "InteractionSystem/InteractionSystem.h"
@@ -1326,6 +1327,7 @@ namespace
         bool ping_pong;
         bool apply_rotation;
         math::Vector offset;
+        bool manual_control;
 
         FindAttribute(ENTITY_REFERENCE_ATTRIBUTE, properties, path_entity_reference, FallbackMode::SET_DEFAULT);
         FindAttribute(PATH_SPEED_ATTRIBUTE, properties, speed, FallbackMode::SET_DEFAULT);
@@ -1333,9 +1335,72 @@ namespace
         FindAttribute(PING_PONG_ATTRIBUTE, properties, ping_pong, FallbackMode::SET_DEFAULT);
         FindAttribute(APPLY_ROTATION_ATTRIBUTE, properties, apply_rotation, FallbackMode::SET_DEFAULT);
         FindAttribute(OFFSET_ATTRIBUTE, properties, offset, FallbackMode::SET_DEFAULT);
+        FindAttribute(MANUAL_CONTROL_ATTRIBUTE, properties, manual_control, FallbackMode::SET_DEFAULT);
 
         game::PathFollowerSystem* path_follower_system = context->GetSystem<game::PathFollowerSystem>();
-        path_follower_system->SetPathFollowerData(entity->id, path_entity_reference, speed, loop, ping_pong, apply_rotation, offset);
+        path_follower_system->SetPathFollowerData(
+            entity->id, path_entity_reference, speed, loop, ping_pong, apply_rotation, offset, manual_control);
+
+        return true;
+    }
+
+    bool CreateRailwaySwitch(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::RailwaySystem* railway_system = context->GetSystem<game::RailwaySystem>();
+        railway_system->AllocateSwitch(entity->id);
+        return true;
+    }
+
+    bool ReleaseRailwaySwitch(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::RailwaySystem* railway_system = context->GetSystem<game::RailwaySystem>();
+        railway_system->ReleaseSwitch(entity->id);
+        return true;
+    }
+
+    bool UpdateRailwaySwitch(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        uint32_t trunk_track_reference = mono::INVALID_ID;
+        uint32_t primary_track_reference = mono::INVALID_ID;
+        uint32_t alt_track_reference = mono::INVALID_ID;
+        bool use_alt_branch;
+        mono::Event trigger_name;
+
+        FindAttribute(ENTITY_REFERENCE_ATTRIBUTE, properties, trunk_track_reference, FallbackMode::SET_DEFAULT);
+        FindAttribute(SWITCH_PRIMARY_TRACK_ATTRIBUTE, properties, primary_track_reference, FallbackMode::SET_DEFAULT);
+        FindAttribute(SWITCH_ALT_TRACK_ATTRIBUTE, properties, alt_track_reference, FallbackMode::SET_DEFAULT);
+        FindAttribute(SWITCH_USE_ALT_BRANCH_ATTRIBUTE, properties, use_alt_branch, FallbackMode::SET_DEFAULT);
+        FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::SET_DEFAULT);
+
+        game::RailwaySystem* railway_system = context->GetSystem<game::RailwaySystem>();
+        railway_system->SetSwitchData(
+            entity->id, trunk_track_reference, primary_track_reference, alt_track_reference, use_alt_branch,
+            hash::Hash(trigger_name.text.c_str()));
+
+        return true;
+    }
+
+    bool CreateRailwayStation(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::RailwaySystem* railway_system = context->GetSystem<game::RailwaySystem>();
+        railway_system->AllocateStation(entity->id);
+        return true;
+    }
+
+    bool ReleaseRailwayStation(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::RailwaySystem* railway_system = context->GetSystem<game::RailwaySystem>();
+        railway_system->ReleaseStation(entity->id);
+        return true;
+    }
+
+    bool UpdateRailwayStation(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        std::string name;
+        FindAttribute(NAME_ATTRIBUTE, properties, name, FallbackMode::SET_DEFAULT);
+
+        game::RailwaySystem* railway_system = context->GetSystem<game::RailwaySystem>();
+        railway_system->SetStationData(entity->id, name);
 
         return true;
     }
@@ -1385,4 +1450,6 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(MISSION_LOCATION_COMPONENT, CreateMissionLocation, ReleaseMissionLocation);
     entity_manager->RegisterComponent(PHYSICS_IMPULSE_COMPONENT, CreatePhysicsImpulse, ReleasePhysicsImpulse, UpdatePhysicsImpulse);
     entity_manager->RegisterComponent(PATH_FOLLOWER_COMPONENT, CreatePathFollower, ReleasePathFollower, UpdatePathFollower);
+    entity_manager->RegisterComponent(RAILWAY_SWITCH_COMPONENT, CreateRailwaySwitch, ReleaseRailwaySwitch, UpdateRailwaySwitch);
+    entity_manager->RegisterComponent(RAILWAY_STATION_COMPONENT, CreateRailwayStation, ReleaseRailwayStation, UpdateRailwayStation);
 }

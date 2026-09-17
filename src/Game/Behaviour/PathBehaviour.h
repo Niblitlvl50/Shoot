@@ -42,6 +42,20 @@ namespace game
         void SetApplyRotation(bool apply_rotation);
         void SetOffset(const math::Vector& offset);
         void SetPaused(bool paused);
+
+        // When enabled, position along the path is driven by SetThrottle() calls each frame
+        // instead of automatically advancing (and ignores ping-pong/loop).
+        void SetManualControl(bool manual_control);
+        void SetThrottle(float throttle);
+        float GetThrottle() const;
+
+        // Used by the railway system to hand a manually-controlled entity off from one
+        // path to another (e.g. at a switch) without losing its position along the track.
+        void SetCurrentPosition(float position);
+        float GetCurrentPosition() const;
+        float GetPathLength() const;
+        const std::vector<math::Vector>* GetPathPoints() const;
+
         PathResult Run(float delta_s);
         PathDebugData GetDebugData() const;
 
@@ -57,6 +71,8 @@ namespace game
         bool m_loop = false;
         bool m_apply_rotation = false;
         bool m_paused = false;
+        bool m_manual_control = false;
+        float m_throttle = 0.0f;
         math::Vector m_move_velocity;
         math::Vector m_offset;
     };

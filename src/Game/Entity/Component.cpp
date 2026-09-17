@@ -163,6 +163,10 @@ const DefaultAttribute default_attributes[] = {
     { "path_loop",                  Variant(true) },
     { "ping_pong",                  Variant(false) },
     { "apply_rotation",             Variant(false) },
+    { "manual_control",             Variant(false), "Position is driven by code instead of advancing automatically" },
+    { "switch_primary_track",       Variant(mono::INVALID_ID) },
+    { "switch_alt_track",           Variant(mono::INVALID_ID) },
+    { "switch_use_alt_branch",      Variant(false) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -309,6 +313,10 @@ extern const uint32_t PATH_SPEED_ATTRIBUTE                  = default_attributes
 extern const uint32_t PATH_LOOP_ATTRIBUTE                   = default_attributes[121].hash;
 extern const uint32_t PING_PONG_ATTRIBUTE                   = default_attributes[122].hash;
 extern const uint32_t APPLY_ROTATION_ATTRIBUTE              = default_attributes[123].hash;
+extern const uint32_t MANUAL_CONTROL_ATTRIBUTE              = default_attributes[124].hash;
+extern const uint32_t SWITCH_PRIMARY_TRACK_ATTRIBUTE        = default_attributes[125].hash;
+extern const uint32_t SWITCH_ALT_TRACK_ATTRIBUTE            = default_attributes[126].hash;
+extern const uint32_t SWITCH_USE_ALT_BRANCH_ATTRIBUTE       = default_attributes[127].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -370,6 +378,8 @@ extern const uint32_t MISSION_ACTIVATION_COMPONENT  = hash::Hash("mission_activa
 extern const uint32_t MISSION_LOCATION_COMPONENT    = hash::Hash("mission_location");
 extern const uint32_t PHYSICS_IMPULSE_COMPONENT     = hash::Hash("physics_impulse");
 extern const uint32_t PATH_FOLLOWER_COMPONENT       = hash::Hash("path_follower");
+extern const uint32_t RAILWAY_SWITCH_COMPONENT      = hash::Hash("railway_switch");
+extern const uint32_t RAILWAY_STATION_COMPONENT     = hash::Hash("railway_station");
 
 const char* component::ComponentNameFromHash(uint32_t hash)
 {
@@ -493,6 +503,10 @@ const char* component::ComponentNameFromHash(uint32_t hash)
         return "physics_impulse";
     else if(hash == PATH_FOLLOWER_COMPONENT)
         return "path_follower";
+    else if(hash == RAILWAY_SWITCH_COMPONENT)
+        return "railway_switch";
+    else if(hash == RAILWAY_STATION_COMPONENT)
+        return "railway_station";
 
     return "Unknown";
 }
@@ -546,7 +560,10 @@ const Component default_components[] = {
     MakeComponent(SEGMENT_SHAPE_COMPONENT,      PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, START_ATTRIBUTE, END_ATTRIBUTE, RADIUS_ATTRIBUTE, SENSOR_ATTRIBUTE }),
 
     MakeComponent(PHYSICS_IMPULSE_COMPONENT,    PHYSICS_COMPONENT,          false,  "physics",      { STRENGTH_ATTRIBUTE }),
-    MakeComponent(PATH_FOLLOWER_COMPONENT,      PHYSICS_COMPONENT,          false,  "physics",      { ENTITY_REFERENCE_ATTRIBUTE, PATH_SPEED_ATTRIBUTE, PATH_LOOP_ATTRIBUTE, PING_PONG_ATTRIBUTE, APPLY_ROTATION_ATTRIBUTE, OFFSET_ATTRIBUTE }),
+    MakeComponent(PATH_FOLLOWER_COMPONENT,      PHYSICS_COMPONENT,          false,  "physics",      { ENTITY_REFERENCE_ATTRIBUTE, PATH_SPEED_ATTRIBUTE, PATH_LOOP_ATTRIBUTE, PING_PONG_ATTRIBUTE, APPLY_ROTATION_ATTRIBUTE, OFFSET_ATTRIBUTE, MANUAL_CONTROL_ATTRIBUTE }),
+
+    MakeComponent(RAILWAY_SWITCH_COMPONENT,     NULL_COMPONENT,             false,  "railway",      { ENTITY_REFERENCE_ATTRIBUTE, SWITCH_PRIMARY_TRACK_ATTRIBUTE, SWITCH_ALT_TRACK_ATTRIBUTE, SWITCH_USE_ALT_BRANCH_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
+    MakeComponent(RAILWAY_STATION_COMPONENT,    NULL_COMPONENT,             false,  "railway",      { NAME_ATTRIBUTE }),
 
     MakeComponent(AREA_TRIGGER_COMPONENT,       NULL_COMPONENT,             false,  "triggers",     { SIZE_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE, LOGIC_OP_ATTRIBUTE, N_ENTITIES_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
     MakeComponent(COUNTER_TRIGGER_COMPONENT,    NULL_COMPONENT,             false,  "triggers",     { COUNT_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_COMPLETED_ATTRIBUTE, RESET_ON_COMPLETED_ATTRIBUTE }),

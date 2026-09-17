@@ -364,3 +364,33 @@ void editor::DrawPhysicsImpulseComponentDetails(mono::IRenderer& renderer, const
 
     renderer.DrawLines({ math::ZeroVec, math::Vector(0.0f, 2.0f) }, mono::Color::CYAN, 1.0f);
 }
+
+void editor::DrawRailwaySwitch(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
+{
+    bool use_alt_branch = false;
+    FindAttribute(SWITCH_USE_ALT_BRANCH_ATTRIBUTE, component_properties, use_alt_branch, FallbackMode::SET_DEFAULT);
+
+    constexpr float radius = 0.5f;
+    const mono::Color::RGBA active_color = use_alt_branch ? mono::Color::CYAN : mono::Color::ORANGE;
+
+    renderer.DrawFilledCircle(math::Vector(radius, radius), 20, mono::Color::MakeWithAlpha(active_color, 0.35f));
+    renderer.DrawCircle(math::ZeroVec, radius, 20, 1.5f, active_color);
+    renderer.DrawPoints({ math::ZeroVec }, active_color, 8.0f);
+
+    const char* label = use_alt_branch ? "Switch (Alt)" : "Switch (Primary)";
+    renderer.RenderText(game::FontId::PIXELETTE_TINY, label, active_color, mono::FontCentering::HORIZONTAL_VERTICAL);
+}
+
+void editor::DrawRailwayStation(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb)
+{
+    std::string name;
+    FindAttribute(NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
+
+    constexpr float radius = 0.4f;
+    renderer.DrawFilledCircle(math::Vector(radius, radius), 20, mono::Color::MakeWithAlpha(mono::Color::GOLDEN_YELLOW, 0.35f));
+    renderer.DrawCircle(math::ZeroVec, radius, 20, 1.5f, mono::Color::GOLDEN_YELLOW);
+    renderer.DrawPoints({ math::ZeroVec }, mono::Color::GOLDEN_YELLOW, 8.0f);
+
+    const char* label = name.empty() ? "Station" : name.c_str();
+    renderer.RenderText(game::FontId::PIXELETTE_TINY, label, mono::Color::GOLDEN_YELLOW, mono::FontCentering::HORIZONTAL_VERTICAL);
+}
