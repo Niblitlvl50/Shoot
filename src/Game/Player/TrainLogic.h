@@ -40,8 +40,8 @@ namespace game
 
         void UpdateController(const mono::UpdateContext& update_context);
         void UpdatePlayerInfo(uint32_t timestamp);
-        void UpdateMovement(const mono::UpdateContext& update_context);
         void UpdateAnimation(const mono::UpdateContext& update_context, float aim_direction, const math::Vector& world_position, const math::Vector& player_velocity);
+        void UpdateSteamSound(const mono::UpdateContext& update_context);
 
         void HandlePickup(PickupType type, int meta_data);
 
@@ -52,10 +52,6 @@ namespace game
         void ThrowAction();
         void PickupDrop();
         bool HoldingPickup() const; 
-
-        void Sprint();
-        void StopSprint();
-        bool HasStamina() const;
 
         void SetThrottle(float throttle);
         void Honk();
@@ -95,9 +91,8 @@ namespace game
         float m_aim_velocity;
         math::Vector m_aim_screen_position;
 
-        bool m_sprint;
-        float m_stamina;
-        float m_stamina_recover_timer_s;
+        float m_steam_pitch;
+        float m_steam_pitch_velocity;
 
         int m_idle_anim_id;
         int m_run_anim_id;
@@ -108,15 +103,8 @@ namespace game
 
         audio::ISoundPtr m_drop_box_sound;
         audio::ISoundPtr m_pickup_box_sound;
-        audio::ISoundPtr m_running_sounds[2];
         audio::ISoundPtr m_horn_sound;
-
-        math::Vector m_movement_direction;
-        float m_accumulated_step_distance;
-
-        float m_blink_cooldown;
-        float m_shockwave_cooldown;
-        float m_shield_cooldown;
+        audio::ISoundPtr m_steam_loop_sound;
 
         mono::TransformSystem* m_transform_system;
         mono::InputSystem* m_input_system;

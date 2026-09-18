@@ -27,28 +27,8 @@ void TrainGamepadController::Update(const mono::UpdateContext& update_context)
         return;
     }
 
-
-    /*
-    const bool right_trigger_changed = (std::fabs(m_current_state.right_trigger) > 0.1f);
-    const bool left_trigger_changed = (std::fabs(m_current_state.left_trigger) > 0.1f);
-    if(right_trigger_changed)
-    {
-        
-}
-else if(left_trigger_changed)
-{
-    
-}
-*/
-
     const float combined_throttle = -m_current_state.left_trigger + m_current_state.right_trigger;
     m_train_logic->SetThrottle(combined_throttle);
-
-    const bool sprint = System::IsButtonDown(m_current_state.button_state, System::ControllerButton::FACE_LEFT);
-    if(sprint)
-        m_train_logic->Sprint();
-    else
-        m_train_logic->StopSprint();
 
     const bool right_shoulder = System::IsButtonDown(m_current_state.button_state, System::ControllerButton::RIGHT_SHOULDER);
     if(right_shoulder)

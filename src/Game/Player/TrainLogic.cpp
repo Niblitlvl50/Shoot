@@ -53,16 +53,10 @@
 
 namespace tweak_values
 {
-    constexpr float force_multiplier = 250.0f;
-    constexpr float blink_duration_s = 0.2f;
-    constexpr float blink_distance = 2.0f;
-    constexpr float blink_cooldown_threshold_s = 2.0f;
-    constexpr float shockwave_cooldown_s = 2.0f;
-    constexpr float shield_cooldown_s = 2.0f;
-
-    constexpr float footstep_length = 0.4f;
-    constexpr float stamina_consumption_per_s = 0.5f;
-    constexpr float stamina_recover_thresold_s = 0.75f;
+    constexpr float steam_sound_max_speed = 8.0f;
+    constexpr float steam_sound_idle_pitch = 0.6f;
+    constexpr float steam_sound_max_pitch = 1.6f;
+    constexpr float steam_sound_pitch_halflife = 0.4f;
 }
 
 namespace
@@ -107,13 +101,8 @@ TrainLogic::TrainLogic(
     , m_aim_direction(0.0f)
     , m_aim_target(0.0f)
     , m_aim_velocity(0.0f)
-    , m_sprint(false)
-    , m_stamina(1.0f)
-    , m_stamina_recover_timer_s(0.0f)
-    , m_accumulated_step_distance(0.0f)
-    , m_blink_cooldown(tweak_values::blink_cooldown_threshold_s)
-    , m_shockwave_cooldown(tweak_values::shockwave_cooldown_s)
-    , m_shield_cooldown(tweak_values::shield_cooldown_s)
+    , m_steam_pitch(tweak_values::steam_sound_idle_pitch)
+    , m_steam_pitch_velocity(0.0f)
     , m_picked_up_id(mono::INVALID_ID)
     , m_pickup_constraint(nullptr)
 {
@@ -156,12 +145,12 @@ TrainLogic::TrainLogic(
     m_pickup_box_sound = audio::CreateSound(
         "res/sound/punch.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
     
-    m_running_sounds[0] = audio::CreateSound(
-        "res/sound/footsteps/grass/steps1.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
-    m_running_sounds[1] = audio::CreateSound(
-        "res/sound/footsteps/grass/steps2.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
     m_horn_sound = audio::CreateSound(
-        "res/sound/train_horn.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
+        "res/sound/train/train_horn_1.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
+    m_steam_loop_sound = audio::CreateSound(
+        "res/sound/train/train_steam_loop.wav", audio::SoundPlayback::LOOPING, audio::SoundSpatiality::NONE);
+    m_steam_loop_sound->SetPlaybackSpeed(tweak_values::steam_sound_idle_pitch);
+    m_steam_loop_sound->Play();
 
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
     m_smoke_effect = std::make_unique<SmokeEffect>(particle_system, m_entity_system);
@@ -193,7 +182,6 @@ void TrainLogic::DrawDebugInfo(IDebugDrawer* debug_drawer) const
     const math::Vector world_position = m_transform_system->GetWorldPosition(m_entity_id);
 
     char buffer[512] = {};
-    std::snprintf(buffer, std::size(buffer), "%.2f, %s", m_stamina, m_sprint ? "sprint" : "walk");
     debug_drawer->DrawWorldText(buffer, world_position, mono::Color::OFF_WHITE);
 }
 
@@ -205,45 +193,21 @@ const char* TrainLogic::GetDebugCategory() const
 void TrainLogic::Update(const mono::UpdateContext& update_context)
 {
     m_state.UpdateState(update_context);
-
-    m_blink_cooldown += update_context.delta_s;
-    m_shockwave_cooldown += update_context.delta_s;
-    m_shield_cooldown += update_context.delta_s;
-
-    float stamina_multiplier;
-    if(m_sprint)
-    {
-        stamina_multiplier = 1.0f;
-    }
-    else if(m_stamina_recover_timer_s < tweak_values::stamina_recover_thresold_s)
-    {
-        m_stamina_recover_timer_s += update_context.delta_s;
-        stamina_multiplier = 0.0f;
-    }
-    else
-    {
-        stamina_multiplier = -1.0f;
-    }
-
-    m_stamina = std::clamp(m_stamina - (update_context.delta_s * tweak_values::stamina_consumption_per_s * stamina_multiplier), 0.0f, 1.0f);
-
     UpdatePlayerInfo(update_context.timestamp);
+    UpdateSteamSound(update_context);
 }
 
 void TrainLogic::UpdateController(const mono::UpdateContext& update_context)
 {
-    //ResetMovement();
-
     const uint32_t player_index = FindPlayerIndex(m_player_info);
 
     // Select most recent input if player zero, else just go with gamepad. 
     if(m_input_context->most_recent_input == mono::InputContextType::Controller || player_index > 0)
         m_gamepad_controller.Update(update_context);
-
-        /*
+    /*
     else
         m_keyboard_controller.Update(update_context);
-        */
+    */
 }
 
 void TrainLogic::UpdatePlayerInfo(uint32_t timestamp)
@@ -252,7 +216,6 @@ void TrainLogic::UpdatePlayerInfo(uint32_t timestamp)
     const math::Vector last_position = m_player_info->position;
     const math::Vector current_position = math::GetPosition(transform);
 
-    m_accumulated_step_distance += math::DistanceBetween(last_position, current_position);
 
     mono::IBody* body = m_physics_system->GetBody(m_entity_id);
 
@@ -277,7 +240,7 @@ void TrainLogic::UpdatePlayerInfo(uint32_t timestamp)
     const PlayerLevelExperience& player_levels = GetPlayerLevelExperience(m_player_info->persistent_data.experience, m_config.player_levels);
     m_player_info->player_level = player_levels.level;
 
-    m_player_info->stamina_fraction = m_stamina;
+    m_player_info->stamina_fraction = 0.0f;
     m_player_info->player_experience_fraction =
         math::Scale01Clamped(float(m_player_info->persistent_data.experience), float(player_levels.current_level_experience), float(player_levels.next_level_experience));
     m_player_info->weapon_experience_fraction = 0.0f;
@@ -286,18 +249,19 @@ void TrainLogic::UpdatePlayerInfo(uint32_t timestamp)
     m_player_info->last_used_input = m_input_context->most_recent_input;
 }
 
-void TrainLogic::UpdateMovement(const mono::UpdateContext& update_context)
+void TrainLogic::UpdateSteamSound(const mono::UpdateContext& update_context)
 {
-    const float length_squared = math::LengthSquared(m_movement_direction);
-    if(length_squared <= FLT_EPSILON)
-    {
+    // Keeps chugging at an idle pitch even at a standstill, rather than starting/stopping
+    // the loop outright - smoothed so the pitch eases between idle and full speed.
+    const float speed = math::Length(m_player_info->velocity);
+    const float speed_fraction = math::Scale01Clamped(speed, 0.0f, tweak_values::steam_sound_max_speed);
+    const float pitch_range = tweak_values::steam_sound_max_pitch - tweak_values::steam_sound_idle_pitch;
+    const float target_pitch = tweak_values::steam_sound_idle_pitch + (pitch_range * speed_fraction);
 
-    }
-    else
-    {
-        //const float sprint_multiplier = m_sprint && HasStamina() ? 1.5f : 1.0f;
-        //ApplyForce(m_movement_direction * tweak_values::force_multiplier * sprint_multiplier);
-    }
+    math::simple_spring_damper_implicit(
+        m_steam_pitch, m_steam_pitch_velocity, target_pitch, tweak_values::steam_sound_pitch_halflife, update_context.delta_s);
+
+    m_steam_loop_sound->SetPlaybackSpeed(m_steam_pitch);
 }
 
 void TrainLogic::UpdateAnimation(const mono::UpdateContext& update_context, float aim_direction, const math::Vector& world_position, const math::Vector& player_velocity)
@@ -314,13 +278,6 @@ void TrainLogic::UpdateAnimation(const mono::UpdateContext& update_context, floa
     {
         anim_id = facing_down ? m_run_anim_id : m_run_up_anim_id;
         anim_speed = std::clamp(math::Scale01(velocity_magnitude, 0.0f, 3.0f), 0.5f, 10.0f);
-    }
-
-    if(m_accumulated_step_distance >= tweak_values::footstep_length)
-    {
-        const int sound_index = mono::RandomInt(0, std::size(m_running_sounds) -1);
-        m_running_sounds[sound_index]->Play();
-        m_accumulated_step_distance = 0.0f;
     }
 
     mono::Sprite* sprite = m_sprite_system->GetSprite(m_entity_id);
@@ -368,7 +325,6 @@ void TrainLogic::DefaultState(const mono::UpdateContext& update_context)
     mono::QueryResult query_result = physics_space->QueryFirst(position, target_fire_position, collision_mask);
     m_player_info->aim_target = (query_result.body != nullptr) ? query_result.point : target_fire_position;
 
-    UpdateMovement(update_context);
     UpdateAnimation(update_context, m_aim_direction, position, m_player_info->velocity);
 
     m_hookshot->Update(update_context);
@@ -427,9 +383,6 @@ void TrainLogic::HandlePickup(PickupType type, int meta_data)
     }
     case PickupType::SECOND_WIND:
     {
-        m_blink_cooldown = tweak_values::blink_cooldown_threshold_s;
-        m_shockwave_cooldown = tweak_values::shockwave_cooldown_s;
-        m_shield_cooldown = tweak_values::shield_cooldown_s;
         break;
     }
     case PickupType::COINS:
@@ -542,22 +495,6 @@ void TrainLogic::PickupDrop()
 bool TrainLogic::HoldingPickup() const
 {
     return (m_picked_up_id != mono::INVALID_ID);
-}
-
-void TrainLogic::Sprint()
-{
-    m_sprint = true;
-    m_stamina_recover_timer_s = 0.0f;
-}
-
-void TrainLogic::StopSprint()
-{
-    m_sprint = false;
-}
-
-bool TrainLogic::HasStamina() const
-{
-    return m_stamina > 0.0f;
 }
 
 void TrainLogic::SetThrottle(float throttle)
