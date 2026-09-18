@@ -168,16 +168,10 @@
                     "name": "path_follower",
                     "properties": [
                         {
-                            "id": 1150083244,
-                            "name": "entity_reference",
-                            "variant_type": 2,
-                            "variant_value": 4294967295
-                        },
-                        {
-                            "id": 1022278742,
-                            "name": "path_speed",
-                            "variant_type": 3,
-                            "variant_value": 1.0
+                            "id": 1245535177,
+                            "name": "manual_control",
+                            "variant_type": 0,
+                            "variant_value": true
                         },
                         {
                             "id": 1325154825,
@@ -198,6 +192,12 @@
                             "variant_value": false
                         },
                         {
+                            "id": 1022278742,
+                            "name": "path_speed",
+                            "variant_type": 3,
+                            "variant_value": 3.0
+                        },
+                        {
                             "id": 348705738,
                             "name": "offset",
                             "variant_type": 4,
@@ -207,10 +207,10 @@
                             }
                         },
                         {
-                            "id": 1245535177,
-                            "name": "manual_control",
-                            "variant_type": 0,
-                            "variant_value": true
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
                         }
                     ]
                 }
