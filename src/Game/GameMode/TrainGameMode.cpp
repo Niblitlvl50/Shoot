@@ -10,6 +10,7 @@
 #include "EventHandler/EventHandler.h"
 #include "Events/QuitEvent.h"
 #include "Input/InputSystem.h"
+#include "Paths/PathSystem.h"
 #include "SystemContext.h"
 
 #include "EntitySystem/IEntityManager.h"
@@ -38,8 +39,18 @@ void TrainGameMode::Begin(
     m_player_system->SetTrainMode(true);
 
     const PlayerSpawnedCallback player_spawned_cb =
-        [this](game::PlayerSpawnState spawn_state, uint32_t player_entity_id, const math::Vector& position) {
-        //OnSpawnPlayer(player_entity_id, position);
+        [this, system_context](game::PlayerSpawnState spawn_state, uint32_t player_entity_id, const math::Vector& position) {
+
+        float train_start_distance;
+        const mono::PathSystem* path_system = system_context->GetSystem<mono::PathSystem>();
+        const uint32_t path_entity_id = path_system->FindPathFromNotifierTag("player_start", train_start_distance);
+        if(path_entity_id != mono::INVALID_ID)
+        {
+            const mono::IEntityManager* entity_manager = system_context->GetSystem<mono::IEntityManager>();
+            const uint32_t path_uuid = entity_manager->GetEntityUuid(path_entity_id);
+            m_path_follower_system->SetPathReference(player_entity_id, path_uuid);
+            m_path_follower_system->SetCurrentPosition(player_entity_id, train_start_distance);
+        }
     };
     m_player_system->SpawnPlayersAt(level_metadata.player_spawn_point, player_spawned_cb);
 

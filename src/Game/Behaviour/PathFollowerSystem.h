@@ -46,9 +46,13 @@ namespace game
             const math::Vector& offset,
             bool manual_control);
 
+        void SetPathReference(uint32_t entity_id, uint32_t path_entity_reference);
+
+
         void SetPaused(uint32_t entity_id, bool paused);
         void SetSpeed(uint32_t entity_id, float speed);
         void SetOffset(uint32_t entity_id, const math::Vector& offset);
+        void SetCurrentPosition(uint32_t entity_id, float position);
 
         // Only meaningful when the component's manual_control flag is set; drives the
         // entity's position along the path directly, ignoring speed/loop/ping-pong.

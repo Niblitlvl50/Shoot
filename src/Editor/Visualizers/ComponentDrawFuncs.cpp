@@ -335,7 +335,10 @@ void editor::DrawPath(mono::IRenderer& renderer, const std::vector<Attribute>& c
             renderer.DrawLines(handle_lines, handle_color, 1.0f);
         }
     }
+}
 
+void editor::DrawPathNotifierDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+{
     // Notifiers tagged along this same path entity.
     if(!g_path_system_for_debug_draw)
         return;
@@ -344,7 +347,11 @@ void editor::DrawPath(mono::IRenderer& renderer, const std::vector<Attribute>& c
     if(!notifiers || notifiers->empty())
         return;
 
-    const mono::IPathPtr local_path = mono::CreatePath(vertices, path_type);
+    const mono::PathComponent* path_component = g_path_system_for_debug_draw->GetPath(entity_id);
+    if(!path_component)
+        return;
+
+    const mono::IPathPtr local_path = mono::CreatePath(path_component->points, path_component->type);
 
     for(const mono::PathNotifierComponent& notifier : *notifiers)
     {

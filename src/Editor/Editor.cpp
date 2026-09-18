@@ -344,6 +344,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     draw_funcs[LAYER_COMPONENT] = editor::DrawLayerDetails;
     draw_funcs[AREA_EMITTER_COMPONENT] = editor::DrawAreaEmitterDetails;
     draw_funcs[PATH_COMPONENT] = editor::DrawPath;
+    draw_funcs[PATH_NOTIFIER_COMPONENT] = editor::DrawPathNotifierDetails;
     draw_funcs[CAMERA_POINT_COMPONENT] = editor::DrawCameraPoint;
     draw_funcs[TELEPORT_PLAYER_COMPONENT] = editor::DrawTeleportPlayerPoint;
     draw_funcs[SHOCKWAVE_COMPONENT] = editor::DrawShockwaveComponentDetails;

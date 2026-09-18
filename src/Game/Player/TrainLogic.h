@@ -11,6 +11,7 @@
 #include "PlayerAbilities.h"
 #include "PlayerConfig.h"
 #include "Pickups/PickupTypes.h"
+#include "Controllers/TrainGamepadController.h"
 
 #include <memory>
 
@@ -36,11 +37,11 @@ namespace game
         const char* GetDebugCategory() const override;
         void Update(const mono::UpdateContext& update_context) override;
 
-        void UpdateAutoAim();
+
+        void UpdateController(const mono::UpdateContext& update_context);
         void UpdatePlayerInfo(uint32_t timestamp);
         void UpdateMovement(const mono::UpdateContext& update_context);
         void UpdateAnimation(const mono::UpdateContext& update_context, float aim_direction, const math::Vector& world_position, const math::Vector& player_velocity);
-        void UpdateController(const mono::UpdateContext& update_context);
 
         void HandlePickup(PickupType type, int meta_data);
 
@@ -56,14 +57,12 @@ namespace game
         void StopSprint();
         bool HasStamina() const;
 
-        void MoveInDirection(const math::Vector& direction);
+        void SetThrottle(float throttle);
+        void Honk();
 
         void ApplyImpulse(const math::Vector& force);
         void ApplyForce(const math::Vector& force);
         void SetVelocity(const math::Vector& velocity);
-
-        void SetAimDirection(float aim_direction);
-        void SetAimScreenPosition(const math::Vector& aim_screen_position);
 
         void RespawnPlayer();
         void TogglePauseGame();
@@ -78,8 +77,7 @@ namespace game
         const uint32_t m_entity_id;
         PlayerInfo* m_player_info;
         PlayerConfig m_config;
-        //PlayerGamepadController m_gamepad_controller;
-        //PlayerKeyboardController m_keyboard_controller;
+        TrainGamepadController m_gamepad_controller;
         mono::EventHandler* m_event_handler;
         bool m_pause;
 
@@ -111,6 +109,7 @@ namespace game
         audio::ISoundPtr m_drop_box_sound;
         audio::ISoundPtr m_pickup_box_sound;
         audio::ISoundPtr m_running_sounds[2];
+        audio::ISoundPtr m_horn_sound;
 
         math::Vector m_movement_direction;
         float m_accumulated_step_distance;
@@ -131,6 +130,7 @@ namespace game
         class InteractionSystem* m_interaction_system;
         class EntityLogicSystem* m_logic_system;
         class TargetSystem* m_target_system;
+        class PathFollowerSystem* m_path_follower_system;
 
         mono::InputContext* m_input_context;
 

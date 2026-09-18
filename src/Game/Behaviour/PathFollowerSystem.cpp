@@ -59,6 +59,17 @@ void PathFollowerSystem::SetPathFollowerData(
     component->behaviour.SetOffset(offset);
     component->behaviour.SetManualControl(manual_control);
 
+    SetPathReference(entity_id, path_entity_reference);
+}
+
+void PathFollowerSystem::SetPathReference(uint32_t entity_id, uint32_t path_entity_reference)
+{
+    const auto it = m_components.find(entity_id);
+    if(it == m_components.end())
+        return;
+
+    PathFollowerComponent* component = &it->second;
+
     // The referenced path entity may not have its own components set up yet (entity
     // creation order isn't guaranteed), so resolve and bake the path in Sync() instead.
     component->pending_path_entity_reference = path_entity_reference;
@@ -84,6 +95,13 @@ void PathFollowerSystem::SetOffset(uint32_t entity_id, const math::Vector& offse
     const auto it = m_components.find(entity_id);
     if(it != m_components.end())
         it->second.behaviour.SetOffset(offset);
+}
+
+void PathFollowerSystem::SetCurrentPosition(uint32_t entity_id, float position)
+{
+    const auto it = m_components.find(entity_id);
+    if(it != m_components.end())
+        it->second.behaviour.SetCurrentPosition(position);
 }
 
 void PathFollowerSystem::SetThrottle(uint32_t entity_id, float throttle)

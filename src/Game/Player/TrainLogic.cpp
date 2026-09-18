@@ -30,6 +30,7 @@
 #include "Weapons/Modifiers/DamageModifier.h"
 #include "Weapons/Modifiers/BulletBehaviourModifiers.h"
 #include "Entity/TargetSystem.h"
+#include "Behaviour/PathFollowerSystem.h"
 
 #include "EntitySystem/IEntityManager.h"
 #include "EventHandler/EventHandler.h"
@@ -99,7 +100,7 @@ TrainLogic::TrainLogic(
     : m_entity_id(entity_id)
     , m_player_info(player_info)
     , m_config(config)
-//    , m_gamepad_controller(this)
+    , m_gamepad_controller(this)
 //    , m_keyboard_controller(this)
     , m_event_handler(event_handler)
     , m_pause(false)
@@ -128,13 +129,14 @@ TrainLogic::TrainLogic(
     m_interaction_system = system_context->GetSystem<InteractionSystem>();
     m_logic_system = system_context->GetSystem<game::EntityLogicSystem>();
     m_target_system = system_context->GetSystem<game::TargetSystem>();
+    m_path_follower_system = system_context->GetSystem<game::PathFollowerSystem>();
 
     const System::ControllerId controller_id = player_info->controller_id;
 
     m_input_context = m_input_system->CreateContext(1, mono::InputContextBehaviour::ConsumeIfHandled, "PlayerLogicInput");
     //m_input_context->keyboard_input = (controller_id == System::ControllerId::Primary) ? &m_keyboard_controller : nullptr;
     //m_input_context->mouse_input = (controller_id == System::ControllerId::Primary) ? &m_keyboard_controller : nullptr;
-    //m_input_context->controller_input = &m_gamepad_controller;
+    m_input_context->controller_input = &m_gamepad_controller;
     m_input_context->controller_id = controller_id;
 
     mono::ISprite* sprite = m_sprite_system->GetSprite(entity_id);
@@ -158,6 +160,8 @@ TrainLogic::TrainLogic(
         "res/sound/footsteps/grass/steps1.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
     m_running_sounds[1] = audio::CreateSound(
         "res/sound/footsteps/grass/steps2.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
+    m_horn_sound = audio::CreateSound(
+        "res/sound/train_horn.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
 
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
     m_smoke_effect = std::make_unique<SmokeEffect>(particle_system, m_entity_system);
@@ -224,6 +228,22 @@ void TrainLogic::Update(const mono::UpdateContext& update_context)
     m_stamina = std::clamp(m_stamina - (update_context.delta_s * tweak_values::stamina_consumption_per_s * stamina_multiplier), 0.0f, 1.0f);
 
     UpdatePlayerInfo(update_context.timestamp);
+}
+
+void TrainLogic::UpdateController(const mono::UpdateContext& update_context)
+{
+    //ResetMovement();
+
+    const uint32_t player_index = FindPlayerIndex(m_player_info);
+
+    // Select most recent input if player zero, else just go with gamepad. 
+    if(m_input_context->most_recent_input == mono::InputContextType::Controller || player_index > 0)
+        m_gamepad_controller.Update(update_context);
+
+        /*
+    else
+        m_keyboard_controller.Update(update_context);
+        */
 }
 
 void TrainLogic::UpdatePlayerInfo(uint32_t timestamp)
@@ -326,18 +346,6 @@ void TrainLogic::UpdateAnimation(const mono::UpdateContext& update_context, floa
     math::simple_spring_damper_implicit(
         m_aim_direction, m_aim_velocity, m_aim_direction - delta_angle_between, 0.1f, update_context.delta_s);
     m_aim_direction = math::NormalizeAngle(m_aim_direction);
-}
-
-void TrainLogic::UpdateController(const mono::UpdateContext& update_context)
-{
-    /*
-    const uint32_t player_index = FindPlayerIndex(m_player_info);
-    // Select most recent input if player zero, else just go with gamepad. 
-    if(m_input_context->most_recent_input == mono::InputContextType::Controller || player_index > 0)
-    m_gamepad_controller.Update(update_context);
-    else
-    m_keyboard_controller.Update(update_context);
-    */
 }
 
 void TrainLogic::ToDefault()
@@ -550,6 +558,16 @@ void TrainLogic::StopSprint()
 bool TrainLogic::HasStamina() const
 {
     return m_stamina > 0.0f;
+}
+
+void TrainLogic::SetThrottle(float throttle)
+{
+    m_path_follower_system->SetThrottle(m_entity_id, throttle);
+}
+
+void TrainLogic::Honk()
+{
+    m_horn_sound->Play();
 }
 
 void TrainLogic::RespawnPlayer()
