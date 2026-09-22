@@ -103,7 +103,7 @@ namespace game
         int m_run_up_anim_id;
         int m_death_anim_id;
 
-        std::unique_ptr<class SmokeEffect> m_smoke_effect;
+        std::unique_ptr<class TrainSmokeEffect> m_smoke_effect;
         std::unique_ptr<class WheelGrindEffect> m_grind_effect;
 
         audio::ISoundPtr m_drop_box_sound;

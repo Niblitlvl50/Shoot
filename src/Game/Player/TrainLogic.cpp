@@ -41,7 +41,7 @@
 #include "Math/CriticalDampedSpring.h"
 #include "Util/Random.h"
 
-#include "Effects/SmokeEffect.h"
+#include "Effects/TrainSmokeEffect.h"
 #include "Effects/WheelGrindEffect.h"
 #include "Effects/ShockwaveEffect.h"
 #include "Effects/FootStepsEffect.h"
@@ -165,7 +165,9 @@ TrainLogic::TrainLogic(
     m_steam_loop_sound->Play();
 
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
-    m_smoke_effect = std::make_unique<SmokeEffect>(particle_system, m_entity_system);
+    m_smoke_effect = std::make_unique<TrainSmokeEffect>(particle_system, m_entity_system, m_transform_system, m_entity_id);
+    m_smoke_effect->Start();
+
     m_grind_effect = std::make_unique<WheelGrindEffect>(particle_system, m_entity_system);
 
     m_aim_target = m_aim_direction = -math::PI_2();
@@ -280,14 +282,10 @@ void TrainLogic::UpdateSteamSound(const mono::UpdateContext& update_context)
 
 void TrainLogic::UpdateTrainEffects(const mono::UpdateContext& update_context)
 {
-    const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
-
-    m_smoke_timer_s -= update_context.delta_s;
-    if(m_smoke_timer_s <= 0.0f)
-    {
-        m_smoke_timer_s = tweak_values::smoke_emit_interval_s;
-        //m_smoke_effect->EmitSmokeAt(world_position);
-    }
+    const float train_speed = math::Length(m_player_info->velocity);
+    const float train_speed_fraction = math::Scale01Clamped(train_speed, 0.0f, 2.5f);
+    const float emitter_speed = math::FractionToRange(train_speed_fraction, 1.0f, 5.0f);
+    m_smoke_effect->UpdateEmitterSpeed(emitter_speed);
 
     const float speed = math::Length(m_player_info->velocity);
     const float path_curvature = m_path_follower_system->GetCurvature(m_entity_id);
@@ -311,6 +309,8 @@ void TrainLogic::UpdateTrainEffects(const mono::UpdateContext& update_context)
             const float travel_direction = math::AngleFromVector(m_player_info->velocity);
             const float perpendicular_offset = (curvature >= 0.0f) ? -math::PI_2() : math::PI_2();
             const float direction = travel_direction + perpendicular_offset;
+        
+            const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
             m_grind_effect->EmitAtWithDirection(world_position, direction);
         }
     }
