@@ -52,6 +52,7 @@ namespace game
         // Used by the railway system to hand a manually-controlled entity off from one
         // path to another (e.g. at a switch) without losing its position along the track.
         void SetCurrentPosition(float position);
+        void TeleportToPosition(float position);
         float GetCurrentPosition() const;
         float GetPathLength() const;
         const std::vector<math::Vector>* GetPathPoints() const;

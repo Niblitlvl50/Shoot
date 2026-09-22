@@ -48,8 +48,7 @@ void TrainGameMode::Begin(
         {
             const mono::IEntityManager* entity_manager = system_context->GetSystem<mono::IEntityManager>();
             const uint32_t path_uuid = entity_manager->GetEntityUuid(path_entity_id);
-            m_path_follower_system->SetPathReference(player_entity_id, path_uuid);
-            m_path_follower_system->SetCurrentPosition(player_entity_id, train_start_distance);
+            m_path_follower_system->SetPathReference(player_entity_id, path_uuid, train_start_distance);
         }
     };
     m_player_system->SpawnPlayersAt(level_metadata.player_spawn_point, player_spawned_cb);

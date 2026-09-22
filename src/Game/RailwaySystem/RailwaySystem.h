@@ -20,6 +20,10 @@ namespace game
 
         uint32_t trigger_hash = 0;
         uint32_t trigger_callback_id = mono::INVALID_ID;
+
+        // Emitted whenever the active branch changes (see ToggleSwitch).
+        uint32_t primary_trigger_hash = 0;
+        uint32_t alt_trigger_hash = 0;
     };
 
     struct RailwayStationComponent
@@ -47,7 +51,9 @@ namespace game
             uint32_t primary_track_reference,
             uint32_t alt_track_reference,
             bool use_alt_branch,
-            uint32_t trigger_hash);
+            uint32_t trigger_hash,
+            uint32_t primary_trigger_hash,
+            uint32_t alt_trigger_hash);
 
         // Flips which branch is active. Also called automatically when the switch's
         // trigger fires (e.g. from a level-placed interaction switch).

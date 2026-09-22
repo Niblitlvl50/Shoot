@@ -15,7 +15,7 @@ using namespace game;
 
 namespace
 {
-    constexpr float snap_tolerance = 0.5f;
+    constexpr float snap_tolerance = 1.0f;
 }
 
 RailwaySystem::RailwaySystem(mono::SystemContext* system_context)
@@ -45,7 +45,9 @@ void RailwaySystem::SetSwitchData(
     uint32_t primary_track_reference,
     uint32_t alt_track_reference,
     bool use_alt_branch,
-    uint32_t trigger_hash)
+    uint32_t trigger_hash,
+    uint32_t primary_trigger_hash,
+    uint32_t alt_trigger_hash)
 {
     const auto it = m_switches.find(entity_id);
     if(it == m_switches.end())
@@ -58,6 +60,8 @@ void RailwaySystem::SetSwitchData(
     railway_switch.primary_track_entity_id = entity_manager->GetEntityIdFromUuid(primary_track_reference);
     railway_switch.alt_track_entity_id = entity_manager->GetEntityIdFromUuid(alt_track_reference);
     railway_switch.use_alt_branch = use_alt_branch;
+    railway_switch.primary_trigger_hash = primary_trigger_hash;
+    railway_switch.alt_trigger_hash = alt_trigger_hash;
 
     mono::TriggerSystem* trigger_system = m_system_context->GetSystem<mono::TriggerSystem>();
     if(railway_switch.trigger_callback_id != mono::INVALID_ID)
@@ -74,8 +78,14 @@ void RailwaySystem::SetSwitchData(
 void RailwaySystem::ToggleSwitch(uint32_t switch_entity_id)
 {
     const auto it = m_switches.find(switch_entity_id);
-    if(it != m_switches.end())
-        it->second.use_alt_branch = !it->second.use_alt_branch;
+    if(it == m_switches.end())
+        return;
+
+    RailwaySwitchComponent& railway_switch = it->second;
+    railway_switch.use_alt_branch = !railway_switch.use_alt_branch;
+
+    mono::TriggerSystem* trigger_system = m_system_context->GetSystem<mono::TriggerSystem>();
+    trigger_system->EmitTrigger(railway_switch.use_alt_branch ? railway_switch.alt_trigger_hash : railway_switch.primary_trigger_hash);
 }
 
 RailwayStationComponent* RailwaySystem::AllocateStation(uint32_t entity_id)
@@ -215,7 +225,7 @@ void RailwaySystem::TryHandOff(uint32_t train_entity_id)
         if(next_track_id == mono::INVALID_ID || next_track_id == current_track_id)
             continue;
 
-        if(path_follower_system->SwitchToPathEntity(train_entity_id, next_track_id, endpoint_position))
+        if(path_follower_system->SwitchToPathEntity(train_entity_id, next_track_id, endpoint_position, pushing_forward))
             return;
     }
 }

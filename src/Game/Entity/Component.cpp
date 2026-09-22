@@ -168,6 +168,8 @@ const DefaultAttribute default_attributes[] = {
     { "switch_alt_track",           Variant(mono::INVALID_ID) },
     { "switch_use_alt_branch",      Variant(false) },
     { "path_notify_distance",       Variant(0.0f), "Meters along the path" },
+    { "switch_primary_trigger",     Variant(event_type_output_default), "Primary Set Event" },
+    { "switch_alt_trigger",         Variant(event_type_output_default), "Alt Set Event" },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -319,6 +321,8 @@ extern const uint32_t SWITCH_PRIMARY_TRACK_ATTRIBUTE        = default_attributes
 extern const uint32_t SWITCH_ALT_TRACK_ATTRIBUTE            = default_attributes[126].hash;
 extern const uint32_t SWITCH_USE_ALT_BRANCH_ATTRIBUTE       = default_attributes[127].hash;
 extern const uint32_t PATH_NOTIFY_DISTANCE_ATTRIBUTE        = default_attributes[128].hash;
+extern const uint32_t SWITCH_PRIMARY_TRIGGER_ATTRIBUTE      = default_attributes[129].hash;
+extern const uint32_t SWITCH_ALT_TRIGGER_ATTRIBUTE          = default_attributes[130].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -569,7 +573,7 @@ const Component default_components[] = {
 
     MakeComponent(PATH_FOLLOWER_COMPONENT,      PHYSICS_COMPONENT,          false,  "movement",     { MANUAL_CONTROL_ATTRIBUTE, PATH_LOOP_ATTRIBUTE, PING_PONG_ATTRIBUTE, APPLY_ROTATION_ATTRIBUTE, PATH_SPEED_ATTRIBUTE, OFFSET_ATTRIBUTE, ENTITY_REFERENCE_ATTRIBUTE }),
 
-    MakeComponent(RAILWAY_SWITCH_COMPONENT,     NULL_COMPONENT,             false,  "railway",      { ENTITY_REFERENCE_ATTRIBUTE, SWITCH_PRIMARY_TRACK_ATTRIBUTE, SWITCH_ALT_TRACK_ATTRIBUTE, SWITCH_USE_ALT_BRANCH_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
+    MakeComponent(RAILWAY_SWITCH_COMPONENT,     NULL_COMPONENT,             false,  "railway",      { ENTITY_REFERENCE_ATTRIBUTE, SWITCH_PRIMARY_TRACK_ATTRIBUTE, SWITCH_ALT_TRACK_ATTRIBUTE, SWITCH_USE_ALT_BRANCH_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, SWITCH_PRIMARY_TRIGGER_ATTRIBUTE, SWITCH_ALT_TRIGGER_ATTRIBUTE }),
     MakeComponent(RAILWAY_STATION_COMPONENT,    NULL_COMPONENT,             false,  "railway",      { NAME_ATTRIBUTE }),
 
     MakeComponent(AREA_TRIGGER_COMPONENT,       NULL_COMPONENT,             false,  "triggers",     { SIZE_ATTRIBUTE, FACTION_PICKER_ATTRIBUTE, LOGIC_OP_ATTRIBUTE, N_ENTITIES_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),

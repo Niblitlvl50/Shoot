@@ -168,6 +168,9 @@ extern const uint32_t SWITCH_USE_ALT_BRANCH_ATTRIBUTE;
 
 extern const uint32_t PATH_NOTIFY_DISTANCE_ATTRIBUTE;
 
+extern const uint32_t SWITCH_PRIMARY_TRIGGER_ATTRIBUTE;
+extern const uint32_t SWITCH_ALT_TRIGGER_ATTRIBUTE;
+
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);
 const Variant& DefaultAttributeFromHash(uint32_t hash);

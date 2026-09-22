@@ -1365,17 +1365,23 @@ namespace
         uint32_t alt_track_reference = mono::INVALID_ID;
         bool use_alt_branch;
         mono::Event trigger_name;
+        mono::Event primary_trigger_name;
+        mono::Event alt_trigger_name;
 
         FindAttribute(ENTITY_REFERENCE_ATTRIBUTE, properties, trunk_track_reference, FallbackMode::SET_DEFAULT);
         FindAttribute(SWITCH_PRIMARY_TRACK_ATTRIBUTE, properties, primary_track_reference, FallbackMode::SET_DEFAULT);
         FindAttribute(SWITCH_ALT_TRACK_ATTRIBUTE, properties, alt_track_reference, FallbackMode::SET_DEFAULT);
         FindAttribute(SWITCH_USE_ALT_BRANCH_ATTRIBUTE, properties, use_alt_branch, FallbackMode::SET_DEFAULT);
         FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::SET_DEFAULT);
+        FindAttribute(SWITCH_PRIMARY_TRIGGER_ATTRIBUTE, properties, primary_trigger_name, FallbackMode::SET_DEFAULT);
+        FindAttribute(SWITCH_ALT_TRIGGER_ATTRIBUTE, properties, alt_trigger_name, FallbackMode::SET_DEFAULT);
 
         game::RailwaySystem* railway_system = context->GetSystem<game::RailwaySystem>();
         railway_system->SetSwitchData(
             entity->id, trunk_track_reference, primary_track_reference, alt_track_reference, use_alt_branch,
-            hash::Hash(trigger_name.text.c_str()));
+            hash::Hash(trigger_name.text.c_str()),
+            hash::Hash(primary_trigger_name.text.c_str()),
+            hash::Hash(alt_trigger_name.text.c_str()));
 
         return true;
     }

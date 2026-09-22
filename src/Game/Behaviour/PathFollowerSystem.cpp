@@ -59,10 +59,10 @@ void PathFollowerSystem::SetPathFollowerData(
     component->behaviour.SetOffset(offset);
     component->behaviour.SetManualControl(manual_control);
 
-    SetPathReference(entity_id, path_entity_reference);
+    SetPathReference(entity_id, path_entity_reference, 0.0f);
 }
 
-void PathFollowerSystem::SetPathReference(uint32_t entity_id, uint32_t path_entity_reference)
+void PathFollowerSystem::SetPathReference(uint32_t entity_id, uint32_t path_entity_reference, float initial_position)
 {
     const auto it = m_components.find(entity_id);
     if(it == m_components.end())
@@ -74,6 +74,7 @@ void PathFollowerSystem::SetPathReference(uint32_t entity_id, uint32_t path_enti
     // creation order isn't guaranteed), so resolve and bake the path in Sync() instead.
     component->pending_path_entity_reference = path_entity_reference;
     component->needs_path_resolve = true;
+    component->initial_position = initial_position;
 }
 
 void PathFollowerSystem::SetPaused(uint32_t entity_id, bool paused)
@@ -149,7 +150,8 @@ const std::vector<math::Vector>* PathFollowerSystem::GetPathPoints(uint32_t enti
     return (it != m_components.end()) ? it->second.behaviour.GetPathPoints() : nullptr;
 }
 
-bool PathFollowerSystem::SwitchToPathEntity(uint32_t entity_id, uint32_t new_path_entity_id, const math::Vector& enter_at_world_position)
+bool PathFollowerSystem::SwitchToPathEntity(
+    uint32_t entity_id, uint32_t new_path_entity_id, const math::Vector& enter_at_world_position, bool entering_forward)
 {
     const auto it = m_components.find(entity_id);
     if(it == m_components.end())
@@ -163,16 +165,24 @@ bool PathFollowerSystem::SwitchToPathEntity(uint32_t entity_id, uint32_t new_pat
     if(points.empty())
         return false;
 
-    // Orient the new track so the entry point is always its start (position 0), so that
-    // continuing to hold the same throttle direction keeps moving the entity forward.
     constexpr float snap_tolerance = 0.5f;
-    if(math::DistanceBetween(points.back(), enter_at_world_position) <= snap_tolerance)
-        std::reverse(points.begin(), points.end());
-    else if(math::DistanceBetween(points.front(), enter_at_world_position) > snap_tolerance)
+    const bool entry_matches_front = math::DistanceBetween(points.front(), enter_at_world_position) <= snap_tolerance;
+    const bool entry_matches_back = math::DistanceBetween(points.back(), enter_at_world_position) <= snap_tolerance;
+    if(!entry_matches_front && !entry_matches_back)
         return false;
 
-    it->second.behaviour.SetPath(mono::CreatePath(points));
-    it->second.behaviour.SetCurrentPosition(0.0f);
+    // Forward entries need the entry point at the start (position 0); backward entries need
+    // it at the far end (position Length()) - either way, continuing with the same throttle
+    // direction moves away from the entry point instead of clamping right back against it.
+    const bool need_reverse = entering_forward ? entry_matches_back : entry_matches_front;
+    if(need_reverse)
+        std::reverse(points.begin(), points.end());
+
+    mono::IPathPtr oriented_path = mono::CreatePath(points);
+    const float entry_position = entering_forward ? 0.0f : oriented_path->Length();
+
+    it->second.behaviour.SetPath(std::move(oriented_path));
+    it->second.behaviour.SetCurrentPosition(entry_position);
     it->second.current_path_entity_id = new_path_entity_id;
     return true;
 }
@@ -223,7 +233,10 @@ void PathFollowerSystem::Sync()
 
         component.current_path_entity_id = path_entity_id;
         component.behaviour.SetPath(std::move(path));
+        component.behaviour.TeleportToPosition(component.initial_position);
         component.needs_path_resolve = false;
+
+        m_system_context->GetSystem<mono::TransformSystem>()->SetTransformState(entity_component_pair.first, mono::TransformState::PHYSICS);
     }
 }
 

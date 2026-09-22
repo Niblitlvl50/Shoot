@@ -81,6 +81,18 @@ void PathBehaviour::SetCurrentPosition(float position)
     m_current_position = position;
 }
 
+void PathBehaviour::TeleportToPosition(float position)
+{
+    m_current_position = position;
+
+    if(m_entity_body && m_path)
+    {
+        const mono::PositionResult pos_result = m_path->GetPositionByLength(m_current_position);
+        if(pos_result.valid_position)
+            m_entity_body->SetPosition(pos_result.path_position + m_offset);
+    }
+}
+
 float PathBehaviour::GetCurrentPosition() const
 {
     return m_current_position;
@@ -146,7 +158,7 @@ PathResult PathBehaviour::Run(float delta_s)
         const mono::PositionResult position_result = m_path->GetPositionByLength(m_current_position);
         if(position_result.valid_position)
         {
-            constexpr float move_halflife = 0.3f;
+            constexpr float move_halflife = 0.1f;
             const math::Vector target_position = position_result.path_position + m_offset;
 
             math::critical_spring_damper(

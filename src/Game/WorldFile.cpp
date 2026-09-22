@@ -84,8 +84,26 @@ namespace
                 Component component = component::DefaultComponentFromHash(component_data.hash);
                 MergeAttributes(component.properties, component_data.properties);
 
+                // Mirror EntitySystem::SpawnEntityCollection's Local/Entity event scoping for
+                // placed entities, which otherwise never gets applied (this loader doesn't go
+                // through SpawnEntity at all). Only the copy handed to the trigger system gets
+                // mangled - component.properties keeps the original text, since it's also what
+                // the editor holds onto for re-saving the level.
+                std::vector<Attribute> mangled_properties = component.properties;
+                for(Attribute& attribute : mangled_properties)
+                {
+                    mono::Event* event = std::get_if<mono::Event>(&attribute.value);
+                    if(!event)
+                        continue;
+
+                    if(event->type == mono::EventType::Local)
+                        event->text += std::to_string(entity_data.entity_uuid);
+                    else if(event->type == mono::EventType::Entity)
+                        event->text += entity_data.entity_name;
+                }
+
                 const bool add_component_result = entity_manager->AddComponent(entity.id, component.hash);
-                const bool set_component_result = entity_manager->SetComponentData(entity.id, component.hash, component.properties);
+                const bool set_component_result = entity_manager->SetComponentData(entity.id, component.hash, mangled_properties);
                 if(!add_component_result || !set_component_result)
                 {
                     //System::Log("WorldFile|Failed to setup component with name '%s' for entity named '%s'", ComponentNameFromHash(component.hash), entity_name.c_str());

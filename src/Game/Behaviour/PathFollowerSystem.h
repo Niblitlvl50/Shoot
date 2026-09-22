@@ -23,6 +23,7 @@ namespace game
         // creation order isn't guaranteed), so the actual lookup/bake is deferred to Sync().
         uint32_t pending_path_entity_reference = mono::INVALID_ID;
         bool needs_path_resolve = false;
+        float initial_position = 0.0f;
     };
 
     // Drives an entity's physics body along another entity's path, configured entirely
@@ -46,7 +47,7 @@ namespace game
             const math::Vector& offset,
             bool manual_control);
 
-        void SetPathReference(uint32_t entity_id, uint32_t path_entity_reference);
+        void SetPathReference(uint32_t entity_id, uint32_t path_entity_reference, float initial_position);
 
 
         void SetPaused(uint32_t entity_id, bool paused);
@@ -66,8 +67,13 @@ namespace game
 
         // Hands a manually-controlled entity off onto a different track, entering it at
         // whichever end lies closest to `enter_at_world_position` (used at railway switches).
+        // `entering_forward` says which way the entity was travelling when it hit the switch:
+        // the new track is oriented so continuing with that same throttle direction keeps
+        // moving away from the entry point (forward entries land at position 0, backward
+        // entries at the far end), instead of getting stuck at a clamped boundary and
+        // immediately handing back off the way it came.
         // Returns false if the entity, the new path, or a matching endpoint can't be found.
-        bool SwitchToPathEntity(uint32_t entity_id, uint32_t new_path_entity_id, const math::Vector& enter_at_world_position);
+        bool SwitchToPathEntity(uint32_t entity_id, uint32_t new_path_entity_id, const math::Vector& enter_at_world_position, bool entering_forward);
 
         template <typename T>
         void ForEach(T&& callback) const

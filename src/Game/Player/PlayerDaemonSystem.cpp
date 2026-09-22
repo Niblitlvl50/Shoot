@@ -325,9 +325,12 @@ uint32_t PlayerDaemonSystem::SpawnPlayer(
         spawn_position.x,
         spawn_position.y);
 
-    mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
-    transform_system->SetTransform(player_entity.id, math::CreateMatrixWithPosition(spawn_position));
-    transform_system->SetTransformState(player_entity.id, mono::TransformState::CLIENT);
+    if(!m_train_logic)
+    {
+        mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
+        transform_system->SetTransform(player_entity.id, math::CreateMatrixWithPosition(spawn_position));
+        transform_system->SetTransformState(player_entity.id, mono::TransformState::CLIENT);
+    }
 
     const bool has_damage_record = m_damage_system->IsAllocated(player_entity.id);
     if(has_damage_record)
