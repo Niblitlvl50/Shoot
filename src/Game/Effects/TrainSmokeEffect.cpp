@@ -16,20 +16,19 @@ namespace
     {
         const float x_variation = mono::Random(-0.02f, 0.02f);
         const float y_variation = mono::Random(-0.02f, 0.02f);
-        //const float velocity_variation = mono::Random(0.3f, 1.0f);
+        const float y_velocity_variation = mono::Random(0.1f, 0.4f);
         const float size = mono::Random(64.0f, 80.0f);
-        const float end_size = mono::Random(80.0f, 100.0f);
+        const float end_size = mono::Random(100.0f, 120.0f);
         const float life = mono::Random(2.4f, 2.8f);
 
         component_view.position = context.position + math::Vector(x_variation, y_variation);
         component_view.rotation = 0.0f;
-        component_view.velocity = math::ZeroVec; //velocity * velocity_variation;
+        component_view.velocity = math::Vector(0.0f, y_velocity_variation);
         //component_view.angular_velocity = mono::Random(-1.1f, 1.1f);
-
 
         using namespace mono::Color;
         component_view.gradient = mono::Color::MakeGradient<4>(
-            { 0.0f, 1.0f, 1.0f, 1.0f },
+            { 0.0f, 1.0f, 1.0f, 0.7f },
             { OFF_WHITE, RGBA(1.0f, 1.0f, 1.0f, 0.0f), RGBA(), RGBA() }
         );
         component_view.start_size = size;

@@ -287,9 +287,8 @@ void TrainLogic::UpdateTrainEffects(const mono::UpdateContext& update_context)
     const float emitter_speed = math::FractionToRange(train_speed_fraction, 1.0f, 5.0f);
     m_smoke_effect->UpdateEmitterSpeed(emitter_speed);
 
-    const float speed = math::Length(m_player_info->velocity);
     const float path_curvature = m_path_follower_system->GetCurvature(m_entity_id);
-    const float cornering_metric = speed * std::abs(path_curvature);
+    const float cornering_metric = train_speed * std::abs(path_curvature);
 
     if(cornering_metric >= tweak_values::grind_cornering_threshold)
     {
