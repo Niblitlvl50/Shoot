@@ -3,27 +3,34 @@
         {
             "frame_duration": 100,
             "frames": [
-                0,
+                0
+            ],
+            "loop": true,
+            "name": "alternative"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
                 1
             ],
             "loop": true,
-            "name": "default"
+            "name": "straight"
         }
     ],
     "frames": [
         {
-            "h": 43,
-            "name": "fire_bullet_default_1",
-            "w": 15,
-            "x": 1882,
-            "y": 243
+            "h": 8,
+            "name": "switch_indicator_alternative_1",
+            "w": 8,
+            "x": 644,
+            "y": 569
         },
         {
-            "h": 43,
-            "name": "fire_bullet_default_2",
-            "w": 15,
-            "x": 727,
-            "y": 249
+            "h": 8,
+            "name": "switch_indicator_straight_1",
+            "w": 8,
+            "x": 620,
+            "y": 569
         }
     ],
     "frames_offsets": [
@@ -40,7 +47,7 @@
         "",
         ""
     ],
-    "source_folder": "res/images/bullets/",
+    "source_folder": "res/images/railway/",
     "texture": "res/sprite_atlas.png",
     "texture_size": {
         "h": 1024,

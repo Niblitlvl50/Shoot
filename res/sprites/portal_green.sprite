@@ -49,14 +49,14 @@
             "h": 1,
             "name": "portal_green_begin_1",
             "w": 23,
-            "x": 432,
+            "x": 447,
             "y": 577
         },
         {
             "h": 3,
             "name": "portal_green_begin_2",
             "w": 27,
-            "x": 391,
+            "x": 406,
             "y": 570
         },
         {
@@ -70,7 +70,7 @@
             "h": 17,
             "name": "portal_green_begin_4",
             "w": 17,
-            "x": 533,
+            "x": 512,
             "y": 498
         },
         {
@@ -126,21 +126,21 @@
             "h": 3,
             "name": "portal_green_end_4",
             "w": 27,
-            "x": 422,
+            "x": 437,
             "y": 570
         },
         {
             "h": 1,
             "name": "portal_green_end_5",
             "w": 37,
-            "x": 391,
+            "x": 406,
             "y": 577
         },
         {
             "h": 1,
             "name": "portal_green_end_6",
             "w": 43,
-            "x": 199,
+            "x": 200,
             "y": 575
         },
         {
@@ -154,8 +154,8 @@
             "h": 41,
             "name": "portal_green_idle_2",
             "w": 19,
-            "x": 727,
-            "y": 296
+            "x": 1260,
+            "y": 299
         },
         {
             "h": 43,
@@ -196,8 +196,8 @@
             "h": 41,
             "name": "portal_green_idle_8",
             "w": 19,
-            "x": 1260,
-            "y": 299
+            "x": 727,
+            "y": 296
         }
     ],
     "frames_offsets": [

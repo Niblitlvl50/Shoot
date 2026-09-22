@@ -56,28 +56,28 @@
             "h": 9,
             "name": "bird_brown_flying_1",
             "w": 14,
-            "x": 1395,
+            "x": 1413,
             "y": 555
         },
         {
             "h": 8,
             "name": "bird_brown_flying_2",
             "w": 14,
-            "x": 1609,
+            "x": 1627,
             "y": 568
         },
         {
             "h": 6,
             "name": "bird_brown_flying_3",
             "w": 14,
-            "x": 1961,
+            "x": 1993,
             "y": 569
         },
         {
             "h": 8,
             "name": "bird_brown_flying_4",
             "w": 15,
-            "x": 1590,
+            "x": 1571,
             "y": 568
         },
         {
@@ -91,21 +91,21 @@
             "h": 8,
             "name": "bird_brown_flying_6",
             "w": 15,
-            "x": 1552,
+            "x": 1590,
             "y": 568
         },
         {
             "h": 6,
             "name": "bird_brown_flying_7",
             "w": 14,
-            "x": 1943,
+            "x": 1975,
             "y": 569
         },
         {
             "h": 9,
             "name": "bird_brown_flying_8",
             "w": 14,
-            "x": 1413,
+            "x": 1395,
             "y": 555
         },
         {
@@ -119,35 +119,35 @@
             "h": 11,
             "name": "bird_brown_idle_2",
             "w": 11,
-            "x": 417,
+            "x": 387,
             "y": 555
         },
         {
             "h": 9,
             "name": "bird_brown_peck_1",
             "w": 12,
-            "x": 1762,
+            "x": 1712,
             "y": 555
         },
         {
             "h": 7,
             "name": "bird_brown_peck_2",
             "w": 12,
-            "x": 1045,
+            "x": 1069,
             "y": 569
         },
         {
             "h": 8,
             "name": "bird_brown_peck_3",
             "w": 13,
-            "x": 1697,
+            "x": 1680,
             "y": 568
         },
         {
             "h": 9,
             "name": "bird_brown_walk_1",
             "w": 12,
-            "x": 1696,
+            "x": 1746,
             "y": 555
         },
         {

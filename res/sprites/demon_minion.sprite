@@ -41,21 +41,21 @@
             "h": 58,
             "name": "demon_minion_idle_2",
             "w": 41,
-            "x": 563,
+            "x": 518,
             "y": 189
         },
         {
             "h": 62,
             "name": "demon_minion_left_1",
             "w": 42,
-            "x": 1404,
+            "x": 1450,
             "y": 179
         },
         {
             "h": 62,
             "name": "demon_minion_turn_1",
             "w": 42,
-            "x": 1450,
+            "x": 1404,
             "y": 179
         },
         {

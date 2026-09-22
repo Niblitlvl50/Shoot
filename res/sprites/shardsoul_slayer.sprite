@@ -59,7 +59,7 @@
             "h": 33,
             "name": "shardsoul_slayer_attack_1",
             "w": 33,
-            "x": 542,
+            "x": 868,
             "y": 344
         },
         {
@@ -94,7 +94,7 @@
             "h": 33,
             "name": "shardsoul_slayer_emote_1",
             "w": 33,
-            "x": 579,
+            "x": 505,
             "y": 344
         },
         {
@@ -108,28 +108,28 @@
             "h": 35,
             "name": "shardsoul_slayer_emote_3",
             "w": 34,
-            "x": 1525,
+            "x": 1563,
             "y": 343
         },
         {
             "h": 32,
             "name": "shardsoul_slayer_emote_4",
             "w": 33,
-            "x": 995,
-            "y": 380
+            "x": 289,
+            "y": 363
         },
         {
             "h": 33,
             "name": "shardsoul_slayer_idle_1",
             "w": 33,
-            "x": 868,
+            "x": 653,
             "y": 344
         },
         {
             "h": 33,
             "name": "shardsoul_slayer_idle_2",
             "w": 33,
-            "x": 616,
+            "x": 831,
             "y": 344
         },
         {
@@ -143,63 +143,63 @@
             "h": 32,
             "name": "shardsoul_slayer_idle_4",
             "w": 34,
-            "x": 251,
+            "x": 213,
             "y": 363
         },
         {
             "h": 33,
             "name": "shardsoul_slayer_idle_5",
             "w": 33,
-            "x": 653,
+            "x": 542,
             "y": 344
         },
         {
             "h": 33,
             "name": "shardsoul_slayer_idle_6",
             "w": 33,
-            "x": 505,
+            "x": 616,
             "y": 344
         },
         {
             "h": 32,
             "name": "shardsoul_slayer_idle_7",
             "w": 33,
-            "x": 289,
-            "y": 363
+            "x": 995,
+            "y": 380
         },
         {
             "h": 32,
             "name": "shardsoul_slayer_idle_8",
             "w": 34,
-            "x": 213,
+            "x": 251,
             "y": 363
         },
         {
             "h": 33,
             "name": "shardsoul_slayer_run_1",
             "w": 37,
-            "x": 33,
+            "x": 131,
             "y": 344
         },
         {
             "h": 33,
             "name": "shardsoul_slayer_run_2",
             "w": 37,
-            "x": 131,
+            "x": 172,
             "y": 344
         },
         {
             "h": 34,
             "name": "shardsoul_slayer_run_3",
             "w": 36,
-            "x": 1803,
+            "x": 1763,
             "y": 343
         },
         {
             "h": 34,
             "name": "shardsoul_slayer_run_4",
             "w": 36,
-            "x": 1763,
+            "x": 1723,
             "y": 343
         },
         {

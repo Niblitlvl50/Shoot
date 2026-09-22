@@ -88,42 +88,42 @@
             "h": 22,
             "name": "fire_zombie_attack_1",
             "w": 16,
-            "x": 250,
-            "y": 460
+            "x": 1509,
+            "y": 472
         },
         {
             "h": 21,
             "name": "fire_zombie_attack_2",
             "w": 16,
-            "x": 571,
+            "x": 611,
             "y": 473
         },
         {
             "h": 13,
             "name": "fire_zombie_die_1",
             "w": 17,
-            "x": 548,
+            "x": 569,
             "y": 538
         },
         {
             "h": 13,
             "name": "fire_zombie_die_2",
             "w": 19,
-            "x": 525,
+            "x": 502,
             "y": 538
         },
         {
             "h": 12,
             "name": "fire_zombie_die_3",
             "w": 12,
-            "x": 354,
+            "x": 149,
             "y": 539
         },
         {
             "h": 22,
             "name": "fire_zombie_idle_1",
             "w": 14,
-            "x": 1603,
+            "x": 1567,
             "y": 472
         },
         {
@@ -137,14 +137,14 @@
             "h": 21,
             "name": "fire_zombie_idle_down_1",
             "w": 13,
-            "x": 650,
+            "x": 191,
             "y": 473
         },
         {
             "h": 20,
             "name": "fire_zombie_idle_down_2",
             "w": 15,
-            "x": 1071,
+            "x": 1090,
             "y": 473
         },
         {
@@ -158,14 +158,14 @@
             "h": 21,
             "name": "fire_zombie_idle_up_2",
             "w": 13,
-            "x": 191,
+            "x": 650,
             "y": 473
         },
         {
             "h": 21,
             "name": "fire_zombie_walk_1",
             "w": 17,
-            "x": 468,
+            "x": 489,
             "y": 473
         },
         {
@@ -200,7 +200,7 @@
             "h": 22,
             "name": "fire_zombie_walk_up_2",
             "w": 14,
-            "x": 1567,
+            "x": 1603,
             "y": 472
         }
     ],

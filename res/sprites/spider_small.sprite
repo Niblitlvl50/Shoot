@@ -31,63 +31,63 @@
             "h": 8,
             "name": "spider_small_idle_1",
             "w": 12,
-            "x": 493,
-            "y": 569
+            "x": 1779,
+            "y": 568
         },
         {
             "h": 7,
             "name": "spider_small_idle_2",
             "w": 14,
-            "x": 1027,
+            "x": 1015,
             "y": 569
         },
         {
             "h": 7,
             "name": "spider_small_idle_3",
             "w": 14,
-            "x": 991,
+            "x": 1051,
             "y": 569
         },
         {
             "h": 8,
             "name": "spider_small_idle_4",
             "w": 12,
-            "x": 509,
+            "x": 493,
             "y": 569
         },
         {
             "h": 9,
             "name": "spider_small_idle_5",
             "w": 12,
-            "x": 1746,
+            "x": 1664,
             "y": 555
         },
         {
             "h": 7,
             "name": "spider_small_move_1",
             "w": 11,
-            "x": 1093,
+            "x": 1132,
             "y": 569
         },
         {
             "h": 8,
             "name": "spider_small_move_2",
             "w": 12,
-            "x": 525,
-            "y": 569
+            "x": 1811,
+            "y": 568
         },
         {
             "h": 8,
             "name": "spider_small_move_3",
             "w": 13,
-            "x": 1680,
+            "x": 1697,
             "y": 568
         },
         {
             "h": 7,
             "name": "spider_small_move_4",
             "w": 11,
-            "x": 1108,
+            "x": 1117,
             "y": 569
         },
         {
@@ -101,8 +101,8 @@
             "h": 8,
             "name": "spider_small_move_6",
             "w": 12,
-            "x": 1763,
-            "y": 568
+            "x": 525,
+            "y": 569
         }
     ],
     "frames_offsets": [
