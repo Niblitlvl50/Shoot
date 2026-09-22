@@ -119,6 +119,7 @@ namespace game
         class EntityLogicSystem* m_logic_system;
         class TargetSystem* m_target_system;
         class PathFollowerSystem* m_path_follower_system;
+        class RailwaySystem* m_railway_system;
 
         mono::InputContext* m_input_context;
 

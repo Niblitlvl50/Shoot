@@ -2,6 +2,7 @@
 #pragma once
 
 #include "MonoFwd.h"
+#include "Math/MathFwd.h"
 #include "IGameSystem.h"
 #include "EntitySystem/Entity.h"
 
@@ -59,6 +60,12 @@ namespace game
         // trigger fires (e.g. from a level-placed interaction switch).
         void ToggleSwitch(uint32_t switch_entity_id);
 
+        // Tries to flip whichever switch sits at the end of `entity_id`'s current track in
+        // the direction it's currently being driven (current throttle sign; treated as
+        // forward if zero) - e.g. hook this up to a horn button so honking near a junction
+        // flips it ahead of arriving. Returns false if there's no switch there.
+        bool ToggleSwitchAhead(uint32_t entity_id);
+
         RailwayStationComponent* AllocateStation(uint32_t entity_id);
         void ReleaseStation(uint32_t entity_id);
         void SetStationData(uint32_t entity_id, const std::string& name);
@@ -69,6 +76,7 @@ namespace game
         void Update(const mono::UpdateContext& update_context) override;
 
         void TryHandOff(uint32_t train_entity_id);
+        uint32_t FindSwitchNearPosition(const math::Vector& position) const;
         void DrawDebugInfo() const;
 
         mono::SystemContext* m_system_context;

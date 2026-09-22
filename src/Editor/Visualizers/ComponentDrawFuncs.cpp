@@ -335,6 +335,11 @@ void editor::DrawPath(mono::IRenderer& renderer, const std::vector<Attribute>& c
             renderer.DrawLines(handle_lines, handle_color, 1.0f);
         }
     }
+
+    // Mark the path's start/end anchors so it's clear which way is "forward".
+    constexpr float endpoint_size = 10.0f;
+    renderer.DrawPoints({ vertices.front() }, mono::Color::GREEN, endpoint_size);
+    renderer.DrawPoints({ vertices.back() }, mono::Color::RED, endpoint_size);
 }
 
 void editor::DrawPathNotifierDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
@@ -406,7 +411,7 @@ void editor::DrawRailwaySwitch(mono::IRenderer& renderer, const std::vector<Attr
     bool use_alt_branch = false;
     FindAttribute(SWITCH_USE_ALT_BRANCH_ATTRIBUTE, component_properties, use_alt_branch, FallbackMode::SET_DEFAULT);
 
-    constexpr float radius = 0.5f;
+    constexpr float radius = 1.0f;
     const mono::Color::RGBA active_color = use_alt_branch ? mono::Color::CYAN : mono::Color::ORANGE;
 
     renderer.DrawFilledCircle(math::Vector(radius, radius), 20, mono::Color::MakeWithAlpha(active_color, 0.35f));

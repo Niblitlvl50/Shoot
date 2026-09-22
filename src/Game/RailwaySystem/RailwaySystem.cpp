@@ -88,6 +88,30 @@ void RailwaySystem::ToggleSwitch(uint32_t switch_entity_id)
     trigger_system->EmitTrigger(railway_switch.use_alt_branch ? railway_switch.alt_trigger_hash : railway_switch.primary_trigger_hash);
 }
 
+bool RailwaySystem::ToggleSwitchAhead(uint32_t entity_id)
+{
+    game::PathFollowerSystem* path_follower_system = m_system_context->GetSystem<game::PathFollowerSystem>();
+
+    const uint32_t current_track_id = path_follower_system->GetCurrentPathEntity(entity_id);
+    if(current_track_id == mono::INVALID_ID)
+        return false;
+
+    const std::vector<math::Vector>* path_points = path_follower_system->GetPathPoints(entity_id);
+    if(!path_points || path_points->empty())
+        return false;
+
+    const float throttle = path_follower_system->GetThrottle(entity_id);
+    const bool moving_forward = (throttle >= 0.0f);
+    const math::Vector& endpoint_position = moving_forward ? path_points->back() : path_points->front();
+
+    const uint32_t switch_entity_id = FindSwitchNearPosition(endpoint_position);
+    if(switch_entity_id == mono::INVALID_ID)
+        return false;
+
+    ToggleSwitch(switch_entity_id);
+    return true;
+}
+
 RailwayStationComponent* RailwaySystem::AllocateStation(uint32_t entity_id)
 {
     return &m_stations[entity_id];
@@ -198,34 +222,41 @@ void RailwaySystem::TryHandOff(uint32_t train_entity_id)
 
     const math::Vector& endpoint_position = pushing_forward ? path_points->back() : path_points->front();
 
+    const uint32_t switch_entity_id = FindSwitchNearPosition(endpoint_position);
+    if(switch_entity_id == mono::INVALID_ID)
+        return;
+
+    const RailwaySwitchComponent& railway_switch = m_switches.at(switch_entity_id);
+
+    uint32_t next_track_id = mono::INVALID_ID;
+
+    if(current_track_id == railway_switch.trunk_track_entity_id)
+    {
+        next_track_id = railway_switch.use_alt_branch
+            ? railway_switch.alt_track_entity_id
+            : railway_switch.primary_track_entity_id;
+    }
+    else if(current_track_id == railway_switch.primary_track_entity_id || current_track_id == railway_switch.alt_track_entity_id)
+    {
+        next_track_id = railway_switch.trunk_track_entity_id;
+    }
+
+    if(next_track_id == mono::INVALID_ID || next_track_id == current_track_id)
+        return;
+
+    path_follower_system->SwitchToPathEntity(train_entity_id, next_track_id, endpoint_position, pushing_forward);
+}
+
+uint32_t RailwaySystem::FindSwitchNearPosition(const math::Vector& position) const
+{
     mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
 
     for(const auto& switch_pair : m_switches)
     {
-        const uint32_t switch_entity_id = switch_pair.first;
-        const RailwaySwitchComponent& railway_switch = switch_pair.second;
-
-        const math::Vector switch_position = transform_system->GetWorldPosition(switch_entity_id);
-        if(math::DistanceBetween(switch_position, endpoint_position) > snap_tolerance)
-            continue;
-
-        uint32_t next_track_id = mono::INVALID_ID;
-
-        if(current_track_id == railway_switch.trunk_track_entity_id)
-        {
-            next_track_id = railway_switch.use_alt_branch
-                ? railway_switch.alt_track_entity_id
-                : railway_switch.primary_track_entity_id;
-        }
-        else if(current_track_id == railway_switch.primary_track_entity_id || current_track_id == railway_switch.alt_track_entity_id)
-        {
-            next_track_id = railway_switch.trunk_track_entity_id;
-        }
-
-        if(next_track_id == mono::INVALID_ID || next_track_id == current_track_id)
-            continue;
-
-        if(path_follower_system->SwitchToPathEntity(train_entity_id, next_track_id, endpoint_position, pushing_forward))
-            return;
+        const math::Vector switch_position = transform_system->GetWorldPosition(switch_pair.first);
+        if(math::DistanceBetween(switch_position, position) <= snap_tolerance)
+            return switch_pair.first;
     }
+
+    return mono::INVALID_ID;
 }

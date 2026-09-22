@@ -31,6 +31,7 @@
 #include "Weapons/Modifiers/BulletBehaviourModifiers.h"
 #include "Entity/TargetSystem.h"
 #include "Behaviour/PathFollowerSystem.h"
+#include "RailwaySystem/RailwaySystem.h"
 
 #include "EntitySystem/IEntityManager.h"
 #include "EventHandler/EventHandler.h"
@@ -119,6 +120,7 @@ TrainLogic::TrainLogic(
     m_logic_system = system_context->GetSystem<game::EntityLogicSystem>();
     m_target_system = system_context->GetSystem<game::TargetSystem>();
     m_path_follower_system = system_context->GetSystem<game::PathFollowerSystem>();
+    m_railway_system = system_context->GetSystem<game::RailwaySystem>();
 
     const System::ControllerId controller_id = player_info->controller_id;
 
@@ -505,6 +507,7 @@ void TrainLogic::SetThrottle(float throttle)
 void TrainLogic::Honk()
 {
     m_horn_sound->Play();
+    m_railway_system->ToggleSwitchAhead(m_entity_id);
 }
 
 void TrainLogic::RespawnPlayer()
