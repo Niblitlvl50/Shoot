@@ -108,6 +108,11 @@ const std::vector<math::Vector>* PathBehaviour::GetPathPoints() const
     return m_path ? &m_path->GetPathPoints() : nullptr;
 }
 
+float PathBehaviour::GetCurvature() const
+{
+    return m_path ? m_path->GetCurvatureByLength(m_current_position) : 0.0f;
+}
+
 PathResult PathBehaviour::Run(float delta_s)
 {
     PathResult result;

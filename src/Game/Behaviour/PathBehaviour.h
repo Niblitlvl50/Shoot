@@ -57,6 +57,10 @@ namespace game
         float GetPathLength() const;
         const std::vector<math::Vector>* GetPathPoints() const;
 
+        // Radians of turn per meter at the current position; 0 for a straight line, larger
+        // magnitude for a tighter bend. See mono::IPath::GetCurvatureByLength.
+        float GetCurvature() const;
+
         PathResult Run(float delta_s);
         PathDebugData GetDebugData() const;
 

@@ -65,6 +65,10 @@ namespace game
         bool IsAtPathEnd(uint32_t entity_id) const;
         const std::vector<math::Vector>* GetPathPoints(uint32_t entity_id) const;
 
+        // Radians of turn per meter at the entity's current position on its path; 0 if the
+        // entity has no path (or the path is a straight line), larger magnitude for tighter bends.
+        float GetCurvature(uint32_t entity_id) const;
+
         // Hands a manually-controlled entity off onto a different track, entering it at
         // whichever end lies closest to `enter_at_world_position` (used at railway switches).
         // `entering_forward` says which way the entity was travelling when it hit the switch:

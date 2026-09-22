@@ -42,6 +42,7 @@
 #include "Util/Random.h"
 
 #include "Effects/SmokeEffect.h"
+#include "Effects/WheelGrindEffect.h"
 #include "Effects/ShockwaveEffect.h"
 #include "Effects/FootStepsEffect.h"
 #include "Effects/WeaponModifierEffect.h"
@@ -58,6 +59,13 @@ namespace tweak_values
     constexpr float steam_sound_idle_pitch = 0.6f;
     constexpr float steam_sound_max_pitch = 1.6f;
     constexpr float steam_sound_pitch_halflife = 0.4f;
+
+    constexpr float smoke_emit_interval_s = 0.4f;
+
+    // speed (m/s) * curvature (rad/m) is roughly the train's angular velocity while
+    // cornering - above this, the wheels are considered to be grinding against the rails.
+    constexpr float grind_cornering_threshold = 1.2f;
+    constexpr float grind_emit_interval_s = 0.08f;
 }
 
 namespace
@@ -104,6 +112,8 @@ TrainLogic::TrainLogic(
     , m_aim_velocity(0.0f)
     , m_steam_pitch(tweak_values::steam_sound_idle_pitch)
     , m_steam_pitch_velocity(0.0f)
+    , m_smoke_timer_s(0.0f)
+    , m_grind_timer_s(0.0f)
     , m_picked_up_id(mono::INVALID_ID)
     , m_pickup_constraint(nullptr)
 {
@@ -156,6 +166,7 @@ TrainLogic::TrainLogic(
 
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
     m_smoke_effect = std::make_unique<SmokeEffect>(particle_system, m_entity_system);
+    m_grind_effect = std::make_unique<WheelGrindEffect>(particle_system, m_entity_system);
 
     m_aim_target = m_aim_direction = -math::PI_2();
 
@@ -197,6 +208,7 @@ void TrainLogic::Update(const mono::UpdateContext& update_context)
     m_state.UpdateState(update_context);
     UpdatePlayerInfo(update_context.timestamp);
     UpdateSteamSound(update_context);
+    UpdateTrainEffects(update_context);
 }
 
 void TrainLogic::UpdateController(const mono::UpdateContext& update_context)
@@ -227,7 +239,7 @@ void TrainLogic::UpdatePlayerInfo(uint32_t timestamp)
     m_player_info->aim_direction = math::VectorFromAngle(m_aim_direction);
     m_player_info->aim_crosshair_screen_position = m_aim_screen_position;
 
-    m_player_info->persistent_data.laser_sight = true;
+    m_player_info->persistent_data.laser_sight = false;
 
     m_player_info->cooldown_id = 0;
     m_player_info->cooldown_fraction = 1.0f;
@@ -242,7 +254,7 @@ void TrainLogic::UpdatePlayerInfo(uint32_t timestamp)
     const PlayerLevelExperience& player_levels = GetPlayerLevelExperience(m_player_info->persistent_data.experience, m_config.player_levels);
     m_player_info->player_level = player_levels.level;
 
-    m_player_info->stamina_fraction = 0.0f;
+    m_player_info->stamina_fraction = 1.0f;
     m_player_info->player_experience_fraction =
         math::Scale01Clamped(float(m_player_info->persistent_data.experience), float(player_levels.current_level_experience), float(player_levels.next_level_experience));
     m_player_info->weapon_experience_fraction = 0.0f;
@@ -264,6 +276,48 @@ void TrainLogic::UpdateSteamSound(const mono::UpdateContext& update_context)
         m_steam_pitch, m_steam_pitch_velocity, target_pitch, tweak_values::steam_sound_pitch_halflife, update_context.delta_s);
 
     m_steam_loop_sound->SetPlaybackSpeed(m_steam_pitch);
+}
+
+void TrainLogic::UpdateTrainEffects(const mono::UpdateContext& update_context)
+{
+    const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
+
+    m_smoke_timer_s -= update_context.delta_s;
+    if(m_smoke_timer_s <= 0.0f)
+    {
+        m_smoke_timer_s = tweak_values::smoke_emit_interval_s;
+        //m_smoke_effect->EmitSmokeAt(world_position);
+    }
+
+    const float speed = math::Length(m_player_info->velocity);
+    const float path_curvature = m_path_follower_system->GetCurvature(m_entity_id);
+    const float cornering_metric = speed * std::abs(path_curvature);
+
+    if(cornering_metric >= tweak_values::grind_cornering_threshold)
+    {
+        m_grind_timer_s -= update_context.delta_s;
+        if(m_grind_timer_s <= 0.0f)
+        {
+            m_grind_timer_s = tweak_values::grind_emit_interval_s;
+
+            // GetCurvature is signed relative to the path's own forward direction (increasing
+            // distance), not the train's actual heading - running the same bend in reverse
+            // turns the opposite way relative to the train, so flip it by the throttle sign.
+            const float throttle = m_path_follower_system->GetThrottle(m_entity_id);
+            const float curvature = (throttle >= 0.0f) ? path_curvature : -path_curvature;
+
+            // World space is y-up, so positive curvature is a left (CCW) turn - spray sparks
+            // out to the right; negative curvature is a right turn - spray out to the left.
+            const float travel_direction = math::AngleFromVector(m_player_info->velocity);
+            const float perpendicular_offset = (curvature >= 0.0f) ? -math::PI_2() : math::PI_2();
+            const float direction = travel_direction + perpendicular_offset;
+            m_grind_effect->EmitAtWithDirection(world_position, direction);
+        }
+    }
+    else
+    {
+        m_grind_timer_s = 0.0f;
+    }
 }
 
 void TrainLogic::UpdateAnimation(const mono::UpdateContext& update_context, float aim_direction, const math::Vector& world_position, const math::Vector& player_velocity)

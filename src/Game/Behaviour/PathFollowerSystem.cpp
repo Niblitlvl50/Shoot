@@ -150,6 +150,12 @@ const std::vector<math::Vector>* PathFollowerSystem::GetPathPoints(uint32_t enti
     return (it != m_components.end()) ? it->second.behaviour.GetPathPoints() : nullptr;
 }
 
+float PathFollowerSystem::GetCurvature(uint32_t entity_id) const
+{
+    const auto it = m_components.find(entity_id);
+    return (it != m_components.end()) ? it->second.behaviour.GetCurvature() : 0.0f;
+}
+
 bool PathFollowerSystem::SwitchToPathEntity(
     uint32_t entity_id, uint32_t new_path_entity_id, const math::Vector& enter_at_world_position, bool entering_forward)
 {

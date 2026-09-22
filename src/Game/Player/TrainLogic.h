@@ -42,6 +42,7 @@ namespace game
         void UpdatePlayerInfo(uint32_t timestamp);
         void UpdateAnimation(const mono::UpdateContext& update_context, float aim_direction, const math::Vector& world_position, const math::Vector& player_velocity);
         void UpdateSteamSound(const mono::UpdateContext& update_context);
+        void UpdateTrainEffects(const mono::UpdateContext& update_context);
 
         void HandlePickup(PickupType type, int meta_data);
 
@@ -94,12 +95,16 @@ namespace game
         float m_steam_pitch;
         float m_steam_pitch_velocity;
 
+        float m_smoke_timer_s;
+        float m_grind_timer_s;
+
         int m_idle_anim_id;
         int m_run_anim_id;
         int m_run_up_anim_id;
         int m_death_anim_id;
 
         std::unique_ptr<class SmokeEffect> m_smoke_effect;
+        std::unique_ptr<class WheelGrindEffect> m_grind_effect;
 
         audio::ISoundPtr m_drop_box_sound;
         audio::ISoundPtr m_pickup_box_sound;
