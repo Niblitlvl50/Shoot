@@ -18,7 +18,16 @@ def get_files(folder, extension):
 #
 # Hardcoded binary path is not great.
 #
-binary_file = 'bin/spritebaker' if platform.system() == 'Darwin' else 'bin/Debug/spritebaker'
+if platform.system() == 'Darwin':
+    binary_file = 'bin/spritebaker'
+elif platform.system() == 'Windows':
+    binary_file = 'bin/Debug/spritebaker.exe'
+else:
+    binary_file = 'bin/Debug/spritebaker'
+
+# Some Python installs (e.g. the Microsoft Store build) fail to resolve a relative
+# executable path in subprocess.call even with a correct cwd, so make it absolute.
+binary_file = os.path.abspath(binary_file)
 
 arguments = [
     binary_file,
