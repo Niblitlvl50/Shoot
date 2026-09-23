@@ -17,7 +17,7 @@ namespace
         const float x_variation = mono::Random(-0.02f, 0.02f);
         const float y_variation = mono::Random(-0.02f, 0.02f);
         const float x_velocity_variation = mono::Random(-0.1f, 0.1f);
-        const float y_velocity_variation = mono::Random(0.3f, 0.6f);
+        const float y_velocity_variation = mono::Random(2.0f, 2.5f);
         const float size = mono::Random(64.0f, 70.0f);
         const float end_size = mono::Random(80.0f, 120.0f);
         const float life = mono::Random(2.0f, 2.8f);
@@ -28,10 +28,10 @@ namespace
         component_view.angular_velocity = 0.0f; //mono::Random(-1.1f, 1.1f);
 
         using namespace mono::Color;
-        component_view.color = mono::Color::MakeWithAlpha(OFF_WHITE, 0.75f);
+        component_view.color = mono::Color::MakeWithAlpha(OFF_WHITE, 0.25f);
         component_view.gradient = mono::Color::MakeGradient<4>(
-            { 0.0f, 1.0f, 1.0f, 1.0f },
-            { component_view.color, RGBA(1.0f, 1.0f, 1.0f, 0.0f), RGBA(), RGBA() }
+            { 0.0f, 0.25f, 1.0f, 1.0f },
+            { component_view.color, mono::Color::MakeWithAlpha(component_view.color, 0.75f), RGBA(1.0f, 1.0f, 1.0f, 0.0f), RGBA() }
         );
         component_view.start_size = size;
         component_view.end_size = end_size;
@@ -53,7 +53,7 @@ TrainSmokeEffect::TrainSmokeEffect(mono::ParticleSystem* particle_system, mono::
         mono::BlendMode::SOURCE_ALPHA,
         mono::ParticleDrawLayer::POST_GAMEOBJECTS,
         mono::ParticleTransformSpace::WORLD,
-        0.01f,
+        0.05f,
         mono::DefaultUpdater);
 
     m_particle_entity = particle_entity.id;
