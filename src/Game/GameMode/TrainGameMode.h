@@ -5,6 +5,7 @@
 #include "IGameMode.h"
 
 #include <cstdint>
+#include <memory>
 
 namespace game
 {
@@ -13,6 +14,9 @@ namespace game
     class TrainGameMode : public IGameMode
     {
     public:
+
+        TrainGameMode();
+        ~TrainGameMode();
 
         void Begin(
             mono::IZone* zone,
@@ -38,6 +42,8 @@ namespace game
         mono::RenderSystem* m_render_system;
         class PathFollowerSystem* m_path_follower_system;
         class PlayerDaemonSystem* m_player_system;
+
+        std::unique_ptr<class BigTextScreen> m_big_text_screen;
 
         uint32_t m_train_entity_id;
 

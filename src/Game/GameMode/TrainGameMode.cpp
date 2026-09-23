@@ -6,6 +6,7 @@
 #include "GameCamera/CameraSystem.h"
 #include "Player/PlayerDaemonSystem.h"
 #include "WorldFile.h"
+#include "RenderLayers.h"
 
 #include "EventHandler/EventHandler.h"
 #include "Events/QuitEvent.h"
@@ -13,7 +14,11 @@
 #include "Paths/PathSystem.h"
 #include "Rendering/RenderSystem.h"
 #include "Rendering/IRenderer.h"
+#include "Rendering/Color.h"
 #include "SystemContext.h"
+#include "Zone/IZone.h"
+
+#include "Hud/BigTextScreen.h"
 
 #include "EntitySystem/IEntityManager.h"
 #include "System/Hash.h"
@@ -22,9 +27,13 @@
 namespace tweak_values
 {
     constexpr float fade_duration_s = 2.0f;
+    constexpr float big_text_shown_duration_s = 3.0f;
 }
 
 using namespace game;
+
+TrainGameMode::TrainGameMode() = default;
+TrainGameMode::~TrainGameMode() = default;
 
 void TrainGameMode::Begin(
     mono::IZone* zone,
@@ -33,6 +42,8 @@ void TrainGameMode::Begin(
     mono::EventHandler* event_handler,
     const LevelMetadata& level_metadata)
 {
+    m_game_mode_result = game::ZoneResult::ZR_ABORTED;
+
     m_input_system = system_context->GetSystem<mono::InputSystem>();
     m_trigger_system = system_context->GetSystem<mono::TriggerSystem>();
     m_path_follower_system = system_context->GetSystem<game::PathFollowerSystem>();
@@ -41,6 +52,29 @@ void TrainGameMode::Begin(
 
     renderer->SetScreenFadeAlpha(0.0f);
     m_render_system->TriggerScreenFade(mono::ScreenFadeState::FADE_IN, tweak_values::fade_duration_s, 0.0f);
+
+    m_big_text_screen = std::make_unique<BigTextScreen>(
+        level_metadata.level_name.c_str(),
+        level_metadata.level_description.c_str(),
+        mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.0f),
+        mono::Color::RGBA(0.0f, 0.0f, 0.0f, 0.0f),
+        mono::Color::GOLDEN_YELLOW,
+        mono::Color::GRAY,
+        BigTextScreen::TEXT | BigTextScreen::SUBTEXT);
+    m_big_text_screen->SetAlpha(0.0f);
+    m_big_text_screen->Hide();
+    zone->AddUpdatableDrawable(m_big_text_screen.get(), LayerId::UI);
+
+    const std::vector<BigTextScreen::FadePattern> big_text_fade_pattern = {
+        { BigTextScreen::FadeState::FADE_IN,  tweak_values::fade_duration_s },
+        { BigTextScreen::FadeState::SHOWN,    tweak_values::big_text_shown_duration_s },
+        { BigTextScreen::FadeState::FADE_OUT, tweak_values::fade_duration_s },
+    };
+    BigTextScreen* big_text_screen = m_big_text_screen.get();
+    const BigTextScreen::Callback on_big_text_done = [big_text_screen]() {
+        big_text_screen->Hide();
+    };
+    m_big_text_screen->ShowWithFadePattern(big_text_fade_pattern, on_big_text_done);
 
     // Player
     m_player_system = system_context->GetSystem<PlayerDaemonSystem>();
@@ -84,6 +118,8 @@ void TrainGameMode::Begin(
 
 int TrainGameMode::End(mono::IZone* zone)
 {
+    zone->RemoveUpdatableDrawable(m_big_text_screen.get());
+
     m_trigger_system->RemoveTriggerCallback(m_level_completed_hash, m_level_completed_trigger, mono::INVALID_ID);
     m_trigger_system->RemoveTriggerCallback(m_level_completed_alt_hash, m_level_completed_alt_trigger, mono::INVALID_ID);
     m_trigger_system->RemoveTriggerCallback(m_level_aborted_hash, m_level_aborted_trigger, mono::INVALID_ID);
