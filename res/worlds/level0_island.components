@@ -22057,7 +22057,7 @@
             "green": 0.0,
             "red": 0.0
         },
-        "background_music": "",
+        "background_music": "winds_of_stories",
         "background_size": {
             "x": 0.0,
             "y": 0.0
@@ -22074,9 +22074,9 @@
         "completed_alt_trigger": "",
         "completed_trigger": "",
         "failed_trigger": "",
-        "level_description": "",
+        "level_description": "Welch Country",
         "level_game_mode": "train_mode",
-        "level_name": "level0_island",
+        "level_name": "Train Level",
         "navmesh_density": 1.0,
         "navmesh_end": {
             "x": 0.0,
