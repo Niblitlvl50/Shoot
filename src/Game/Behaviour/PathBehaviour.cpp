@@ -90,6 +90,14 @@ void PathBehaviour::TeleportToPosition(float position)
         const mono::PositionResult pos_result = m_path->GetPositionByLength(m_current_position);
         if(pos_result.valid_position)
             m_entity_body->SetPosition(pos_result.path_position + m_offset);
+
+        if(m_apply_rotation)
+        {
+            const math::Vector tangent = m_path->GetTangentByLength(m_current_position) * m_direction;
+            m_rotation = math::AngleFromVector(tangent);
+            m_rotation_velocity = 0.0f;
+            m_entity_body->SetAngle(m_rotation);
+        }
     }
 }
 
@@ -178,8 +186,18 @@ PathResult PathBehaviour::Run(float delta_s)
 
             if(m_apply_rotation)
             {
+                constexpr float rotation_halflife = 0.15f;
+
                 const math::Vector tangent = m_path->GetTangentByLength(m_current_position) * m_direction;
-                m_entity_body->SetAngle(math::AngleFromVector(tangent));
+                const float target_angle = math::AngleFromVector(tangent);
+
+                // Unwrap the target relative to the current rotation so the spring always
+                // takes the shortest way around, instead of potentially spinning the long way.
+                const float shortest_delta = math::NormalizeAngle(target_angle - m_rotation);
+                const float unwrapped_target_angle = m_rotation + shortest_delta;
+
+                math::simple_spring_damper_implicit(m_rotation, m_rotation_velocity, unwrapped_target_angle, rotation_halflife, delta_s);
+                m_entity_body->SetAngle(m_rotation);
             }
         }
     }

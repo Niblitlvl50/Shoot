@@ -80,5 +80,8 @@ namespace game
         float m_throttle = 0.0f;
         math::Vector m_move_velocity;
         math::Vector m_offset;
+
+        float m_rotation = 0.0f;
+        float m_rotation_velocity = 0.0f;
     };
 }
