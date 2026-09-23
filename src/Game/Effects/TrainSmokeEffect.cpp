@@ -16,24 +16,27 @@ namespace
     {
         const float x_variation = mono::Random(-0.02f, 0.02f);
         const float y_variation = mono::Random(-0.02f, 0.02f);
-        const float y_velocity_variation = mono::Random(0.1f, 0.4f);
-        const float size = mono::Random(64.0f, 80.0f);
-        const float end_size = mono::Random(100.0f, 120.0f);
-        const float life = mono::Random(2.4f, 2.8f);
+        const float x_velocity_variation = mono::Random(-0.1f, 0.1f);
+        const float y_velocity_variation = mono::Random(0.3f, 0.6f);
+        const float size = mono::Random(64.0f, 70.0f);
+        const float end_size = mono::Random(80.0f, 120.0f);
+        const float life = mono::Random(2.0f, 2.8f);
 
         component_view.position = context.position + math::Vector(x_variation, y_variation);
         component_view.rotation = 0.0f;
-        component_view.velocity = math::Vector(0.0f, y_velocity_variation);
-        //component_view.angular_velocity = mono::Random(-1.1f, 1.1f);
+        component_view.velocity = math::Vector(x_velocity_variation, y_velocity_variation);
+        component_view.angular_velocity = 0.0f; //mono::Random(-1.1f, 1.1f);
 
         using namespace mono::Color;
+        component_view.color = mono::Color::MakeWithAlpha(OFF_WHITE, 0.75f);
         component_view.gradient = mono::Color::MakeGradient<4>(
-            { 0.0f, 1.0f, 1.0f, 0.7f },
-            { OFF_WHITE, RGBA(1.0f, 1.0f, 1.0f, 0.0f), RGBA(), RGBA() }
+            { 0.0f, 1.0f, 1.0f, 1.0f },
+            { component_view.color, RGBA(1.0f, 1.0f, 1.0f, 0.0f), RGBA(), RGBA() }
         );
         component_view.start_size = size;
         component_view.end_size = end_size;
         component_view.size = size;
+
         component_view.start_life = life;
         component_view.life = life;
     }
@@ -55,6 +58,7 @@ TrainSmokeEffect::TrainSmokeEffect(mono::ParticleSystem* particle_system, mono::
 
     m_particle_entity = particle_entity.id;
 
+    //transform_system->SetTransform(m_particle_entity, math::CreateMatrixWithPosition(math::Vector(0.2f, 0.0f)));
     transform_system->ChildTransform(m_particle_entity, parent_entity_id);
 }
 

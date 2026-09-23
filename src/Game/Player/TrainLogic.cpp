@@ -169,6 +169,7 @@ TrainLogic::TrainLogic(
     m_smoke_effect->Start();
 
     m_grind_effect = std::make_unique<WheelGrindEffect>(particle_system, m_entity_system);
+    m_transform_system->ChildTransform(m_grind_effect->m_particle_entity, m_entity_id);
 
     m_aim_target = m_aim_direction = -math::PI_2();
 
@@ -292,30 +293,25 @@ void TrainLogic::UpdateTrainEffects(const mono::UpdateContext& update_context)
 
     if(cornering_metric >= tweak_values::grind_cornering_threshold)
     {
-        m_grind_timer_s -= update_context.delta_s;
-        if(m_grind_timer_s <= 0.0f)
-        {
-            m_grind_timer_s = tweak_values::grind_emit_interval_s;
+        // GetCurvature is signed relative to the path's own forward direction (increasing
+        // distance), not the train's actual heading - running the same bend in reverse
+        // turns the opposite way relative to the train, so flip it by the throttle sign.
+        const float throttle = m_path_follower_system->GetThrottle(m_entity_id);
+        const float curvature = (throttle >= 0.0f) ? path_curvature : -path_curvature;
 
-            // GetCurvature is signed relative to the path's own forward direction (increasing
-            // distance), not the train's actual heading - running the same bend in reverse
-            // turns the opposite way relative to the train, so flip it by the throttle sign.
-            const float throttle = m_path_follower_system->GetThrottle(m_entity_id);
-            const float curvature = (throttle >= 0.0f) ? path_curvature : -path_curvature;
-
-            // World space is y-up, so positive curvature is a left (CCW) turn - spray sparks
-            // out to the right; negative curvature is a right turn - spray out to the left.
-            const float travel_direction = math::AngleFromVector(m_player_info->velocity);
-            const float perpendicular_offset = (curvature >= 0.0f) ? -math::PI_2() : math::PI_2();
-            const float direction = travel_direction + perpendicular_offset;
-        
-            const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
-            m_grind_effect->EmitAtWithDirection(world_position, direction);
-        }
+        // World space is y-up, so positive curvature is a left (CCW) turn - spray sparks
+        // out to the right; negative curvature is a right turn - spray out to the left.
+        const float travel_direction = math::AngleFromVector(m_player_info->velocity);
+        const float perpendicular_offset = (curvature >= 0.0f) ? -math::PI_4() : math::PI_4();
+        const float direction = travel_direction + perpendicular_offset;
+    
+        const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
+        m_grind_effect->EmitAtWithDirection(world_position, direction);
+        m_grind_effect->Start();
     }
     else
     {
-        m_grind_timer_s = 0.0f;
+        m_grind_effect->Stop();
     }
 }
 

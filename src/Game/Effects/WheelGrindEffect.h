@@ -4,6 +4,7 @@
 #include "MonoFwd.h"
 #include "Math/Vector.h"
 #include "Effects/IParticleEffect.h"
+#include "Particle/ParticleFwd.h"
 #include <cstdint>
 
 namespace game
@@ -17,12 +18,17 @@ namespace game
         WheelGrindEffect(mono::ParticleSystem* particle_system, mono::IEntityManager* entity_system);
         ~WheelGrindEffect();
 
+        void Start();
+        void Stop();
+
         void EmitAt(const math::Vector& world_position) override;
         void EmitAtWithDirection(const math::Vector& world_position, float direction) override;
 
-    private:
         mono::ParticleSystem* m_particle_system;
         mono::IEntityManager* m_entity_system;
         uint32_t m_particle_entity;
+
+        mono::ParticleEmitterComponent* m_emitter;
+        float m_direction = 0.0f;
     };
 }
