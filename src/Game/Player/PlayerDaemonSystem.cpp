@@ -172,6 +172,7 @@ void PlayerDaemonSystem::Reset()
 
     m_player_spawned_callback = nullptr;
     m_spawn_players = false;
+    m_train_logic = false;
 }
 
 void PlayerDaemonSystem::SetTrainMode(bool train_mode)
