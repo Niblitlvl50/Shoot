@@ -27,7 +27,10 @@
 namespace tweak_values
 {
     constexpr float fade_duration_s = 2.0f;
+
+    constexpr float big_text_fade_in_duration_s = 1.0f;
     constexpr float big_text_shown_duration_s = 3.0f;
+    constexpr float big_text_fade_out_duration_s = 1.0f;
 }
 
 using namespace game;
@@ -66,9 +69,9 @@ void TrainGameMode::Begin(
     zone->AddUpdatableDrawable(m_big_text_screen.get(), LayerId::UI);
 
     const std::vector<BigTextScreen::FadePattern> big_text_fade_pattern = {
-        { BigTextScreen::FadeState::FADE_IN,  tweak_values::fade_duration_s },
+        { BigTextScreen::FadeState::FADE_IN,  tweak_values::big_text_fade_in_duration_s },
         { BigTextScreen::FadeState::SHOWN,    tweak_values::big_text_shown_duration_s },
-        { BigTextScreen::FadeState::FADE_OUT, tweak_values::fade_duration_s },
+        { BigTextScreen::FadeState::FADE_OUT, tweak_values::big_text_fade_out_duration_s },
     };
     BigTextScreen* big_text_screen = m_big_text_screen.get();
     const BigTextScreen::Callback on_big_text_done = [big_text_screen]() {

@@ -22,7 +22,7 @@ namespace
 
         const float life = mono::Random(0.08f, 0.15f);
         const float velocity_variation = mono::Random(3.0f, 8.0f);
-        const float size = mono::Random(14.0f, 18.0f);
+        const float size = mono::Random(10.0f, 14.0f);
 
         component_view.position = context.position + velocity * direction_position_offset;
         component_view.velocity = velocity * velocity_variation;

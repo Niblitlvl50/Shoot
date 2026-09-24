@@ -21957,8 +21957,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 7.25,
-                                "y": -24.375
+                                "x": 7.234660625457764,
+                                "y": -24.3771915435791
                             }
                         },
                         {
@@ -22064,8 +22064,8 @@
         },
         "background_texture": "",
         "camera_position": {
-            "x": -5.0,
-            "y": -24.0
+            "x": -2.0,
+            "y": -21.0
         },
         "camera_size": {
             "x": 12.0,
@@ -22074,7 +22074,7 @@
         "completed_alt_trigger": "",
         "completed_trigger": "",
         "failed_trigger": "",
-        "level_description": "Welch Country",
+        "level_description": "Welsh Country",
         "level_game_mode": "train_mode",
         "level_name": "Train Level",
         "navmesh_density": 1.0,
@@ -22092,7 +22092,7 @@
         },
         "player_spawn_point": {
             "x": 8.0,
-            "y": -24.0
+            "y": 0.0
         },
         "spawn_package": false,
         "triggers": [
