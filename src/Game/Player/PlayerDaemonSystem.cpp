@@ -284,7 +284,10 @@ void PlayerDaemonSystem::SpawnLocalPlayer(int player_index, System::ControllerId
     m_camera_system->FollowEntity(spawned_id);
     m_player_last_levels[spawned_id] = allocated_player_info->player_level;
 
-    allocated_player_info->familiar_entity_id = SpawnPlayerFamiliar(spawned_id, actual_player_index, m_entity_system, m_system_context);
+    if(!m_train_logic)
+    {
+        allocated_player_info->familiar_entity_id = SpawnPlayerFamiliar(spawned_id, actual_player_index, m_entity_system, m_system_context);
+    }
 }
 
 void PlayerDaemonSystem::DespawnPlayer(PlayerInfo* player_info)
