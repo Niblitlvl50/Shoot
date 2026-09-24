@@ -13,6 +13,7 @@ using namespace game;
 
 TrainGamepadController::TrainGamepadController(game::TrainLogic* train_logic)
     : m_train_logic(train_logic)
+    , m_reverse(false)
 { }
 
 void TrainGamepadController::Update(const mono::UpdateContext& update_context)
@@ -27,8 +28,13 @@ void TrainGamepadController::Update(const mono::UpdateContext& update_context)
         return;
     }
 
-    const float combined_throttle = -m_current_state.left_trigger + m_current_state.right_trigger;
-    m_train_logic->SetThrottle(combined_throttle);
+    const bool reverse_toggled =
+        System::IsButtonTriggered(m_last_state.button_state, m_current_state.button_state, System::ControllerButton::FACE_LEFT);
+    if(reverse_toggled)
+        m_reverse = !m_reverse;
+
+    const float throttle = m_reverse ? -m_current_state.right_trigger : m_current_state.right_trigger;
+    m_train_logic->SetThrottle(throttle);
 
     const bool right_shoulder = System::IsButtonDown(m_current_state.button_state, System::ControllerButton::RIGHT_SHOULDER);
     if(right_shoulder)

@@ -5,6 +5,7 @@
 #include "Behaviour/PathFollowerSystem.h"
 #include "GameCamera/CameraSystem.h"
 #include "Player/PlayerDaemonSystem.h"
+#include "Player/PlayerInfo.h"
 #include "WorldFile.h"
 #include "RenderLayers.h"
 
@@ -12,6 +13,7 @@
 #include "Events/QuitEvent.h"
 #include "Input/InputSystem.h"
 #include "Paths/PathSystem.h"
+#include "Math/MathFunctions.h"
 #include "Rendering/RenderSystem.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
@@ -19,6 +21,7 @@
 #include "Zone/IZone.h"
 
 #include "Hud/BigTextScreen.h"
+#include "Hud/TrainHudElement.h"
 
 #include "EntitySystem/IEntityManager.h"
 #include "System/Hash.h"
@@ -46,6 +49,7 @@ void TrainGameMode::Begin(
     const LevelMetadata& level_metadata)
 {
     m_game_mode_result = game::ZoneResult::ZR_ABORTED;
+    m_train_entity_id = mono::INVALID_ID;
 
     m_input_system = system_context->GetSystem<mono::InputSystem>();
     m_trigger_system = system_context->GetSystem<mono::TriggerSystem>();
@@ -79,12 +83,17 @@ void TrainGameMode::Begin(
     };
     m_big_text_screen->ShowWithFadePattern(big_text_fade_pattern, on_big_text_done);
 
+    m_train_hud = std::make_unique<TrainHudElement>();
+    zone->AddUpdatableDrawable(m_train_hud.get(), LayerId::UI);
+
     // Player
     m_player_system = system_context->GetSystem<PlayerDaemonSystem>();
     m_player_system->SetTrainMode(true);
 
     const PlayerSpawnedCallback player_spawned_cb =
         [this, system_context](game::PlayerSpawnState spawn_state, uint32_t player_entity_id, const math::Vector& position) {
+
+        m_train_entity_id = player_entity_id;
 
         float train_start_distance;
         const mono::PathSystem* path_system = system_context->GetSystem<mono::PathSystem>();
@@ -122,6 +131,7 @@ void TrainGameMode::Begin(
 int TrainGameMode::End(mono::IZone* zone)
 {
     zone->RemoveUpdatableDrawable(m_big_text_screen.get());
+    zone->RemoveUpdatableDrawable(m_train_hud.get());
 
     m_trigger_system->RemoveTriggerCallback(m_level_completed_hash, m_level_completed_trigger, mono::INVALID_ID);
     m_trigger_system->RemoveTriggerCallback(m_level_completed_alt_hash, m_level_completed_alt_trigger, mono::INVALID_ID);
@@ -133,6 +143,15 @@ int TrainGameMode::End(mono::IZone* zone)
 
 void TrainGameMode::Update(const mono::UpdateContext& update_context)
 {
+    if(m_train_entity_id == mono::INVALID_ID)
+        return;
+
+    const float throttle = m_path_follower_system->GetThrottle(m_train_entity_id);
+    m_train_hud->SetThrottle(throttle);
+
+    const game::PlayerInfo* player_info = game::FindPlayerInfoFromEntityId(m_train_entity_id);
+    if(player_info)
+        m_train_hud->SetSpeed(math::Length(player_info->velocity));
 }
 
 void TrainGameMode::Completed()

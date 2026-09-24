@@ -66,6 +66,7 @@ namespace tweak_values
     // cornering - above this, the wheels are considered to be grinding against the rails.
     constexpr float grind_cornering_threshold = 1.2f;
     constexpr float grind_emit_interval_s = 0.08f;
+    constexpr float grind_volume_halflife = 0.15f;
 }
 
 namespace
@@ -114,6 +115,8 @@ TrainLogic::TrainLogic(
     , m_steam_pitch_velocity(0.0f)
     , m_smoke_timer_s(0.0f)
     , m_grind_timer_s(0.0f)
+    , m_grind_volume(0.0f)
+    , m_grind_volume_velocity(0.0f)
     , m_picked_up_id(mono::INVALID_ID)
     , m_pickup_constraint(nullptr)
 {
@@ -163,6 +166,9 @@ TrainLogic::TrainLogic(
         "res/sound/train/train_steam_loop.wav", audio::SoundPlayback::LOOPING, audio::SoundSpatiality::NONE);
     m_steam_loop_sound->SetPlaybackSpeed(tweak_values::steam_sound_idle_pitch);
     m_steam_loop_sound->Play();
+
+    m_grind_sound = audio::CreateSound(
+        "res/sound/train/train_wheel_grind_noise.wav", audio::SoundPlayback::LOOPING, audio::SoundSpatiality::NONE);
 
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
     m_smoke_effect = std::make_unique<TrainSmokeEffect>(particle_system, m_entity_system, m_transform_system, m_entity_id);
@@ -308,10 +314,25 @@ void TrainLogic::UpdateTrainEffects(const mono::UpdateContext& update_context)
         const math::Vector& world_position = m_transform_system->GetWorldPosition(m_entity_id);
         m_grind_effect->EmitAtWithDirection(world_position, direction);
         m_grind_effect->Start();
+
+        if(!m_grind_sound->IsPlaying())
+            m_grind_sound->Play();
+
+        math::simple_spring_damper_implicit(
+            m_grind_volume, m_grind_volume_velocity, 1.0f, tweak_values::grind_volume_halflife, update_context.delta_s);
+        m_grind_sound->SetVolume(m_grind_volume);
     }
     else
     {
         m_grind_effect->Stop();
+
+        math::simple_spring_damper_implicit(
+            m_grind_volume, m_grind_volume_velocity, 0.0f, tweak_values::grind_volume_halflife, update_context.delta_s);
+        m_grind_sound->SetVolume(m_grind_volume);
+
+        constexpr float silent_threshold = 0.01f;
+        if(m_grind_volume <= silent_threshold && m_grind_sound->IsPlaying())
+            m_grind_sound->Stop();
     }
 }
 

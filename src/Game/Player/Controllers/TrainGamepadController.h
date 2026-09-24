@@ -22,6 +22,7 @@ namespace game
         mono::InputResult UpdatedControllerState(const System::ControllerState& updated_state) override;
 
         game::TrainLogic* m_train_logic;
+        bool m_reverse;
 
         System::ControllerState m_current_state;
         System::ControllerState m_last_state;

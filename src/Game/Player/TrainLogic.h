@@ -98,6 +98,9 @@ namespace game
         float m_smoke_timer_s;
         float m_grind_timer_s;
 
+        float m_grind_volume;
+        float m_grind_volume_velocity;
+
         int m_idle_anim_id;
         int m_run_anim_id;
         int m_run_up_anim_id;
@@ -110,6 +113,7 @@ namespace game
         audio::ISoundPtr m_pickup_box_sound;
         audio::ISoundPtr m_horn_sound;
         audio::ISoundPtr m_steam_loop_sound;
+        audio::ISoundPtr m_grind_sound;
 
         mono::TransformSystem* m_transform_system;
         mono::InputSystem* m_input_system;

@@ -44,6 +44,7 @@ namespace game
         class PlayerDaemonSystem* m_player_system;
 
         std::unique_ptr<class BigTextScreen> m_big_text_screen;
+        std::unique_ptr<class TrainHudElement> m_train_hud;
 
         uint32_t m_train_entity_id;
 
