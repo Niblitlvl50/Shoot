@@ -108,6 +108,7 @@ TrainLogic::TrainLogic(
 //    , m_keyboard_controller(this)
     , m_event_handler(event_handler)
     , m_pause(false)
+    , m_reverse(false)
     , m_aim_direction(0.0f)
     , m_aim_target(0.0f)
     , m_aim_velocity(0.0f)
@@ -169,6 +170,8 @@ TrainLogic::TrainLogic(
 
     m_grind_sound = audio::CreateSound(
         "res/sound/train/train_wheel_grind_noise.wav", audio::SoundPlayback::LOOPING, audio::SoundSpatiality::NONE);
+    m_direction_change_sound = audio::CreateSound(
+        "res/sound/train/train_direction_change.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
 
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
     m_smoke_effect = std::make_unique<TrainSmokeEffect>(particle_system, m_entity_system, m_transform_system, m_entity_id);
@@ -569,9 +572,16 @@ bool TrainLogic::HoldingPickup() const
     return (m_picked_up_id != mono::INVALID_ID);
 }
 
-void TrainLogic::SetThrottle(float throttle)
+void TrainLogic::SetThrottle(float throttle_input)
 {
+    const float throttle = m_reverse ? -throttle_input : throttle_input;
     m_path_follower_system->SetThrottle(m_entity_id, throttle);
+}
+
+void TrainLogic::ToggleDirection()
+{
+    m_reverse = !m_reverse;
+    m_direction_change_sound->Play();
 }
 
 void TrainLogic::Honk()

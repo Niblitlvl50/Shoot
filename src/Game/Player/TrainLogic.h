@@ -54,7 +54,8 @@ namespace game
         void PickupDrop();
         bool HoldingPickup() const; 
 
-        void SetThrottle(float throttle);
+        void SetThrottle(float throttle_input);
+        void ToggleDirection();
         void Honk();
 
         void ApplyImpulse(const math::Vector& force);
@@ -77,6 +78,7 @@ namespace game
         TrainGamepadController m_gamepad_controller;
         mono::EventHandler* m_event_handler;
         bool m_pause;
+        bool m_reverse;
 
         enum class TrainStates
         {
@@ -114,6 +116,7 @@ namespace game
         audio::ISoundPtr m_horn_sound;
         audio::ISoundPtr m_steam_loop_sound;
         audio::ISoundPtr m_grind_sound;
+        audio::ISoundPtr m_direction_change_sound;
 
         mono::TransformSystem* m_transform_system;
         mono::InputSystem* m_input_system;
