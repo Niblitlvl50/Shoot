@@ -67,6 +67,7 @@
         "res/entities/throwable_thing.entity",
         "res/entities/torch_small.entity",
         "res/entities/train.entity",
+        "res/entities/train_car.entity",
         "res/entities/weapon_pickup.entity",
         "res/entities/wooden_log.entity"
     ]

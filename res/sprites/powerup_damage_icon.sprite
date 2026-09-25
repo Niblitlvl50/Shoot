@@ -14,8 +14,8 @@
             "h": 9,
             "name": "powerup_damage_icon",
             "w": 9,
-            "x": 1281,
-            "y": 568
+            "x": 630,
+            "y": 575
         }
     ],
     "frames_offsets": [

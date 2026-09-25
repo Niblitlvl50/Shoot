@@ -70,71 +70,71 @@
             "h": 27,
             "name": "blacksmith_blink_1",
             "w": 15,
-            "x": 1683,
-            "y": 415
+            "x": 165,
+            "y": 421
         },
         {
             "h": 27,
             "name": "blacksmith_blink_2",
             "w": 15,
-            "x": 1702,
-            "y": 415
+            "x": 184,
+            "y": 421
         },
         {
             "h": 27,
             "name": "blacksmith_idle_1",
             "w": 15,
-            "x": 1721,
-            "y": 415
+            "x": 203,
+            "y": 421
         },
         {
             "h": 28,
             "name": "blacksmith_idle_2",
             "w": 14,
-            "x": 484,
-            "y": 415
+            "x": 1695,
+            "y": 420
         },
         {
             "h": 28,
             "name": "blacksmith_idle_3",
             "w": 17,
-            "x": 774,
-            "y": 385
+            "x": 261,
+            "y": 406
         },
         {
             "h": 28,
             "name": "blacksmith_idle_4",
             "w": 16,
-            "x": 903,
-            "y": 414
+            "x": 1675,
+            "y": 420
         },
         {
             "h": 28,
             "name": "blacksmith_idle_5",
             "w": 14,
-            "x": 1954,
-            "y": 414
+            "x": 1750,
+            "y": 420
         },
         {
             "h": 27,
             "name": "blacksmith_idle_6",
             "w": 16,
-            "x": 1623,
-            "y": 415
+            "x": 145,
+            "y": 421
         },
         {
             "h": 27,
             "name": "blacksmith_idle_7",
             "w": 19,
-            "x": 1540,
-            "y": 415
+            "x": 59,
+            "y": 421
         },
         {
             "h": 27,
             "name": "blacksmith_idle_8",
             "w": 23,
-            "x": 874,
-            "y": 415
+            "x": 32,
+            "y": 421
         }
     ],
     "frames_offsets": [

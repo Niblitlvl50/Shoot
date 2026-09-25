@@ -1,0 +1,36 @@
+{
+    "animations": [
+        {
+            "frame_duration": 100,
+            "frames": [
+                0
+            ],
+            "loop": true,
+            "name": "default"
+        }
+    ],
+    "frames": [
+        {
+            "h": 79,
+            "name": "brick_house_2",
+            "w": 51,
+            "x": 1945,
+            "y": 93
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "notifies": [
+        ""
+    ],
+    "source_folder": "res/images/unique_pieces/",
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}

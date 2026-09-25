@@ -49,155 +49,155 @@
             "h": 1,
             "name": "portal_green_begin_1",
             "w": 23,
-            "x": 447,
-            "y": 577
+            "x": 302,
+            "y": 586
         },
         {
             "h": 3,
             "name": "portal_green_begin_2",
             "w": 27,
-            "x": 406,
-            "y": 570
+            "x": 230,
+            "y": 583
         },
         {
             "h": 8,
             "name": "portal_green_begin_3",
             "w": 27,
-            "x": 1346,
-            "y": 568
+            "x": 1171,
+            "y": 575
         },
         {
             "h": 17,
             "name": "portal_green_begin_4",
             "w": 17,
-            "x": 512,
-            "y": 498
+            "x": 213,
+            "y": 515
         },
         {
             "h": 34,
             "name": "portal_green_begin_5",
             "w": 13,
-            "x": 1959,
-            "y": 343
+            "x": 982,
+            "y": 347
         },
         {
             "h": 43,
             "name": "portal_green_begin_6",
             "w": 13,
-            "x": 321,
-            "y": 216
+            "x": 268,
+            "y": 279
         },
         {
             "h": 40,
             "name": "portal_green_begin_7",
             "w": 13,
-            "x": 1959,
-            "y": 299
+            "x": 162,
+            "y": 303
         },
         {
             "h": 41,
             "name": "portal_green_begin_8",
             "w": 13,
-            "x": 353,
-            "y": 265
+            "x": 1169,
+            "y": 300
         },
         {
             "h": 35,
             "name": "portal_green_end_1",
             "w": 29,
-            "x": 2,
-            "y": 302
+            "x": 162,
+            "y": 347
         },
         {
             "h": 17,
             "name": "portal_green_end_2",
             "w": 26,
-            "x": 350,
-            "y": 498
+            "x": 1185,
+            "y": 504
         },
         {
             "h": 8,
             "name": "portal_green_end_3",
             "w": 27,
-            "x": 1315,
-            "y": 568
+            "x": 643,
+            "y": 575
         },
         {
             "h": 3,
             "name": "portal_green_end_4",
             "w": 27,
-            "x": 437,
-            "y": 570
+            "x": 199,
+            "y": 583
         },
         {
             "h": 1,
             "name": "portal_green_end_5",
             "w": 37,
-            "x": 406,
-            "y": 577
+            "x": 261,
+            "y": 586
         },
         {
             "h": 1,
             "name": "portal_green_end_6",
             "w": 43,
-            "x": 200,
-            "y": 575
+            "x": 1547,
+            "y": 585
         },
         {
             "h": 43,
             "name": "portal_green_idle_1",
             "w": 29,
-            "x": 2,
-            "y": 255
+            "x": 1710,
+            "y": 299
         },
         {
             "h": 41,
             "name": "portal_green_idle_2",
             "w": 19,
-            "x": 1260,
-            "y": 299
+            "x": 1970,
+            "y": 301
         },
         {
             "h": 43,
             "name": "portal_green_idle_3",
             "w": 25,
-            "x": 409,
-            "y": 255
+            "x": 680,
+            "y": 252
         },
         {
             "h": 41,
             "name": "portal_green_idle_4",
             "w": 30,
-            "x": 653,
-            "y": 299
+            "x": 557,
+            "y": 303
         },
         {
             "h": 42,
             "name": "portal_green_idle_5",
             "w": 25,
-            "x": 1141,
-            "y": 298
+            "x": 896,
+            "y": 301
         },
         {
             "h": 44,
             "name": "portal_green_idle_6",
             "w": 28,
-            "x": 564,
-            "y": 251
+            "x": 236,
+            "y": 279
         },
         {
             "h": 40,
             "name": "portal_green_idle_7",
             "w": 17,
-            "x": 1344,
-            "y": 299
+            "x": 1889,
+            "y": 302
         },
         {
             "h": 41,
             "name": "portal_green_idle_8",
             "w": 19,
-            "x": 727,
-            "y": 296
+            "x": 1497,
+            "y": 301
         }
     ],
     "frames_offsets": [

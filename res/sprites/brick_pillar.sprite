@@ -14,8 +14,8 @@
             "h": 71,
             "name": "brick_pillar",
             "w": 36,
-            "x": 381,
-            "y": 119
+            "x": 255,
+            "y": 145
         }
     ],
     "frames_offsets": [

@@ -34,43 +34,43 @@
             "h": 58,
             "name": "demon_minion_idle_1",
             "w": 41,
-            "x": 473,
-            "y": 189
+            "x": 367,
+            "y": 196
         },
         {
             "h": 58,
             "name": "demon_minion_idle_2",
             "w": 41,
-            "x": 518,
-            "y": 189
+            "x": 98,
+            "y": 195
         },
         {
             "h": 62,
             "name": "demon_minion_left_1",
             "w": 42,
-            "x": 1450,
+            "x": 1617,
             "y": 179
         },
         {
             "h": 62,
             "name": "demon_minion_turn_1",
             "w": 42,
-            "x": 1404,
+            "x": 1571,
             "y": 179
         },
         {
             "h": 64,
             "name": "demon_minion_turn_2",
             "w": 42,
-            "x": 823,
-            "y": 176
+            "x": 1341,
+            "y": 179
         },
         {
             "h": 66,
             "name": "demon_minion_turn_3",
             "w": 43,
-            "x": 473,
-            "y": 119
+            "x": 2000,
+            "y": 174
         }
     ],
     "frames_offsets": [

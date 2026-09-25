@@ -28,57 +28,57 @@
             "h": 14,
             "name": "octopus_small_idle_1",
             "w": 12,
-            "x": 1136,
-            "y": 537
+            "x": 1967,
+            "y": 543
         },
         {
             "h": 16,
             "name": "octopus_small_idle_2",
             "w": 11,
-            "x": 423,
-            "y": 519
+            "x": 776,
+            "y": 525
         },
         {
             "h": 14,
             "name": "octopus_small_idle_3",
             "w": 11,
-            "x": 1369,
-            "y": 537
+            "x": 2013,
+            "y": 543
         },
         {
             "h": 13,
             "name": "octopus_small_idle_4",
             "w": 12,
-            "x": 1223,
-            "y": 538
+            "x": 172,
+            "y": 545
         },
         {
             "h": 13,
             "name": "octopus_small_move_1",
             "w": 11,
-            "x": 1384,
-            "y": 538
+            "x": 472,
+            "y": 545
         },
         {
             "h": 12,
             "name": "octopus_small_move_2",
             "w": 12,
-            "x": 450,
-            "y": 539
+            "x": 302,
+            "y": 549
         },
         {
             "h": 14,
             "name": "octopus_small_move_3",
             "w": 13,
-            "x": 1087,
-            "y": 537
+            "x": 1918,
+            "y": 543
         },
         {
             "h": 13,
             "name": "octopus_small_move_4",
             "w": 12,
-            "x": 1255,
-            "y": 538
+            "x": 188,
+            "y": 545
         }
     ],
     "frames_offsets": [

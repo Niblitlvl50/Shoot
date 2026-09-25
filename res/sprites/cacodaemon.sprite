@@ -43,113 +43,113 @@
             "h": 42,
             "name": "cacodaemon_attack_1",
             "w": 48,
-            "x": 1487,
-            "y": 297
+            "x": 1117,
+            "y": 300
         },
         {
             "h": 42,
             "name": "cacodaemon_attack_2",
             "w": 48,
-            "x": 1435,
-            "y": 297
+            "x": 1224,
+            "y": 300
         },
         {
             "h": 42,
             "name": "cacodaemon_attack_3",
             "w": 46,
-            "x": 831,
-            "y": 298
+            "x": 1520,
+            "y": 300
         },
         {
             "h": 42,
             "name": "cacodaemon_attack_4",
             "w": 48,
-            "x": 1170,
-            "y": 297
+            "x": 1382,
+            "y": 300
         },
         {
             "h": 42,
             "name": "cacodaemon_attack_5",
             "w": 49,
-            "x": 300,
-            "y": 274
+            "x": 1064,
+            "y": 300
         },
         {
             "h": 42,
             "name": "cacodaemon_attack_6",
             "w": 46,
-            "x": 1539,
-            "y": 297
+            "x": 1620,
+            "y": 300
         },
         {
             "h": 39,
             "name": "cacodaemon_hurt_1",
             "w": 48,
-            "x": 929,
-            "y": 300
+            "x": 1114,
+            "y": 346
         },
         {
             "h": 44,
             "name": "cacodaemon_hurt_2",
             "w": 53,
-            "x": 507,
-            "y": 251
+            "x": 361,
+            "y": 258
         },
         {
             "h": 40,
             "name": "cacodaemon_hurt_3",
             "w": 46,
-            "x": 1909,
-            "y": 299
+            "x": 360,
+            "y": 306
         },
         {
             "h": 39,
             "name": "cacodaemon_hurt_4",
             "w": 48,
-            "x": 370,
-            "y": 302
+            "x": 2,
+            "y": 307
         },
         {
             "h": 39,
             "name": "cacodaemon_idle_1",
             "w": 48,
-            "x": 245,
-            "y": 320
+            "x": 1062,
+            "y": 346
         },
         {
             "h": 38,
             "name": "cacodaemon_idle_2",
             "w": 48,
-            "x": 422,
-            "y": 343
+            "x": 1187,
+            "y": 346
         },
         {
             "h": 37,
             "name": "cacodaemon_idle_3",
             "w": 46,
-            "x": 1337,
-            "y": 343
+            "x": 1493,
+            "y": 346
         },
         {
             "h": 39,
             "name": "cacodaemon_idle_4",
             "w": 48,
-            "x": 35,
-            "y": 301
+            "x": 1010,
+            "y": 346
         },
         {
             "h": 40,
             "name": "cacodaemon_idle_5",
             "w": 49,
-            "x": 1639,
-            "y": 299
+            "x": 61,
+            "y": 306
         },
         {
             "h": 39,
             "name": "cacodaemon_idle_6",
             "w": 46,
-            "x": 297,
-            "y": 320
+            "x": 235,
+            "y": 327
         }
     ],
     "frames_offsets": [
