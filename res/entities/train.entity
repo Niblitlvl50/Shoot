@@ -239,7 +239,7 @@
                             "id": 575458410,
                             "name": "apply_rotation",
                             "variant_type": 0,
-                            "variant_value": true
+                            "variant_value": false
                         },
                         {
                             "id": 1022278742,
@@ -261,6 +261,24 @@
                             "name": "entity_reference",
                             "variant_type": 2,
                             "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 3162460140,
+                    "name": "train_car",
+                    "properties": [
+                        {
+                            "id": 406321172,
+                            "name": "coupling_distance",
+                            "variant_type": 3,
+                            "variant_value": 0.5
+                        },
+                        {
+                            "id": 3332427671,
+                            "name": "is_locomotive",
+                            "variant_type": 0,
+                            "variant_value": true
                         }
                     ]
                 }
