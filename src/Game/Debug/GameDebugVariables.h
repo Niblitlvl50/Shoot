@@ -26,6 +26,7 @@ namespace game
     extern bool g_draw_camera_debug;
     extern bool g_draw_path_follower_debug;
     extern bool g_draw_railway_debug;
+    extern bool g_draw_train_car_debug;
     extern bool g_draw_debug_uisystem;
     extern bool g_draw_ui_element_bounds;
 

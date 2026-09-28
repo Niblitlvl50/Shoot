@@ -16,6 +16,16 @@ using namespace game;
 namespace
 {
     constexpr float snap_tolerance = 1.0f;
+
+    // GetThrottle is only meaningful under manual control (0 just means "idle", not "not
+    // moving"); automatically-advancing entities (loop/ping-pong, or plain one-shot) have
+    // no throttle at all, so fall back to their actual direction of travel instead.
+    float EffectiveDirection(const game::PathFollowerSystem* path_follower_system, uint32_t entity_id)
+    {
+        return path_follower_system->IsManualControl(entity_id)
+            ? path_follower_system->GetThrottle(entity_id)
+            : path_follower_system->GetDirection(entity_id);
+    }
 }
 
 RailwaySystem::RailwaySystem(mono::SystemContext* system_context)
@@ -100,8 +110,8 @@ bool RailwaySystem::ToggleSwitchAhead(uint32_t entity_id)
     if(!path_points || path_points->empty())
         return false;
 
-    const float throttle = path_follower_system->GetThrottle(entity_id);
-    const bool moving_forward = (throttle >= 0.0f);
+    const float direction = EffectiveDirection(path_follower_system, entity_id);
+    const bool moving_forward = (direction >= 0.0f);
     const math::Vector& endpoint_position = moving_forward ? path_points->back() : path_points->front();
 
     const uint32_t switch_entity_id = FindSwitchNearPosition(endpoint_position);
@@ -210,9 +220,12 @@ void RailwaySystem::TryHandOff(uint32_t train_entity_id)
 
     // Only hand off while actively being driven into the end of the track - never on the
     // resting frame right after a hand-off, which would otherwise bounce straight back.
-    const float throttle = path_follower_system->GetThrottle(train_entity_id);
-    const bool pushing_forward = (throttle > 0.0f) && path_follower_system->IsAtPathEnd(train_entity_id);
-    const bool pushing_backward = (throttle < 0.0f) && path_follower_system->IsAtPathStart(train_entity_id);
+    // Automatically-advancing entities have no such resting frame (no throttle to go idle),
+    // so EffectiveDirection falls back to their actual direction of travel, which is never
+    // zero, and hand-off is attempted every time they reach an end.
+    const float direction = EffectiveDirection(path_follower_system, train_entity_id);
+    const bool pushing_forward = (direction > 0.0f) && path_follower_system->IsAtPathEnd(train_entity_id);
+    const bool pushing_backward = (direction < 0.0f) && path_follower_system->IsAtPathStart(train_entity_id);
     if(!pushing_forward && !pushing_backward)
         return;
 

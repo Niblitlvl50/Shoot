@@ -37,6 +37,7 @@ namespace game
         void Init(mono::IBody* body);
         void SetPath(const mono::IPathPtr path);
         void SetTrackingSpeed(float meter_per_second);
+        float GetTrackingSpeed() const;
         void SetPingPong(bool ping_pong);
         void SetLoop(bool loop);
         void SetApplyRotation(bool apply_rotation);
@@ -46,8 +47,14 @@ namespace game
         // When enabled, position along the path is driven by SetThrottle() calls each frame
         // instead of automatically advancing (and ignores ping-pong/loop).
         void SetManualControl(bool manual_control);
+        bool IsManualControl() const;
         void SetThrottle(float throttle);
         float GetThrottle() const;
+
+        // Current direction of travel (+1 forward, -1 backward) - reflects the throttle
+        // sign under manual control, or the automatic ping-pong/loop direction otherwise.
+        // Useful for railway hand-off logic that needs to work regardless of control mode.
+        float GetDirection() const;
 
         // Used by the railway system to hand a manually-controlled entity off from one
         // path to another (e.g. at a switch) without losing its position along the track.
@@ -60,6 +67,10 @@ namespace game
         // Radians of turn per meter at the current position; 0 for a straight line, larger
         // magnitude for a tighter bend. See mono::IPath::GetCurvatureByLength.
         float GetCurvature() const;
+
+        // Normalized world-space direction of increasing path position at the current
+        // position (independent of direction of travel) - zero if there's no path yet.
+        math::Vector GetTangent() const;
 
         PathResult Run(float delta_s);
         PathDebugData GetDebugData() const;

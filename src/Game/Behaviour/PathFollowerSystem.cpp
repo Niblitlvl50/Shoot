@@ -40,7 +40,8 @@ void PathFollowerSystem::SetPathFollowerData(
     bool ping_pong,
     bool apply_rotation,
     const math::Vector& offset,
-    bool manual_control)
+    bool manual_control,
+    float initial_position)
 {
     const auto it = m_components.find(entity_id);
     if(it == m_components.end())
@@ -59,7 +60,7 @@ void PathFollowerSystem::SetPathFollowerData(
     component->behaviour.SetOffset(offset);
     component->behaviour.SetManualControl(manual_control);
 
-    SetPathReference(entity_id, path_entity_reference, 0.0f);
+    SetPathReference(entity_id, path_entity_reference, initial_position);
 }
 
 void PathFollowerSystem::SetPathReference(uint32_t entity_id, uint32_t path_entity_reference, float initial_position)
@@ -75,6 +76,16 @@ void PathFollowerSystem::SetPathReference(uint32_t entity_id, uint32_t path_enti
     component->pending_path_entity_reference = path_entity_reference;
     component->needs_path_resolve = true;
     component->initial_position = initial_position;
+    component->start_at_current_position = false;
+}
+
+void PathFollowerSystem::SetPathReferenceAtCurrentPosition(uint32_t entity_id, uint32_t path_entity_reference)
+{
+    SetPathReference(entity_id, path_entity_reference, 0.0f);
+
+    const auto it = m_components.find(entity_id);
+    if(it != m_components.end())
+        it->second.start_at_current_position = true;
 }
 
 void PathFollowerSystem::SetPaused(uint32_t entity_id, bool paused)
@@ -89,6 +100,12 @@ void PathFollowerSystem::SetSpeed(uint32_t entity_id, float speed)
     const auto it = m_components.find(entity_id);
     if(it != m_components.end())
         it->second.behaviour.SetTrackingSpeed(speed);
+}
+
+float PathFollowerSystem::GetSpeed(uint32_t entity_id) const
+{
+    const auto it = m_components.find(entity_id);
+    return (it != m_components.end()) ? it->second.behaviour.GetTrackingSpeed() : 0.0f;
 }
 
 void PathFollowerSystem::SetOffset(uint32_t entity_id, const math::Vector& offset)
@@ -116,6 +133,24 @@ float PathFollowerSystem::GetThrottle(uint32_t entity_id) const
 {
     const auto it = m_components.find(entity_id);
     return (it != m_components.end()) ? it->second.behaviour.GetThrottle() : 0.0f;
+}
+
+bool PathFollowerSystem::IsManualControl(uint32_t entity_id) const
+{
+    const auto it = m_components.find(entity_id);
+    return (it != m_components.end()) && it->second.behaviour.IsManualControl();
+}
+
+float PathFollowerSystem::GetDirection(uint32_t entity_id) const
+{
+    const auto it = m_components.find(entity_id);
+    return (it != m_components.end()) ? it->second.behaviour.GetDirection() : 1.0f;
+}
+
+float PathFollowerSystem::GetCurrentPosition(uint32_t entity_id) const
+{
+    const auto it = m_components.find(entity_id);
+    return (it != m_components.end()) ? it->second.behaviour.GetCurrentPosition() : 0.0f;
 }
 
 uint32_t PathFollowerSystem::GetCurrentPathEntity(uint32_t entity_id) const
@@ -154,6 +189,18 @@ float PathFollowerSystem::GetCurvature(uint32_t entity_id) const
 {
     const auto it = m_components.find(entity_id);
     return (it != m_components.end()) ? it->second.behaviour.GetCurvature() : 0.0f;
+}
+
+math::Vector PathFollowerSystem::GetTangent(uint32_t entity_id) const
+{
+    const auto it = m_components.find(entity_id);
+    return (it != m_components.end()) ? it->second.behaviour.GetTangent() : math::ZeroVec;
+}
+
+float PathFollowerSystem::GetPathLength(uint32_t entity_id) const
+{
+    const auto it = m_components.find(entity_id);
+    return (it != m_components.end()) ? it->second.behaviour.GetPathLength() : 0.0f;
 }
 
 bool PathFollowerSystem::SwitchToPathEntity(
@@ -237,12 +284,23 @@ void PathFollowerSystem::Sync()
         if(!path)
             continue;
 
+        mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
+
+        float start_position = component.initial_position;
+        if(component.start_at_current_position)
+        {
+            const math::Vector world_position = transform_system->GetWorldPosition(entity_component_pair.first);
+            const mono::LengthResult length_result = path->GetLengthFromPosition(world_position);
+            if(length_result.valid_length)
+                start_position = length_result.path_length;
+        }
+
         component.current_path_entity_id = path_entity_id;
         component.behaviour.SetPath(std::move(path));
-        component.behaviour.TeleportToPosition(component.initial_position);
+        component.behaviour.TeleportToPosition(start_position);
         component.needs_path_resolve = false;
 
-        m_system_context->GetSystem<mono::TransformSystem>()->SetTransformState(entity_component_pair.first, mono::TransformState::PHYSICS);
+        transform_system->SetTransformState(entity_component_pair.first, mono::TransformState::PHYSICS);
     }
 }
 

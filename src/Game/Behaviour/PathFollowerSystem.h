@@ -24,6 +24,10 @@ namespace game
         uint32_t pending_path_entity_reference = mono::INVALID_ID;
         bool needs_path_resolve = false;
         float initial_position = 0.0f;
+
+        // Start at the point on the path closest to the entity's current world position
+        // instead of initial_position.
+        bool start_at_current_position = false;
     };
 
     // Drives an entity's physics body along another entity's path, configured entirely
@@ -45,20 +49,34 @@ namespace game
             bool ping_pong,
             bool apply_rotation,
             const math::Vector& offset,
-            bool manual_control);
+            bool manual_control,
+            float initial_position = 0.0f);
 
         void SetPathReference(uint32_t entity_id, uint32_t path_entity_reference, float initial_position);
+
+        // Like SetPathReference, but starts at whichever point on the path is closest to
+        // where the entity currently is, rather than at a given arc-length position.
+        void SetPathReferenceAtCurrentPosition(uint32_t entity_id, uint32_t path_entity_reference);
 
 
         void SetPaused(uint32_t entity_id, bool paused);
         void SetSpeed(uint32_t entity_id, float speed);
+        float GetSpeed(uint32_t entity_id) const;
         void SetOffset(uint32_t entity_id, const math::Vector& offset);
         void SetCurrentPosition(uint32_t entity_id, float position);
+        float GetCurrentPosition(uint32_t entity_id) const;
 
         // Only meaningful when the component's manual_control flag is set; drives the
         // entity's position along the path directly, ignoring speed/loop/ping-pong.
         void SetThrottle(uint32_t entity_id, float throttle);
         float GetThrottle(uint32_t entity_id) const;
+
+        bool IsManualControl(uint32_t entity_id) const;
+
+        // Current direction of travel (+1 forward, -1 backward), valid regardless of
+        // manual_control - unlike GetThrottle (which is only meaningful under manual
+        // control), this also reflects automatically-advancing/ping-pong/loop entities.
+        float GetDirection(uint32_t entity_id) const;
 
         uint32_t GetCurrentPathEntity(uint32_t entity_id) const;
         bool IsAtPathStart(uint32_t entity_id) const;
@@ -68,6 +86,12 @@ namespace game
         // Radians of turn per meter at the entity's current position on its path; 0 if the
         // entity has no path (or the path is a straight line), larger magnitude for tighter bends.
         float GetCurvature(uint32_t entity_id) const;
+
+        // Normalized world-space direction of increasing path position at the entity's
+        // current position, independent of its direction of travel.
+        math::Vector GetTangent(uint32_t entity_id) const;
+
+        float GetPathLength(uint32_t entity_id) const;
 
         // Hands a manually-controlled entity off onto a different track, entering it at
         // whichever end lies closest to `enter_at_world_position` (used at railway switches).

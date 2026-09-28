@@ -170,6 +170,8 @@ const DefaultAttribute default_attributes[] = {
     { "path_notify_distance",       Variant(0.0f), "Meters along the path" },
     { "switch_primary_trigger",     Variant(event_type_output_default), "Primary Set Event" },
     { "switch_alt_trigger",         Variant(event_type_output_default), "Alt Set Event" },
+    { "coupling_distance",          Variant(1.5f), "Coupling gap in meters" },
+    { "is_locomotive",              Variant(false), "Never auto-coupled as a follower - always the driven end of the chain" },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -324,6 +326,9 @@ extern const uint32_t PATH_NOTIFY_DISTANCE_ATTRIBUTE        = default_attributes
 extern const uint32_t SWITCH_PRIMARY_TRIGGER_ATTRIBUTE      = default_attributes[129].hash;
 extern const uint32_t SWITCH_ALT_TRIGGER_ATTRIBUTE          = default_attributes[130].hash;
 
+extern const uint32_t COUPLING_DISTANCE_ATTRIBUTE           = default_attributes[131].hash;
+extern const uint32_t IS_LOCOMOTIVE_ATTRIBUTE               = default_attributes[132].hash;
+
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
 extern const uint32_t ENTITY_NAME_COMPONENT         = hash::Hash("entity_name");
@@ -387,6 +392,7 @@ extern const uint32_t PATH_FOLLOWER_COMPONENT       = hash::Hash("path_follower"
 extern const uint32_t RAILWAY_SWITCH_COMPONENT      = hash::Hash("railway_switch");
 extern const uint32_t RAILWAY_STATION_COMPONENT     = hash::Hash("railway_station");
 extern const uint32_t PATH_NOTIFIER_COMPONENT       = hash::Hash("path_notifier");
+extern const uint32_t TRAIN_CAR_COMPONENT           = hash::Hash("train_car");
 
 const char* component::ComponentNameFromHash(uint32_t hash)
 {
@@ -516,6 +522,8 @@ const char* component::ComponentNameFromHash(uint32_t hash)
         return "railway_station";
     else if(hash == PATH_NOTIFIER_COMPONENT)
         return "path_notifier";
+    else if(hash == TRAIN_CAR_COMPONENT)
+        return "train_car";
 
     return "Unknown";
 }
@@ -572,6 +580,7 @@ const Component default_components[] = {
     MakeComponent(PHYSICS_IMPULSE_COMPONENT,    PHYSICS_COMPONENT,          false,  "physics",      { STRENGTH_ATTRIBUTE }),
 
     MakeComponent(PATH_FOLLOWER_COMPONENT,      PHYSICS_COMPONENT,          false,  "movement",     { MANUAL_CONTROL_ATTRIBUTE, PATH_LOOP_ATTRIBUTE, PING_PONG_ATTRIBUTE, APPLY_ROTATION_ATTRIBUTE, PATH_SPEED_ATTRIBUTE, OFFSET_ATTRIBUTE, ENTITY_REFERENCE_ATTRIBUTE }),
+    MakeComponent(TRAIN_CAR_COMPONENT,          PATH_FOLLOWER_COMPONENT,   false,  "movement",     { COUPLING_DISTANCE_ATTRIBUTE, IS_LOCOMOTIVE_ATTRIBUTE }),
 
     MakeComponent(RAILWAY_SWITCH_COMPONENT,     NULL_COMPONENT,             false,  "railway",      { ENTITY_REFERENCE_ATTRIBUTE, SWITCH_PRIMARY_TRACK_ATTRIBUTE, SWITCH_ALT_TRACK_ATTRIBUTE, SWITCH_USE_ALT_BRANCH_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, SWITCH_PRIMARY_TRIGGER_ATTRIBUTE, SWITCH_ALT_TRIGGER_ATTRIBUTE }),
     MakeComponent(RAILWAY_STATION_COMPONENT,    NULL_COMPONENT,             false,  "railway",      { NAME_ATTRIBUTE }),

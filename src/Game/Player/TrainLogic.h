@@ -57,6 +57,7 @@ namespace game
         void SetThrottle(float throttle_input);
         void ToggleDirection();
         void Honk();
+        void Decouple();
 
         void ApplyImpulse(const math::Vector& force);
         void ApplyForce(const math::Vector& force);
@@ -132,6 +133,7 @@ namespace game
         class TargetSystem* m_target_system;
         class PathFollowerSystem* m_path_follower_system;
         class RailwaySystem* m_railway_system;
+        class TrainCarSystem* m_train_car_system;
 
         mono::InputContext* m_input_context;
 

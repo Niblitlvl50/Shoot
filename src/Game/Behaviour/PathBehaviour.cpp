@@ -41,6 +41,11 @@ void PathBehaviour::SetTrackingSpeed(float meter_per_second)
     m_meter_per_second = meter_per_second;
 }
 
+float PathBehaviour::GetTrackingSpeed() const
+{
+    return m_meter_per_second;
+}
+
 void PathBehaviour::SetPingPong(bool ping_pong)
 {
     m_ping_pong = ping_pong;
@@ -66,6 +71,11 @@ void PathBehaviour::SetManualControl(bool manual_control)
     m_manual_control = manual_control;
 }
 
+bool PathBehaviour::IsManualControl() const
+{
+    return m_manual_control;
+}
+
 void PathBehaviour::SetThrottle(float throttle)
 {
     m_throttle = std::clamp(throttle, -1.0f, 1.0f);
@@ -74,6 +84,11 @@ void PathBehaviour::SetThrottle(float throttle)
 float PathBehaviour::GetThrottle() const
 {
     return m_throttle;
+}
+
+float PathBehaviour::GetDirection() const
+{
+    return m_direction;
 }
 
 void PathBehaviour::SetCurrentPosition(float position)
@@ -119,6 +134,11 @@ const std::vector<math::Vector>* PathBehaviour::GetPathPoints() const
 float PathBehaviour::GetCurvature() const
 {
     return m_path ? m_path->GetCurvatureByLength(m_current_position) : 0.0f;
+}
+
+math::Vector PathBehaviour::GetTangent() const
+{
+    return m_path ? m_path->GetTangentByLength(m_current_position) : math::ZeroVec;
 }
 
 PathResult PathBehaviour::Run(float delta_s)

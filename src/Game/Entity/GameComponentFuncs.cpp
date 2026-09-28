@@ -16,6 +16,7 @@
 #include "Entity/EntityLifetimeTriggerSystem.h"
 #include "Behaviour/PathFollowerSystem.h"
 #include "RailwaySystem/RailwaySystem.h"
+#include "Train/TrainCarSystem.h"
 #include "GameCamera/CameraSystem.h"
 #include "GamePhysics/GamePhysicsSystem.h"
 #include "InteractionSystem/InteractionSystem.h"
@@ -1344,6 +1345,33 @@ namespace
         return true;
     }
 
+    bool CreateTrainCar(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::TrainCarSystem* train_car_system = context->GetSystem<game::TrainCarSystem>();
+        train_car_system->AllocateTrainCar(entity->id);
+        return true;
+    }
+
+    bool ReleaseTrainCar(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::TrainCarSystem* train_car_system = context->GetSystem<game::TrainCarSystem>();
+        train_car_system->ReleaseTrainCar(entity->id);
+        return true;
+    }
+
+    bool UpdateTrainCar(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        float coupling_distance;
+        bool is_locomotive;
+        FindAttribute(COUPLING_DISTANCE_ATTRIBUTE, properties, coupling_distance, FallbackMode::SET_DEFAULT);
+        FindAttribute(IS_LOCOMOTIVE_ATTRIBUTE, properties, is_locomotive, FallbackMode::SET_DEFAULT);
+
+        game::TrainCarSystem* train_car_system = context->GetSystem<game::TrainCarSystem>();
+        train_car_system->SetTrainCarData(entity->id, coupling_distance, is_locomotive);
+
+        return true;
+    }
+
     bool CreateRailwaySwitch(mono::Entity* entity, mono::SystemContext* context)
     {
         game::RailwaySystem* railway_system = context->GetSystem<game::RailwaySystem>();
@@ -1456,6 +1484,7 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(MISSION_LOCATION_COMPONENT, CreateMissionLocation, ReleaseMissionLocation);
     entity_manager->RegisterComponent(PHYSICS_IMPULSE_COMPONENT, CreatePhysicsImpulse, ReleasePhysicsImpulse, UpdatePhysicsImpulse);
     entity_manager->RegisterComponent(PATH_FOLLOWER_COMPONENT, CreatePathFollower, ReleasePathFollower, UpdatePathFollower);
+    entity_manager->RegisterComponent(TRAIN_CAR_COMPONENT, CreateTrainCar, ReleaseTrainCar, UpdateTrainCar);
     entity_manager->RegisterComponent(RAILWAY_SWITCH_COMPONENT, CreateRailwaySwitch, ReleaseRailwaySwitch, UpdateRailwaySwitch);
     entity_manager->RegisterComponent(RAILWAY_STATION_COMPONENT, CreateRailwayStation, ReleaseRailwayStation, UpdateRailwayStation);
 }

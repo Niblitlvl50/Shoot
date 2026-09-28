@@ -64,6 +64,10 @@ void TrainGamepadController::Update(const mono::UpdateContext& update_context)
     const bool honk_triggered = System::IsButtonTriggered(m_last_state.button_state, m_current_state.button_state, System::ControllerButton::FACE_TOP);
     if(honk_triggered)
         m_train_logic->Honk();
+
+    const bool decouple_triggered = System::IsButtonTriggered(m_last_state.button_state, m_current_state.button_state, System::ControllerButton::FACE_RIGHT);
+    if(decouple_triggered)
+        m_train_logic->Decouple();
 }
 
 mono::InputResult TrainGamepadController::ButtonDown(const event::ControllerButtonDownEvent& event)
