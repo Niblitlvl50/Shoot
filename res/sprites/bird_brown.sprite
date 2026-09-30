@@ -56,112 +56,112 @@
             "h": 9,
             "name": "bird_brown_flying_1",
             "w": 14,
-            "x": 650,
+            "x": 1893,
             "y": 562
         },
         {
             "h": 8,
             "name": "bird_brown_flying_2",
             "w": 14,
-            "x": 1653,
-            "y": 575
+            "x": 1123,
+            "y": 576
         },
         {
             "h": 6,
             "name": "bird_brown_flying_3",
             "w": 14,
-            "x": 1142,
-            "y": 576
+            "x": 740,
+            "y": 577
         },
         {
             "h": 8,
             "name": "bird_brown_flying_4",
             "w": 15,
-            "x": 1309,
-            "y": 575
+            "x": 1067,
+            "y": 576
         },
         {
             "h": 10,
             "name": "bird_brown_flying_5",
             "w": 14,
-            "x": 1983,
-            "y": 561
+            "x": 1240,
+            "y": 562
         },
         {
             "h": 8,
             "name": "bird_brown_flying_6",
             "w": 15,
-            "x": 1616,
-            "y": 575
+            "x": 1048,
+            "y": 576
         },
         {
             "h": 6,
             "name": "bird_brown_flying_7",
             "w": 14,
-            "x": 1124,
-            "y": 576
+            "x": 758,
+            "y": 577
         },
         {
             "h": 9,
             "name": "bird_brown_flying_8",
             "w": 14,
-            "x": 632,
+            "x": 1911,
             "y": 562
         },
         {
             "h": 12,
             "name": "bird_brown_idle_1",
             "w": 11,
-            "x": 318,
-            "y": 549
+            "x": 1545,
+            "y": 561
         },
         {
             "h": 11,
             "name": "bird_brown_idle_2",
             "w": 11,
-            "x": 1540,
-            "y": 561
+            "x": 777,
+            "y": 562
         },
         {
             "h": 9,
             "name": "bird_brown_peck_1",
             "w": 12,
-            "x": 1321,
-            "y": 562
+            "x": 225,
+            "y": 570
         },
         {
             "h": 7,
             "name": "bird_brown_peck_2",
             "w": 12,
-            "x": 744,
-            "y": 576
+            "x": 424,
+            "y": 577
         },
         {
             "h": 8,
             "name": "bird_brown_peck_3",
             "w": 13,
-            "x": 1723,
-            "y": 575
+            "x": 1176,
+            "y": 576
         },
         {
             "h": 9,
             "name": "bird_brown_walk_1",
             "w": 12,
-            "x": 1305,
-            "y": 562
+            "x": 279,
+            "y": 565
         },
         {
             "h": 10,
             "name": "bird_brown_walk_2",
             "w": 12,
-            "x": 153,
+            "x": 1428,
             "y": 562
         },
         {
             "h": 10,
             "name": "bird_brown_walk_3",
             "w": 12,
-            "x": 121,
+            "x": 1444,
             "y": 562
         }
     ],

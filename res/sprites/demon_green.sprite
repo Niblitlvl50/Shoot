@@ -76,14 +76,14 @@
             "h": 87,
             "name": "demon_green_attack_turn_1",
             "w": 53,
-            "x": 1657,
+            "x": 1543,
             "y": 2
         },
         {
             "h": 87,
             "name": "demon_green_attack_turn_2",
             "w": 54,
-            "x": 1314,
+            "x": 1256,
             "y": 2
         },
         {
@@ -97,7 +97,7 @@
             "h": 87,
             "name": "demon_green_attack_turn_4",
             "w": 53,
-            "x": 1429,
+            "x": 1657,
             "y": 2
         },
         {
@@ -125,7 +125,7 @@
             "h": 87,
             "name": "demon_green_attack_turn_8",
             "w": 54,
-            "x": 1256,
+            "x": 1314,
             "y": 2
         },
         {
@@ -160,15 +160,15 @@
             "h": 59,
             "name": "demon_green_die_4",
             "w": 48,
-            "x": 186,
-            "y": 188
+            "x": 623,
+            "y": 189
         },
         {
             "h": 59,
             "name": "demon_green_die_5",
             "w": 48,
-            "x": 623,
-            "y": 189
+            "x": 186,
+            "y": 188
         },
         {
             "h": 87,
@@ -181,15 +181,15 @@
             "h": 87,
             "name": "demon_green_idle_2",
             "w": 47,
-            "x": 1990,
-            "y": 2
+            "x": 1024,
+            "y": 93
         },
         {
             "h": 87,
             "name": "demon_green_idle_3",
             "w": 47,
-            "x": 1024,
-            "y": 93
+            "x": 1990,
+            "y": 2
         },
         {
             "h": 87,
@@ -202,21 +202,21 @@
             "h": 87,
             "name": "demon_green_idle_turn_1",
             "w": 53,
-            "x": 1543,
+            "x": 1486,
             "y": 2
         },
         {
             "h": 87,
             "name": "demon_green_idle_turn_2",
             "w": 54,
-            "x": 1198,
+            "x": 1024,
             "y": 2
         },
         {
             "h": 87,
             "name": "demon_green_idle_turn_3",
             "w": 54,
-            "x": 1024,
+            "x": 1198,
             "y": 2
         },
         {
@@ -244,7 +244,7 @@
             "h": 87,
             "name": "demon_green_idle_turn_7",
             "w": 53,
-            "x": 1486,
+            "x": 1429,
             "y": 2
         },
         {

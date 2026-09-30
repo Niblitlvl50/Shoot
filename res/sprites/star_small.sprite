@@ -23,29 +23,29 @@
             "h": 9,
             "name": "star_small_spin_1",
             "w": 9,
-            "x": 848,
-            "y": 562
+            "x": 1956,
+            "y": 575
         },
         {
             "h": 9,
             "name": "star_small_spin_2",
             "w": 9,
-            "x": 591,
+            "x": 1930,
             "y": 575
         },
         {
             "h": 5,
             "name": "star_small_spin_3",
             "w": 5,
-            "x": 1577,
-            "y": 576
+            "x": 326,
+            "y": 578
         },
         {
             "h": 3,
             "name": "star_small_spin_4",
             "w": 3,
-            "x": 1601,
-            "y": 576
+            "x": 1623,
+            "y": 586
         }
     ],
     "frames_offsets": [

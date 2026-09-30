@@ -22,14 +22,14 @@
             "h": 8,
             "name": "switch_indicator_alternative_1",
             "w": 8,
-            "x": 74,
+            "x": 1506,
             "y": 576
         },
         {
             "h": 8,
             "name": "switch_indicator_straight_1",
             "w": 8,
-            "x": 86,
+            "x": 1494,
             "y": 576
         }
     ],

@@ -74,225 +74,225 @@
             "h": 10,
             "name": "golem_tiny_attack_1",
             "w": 13,
-            "x": 104,
+            "x": 1344,
             "y": 562
         },
         {
             "h": 11,
             "name": "golem_tiny_attack_2",
             "w": 13,
-            "x": 1008,
-            "y": 561
+            "x": 441,
+            "y": 562
         },
         {
             "h": 11,
             "name": "golem_tiny_attack_3",
             "w": 12,
-            "x": 1348,
-            "y": 561
+            "x": 746,
+            "y": 562
         },
         {
             "h": 11,
             "name": "golem_tiny_attack_4",
             "w": 13,
-            "x": 991,
+            "x": 1630,
             "y": 561
         },
         {
             "h": 11,
             "name": "golem_tiny_attack_5",
             "w": 13,
-            "x": 931,
-            "y": 561
+            "x": 424,
+            "y": 562
         },
         {
             "h": 9,
             "name": "golem_tiny_attack_6",
             "w": 22,
-            "x": 518,
+            "x": 1779,
             "y": 562
         },
         {
             "h": 10,
             "name": "golem_tiny_attack_7",
             "w": 28,
-            "x": 1684,
-            "y": 561
+            "x": 941,
+            "y": 562
         },
         {
             "h": 10,
             "name": "golem_tiny_attack_8",
             "w": 30,
-            "x": 1616,
-            "y": 561
+            "x": 907,
+            "y": 562
         },
         {
             "h": 10,
             "name": "golem_tiny_attack_9",
             "w": 30,
-            "x": 1650,
-            "y": 561
+            "x": 873,
+            "y": 562
         },
         {
             "h": 10,
             "name": "golem_tiny_attack_10",
             "w": 15,
-            "x": 1910,
-            "y": 561
+            "x": 1167,
+            "y": 562
         },
         {
             "h": 10,
             "name": "golem_tiny_idle_1",
             "w": 13,
-            "x": 2019,
-            "y": 561
+            "x": 1361,
+            "y": 562
         },
         {
             "h": 10,
             "name": "golem_tiny_idle_2",
             "w": 13,
-            "x": 19,
+            "x": 1378,
             "y": 562
         },
         {
             "h": 8,
             "name": "golem_tiny_idle_3",
             "w": 13,
-            "x": 1740,
-            "y": 575
+            "x": 1159,
+            "y": 576
         },
         {
             "h": 10,
             "name": "golem_tiny_idle_4",
             "w": 13,
-            "x": 53,
+            "x": 1293,
             "y": 562
         },
         {
             "h": 10,
             "name": "golem_tiny_idle_5",
             "w": 13,
-            "x": 36,
+            "x": 1395,
             "y": 562
         },
         {
             "h": 7,
             "name": "golem_tiny_prepare_roll_1",
             "w": 9,
-            "x": 790,
-            "y": 576
+            "x": 455,
+            "y": 577
         },
         {
             "h": 7,
             "name": "golem_tiny_prepare_roll_2",
             "w": 7,
-            "x": 911,
-            "y": 576
+            "x": 526,
+            "y": 577
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_1",
             "w": 7,
-            "x": 1020,
-            "y": 576
+            "x": 548,
+            "y": 577
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_2",
             "w": 7,
-            "x": 1009,
-            "y": 576
+            "x": 581,
+            "y": 577
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_3",
             "w": 7,
-            "x": 998,
-            "y": 576
+            "x": 614,
+            "y": 577
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_4",
             "w": 7,
-            "x": 987,
-            "y": 576
+            "x": 592,
+            "y": 577
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_5",
             "w": 7,
-            "x": 944,
-            "y": 576
+            "x": 570,
+            "y": 577
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_6",
             "w": 7,
-            "x": 933,
-            "y": 576
+            "x": 559,
+            "y": 577
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_7",
             "w": 7,
-            "x": 922,
-            "y": 576
+            "x": 537,
+            "y": 577
         },
         {
             "h": 7,
             "name": "golem_tiny_roll_8",
             "w": 7,
-            "x": 1031,
-            "y": 576
+            "x": 515,
+            "y": 577
         },
         {
             "h": 10,
             "name": "golem_tiny_walk_1",
             "w": 13,
-            "x": 2,
+            "x": 1310,
             "y": 562
         },
         {
             "h": 13,
             "name": "golem_tiny_walk_2",
             "w": 13,
-            "x": 1769,
-            "y": 544
+            "x": 959,
+            "y": 545
         },
         {
             "h": 11,
             "name": "golem_tiny_walk_3",
             "w": 13,
-            "x": 897,
-            "y": 561
+            "x": 407,
+            "y": 562
         },
         {
             "h": 10,
             "name": "golem_tiny_walk_4",
             "w": 13,
-            "x": 87,
+            "x": 1276,
             "y": 562
         },
         {
             "h": 9,
             "name": "golem_tiny_walk_5",
             "w": 13,
-            "x": 668,
-            "y": 562
+            "x": 19,
+            "y": 563
         },
         {
             "h": 13,
             "name": "golem_tiny_walk_6",
             "w": 13,
-            "x": 70,
+            "x": 1112,
             "y": 545
         },
         {
             "h": 11,
             "name": "golem_tiny_walk_7",
             "w": 13,
-            "x": 914,
-            "y": 561
+            "x": 390,
+            "y": 562
         }
     ],
     "frames_offsets": [
