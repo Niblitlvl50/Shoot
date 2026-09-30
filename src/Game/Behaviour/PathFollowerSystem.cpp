@@ -77,6 +77,14 @@ void PathFollowerSystem::SetPathReference(uint32_t entity_id, uint32_t path_enti
     component->needs_path_resolve = true;
     component->initial_position = initial_position;
     component->start_at_current_position = false;
+    component->start_tag.clear();
+}
+
+void PathFollowerSystem::SetStartTag(uint32_t entity_id, const std::string& start_tag)
+{
+    const auto it = m_components.find(entity_id);
+    if(it != m_components.end())
+        it->second.start_tag = start_tag;
 }
 
 void PathFollowerSystem::SetPathReferenceAtCurrentPosition(uint32_t entity_id, uint32_t path_entity_reference)
@@ -293,6 +301,23 @@ void PathFollowerSystem::Sync()
             const mono::LengthResult length_result = path->GetLengthFromPosition(world_position);
             if(length_result.valid_length)
                 start_position = length_result.path_length;
+        }
+
+        if(!component.start_tag.empty())
+        {
+            const mono::PathSystem* path_system = m_system_context->GetSystem<mono::PathSystem>();
+            const std::vector<mono::PathNotifierComponent>* notifiers = path_system->GetNotifiers(path_entity_id);
+            if(notifiers)
+            {
+                for(const mono::PathNotifierComponent& notifier : *notifiers)
+                {
+                    if(notifier.tag == component.start_tag)
+                    {
+                        start_position = notifier.distance;
+                        break;
+                    }
+                }
+            }
         }
 
         component.current_path_entity_id = path_entity_id;

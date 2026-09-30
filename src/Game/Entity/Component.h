@@ -173,6 +173,7 @@ extern const uint32_t SWITCH_ALT_TRIGGER_ATTRIBUTE;
 
 extern const uint32_t COUPLING_DISTANCE_ATTRIBUTE;
 extern const uint32_t IS_LOCOMOTIVE_ATTRIBUTE;
+extern const uint32_t PATH_START_TAG_ATTRIBUTE;
 
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);

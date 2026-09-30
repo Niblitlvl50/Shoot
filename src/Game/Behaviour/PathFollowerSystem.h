@@ -9,6 +9,7 @@
 #include "Math/Vector.h"
 
 #include <cstdint>
+#include <string>
 #include <unordered_map>
 #include <vector>
 
@@ -28,6 +29,10 @@ namespace game
         // Start at the point on the path closest to the entity's current world position
         // instead of initial_position.
         bool start_at_current_position = false;
+
+        // Start at the path notifier with this tag, if the path has one. Takes priority
+        // over the two above.
+        std::string start_tag;
     };
 
     // Drives an entity's physics body along another entity's path, configured entirely
@@ -57,6 +62,11 @@ namespace game
         // Like SetPathReference, but starts at whichever point on the path is closest to
         // where the entity currently is, rather than at a given arc-length position.
         void SetPathReferenceAtCurrentPosition(uint32_t entity_id, uint32_t path_entity_reference);
+
+        // Makes the pending path reference start at the path notifier with this tag instead
+        // (an empty tag, or one the path doesn't have, leaves the start position as it was).
+        // Setting a new path reference clears it.
+        void SetStartTag(uint32_t entity_id, const std::string& start_tag);
 
 
         void SetPaused(uint32_t entity_id, bool paused);

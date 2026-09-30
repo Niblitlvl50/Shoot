@@ -1329,8 +1329,10 @@ namespace
         bool apply_rotation;
         math::Vector offset;
         bool manual_control;
+        std::string start_tag;
 
         FindAttribute(ENTITY_REFERENCE_ATTRIBUTE, properties, path_entity_reference, FallbackMode::SET_DEFAULT);
+        FindAttribute(PATH_START_TAG_ATTRIBUTE, properties, start_tag, FallbackMode::SET_DEFAULT);
         FindAttribute(PATH_SPEED_ATTRIBUTE, properties, speed, FallbackMode::SET_DEFAULT);
         FindAttribute(PATH_LOOP_ATTRIBUTE, properties, loop, FallbackMode::SET_DEFAULT);
         FindAttribute(PING_PONG_ATTRIBUTE, properties, ping_pong, FallbackMode::SET_DEFAULT);
@@ -1341,6 +1343,7 @@ namespace
         game::PathFollowerSystem* path_follower_system = context->GetSystem<game::PathFollowerSystem>();
         path_follower_system->SetPathFollowerData(
             entity->id, path_entity_reference, speed, loop, ping_pong, apply_rotation, offset, manual_control);
+        path_follower_system->SetStartTag(entity->id, start_tag);
 
         return true;
     }

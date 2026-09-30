@@ -172,6 +172,7 @@ const DefaultAttribute default_attributes[] = {
     { "switch_alt_trigger",         Variant(event_type_output_default), "Alt Set Event" },
     { "coupling_distance",          Variant(1.5f), "Coupling gap in meters" },
     { "is_locomotive",              Variant(false), "Never auto-coupled as a follower - always the driven end of the chain" },
+    { "path_start_tag",             Variant(std::string()), "Optional, start at the path notifier with this tag" },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -328,6 +329,7 @@ extern const uint32_t SWITCH_ALT_TRIGGER_ATTRIBUTE          = default_attributes
 
 extern const uint32_t COUPLING_DISTANCE_ATTRIBUTE           = default_attributes[131].hash;
 extern const uint32_t IS_LOCOMOTIVE_ATTRIBUTE               = default_attributes[132].hash;
+extern const uint32_t PATH_START_TAG_ATTRIBUTE              = default_attributes[133].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -579,7 +581,7 @@ const Component default_components[] = {
     MakeComponent(SEGMENT_SHAPE_COMPONENT,      PHYSICS_COMPONENT,          true,   "physics",      { FACTION_ATTRIBUTE, START_ATTRIBUTE, END_ATTRIBUTE, RADIUS_ATTRIBUTE, SENSOR_ATTRIBUTE }),
     MakeComponent(PHYSICS_IMPULSE_COMPONENT,    PHYSICS_COMPONENT,          false,  "physics",      { STRENGTH_ATTRIBUTE }),
 
-    MakeComponent(PATH_FOLLOWER_COMPONENT,      PHYSICS_COMPONENT,          false,  "movement",     { MANUAL_CONTROL_ATTRIBUTE, PATH_LOOP_ATTRIBUTE, PING_PONG_ATTRIBUTE, APPLY_ROTATION_ATTRIBUTE, PATH_SPEED_ATTRIBUTE, OFFSET_ATTRIBUTE, ENTITY_REFERENCE_ATTRIBUTE }),
+    MakeComponent(PATH_FOLLOWER_COMPONENT,      PHYSICS_COMPONENT,          false,  "movement",     { MANUAL_CONTROL_ATTRIBUTE, PATH_LOOP_ATTRIBUTE, PING_PONG_ATTRIBUTE, APPLY_ROTATION_ATTRIBUTE, PATH_SPEED_ATTRIBUTE, OFFSET_ATTRIBUTE, ENTITY_REFERENCE_ATTRIBUTE, PATH_START_TAG_ATTRIBUTE }),
     MakeComponent(TRAIN_CAR_COMPONENT,          PATH_FOLLOWER_COMPONENT,   false,  "movement",     { COUPLING_DISTANCE_ATTRIBUTE, IS_LOCOMOTIVE_ATTRIBUTE }),
 
     MakeComponent(RAILWAY_SWITCH_COMPONENT,     NULL_COMPONENT,             false,  "railway",      { ENTITY_REFERENCE_ATTRIBUTE, SWITCH_PRIMARY_TRACK_ATTRIBUTE, SWITCH_ALT_TRACK_ATTRIBUTE, SWITCH_USE_ALT_BRANCH_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, SWITCH_PRIMARY_TRIGGER_ATTRIBUTE, SWITCH_ALT_TRIGGER_ATTRIBUTE }),
