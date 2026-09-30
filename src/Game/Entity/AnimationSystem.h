@@ -110,6 +110,7 @@ namespace game
             float duration,
             math::EaseFunction func,
             AnimationMode mode,
+            float scale_start,
             float scale_delta);
 
         const char* Name() const override;

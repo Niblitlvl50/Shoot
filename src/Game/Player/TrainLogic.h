@@ -54,7 +54,8 @@ namespace game
         void PickupDrop();
         bool HoldingPickup() const; 
 
-        void SetThrottle(float throttle_input);
+        // Inputs are 0-1 (trigger values); the throttle holds its value when both are zero.
+        void AdjustThrottle(float raise_input, float lower_input, float delta_s);
         void ToggleDirection();
         void Honk();
         void Decouple();
@@ -80,6 +81,7 @@ namespace game
         mono::EventHandler* m_event_handler;
         bool m_pause;
         bool m_reverse;
+        float m_throttle;
 
         enum class TrainStates
         {

@@ -71,8 +71,8 @@ namespace
 
             const uint16_t index_offset = index * 12;
 
-            for(uint16_t index : local_aim_lines_indices)
-                aim_lines_indices.emplace_back(index + index_offset);
+            for(uint16_t aim_line_index : local_aim_lines_indices)
+                aim_lines_indices.emplace_back(aim_line_index + index_offset);
         }
 
         render_data.vertices->UpdateData(aim_lines_vertices.data(), 0, std::size(aim_lines_vertices));

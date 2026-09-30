@@ -1,12 +1,18 @@
 
 #include "TrainSmokeEffect.h"
+#include "Entity/AnimationSystem.h"
+#include "Entity/Component.h"
 
 #include "Particle/ParticleSystem.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Util/Random.h"
-
+#include "Util/Algorithm.h"
 #include "EntitySystem/IEntityManager.h"
 #include "Entity/Component.h"
+#include "Rendering/Sprite/SpriteSystem.h"
+#include "Rendering/Sprite/Sprite.h"
+
+#include "Math/EasingFunctions.h"
 
 using namespace game;
 
@@ -40,58 +46,101 @@ namespace
         component_view.start_life = life;
         component_view.life = life;
     }
+
+    constexpr float g_smoke_entity_time_to_live_s = 0.75f;
+    constexpr float g_smoke_entity_time_to_live_variation_s = 0.25f;
 }
 
-TrainSmokeEffect::TrainSmokeEffect(mono::ParticleSystem* particle_system, mono::IEntityManager* entity_system, mono::TransformSystem* transform_system, uint32_t parent_entity_id)
-    : m_particle_system(particle_system)
-    , m_entity_system(entity_system)
+TrainSmokeEffect::TrainSmokeEffect(
+    mono::IEntityManager* entity_system,
+    mono::TransformSystem* transform_system,
+    mono::SpriteSystem* sprite_system,
+    game::AnimationSystem* animation_system,
+    uint32_t parent_entity_id)
+    : m_entity_system(entity_system)
+    , m_transform_system(transform_system)
+    , m_sprite_system(sprite_system)
+    , m_animation_system(animation_system)
+    , m_parent_entity_id(parent_entity_id)
+    , m_emit_rate_per_s(5.0f)
+    , m_emit_counter(0.0f)
 {
-    mono::Entity particle_entity = m_entity_system->CreateEntity("TrainSmokeEffect", { TRANSFORM_COMPONENT, PARTICLE_SYSTEM_COMPONENT });
-    particle_system->SetPoolData(particle_entity.id,
-        20,
-        "res/textures/particles/smoke_white_6.png",
-        mono::BlendMode::SOURCE_ALPHA,
-        mono::ParticleDrawLayer::POST_GAMEOBJECTS,
-        mono::ParticleTransformSpace::WORLD,
-        0.05f,
-        mono::DefaultUpdater);
-
-    m_particle_entity = particle_entity.id;
-
-    //transform_system->SetTransform(m_particle_entity, math::CreateMatrixWithPosition(math::Vector(0.2f, 0.0f)));
-    transform_system->ChildTransform(m_particle_entity, parent_entity_id);
 }
 
-TrainSmokeEffect::~TrainSmokeEffect()
+void TrainSmokeEffect::UpdateEmitterSpeed(float emit_rate_per_s)
 {
-    m_entity_system->ReleaseEntity(m_particle_entity);
+    m_emit_rate_per_s = emit_rate_per_s;
 }
 
-void TrainSmokeEffect::Start()
+void TrainSmokeEffect::UpdateSmoke(const mono::UpdateContext& update_context)
 {
-    m_emitter = m_particle_system->AttachEmitter(
-        m_particle_entity,
-        math::ZeroVec,
-        -1.0f,
-        5.0f,
-        mono::EmitterType::CONTINOUS,
-        mono::EmitterMode::AUTO_ACTIVATED,
-        TrainSmokeGenerator);
-}
+    m_emit_counter += m_emit_rate_per_s * update_context.delta_s;
 
-void TrainSmokeEffect::Stop()
-{
-    if(m_emitter)
+    
+    while(m_emit_counter >= 1.0f)
     {
-        m_particle_system->ReleaseEmitter(m_particle_entity, m_emitter);
-        m_emitter = nullptr;
-    }
-}
+        mono::Entity spawned_entity = m_entity_system->CreateEntity("TrainSmoke", { TRANSFORM_COMPONENT, SPRITE_COMPONENT, TRANSLATION_COMPONENT });
+        
+        const char* sprite_file = mono::Chance(50) ? "res/sprites/smoke_white_1.sprite" : "res/sprites/smoke_white_2.sprite";
+        
+        const float rotation_array[] = { 0.0f, math::PI_2(), math::PI(), math::PI_2() * 3.0f };
+        const float rotation = rotation_array[mono::RandomInt(0, 3)];
+        const float entity_time_to_live_s = g_smoke_entity_time_to_live_s + mono::Random(-g_smoke_entity_time_to_live_variation_s, g_smoke_entity_time_to_live_variation_s);
 
-void TrainSmokeEffect::UpdateEmitterSpeed(float emit_rate)
-{
-    if(m_emitter)
-    {
-        m_emitter->emit_rate = emit_rate;
+        mono::SpriteComponents sprite_component;
+        sprite_component.sprite_file = sprite_file;
+        sprite_component.shade = mono::Color::MakeWithAlpha(mono::Color::OFF_WHITE, 0.25f);
+        sprite_component.random_start_frame = true;
+        sprite_component.animation_id = 0;
+        sprite_component.layer = 0;
+        sprite_component.sort_offset = 0.0f;
+        sprite_component.properties = 0;
+        m_sprite_system->SetSpriteData(spawned_entity.id, sprite_component);
+
+        const math::Vector& parent_position = m_transform_system->GetWorldPosition(m_parent_entity_id);
+        m_transform_system->SetTransform(
+            spawned_entity.id,
+            math::CreateMatrixWithPositionRotationScale(parent_position + math::Vector(0.0f, 0.2f), rotation, math::Vector(0.5f, 0.5f)));
+
+        m_animation_system->AddTranslationComponent(
+            spawned_entity.id,
+            0,
+            entity_time_to_live_s,
+            math::EaseOutCubic,
+            math::EaseOutCubic,
+            game::AnimationMode::ONE_SHOT,
+            math::Vector(mono::Random(-0.1f, 0.1f), 0.5f));
+
+        m_animation_system->AddScaleComponent(
+            spawned_entity.id,
+            0,
+            entity_time_to_live_s,
+            math::EaseInOutCubic,
+            game::AnimationMode::ONE_SHOT,
+            0.5f,
+            mono::Random(0.1f, 0.2f));
+
+        SmokeEntity smoke_entity;
+        smoke_entity.entity_id = spawned_entity.id;
+        smoke_entity.time_to_live_s = entity_time_to_live_s;
+        smoke_entity.time_to_live_counter_s = entity_time_to_live_s;
+        m_smoke_entities.push_back(std::move(smoke_entity));
+
+        m_emit_counter -= 1.0f;
     }
+
+    const auto update_and_remove_if_done = [this, &update_context](SmokeEntity& smoke_entity)
+    {
+        smoke_entity.time_to_live_counter_s -= update_context.delta_s;
+
+        mono::Sprite* sprite = m_sprite_system->GetSprite(smoke_entity.entity_id);
+        sprite->SetShade(mono::Color::MakeWithAlpha(mono::Color::OFF_WHITE, smoke_entity.time_to_live_counter_s / smoke_entity.time_to_live_s));
+
+        const bool time_to_destroy = (smoke_entity.time_to_live_counter_s <= 0.0f);
+        if(time_to_destroy)
+            m_entity_system->ReleaseEntity(smoke_entity.entity_id);
+
+        return time_to_destroy;
+    };
+    mono::remove_if(m_smoke_entities, update_and_remove_if_done);
 }

@@ -5,6 +5,7 @@
 
 #include "Entity/EntityLogicSystem.h"
 #include "Entity/Component.h"
+#include "Entity/AnimationSystem.h"
 #include "Events/PackageEvents.h"
 
 #include "SystemContext.h"
@@ -56,6 +57,9 @@
 
 namespace tweak_values
 {
+    // How much of the full throttle range a fully pressed trigger moves per second.
+    constexpr float throttle_change_per_s = 0.5f;
+
     constexpr float steam_sound_max_speed = 8.0f;
     constexpr float steam_sound_idle_pitch = 0.6f;
     constexpr float steam_sound_max_pitch = 1.6f;
@@ -110,6 +114,7 @@ TrainLogic::TrainLogic(
     , m_event_handler(event_handler)
     , m_pause(false)
     , m_reverse(false)
+    , m_throttle(0.0f)
     , m_aim_direction(0.0f)
     , m_aim_target(0.0f)
     , m_aim_velocity(0.0f)
@@ -137,6 +142,9 @@ TrainLogic::TrainLogic(
     m_path_follower_system = system_context->GetSystem<game::PathFollowerSystem>();
     m_railway_system = system_context->GetSystem<game::RailwaySystem>();
     m_train_car_system = system_context->GetSystem<game::TrainCarSystem>();
+
+
+    game::AnimationSystem* animation_system = system_context->GetSystem<game::AnimationSystem>();
 
     const System::ControllerId controller_id = player_info->controller_id;
 
@@ -176,8 +184,7 @@ TrainLogic::TrainLogic(
         "res/sound/train/train_direction_change.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
 
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
-    m_smoke_effect = std::make_unique<TrainSmokeEffect>(particle_system, m_entity_system, m_transform_system, m_entity_id);
-    m_smoke_effect->Start();
+    m_smoke_effect = std::make_unique<TrainSmokeEffect>(m_entity_system, m_transform_system, m_sprite_system, animation_system, m_entity_id);
 
     m_grind_effect = std::make_unique<WheelGrindEffect>(particle_system, m_entity_system);
     m_transform_system->ChildTransform(m_grind_effect->m_particle_entity, m_entity_id);
@@ -296,8 +303,9 @@ void TrainLogic::UpdateTrainEffects(const mono::UpdateContext& update_context)
 {
     const float train_speed = math::Length(m_player_info->velocity);
     const float train_speed_fraction = math::Scale01Clamped(train_speed, 0.0f, 2.5f);
-    const float emitter_speed = math::FractionToRange(train_speed_fraction, 1.0f, 5.0f);
+    const float emitter_speed = math::FractionToRange(train_speed_fraction, 2.0f, 8.0f);
     m_smoke_effect->UpdateEmitterSpeed(emitter_speed);
+    m_smoke_effect->UpdateSmoke(update_context);
 
     const float path_curvature = m_path_follower_system->GetCurvature(m_entity_id);
     const float cornering_metric = train_speed * std::abs(path_curvature);
@@ -574,10 +582,12 @@ bool TrainLogic::HoldingPickup() const
     return (m_picked_up_id != mono::INVALID_ID);
 }
 
-void TrainLogic::SetThrottle(float throttle_input)
+void TrainLogic::AdjustThrottle(float raise_input, float lower_input, float delta_s)
 {
-    const float throttle = m_reverse ? -throttle_input : throttle_input;
-    m_path_follower_system->SetThrottle(m_entity_id, throttle);
+    const float throttle_change = (raise_input - lower_input) * tweak_values::throttle_change_per_s * delta_s;
+    m_throttle = std::clamp(m_throttle + throttle_change, 0.0f, 1.0f);
+
+    m_path_follower_system->SetThrottle(m_entity_id, m_reverse ? -m_throttle : m_throttle);
 }
 
 void TrainLogic::ToggleDirection()

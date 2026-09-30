@@ -828,18 +828,18 @@ namespace
             return false;
         }
 
-        float scale;
+        float scale_delta;
         float duration;
         int ease_func_index;
         int animation_mode;
-        FindAttribute(SCALE_ATTRIBUTE, properties, scale, FallbackMode::SET_DEFAULT);
+        FindAttribute(SCALE_ATTRIBUTE, properties, scale_delta, FallbackMode::SET_DEFAULT);
         FindAttribute(DURATION_ATTRIBUTE, properties, duration, FallbackMode::SET_DEFAULT);
         FindAttribute(EASING_FUNC_ATTRIBUTE, properties, ease_func_index, FallbackMode::SET_DEFAULT);
         FindAttribute(ANIMATION_MODE_ATTRIBUTE, properties, animation_mode, FallbackMode::SET_DEFAULT);
 
         game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
         animation_system->AddScaleComponent(
-            entity->id, hash::Hash(trigger_name.text.c_str()), duration, math::ease_functions[ease_func_index], game::AnimationMode(animation_mode), scale);
+            entity->id, hash::Hash(trigger_name.text.c_str()), duration, math::ease_functions[ease_func_index], game::AnimationMode(animation_mode), 1.0f, scale_delta);
 
         return true;
     }

@@ -32,7 +32,7 @@ void TrainGamepadController::Update(const mono::UpdateContext& update_context)
     if(reverse_toggled)
         m_train_logic->ToggleDirection();
 
-    m_train_logic->SetThrottle(m_current_state.right_trigger);
+    m_train_logic->AdjustThrottle(m_current_state.right_trigger, m_current_state.left_trigger, update_context.delta_s);
 
     const bool right_shoulder = System::IsButtonDown(m_current_state.button_state, System::ControllerButton::RIGHT_SHOULDER);
     if(right_shoulder)

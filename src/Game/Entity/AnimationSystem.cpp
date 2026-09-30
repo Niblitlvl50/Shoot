@@ -147,9 +147,9 @@ TransformAnimationComponent* AnimationSystem::AddRotationComponent(
 }
 
 TransformAnimationComponent* AnimationSystem::AddScaleComponent(
-    uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, AnimationMode mode, float scale_delta)
+    uint32_t container_id, uint32_t trigger_hash, float duration, math::EaseFunction func, AnimationMode mode, float scale_start, float scale_delta)
 {
-    return AddTransformComponent(container_id, trigger_hash, duration, func, func, mode, TransformAnimType::SCALE, math::Vector(scale_delta, 0.0f));
+    return AddTransformComponent(container_id, trigger_hash, duration, func, func, mode, TransformAnimType::SCALE, math::Vector(scale_start, scale_delta));
 }
 
 void AnimationSystem::AddTransformAnimatonToUpdate(TransformAnimationComponent* transform_animation)
@@ -192,9 +192,9 @@ void AnimationSystem::Update(const mono::UpdateContext& update_context)
             {
                 transform_anim->start_x = math::GetZRotation(transform);
             }
-            else
+            else if(transform_anim->transform_type == TransformAnimType::SCALE)
             {
-                transform_anim->start_x = 1.0f;
+                transform_anim->start_x = transform_anim->delta_x;
             }
 
             transform_anim->is_initialized = true;
@@ -220,10 +220,10 @@ void AnimationSystem::Update(const mono::UpdateContext& update_context)
             transform = math::CreateMatrixWithPositionRotation(position, new_rotation);
             transform_anim->current_x = new_rotation;
         }
-        else
+        else if(transform_anim->transform_type == TransformAnimType::SCALE)
         {
             const float new_scale =
-                transform_anim->ease_function_x(transform_anim->duration_counter, transform_anim->duration, transform_anim->start_x, transform_anim->delta_x);
+                transform_anim->ease_function_x(transform_anim->duration_counter, transform_anim->duration, transform_anim->start_x, transform_anim->delta_y);
             transform = math::CreateMatrixWithPositionScale(position, new_scale);
             transform_anim->current_x = new_scale;
         }
