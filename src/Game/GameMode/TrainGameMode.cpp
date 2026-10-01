@@ -151,7 +151,10 @@ void TrainGameMode::Update(const mono::UpdateContext& update_context)
 
     const game::PlayerInfo* player_info = game::FindPlayerInfoFromEntityId(m_train_entity_id);
     if(player_info)
+    {
         m_train_hud->SetSpeed(math::Length(player_info->velocity));
+        m_train_hud->SetMoney(player_info->persistent_data.chips, player_info->persistent_data.rubble);
+    }
 }
 
 void TrainGameMode::Completed()

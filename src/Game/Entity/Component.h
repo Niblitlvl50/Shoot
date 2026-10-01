@@ -175,6 +175,9 @@ extern const uint32_t COUPLING_DISTANCE_ATTRIBUTE;
 extern const uint32_t IS_LOCOMOTIVE_ATTRIBUTE;
 extern const uint32_t PATH_START_TAG_ATTRIBUTE;
 extern const uint32_t PATH_NOTIFY_END_DISTANCE_ATTRIBUTE;
+extern const uint32_t REWARD_CHIPS_ATTRIBUTE;
+extern const uint32_t REWARD_RUBBLE_ATTRIBUTE;
+extern const uint32_t REWARD_EXPERIENCE_ATTRIBUTE;
 
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);
@@ -282,6 +285,7 @@ extern const uint32_t ENTITY_TRACKING_COMPONENT;
 extern const uint32_t TARGET_COMPONENT;
 extern const uint32_t MISSION_TRACKER_COMPONENT;
 extern const uint32_t MISSION_ACTIVATION_COMPONENT;
+extern const uint32_t MISSION_REWARD_COMPONENT;
 extern const uint32_t MISSION_LOCATION_COMPONENT;
 extern const uint32_t PHYSICS_IMPULSE_COMPONENT;
 extern const uint32_t PATH_FOLLOWER_COMPONENT;

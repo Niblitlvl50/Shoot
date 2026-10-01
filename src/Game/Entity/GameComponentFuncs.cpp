@@ -1268,6 +1268,38 @@ namespace
         return true;
     }
 
+    bool CreateMissionReward(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::MissionSystem* mission_system = context->GetSystem<game::MissionSystem>();
+        mission_system->AllocateMissionReward(entity->id);
+        return true;
+    }
+    bool ReleaseMissionReward(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::MissionSystem* mission_system = context->GetSystem<game::MissionSystem>();
+        mission_system->ReleaseMissionReward(entity->id);
+        return true;
+    }
+    bool UpdateMissionReward(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        mono::Event trigger_name;
+        bool emit_once;
+        int chips;
+        int rubble;
+        int experience;
+        FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::SET_DEFAULT);
+        FindAttribute(EMIT_ONCE_ATTRIBUTE, properties, emit_once, FallbackMode::SET_DEFAULT);
+        FindAttribute(REWARD_CHIPS_ATTRIBUTE, properties, chips, FallbackMode::SET_DEFAULT);
+        FindAttribute(REWARD_RUBBLE_ATTRIBUTE, properties, rubble, FallbackMode::SET_DEFAULT);
+        FindAttribute(REWARD_EXPERIENCE_ATTRIBUTE, properties, experience, FallbackMode::SET_DEFAULT);
+
+        game::MissionSystem* mission_system = context->GetSystem<game::MissionSystem>();
+        mission_system->SetMissionRewardData(
+            entity->id, hash::Hash(trigger_name.text.c_str()), emit_once, chips, rubble, experience);
+
+        return true;
+    }
+
     bool CreateMissionLocation(mono::Entity* entity, mono::SystemContext* context)
     {
         game::MissionSystem* mission_system = context->GetSystem<game::MissionSystem>();
@@ -1484,6 +1516,7 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(TARGET_COMPONENT, CreateEntityTarget, ReleaseEntityTarget, UpdateEntityTarget);
     entity_manager->RegisterComponent(MISSION_TRACKER_COMPONENT, CreateMissionTracker, ReleaseMissionTracker, UpdateMissionTracker);
     entity_manager->RegisterComponent(MISSION_ACTIVATION_COMPONENT, CreateMissionActivator, ReleaseMissionActivator, UpdateMissionActivator);
+    entity_manager->RegisterComponent(MISSION_REWARD_COMPONENT, CreateMissionReward, ReleaseMissionReward, UpdateMissionReward);
     entity_manager->RegisterComponent(MISSION_LOCATION_COMPONENT, CreateMissionLocation, ReleaseMissionLocation);
     entity_manager->RegisterComponent(PHYSICS_IMPULSE_COMPONENT, CreatePhysicsImpulse, ReleasePhysicsImpulse, UpdatePhysicsImpulse);
     entity_manager->RegisterComponent(PATH_FOLLOWER_COMPONENT, CreatePathFollower, ReleasePathFollower, UpdatePathFollower);

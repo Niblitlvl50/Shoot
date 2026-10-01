@@ -1,6 +1,8 @@
 
 #include "MissionSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
+#include "Player/PlayerConfig.h"
+#include "Player/PlayerInfo.h"
 
 #include "EntitySystem/IEntityManager.h"
 #include "System/File.h"
@@ -12,6 +14,7 @@
 
 #include "nlohmann/json.hpp"
 
+#include <algorithm>
 #include <limits>
 
 namespace
@@ -39,6 +42,10 @@ MissionSystem::MissionSystem(mono::IEntityManager* entity_manager, mono::Transfo
     , m_transform_system(transform_system)
     , m_trigger_system(trigger_system)
 {
+    game::PlayerConfig player_config;
+    game::LoadPlayerConfig("res/configs/player_config.json", player_config);
+    m_max_experience = player_config.max_experience;
+
     file::FilePtr config_file = file::OpenAsciiFile("res/configs/mission_config.json");
     if(config_file)
     {
@@ -281,6 +288,85 @@ void MissionSystem::SetMissionActivatorData(uint32_t entity_id, uint32_t activat
             // if do once, deactivate trigger here.
         };
         component->trigger_callback_id = m_trigger_system->RegisterTriggerCallback(component->trigger, activated_callback, entity_id);
+    }
+}
+
+void MissionSystem::AllocateMissionReward(uint32_t entity_id)
+{
+    MissionRewardComponent component;
+    component.trigger = hash::NO_HASH;
+    component.do_once = true;
+    component.chips = 0;
+    component.rubble = 0;
+    component.experience = 0;
+    component.rewarded = false;
+    component.trigger_callback_id = NO_CALLBACK_SET;
+
+    m_mission_rewards[entity_id] = component;
+}
+
+void MissionSystem::ReleaseMissionReward(uint32_t entity_id)
+{
+    const auto it = m_mission_rewards.find(entity_id);
+    if(it == m_mission_rewards.end())
+        return;
+
+    if(it->second.trigger_callback_id != NO_CALLBACK_SET)
+        m_trigger_system->RemoveTriggerCallback(it->second.trigger, it->second.trigger_callback_id, entity_id);
+
+    m_mission_rewards.erase(it);
+}
+
+void MissionSystem::SetMissionRewardData(uint32_t entity_id, uint32_t trigger, bool do_once, int chips, int rubble, int experience)
+{
+    const auto it = m_mission_rewards.find(entity_id);
+    if(it == m_mission_rewards.end())
+        return;
+
+    MissionRewardComponent& component = it->second;
+
+    if(component.trigger_callback_id != NO_CALLBACK_SET)
+    {
+        m_trigger_system->RemoveTriggerCallback(component.trigger, component.trigger_callback_id, entity_id);
+        component.trigger_callback_id = NO_CALLBACK_SET;
+    }
+
+    component.trigger = trigger;
+    component.do_once = do_once;
+    component.chips = chips;
+    component.rubble = rubble;
+    component.experience = experience;
+
+    if(component.trigger != hash::NO_HASH)
+    {
+        const mono::TriggerCallback reward_callback = [this, entity_id](uint32_t trigger_id) {
+            GiveReward(entity_id);
+        };
+        component.trigger_callback_id = m_trigger_system->RegisterTriggerCallback(component.trigger, reward_callback, entity_id);
+    }
+}
+
+void MissionSystem::GiveReward(uint32_t entity_id)
+{
+    const auto it = m_mission_rewards.find(entity_id);
+    if(it == m_mission_rewards.end())
+        return;
+
+    MissionRewardComponent& component = it->second;
+    if(component.do_once && component.rewarded)
+        return;
+
+    component.rewarded = true;
+
+    for(game::PlayerInfo& player_info : game::g_players)
+    {
+        if(player_info.player_state == game::PlayerState::NOT_SPAWNED)
+            continue;
+
+        game::PersistentPlayerData& data = player_info.persistent_data;
+        data.chips += component.chips;
+        data.rubble += component.rubble;
+        data.experience = std::clamp(data.experience + component.experience, 0, m_max_experience);
     }
 }
 

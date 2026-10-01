@@ -174,6 +174,9 @@ const DefaultAttribute default_attributes[] = {
     { "is_locomotive",              Variant(false), "Never auto-coupled as a follower - always the driven end of the chain" },
     { "path_start_tag",             Variant(std::string()), "Optional, start at the path notifier with this tag" },
     { "path_notify_end_distance",   Variant(0.0f), "End of the range, meters along the path (before the start means a single point)" },
+    { "reward_chips",               Variant(0) },
+    { "reward_rubble",              Variant(0) },
+    { "reward_experience",          Variant(0) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -332,6 +335,9 @@ extern const uint32_t COUPLING_DISTANCE_ATTRIBUTE           = default_attributes
 extern const uint32_t IS_LOCOMOTIVE_ATTRIBUTE               = default_attributes[132].hash;
 extern const uint32_t PATH_START_TAG_ATTRIBUTE              = default_attributes[133].hash;
 extern const uint32_t PATH_NOTIFY_END_DISTANCE_ATTRIBUTE    = default_attributes[134].hash;
+extern const uint32_t REWARD_CHIPS_ATTRIBUTE                = default_attributes[135].hash;
+extern const uint32_t REWARD_RUBBLE_ATTRIBUTE               = default_attributes[136].hash;
+extern const uint32_t REWARD_EXPERIENCE_ATTRIBUTE           = default_attributes[137].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -390,6 +396,7 @@ extern const uint32_t ENTITY_TRACKING_COMPONENT     = hash::Hash("entity_tracker
 extern const uint32_t TARGET_COMPONENT              = hash::Hash("target");
 extern const uint32_t MISSION_TRACKER_COMPONENT     = hash::Hash("mission_tracker");
 extern const uint32_t MISSION_ACTIVATION_COMPONENT  = hash::Hash("mission_activation");
+extern const uint32_t MISSION_REWARD_COMPONENT      = hash::Hash("mission_reward");
 extern const uint32_t MISSION_LOCATION_COMPONENT    = hash::Hash("mission_location");
 extern const uint32_t PHYSICS_IMPULSE_COMPONENT     = hash::Hash("physics_impulse");
 extern const uint32_t PATH_FOLLOWER_COMPONENT       = hash::Hash("path_follower");
@@ -512,6 +519,8 @@ const char* component::ComponentNameFromHash(uint32_t hash)
         return "target";
     else if(hash == MISSION_TRACKER_COMPONENT)
         return "mission_tracker";
+    else if(hash == MISSION_REWARD_COMPONENT)
+        return "mission_reward";
     else if(hash == MISSION_ACTIVATION_COMPONENT)
         return "mission_activation";
     else if(hash == MISSION_LOCATION_COMPONENT)
@@ -616,6 +625,7 @@ const Component default_components[] = {
 
     MakeComponent(MISSION_TRACKER_COMPONENT,    NULL_COMPONENT,             false,  "mission",      { NAME_ATTRIBUTE, SUB_TEXT_ATTRIBUTE, TIME_BASED_ATTRIBUTE, TIME_ATTRIBUTE, FAIL_ON_TIMEOUT_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, COMPLETED_TRIGGER_ATTRIBUTE, FAILED_TRIGGER_ATTRIBUTE }),
     MakeComponent(MISSION_ACTIVATION_COMPONENT, NULL_COMPONENT,             false,  "mission",      { TRIGGER_NAME_ATTRIBUTE, EMIT_ONCE_ATTRIBUTE }),
+    MakeComponent(MISSION_REWARD_COMPONENT,     NULL_COMPONENT,             false,  "mission",      { TRIGGER_NAME_ATTRIBUTE, EMIT_ONCE_ATTRIBUTE, REWARD_CHIPS_ATTRIBUTE, REWARD_RUBBLE_ATTRIBUTE, REWARD_EXPERIENCE_ATTRIBUTE }),
     MakeComponent(MISSION_LOCATION_COMPONENT,   NULL_COMPONENT,             false,  "mission",      { }),
 
     MakeComponent(TELEPORT_PLAYER_COMPONENT,    NULL_COMPONENT,             false,  "logic",        { TRIGGER_NAME_ATTRIBUTE } ),

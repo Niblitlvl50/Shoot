@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include <cstdint>
+#include <unordered_map>
 
 namespace game
 {
@@ -47,6 +48,20 @@ namespace game
 
         // Internal
         uint32_t entity_id;
+        uint32_t trigger_callback_id;
+    };
+
+    // Gives every spawned player the reward when the trigger fires.
+    struct MissionRewardComponent
+    {
+        uint32_t trigger;
+        bool do_once;
+        int chips;
+        int rubble;
+        int experience;
+
+        // Internal
+        bool rewarded;
         uint32_t trigger_callback_id;
     };
 
@@ -103,6 +118,10 @@ namespace game
         void ReleaseMissionActivator(uint32_t entity_id);
         void SetMissionActivatorData(uint32_t entity_id, uint32_t activation_trigger, bool do_once);
 
+        void AllocateMissionReward(uint32_t entity_id);
+        void ReleaseMissionReward(uint32_t entity_id);
+        void SetMissionRewardData(uint32_t entity_id, uint32_t trigger, bool do_once, int chips, int rubble, int experience);
+
         const MissionTrackerComponent* GetComponentById(uint32_t entity_id) const;
 
     private:
@@ -113,6 +132,7 @@ namespace game
         void HandleMissionActivated(uint32_t entity_id);
         void HandleMissionCompleted(uint32_t entity_id, bool emit_success_event);
         void HandleMissionFailed(uint32_t entity_id, bool emit_failure_event);
+        void GiveReward(uint32_t entity_id);
 
         mono::IEntityManager* m_entity_manager;
         mono::TransformSystem* m_transform_system;
@@ -125,5 +145,9 @@ namespace game
 
         std::vector<MissionLocation> m_mission_locations;
         std::vector<MissionActivationComponent> m_mission_activators;
+        std::unordered_map<uint32_t, MissionRewardComponent> m_mission_rewards;
+
+        // Player experience above this breaks the level lookup, so rewards are capped at it.
+        int m_max_experience;
     };
 }
