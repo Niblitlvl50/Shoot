@@ -256,14 +256,16 @@ namespace
 
     bool UpdatePathNotifier(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
-        float distance = 0.0f;
+        float start_distance = 0.0f;
+        float end_distance = 0.0f;
         std::string tag;
 
-        FindAttribute(PATH_NOTIFY_DISTANCE_ATTRIBUTE, properties, distance, FallbackMode::SET_DEFAULT);
+        FindAttribute(PATH_NOTIFY_DISTANCE_ATTRIBUTE, properties, start_distance, FallbackMode::SET_DEFAULT);
+        FindAttribute(PATH_NOTIFY_END_DISTANCE_ATTRIBUTE, properties, end_distance, FallbackMode::SET_DEFAULT);
         FindAttribute(TAG_ATTRIBUTE, properties, tag, FallbackMode::SET_DEFAULT);
 
         mono::PathSystem* path_system = context->GetSystem<mono::PathSystem>();
-        path_system->SetNotifierData(entity->id, distance, tag);
+        path_system->SetNotifierData(entity->id, start_distance, end_distance, tag);
 
         return true;
     }

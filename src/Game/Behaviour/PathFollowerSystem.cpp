@@ -313,7 +313,7 @@ void PathFollowerSystem::Sync()
                 {
                     if(notifier.tag == component.start_tag)
                     {
-                        start_position = notifier.distance;
+                        start_position = notifier.start_distance;
                         break;
                     }
                 }

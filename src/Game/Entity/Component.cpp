@@ -167,12 +167,13 @@ const DefaultAttribute default_attributes[] = {
     { "switch_primary_track",       Variant(mono::INVALID_ID) },
     { "switch_alt_track",           Variant(mono::INVALID_ID) },
     { "switch_use_alt_branch",      Variant(false) },
-    { "path_notify_distance",       Variant(0.0f), "Meters along the path" },
+    { "path_notify_distance",       Variant(0.0f), "Start of the range, meters along the path" },
     { "switch_primary_trigger",     Variant(event_type_output_default), "Primary Set Event" },
     { "switch_alt_trigger",         Variant(event_type_output_default), "Alt Set Event" },
     { "coupling_distance",          Variant(1.5f), "Coupling gap in meters" },
     { "is_locomotive",              Variant(false), "Never auto-coupled as a follower - always the driven end of the chain" },
     { "path_start_tag",             Variant(std::string()), "Optional, start at the path notifier with this tag" },
+    { "path_notify_end_distance",   Variant(0.0f), "End of the range, meters along the path (before the start means a single point)" },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -330,6 +331,7 @@ extern const uint32_t SWITCH_ALT_TRIGGER_ATTRIBUTE          = default_attributes
 extern const uint32_t COUPLING_DISTANCE_ATTRIBUTE           = default_attributes[131].hash;
 extern const uint32_t IS_LOCOMOTIVE_ATTRIBUTE               = default_attributes[132].hash;
 extern const uint32_t PATH_START_TAG_ATTRIBUTE              = default_attributes[133].hash;
+extern const uint32_t PATH_NOTIFY_END_DISTANCE_ATTRIBUTE    = default_attributes[134].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -551,7 +553,7 @@ const Component default_components[] = {
     MakeComponent(ENTITY_TRACKING_COMPONENT,    NULL_COMPONENT,             false,  "general",      { ENTITY_TYPE_ATTRIBUTE }),
 
     MakeComponent(PATH_COMPONENT,               NULL_COMPONENT,             false,  "paths",        { PATH_TYPE_ATTRIBUTE, PATH_POINTS_ATTRIBUTE, PATH_CLOSED_ATTRIBUTE }),
-    MakeComponent(PATH_NOTIFIER_COMPONENT,      PATH_COMPONENT,             true,   "paths",        { PATH_NOTIFY_DISTANCE_ATTRIBUTE, TAG_ATTRIBUTE }),
+    MakeComponent(PATH_NOTIFIER_COMPONENT,      PATH_COMPONENT,             true,   "paths",        { PATH_NOTIFY_DISTANCE_ATTRIBUTE, PATH_NOTIFY_END_DISTANCE_ATTRIBUTE, TAG_ATTRIBUTE }),
 
     MakeComponent(HEALTH_COMPONENT,             NULL_COMPONENT,             false,  "damage",       { HEALTH_ATTRIBUTE, RELEASE_ON_DEATH_ATTRIBUTE, BOSS_HEALTH_ATTRIBUTE }),
     MakeComponent(SHOCKWAVE_COMPONENT,          NULL_COMPONENT,             false,  "damage",       { TRIGGER_NAME_ATTRIBUTE, RADIUS_ATTRIBUTE, MAGNITUDE_INTERVAL_ATTRIBUTE, HEALTH_ATTRIBUTE }),

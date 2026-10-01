@@ -360,7 +360,21 @@ void editor::DrawPathNotifierDetails(mono::IRenderer& renderer, const std::vecto
 
     for(const mono::PathNotifierComponent& notifier : *notifiers)
     {
-        const mono::PositionResult position_result = local_path->GetPositionByLength(notifier.distance);
+        // The stretch of path the notifier is active over.
+        if(notifier.end_distance > notifier.start_distance)
+        {
+            constexpr float sample_step = 0.25f;
+
+            std::vector<math::Vector> range_points;
+            for(float distance = notifier.start_distance; distance < notifier.end_distance; distance += sample_step)
+                range_points.push_back(local_path->GetPositionByLength(distance).path_position);
+            range_points.push_back(local_path->GetPositionByLength(notifier.end_distance).path_position);
+
+            renderer.DrawPolyline(range_points, mono::Color::MakeWithAlpha(mono::Color::YELLOW, 0.6f), 4.0f);
+            renderer.DrawPoints({ range_points.back() }, mono::Color::YELLOW, 8.0f);
+        }
+
+        const mono::PositionResult position_result = local_path->GetPositionByLength(notifier.start_distance);
         if(!position_result.valid_position)
             continue;
 
