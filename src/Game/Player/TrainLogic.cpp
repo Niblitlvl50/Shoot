@@ -38,6 +38,7 @@
 #include "EntitySystem/IEntityManager.h"
 #include "EventHandler/EventHandler.h"
 #include "Events/PauseEvent.h"
+#include "Events/EventFuncFwd.h"
 #include "Events/PlayerEvents.h"
 #include "Math/MathFunctions.h"
 #include "Math/CriticalDampedSpring.h"
@@ -110,7 +111,7 @@ TrainLogic::TrainLogic(
     , m_player_info(player_info)
     , m_config(config)
     , m_gamepad_controller(this)
-//    , m_keyboard_controller(this)
+    , m_keyboard_controller(this)
     , m_event_handler(event_handler)
     , m_pause(false)
     , m_reverse(false)
@@ -149,10 +150,15 @@ TrainLogic::TrainLogic(
     const System::ControllerId controller_id = player_info->controller_id;
 
     m_input_context = m_input_system->CreateContext(1, mono::InputContextBehaviour::ConsumeIfHandled, "PlayerLogicInput");
-    //m_input_context->keyboard_input = (controller_id == System::ControllerId::Primary) ? &m_keyboard_controller : nullptr;
-    //m_input_context->mouse_input = (controller_id == System::ControllerId::Primary) ? &m_keyboard_controller : nullptr;
+    m_input_context->keyboard_input = (controller_id == System::ControllerId::Primary) ? &m_keyboard_controller : nullptr;
     m_input_context->controller_input = &m_gamepad_controller;
     m_input_context->controller_id = controller_id;
+
+    const event::PauseEventFunc on_pause = [this](const event::PauseEvent& pause_event) {
+        m_pause = pause_event.pause;
+        return mono::EventResult::PASS_ON;
+    };
+    m_pause_token = m_event_handler->AddListener(on_pause);
 
     mono::ISprite* sprite = m_sprite_system->GetSprite(entity_id);
     m_idle_anim_id = sprite->GetAnimationIdFromName("idle");
@@ -207,6 +213,7 @@ TrainLogic::~TrainLogic()
 {
     Throw(0.0f);
 
+    m_event_handler->RemoveListener(m_pause_token);
     m_input_system->ReleaseContext(m_input_context);
     m_pickup_system->UnregisterPickupTarget(m_entity_id);
 }
@@ -239,10 +246,8 @@ void TrainLogic::UpdateController(const mono::UpdateContext& update_context)
     // Select most recent input if player zero, else just go with gamepad. 
     if(m_input_context->most_recent_input == mono::InputContextType::Controller || player_index > 0)
         m_gamepad_controller.Update(update_context);
-    /*
     else
         m_keyboard_controller.Update(update_context);
-    */
 }
 
 void TrainLogic::UpdatePlayerInfo(uint32_t timestamp)
@@ -614,7 +619,6 @@ void TrainLogic::RespawnPlayer()
 
 void TrainLogic::TogglePauseGame()
 {
-    m_pause = !m_pause;
-    m_event_handler->DispatchEvent(event::PauseEvent(m_pause));
+    m_event_handler->DispatchEvent(event::PauseEvent(!m_pause));
 }
 

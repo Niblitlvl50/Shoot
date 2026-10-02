@@ -34,6 +34,7 @@
 #include "EntitySystem/IEntityManager.h"
 #include "EventHandler/EventHandler.h"
 #include "Events/PauseEvent.h"
+#include "Events/EventFuncFwd.h"
 #include "Events/PlayerEvents.h"
 #include "Math/MathFunctions.h"
 #include "Math/CriticalDampedSpring.h"
@@ -142,6 +143,12 @@ PlayerLogic::PlayerLogic(
     m_input_context->controller_input = &m_gamepad_controller;
     m_input_context->controller_id = controller_id;
 
+    const event::PauseEventFunc on_pause = [this](const event::PauseEvent& pause_event) {
+        m_pause = pause_event.pause;
+        return mono::EventResult::PASS_ON;
+    };
+    m_pause_token = m_event_handler->AddListener(on_pause);
+
     mono::ISprite* sprite = m_sprite_system->GetSprite(entity_id);
     m_idle_anim_id = sprite->GetAnimationIdFromName("idle");
     m_run_anim_id = sprite->GetAnimationIdFromName("run");
@@ -219,6 +226,7 @@ PlayerLogic::~PlayerLogic()
 {
     Throw(0.0f);
 
+    m_event_handler->RemoveListener(m_pause_token);
     m_input_system->ReleaseContext(m_input_context);
     m_pickup_system->UnregisterPickupTarget(m_entity_id);
     m_entity_system->ReleaseEntity(m_weapon_entity);
@@ -970,7 +978,6 @@ void PlayerLogic::RespawnPlayer()
 
 void PlayerLogic::TogglePauseGame()
 {
-    m_pause = !m_pause;
-    m_event_handler->DispatchEvent(event::PauseEvent(m_pause));
+    m_event_handler->DispatchEvent(event::PauseEvent(!m_pause));
 }
 

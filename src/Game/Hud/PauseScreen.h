@@ -19,7 +19,9 @@ namespace game
             mono::InputSystem* input_system,
             mono::IEntityManager* entity_manager,
             mono::EventHandler* event_handler,
-            class UISystem* ui_system);
+            class UISystem* ui_system,
+            float width = 10.0f,
+            float height = 5.5f);
 
         void ShowAt(const math::Vector& position);
         void Show() override;

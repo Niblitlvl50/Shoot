@@ -104,6 +104,9 @@ TransformAnimationComponent* AnimationSystem::AddTransformComponent(
     const math::Vector& translation_delta)
 {
     TransformAnimationComponent* allocated_component = m_transform_anim_pool.GetPoolData();
+    if(!allocated_component)
+        return nullptr;
+
     allocated_component->target_id = container_id;
     allocated_component->trigger_hash = trigger_hash;
     allocated_component->callback_id = NO_CALLBACK_SET;

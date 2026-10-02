@@ -3,6 +3,8 @@
 
 #include "MonoFwd.h"
 #include "IGameMode.h"
+#include "EventHandler/EventToken.h"
+#include "Events/EventFwd.h"
 
 #include <cstdint>
 #include <memory>
@@ -42,9 +44,13 @@ namespace game
         mono::RenderSystem* m_render_system;
         class PathFollowerSystem* m_path_follower_system;
         class PlayerDaemonSystem* m_player_system;
+        class CameraSystem* m_camera_system;
 
         std::unique_ptr<class BigTextScreen> m_big_text_screen;
         std::unique_ptr<class TrainHudElement> m_train_hud;
+        std::unique_ptr<class PauseScreen> m_pause_screen;
+
+        mono::EventToken<event::PauseEvent> m_pause_token;
 
         uint32_t m_train_entity_id;
 

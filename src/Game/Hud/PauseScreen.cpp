@@ -24,14 +24,16 @@ PauseScreen::PauseScreen(
     mono::InputSystem* input_system,
     mono::IEntityManager* entity_manager,
     mono::EventHandler* event_handler,
-    game::UISystem* ui_system)
+    game::UISystem* ui_system,
+    float width,
+    float height)
     : m_input_system(input_system)
     , m_ui_system(ui_system)
     , m_quit_proxy(ui_system, transform_system, entity_manager)
     , m_close_proxy(ui_system, transform_system, entity_manager)
 {
-    const float background_width = 10.0f;
-    const float background_height = 5.5f;
+    const float background_width = width;
+    const float background_height = height;
 
     const float background_x = -(background_width / 2.0f);
     const float background_y = -(background_height / 2.0f);
@@ -52,7 +54,7 @@ PauseScreen::PauseScreen(
     m_close_text->SetPosition(background_x + background_width - 0.2f, background_y + 0.15f);
 
     m_input_layout = new UITextureElement();
-    m_input_layout->SetScale(0.0075f);
+    m_input_layout->SetScale(0.0075f * (background_width / 10.0f));
 
     const UIItemCallback close_callback = [event_handler](uint32_t entity_id) {
         event_handler->DispatchEvent(event::PauseEvent(false));

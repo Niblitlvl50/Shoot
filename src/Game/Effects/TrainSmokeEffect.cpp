@@ -74,8 +74,10 @@ void TrainSmokeEffect::UpdateEmitterSpeed(float emit_rate_per_s)
 
 void TrainSmokeEffect::UpdateSmoke(const mono::UpdateContext& update_context)
 {
-    m_emit_counter += m_emit_rate_per_s * update_context.delta_s;
+    if(update_context.paused)
+        return;
 
+    m_emit_counter += m_emit_rate_per_s * update_context.delta_s;
     
     while(m_emit_counter >= 1.0f)
     {
@@ -89,7 +91,7 @@ void TrainSmokeEffect::UpdateSmoke(const mono::UpdateContext& update_context)
 
         mono::SpriteComponents sprite_component;
         sprite_component.sprite_file = sprite_file;
-        sprite_component.shade = mono::Color::MakeWithAlpha(mono::Color::OFF_WHITE, 0.25f);
+        sprite_component.shade = mono::Color::MakeWithAlpha(mono::Color::OFF_WHITE, 0.0f);
         sprite_component.random_start_frame = true;
         sprite_component.animation_id = 0;
         sprite_component.layer = 0;
@@ -100,7 +102,7 @@ void TrainSmokeEffect::UpdateSmoke(const mono::UpdateContext& update_context)
         const math::Vector& parent_position = m_transform_system->GetWorldPosition(m_parent_entity_id);
         m_transform_system->SetTransform(
             spawned_entity.id,
-            math::CreateMatrixWithPositionRotationScale(parent_position + math::Vector(0.0f, 0.2f), rotation, math::Vector(0.5f, 0.5f)));
+            math::CreateMatrixWithPositionRotationScale(parent_position + math::Vector(0.0f, 0.3f), rotation, math::Vector(0.5f, 0.5f)));
 
         m_animation_system->AddTranslationComponent(
             spawned_entity.id,

@@ -11,6 +11,11 @@
 
 #include "EventHandler/EventHandler.h"
 #include "Events/QuitEvent.h"
+#include "Events/PauseEvent.h"
+#include "Events/EventFuncFwd.h"
+#include "Camera/ICamera.h"
+#include "TransformSystem/TransformSystem.h"
+#include "UI/UISystem.h"
 #include "Input/InputSystem.h"
 #include "Paths/PathSystem.h"
 #include "Math/MathFunctions.h"
@@ -21,6 +26,7 @@
 #include "Zone/IZone.h"
 
 #include "Hud/BigTextScreen.h"
+#include "Hud/PauseScreen.h"
 #include "Hud/TrainHudElement.h"
 
 #include "EntitySystem/IEntityManager.h"
@@ -55,6 +61,11 @@ void TrainGameMode::Begin(
     m_trigger_system = system_context->GetSystem<mono::TriggerSystem>();
     m_path_follower_system = system_context->GetSystem<game::PathFollowerSystem>();
     m_render_system = system_context->GetSystem<mono::RenderSystem>();
+
+    mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
+    mono::IEntityManager* entity_manager = system_context->GetSystem<mono::IEntityManager>();
+    game::UISystem* ui_system = system_context->GetSystem<game::UISystem>();
+
     m_event_handler = event_handler;
 
     renderer->SetScreenFadeAlpha(0.0f);
@@ -85,6 +96,30 @@ void TrainGameMode::Begin(
 
     m_train_hud = std::make_unique<TrainHudElement>();
     zone->AddUpdatableDrawable(m_train_hud.get(), LayerId::UI);
+
+    // Pause - the screen's Quit fires the level's aborted trigger, which fades out and quits below.
+    m_camera_system = system_context->GetSystem<game::CameraSystem>();
+    m_pause_screen = std::make_unique<PauseScreen>(
+        level_metadata.aborted_trigger,
+        transform_system,
+        m_input_system,
+        entity_manager,
+        event_handler,
+        ui_system,
+        8.0f,
+        4.5f);
+    m_pause_screen->Hide();
+    zone->AddUpdatableDrawable(m_pause_screen.get(), LayerId::UI);
+
+    const event::PauseEventFunc on_pause = [this](const event::PauseEvent& pause_event) {
+        if(pause_event.pause)
+            m_pause_screen->ShowAt(m_camera_system->GetActiveCamera()->GetTargetPosition());
+        else
+            m_pause_screen->Hide();
+
+        return mono::EventResult::PASS_ON;
+    };
+    m_pause_token = m_event_handler->AddListener(on_pause);
 
     // Player
     m_player_system = system_context->GetSystem<PlayerDaemonSystem>();
@@ -132,6 +167,9 @@ int TrainGameMode::End(mono::IZone* zone)
 {
     zone->RemoveUpdatableDrawable(m_big_text_screen.get());
     zone->RemoveUpdatableDrawable(m_train_hud.get());
+    zone->RemoveUpdatableDrawable(m_pause_screen.get());
+
+    m_event_handler->RemoveListener(m_pause_token);
 
     m_trigger_system->RemoveTriggerCallback(m_level_completed_hash, m_level_completed_trigger, mono::INVALID_ID);
     m_trigger_system->RemoveTriggerCallback(m_level_completed_alt_hash, m_level_completed_alt_trigger, mono::INVALID_ID);
@@ -180,6 +218,7 @@ void TrainGameMode::Aborted()
 void TrainGameMode::TriggerFadeOutAndQuit(int zone_result)
 {
     m_game_mode_result = zone_result;
+    m_pause_screen->Hide();
 
     const mono::ScreenFadeCallback on_fade_complete = [this](mono::ScreenFadeState state) {
         m_event_handler->DispatchEvent(event::QuitEvent());

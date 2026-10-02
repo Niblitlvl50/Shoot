@@ -5,6 +5,8 @@
 #include "Math/Vector.h"
 #include "StateMachine.h"
 #include "System/Audio.h"
+#include "EventHandler/EventToken.h"
+#include "Events/EventFwd.h"
 #include "Physics/PhysicsFwd.h"
 
 #include "Entity/IEntityLogic.h"
@@ -12,6 +14,7 @@
 #include "PlayerConfig.h"
 #include "Pickups/PickupTypes.h"
 #include "Controllers/TrainGamepadController.h"
+#include "Controllers/TrainKeyboardController.h"
 
 #include <memory>
 
@@ -78,8 +81,13 @@ namespace game
         PlayerInfo* m_player_info;
         PlayerConfig m_config;
         TrainGamepadController m_gamepad_controller;
+        TrainKeyboardController m_keyboard_controller;
         mono::EventHandler* m_event_handler;
+
+        // Mirrors the game's pause state (kept in sync from pause events, so it's also
+        // right when something else, like the pause screen's Close, unpauses the game).
         bool m_pause;
+        mono::EventToken<event::PauseEvent> m_pause_token;
         bool m_reverse;
         float m_throttle;
 
