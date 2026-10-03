@@ -1044,16 +1044,53 @@ namespace
     
     bool UpdateDialog(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
-        std::string message;
-        const bool found_message = FindAttribute(TEXT_ATTRIBUTE, properties, message, FallbackMode::REQUIRE_ATTRIBUTE);
-        if(!found_message)
-            return false;
+        mono::Event trigger_name;
+        bool emit_once;
+        game::DialogData dialog;
 
-        float duration;
-        FindAttribute(DURATION_ATTRIBUTE, properties, duration, FallbackMode::SET_DEFAULT);
+        FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::SET_DEFAULT);
+        FindAttribute(EMIT_ONCE_ATTRIBUTE, properties, emit_once, FallbackMode::SET_DEFAULT);
+        FindAttribute(DIALOG_SPEAKER_ATTRIBUTE, properties, dialog.speaker, FallbackMode::SET_DEFAULT);
+        FindAttribute(TEXT_ATTRIBUTE, properties, dialog.message, FallbackMode::SET_DEFAULT);
+        FindAttribute(SPRITE_ATTRIBUTE, properties, dialog.sprite_file, FallbackMode::SET_DEFAULT);
+        FindAttribute(DURATION_ATTRIBUTE, properties, dialog.duration, FallbackMode::SET_DEFAULT);
+
+        char sprite_path[1024] = { 0 };
+        std::snprintf(sprite_path, std::size(sprite_path), "res/sprites/%s", dialog.sprite_file.c_str());
+        dialog.sprite_file = sprite_path;
 
         game::DialogSystem* dialog_system = context->GetSystem<game::DialogSystem>();
-        dialog_system->AddComponent(entity->id, message, duration);
+        dialog_system->SetComponentData(entity->id, hash::Hash(trigger_name.text.c_str()), emit_once, dialog);
+
+        return true;
+    }
+
+    bool CreateDialogOption(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::DialogSystem* dialog_system = context->GetSystem<game::DialogSystem>();
+        dialog_system->AllocateOption(entity->id);
+        return true;
+    }
+
+    bool ReleaseDialogOption(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::DialogSystem* dialog_system = context->GetSystem<game::DialogSystem>();
+        dialog_system->ReleaseOptions(entity->id);
+        return true;
+    }
+
+    bool UpdateDialogOption(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        game::DialogOption option;
+        mono::Event trigger_name;
+        FindAttribute(TEXT_ATTRIBUTE, properties, option.text, FallbackMode::SET_DEFAULT);
+        FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::SET_DEFAULT);
+
+        option.trigger_hash = hash::Hash(trigger_name.text.c_str());
+        hash::HashRegisterString(trigger_name.text.c_str());
+
+        game::DialogSystem* dialog_system = context->GetSystem<game::DialogSystem>();
+        dialog_system->SetOptionData(entity->id, option);
 
         return true;
     }
@@ -1509,6 +1546,7 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(INTERACTION_COMPONENT, CreateInteraction, ReleaseInteraction, UpdateInteraction);
     entity_manager->RegisterComponent(INTERACTION_SWITCH_COMPONENT, CreateInteraction, ReleaseInteraction, UpdateInteractionSwitch);
     entity_manager->RegisterComponent(DIALOG_COMPONENT, CreateDialog, ReleaseDialog, UpdateDialog);
+    entity_manager->RegisterComponent(DIALOG_OPTIONS_COMPONENT, CreateDialogOption, ReleaseDialogOption, UpdateDialogOption);
     entity_manager->RegisterComponent(WEAPON_LOADOUT_COMPONENT, CreateNothing, DestroyNothing, UpdateWeaponLoadout);
     entity_manager->RegisterComponent(SOUND_COMPONENT, CreateSound, ReleaseSound, UpdateSound);
     entity_manager->RegisterComponent(TELEPORT_PLAYER_COMPONENT, CreateTeleportPlayer, ReleaseTeleportPlayer, UpdateTeleportPlayer);

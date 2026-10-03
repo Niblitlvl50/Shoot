@@ -2,27 +2,35 @@
 #pragma once
 
 #include "MonoFwd.h"
-#include "Rendering/IDrawable.h"
-#include "Rendering/Texture/ITextureFactory.h"
-#include "Rendering/Texture/TextureBufferFactory.h"
+#include "Hud/UIElements.h"
+#include "DialogSystem.h"
+
+#include <cstdint>
 
 namespace game
 {
-    class DialogSystemDrawer : public mono::IDrawable
+    class DialogSystemDrawer : public game::UIOverlay
     {
     public:
 
-        DialogSystemDrawer(class DialogSystem* message_system, const mono::TransformSystem* transform_system);
-
-        void Draw(mono::IRenderer& renderer) const override;
-        math::Quad BoundingBox() const override;
+        DialogSystemDrawer(const class DialogSystem* dialog_system);
+        void Update(const mono::UpdateContext& context) override;
 
     private:
 
-        DialogSystem* m_message_system;
-        const mono::TransformSystem* m_transform_system;
+        void SetMessage(const struct DialogLine& line);
+        void SetSelectedOption(const struct DialogLine& line);
+        void SetTextAlpha(float alpha);
 
-        mono::ITexturePtr m_texture;
-        mono::TextureDrawBuffers m_draw_buffers;
+        const DialogSystem* m_dialog_system;
+        uint32_t m_current_line_id;
+        int m_shown_selection;
+
+        UIElement* m_panel;
+        UISquareElement* m_background;
+        UISpriteElement* m_portrait;
+        UITextElement* m_speaker_text;
+        UITextElement* m_message_lines[3];
+        UITextElement* m_option_texts[MAX_DIALOG_OPTIONS];
     };
 }

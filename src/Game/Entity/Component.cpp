@@ -177,6 +177,7 @@ const DefaultAttribute default_attributes[] = {
     { "reward_chips",               Variant(0) },
     { "reward_rubble",              Variant(0) },
     { "reward_experience",          Variant(0) },
+    { "dialog_speaker",             Variant(std::string()) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -338,6 +339,7 @@ extern const uint32_t PATH_NOTIFY_END_DISTANCE_ATTRIBUTE    = default_attributes
 extern const uint32_t REWARD_CHIPS_ATTRIBUTE                = default_attributes[135].hash;
 extern const uint32_t REWARD_RUBBLE_ATTRIBUTE               = default_attributes[136].hash;
 extern const uint32_t REWARD_EXPERIENCE_ATTRIBUTE           = default_attributes[137].hash;
+extern const uint32_t DIALOG_SPEAKER_ATTRIBUTE              = default_attributes[138].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -383,6 +385,7 @@ extern const uint32_t ROAD_COMPONENT                = hash::Hash("road");
 extern const uint32_t RIVER_COMPONENT               = hash::Hash("river");
 extern const uint32_t LIGHT_COMPONENT               = hash::Hash("light");
 extern const uint32_t DIALOG_COMPONENT              = hash::Hash("message");
+extern const uint32_t DIALOG_OPTIONS_COMPONENT      = hash::Hash("dialog_options");
 extern const uint32_t PARTICLE_SYSTEM_COMPONENT     = hash::Hash("particle_system");
 extern const uint32_t AREA_EMITTER_COMPONENT        = hash::Hash("area_emitter");
 extern const uint32_t TEXTURED_POLYGON_COMPONENT    = hash::Hash("textured_polygon");
@@ -495,6 +498,8 @@ const char* component::ComponentNameFromHash(uint32_t hash)
         return "light";
     else if(hash == DIALOG_COMPONENT)
         return "dialog";
+    else if(hash == DIALOG_OPTIONS_COMPONENT)
+        return "dialog_options";
     else if(hash == PARTICLE_SYSTEM_COMPONENT)
         return "particle_system";
     else if(hash == AREA_EMITTER_COMPONENT)
@@ -577,7 +582,8 @@ const Component default_components[] = {
     MakeComponent(ROAD_COMPONENT,               PATH_COMPONENT,             false,  "rendering",    { WIDTH_ATTRIBUTE, COLOR_ATTRIBUTE, TEXTURE_ATTRIBUTE, STRETCH_TO_WIDTH_ATTRIBUTE }),
     MakeComponent(RIVER_COMPONENT,              PATH_COMPONENT,             false,  "rendering",    { WIDTH_ATTRIBUTE, COLOR_ATTRIBUTE, TEXTURE_ATTRIBUTE, EDGE_FADE_ATTRIBUTE, STRETCH_TO_WIDTH_ATTRIBUTE }),
     MakeComponent(LIGHT_COMPONENT,              NULL_COMPONENT,             false,  "rendering",    { RADIUS_ATTRIBUTE, OFFSET_ATTRIBUTE, COLOR_ATTRIBUTE, FLICKER_ATTRIBUTE, FREQUENCY_ATTRIBUTE, PERCENTAGE_ATTRIBUTE }),
-    MakeComponent(DIALOG_COMPONENT,             NULL_COMPONENT,             false,  "rendering",    { TEXT_ATTRIBUTE, DURATION_ATTRIBUTE }),
+    MakeComponent(DIALOG_COMPONENT,             NULL_COMPONENT,             false,  "rendering",    { TRIGGER_NAME_ATTRIBUTE, DIALOG_SPEAKER_ATTRIBUTE, TEXT_ATTRIBUTE, SPRITE_ATTRIBUTE, DURATION_ATTRIBUTE, EMIT_ONCE_ATTRIBUTE }),
+    MakeComponent(DIALOG_OPTIONS_COMPONENT,     DIALOG_COMPONENT,           true,   "rendering",    { TEXT_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
 
     MakeComponent(PARTICLE_SYSTEM_COMPONENT,    NULL_COMPONENT,             false,  "particles",    { POOL_SIZE_ATTRIBUTE, TEXTURE_ATTRIBUTE, BLEND_MODE_ATTRIBUTE, PARTICLE_DRAW_LAYER, TRANSFORM_SPACE_ATTRIBUTE, DAMPING_ATTRIBUTE }),
     MakeComponent(AREA_EMITTER_COMPONENT,       PARTICLE_SYSTEM_COMPONENT,  false,  "particles",    { EMITTER_MODE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DURATION_ATTRIBUTE, EMIT_RATE_ATTRIBUTE, EMITTER_TYPE_ATTRIBUTE, OFFSET_ATTRIBUTE, SIZE_ATTRIBUTE, DIRECTION_INTERVAL_ATTRIBUTE, UNIFORM_DIRECTION_ATTRIBUTE, MAGNITUDE_INTERVAL_ATTRIBUTE, ANGLAR_VELOCITY_INTERVAL_ATTRIBUTE, LIFE_INTERVAL_ATTRIBUTE, GRADIENT4_ATTRIBUTE, START_SIZE_SPREAD_ATTRIBUTE, END_SIZE_SPREAD_ATTRIBUTE }),

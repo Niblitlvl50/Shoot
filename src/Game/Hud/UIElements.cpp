@@ -331,7 +331,11 @@ void UISpriteElement::SetSprites(const std::vector<std::string>& sprite_files)
 
     for(const std::string& sprite_file : sprite_files)
     {
-        m_sprites.push_back(mono::RenderSystem::GetSpriteFactory()->CreateSprite(sprite_file.c_str()));
+        mono::ISpritePtr created_sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite(sprite_file.c_str());
+        if(!created_sprite)
+            continue;
+
+        m_sprites.push_back(std::move(created_sprite));
 
         const mono::ISprite* sprite = m_sprites.back().get();
         const mono::SpriteData* sprite_data = sprite->GetSpriteData();

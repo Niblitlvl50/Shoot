@@ -178,6 +178,7 @@ extern const uint32_t PATH_NOTIFY_END_DISTANCE_ATTRIBUTE;
 extern const uint32_t REWARD_CHIPS_ATTRIBUTE;
 extern const uint32_t REWARD_RUBBLE_ATTRIBUTE;
 extern const uint32_t REWARD_EXPERIENCE_ATTRIBUTE;
+extern const uint32_t DIALOG_SPEAKER_ATTRIBUTE;
 
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);
@@ -272,6 +273,7 @@ extern const uint32_t ROAD_COMPONENT;
 extern const uint32_t RIVER_COMPONENT;
 extern const uint32_t LIGHT_COMPONENT;
 extern const uint32_t DIALOG_COMPONENT;
+extern const uint32_t DIALOG_OPTIONS_COMPONENT;
 extern const uint32_t PARTICLE_SYSTEM_COMPONENT;
 extern const uint32_t AREA_EMITTER_COMPONENT;
 extern const uint32_t TEXTURED_POLYGON_COMPONENT;

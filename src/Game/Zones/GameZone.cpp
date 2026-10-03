@@ -169,7 +169,8 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::ScreenFadeDrawer(render_system), LayerId::UI_OVERLAY);
 
     AddDrawable(new WorldEntityTrackingDrawer(entity_tracking_system, transform_system), LayerId::UI);
-    AddDrawable(new game::DialogSystemDrawer(dialog_system, transform_system), LayerId::UI);
+    m_dialog_ui = new game::DialogSystemDrawer(dialog_system);
+    AddUpdatableDrawable(m_dialog_ui, LayerId::UI);
     m_region_ui = new RegionDrawer(region_system);
     AddUpdatableDrawable(m_region_ui, LayerId::UI);
 
@@ -220,6 +221,10 @@ int GameZone::OnUnload()
     RemoveUpdatableDrawable(m_region_ui);
     delete m_region_ui;
     m_region_ui = nullptr;
+
+    RemoveUpdatableDrawable(m_dialog_ui);
+    delete m_dialog_ui;
+    m_dialog_ui = nullptr;
 
     RemoveUpdatableDrawable(m_mission_ui);
     delete m_mission_ui;

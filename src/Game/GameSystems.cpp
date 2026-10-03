@@ -104,7 +104,7 @@ void game::CreateGameSystems(
     system_context.CreateSystem<game::GamePhysicsSystem>(transform_system, physics_system);
     system_context.CreateSystem<game::EntityLifetimeTriggerSystem>(trigger_system, entity_system, damage_system);
     system_context.CreateSystem<game::InteractionSystem>(max_entities, transform_system, trigger_system);
-    system_context.CreateSystem<game::DialogSystem>(max_entities);
+    system_context.CreateSystem<game::DialogSystem>(max_entities, trigger_system, input_system);
     system_context.CreateSystem<game::SoundSystem>(max_entities, camera_system, transform_system, trigger_system);
     system_context.CreateSystem<game::RegionSystem>(physics_system);
     system_context.CreateSystem<game::WorldBoundsSystem>(transform_system);
