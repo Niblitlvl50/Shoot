@@ -1,0 +1,8 @@
+{
+    "tracking_sprites": {
+        "Package": "res/sprites/cardboard_box_small.sprite",
+        "Boss": "res/sprites/squid.sprite",
+        "Loot": "res/sprites/bunny.sprite",
+        "Quest": "res/sprites/screen_question.sprite"
+    }
+}

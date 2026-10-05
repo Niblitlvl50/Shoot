@@ -1198,10 +1198,24 @@ namespace
     bool UpdateEntityTracker(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         int entity_type;
+        bool start_enabled;
+        mono::Event enable_trigger;
+        mono::Event disable_trigger;
         FindAttribute(ENTITY_TYPE_ATTRIBUTE, properties, entity_type, FallbackMode::SET_DEFAULT);
+        FindAttribute(START_ENABLED_ATTRIBUTE, properties, start_enabled, FallbackMode::SET_DEFAULT);
+        FindAttribute(ENABLE_TRIGGER_ATTRIBUTE, properties, enable_trigger, FallbackMode::SET_DEFAULT);
+        FindAttribute(DISABLE_TRIGGER_ATTRIBUTE, properties, disable_trigger, FallbackMode::SET_DEFAULT);
+
+        hash::HashRegisterString(enable_trigger.text.c_str());
+        hash::HashRegisterString(disable_trigger.text.c_str());
 
         game::WorldEntityTrackingSystem* tracking_system = context->GetSystem<game::WorldEntityTrackingSystem>();
-        tracking_system->UpdateEntityTracker(entity->id, game::EntityType(entity_type));
+        tracking_system->UpdateEntityTracker(
+            entity->id,
+            game::EntityType(entity_type),
+            start_enabled,
+            hash::Hash(enable_trigger.text.c_str()),
+            hash::Hash(disable_trigger.text.c_str()));
 
         return true;
     }

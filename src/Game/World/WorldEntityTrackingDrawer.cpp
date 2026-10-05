@@ -10,6 +10,13 @@
 #include "Rendering/RenderBuffer/BufferFactory.h"
 #include "Rendering/Sprite/SpriteFactory.h"
 #include "TransformSystem/TransformSystem.h"
+#include "System/File.h"
+#include "System/System.h"
+
+#include "nlohmann/json.hpp"
+
+#include <cstring>
+#include <string>
 
 using namespace game;
 
@@ -18,14 +25,33 @@ WorldEntityTrackingDrawer::WorldEntityTrackingDrawer(
     : m_entity_tracking_system(entity_tracking_system)
     , m_transform_system(transform_system)
 {
-    m_package_sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite("res/sprites/cardboard_box_small.sprite");
-    m_package_sprite_buffers = mono::BuildSpriteDrawBuffers(m_package_sprite->GetSpriteData(), "sprite_buffer-world_entity_tracking");
+    file::FilePtr config_file = file::OpenAsciiFile("res/configs/entity_tracking_config.json");
+    if(config_file)
+    {
+        const std::vector<byte>& file_data = file::FileRead(config_file);
+        const nlohmann::json& json = nlohmann::json::parse(file_data);
 
-    m_boss_sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite("res/sprites/squid.sprite");
-    m_boss_sprite_buffers = mono::BuildSpriteDrawBuffers(m_boss_sprite->GetSpriteData(), "sprite_buffer-world_entity_tracking");
+        for(const auto& [type_name, sprite_file] : json["tracking_sprites"].items())
+        {
+            uint32_t type_index = 0;
+            for(; type_index < N_ENTITY_TYPES; ++type_index)
+            {
+                if(std::strcmp(g_entity_type_strings[type_index], type_name.c_str()) == 0)
+                    break;
+            }
 
-    m_loot_sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite("res/sprites/bunny.sprite");
-    m_loot_sprite_buffers = mono::BuildSpriteDrawBuffers(m_loot_sprite->GetSpriteData(), "sprite_buffer-world_entity_tracking");
+            if(type_index == N_ENTITY_TYPES)
+            {
+                System::Log("WorldEntityTrackingDrawer|Unknown entity type '%s' in config.", type_name.c_str());
+                continue;
+            }
+
+            const std::string sprite_file_string = sprite_file;
+            m_type_sprites[type_index] = mono::RenderSystem::GetSpriteFactory()->CreateSprite(sprite_file_string.c_str());
+            m_type_sprite_buffers[type_index] =
+                mono::BuildSpriteDrawBuffers(m_type_sprites[type_index]->GetSpriteData(), "sprite_buffer-world_entity_tracking");
+        }
+    }
 
     constexpr uint16_t indices[] = {
         0, 1, 2, 0, 2, 3
@@ -49,7 +75,7 @@ void WorldEntityTrackingDrawer::Draw(mono::IRenderer& renderer) const
     for(const EntityTrackingComponent& tracking_entity : entities_to_track)
     {
         const bool is_active_type = m_entity_tracking_system->IsActiveType(tracking_entity.type);
-        if(!is_active_type)
+        if(!tracking_entity.enabled || !is_active_type)
             continue;
 
         const math::Vector entity_world_position = m_transform_system->GetWorldPosition(tracking_entity.entity_id);
@@ -94,12 +120,9 @@ void WorldEntityTrackingDrawer::Draw(mono::IRenderer& renderer) const
             0,
             m_circle_outline_draw_buffers.indices->Size());
 
-        if(tracking_entity.type == game::EntityType::Package)
-            renderer.DrawSprite(m_package_sprite.get(), &m_package_sprite_buffers, m_sprite_indices.get(), 0);
-        else if(tracking_entity.type == game::EntityType::Boss)
-            renderer.DrawSprite(m_boss_sprite.get(), &m_boss_sprite_buffers, m_sprite_indices.get(), 0);
-        else if(tracking_entity.type == game::EntityType::Loot)
-            renderer.DrawSprite(m_loot_sprite.get(), &m_loot_sprite_buffers, m_sprite_indices.get(), 0);
+        const uint32_t type_index = static_cast<uint32_t>(tracking_entity.type);
+        if(type_index < N_ENTITY_TYPES && m_type_sprites[type_index])
+            renderer.DrawSprite(m_type_sprites[type_index].get(), &m_type_sprite_buffers[type_index], m_sprite_indices.get(), 0);
     }
 }
 

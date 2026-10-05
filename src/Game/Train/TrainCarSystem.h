@@ -9,9 +9,20 @@
 
 #include <cstdint>
 #include <unordered_map>
+#include <vector>
 
 namespace game
 {
+    // A train car's load goes from 0 (empty) to this (full).
+    constexpr int TRAIN_CAR_CAPACITY = 100;
+
+    struct TrainCargo
+    {
+        uint32_t entity_id;
+        int amount;
+        uint32_t release_callback_id;
+    };
+
     struct TrainCarComponent
     {
         // The neighbour this car takes its speed from - set when the car couples onto
@@ -32,6 +43,10 @@ namespace game
         // Counts down after this car is decoupled; while positive, it won't be considered
         // for auto-coupling, so it doesn't immediately re-attach to whatever it just left.
         float decouple_cooldown_s = 0.0f;
+
+        // The loaded entities, load is the sum of their amounts (0 to TRAIN_CAR_CAPACITY).
+        std::vector<TrainCargo> cargo;
+        int load = 0;
     };
 
     // Drives "train car" entities that couple to each other end to end. Each car has two
@@ -71,6 +86,21 @@ namespace game
         // further along the chain keeps following the car next to it, so it stays linked.
         void Decouple(uint32_t leader_entity_id);
 
+        // Loads cargo_entity_id into the car, taking up `amount` of its capacity. Fails, and loads
+        // nothing, if it doesn't fit or the entity is already loaded in some car. A loaded entity
+        // that gets released is unloaded automatically.
+        bool CanLoad(uint32_t car_entity_id, int amount) const;
+        bool Load(uint32_t car_entity_id, uint32_t cargo_entity_id, int amount);
+        bool Unload(uint32_t car_entity_id, uint32_t cargo_entity_id);
+        void UnloadAll(uint32_t car_entity_id);
+
+        int GetLoad(uint32_t car_entity_id) const;
+        int GetFreeCapacity(uint32_t car_entity_id) const;
+        const std::vector<TrainCargo>& GetCargo(uint32_t car_entity_id) const;
+
+        // The car cargo_entity_id is loaded in, or INVALID_ID.
+        uint32_t FindCarCarrying(uint32_t cargo_entity_id) const;
+
     private:
 
         const char* Name() const override;
@@ -78,6 +108,9 @@ namespace game
         void Sync() override;
 
         void TryAutoCouple();
+
+        // remove_release_callback is false when called from the cargo entity's own release callback.
+        bool RemoveCargo(uint32_t car_entity_id, uint32_t cargo_entity_id, bool remove_release_callback);
         void DrawDebugInfo() const;
 
         struct CouplingPoint

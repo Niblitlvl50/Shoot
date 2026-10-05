@@ -443,7 +443,7 @@ void PlayerLogic::UpdateAnimation(const mono::UpdateContext& update_context, flo
     mono::Sprite* weapon_sprite = m_sprite_system->GetSprite(m_weapon_entity);
 
     const float weapon_sort_offset = facing_down ? -0.1 : 0.1f;
-    m_render_system->UpdateLayer(m_weapon_entity, 0, weapon_sort_offset);
+    m_render_system->UpdateLayer(m_weapon_entity, 0, weapon_sort_offset, false);
 
     IWeaponPtr& active_weapon = m_weapons[m_weapon_index];
     const game::WeaponSetup& weapon_setup = active_weapon->GetWeaponSetup();

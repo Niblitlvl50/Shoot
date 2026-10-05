@@ -9,6 +9,7 @@
 #include "Util/Algorithm.h"
 #include "EntitySystem/IEntityManager.h"
 #include "Entity/Component.h"
+#include "Rendering/RenderSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
 
@@ -54,11 +55,13 @@ namespace
 TrainSmokeEffect::TrainSmokeEffect(
     mono::IEntityManager* entity_system,
     mono::TransformSystem* transform_system,
+    mono::RenderSystem* render_system,
     mono::SpriteSystem* sprite_system,
     game::AnimationSystem* animation_system,
     uint32_t parent_entity_id)
     : m_entity_system(entity_system)
     , m_transform_system(transform_system)
+    , m_render_system(render_system)
     , m_sprite_system(sprite_system)
     , m_animation_system(animation_system)
     , m_parent_entity_id(parent_entity_id)
@@ -81,7 +84,7 @@ void TrainSmokeEffect::UpdateSmoke(const mono::UpdateContext& update_context)
     
     while(m_emit_counter >= 1.0f)
     {
-        mono::Entity spawned_entity = m_entity_system->CreateEntity("TrainSmoke", { TRANSFORM_COMPONENT, SPRITE_COMPONENT, TRANSLATION_COMPONENT });
+        mono::Entity spawned_entity = m_entity_system->CreateEntity("TrainSmoke", { TRANSFORM_COMPONENT, SPRITE_COMPONENT, LAYER_COMPONENT, TRANSLATION_COMPONENT });
         
         const char* sprite_file = mono::Chance(50) ? "res/sprites/smoke_white_1.sprite" : "res/sprites/smoke_white_2.sprite";
         
@@ -94,10 +97,10 @@ void TrainSmokeEffect::UpdateSmoke(const mono::UpdateContext& update_context)
         sprite_component.shade = mono::Color::MakeWithAlpha(mono::Color::OFF_WHITE, 0.0f);
         sprite_component.random_start_frame = true;
         sprite_component.animation_id = 0;
-        sprite_component.layer = 0;
-        sprite_component.sort_offset = 0.0f;
         sprite_component.properties = 0;
         m_sprite_system->SetSpriteData(spawned_entity.id, sprite_component);
+
+        m_render_system->UpdateLayer(spawned_entity.id, 0, 0.0f, true);
 
         const math::Vector& parent_position = m_transform_system->GetWorldPosition(m_parent_entity_id);
         m_transform_system->SetTransform(

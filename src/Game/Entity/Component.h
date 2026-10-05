@@ -179,6 +179,8 @@ extern const uint32_t REWARD_CHIPS_ATTRIBUTE;
 extern const uint32_t REWARD_RUBBLE_ATTRIBUTE;
 extern const uint32_t REWARD_EXPERIENCE_ATTRIBUTE;
 extern const uint32_t DIALOG_SPEAKER_ATTRIBUTE;
+extern const uint32_t START_ENABLED_ATTRIBUTE;
+extern const uint32_t USE_INITIAL_Y_POSITION_ATTRIBUTE;
 
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);

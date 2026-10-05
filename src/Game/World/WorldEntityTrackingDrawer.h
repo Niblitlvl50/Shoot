@@ -8,6 +8,7 @@
 #include "Rendering/Sprite/ISpriteFactory.h"
 #include "Rendering/Sprite/SpriteBufferFactory.h"
 #include "Rendering/Primitives/PrimitiveBufferFactory.h"
+#include "WorldEntityTrackingSystem.h"
 
 namespace game
 {
@@ -25,14 +26,9 @@ namespace game
         const WorldEntityTrackingSystem* m_entity_tracking_system;
         const mono::TransformSystem* m_transform_system;
 
-        mono::ISpritePtr m_package_sprite;
-        mono::SpriteDrawBuffers m_package_sprite_buffers;
-
-        mono::ISpritePtr m_boss_sprite;
-        mono::SpriteDrawBuffers m_boss_sprite_buffers;
-
-        mono::ISpritePtr m_loot_sprite;
-        mono::SpriteDrawBuffers m_loot_sprite_buffers;
+        // Indexed by EntityType, a type without a sprite in the config only gets the circle.
+        mono::ISpritePtr m_type_sprites[N_ENTITY_TYPES];
+        mono::SpriteDrawBuffers m_type_sprite_buffers[N_ENTITY_TYPES];
 
         std::unique_ptr<mono::IElementBuffer> m_sprite_indices;
 

@@ -922,6 +922,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -1060,6 +1066,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -1198,6 +1210,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -1336,6 +1354,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -1474,6 +1498,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -1612,6 +1642,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -1750,6 +1786,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -1888,6 +1930,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -2026,6 +2074,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -2164,6 +2218,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -2542,6 +2602,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -2680,6 +2746,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -5218,6 +5290,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -5356,6 +5434,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -6744,6 +6828,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -7122,6 +7212,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -7260,6 +7356,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -8358,6 +8460,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -8616,6 +8724,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -8754,6 +8868,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -9372,6 +9492,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -9510,6 +9636,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -9648,6 +9780,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -9836,6 +9974,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -12544,6 +12688,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -12682,6 +12832,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -12820,6 +12976,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -12958,6 +13120,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -13936,6 +14104,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -14074,6 +14248,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -14212,6 +14392,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -14710,6 +14896,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -14848,6 +15040,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -14986,6 +15184,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -15124,6 +15328,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -15996,24 +16206,6 @@
                     ]
                 },
                 {
-                    "hash": 128336118,
-                    "name": "layer",
-                    "properties": [
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": -0.20000000298023224
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -16410,24 +16602,6 @@
                     ]
                 },
                 {
-                    "hash": 128336118,
-                    "name": "layer",
-                    "properties": [
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 1
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -16652,6 +16826,30 @@
                     ]
                 },
                 {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": -1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -16836,6 +17034,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -16966,13 +17170,13 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": "train"
+                            "variant_value": "railway_switches"
                         },
                         {
                             "id": 3923852156,
                             "name": "editor_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 1
                         }
                     ]
                 },
@@ -17006,6 +17210,30 @@
                             "name": "entity_reference",
                             "variant_type": 2,
                             "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": -1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -18914,7 +19142,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "railway_switches"
                         },
                         {
                             "id": 3923852156,
@@ -18954,6 +19182,30 @@
                             "name": "entity_reference",
                             "variant_type": 2,
                             "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": -1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -19084,13 +19336,13 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "railway_switches"
                         },
                         {
                             "id": 3923852156,
                             "name": "editor_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 1
                         }
                     ]
                 },
@@ -19124,6 +19376,30 @@
                             "name": "entity_reference",
                             "variant_type": 2,
                             "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": -1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -19204,13 +19480,13 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "railway_switches"
                         },
                         {
                             "id": 3923852156,
                             "name": "editor_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 1
                         }
                     ]
                 },
@@ -19364,24 +19640,6 @@
                             "name": "entity_reference",
                             "variant_type": 2,
                             "variant_value": 4294967295
-                        }
-                    ]
-                },
-                {
-                    "hash": 128336118,
-                    "name": "layer",
-                    "properties": [
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 1
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -19706,13 +19964,13 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "railway_switches"
                         },
                         {
                             "id": 3923852156,
                             "name": "editor_properties",
                             "variant_type": 2,
-                            "variant_value": 0
+                            "variant_value": 1
                         }
                     ]
                 },
@@ -19746,6 +20004,30 @@
                             "name": "entity_reference",
                             "variant_type": 2,
                             "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": -1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -19859,126 +20141,6 @@
             "entity_properties": 0,
             "name": "box_wooden",
             "uuid_hash": 2669497165
-        },
-        {
-            "components": [
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
-                            "variant_value": "skull_pile_1"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
-                            "id": 3923852156,
-                            "name": "editor_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 7.234660625457764,
-                                "y": -24.3771915435791
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        },
-                        {
-                            "id": 2190941297,
-                            "name": "scale",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1150083244,
-                            "name": "entity_reference",
-                            "variant_type": 2,
-                            "variant_value": 4294967295
-                        }
-                    ]
-                },
-                {
-                    "hash": 2179094556,
-                    "name": "sprite",
-                    "properties": [
-                        {
-                            "id": 910774975,
-                            "name": "sprite_file",
-                            "variant_type": 6,
-                            "variant_value": "pebble_tiny_1.sprite"
-                        },
-                        {
-                            "id": 3779456605,
-                            "name": "animation",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 1160474912,
-                            "name": "sprite_properties",
-                            "variant_type": 2,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 4153965,
-                            "name": "shadow_offset",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 0.0,
-                                "y": 0.0
-                            }
-                        },
-                        {
-                            "id": 429836675,
-                            "name": "shadow_size",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1015133031,
-                            "name": "random_start_frame",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "name": "skull_pile_1",
-            "uuid_hash": 3763317907
         },
         {
             "components": [
@@ -24024,6 +24186,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -24162,6 +24330,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -24300,6 +24474,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -24438,6 +24618,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -24576,6 +24762,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -24714,6 +24906,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -24852,6 +25050,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -24990,6 +25194,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": -0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -25178,6 +25388,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": -0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -25366,6 +25582,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": -0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -25554,6 +25776,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": -0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -26614,24 +26842,6 @@
                             "name": "entity_reference",
                             "variant_type": 2,
                             "variant_value": 4294967295
-                        }
-                    ]
-                },
-                {
-                    "hash": 128336118,
-                    "name": "layer",
-                    "properties": [
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -31018,24 +31228,6 @@
                     ]
                 },
                 {
-                    "hash": 128336118,
-                    "name": "layer",
-                    "properties": [
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 1
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -32616,6 +32808,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -33398,6 +33596,32 @@
                             "name": "entity_type",
                             "variant_type": 1,
                             "variant_value": 3
+                        },
+                        {
+                            "id": 3569953025,
+                            "name": "start_enabled",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 2200757869,
+                            "name": "enable_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "start_delivery_1",
+                                "type": 0
+                            }
+                        },
+                        {
+                            "id": 3946117592,
+                            "name": "disable_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "delivery_1_completed",
+                                "type": 0
+                            }
                         }
                     ]
                 },
@@ -33596,6 +33820,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.20000000298023224
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -33864,24 +34094,6 @@
                             "name": "entity_reference",
                             "variant_type": 2,
                             "variant_value": 4294967295
-                        }
-                    ]
-                },
-                {
-                    "hash": 128336118,
-                    "name": "layer",
-                    "properties": [
-                        {
-                            "id": 128336118,
-                            "name": "layer",
-                            "variant_type": 1,
-                            "variant_value": 1
-                        },
-                        {
-                            "id": 2483026461,
-                            "name": "sort_offset",
-                            "variant_type": 3,
-                            "variant_value": 0.0
                         }
                     ]
                 },
@@ -34308,6 +34520,30 @@
                     ]
                 },
                 {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": -1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -34424,6 +34660,30 @@
                             "name": "entity_reference",
                             "variant_type": 2,
                             "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": -1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -40368,6 +40628,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -44106,6 +44372,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -44244,6 +44516,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -44382,6 +44660,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -44520,6 +44804,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -44658,6 +44948,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -44796,6 +45092,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -44934,6 +45236,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -46756,6 +47064,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },

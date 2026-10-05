@@ -190,7 +190,7 @@ TrainLogic::TrainLogic(
         "res/sound/train/train_direction_change.wav", audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
 
     mono::ParticleSystem* particle_system = system_context->GetSystem<mono::ParticleSystem>();
-    m_smoke_effect = std::make_unique<TrainSmokeEffect>(m_entity_system, m_transform_system, m_sprite_system, animation_system, m_entity_id);
+    m_smoke_effect = std::make_unique<TrainSmokeEffect>(m_entity_system, m_transform_system, m_render_system, m_sprite_system, animation_system, m_entity_id);
 
     m_grind_effect = std::make_unique<WheelGrindEffect>(particle_system, m_entity_system);
     m_transform_system->ChildTransform(m_grind_effect->m_particle_entity, m_entity_id);

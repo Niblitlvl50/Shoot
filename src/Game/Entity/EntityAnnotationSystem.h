@@ -15,6 +15,7 @@ namespace game
         TopLeft,
         BottomRight,
         BottomLeft,
+        TopCenter,
     };
 
     class EntityAnnotationSystem : public mono::IGameSystem

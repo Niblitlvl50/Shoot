@@ -115,11 +115,13 @@ namespace
     {
         int new_layer;
         float new_sort_offset;
+        bool use_initial_y_position = false;
         FindAttribute(LAYER_ATTRIBUTE, properties, new_layer, FallbackMode::SET_DEFAULT);
         FindAttribute(SORT_OFFSET_ATTRIBUTE, properties, new_sort_offset, FallbackMode::SET_DEFAULT);
+        FindAttribute(USE_INITIAL_Y_POSITION_ATTRIBUTE, properties, use_initial_y_position, FallbackMode::SET_DEFAULT);
 
         mono::RenderSystem* render_system = context->GetSystem<mono::RenderSystem>();
-        render_system->UpdateLayer(entity->id, new_layer, new_sort_offset);
+        render_system->UpdateLayer(entity->id, new_layer, new_sort_offset, use_initial_y_position);
 
         return true;
     }
@@ -156,8 +158,6 @@ namespace
         FindAttribute(SPRITE_PROPERTIES_ATTRIBUTE, properties, sprite_args.properties, FallbackMode::SET_DEFAULT);
         FindAttribute(SHADOW_OFFSET_ATTRIBUTE, properties, sprite_args.shadow_offset, FallbackMode::SET_DEFAULT);
         FindAttribute(SHADOW_SIZE_ATTRIBUTE, properties, sprite_args.shadow_size, FallbackMode::SET_DEFAULT);
-        FindAttribute(LAYER_ATTRIBUTE, properties, sprite_args.layer, FallbackMode::SET_DEFAULT);
-        FindAttribute(SORT_OFFSET_ATTRIBUTE, properties, sprite_args.sort_offset, FallbackMode::SET_DEFAULT);
         FindAttribute(RANDOM_START_FRAME_ATTRIBUTE, properties, sprite_args.random_start_frame, FallbackMode::SET_DEFAULT);
 
         char sprite_path[1024] = { 0 };

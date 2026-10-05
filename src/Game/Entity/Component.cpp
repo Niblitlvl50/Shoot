@@ -178,6 +178,8 @@ const DefaultAttribute default_attributes[] = {
     { "reward_rubble",              Variant(0) },
     { "reward_experience",          Variant(0) },
     { "dialog_speaker",             Variant(std::string()) },
+    { "start_enabled",              Variant(true) },
+    { "use_initial_y_position",     Variant(false) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -340,6 +342,8 @@ extern const uint32_t REWARD_CHIPS_ATTRIBUTE                = default_attributes
 extern const uint32_t REWARD_RUBBLE_ATTRIBUTE               = default_attributes[136].hash;
 extern const uint32_t REWARD_EXPERIENCE_ATTRIBUTE           = default_attributes[137].hash;
 extern const uint32_t DIALOG_SPEAKER_ATTRIBUTE              = default_attributes[138].hash;
+extern const uint32_t START_ENABLED_ATTRIBUTE               = default_attributes[139].hash;
+extern const uint32_t USE_INITIAL_Y_POSITION_ATTRIBUTE      = default_attributes[140].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -564,7 +568,7 @@ const Component default_components[] = {
     MakeComponent(INTERACTION_COMPONENT,        NULL_COMPONENT,             false,  "general",      { INTERACTION_TYPE_ATTRIBUTE, SOUND_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, DRAW_NAME_ATTRIBUTE }),
     MakeComponent(INTERACTION_SWITCH_COMPONENT, NULL_COMPONENT,             false,  "general",      { INTERACTION_TYPE_ATTRIBUTE, SOUND_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, TRIGGER_NAME_EXIT_ATTRIBUTE, DRAW_NAME_ATTRIBUTE }),
     MakeComponent(SOUND_COMPONENT,              NULL_COMPONENT,             false,  "general",      { SOUND_ATTRIBUTE, SOUND_PLAY_PARAMETERS, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE }),
-    MakeComponent(ENTITY_TRACKING_COMPONENT,    NULL_COMPONENT,             false,  "general",      { ENTITY_TYPE_ATTRIBUTE }),
+    MakeComponent(ENTITY_TRACKING_COMPONENT,    NULL_COMPONENT,             false,  "general",      { ENTITY_TYPE_ATTRIBUTE, START_ENABLED_ATTRIBUTE, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE }),
 
     MakeComponent(PATH_COMPONENT,               NULL_COMPONENT,             false,  "paths",        { PATH_TYPE_ATTRIBUTE, PATH_POINTS_ATTRIBUTE, PATH_CLOSED_ATTRIBUTE }),
     MakeComponent(PATH_NOTIFIER_COMPONENT,      PATH_COMPONENT,             true,   "paths",        { PATH_NOTIFY_DISTANCE_ATTRIBUTE, PATH_NOTIFY_END_DISTANCE_ATTRIBUTE, TAG_ATTRIBUTE }),
@@ -576,7 +580,7 @@ const Component default_components[] = {
     MakeComponent(WEAPON_PICKUP_COMPONENT,      PHYSICS_COMPONENT,          false,  "pickups",      { WEAPON_MODIFIER_TYPE_ATTRIBUTE }),
     MakeComponent(LOOTBOX_COMPONENT,            NULL_COMPONENT,             false,  "pickups",      { }),
 
-    MakeComponent(LAYER_COMPONENT,              NULL_COMPONENT,             false,  "rendering",    { LAYER_ATTRIBUTE, SORT_OFFSET_ATTRIBUTE }),
+    MakeComponent(LAYER_COMPONENT,              NULL_COMPONENT,             false,  "rendering",    { LAYER_ATTRIBUTE, SORT_OFFSET_ATTRIBUTE, USE_INITIAL_Y_POSITION_ATTRIBUTE }),
     MakeComponent(SPRITE_COMPONENT,             NULL_COMPONENT,             false,  "rendering",    { SPRITE_ATTRIBUTE, ANIMATION_ATTRIBUTE, COLOR_ATTRIBUTE, SPRITE_PROPERTIES_ATTRIBUTE, SHADOW_OFFSET_ATTRIBUTE, SHADOW_SIZE_ATTRIBUTE, RANDOM_START_FRAME_ATTRIBUTE }),
     MakeComponent(TEXT_COMPONENT,               NULL_COMPONENT,             false,  "rendering",    { TEXT_ATTRIBUTE, FONT_ID_ATTRIBUTE, COLOR_ATTRIBUTE, CENTER_FLAGS_ATTRIBUTE, TEXT_SHADOW_ATTRIBUTE, OFFSET_ATTRIBUTE, SHADOW_COLOR_ATTRIBUTE }),
     MakeComponent(ROAD_COMPONENT,               PATH_COMPONENT,             false,  "rendering",    { WIDTH_ATTRIBUTE, COLOR_ATTRIBUTE, TEXTURE_ATTRIBUTE, STRETCH_TO_WIDTH_ATTRIBUTE }),

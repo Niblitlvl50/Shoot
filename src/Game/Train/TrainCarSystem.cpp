@@ -71,6 +71,8 @@ void TrainCarSystem::ReleaseTrainCar(uint32_t entity_id)
             entity_car_pair.second.leader_entity_id = mono::INVALID_ID;
     }
 
+    // The cargo entities live on, they just aren't loaded anywhere anymore.
+    UnloadAll(entity_id);
     m_cars.erase(entity_id);
 }
 
@@ -82,6 +84,129 @@ void TrainCarSystem::SetTrainCarData(uint32_t entity_id, float coupling_distance
 
     it->second.coupling_distance = coupling_distance;
     it->second.is_locomotive = is_locomotive;
+}
+
+bool TrainCarSystem::CanLoad(uint32_t car_entity_id, int amount) const
+{
+    return amount >= 0 && amount <= GetFreeCapacity(car_entity_id);
+}
+
+bool TrainCarSystem::Load(uint32_t car_entity_id, uint32_t cargo_entity_id, int amount)
+{
+    const auto it = m_cars.find(car_entity_id);
+    if(it == m_cars.end() || !CanLoad(car_entity_id, amount))
+        return false;
+
+    if(FindCarCarrying(cargo_entity_id) != mono::INVALID_ID)
+        return false;
+
+    const mono::ReleaseCallback on_cargo_released = [this, car_entity_id](uint32_t released_entity_id, mono::ReleasePhase phase) {
+        RemoveCargo(car_entity_id, released_entity_id, false);
+    };
+
+    mono::IEntityManager* entity_manager = m_system_context->GetSystem<mono::IEntityManager>();
+
+    TrainCargo cargo;
+    cargo.entity_id = cargo_entity_id;
+    cargo.amount = amount;
+    cargo.release_callback_id = entity_manager->AddReleaseCallback(cargo_entity_id, mono::ReleasePhase::PRE_RELEASE, on_cargo_released);
+
+    TrainCarComponent& car = it->second;
+    car.cargo.push_back(cargo);
+    car.load += amount;
+
+    return true;
+}
+
+bool TrainCarSystem::Unload(uint32_t car_entity_id, uint32_t cargo_entity_id)
+{
+    return RemoveCargo(car_entity_id, cargo_entity_id, true);
+}
+
+void TrainCarSystem::UnloadAll(uint32_t car_entity_id)
+{
+    const auto it = m_cars.find(car_entity_id);
+    if(it == m_cars.end())
+        return;
+
+    mono::IEntityManager* entity_manager = m_system_context->GetSystem<mono::IEntityManager>();
+
+    TrainCarComponent& car = it->second;
+    for(const TrainCargo& cargo : car.cargo)
+        entity_manager->RemoveReleaseCallback(cargo.entity_id, cargo.release_callback_id);
+
+    car.cargo.clear();
+    car.load = 0;
+}
+
+bool TrainCarSystem::RemoveCargo(uint32_t car_entity_id, uint32_t cargo_entity_id, bool remove_release_callback)
+{
+    const auto car_it = m_cars.find(car_entity_id);
+    if(car_it == m_cars.end())
+        return false;
+
+    TrainCarComponent& car = car_it->second;
+
+    const auto find_cargo = [cargo_entity_id](const TrainCargo& cargo) {
+        return cargo.entity_id == cargo_entity_id;
+    };
+    const auto cargo_it = std::find_if(car.cargo.begin(), car.cargo.end(), find_cargo);
+    if(cargo_it == car.cargo.end())
+        return false;
+
+    if(remove_release_callback)
+    {
+        mono::IEntityManager* entity_manager = m_system_context->GetSystem<mono::IEntityManager>();
+        entity_manager->RemoveReleaseCallback(cargo_entity_id, cargo_it->release_callback_id);
+    }
+
+    car.load -= cargo_it->amount;
+    car.cargo.erase(cargo_it);
+
+    return true;
+}
+
+int TrainCarSystem::GetLoad(uint32_t car_entity_id) const
+{
+    const auto it = m_cars.find(car_entity_id);
+    if(it == m_cars.end())
+        return 0;
+
+    return it->second.load;
+}
+
+int TrainCarSystem::GetFreeCapacity(uint32_t car_entity_id) const
+{
+    const auto it = m_cars.find(car_entity_id);
+    if(it == m_cars.end())
+        return 0;
+
+    return TRAIN_CAR_CAPACITY - it->second.load;
+}
+
+const std::vector<TrainCargo>& TrainCarSystem::GetCargo(uint32_t car_entity_id) const
+{
+    static const std::vector<TrainCargo> no_cargo;
+
+    const auto it = m_cars.find(car_entity_id);
+    if(it == m_cars.end())
+        return no_cargo;
+
+    return it->second.cargo;
+}
+
+uint32_t TrainCarSystem::FindCarCarrying(uint32_t cargo_entity_id) const
+{
+    for(const auto& entity_car_pair : m_cars)
+    {
+        for(const TrainCargo& cargo : entity_car_pair.second.cargo)
+        {
+            if(cargo.entity_id == cargo_entity_id)
+                return entity_car_pair.first;
+        }
+    }
+
+    return mono::INVALID_ID;
 }
 
 void TrainCarSystem::SetLeader(uint32_t entity_id, uint32_t leader_entity_id)
@@ -397,11 +522,14 @@ void TrainCarSystem::DrawDebugInfo() const
         std::snprintf(
             label,
             std::size(label),
-            "train_car[%u] %s  root:%u  throttle:%.2f",
+            "train_car[%u] %s  root:%u  throttle:%.2f  load:%d/%d (%zu)",
             car_entity_id,
             state_text,
             FindChainRoot(car_entity_id),
-            path_follower_system->GetThrottle(car_entity_id));
+            path_follower_system->GetThrottle(car_entity_id),
+            car.load,
+            TRAIN_CAR_CAPACITY,
+            car.cargo.size());
         game::g_debug_drawer->DrawWorldText(label, car_position + math::Vector(0.0f, 0.5f), marker_color);
 
         if(car.leader_entity_id != mono::INVALID_ID)

@@ -37,6 +37,9 @@ uint32_t EntityAnnotationSystem::AddAnnotation(uint32_t entity_id, const std::st
     case AnnotationCorner::BottomLeft:
         corner_position = { -half, -half };
         break;
+    case AnnotationCorner::TopCenter:
+        corner_position = { 0.0f, half };
+        break;
     }
 
     const mono::Entity spawned = m_entity_manager->SpawnEntity(entity_file.c_str());

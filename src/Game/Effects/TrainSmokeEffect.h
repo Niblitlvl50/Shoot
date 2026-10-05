@@ -17,6 +17,7 @@ namespace game
         TrainSmokeEffect(
             mono::IEntityManager* entity_system,
             mono::TransformSystem* transform_system,
+            mono::RenderSystem* render_system,
             mono::SpriteSystem* sprite_system,
             game::AnimationSystem* animation_system,
             uint32_t parent_entity_id);
@@ -27,6 +28,7 @@ namespace game
     private:
         mono::IEntityManager* m_entity_system;
         mono::TransformSystem* m_transform_system;
+        mono::RenderSystem* m_render_system;
         mono::SpriteSystem* m_sprite_system;
         game::AnimationSystem* m_animation_system;
 
