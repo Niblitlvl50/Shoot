@@ -3,7 +3,6 @@
 #include "Entity/AnimationSystem.h"
 #include "Entity/Component.h"
 
-#include "Particle/ParticleSystem.h"
 #include "TransformSystem/TransformSystem.h"
 #include "Util/Random.h"
 #include "Util/Algorithm.h"
@@ -19,37 +18,8 @@ using namespace game;
 
 namespace
 {
-    void TrainSmokeGenerator(const mono::ParticleGeneratorContext& context, mono::ParticlePoolComponentView& component_view)
-    {
-        const float x_variation = mono::Random(-0.02f, 0.02f);
-        const float y_variation = mono::Random(-0.02f, 0.02f);
-        const float x_velocity_variation = mono::Random(-0.1f, 0.1f);
-        const float y_velocity_variation = mono::Random(2.0f, 2.5f);
-        const float size = mono::Random(64.0f, 70.0f);
-        const float end_size = mono::Random(80.0f, 120.0f);
-        const float life = mono::Random(2.0f, 2.8f);
-
-        component_view.position = context.position + math::Vector(x_variation, y_variation);
-        component_view.rotation = 0.0f;
-        component_view.velocity = math::Vector(x_velocity_variation, y_velocity_variation);
-        component_view.angular_velocity = 0.0f; //mono::Random(-1.1f, 1.1f);
-
-        using namespace mono::Color;
-        component_view.color = mono::Color::MakeWithAlpha(OFF_WHITE, 0.25f);
-        component_view.gradient = mono::Color::MakeGradient<4>(
-            { 0.0f, 0.25f, 1.0f, 1.0f },
-            { component_view.color, mono::Color::MakeWithAlpha(component_view.color, 0.75f), RGBA(1.0f, 1.0f, 1.0f, 0.0f), RGBA() }
-        );
-        component_view.start_size = size;
-        component_view.end_size = end_size;
-        component_view.size = size;
-
-        component_view.start_life = life;
-        component_view.life = life;
-    }
-
-    constexpr float g_smoke_entity_time_to_live_s = 0.75f;
-    constexpr float g_smoke_entity_time_to_live_variation_s = 0.25f;
+    constexpr float g_smoke_entity_time_to_live_s = 1.25f;
+    constexpr float g_smoke_entity_time_to_live_variation_s = 0.5f;
 }
 
 TrainSmokeEffect::TrainSmokeEffect(
