@@ -181,6 +181,9 @@ extern const uint32_t REWARD_EXPERIENCE_ATTRIBUTE;
 extern const uint32_t DIALOG_SPEAKER_ATTRIBUTE;
 extern const uint32_t START_ENABLED_ATTRIBUTE;
 extern const uint32_t USE_INITIAL_Y_POSITION_ATTRIBUTE;
+extern const uint32_t CARGO_VALUE_ATTRIBUTE;
+extern const uint32_t CARGO_DESTINATION_ATTRIBUTE;
+extern const uint32_t TRANSFER_DURATION_ATTRIBUTE;
 
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);
@@ -295,6 +298,9 @@ extern const uint32_t PHYSICS_IMPULSE_COMPONENT;
 extern const uint32_t PATH_FOLLOWER_COMPONENT;
 extern const uint32_t RAILWAY_SWITCH_COMPONENT;
 extern const uint32_t RAILWAY_STATION_COMPONENT;
+extern const uint32_t CARGO_COMPONENT;
+extern const uint32_t LOADING_ZONE_COMPONENT;
+extern const uint32_t DROP_OFF_ZONE_COMPONENT;
 extern const uint32_t PATH_NOTIFIER_COMPONENT;
 extern const uint32_t TRAIN_CAR_COMPONENT;
 

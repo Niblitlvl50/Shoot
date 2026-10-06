@@ -1,6 +1,8 @@
 
 #include "ComponentDrawFuncs.h"
 
+#include <string>
+
 #include "Rendering/IRenderer.h"
 #include "Rendering/Color.h"
 #include "Math/Quad.h"
@@ -177,6 +179,54 @@ void editor::DrawAreaTriggerComponentDetails(mono::IRenderer& renderer, const st
 
     char text_buffer[1024] = {};
     std::snprintf(text_buffer, std::size(text_buffer), "%s %s %u -> %s", faction_string, op_string, n_entities, event.text.c_str());
+    renderer.RenderText(game::FontId::PIXELETTE_TINY, text_buffer, g_trigger_name_color, mono::FontCentering::HORIZONTAL_VERTICAL);
+}
+
+namespace
+{
+    void DrawTrainZone(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const mono::Color::RGBA& color, const char* label)
+    {
+        math::Vector width_height;
+        float transfer_duration_s;
+        mono::Event event;
+        FindAttribute(SIZE_ATTRIBUTE, component_properties, width_height, FallbackMode::SET_DEFAULT);
+        FindAttribute(TRANSFER_DURATION_ATTRIBUTE, component_properties, transfer_duration_s, FallbackMode::SET_DEFAULT);
+        FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, event, FallbackMode::SET_DEFAULT);
+
+        const math::Vector half_width_height = width_height / 2.0f;
+        const math::Quad area = math::Quad(-half_width_height, half_width_height);
+        renderer.DrawFilledQuad(area, color);
+        renderer.DrawQuad(area, mono::Color::BLACK, 1.0f);
+
+        char text_buffer[1024] = {};
+        std::snprintf(text_buffer, std::size(text_buffer), "%s %.1fs -> %s", label, transfer_duration_s, event.text.c_str());
+        renderer.RenderText(game::FontId::PIXELETTE_TINY, text_buffer, g_trigger_name_color, mono::FontCentering::HORIZONTAL_VERTICAL);
+    }
+}
+
+void editor::DrawLoadingZoneDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+{
+    DrawTrainZone(renderer, component_properties, mono::Color::RGBA(0.2f, 0.8f, 0.2f, 0.3f), "loading");
+}
+
+void editor::DrawDropOffZoneDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+{
+    std::string destination;
+    FindAttribute(CARGO_DESTINATION_ATTRIBUTE, component_properties, destination, FallbackMode::SET_DEFAULT);
+
+    const std::string label = "drop off [" + destination + "]";
+    DrawTrainZone(renderer, component_properties, mono::Color::RGBA(1.0f, 0.5f, 0.0f, 0.3f), label.c_str());
+}
+
+void editor::DrawCargoDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+{
+    int value;
+    std::string destination;
+    FindAttribute(CARGO_VALUE_ATTRIBUTE, component_properties, value, FallbackMode::SET_DEFAULT);
+    FindAttribute(CARGO_DESTINATION_ATTRIBUTE, component_properties, destination, FallbackMode::SET_DEFAULT);
+
+    char text_buffer[512] = {};
+    std::snprintf(text_buffer, std::size(text_buffer), "cargo %d -> [%s]", value, destination.c_str());
     renderer.RenderText(game::FontId::PIXELETTE_TINY, text_buffer, g_trigger_name_color, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 

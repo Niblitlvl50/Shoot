@@ -17,6 +17,7 @@
 #include "Behaviour/PathFollowerSystem.h"
 #include "RailwaySystem/RailwaySystem.h"
 #include "Train/TrainCarSystem.h"
+#include "Train/TrainZoneSystem.h"
 #include "GameCamera/CameraSystem.h"
 #include "GamePhysics/GamePhysicsSystem.h"
 #include "InteractionSystem/InteractionSystem.h"
@@ -1334,19 +1335,17 @@ namespace
     bool UpdateMissionReward(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event trigger_name;
-        bool emit_once;
         int chips;
         int rubble;
         int experience;
         FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::SET_DEFAULT);
-        FindAttribute(EMIT_ONCE_ATTRIBUTE, properties, emit_once, FallbackMode::SET_DEFAULT);
         FindAttribute(REWARD_CHIPS_ATTRIBUTE, properties, chips, FallbackMode::SET_DEFAULT);
         FindAttribute(REWARD_RUBBLE_ATTRIBUTE, properties, rubble, FallbackMode::SET_DEFAULT);
         FindAttribute(REWARD_EXPERIENCE_ATTRIBUTE, properties, experience, FallbackMode::SET_DEFAULT);
 
         game::MissionSystem* mission_system = context->GetSystem<game::MissionSystem>();
         mission_system->SetMissionRewardData(
-            entity->id, hash::Hash(trigger_name.text.c_str()), emit_once, chips, rubble, experience);
+            entity->id, hash::Hash(trigger_name.text.c_str()), chips, rubble, experience);
 
         return true;
     }
@@ -1524,6 +1523,95 @@ namespace
 
         return true;
     }
+
+    bool CreateCargo(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::TrainZoneSystem* zone_system = context->GetSystem<game::TrainZoneSystem>();
+        zone_system->AllocateCargo(entity->id);
+        return true;
+    }
+
+    bool ReleaseCargo(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::TrainZoneSystem* zone_system = context->GetSystem<game::TrainZoneSystem>();
+        zone_system->ReleaseCargo(entity->id);
+        return true;
+    }
+
+    bool UpdateCargo(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        int value;
+        std::string destination;
+        FindAttribute(CARGO_VALUE_ATTRIBUTE, properties, value, FallbackMode::SET_DEFAULT);
+        FindAttribute(CARGO_DESTINATION_ATTRIBUTE, properties, destination, FallbackMode::SET_DEFAULT);
+
+        game::TrainZoneSystem* zone_system = context->GetSystem<game::TrainZoneSystem>();
+        zone_system->SetCargoData(entity->id, value, destination);
+
+        return true;
+    }
+
+    bool CreateLoadingZone(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::TrainZoneSystem* zone_system = context->GetSystem<game::TrainZoneSystem>();
+        zone_system->AllocateLoadingZone(entity->id);
+        return true;
+    }
+
+    bool ReleaseLoadingZone(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::TrainZoneSystem* zone_system = context->GetSystem<game::TrainZoneSystem>();
+        zone_system->ReleaseLoadingZone(entity->id);
+        return true;
+    }
+
+    bool UpdateLoadingZone(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        math::Vector size;
+        float transfer_duration_s;
+        mono::Event trigger_name;
+        FindAttribute(SIZE_ATTRIBUTE, properties, size, FallbackMode::SET_DEFAULT);
+        FindAttribute(TRANSFER_DURATION_ATTRIBUTE, properties, transfer_duration_s, FallbackMode::SET_DEFAULT);
+        FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::SET_DEFAULT);
+        hash::HashRegisterString(trigger_name.text.c_str());
+
+        game::TrainZoneSystem* zone_system = context->GetSystem<game::TrainZoneSystem>();
+        zone_system->SetLoadingZoneData(entity->id, size, transfer_duration_s, hash::Hash(trigger_name.text.c_str()));
+
+        return true;
+    }
+
+    bool CreateDropOffZone(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::TrainZoneSystem* zone_system = context->GetSystem<game::TrainZoneSystem>();
+        zone_system->AllocateDropOffZone(entity->id);
+        return true;
+    }
+
+    bool ReleaseDropOffZone(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::TrainZoneSystem* zone_system = context->GetSystem<game::TrainZoneSystem>();
+        zone_system->ReleaseDropOffZone(entity->id);
+        return true;
+    }
+
+    bool UpdateDropOffZone(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        math::Vector size;
+        float transfer_duration_s;
+        std::string destination;
+        mono::Event trigger_name;
+        FindAttribute(SIZE_ATTRIBUTE, properties, size, FallbackMode::SET_DEFAULT);
+        FindAttribute(TRANSFER_DURATION_ATTRIBUTE, properties, transfer_duration_s, FallbackMode::SET_DEFAULT);
+        FindAttribute(CARGO_DESTINATION_ATTRIBUTE, properties, destination, FallbackMode::SET_DEFAULT);
+        FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::SET_DEFAULT);
+        hash::HashRegisterString(trigger_name.text.c_str());
+
+        game::TrainZoneSystem* zone_system = context->GetSystem<game::TrainZoneSystem>();
+        zone_system->SetDropOffZoneData(entity->id, size, transfer_duration_s, destination, hash::Hash(trigger_name.text.c_str()));
+
+        return true;
+    }
 }
 
 void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
@@ -1575,4 +1663,7 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(TRAIN_CAR_COMPONENT, CreateTrainCar, ReleaseTrainCar, UpdateTrainCar);
     entity_manager->RegisterComponent(RAILWAY_SWITCH_COMPONENT, CreateRailwaySwitch, ReleaseRailwaySwitch, UpdateRailwaySwitch);
     entity_manager->RegisterComponent(RAILWAY_STATION_COMPONENT, CreateRailwayStation, ReleaseRailwayStation, UpdateRailwayStation);
+    entity_manager->RegisterComponent(CARGO_COMPONENT, CreateCargo, ReleaseCargo, UpdateCargo);
+    entity_manager->RegisterComponent(LOADING_ZONE_COMPONENT, CreateLoadingZone, ReleaseLoadingZone, UpdateLoadingZone);
+    entity_manager->RegisterComponent(DROP_OFF_ZONE_COMPONENT, CreateDropOffZone, ReleaseDropOffZone, UpdateDropOffZone);
 }

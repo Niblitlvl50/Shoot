@@ -55,13 +55,11 @@ namespace game
     struct MissionRewardComponent
     {
         uint32_t trigger;
-        bool do_once;
         int chips;
         int rubble;
         int experience;
 
         // Internal
-        bool rewarded;
         uint32_t trigger_callback_id;
     };
 
@@ -120,7 +118,7 @@ namespace game
 
         void AllocateMissionReward(uint32_t entity_id);
         void ReleaseMissionReward(uint32_t entity_id);
-        void SetMissionRewardData(uint32_t entity_id, uint32_t trigger, bool do_once, int chips, int rubble, int experience);
+        void SetMissionRewardData(uint32_t entity_id, uint32_t trigger, int chips, int rubble, int experience);
 
         const MissionTrackerComponent* GetComponentById(uint32_t entity_id) const;
 

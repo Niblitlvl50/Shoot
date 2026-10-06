@@ -22,11 +22,11 @@ namespace tweak_values
     constexpr float coupling_gain = 1.5f;
 
     // Distance between two free coupling points within which their cars auto-couple.
-    constexpr float coupling_trigger_distance = 0.5f;
+    constexpr float coupling_trigger_distance = 0.25f;
 
     // Grace period after decoupling before a car becomes eligible for auto-coupling again,
     // so it doesn't immediately re-attach to whatever it just detached from.
-    constexpr float decouple_cooldown_s = 1.5f;
+    constexpr float decouple_cooldown_s = 2.0f;
 }
 
 namespace
@@ -193,6 +193,23 @@ const std::vector<TrainCargo>& TrainCarSystem::GetCargo(uint32_t car_entity_id) 
         return no_cargo;
 
     return it->second.cargo;
+}
+
+std::vector<uint32_t> TrainCarSystem::GetCarIds() const
+{
+    std::vector<uint32_t> car_ids;
+    car_ids.reserve(m_cars.size());
+
+    for(const auto& entity_car_pair : m_cars)
+        car_ids.push_back(entity_car_pair.first);
+
+    return car_ids;
+}
+
+bool TrainCarSystem::IsLocomotive(uint32_t car_entity_id) const
+{
+    const auto it = m_cars.find(car_entity_id);
+    return it != m_cars.end() && it->second.is_locomotive;
 }
 
 uint32_t TrainCarSystem::FindCarCarrying(uint32_t cargo_entity_id) const

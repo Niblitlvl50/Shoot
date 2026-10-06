@@ -101,6 +101,9 @@ namespace game
         // The car cargo_entity_id is loaded in, or INVALID_ID.
         uint32_t FindCarCarrying(uint32_t cargo_entity_id) const;
 
+        std::vector<uint32_t> GetCarIds() const;
+        bool IsLocomotive(uint32_t car_entity_id) const;
+
     private:
 
         const char* Name() const override;

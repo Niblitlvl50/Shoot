@@ -295,11 +295,9 @@ void MissionSystem::AllocateMissionReward(uint32_t entity_id)
 {
     MissionRewardComponent component;
     component.trigger = hash::NO_HASH;
-    component.do_once = true;
     component.chips = 0;
     component.rubble = 0;
     component.experience = 0;
-    component.rewarded = false;
     component.trigger_callback_id = NO_CALLBACK_SET;
 
     m_mission_rewards[entity_id] = component;
@@ -317,7 +315,7 @@ void MissionSystem::ReleaseMissionReward(uint32_t entity_id)
     m_mission_rewards.erase(it);
 }
 
-void MissionSystem::SetMissionRewardData(uint32_t entity_id, uint32_t trigger, bool do_once, int chips, int rubble, int experience)
+void MissionSystem::SetMissionRewardData(uint32_t entity_id, uint32_t trigger, int chips, int rubble, int experience)
 {
     const auto it = m_mission_rewards.find(entity_id);
     if(it == m_mission_rewards.end())
@@ -332,7 +330,6 @@ void MissionSystem::SetMissionRewardData(uint32_t entity_id, uint32_t trigger, b
     }
 
     component.trigger = trigger;
-    component.do_once = do_once;
     component.chips = chips;
     component.rubble = rubble;
     component.experience = experience;
@@ -353,10 +350,6 @@ void MissionSystem::GiveReward(uint32_t entity_id)
         return;
 
     MissionRewardComponent& component = it->second;
-    if(component.do_once && component.rewarded)
-        return;
-
-    component.rewarded = true;
 
     for(game::PlayerInfo& player_info : game::g_players)
     {

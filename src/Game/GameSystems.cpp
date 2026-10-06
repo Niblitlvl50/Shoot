@@ -18,6 +18,7 @@
 #include "Behaviour/PathFollowerSystem.h"
 #include "RailwaySystem/RailwaySystem.h"
 #include "Train/TrainCarSystem.h"
+#include "Train/TrainZoneSystem.h"
 #include "DamageSystem/DamageSystem.h"
 #include "DialogSystem/DialogSystem.h"
 #include "Entity/AnimationSystem.h"
@@ -87,7 +88,9 @@ void game::CreateGameSystems(
     system_context.CreateSystem<mono::LightSystem>(max_entities);
     system_context.CreateSystem<game::PathFollowerSystem>(&system_context);
     system_context.CreateSystem<game::RailwaySystem>(&system_context);
-    system_context.CreateSystem<game::TrainCarSystem>(&system_context);
+    game::TrainCarSystem* train_car_system = system_context.CreateSystem<game::TrainCarSystem>(&system_context);
+    system_context.CreateSystem<game::TrainZoneSystem>(
+        transform_system, physics_system, entity_system, trigger_system, train_car_system);
 
     game::DamageSystem* damage_system =
         system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, physics_system, entity_system, trigger_system);

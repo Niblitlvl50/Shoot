@@ -343,6 +343,10 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     draw_funcs[ROTATION_COMPONENT] = editor::DrawSetRotationDetails;
     draw_funcs[LAYER_COMPONENT] = editor::DrawLayerDetails;
     draw_funcs[AREA_EMITTER_COMPONENT] = editor::DrawAreaEmitterDetails;
+
+    draw_funcs[LOADING_ZONE_COMPONENT] = editor::DrawLoadingZoneDetails;
+    draw_funcs[DROP_OFF_ZONE_COMPONENT] = editor::DrawDropOffZoneDetails;
+    draw_funcs[CARGO_COMPONENT] = editor::DrawCargoDetails;
     draw_funcs[PATH_COMPONENT] = editor::DrawPath;
     draw_funcs[PATH_NOTIFIER_COMPONENT] = editor::DrawPathNotifierDetails;
     draw_funcs[CAMERA_POINT_COMPONENT] = editor::DrawCameraPoint;

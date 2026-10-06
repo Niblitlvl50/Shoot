@@ -36,6 +36,10 @@ namespace editor
     void DrawTeleportPlayerPoint(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id);
 
     void DrawShockwaveComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id);
+    void DrawLoadingZoneDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id);
+    void DrawDropOffZoneDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id);
+    void DrawCargoDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id);
+
     void DrawPhysicsImpulseComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id);
 
     void DrawRailwaySwitch(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id);
