@@ -74,6 +74,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -333,6 +339,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.25
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -701,6 +713,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": -0.10000000149011612
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -982,6 +1000,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.5
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -1213,6 +1237,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -1444,6 +1474,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.4000000059604645
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -2593,6 +2629,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -2755,6 +2797,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.25
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -3119,6 +3167,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": -0.10000000149011612
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -3394,6 +3448,32 @@
                             "name": "entity_type",
                             "variant_type": 1,
                             "variant_value": 2
+                        },
+                        {
+                            "id": 3569953025,
+                            "name": "start_enabled",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 2200757869,
+                            "name": "enable_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "",
+                                "type": 0
+                            }
+                        },
+                        {
+                            "id": 3946117592,
+                            "name": "disable_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "",
+                                "type": 0
+                            }
                         }
                     ]
                 },
@@ -3436,6 +3516,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": -0.10000000149011612
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -4009,6 +4095,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": -0.10000000149011612
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -4314,6 +4406,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": -0.10000000149011612
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -4619,6 +4717,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": -0.10000000149011612
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -5854,6 +5958,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -6089,6 +6199,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -6324,6 +6440,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -6559,6 +6681,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -6794,6 +6922,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -7029,6 +7163,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -7264,6 +7404,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -7499,6 +7645,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -7734,6 +7886,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -7969,6 +8127,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -8204,6 +8368,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -8439,6 +8609,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -8674,6 +8850,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -8909,6 +9091,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -9144,6 +9332,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -9379,6 +9573,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -9614,6 +9814,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -9849,6 +10055,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -10084,6 +10296,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -10319,6 +10537,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -10554,6 +10778,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -10789,6 +11019,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -11024,6 +11260,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -11259,6 +11501,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -11494,6 +11742,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -11729,6 +11983,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -12201,6 +12461,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.20000000298023224
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -12420,6 +12686,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.20000000298023224
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -12856,6 +13128,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.20000000298023224
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -13099,6 +13377,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": -0.10000000149011612
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -13811,6 +14095,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.25
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -14343,6 +14633,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -14578,6 +14874,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -15098,6 +15400,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.25
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -16282,6 +16590,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -16517,6 +16831,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -16752,6 +17072,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -16987,6 +17313,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -17222,6 +17554,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -17457,6 +17795,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -17692,6 +18036,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.20000000298023224
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -17911,6 +18261,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.20000000298023224
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -19668,6 +20024,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.5
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -26854,6 +27216,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.5
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -30050,6 +30418,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -30188,6 +30562,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -30326,6 +30706,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -30464,6 +30850,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -30602,6 +30994,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -30740,6 +31138,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -30878,6 +31282,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -31016,6 +31426,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -31320,6 +31736,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -32463,6 +32885,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.5
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -32682,6 +33110,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.5
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -33381,6 +33815,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.5
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -36000,6 +36440,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.5
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -36219,6 +36665,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.5
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -36438,6 +36890,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.5
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -36777,6 +37235,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -36996,6 +37460,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -37231,6 +37701,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -37458,6 +37934,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -37677,6 +38159,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -37896,6 +38384,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -38034,6 +38528,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -38172,6 +38672,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -38424,6 +38930,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.20000000298023224
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -38562,6 +39074,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.20000000298023224
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -39660,6 +40178,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.20000000298023224
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -39798,6 +40322,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -39936,6 +40466,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -40074,6 +40610,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -40212,6 +40754,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -40350,6 +40898,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -40488,6 +41042,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -40626,6 +41186,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -40764,6 +41330,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -40952,6 +41524,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.20000000298023224
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -41090,6 +41668,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.20000000298023224
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -41228,6 +41812,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.20000000298023224
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -45051,6 +45641,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -45278,6 +45874,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -45985,6 +46587,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.5
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -46204,6 +46812,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.5
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -46423,6 +47037,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.5
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -46642,6 +47262,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.5
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -46861,6 +47487,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.5
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -47080,6 +47712,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.5
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -47299,6 +47937,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -47518,6 +48162,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.30000001192092896
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -47890,6 +48540,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.5
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -48109,6 +48765,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.5
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -48448,6 +49110,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -48586,6 +49254,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -48964,6 +49638,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -52702,6 +53382,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.20000000298023224
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -52840,6 +53526,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.20000000298023224
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -60120,6 +60812,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -62165,6 +62863,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -68098,6 +68802,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -69520,6 +70230,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -69658,6 +70374,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -69796,6 +70518,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -70695,6 +71423,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": -0.10000000149011612
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -73493,6 +74227,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -73631,6 +74371,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -73769,6 +74515,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -74027,6 +74779,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -74165,6 +74923,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -74303,6 +75067,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -74441,6 +75211,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -74579,6 +75355,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -74717,6 +75499,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -74855,6 +75643,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -74993,6 +75787,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -75686,6 +76486,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": -0.10000000149011612
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -75991,6 +76797,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": -0.10000000149011612
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -76296,6 +77108,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": -0.10000000149011612
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
