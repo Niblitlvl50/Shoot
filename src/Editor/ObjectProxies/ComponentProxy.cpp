@@ -303,15 +303,7 @@ math::Vector ComponentProxy::GetPosition() const
 
 void ComponentProxy::SetPosition(const math::Vector& position)
 {
-    math::Vector new_position = position;
-
-    const bool snap_position = m_editor->SnapToGrid();
-    if(snap_position)
-    {
-        const math::Vector grid_size = m_editor->GridSize();
-        new_position.x = math::Align(position.x, grid_size.x);
-        new_position.y = math::Align(position.y, grid_size.y);
-    }
+    math::Vector new_position = m_editor->AlignToGrid(position);
 
     math::Matrix& transform = m_transform_system->GetTransform(m_entity_id);
     math::Position(transform, new_position);

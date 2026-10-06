@@ -223,8 +223,9 @@ mono::EventResult UserInputController::OnMouseMove(const event::MouseMotionEvent
     // Deal with the grabbers first, move if we have one.
     if(m_grabber)
     {
-        m_grabber->position = world_position;
-        m_grabber->callback(world_position);
+        const math::Vector& aligned_position = m_editor->AlignToGrid(world_position);
+        m_grabber->position = aligned_position;
+        m_grabber->callback(aligned_position);
     }
     else if(m_box_selection)
     {

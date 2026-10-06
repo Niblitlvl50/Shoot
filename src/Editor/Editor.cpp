@@ -919,6 +919,21 @@ float Editor::GetPickingDistance() const
     return math::Width(m_camera->GetViewport()) / size.width * 10.0f;
 }
 
+math::Vector Editor::AlignToGrid(const math::Vector& position) const
+{
+    const bool snap_position = SnapToGrid();
+    if(!snap_position)
+        return position;
+    
+    const math::Vector grid_size = GridSize();
+
+    math::Vector aligned_position = position;
+    aligned_position.x = math::Align(position.x, grid_size.x);
+    aligned_position.y = math::Align(position.y, grid_size.y);
+
+    return aligned_position;
+}
+
 void Editor::OnDeleteObject()
 {
     const auto find_func = [this](const IObjectProxyPtr& proxy) {

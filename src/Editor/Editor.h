@@ -87,6 +87,7 @@ namespace editor
         void UpdateGrabbers();
 
         float GetPickingDistance() const;
+        math::Vector AlignToGrid(const math::Vector& position) const;
 
         void NewEntityInternal(bool with_sprite);
         void OnDeleteObject();
