@@ -62,6 +62,7 @@ namespace game
         void ToggleDirection();
         void Honk();
         void Decouple();
+        void SetLoadHeld(bool held);
 
         void ApplyImpulse(const math::Vector& force);
         void ApplyForce(const math::Vector& force);
@@ -144,6 +145,7 @@ namespace game
         class PathFollowerSystem* m_path_follower_system;
         class RailwaySystem* m_railway_system;
         class TrainCarSystem* m_train_car_system;
+        class TrainZoneSystem* m_train_zone_system;
 
         mono::InputContext* m_input_context;
 

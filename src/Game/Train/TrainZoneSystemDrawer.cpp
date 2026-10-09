@@ -28,6 +28,12 @@ namespace tweak_values
     // The label is fully shown within show_distance and fades out over fade_distance beyond it.
     constexpr float show_distance = 3.0f;
     constexpr float fade_distance = 1.0f;
+
+    constexpr float progress_width = 1.2f;
+    constexpr float progress_height = 0.15f;
+    constexpr float progress_offset_y = 0.4f;
+    constexpr mono::Color::RGBA progress_background_color = mono::Color::RGBA(0.1f, 0.1f, 0.1f, 0.7f);
+    constexpr mono::Color::RGBA progress_color = mono::Color::RGBA(0.95f, 0.8f, 0.3f, 1.0f);
 }
 
 using namespace game;
@@ -84,6 +90,25 @@ void TrainZoneSystemDrawer::Draw(mono::IRenderer& renderer) const
     };
 
     m_train_zone_system->ForEachCargo(draw_cargo_label);
+
+    for(const TrainZoneSystem::LoadingProgress& progress : m_train_zone_system->GetLoadingProgress())
+    {
+        const math::Vector car_position = m_transform_system->GetWorldPosition(progress.car_entity_id);
+        const math::Quad car_bounds = m_transform_system->GetWorldBoundingBox(progress.car_entity_id);
+        const math::Vector bar_position(car_position.x, math::Top(car_bounds) + tweak_values::progress_offset_y);
+
+        const math::Matrix transform = math::CreateMatrixWithPosition(bar_position);
+        const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
+
+        const float half_width = tweak_values::progress_width / 2.0f;
+        const float half_height = tweak_values::progress_height / 2.0f;
+        const float fill_width = tweak_values::progress_width * std::clamp(progress.fraction, 0.0f, 1.0f);
+
+        renderer.DrawFilledQuad(
+            math::Quad(-half_width, -half_height, half_width, half_height), tweak_values::progress_background_color);
+        renderer.DrawFilledQuad(
+            math::Quad(-half_width, -half_height, -half_width + fill_width, half_height), tweak_values::progress_color);
+    }
 }
 
 math::Quad TrainZoneSystemDrawer::BoundingBox() const

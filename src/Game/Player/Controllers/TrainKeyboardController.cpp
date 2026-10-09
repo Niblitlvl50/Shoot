@@ -9,6 +9,7 @@ TrainKeyboardController::TrainKeyboardController(TrainLogic* train_logic)
     : m_train_logic(train_logic)
     , m_raise_throttle(false)
     , m_lower_throttle(false)
+    , m_load_held(false)
     , m_toggle_direction(false)
     , m_honk(false)
     , m_decouple(false)
@@ -20,6 +21,8 @@ void TrainKeyboardController::Update(const mono::UpdateContext& update_context)
 {
     if(m_train_logic->m_player_info->player_state == game::PlayerState::DEAD)
     {
+        m_train_logic->SetLoadHeld(false);
+
         if(m_trigger_respawn)
             m_train_logic->RespawnPlayer();
 
@@ -36,6 +39,7 @@ void TrainKeyboardController::Update(const mono::UpdateContext& update_context)
     const float raise_input = m_raise_throttle ? 1.0f : 0.0f;
     const float lower_input = m_lower_throttle ? 1.0f : 0.0f;
     m_train_logic->AdjustThrottle(raise_input, lower_input, update_context.delta_s);
+    m_train_logic->SetLoadHeld(m_load_held);
 
     if(m_honk)
     {
@@ -70,6 +74,9 @@ mono::InputResult TrainKeyboardController::KeyDown(const event::KeyDownEvent& ev
     case Keycode::DOWN:
         m_lower_throttle = true;
         break;
+    case Keycode::E:
+        m_load_held = true;
+        break;
 
     default:
         break;
@@ -89,6 +96,9 @@ mono::InputResult TrainKeyboardController::KeyUp(const event::KeyUpEvent& event)
     case Keycode::S:
     case Keycode::DOWN:
         m_lower_throttle = false;
+        break;
+    case Keycode::E:
+        m_load_held = false;
         break;
 
     case Keycode::R:

@@ -79,6 +79,16 @@ namespace game
                 callable(entity_id, cargo);
         }
 
+        // Loading only happens while this is held, letting go before a cargo is loaded aborts it.
+        void SetLoadingHeld(bool held);
+
+        struct LoadingProgress
+        {
+            uint32_t car_entity_id;
+            float fraction;
+        };
+        std::vector<LoadingProgress> GetLoadingProgress() const;
+
         const char* Name() const override;
         void Begin() override;
         void Reset() override;
@@ -93,7 +103,7 @@ namespace game
 
         // How many cargo the car may move this frame, ticking the car's transfer timer for the zone.
         // Only called while the car is stopped in the zone with something to move.
-        int TickTransferTimer(uint32_t car_id, uint32_t zone_entity_id, const TrainZoneComponent& zone, float delta_s);
+        int TickTransferTimer(uint32_t car_id, uint32_t zone_entity_id, const TrainZoneComponent& zone, bool is_loading, float delta_s);
         bool IsInsideZone(uint32_t zone_entity_id, const TrainZoneComponent& zone, uint32_t entity_id) const;
 
         void HideCargo(uint32_t cargo_entity_id, CargoComponent& cargo);
@@ -110,13 +120,18 @@ namespace game
         audio::ISoundPtr m_unloading_sound;
         std::unique_ptr<class CargoTransferEffect> m_transfer_effect;
 
+        bool m_loading_held;
+
         std::unordered_map<uint32_t, CargoComponent> m_cargo;
         std::unordered_map<uint32_t, TrainZoneComponent> m_loading_zones;
         std::unordered_map<uint32_t, TrainZoneComponent> m_drop_off_zones;
 
         struct TransferTimer
         {
+            uint32_t car_entity_id = 0;
             float elapsed_s = 0.0f;
+            float duration_s = 0.0f;
+            bool is_loading = false;
             bool ticked = false;
         };
 

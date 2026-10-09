@@ -23,6 +23,7 @@ namespace game
 
         bool m_raise_throttle;
         bool m_lower_throttle;
+        bool m_load_held;
         bool m_toggle_direction;
         bool m_honk;
         bool m_decouple;

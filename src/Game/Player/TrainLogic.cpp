@@ -34,6 +34,7 @@
 #include "Behaviour/PathFollowerSystem.h"
 #include "RailwaySystem/RailwaySystem.h"
 #include "Train/TrainCarSystem.h"
+#include "Train/TrainZoneSystem.h"
 
 #include "EntitySystem/IEntityManager.h"
 #include "EventHandler/EventHandler.h"
@@ -143,6 +144,7 @@ TrainLogic::TrainLogic(
     m_path_follower_system = system_context->GetSystem<game::PathFollowerSystem>();
     m_railway_system = system_context->GetSystem<game::RailwaySystem>();
     m_train_car_system = system_context->GetSystem<game::TrainCarSystem>();
+    m_train_zone_system = system_context->GetSystem<game::TrainZoneSystem>();
 
 
     game::AnimationSystem* animation_system = system_context->GetSystem<game::AnimationSystem>();
@@ -612,6 +614,11 @@ void TrainLogic::Honk()
 void TrainLogic::Decouple()
 {
     m_train_car_system->Decouple(m_entity_id);
+}
+
+void TrainLogic::SetLoadHeld(bool held)
+{
+    m_train_zone_system->SetLoadingHeld(held);
 }
 
 void TrainLogic::RespawnPlayer()

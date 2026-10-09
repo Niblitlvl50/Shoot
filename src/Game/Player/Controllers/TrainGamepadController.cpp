@@ -19,6 +19,8 @@ void TrainGamepadController::Update(const mono::UpdateContext& update_context)
 {
     if(m_train_logic->m_player_info->player_state == game::PlayerState::DEAD)
     {
+        m_train_logic->SetLoadHeld(false);
+
         const bool respawn_pressed =
             System::ButtonTriggeredAndChanged(m_last_state.button_state, m_current_state.button_state, System::ControllerButton::FACE_BOTTOM);
         if(respawn_pressed)
@@ -33,6 +35,9 @@ void TrainGamepadController::Update(const mono::UpdateContext& update_context)
         m_train_logic->ToggleDirection();
 
     m_train_logic->AdjustThrottle(m_current_state.right_trigger, m_current_state.left_trigger, update_context.delta_s);
+
+    const bool load_held = System::IsButtonDown(m_current_state.button_state, System::ControllerButton::FACE_BOTTOM);
+    m_train_logic->SetLoadHeld(load_held);
 
     const bool right_shoulder = System::IsButtonDown(m_current_state.button_state, System::ControllerButton::RIGHT_SHOULDER);
     if(right_shoulder)
