@@ -132,6 +132,7 @@ namespace editor
         std::function<void (uint32_t component_hash)> add_component;
         std::function<void (uint32_t component_index)> delete_component;
         std::function<void (uint32_t entity_id)> select_object_callback;
+        std::function<void (const std::vector<uint32_t>& entity_ids)> select_objects_callback;
         std::function<void (IObjectProxy* proxy)> preselect_object_callback;
         std::function<void (uint32_t entity_id)> teleport_to_object_callback;
         

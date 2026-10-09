@@ -227,6 +227,17 @@ namespace
         {
             //ImGui::SetNextItemOpen(true);
             const bool open = ImGui::TreeNode(pair.first.c_str());
+
+            // Right click on a folder selects everything in it, ctrl adds to the selection.
+            if(ImGui::IsItemClicked(1))
+            {
+                std::vector<uint32_t> folder_entity_ids;
+                for(const IObjectProxy* proxy : pair.second)
+                    folder_entity_ids.push_back(proxy->Id());
+
+                context.select_objects_callback(folder_entity_ids);
+            }
+
             if(open)
             {
                 add_selectables(pair.second);

@@ -244,6 +244,10 @@ Editor::Editor(
         const System::ModifierState& state = System::GetModifierState();
         (state.ctrl) ? AddToSelection({ entity_id }) : SetSelection({ entity_id });
     };
+    m_context.select_objects_callback = [this](const std::vector<uint32_t>& entity_ids) {
+        const System::ModifierState& state = System::GetModifierState();
+        (state.ctrl) ? AddToSelection(entity_ids) : SetSelection(entity_ids);
+    };
     m_context.preselect_object_callback = std::bind(&Editor::PreselectProxyObject, this, _1);
     m_context.teleport_to_object_callback = [this](uint32_t entity_id) {
         IObjectProxy* proxy = FindProxyObject(entity_id);
