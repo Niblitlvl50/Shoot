@@ -1,6 +1,7 @@
 
 #include "TrainZoneSystem.h"
 #include "TrainCarSystem.h"
+#include "Effects/CargoTransferEffect.h"
 
 #include "EntitySystem/IEntityManager.h"
 #include "TransformSystem/TransformSystem.h"
@@ -12,13 +13,16 @@
 #include "Math/Matrix.h"
 #include "Math/MathFunctions.h"
 #include "System/Hash.h"
+#include "System/File.h"
+
+#include "nlohmann/json.hpp"
 
 #include <limits>
 
 namespace tweak_values
 {
     // A car slower than this counts as stopped in a zone.
-    constexpr float stopped_speed_threshold = 0.5f;
+    constexpr float stopped_speed_threshold = 0.1f;
 }
 
 using namespace game;
@@ -26,15 +30,45 @@ using namespace game;
 TrainZoneSystem::TrainZoneSystem(
     mono::TransformSystem* transform_system,
     mono::PhysicsSystem* physics_system,
+    mono::ParticleSystem* particle_system,
     mono::IEntityManager* entity_manager,
     mono::TriggerSystem* trigger_system,
     TrainCarSystem* train_car_system)
     : m_transform_system(transform_system)
     , m_physics_system(physics_system)
+    , m_particle_system(particle_system)
     , m_trigger_system(trigger_system)
     , m_entity_manager(entity_manager)
     , m_train_car_system(train_car_system)
-{ }
+{
+    std::string loading_sound_file;
+    std::string unloading_sound_file;
+
+    file::FilePtr config_file = file::OpenAsciiFile("res/configs/train_zone_config.json");
+    if(config_file)
+    {
+        const std::vector<byte>& file_data = file::FileRead(config_file);
+        const nlohmann::json& json = nlohmann::json::parse(file_data);
+        loading_sound_file = json.value("loading_sound", "");
+        unloading_sound_file = json.value("unloading_sound", "");
+    }
+
+    m_loading_sound = audio::CreateSound(loading_sound_file.c_str(), audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
+    m_unloading_sound = audio::CreateSound(unloading_sound_file.c_str(), audio::SoundPlayback::ONCE, audio::SoundSpatiality::NONE);
+}
+
+TrainZoneSystem::~TrainZoneSystem() = default;
+
+void TrainZoneSystem::Begin()
+{
+    m_transfer_effect = std::make_unique<CargoTransferEffect>(m_particle_system, m_entity_manager);
+}
+
+void TrainZoneSystem::Reset()
+{
+    m_transfer_effect = nullptr;
+    m_transfer_timers.clear();
+}
 
 void TrainZoneSystem::AllocateCargo(uint32_t entity_id)
 {
@@ -46,12 +80,13 @@ void TrainZoneSystem::ReleaseCargo(uint32_t entity_id)
     m_cargo.erase(entity_id);
 }
 
-void TrainZoneSystem::SetCargoData(uint32_t entity_id, int value, const std::string& destination)
+void TrainZoneSystem::SetCargoData(uint32_t entity_id, const std::string& name, int value, const std::string& destination)
 {
     const auto it = m_cargo.find(entity_id);
     if(it == m_cargo.end())
         return;
 
+    it->second.name = name;
     it->second.value = value;
     it->second.destination = destination;
 }
@@ -180,7 +215,9 @@ void TrainZoneSystem::UpdateLoadingZone(
             if(!loaded)
                 continue;
 
+            m_transfer_effect->EmitAt(m_transform_system->GetWorldPosition(cargo_entity_id));
             HideCargo(cargo_entity_id, cargo);
+            m_loading_sound->Play();
             --n_transfers;
 
             if(zone.trigger_hash != hash::NO_HASH)
@@ -211,23 +248,25 @@ void TrainZoneSystem::UpdateDropOffZone(
         if(cargo_to_drop_off.empty())
             continue;
 
-        int n_transfers = TickTransferTimer(car_id, zone_entity_id, zone, delta_s);
+        // Unlike loading, a car unloads all its cargo for the zone at once, after a single transfer duration.
+        const int n_transfers = TickTransferTimer(car_id, zone_entity_id, zone, delta_s);
+        if(n_transfers <= 0)
+            continue;
 
         for(uint32_t cargo_entity_id : cargo_to_drop_off)
         {
-            if(n_transfers <= 0)
-                break;
-
             m_train_car_system->Unload(car_id, cargo_entity_id);
 
             CargoComponent& cargo = m_cargo[cargo_entity_id];
             cargo.delivered = true;
             ShowCargo(cargo_entity_id, cargo, drop_off_position);
-            --n_transfers;
 
             if(zone.trigger_hash != hash::NO_HASH)
                 m_trigger_system->EmitTrigger(zone.trigger_hash);
         }
+
+        m_transfer_effect->EmitAt(drop_off_position);
+        m_unloading_sound->Play();
     }
 }
 
@@ -262,6 +301,7 @@ bool TrainZoneSystem::IsInsideZone(uint32_t zone_entity_id, const TrainZoneCompo
 void TrainZoneSystem::HideCargo(uint32_t cargo_entity_id, CargoComponent& cargo)
 {
     m_entity_manager->SetEntityEnabled(cargo_entity_id, false);
+    cargo.loaded = true;
 
     cargo.saved_collision_masks.clear();
 
@@ -294,5 +334,6 @@ void TrainZoneSystem::ShowCargo(uint32_t cargo_entity_id, CargoComponent& cargo,
     }
 
     cargo.saved_collision_masks.clear();
+    cargo.loaded = false;
     m_entity_manager->SetEntityEnabled(cargo_entity_id, true);
 }

@@ -1,0 +1,4 @@
+{
+    "loading_sound": "res/sound/pickups/money-pickup.wav",
+    "unloading_sound": "res/sound/pickups/pickup_gold.wav"
+}

@@ -90,7 +90,7 @@ void game::CreateGameSystems(
     system_context.CreateSystem<game::RailwaySystem>(&system_context);
     game::TrainCarSystem* train_car_system = system_context.CreateSystem<game::TrainCarSystem>(&system_context);
     system_context.CreateSystem<game::TrainZoneSystem>(
-        transform_system, physics_system, entity_system, trigger_system, train_car_system);
+        transform_system, physics_system, particle_system, entity_system, trigger_system, train_car_system);
 
     game::DamageSystem* damage_system =
         system_context.CreateSystem<game::DamageSystem>(max_entities, transform_system, sprite_system, physics_system, entity_system, trigger_system);

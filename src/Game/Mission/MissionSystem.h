@@ -29,6 +29,9 @@ namespace game
         float total_duration_s;
         bool fail_on_timeout;
 
+        // A replayable mission goes active again when its activated trigger fires after it's been completed or failed.
+        bool replayable;
+
         uint32_t activated_trigger;
         uint32_t completed_trigger;
         uint32_t failed_trigger;
@@ -51,16 +54,12 @@ namespace game
         uint32_t trigger_callback_id;
     };
 
-    // Gives every spawned player the reward when the trigger fires.
+    // Lives on the same entity as a mission tracker, gives every spawned player the reward when that mission completes.
     struct MissionRewardComponent
     {
-        uint32_t trigger;
         int chips;
         int rubble;
         int experience;
-
-        // Internal
-        uint32_t trigger_callback_id;
     };
 
     struct MissionLocation
@@ -102,6 +101,7 @@ namespace game
             bool time_based,
             float time_s,
             bool fail_on_timeout,
+            bool replayable,
             uint32_t activated_trigger_hash,
             uint32_t completed_trigger_hash,
             uint32_t failed_trigger_hash);
@@ -118,7 +118,7 @@ namespace game
 
         void AllocateMissionReward(uint32_t entity_id);
         void ReleaseMissionReward(uint32_t entity_id);
-        void SetMissionRewardData(uint32_t entity_id, uint32_t trigger, int chips, int rubble, int experience);
+        void SetMissionRewardData(uint32_t entity_id, int chips, int rubble, int experience);
 
         const MissionTrackerComponent* GetComponentById(uint32_t entity_id) const;
 

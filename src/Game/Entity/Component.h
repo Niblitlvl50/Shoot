@@ -184,6 +184,7 @@ extern const uint32_t USE_INITIAL_Y_POSITION_ATTRIBUTE;
 extern const uint32_t CARGO_VALUE_ATTRIBUTE;
 extern const uint32_t CARGO_DESTINATION_ATTRIBUTE;
 extern const uint32_t TRANSFER_DURATION_ATTRIBUTE;
+extern const uint32_t REPLAYABLE_ATTRIBUTE;
 
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);

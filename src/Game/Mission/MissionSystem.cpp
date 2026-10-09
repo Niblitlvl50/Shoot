@@ -126,7 +126,9 @@ void MissionSystem::AllocateMission(uint32_t entity_id)
 
     component.time_based = false;
     component.time_s = 0.0f;
+    component.total_duration_s = 0.0f;
     component.fail_on_timeout = false;
+    component.replayable = false;
 
     component.activated_trigger = hash::NO_HASH;
     component.completed_trigger = hash::NO_HASH;
@@ -166,6 +168,7 @@ void MissionSystem::SetMissionData(
     bool time_based,
     float time_s,
     bool fail_on_timeout,
+    bool replayable,
     uint32_t activated_trigger_hash,
     uint32_t completed_trigger_hash,
     uint32_t failed_trigger_hash)
@@ -180,6 +183,7 @@ void MissionSystem::SetMissionData(
     component->time_s = time_s;
     component->total_duration_s = time_s;
     component->fail_on_timeout = fail_on_timeout;
+    component->replayable = replayable;
     component->activated_trigger = activated_trigger_hash;
     component->completed_trigger = completed_trigger_hash;
     component->failed_trigger = failed_trigger_hash;
@@ -294,53 +298,28 @@ void MissionSystem::SetMissionActivatorData(uint32_t entity_id, uint32_t activat
 void MissionSystem::AllocateMissionReward(uint32_t entity_id)
 {
     MissionRewardComponent component;
-    component.trigger = hash::NO_HASH;
     component.chips = 0;
     component.rubble = 0;
     component.experience = 0;
-    component.trigger_callback_id = NO_CALLBACK_SET;
 
     m_mission_rewards[entity_id] = component;
 }
 
 void MissionSystem::ReleaseMissionReward(uint32_t entity_id)
 {
-    const auto it = m_mission_rewards.find(entity_id);
-    if(it == m_mission_rewards.end())
-        return;
-
-    if(it->second.trigger_callback_id != NO_CALLBACK_SET)
-        m_trigger_system->RemoveTriggerCallback(it->second.trigger, it->second.trigger_callback_id, entity_id);
-
-    m_mission_rewards.erase(it);
+    m_mission_rewards.erase(entity_id);
 }
 
-void MissionSystem::SetMissionRewardData(uint32_t entity_id, uint32_t trigger, int chips, int rubble, int experience)
+void MissionSystem::SetMissionRewardData(uint32_t entity_id, int chips, int rubble, int experience)
 {
     const auto it = m_mission_rewards.find(entity_id);
     if(it == m_mission_rewards.end())
         return;
 
     MissionRewardComponent& component = it->second;
-
-    if(component.trigger_callback_id != NO_CALLBACK_SET)
-    {
-        m_trigger_system->RemoveTriggerCallback(component.trigger, component.trigger_callback_id, entity_id);
-        component.trigger_callback_id = NO_CALLBACK_SET;
-    }
-
-    component.trigger = trigger;
     component.chips = chips;
     component.rubble = rubble;
     component.experience = experience;
-
-    if(component.trigger != hash::NO_HASH)
-    {
-        const mono::TriggerCallback reward_callback = [this, entity_id](uint32_t trigger_id) {
-            GiveReward(entity_id);
-        };
-        component.trigger_callback_id = m_trigger_system->RegisterTriggerCallback(component.trigger, reward_callback, entity_id);
-    }
 }
 
 void MissionSystem::GiveReward(uint32_t entity_id)
@@ -387,9 +366,15 @@ MissionActivationComponent* MissionSystem::GetActivationComponentById(uint32_t e
 void MissionSystem::HandleMissionActivated(uint32_t entity_id)
 {
     MissionTrackerComponent* component = GetComponentById(entity_id);
-    if(component->status >= MissionStatus::Active)
+    if(component->status == MissionStatus::Active)
         return;
 
+    const bool is_finished = (component->status == MissionStatus::Completed || component->status == MissionStatus::Failed);
+    if(is_finished && !component->replayable)
+        return;
+
+    // A replay starts over with the full time.
+    component->time_s = component->total_duration_s;
     component->status = MissionStatus::Active;
     m_mission_status_events.push_back({ entity_id, component->status });
 
@@ -399,12 +384,17 @@ void MissionSystem::HandleMissionActivated(uint32_t entity_id)
 void MissionSystem::HandleMissionCompleted(uint32_t entity_id, bool emit_success_event)
 {
     MissionTrackerComponent* component = GetComponentById(entity_id);
-    if(component->status >= MissionStatus::Completed)
+    if(component->status == MissionStatus::Inactive)
+        return;
+
+    if(component->status == MissionStatus::Completed || component->status == MissionStatus::Failed)
         return;
 
     component->status = MissionStatus::Completed;
     if(emit_success_event)
         m_trigger_system->EmitTrigger(component->completed_trigger);
+
+    GiveReward(entity_id);
 
     m_mission_status_events.push_back({ entity_id, component->status });
     System::Log("MissionSystem|Mission Completed! %s (%s)", component->name.c_str(), component->description.c_str());

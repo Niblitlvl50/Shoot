@@ -1266,11 +1266,13 @@ namespace
         bool time_based;
         float time_s;
         bool fail_on_timeout;
+        bool replayable;
         FindAttribute(NAME_ATTRIBUTE, properties, mission_name, FallbackMode::SET_DEFAULT);
         FindAttribute(SUB_TEXT_ATTRIBUTE, properties, mission_description, FallbackMode::SET_DEFAULT);
         FindAttribute(TIME_BASED_ATTRIBUTE, properties, time_based, FallbackMode::SET_DEFAULT);
         FindAttribute(TIME_ATTRIBUTE, properties, time_s, FallbackMode::SET_DEFAULT);
         FindAttribute(FAIL_ON_TIMEOUT_ATTRIBUTE, properties, fail_on_timeout, FallbackMode::SET_DEFAULT);
+        FindAttribute(REPLAYABLE_ATTRIBUTE, properties, replayable, FallbackMode::SET_DEFAULT);
 
         mono::Event trigger_name;
         mono::Event completed_trigger_name;
@@ -1287,6 +1289,7 @@ namespace
             time_based,
             time_s,
             fail_on_timeout,
+            replayable,
             hash::Hash(trigger_name.text.c_str()),
             hash::Hash(completed_trigger_name.text.c_str()),
             hash::Hash(failed_trigger_name.text.c_str()));
@@ -1334,18 +1337,15 @@ namespace
     }
     bool UpdateMissionReward(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
-        mono::Event trigger_name;
         int chips;
         int rubble;
         int experience;
-        FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::SET_DEFAULT);
         FindAttribute(REWARD_CHIPS_ATTRIBUTE, properties, chips, FallbackMode::SET_DEFAULT);
         FindAttribute(REWARD_RUBBLE_ATTRIBUTE, properties, rubble, FallbackMode::SET_DEFAULT);
         FindAttribute(REWARD_EXPERIENCE_ATTRIBUTE, properties, experience, FallbackMode::SET_DEFAULT);
 
         game::MissionSystem* mission_system = context->GetSystem<game::MissionSystem>();
-        mission_system->SetMissionRewardData(
-            entity->id, hash::Hash(trigger_name.text.c_str()), chips, rubble, experience);
+        mission_system->SetMissionRewardData(entity->id, chips, rubble, experience);
 
         return true;
     }
@@ -1540,13 +1540,15 @@ namespace
 
     bool UpdateCargo(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
     {
+        std::string name;
         int value;
         std::string destination;
+        FindAttribute(NAME_ATTRIBUTE, properties, name, FallbackMode::SET_DEFAULT);
         FindAttribute(CARGO_VALUE_ATTRIBUTE, properties, value, FallbackMode::SET_DEFAULT);
         FindAttribute(CARGO_DESTINATION_ATTRIBUTE, properties, destination, FallbackMode::SET_DEFAULT);
 
         game::TrainZoneSystem* zone_system = context->GetSystem<game::TrainZoneSystem>();
-        zone_system->SetCargoData(entity->id, value, destination);
+        zone_system->SetCargoData(entity->id, name, value, destination);
 
         return true;
     }

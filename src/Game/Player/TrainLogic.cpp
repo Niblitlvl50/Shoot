@@ -356,43 +356,45 @@ void TrainLogic::UpdateTrainEffects(const mono::UpdateContext& update_context)
 
 void TrainLogic::UpdateAnimation(const mono::UpdateContext& update_context, float aim_direction, const math::Vector& world_position, const math::Vector& player_velocity)
 {
+    /*
     float anim_speed = 1.0f;
     int anim_id = m_idle_anim_id;
-
+    
     const float velocity_magnitude = math::Length(player_velocity);
-
+    
     const bool facing_left = (aim_direction > 0.0f);
     const bool facing_down = (std::abs(player_velocity.x) >= player_velocity.y);
-
+    
     if(velocity_magnitude > 0.2f)
     {
         anim_id = facing_down ? m_run_anim_id : m_run_up_anim_id;
         anim_speed = std::clamp(math::Scale01(velocity_magnitude, 0.0f, 3.0f), 0.5f, 10.0f);
     }
-
+    
     mono::Sprite* sprite = m_sprite_system->GetSprite(m_entity_id);
     if(facing_left)
         sprite->SetProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
     else
         sprite->ClearProperty(mono::SpriteProperty::FLIP_HORIZONTAL);
-
+    
     if(anim_id != sprite->GetActiveAnimation())
         sprite->SetAnimation(anim_id);
     sprite->SetAnimationPlaybackSpeed(anim_speed);
-
+    
     const bool reverse_playback = (facing_left && player_velocity.x > 0.0f) || (!facing_left && player_velocity.x < 0.0f);
     if(reverse_playback)
         sprite->SetAnimationPlayback(mono::PlaybackMode::PLAYING_REVERSE);
     else
         sprite->SetAnimationPlayback(mono::PlaybackMode::PLAYING);
-
+        
     const math::Vector aim_target_vector = math::VectorFromAngle(m_aim_target);
     const math::Vector aim_direction_vector = math::VectorFromAngle(m_aim_direction);
     const float delta_angle_between = math::AngleBetweenPoints(aim_target_vector, aim_direction_vector);
-
+    
     math::simple_spring_damper_implicit(
         m_aim_direction, m_aim_velocity, m_aim_direction - delta_angle_between, 0.1f, update_context.delta_s);
     m_aim_direction = math::NormalizeAngle(m_aim_direction);
+    */
 }
 
 void TrainLogic::ToDefault()

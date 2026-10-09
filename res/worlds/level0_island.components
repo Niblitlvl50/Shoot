@@ -25255,7 +25255,7 @@
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -25293,19 +25293,19 @@
                             "id": 226247311,
                             "name": "flicker",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         },
                         {
                             "id": 800267265,
                             "name": "frequency",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 5.0
                         },
                         {
                             "id": 2538831285,
                             "name": "percentage",
                             "variant_type": 3,
-                            "variant_value": 0.5
+                            "variant_value": 0.10000000149011612
                         }
                     ]
                 }
@@ -25449,7 +25449,7 @@
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -25487,19 +25487,19 @@
                             "id": 226247311,
                             "name": "flicker",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         },
                         {
                             "id": 800267265,
                             "name": "frequency",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 5.0
                         },
                         {
                             "id": 2538831285,
                             "name": "percentage",
                             "variant_type": 3,
-                            "variant_value": 0.5
+                            "variant_value": 0.10000000149011612
                         }
                     ]
                 }
@@ -25643,7 +25643,7 @@
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -25681,19 +25681,19 @@
                             "id": 226247311,
                             "name": "flicker",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         },
                         {
                             "id": 800267265,
                             "name": "frequency",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 5.0
                         },
                         {
                             "id": 2538831285,
                             "name": "percentage",
                             "variant_type": 3,
-                            "variant_value": 0.5
+                            "variant_value": 0.10000000149011612
                         }
                     ]
                 }
@@ -25837,7 +25837,7 @@
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -25875,19 +25875,19 @@
                             "id": 226247311,
                             "name": "flicker",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         },
                         {
                             "id": 800267265,
                             "name": "frequency",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 5.0
                         },
                         {
                             "id": 2538831285,
                             "name": "percentage",
                             "variant_type": 3,
-                            "variant_value": 0.5
+                            "variant_value": 0.10000000149011612
                         }
                     ]
                 }
@@ -33452,6 +33452,12 @@
                             "variant_value": true
                         },
                         {
+                            "id": 1062812710,
+                            "name": "replayable",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
                             "id": 2603146703,
                             "name": "trigger_name",
                             "variant_type": 11,
@@ -33487,16 +33493,6 @@
                     "hash": 4056359549,
                     "name": "mission_reward",
                     "properties": [
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 11,
-                            "variant_value": {
-                                "direction": 0,
-                                "text": "delivery_1_completed",
-                                "type": 0
-                            }
-                        },
                         {
                             "id": 2583901586,
                             "name": "reward_chips",
@@ -33589,7 +33585,7 @@
                             "id": 282636455,
                             "name": "entity_type",
                             "variant_type": 1,
-                            "variant_value": 3
+                            "variant_value": 4
                         },
                         {
                             "id": 3569953025,
@@ -52027,7 +52023,7 @@
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -52065,19 +52061,19 @@
                             "id": 226247311,
                             "name": "flicker",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         },
                         {
                             "id": 800267265,
                             "name": "frequency",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 5.0
                         },
                         {
                             "id": 2538831285,
                             "name": "percentage",
                             "variant_type": 3,
-                            "variant_value": 0.5
+                            "variant_value": 0.10000000149011612
                         }
                     ]
                 }
@@ -52221,7 +52217,7 @@
                             "id": 1015133031,
                             "name": "random_start_frame",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         }
                     ]
                 },
@@ -52259,19 +52255,19 @@
                             "id": 226247311,
                             "name": "flicker",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         },
                         {
                             "id": 800267265,
                             "name": "frequency",
                             "variant_type": 3,
-                            "variant_value": 1.0
+                            "variant_value": 5.0
                         },
                         {
                             "id": 2538831285,
                             "name": "percentage",
                             "variant_type": 3,
-                            "variant_value": 0.5
+                            "variant_value": 0.10000000149011612
                         }
                     ]
                 }
@@ -55290,13 +55286,13 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "stone_pattern_5"
+                            "variant_value": "coal_cargo"
                         },
                         {
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": "test"
+                            "variant_value": "mission_coal"
                         },
                         {
                             "id": 3923852156,
@@ -55315,8 +55311,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -7.5,
-                                "y": -16.625
+                                "x": -7.75,
+                                "y": -16.75
                             }
                         },
                         {
@@ -55400,6 +55396,12 @@
                     "name": "cargo",
                     "properties": [
                         {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "Coal"
+                        },
+                        {
                             "id": 3981137241,
                             "name": "cargo_value",
                             "variant_type": 1,
@@ -55415,7 +55417,7 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "stone_pattern_5",
+            "name": "coal_cargo",
             "uuid_hash": 2519807017
         },
         {
@@ -55428,13 +55430,13 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "stone_pattern_5"
+                            "variant_value": "coal_cargo"
                         },
                         {
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": "test"
+                            "variant_value": "mission_coal"
                         },
                         {
                             "id": 3923852156,
@@ -55538,6 +55540,12 @@
                     "name": "cargo",
                     "properties": [
                         {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "Coal"
+                        },
+                        {
                             "id": 3981137241,
                             "name": "cargo_value",
                             "variant_type": 1,
@@ -55553,7 +55561,7 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "stone_pattern_5",
+            "name": "coal_cargo",
             "uuid_hash": 4216707947
         },
         {
@@ -55566,13 +55574,13 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "stone_pattern_5"
+                            "variant_value": "coal_cargo"
                         },
                         {
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": "test"
+                            "variant_value": "mission_coal"
                         },
                         {
                             "id": 3923852156,
@@ -55676,6 +55684,12 @@
                     "name": "cargo",
                     "properties": [
                         {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "Coal"
+                        },
+                        {
                             "id": 3981137241,
                             "name": "cargo_value",
                             "variant_type": 1,
@@ -55691,7 +55705,7 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "stone_pattern_5",
+            "name": "coal_cargo",
             "uuid_hash": 3261513638
         },
         {
@@ -55704,13 +55718,13 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "stone_pattern_5"
+                            "variant_value": "coal_cargo"
                         },
                         {
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": "test"
+                            "variant_value": "mission_coal"
                         },
                         {
                             "id": 3923852156,
@@ -55729,7 +55743,7 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": -7.0,
+                                "x": -6.875,
                                 "y": -16.5
                             }
                         },
@@ -55814,6 +55828,12 @@
                     "name": "cargo",
                     "properties": [
                         {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "Coal"
+                        },
+                        {
                             "id": 3981137241,
                             "name": "cargo_value",
                             "variant_type": 1,
@@ -55829,7 +55849,7 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "stone_pattern_5",
+            "name": "coal_cargo",
             "uuid_hash": 881590262
         },
         {
@@ -55842,13 +55862,13 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "stone_pattern_5"
+                            "variant_value": "coal_cargo"
                         },
                         {
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": "test"
+                            "variant_value": "mission_coal"
                         },
                         {
                             "id": 3923852156,
@@ -55952,6 +55972,12 @@
                     "name": "cargo",
                     "properties": [
                         {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "Coal"
+                        },
+                        {
                             "id": 3981137241,
                             "name": "cargo_value",
                             "variant_type": 1,
@@ -55967,7 +55993,7 @@
                 }
             ],
             "entity_properties": 0,
-            "name": "stone_pattern_5",
+            "name": "coal_cargo",
             "uuid_hash": 517201590
         },
         {
@@ -55986,7 +56012,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": "test"
+                            "variant_value": "mission_coal"
                         },
                         {
                             "id": 3923852156,
@@ -56134,7 +56160,7 @@
                             "variant_type": 11,
                             "variant_value": {
                                 "direction": 0,
-                                "text": "cargo_pickup",
+                                "text": "cargo_pickup_coal",
                                 "type": 0
                             }
                         }
@@ -56161,7 +56187,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": "test"
+                            "variant_value": "mission_coal"
                         },
                         {
                             "id": 3923852156,
@@ -56201,6 +56227,30 @@
                             "name": "entity_reference",
                             "variant_type": 2,
                             "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 128336118,
+                    "name": "layer",
+                    "properties": [
+                        {
+                            "id": 128336118,
+                            "name": "layer",
+                            "variant_type": 1,
+                            "variant_value": -1
+                        },
+                        {
+                            "id": 2483026461,
+                            "name": "sort_offset",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -56291,7 +56341,7 @@
                             "variant_type": 11,
                             "variant_value": {
                                 "direction": 0,
-                                "text": "cargo_delivered",
+                                "text": "cargo_dropoff_coal",
                                 "type": 0
                             }
                         }
@@ -56301,6 +56351,166 @@
             "entity_properties": 0,
             "name": "delivery_zone_coal",
             "uuid_hash": 778250298
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "logic"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "mission_coal"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": -6.375,
+                                "y": -14.625
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 1411079002,
+                    "name": "mission_tracker",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "Coal Delivery"
+                        },
+                        {
+                            "id": 3435213149,
+                            "name": "sub_text",
+                            "variant_type": 6,
+                            "variant_value": "Haul that coal!"
+                        },
+                        {
+                            "id": 2268399416,
+                            "name": "time_based",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 1564253156,
+                            "name": "time",
+                            "variant_type": 3,
+                            "variant_value": 30.0
+                        },
+                        {
+                            "id": 149336291,
+                            "name": "fail_on_timeout",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 1062812710,
+                            "name": "replayable",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "cargo_pickup_coal",
+                                "type": 0
+                            }
+                        },
+                        {
+                            "id": 1405321977,
+                            "name": "completed_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "cargo_dropoff_coal",
+                                "type": 0
+                            }
+                        },
+                        {
+                            "id": 2993395927,
+                            "name": "failed_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "",
+                                "type": 0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "hash": 4056359549,
+                    "name": "mission_reward",
+                    "properties": [
+                        {
+                            "id": 2583901586,
+                            "name": "reward_chips",
+                            "variant_type": 1,
+                            "variant_value": 15
+                        },
+                        {
+                            "id": 1338845141,
+                            "name": "reward_rubble",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2928170887,
+                            "name": "reward_experience",
+                            "variant_type": 1,
+                            "variant_value": 10
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "logic",
+            "uuid_hash": 1837688119
         }
     ],
     "metadata": {
@@ -56356,8 +56566,8 @@
         },
         "spawn_package": false,
         "triggers": [
-            "cargo_delivered",
-            "cargo_pickup",
+            "cargo_dropoff_coal",
+            "cargo_pickup_coal",
             "delivery_1_completed",
             "delivery_1_failed",
             "dialog_option_1",

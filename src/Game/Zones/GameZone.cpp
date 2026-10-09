@@ -50,6 +50,8 @@
 
 #include "InteractionSystem/InteractionSystem.h"
 #include "InteractionSystem/InteractionSystemDrawer.h"
+#include "Train/TrainZoneSystem.h"
+#include "Train/TrainZoneSystemDrawer.h"
 
 #include "DialogSystem/DialogSystem.h"
 #include "DialogSystem/DialogSystemDrawer.h"
@@ -126,6 +128,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     game::MissionSystem* mission_system = m_system_context->GetSystem<game::MissionSystem>();
     game::WeaponSystem* weapon_system = m_system_context->GetSystem<game::WeaponSystem>();
     game::NavigationSystem* navigation_system = m_system_context->GetSystem<game::NavigationSystem>();
+    game::TrainZoneSystem* train_zone_system = m_system_context->GetSystem<game::TrainZoneSystem>();
 
     m_leveldata = ReadWorldComponentObjects(m_world_file, entity_system, nullptr);
     const game::LevelMetadata& metadata = m_leveldata.metadata;
@@ -164,6 +167,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     m_healthbar_drawer = new game::HealthbarDrawer(damage_system, animation_system, text_system, transform_system, entity_system);
     AddUpdatableDrawable(m_healthbar_drawer, LayerId::GAMEOBJECTS_UI);
     AddDrawable(new game::InteractionSystemDrawer(interaction_system, sprite_system, transform_system, entity_system), LayerId::GAMEOBJECTS_UI);
+    AddDrawable(new game::TrainZoneSystemDrawer(train_zone_system, transform_system), LayerId::GAMEOBJECTS_UI);
 
     AddDrawable(new game::UISystemDrawer(ui_system, transform_system), LayerId::UI_OVERLAY);
     AddDrawable(new mono::ScreenFadeDrawer(render_system), LayerId::UI_OVERLAY);

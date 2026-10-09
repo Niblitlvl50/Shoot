@@ -4,8 +4,10 @@
 #include "MonoFwd.h"
 #include "IGameSystem.h"
 #include "Math/Vector.h"
+#include "System/Audio.h"
 
 #include <cstdint>
+#include <memory>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -16,8 +18,11 @@ namespace game
     // capacity it takes up, and it can only be dropped off at a zone with a matching destination.
     struct CargoComponent
     {
+        // Shown to the player, the entity's name is used when empty.
+        std::string name;
         int value = 0;
         std::string destination;
+        bool loaded = false;
         bool delivered = false;
 
         // Collision masks of the entity's shapes, saved while it's hidden in a car.
@@ -48,13 +53,15 @@ namespace game
         TrainZoneSystem(
             mono::TransformSystem* transform_system,
             mono::PhysicsSystem* physics_system,
+            mono::ParticleSystem* particle_system,
             mono::IEntityManager* entity_manager,
             mono::TriggerSystem* trigger_system,
             class TrainCarSystem* train_car_system);
+        ~TrainZoneSystem();
 
         void AllocateCargo(uint32_t entity_id);
         void ReleaseCargo(uint32_t entity_id);
-        void SetCargoData(uint32_t entity_id, int value, const std::string& destination);
+        void SetCargoData(uint32_t entity_id, const std::string& name, int value, const std::string& destination);
 
         void AllocateLoadingZone(uint32_t entity_id);
         void ReleaseLoadingZone(uint32_t entity_id);
@@ -65,7 +72,16 @@ namespace game
         void SetDropOffZoneData(
             uint32_t entity_id, const math::Vector& size, float transfer_duration_s, const std::string& destination, uint32_t trigger_hash);
 
+        template <typename T>
+        inline void ForEachCargo(T&& callable) const
+        {
+            for(const auto& [entity_id, cargo] : m_cargo)
+                callable(entity_id, cargo);
+        }
+
         const char* Name() const override;
+        void Begin() override;
+        void Reset() override;
         void Update(const mono::UpdateContext& update_context) override;
 
     private:
@@ -85,9 +101,14 @@ namespace game
 
         mono::TransformSystem* m_transform_system;
         mono::PhysicsSystem* m_physics_system;
+        mono::ParticleSystem* m_particle_system;
         mono::TriggerSystem* m_trigger_system;
         mono::IEntityManager* m_entity_manager;
         TrainCarSystem* m_train_car_system;
+
+        audio::ISoundPtr m_loading_sound;
+        audio::ISoundPtr m_unloading_sound;
+        std::unique_ptr<class CargoTransferEffect> m_transfer_effect;
 
         std::unordered_map<uint32_t, CargoComponent> m_cargo;
         std::unordered_map<uint32_t, TrainZoneComponent> m_loading_zones;

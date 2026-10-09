@@ -183,6 +183,7 @@ const DefaultAttribute default_attributes[] = {
     { "cargo_value",                Variant(10) },
     { "cargo_destination",          Variant(std::string()) },
     { "transfer_duration",          Variant(0.0f) },
+    { "replayable",                 Variant(false) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -350,6 +351,7 @@ extern const uint32_t USE_INITIAL_Y_POSITION_ATTRIBUTE      = default_attributes
 extern const uint32_t CARGO_VALUE_ATTRIBUTE                 = default_attributes[141].hash;
 extern const uint32_t CARGO_DESTINATION_ATTRIBUTE           = default_attributes[142].hash;
 extern const uint32_t TRANSFER_DURATION_ATTRIBUTE           = default_attributes[143].hash;
+extern const uint32_t REPLAYABLE_ATTRIBUTE                  = default_attributes[144].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -622,7 +624,7 @@ const Component default_components[] = {
 
     MakeComponent(RAILWAY_SWITCH_COMPONENT,     NULL_COMPONENT,             false,  "railway",      { ENTITY_REFERENCE_ATTRIBUTE, SWITCH_PRIMARY_TRACK_ATTRIBUTE, SWITCH_ALT_TRACK_ATTRIBUTE, SWITCH_USE_ALT_BRANCH_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, SWITCH_PRIMARY_TRIGGER_ATTRIBUTE, SWITCH_ALT_TRIGGER_ATTRIBUTE }),
     MakeComponent(RAILWAY_STATION_COMPONENT,    NULL_COMPONENT,             false,  "railway",      { NAME_ATTRIBUTE }),
-    MakeComponent(CARGO_COMPONENT,              NULL_COMPONENT,             false,  "railway",      { CARGO_VALUE_ATTRIBUTE, CARGO_DESTINATION_ATTRIBUTE }),
+    MakeComponent(CARGO_COMPONENT,              NULL_COMPONENT,             false,  "railway",      { NAME_ATTRIBUTE, CARGO_VALUE_ATTRIBUTE, CARGO_DESTINATION_ATTRIBUTE }),
     MakeComponent(LOADING_ZONE_COMPONENT,       NULL_COMPONENT,             false,  "railway",      { SIZE_ATTRIBUTE, TRANSFER_DURATION_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
     MakeComponent(DROP_OFF_ZONE_COMPONENT,      NULL_COMPONENT,             false,  "railway",      { SIZE_ATTRIBUTE, TRANSFER_DURATION_ATTRIBUTE, CARGO_DESTINATION_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
 
@@ -651,9 +653,9 @@ const Component default_components[] = {
     MakeComponent(TEXTURED_POLYGON_COMPONENT,   NULL_COMPONENT,             false,  "world",        { TEXTURE_ATTRIBUTE, COLOR_ATTRIBUTE, POLYGON_DRAW_LAYER_ATTRIBUTE, POLYGON_ATTRIBUTE }),
     MakeComponent(REGION_COMPONENT,             PHYSICS_COMPONENT,          false,  "world",        { TEXT_ATTRIBUTE, SUB_TEXT_ATTRIBUTE }),
 
-    MakeComponent(MISSION_TRACKER_COMPONENT,    NULL_COMPONENT,             false,  "mission",      { NAME_ATTRIBUTE, SUB_TEXT_ATTRIBUTE, TIME_BASED_ATTRIBUTE, TIME_ATTRIBUTE, FAIL_ON_TIMEOUT_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, COMPLETED_TRIGGER_ATTRIBUTE, FAILED_TRIGGER_ATTRIBUTE }),
+    MakeComponent(MISSION_TRACKER_COMPONENT,    NULL_COMPONENT,             false,  "mission",      { NAME_ATTRIBUTE, SUB_TEXT_ATTRIBUTE, TIME_BASED_ATTRIBUTE, TIME_ATTRIBUTE, FAIL_ON_TIMEOUT_ATTRIBUTE, REPLAYABLE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, COMPLETED_TRIGGER_ATTRIBUTE, FAILED_TRIGGER_ATTRIBUTE }),
     MakeComponent(MISSION_ACTIVATION_COMPONENT, NULL_COMPONENT,             false,  "mission",      { TRIGGER_NAME_ATTRIBUTE, EMIT_ONCE_ATTRIBUTE }),
-    MakeComponent(MISSION_REWARD_COMPONENT,     NULL_COMPONENT,             false,  "mission",      { TRIGGER_NAME_ATTRIBUTE, REWARD_CHIPS_ATTRIBUTE, REWARD_RUBBLE_ATTRIBUTE, REWARD_EXPERIENCE_ATTRIBUTE }),
+    MakeComponent(MISSION_REWARD_COMPONENT,     MISSION_TRACKER_COMPONENT,  false,  "mission",      { REWARD_CHIPS_ATTRIBUTE, REWARD_RUBBLE_ATTRIBUTE, REWARD_EXPERIENCE_ATTRIBUTE }),
     MakeComponent(MISSION_LOCATION_COMPONENT,   NULL_COMPONENT,             false,  "mission",      { }),
 
     MakeComponent(TELEPORT_PLAYER_COMPONENT,    NULL_COMPONENT,             false,  "logic",        { TRIGGER_NAME_ATTRIBUTE } ),
