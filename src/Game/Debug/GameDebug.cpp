@@ -33,6 +33,8 @@
 
 #include "imgui/imgui.h"
 
+#include <algorithm>
+
 bool game::g_draw_client_viewport = false;
 bool game::g_draw_navmesh = false;
 uint32_t game::g_draw_navmesh_subcomponents = game::NavigationDebugComponents::DRAW_RECENT_PATHS;
@@ -42,6 +44,7 @@ bool game::g_draw_physics = false;
 bool game::g_interact_physics = false;
 bool game::g_body_introspection = false;
 bool game::g_draw_triggers = false;
+bool game::g_draw_emitted_triggers = false;
 bool game::g_draw_targets = false;
 uint32_t game::g_draw_physics_subcomponents = mono::PhysicsDebugComponents::DRAW_SHAPES;
 bool game::g_draw_physics_stats = false;
@@ -85,6 +88,7 @@ void DrawDebugMenu(game::EntityLogicSystem* logic_system, mono::EventHandler* ev
             game::g_draw_navmesh_subcomponents, game::all_navigation_debug_component, std::size(game::all_navigation_debug_component), game::NavigationDebugComponentToString);
         ImGui::PopID();
         ImGui::Checkbox("Triggers",             &game::g_draw_triggers);
+        ImGui::Checkbox("Emitted Triggers",     &game::g_draw_emitted_triggers);
         ImGui::Checkbox("Targets",              &game::g_draw_targets);
         ImGui::Checkbox("Physics",              &game::g_draw_physics);
         ImGui::SameLine();
@@ -215,6 +219,39 @@ void DrawTriggerInput(bool& draw_trigger_input, mono::TriggerSystem* trigger_sys
 
         ImGui::End();
     }
+}
+
+namespace emitted_triggers
+{
+    constexpr size_t max_entries = 30;
+    constexpr float show_time_s = 5.0f;
+    constexpr float fade_time_s = 1.0f;
+}
+
+template <typename T>
+void DrawEmittedTriggers(const T& emitted_triggers)
+{
+    constexpr int flags =
+        ImGuiWindowFlags_NoTitleBar |
+        ImGuiWindowFlags_NoResize |
+        ImGuiWindowFlags_NoMove |
+        ImGuiWindowFlags_NoInputs |
+        ImGuiWindowFlags_NoSavedSettings |
+        ImGuiWindowFlags_AlwaysAutoResize |
+        ImGuiWindowFlags_NoBackground;
+
+    ImGui::SetNextWindowPos(ImVec2(20, 60));
+    ImGui::Begin("EmittedTriggers", nullptr, flags);
+
+    // Newest first.
+    for(auto it = emitted_triggers.rbegin(); it != emitted_triggers.rend(); ++it)
+    {
+        const float fade_start_s = emitted_triggers::show_time_s - emitted_triggers::fade_time_s;
+        const float alpha = 1.0f - std::clamp((it->age_s - fade_start_s) / emitted_triggers::fade_time_s, 0.0f, 1.0f);
+        ImGui::TextColored(ImVec4(1.0f, 0.85f, 0.3f, alpha), "%5.1fs  %s", it->age_s, hash::HashLookup(it->trigger_hash));
+    }
+
+    ImGui::End();
 }
 
 void DrawFrameTimes(bool& show_window, const mono::CircularVector<float, 1000>& frame_times)
@@ -638,17 +675,31 @@ DebugUpdater::DebugUpdater(
     mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_entity_manager = system_context->GetSystem<mono::IEntityManager>();
     m_player_debug_handler = std::make_unique<PlayerDebugHandler>(game::g_draw_debug_players, transform_system, m_entity_manager, event_handler);
+
+    const mono::TriggerCallback on_trigger_emitted = [this](uint32_t trigger_hash) {
+        m_emitted_triggers.push_back({ trigger_hash, 0.0f });
+        if(m_emitted_triggers.size() > emitted_triggers::max_entries)
+            m_emitted_triggers.pop_front();
+    };
+    m_global_trigger_callback_id = m_trigger_system->RegisterGlobalTriggerCallback(on_trigger_emitted);
 }
 
 DebugUpdater::~DebugUpdater()
 {
     m_event_handler->RemoveListener(m_keyup_token);
+    m_trigger_system->RemoveGlobalTriggerCallback(m_global_trigger_callback_id);
 }
 
 void DebugUpdater::Update(const mono::UpdateContext& update_context)
 {
     m_counter++;
     m_frame_times.Push(update_context.delta_s_raw);
+
+    for(EmittedTrigger& emitted_trigger : m_emitted_triggers)
+        emitted_trigger.age_s += update_context.delta_s_raw;
+
+    while(!m_emitted_triggers.empty() && m_emitted_triggers.front().age_s > emitted_triggers::show_time_s)
+        m_emitted_triggers.pop_front();
 }
 
 void DebugUpdater::Draw(mono::IRenderer& renderer) const
@@ -661,6 +712,9 @@ void DebugUpdater::Draw(mono::IRenderer& renderer) const
 
     if(game::g_draw_debug_frametimes)
         DrawFrameTimes(game::g_draw_debug_frametimes, m_frame_times);
+
+    if(game::g_draw_emitted_triggers && !m_emitted_triggers.empty())
+        DrawEmittedTriggers(m_emitted_triggers);
 
     if(game::g_draw_debug_players)
         DrawDebugPlayers(game::g_draw_debug_players, m_damage_system, m_event_handler);

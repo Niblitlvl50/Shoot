@@ -12,6 +12,7 @@
 #include "GameDebugVariables.h"
 
 #include <cstdint>
+#include <deque>
 #include <memory>
 
 namespace game
@@ -45,6 +46,14 @@ namespace game
         EntityLogicSystem* m_logic_system;
 
         mono::EventToken<event::KeyUpEvent> m_keyup_token;
+
+        struct EmittedTrigger
+        {
+            uint32_t trigger_hash;
+            float age_s;
+        };
+        std::deque<EmittedTrigger> m_emitted_triggers;
+        uint32_t m_global_trigger_callback_id;
 
         mono::FpsCounter m_counter;
         mono::CircularVector<float, 1000> m_frame_times;
