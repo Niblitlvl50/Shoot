@@ -32404,8 +32404,8 @@
                             "name": "size",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 7.0,
-                                "y": 4.0
+                                "x": 6.0,
+                                "y": 3.0
                             }
                         },
                         {
@@ -32433,13 +32433,25 @@
                             "id": 3185987134,
                             "name": "text",
                             "variant_type": 6,
-                            "variant_value": "The Station"
+                            "variant_value": "Willburough Station"
                         },
                         {
                             "id": 3435213149,
                             "name": "sub_text",
                             "variant_type": 6,
                             "variant_value": ""
+                        },
+                        {
+                            "id": 799079693,
+                            "name": "duration",
+                            "variant_type": 3,
+                            "variant_value": 5.0
+                        },
+                        {
+                            "id": 1557880196,
+                            "name": "show_every_time",
+                            "variant_type": 0,
+                            "variant_value": true
                         }
                     ]
                 }
@@ -32484,7 +32496,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 12.75,
-                                "y": -31.0
+                                "y": -32.0
                             }
                         },
                         {
@@ -32570,8 +32582,8 @@
                             "name": "size",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 7.0,
-                                "y": 4.0
+                                "x": 5.0,
+                                "y": 3.0
                             }
                         },
                         {
@@ -32599,13 +32611,25 @@
                             "id": 3185987134,
                             "name": "text",
                             "variant_type": 6,
-                            "variant_value": "Cabbin"
+                            "variant_value": ""
                         },
                         {
                             "id": 3435213149,
                             "name": "sub_text",
                             "variant_type": 6,
-                            "variant_value": ""
+                            "variant_value": "Cabbin"
+                        },
+                        {
+                            "id": 799079693,
+                            "name": "duration",
+                            "variant_type": 3,
+                            "variant_value": 3.0
+                        },
+                        {
+                            "id": 1557880196,
+                            "name": "show_every_time",
+                            "variant_type": 0,
+                            "variant_value": true
                         }
                     ]
                 }
@@ -33727,7 +33751,7 @@
                             "id": 3210410026,
                             "name": "emit_once",
                             "variant_type": 0,
-                            "variant_value": true
+                            "variant_value": false
                         }
                     ]
                 }
@@ -35016,6 +35040,18 @@
                             "name": "sub_text",
                             "variant_type": 6,
                             "variant_value": "Dump all your troubles here!"
+                        },
+                        {
+                            "id": 799079693,
+                            "name": "duration",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1557880196,
+                            "name": "show_every_time",
+                            "variant_type": 0,
+                            "variant_value": true
                         }
                     ]
                 }
@@ -56910,6 +56946,18 @@
                             "name": "sub_text",
                             "variant_type": 6,
                             "variant_value": "Ancient graves..."
+                        },
+                        {
+                            "id": 799079693,
+                            "name": "duration",
+                            "variant_type": 3,
+                            "variant_value": 2.0
+                        },
+                        {
+                            "id": 1557880196,
+                            "name": "show_every_time",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 }

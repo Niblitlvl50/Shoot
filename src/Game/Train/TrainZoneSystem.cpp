@@ -83,7 +83,7 @@ std::vector<TrainZoneSystem::LoadingProgress> TrainZoneSystem::GetLoadingProgres
     for(const auto& [timer_key, timer] : m_transfer_timers)
     {
         if(timer.is_loading && timer.duration_s > 0.0f)
-            progress.push_back({ timer.car_entity_id, timer.elapsed_s / timer.duration_s });
+            progress.push_back({ timer.zone_entity_id, timer.elapsed_s / timer.duration_s });
     }
 
     return progress;
@@ -200,37 +200,50 @@ void TrainZoneSystem::Update(const mono::UpdateContext& update_context)
 void TrainZoneSystem::UpdateLoadingZone(
     uint32_t zone_entity_id, const TrainZoneComponent& zone, const std::vector<uint32_t>& stopped_cars, float delta_s)
 {
+    // Without the button held the timer isn't ticked, which resets it, so letting go aborts the loading.
+    if(!m_loading_held)
+        return;
+
+    std::vector<uint32_t> cars_in_zone;
     for(uint32_t car_id : stopped_cars)
     {
-        if(!IsInsideZone(zone_entity_id, zone, car_id))
+        if(IsInsideZone(zone_entity_id, zone, car_id))
+            cars_in_zone.push_back(car_id);
+    }
+
+    if(cars_in_zone.empty())
+        return;
+
+    std::vector<uint32_t> waiting_cargo;
+    bool any_cargo_fits = false;
+
+    for(const auto& [cargo_entity_id, cargo] : m_cargo)
+    {
+        if(cargo.delivered || cargo.loaded || !IsInsideZone(zone_entity_id, zone, cargo_entity_id))
             continue;
 
-        std::vector<uint32_t> cargo_to_load;
+        waiting_cargo.push_back(cargo_entity_id);
 
-        for(const auto& [cargo_entity_id, cargo] : m_cargo)
+        for(uint32_t car_id : cars_in_zone)
+            any_cargo_fits |= m_train_car_system->CanLoad(car_id, cargo.value);
+    }
+
+    if(!any_cargo_fits)
+        return;
+
+    // One timer for the whole zone, each time it fills the next waiting cargo goes into the first car it fits in.
+    const uint64_t timer_key = (static_cast<uint64_t>(mono::INVALID_ID) << 32) | zone_entity_id;
+    int n_transfers = TickTransferTimer(timer_key, zone_entity_id, zone, true, delta_s);
+
+    for(uint32_t cargo_entity_id : waiting_cargo)
+    {
+        if(n_transfers <= 0)
+            break;
+
+        CargoComponent& cargo = m_cargo[cargo_entity_id];
+
+        for(uint32_t car_id : cars_in_zone)
         {
-            if(cargo.delivered || !m_train_car_system->CanLoad(car_id, cargo.value))
-                continue;
-
-            if(m_train_car_system->FindCarCarrying(cargo_entity_id) != mono::INVALID_ID)
-                continue;
-
-            if(IsInsideZone(zone_entity_id, zone, cargo_entity_id))
-                cargo_to_load.push_back(cargo_entity_id);
-        }
-
-        // Without the button held the timer isn't ticked, which resets it, so letting go aborts the loading.
-        if(cargo_to_load.empty() || !m_loading_held)
-            continue;
-
-        int n_transfers = TickTransferTimer(car_id, zone_entity_id, zone, true, delta_s);
-
-        for(uint32_t cargo_entity_id : cargo_to_load)
-        {
-            if(n_transfers <= 0)
-                break;
-
-            CargoComponent& cargo = m_cargo[cargo_entity_id];
             const bool loaded = m_train_car_system->Load(car_id, cargo_entity_id, cargo.value);
             if(!loaded)
                 continue;
@@ -242,6 +255,8 @@ void TrainZoneSystem::UpdateLoadingZone(
 
             if(zone.trigger_hash != hash::NO_HASH)
                 m_trigger_system->EmitTrigger(zone.trigger_hash);
+
+            break;
         }
     }
 }
@@ -269,7 +284,8 @@ void TrainZoneSystem::UpdateDropOffZone(
             continue;
 
         // Unlike loading, a car unloads all its cargo for the zone at once, after a single transfer duration.
-        const int n_transfers = TickTransferTimer(car_id, zone_entity_id, zone, false, delta_s);
+        const uint64_t timer_key = (static_cast<uint64_t>(car_id) << 32) | zone_entity_id;
+        const int n_transfers = TickTransferTimer(timer_key, zone_entity_id, zone, false, delta_s);
         if(n_transfers <= 0)
             continue;
 
@@ -290,15 +306,14 @@ void TrainZoneSystem::UpdateDropOffZone(
     }
 }
 
-int TrainZoneSystem::TickTransferTimer(uint32_t car_id, uint32_t zone_entity_id, const TrainZoneComponent& zone, bool is_loading, float delta_s)
+int TrainZoneSystem::TickTransferTimer(uint64_t timer_key, uint32_t zone_entity_id, const TrainZoneComponent& zone, bool is_loading, float delta_s)
 {
     if(zone.transfer_duration_s <= 0.0f)
         return std::numeric_limits<int>::max();
 
-    const uint64_t timer_key = (static_cast<uint64_t>(car_id) << 32) | zone_entity_id;
     TransferTimer& timer = m_transfer_timers[timer_key];
 
-    timer.car_entity_id = car_id;
+    timer.zone_entity_id = zone_entity_id;
     timer.duration_s = zone.transfer_duration_s;
     timer.is_loading = is_loading;
     timer.ticked = true;

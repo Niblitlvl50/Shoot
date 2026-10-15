@@ -17,12 +17,23 @@ namespace game
         uint32_t entity_id;
         std::string text;
         std::string sub_text;
+        float duration;
+
+        // Increased on every activation, so a region shown again can be told apart from the last showing.
+        uint32_t activation_count = 0;
+
+        // Set when the player leaves the region, the drawer then fades it out right away.
+        bool exited = false;
     };
 
     struct RegionComponent
     {
         std::string text;
         std::string sub_text;
+        float duration;
+
+        // Shown on every entry instead of only the first time.
+        bool show_every_time;
 
         // Internal data
         std::unique_ptr<mono::ICollisionHandler> collision_handler;
@@ -40,9 +51,10 @@ namespace game
 
         void AllocateRegion(uint32_t entity_id);
         void ReleaseRegion(uint32_t entity_id);
-        void UpdateRegion(uint32_t entity_id, const std::string& text, const std::string& sub_text);
+        void UpdateRegion(uint32_t entity_id, const std::string& text, const std::string& sub_text, float duration_s, bool show_every_time);
 
         void ActivateRegion(uint32_t entity_id);
+        void ExitRegion(uint32_t entity_id);
         const RegionDescription& GetActivatedRegion() const;
 
     private:

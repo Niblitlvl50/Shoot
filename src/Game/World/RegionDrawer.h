@@ -20,7 +20,10 @@ namespace game
         UITextElement* m_region_text;
         UITextElement* m_region_subtext;
         float m_text_timer_s;
+        float m_fade_out_start_s;
+        float m_fade_out_start_alpha;
+        float m_alpha;
 
-        uint32_t m_current_region_entity_id;
+        uint32_t m_shown_activation_count;
     };
 }

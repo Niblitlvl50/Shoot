@@ -184,6 +184,7 @@ const DefaultAttribute default_attributes[] = {
     { "cargo_destination",          Variant(std::string()) },
     { "transfer_duration",          Variant(0.0f) },
     { "replayable",                 Variant(false) },
+    { "show_every_time",            Variant(false) },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -352,6 +353,7 @@ extern const uint32_t CARGO_VALUE_ATTRIBUTE                 = default_attributes
 extern const uint32_t CARGO_DESTINATION_ATTRIBUTE           = default_attributes[142].hash;
 extern const uint32_t TRANSFER_DURATION_ATTRIBUTE           = default_attributes[143].hash;
 extern const uint32_t REPLAYABLE_ATTRIBUTE                  = default_attributes[144].hash;
+extern const uint32_t SHOW_EVERY_TIME_ATTRIBUTE             = default_attributes[145].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -651,7 +653,7 @@ const Component default_components[] = {
     MakeComponent(CAMERA_RESTORE_COMPONENT,     NULL_COMPONENT,             false,  "camera",       { TRIGGER_NAME_ATTRIBUTE }),
 
     MakeComponent(TEXTURED_POLYGON_COMPONENT,   NULL_COMPONENT,             false,  "world",        { TEXTURE_ATTRIBUTE, COLOR_ATTRIBUTE, POLYGON_DRAW_LAYER_ATTRIBUTE, POLYGON_ATTRIBUTE }),
-    MakeComponent(REGION_COMPONENT,             PHYSICS_COMPONENT,          false,  "world",        { TEXT_ATTRIBUTE, SUB_TEXT_ATTRIBUTE }),
+    MakeComponent(REGION_COMPONENT,             PHYSICS_COMPONENT,          false,  "world",        { TEXT_ATTRIBUTE, SUB_TEXT_ATTRIBUTE, DURATION_ATTRIBUTE, SHOW_EVERY_TIME_ATTRIBUTE }),
 
     MakeComponent(MISSION_TRACKER_COMPONENT,    NULL_COMPONENT,             false,  "mission",      { NAME_ATTRIBUTE, SUB_TEXT_ATTRIBUTE, TIME_BASED_ATTRIBUTE, TIME_ATTRIBUTE, FAIL_ON_TIMEOUT_ATTRIBUTE, REPLAYABLE_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE, COMPLETED_TRIGGER_ATTRIBUTE, FAILED_TRIGGER_ATTRIBUTE }),
     MakeComponent(MISSION_ACTIVATION_COMPONENT, NULL_COMPONENT,             false,  "mission",      { TRIGGER_NAME_ATTRIBUTE, EMIT_ONCE_ATTRIBUTE }),

@@ -248,7 +248,8 @@ void DrawEmittedTriggers(const T& emitted_triggers)
     {
         const float fade_start_s = emitted_triggers::show_time_s - emitted_triggers::fade_time_s;
         const float alpha = 1.0f - std::clamp((it->age_s - fade_start_s) / emitted_triggers::fade_time_s, 0.0f, 1.0f);
-        ImGui::TextColored(ImVec4(1.0f, 0.85f, 0.3f, alpha), "%5.1fs  %s", it->age_s, hash::HashLookup(it->trigger_hash));
+        const float remaining_s = std::max(emitted_triggers::show_time_s - it->age_s, 0.0f);
+        ImGui::TextColored(ImVec4(1.0f, 0.85f, 0.3f, alpha), "%4.1fs  %s", remaining_s, hash::HashLookup(it->trigger_hash));
     }
 
     ImGui::End();

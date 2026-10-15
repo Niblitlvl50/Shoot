@@ -84,7 +84,7 @@ namespace game
 
         struct LoadingProgress
         {
-            uint32_t car_entity_id;
+            uint32_t zone_entity_id;
             float fraction;
         };
         std::vector<LoadingProgress> GetLoadingProgress() const;
@@ -101,9 +101,9 @@ namespace game
         void UpdateDropOffZone(
             uint32_t zone_entity_id, const TrainZoneComponent& zone, const std::vector<uint32_t>& stopped_cars, float delta_s);
 
-        // How many cargo the car may move this frame, ticking the car's transfer timer for the zone.
-        // Only called while the car is stopped in the zone with something to move.
-        int TickTransferTimer(uint32_t car_id, uint32_t zone_entity_id, const TrainZoneComponent& zone, bool is_loading, float delta_s);
+        // How many cargo may be moved this frame, ticking the timer for timer_key. Loading has one timer
+        // per zone, unloading one per car and zone. Only called while there's something to move.
+        int TickTransferTimer(uint64_t timer_key, uint32_t zone_entity_id, const TrainZoneComponent& zone, bool is_loading, float delta_s);
         bool IsInsideZone(uint32_t zone_entity_id, const TrainZoneComponent& zone, uint32_t entity_id) const;
 
         void HideCargo(uint32_t cargo_entity_id, CargoComponent& cargo);
@@ -128,16 +128,16 @@ namespace game
 
         struct TransferTimer
         {
-            uint32_t car_entity_id = 0;
+            uint32_t zone_entity_id = 0;
             float elapsed_s = 0.0f;
             float duration_s = 0.0f;
             bool is_loading = false;
             bool ticked = false;
         };
 
-        // Keyed on car and zone together, so a car in a loading and a drop off zone at once has
-        // one timer for each. Reset when the car leaves the zone, starts moving or runs out of
-        // cargo to move there.
+        // Loading timers are keyed on the zone, drop off timers on car and zone together. A timer
+        // that isn't ticked in a frame is reset, e.g. when the load button is released, a car
+        // leaves the zone or starts moving, or there's nothing left to move.
         std::unordered_map<uint64_t, TransferTimer> m_transfer_timers;
     };
 }

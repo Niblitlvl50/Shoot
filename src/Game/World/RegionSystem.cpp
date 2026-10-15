@@ -27,7 +27,9 @@ namespace
         }
 
         void OnSeparateFrom(mono::IBody* body) override
-        { }
+        {
+            m_region_system->ExitRegion(m_entity_id);
+        }
 
         const uint32_t m_entity_id;
         game::RegionSystem* m_region_system;
@@ -47,7 +49,7 @@ const char* RegionSystem::Name() const
 
 void RegionSystem::Reset()
 {
-    m_active_region = { 0, "", "" };
+    m_active_region = { 0, "", "", 0.0f };
     m_activated_regions.clear();
 }
 
@@ -77,11 +79,13 @@ void RegionSystem::ReleaseRegion(uint32_t entity_id)
     m_regions.erase(entity_id);
 }
 
-void RegionSystem::UpdateRegion(uint32_t entity_id, const std::string& text, const std::string& sub_text)
+void RegionSystem::UpdateRegion(uint32_t entity_id, const std::string& text, const std::string& sub_text, float duration_s, bool show_every_time)
 {
     RegionComponent& component = m_regions[entity_id];
     component.text = text;
     component.sub_text = sub_text;
+    component.duration = duration_s;
+    component.show_every_time = show_every_time;
 
     mono::IBody* body = m_physics_system->GetBody(entity_id);
     if(body)
@@ -104,14 +108,27 @@ void RegionSystem::UpdateRegion(uint32_t entity_id, const std::string& text, con
 void RegionSystem::ActivateRegion(uint32_t entity_id)
 {
     const auto it = m_regions.find(entity_id);
-    if(it != m_regions.end() && (m_activated_regions.count(entity_id) == 0))
+    if(it == m_regions.end())
+        return;
+
+    const bool already_shown = (m_activated_regions.count(entity_id) != 0);
+    if(!already_shown || it->second.show_every_time)
     {
         m_active_region.text = it->second.text;
         m_active_region.sub_text = it->second.sub_text;
+        m_active_region.duration = it->second.duration;
         m_active_region.entity_id = entity_id;
+        m_active_region.activation_count++;
+        m_active_region.exited = false;
 
         m_activated_regions.insert(entity_id);
     }
+}
+
+void RegionSystem::ExitRegion(uint32_t entity_id)
+{
+    if(m_active_region.entity_id == entity_id)
+        m_active_region.exited = true;
 }
 
 const RegionDescription& RegionSystem::GetActivatedRegion() const

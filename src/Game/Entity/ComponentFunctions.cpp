@@ -600,12 +600,16 @@ namespace
     {
         std::string text;
         std::string sub_text;
+        float duration_s;
+        bool show_every_time;
 
         FindAttribute(TEXT_ATTRIBUTE, properties, text, FallbackMode::SET_DEFAULT);
         FindAttribute(SUB_TEXT_ATTRIBUTE, properties, sub_text, FallbackMode::SET_DEFAULT);
+        FindAttribute(DURATION_ATTRIBUTE, properties, duration_s, FallbackMode::SET_DEFAULT);
+        FindAttribute(SHOW_EVERY_TIME_ATTRIBUTE, properties, show_every_time, FallbackMode::SET_DEFAULT);
 
         game::RegionSystem* region_system = context->GetSystem<game::RegionSystem>();
-        region_system->UpdateRegion(entity->id, text, sub_text);
+        region_system->UpdateRegion(entity->id, text, sub_text, duration_s, show_every_time);
 
         return true;
     }}

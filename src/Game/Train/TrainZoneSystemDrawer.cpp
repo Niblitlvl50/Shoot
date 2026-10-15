@@ -93,9 +93,8 @@ void TrainZoneSystemDrawer::Draw(mono::IRenderer& renderer) const
 
     for(const TrainZoneSystem::LoadingProgress& progress : m_train_zone_system->GetLoadingProgress())
     {
-        const math::Vector car_position = m_transform_system->GetWorldPosition(progress.car_entity_id);
-        const math::Quad car_bounds = m_transform_system->GetWorldBoundingBox(progress.car_entity_id);
-        const math::Vector bar_position(car_position.x, math::Top(car_bounds) + tweak_values::progress_offset_y);
+        const math::Vector zone_position = m_transform_system->GetWorldPosition(progress.zone_entity_id);
+        const math::Vector bar_position = zone_position + math::Vector(0.0f, tweak_values::progress_offset_y);
 
         const math::Matrix transform = math::CreateMatrixWithPosition(bar_position);
         const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
