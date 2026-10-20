@@ -278,6 +278,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -416,6 +422,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -554,6 +566,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -692,6 +710,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -7678,6 +7702,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -7816,6 +7846,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -7954,6 +7990,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -8932,6 +8974,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -9070,6 +9118,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -9448,6 +9502,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -9636,6 +9696,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -16329,6 +16395,12 @@
                         {
                             "id": 149336291,
                             "name": "fail_on_timeout",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1062812710,
+                            "name": "replayable",
                             "variant_type": 0,
                             "variant_value": false
                         },
