@@ -14,9 +14,12 @@
 #include "Rendering/Text/TextFunctions.h"
 
 #include "Math/CriticalDampedSpring.h"
+#include "Math/MathFunctions.h"
 #include "Util/Algorithm.h"
 
 #include "Debug/GameDebugVariables.h"
+
+#include <algorithm>
 
 using namespace game;
 
@@ -777,6 +780,95 @@ UIBarElement::UIBarElement(
     m_background_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, background_color_data.data(), "ui_bar_element");
     m_foreground_colors = mono::CreateRenderBuffer(mono::BufferType::STATIC, mono::BufferData::FLOAT, 4, 4, foreground_color_data.data(), "ui_bar_element");
     m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, std::size(indices), indices, "ui_bar_element");
+}
+
+namespace
+{
+    constexpr float gauge_start_angle_deg = 135.0f;
+    constexpr float gauge_sweep_angle_deg = 270.0f;
+
+    math::Vector GaugePoint(float fraction, float radius)
+    {
+        const float angle_deg = gauge_start_angle_deg - (gauge_sweep_angle_deg * fraction);
+        return math::VectorFromAngle(math::ToRadians(angle_deg)) * radius;
+    }
+}
+
+UIGaugeElement::UIGaugeElement(
+    float radius,
+    int n_major_ticks,
+    const mono::Color::RGBA& background_color,
+    const mono::Color::RGBA& dial_color,
+    const mono::Color::RGBA& needle_color)
+    : m_radius(radius)
+    , m_draw_dial(true)
+    , m_background_color(background_color)
+    , m_dial_color(dial_color)
+    , m_needle_color(needle_color)
+    , m_fraction(0.0f)
+    , m_target_fraction(0.0f)
+    , m_velocity(0.0f)
+{
+    constexpr int arc_segments = 48;
+    const float arc_radius = radius * 0.9f;
+
+    for(int index = 0; index <= arc_segments; ++index)
+    {
+        const float fraction = float(index) / float(arc_segments);
+        m_arc_points.push_back(GaugePoint(fraction, arc_radius));
+    }
+
+    // Major ticks reach further in than the minor ticks between them.
+    const int n_minor_per_major = 4;
+    const int n_ticks = std::max(n_major_ticks - 1, 1) * n_minor_per_major;
+    for(int index = 0; index <= n_ticks; ++index)
+    {
+        const bool is_major = (index % n_minor_per_major) == 0;
+        const float fraction = float(index) / float(n_ticks);
+        const float inner_radius = arc_radius * (is_major ? 0.75f : 0.87f);
+
+        m_tick_lines.push_back(GaugePoint(fraction, inner_radius));
+        m_tick_lines.push_back(GaugePoint(fraction, arc_radius));
+    }
+}
+
+void UIGaugeElement::SetFraction(float fraction)
+{
+    m_target_fraction = std::clamp(fraction, 0.0f, 1.0f);
+}
+
+void UIGaugeElement::SetDrawDial(bool draw_dial)
+{
+    m_draw_dial = draw_dial;
+}
+
+void UIGaugeElement::Update(const mono::UpdateContext& context)
+{
+    UIElement::Update(context);
+    math::simple_spring_damper_implicit(m_fraction, m_velocity, m_target_fraction, 0.1f, context.delta_s);
+}
+
+void UIGaugeElement::DrawElement(mono::IRenderer& renderer) const
+{
+    if(m_draw_dial)
+    {
+        if(m_background_color.alpha > 0.0f)
+            renderer.DrawFilledCircle(math::Vector(m_radius, m_radius), 32, m_background_color);
+        renderer.DrawPolyline(m_arc_points, m_dial_color, 2.0f);
+        renderer.DrawLines(m_tick_lines, m_dial_color, 2.0f);
+    }
+
+    const math::Vector needle_tip = GaugePoint(m_fraction, m_radius * 0.8f);
+    const math::Vector needle_tail = GaugePoint(m_fraction, -m_radius * 0.15f);
+    renderer.DrawLines({ needle_tail, needle_tip }, m_needle_color, 3.0f);
+
+    const float hub_radius = m_radius * 0.08f;
+    renderer.DrawFilledCircle(math::Vector(hub_radius, hub_radius), 12, m_needle_color);
+}
+
+math::Quad UIGaugeElement::LocalBoundingBox() const
+{
+    return math::Quad(-m_radius, -m_radius, m_radius, m_radius);
 }
 
 void UIBarElement::SetFraction(float fraction)

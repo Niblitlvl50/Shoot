@@ -317,6 +317,46 @@ namespace game
         std::unique_ptr<mono::IElementBuffer> m_indices;
     };
 
+    // A circular dial with tick marks and a needle, sweeping 270 degrees clockwise from bottom left
+    // (fraction 0) to bottom right (fraction 1). The needle eases towards the set fraction.
+    // For a textured background, add the gauge as a child of a UITextureElement and give it a
+    // fully transparent background color.
+    class UIGaugeElement : public UIElement
+    {
+    public:
+
+        UIGaugeElement(
+            float radius,
+            int n_major_ticks,
+            const mono::Color::RGBA& background_color,
+            const mono::Color::RGBA& dial_color,
+            const mono::Color::RGBA& needle_color);
+
+        void SetFraction(float fraction);
+
+        // Turn off the drawn arc and ticks, e.g. when a background texture has its own.
+        void SetDrawDial(bool draw_dial);
+
+    private:
+
+        void Update(const mono::UpdateContext& context) override;
+        void DrawElement(mono::IRenderer& renderer) const override;
+        math::Quad LocalBoundingBox() const override;
+
+        float m_radius;
+        bool m_draw_dial;
+        mono::Color::RGBA m_background_color;
+        mono::Color::RGBA m_dial_color;
+        mono::Color::RGBA m_needle_color;
+
+        float m_fraction;
+        float m_target_fraction;
+        float m_velocity;
+
+        std::vector<math::Vector> m_arc_points;
+        std::vector<math::Vector> m_tick_lines;
+    };
+
     class UICheckboxElement : public UIElement
     {
     public: 

@@ -186,6 +186,7 @@ void TrainGameMode::Update(const mono::UpdateContext& update_context)
 
     const float throttle = m_path_follower_system->GetThrottle(m_train_entity_id);
     m_train_hud->SetThrottle(throttle);
+    m_train_hud->SetMaxSpeed(m_path_follower_system->GetSpeed(m_train_entity_id));
 
     const game::PlayerInfo* player_info = game::FindPlayerInfoFromEntityId(m_train_entity_id);
     if(player_info)

@@ -3,6 +3,7 @@
 #include "FontIds.h"
 #include "Rendering/RenderSystem.h"
 
+#include <algorithm>
 #include <cstdio>
 #include <cmath>
 
@@ -12,6 +13,7 @@ TrainHudElement::TrainHudElement()
     : UIOverlay(50.0f, 50.0f / mono::RenderSystem::GetWindowAspect())
     , m_throttle(0.0f)
     , m_speed(0.0f)
+    , m_max_speed(1.0f)
     , m_chips(0)
     , m_rubble(0)
 {
@@ -21,6 +23,19 @@ TrainHudElement::TrainHudElement()
     m_throttle_bar = new UIBarElement(bar_width, bar_height, mono::Color::GRAY, mono::Color::GREEN_VIVID);
     m_throttle_bar->SetPosition(1.0f, 1.0f);
     AddChild(m_throttle_bar);
+
+    UITextureElement* gauge_background = new UITextureElement("res/textures/particles/smoke_white_5.png", 32.0f);
+    gauge_background->SetPosition(bar_width + 4.0f, 3.0f);
+
+    AddChild(gauge_background);
+
+    m_speed_gauge = new UIGaugeElement(
+        1.5f, 5, mono::Color::RGBA(0.05f, 0.05f, 0.05f, 0.8f), mono::Color::GRAY, mono::Color::BLACK);
+    m_speed_gauge->SetDrawDial(false);
+    //m_speed_gauge->SetPosition(bar_width + 4.0f, 3.0f);
+
+    gauge_background->AddChild(m_speed_gauge);
+    //AddChild(m_speed_gauge);
 
     m_speed_text = new UITextElement(FontId::RUSSOONE_MEDIUM, "", mono::Color::OFF_WHITE);
     m_speed_text->SetAchorPoint(mono::AnchorPoint::BOTTOM_LEFT);
@@ -45,6 +60,8 @@ void TrainHudElement::Update(const mono::UpdateContext& context)
     const float throttle_fraction = std::fabs(m_throttle);
     m_throttle_bar->SetFraction(throttle_fraction);
 
+    m_speed_gauge->SetFraction(m_speed / m_max_speed);
+
     char speed_buffer[64] = {};
     std::snprintf(speed_buffer, std::size(speed_buffer), "%.1f km/h", m_speed * 3.6f);
     m_speed_text->SetText(speed_buffer);
@@ -66,6 +83,11 @@ void TrainHudElement::SetThrottle(float throttle)
 void TrainHudElement::SetSpeed(float meters_per_second)
 {
     m_speed = meters_per_second;
+}
+
+void TrainHudElement::SetMaxSpeed(float meters_per_second)
+{
+    m_max_speed = std::max(meters_per_second, 0.01f);
 }
 
 void TrainHudElement::SetMoney(int chips, int rubble)
