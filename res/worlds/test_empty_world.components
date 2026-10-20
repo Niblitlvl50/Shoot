@@ -36,7 +36,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": -0.875,
-                                "y": -0.25
+                                "y": -1.25
                             }
                         },
                         {
@@ -240,7 +240,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": -0.875,
-                                "y": 0.375
+                                "y": -0.625
                             }
                         },
                         {
@@ -384,7 +384,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 3.25,
-                                "y": 0.375
+                                "y": -0.625
                             }
                         },
                         {
@@ -528,7 +528,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.25,
-                                "y": 1.0
+                                "y": 0.0
                             }
                         },
                         {
@@ -672,7 +672,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 2.25,
-                                "y": 1.0
+                                "y": 0.0
                             }
                         },
                         {
@@ -14921,7 +14921,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 2.875,
-                                "y": -0.5
+                                "y": -1.5
                             }
                         },
                         {
@@ -15129,7 +15129,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": -0.75,
-                                "y": -0.5
+                                "y": -1.5
                             }
                         },
                         {
@@ -15305,7 +15305,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 3.25,
-                                "y": -0.25
+                                "y": -1.25
                             }
                         },
                         {
@@ -19723,7 +19723,7 @@
                             "id": 3647911389,
                             "name": "folder",
                             "variant_type": 6,
-                            "variant_value": "spawn_logic"
+                            "variant_value": "ambush_setup"
                         },
                         {
                             "id": 3923852156,
@@ -19887,7 +19887,7 @@
                             "id": 463104021,
                             "name": "spawn_score",
                             "variant_type": 1,
-                            "variant_value": 30
+                            "variant_value": 5
                         },
                         {
                             "id": 2084942004,
@@ -19934,6 +19934,16 @@
                             }
                         },
                         {
+                            "id": 1371090216,
+                            "name": "cleared_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 1,
+                                "text": "ambush_cleared",
+                                "type": 0
+                            }
+                        },
+                        {
                             "id": 3485902406,
                             "name": "spawn_points",
                             "variant_type": 7,
@@ -19947,6 +19957,102 @@
                                     "y": -2.7365095615386963
                                 }
                             ]
+                        }
+                    ]
+                },
+                {
+                    "hash": 1411079002,
+                    "name": "mission_tracker",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "Ambush"
+                        },
+                        {
+                            "id": 3435213149,
+                            "name": "sub_text",
+                            "variant_type": 6,
+                            "variant_value": "Defeat the attackers"
+                        },
+                        {
+                            "id": 2268399416,
+                            "name": "time_based",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1564253156,
+                            "name": "time",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 149336291,
+                            "name": "fail_on_timeout",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1062812710,
+                            "name": "replayable",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "spawn_ambush",
+                                "type": 0
+                            }
+                        },
+                        {
+                            "id": 1405321977,
+                            "name": "completed_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "ambush_cleared",
+                                "type": 0
+                            }
+                        },
+                        {
+                            "id": 2993395927,
+                            "name": "failed_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "",
+                                "type": 0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "hash": 4056359549,
+                    "name": "mission_reward",
+                    "properties": [
+                        {
+                            "id": 2583901586,
+                            "name": "reward_chips",
+                            "variant_type": 1,
+                            "variant_value": 50
+                        },
+                        {
+                            "id": 1338845141,
+                            "name": "reward_rubble",
+                            "variant_type": 1,
+                            "variant_value": 10
+                        },
+                        {
+                            "id": 2928170887,
+                            "name": "reward_experience",
+                            "variant_type": 1,
+                            "variant_value": 25
                         }
                     ]
                 }
@@ -20283,7 +20389,7 @@
                             "id": 1805184399,
                             "name": "health",
                             "variant_type": 1,
-                            "variant_value": 100
+                            "variant_value": 200
                         },
                         {
                             "id": 2554044311,
@@ -20491,6 +20597,16 @@
                             }
                         },
                         {
+                            "id": 1371090216,
+                            "name": "cleared_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 1,
+                                "text": "",
+                                "type": 0
+                            }
+                        },
+                        {
                             "id": 3485902406,
                             "name": "spawn_points",
                             "variant_type": 7,
@@ -20527,6 +20643,98 @@
             "entity_properties": 0,
             "name": "totem_buff",
             "uuid_hash": 2643271818
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "ambush_loot_spawn"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "ambush_setup"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 4.375,
+                                "y": 2.125
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 2511960119,
+                    "name": "entity_spawn_point",
+                    "properties": [
+                        {
+                            "id": 615778801,
+                            "name": "entity_file",
+                            "variant_type": 6,
+                            "variant_value": "res/entities/loot_box.entity"
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "ambush_cleared",
+                                "type": 0
+                            }
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "ambush_loot_spawn",
+            "uuid_hash": 1957299788
         }
     ],
     "metadata": {
@@ -20582,6 +20790,7 @@
         },
         "spawn_package": false,
         "triggers": [
+            "ambush_cleared",
             "boss_defeated",
             "despawn_me",
             "do_shockwave",
