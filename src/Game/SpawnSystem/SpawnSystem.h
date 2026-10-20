@@ -40,12 +40,18 @@ namespace game
             uint32_t enable_trigger;
             uint32_t disable_trigger;
 
+            // Emitted once when spawn_limit_total entities have been spawned and they're all gone.
+            // Never emitted with an infinite spawn limit.
+            uint32_t cleared_trigger;
+
             // Internal data
             uint32_t entity_id;
             bool active;
             bool pending_manual_spawn;
+            bool cleared;
             int counter_ms;
             int num_spawns;
+            int num_spawned_entities;
             uint32_t enable_callback_id;
             uint32_t disable_callback_id;
             std::vector<SpawnIdAndCallback> active_spawns;

@@ -20,6 +20,7 @@ namespace
     constexpr const char* snap_to_grid_key = "snap_to_grid";
     constexpr const char* grid_size_key = "grid_size";
     constexpr const char* selected_world_key = "selected_world";
+    constexpr const char* server_port_key = "server_port";
 }
 
 bool editor::SaveConfig(const char* config_file, const editor::Config& config)
@@ -37,6 +38,7 @@ bool editor::SaveConfig(const char* config_file, const editor::Config& config)
     json[snap_to_grid_key]          = config.snap_to_grid;
     json[grid_size_key]             = config.grid_size;
     json[selected_world_key]        = config.selected_world;
+    json[server_port_key]           = config.server_port;
 
     const std::string& serialized_config = json.dump(4);
 
@@ -66,6 +68,7 @@ bool editor::LoadConfig(const char* config_file, editor::Config& config)
     config.snap_to_grid         = json.value(snap_to_grid_key, config.snap_to_grid);
     config.grid_size            = json.value(grid_size_key, config.grid_size);
     config.selected_world       = json.value(selected_world_key, config.selected_world);
+    config.server_port          = json.value(server_port_key, config.server_port);
 
     return true;
 }

@@ -10,6 +10,7 @@
 #include "UI/UIContext.h"
 
 #include "ObjectProxies/IObjectProxy.h"
+#include "EntitySystem/ObjectAttribute.h"
 #include "Grabber.h"
 
 #include <memory>
@@ -93,6 +94,12 @@ namespace editor
         void OnDeleteObject();
 
         void AddComponentToProxy(uint32_t component_hash, IObjectProxy* proxy_object);
+
+        // Like AddComponentToProxy, but with property_overrides applied to the new component and the
+        // entity updated with the data of everything added. Returns the hashes of the added components,
+        // the requested one last, any dependencies it pulled in before it.
+        std::vector<uint32_t> AddComponentWithProperties(
+            uint32_t component_hash, const std::vector<Attribute>& property_overrides, IObjectProxy* proxy_object);
         void AddComponentToSelection(uint32_t component_hash);
         void DeleteComponent(uint32_t index);
         void AddComponentUI();
@@ -146,6 +153,19 @@ namespace editor
         void EnterMode(EditorMode new_mode);
         void PopMode();
 
+        const std::vector<IObjectProxyPtr>& GetProxies() const;
+
+        // A new entity with name_folder and transform components, at the exact position (no grid snapping).
+        IObjectProxy* CreateEntityProxy(const std::string& name, const std::string& folder, const math::Vector& position);
+
+        // Removes the component at component_index from the entity.
+        void RemoveComponentFromProxy(IObjectProxy* proxy_object, size_t component_index);
+
+        // Adds the trigger names used by event attributes to the level's trigger list, so they can be
+        // picked in the property panel. Names already in the list are skipped.
+        void RegisterTriggers(const std::vector<Attribute>& attributes);
+        const std::string& GetWorldFilename() const;
+
     private:
 
         System::IWindow* m_window;
@@ -176,5 +196,7 @@ namespace editor
 
         std::vector<IObjectProxyPtr> m_proxies;
         std::vector<editor::Grabber> m_grabbers;
+
+        std::unique_ptr<class EditorServer> m_server;
     };
 }

@@ -186,6 +186,7 @@ extern const uint32_t CARGO_DESTINATION_ATTRIBUTE;
 extern const uint32_t TRANSFER_DURATION_ATTRIBUTE;
 extern const uint32_t REPLAYABLE_ATTRIBUTE;
 extern const uint32_t SHOW_EVERY_TIME_ATTRIBUTE;
+extern const uint32_t CLEARED_TRIGGER_ATTRIBUTE;
 
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);

@@ -24,6 +24,9 @@ namespace editor
         math::Vector grid_size = math::Vector(1.0f, 1.0f);
 
         std::string selected_world;
+
+        // Port for the editor's localhost http server, zero turns it off.
+        int server_port = 7777;
     };
 
     bool SaveConfig(const char* config_file, const Config& config);

@@ -297,6 +297,7 @@ namespace
         game::SpawnSystem::SpawnPointComponent spawn_point;
         spawn_point.enable_trigger = 0;
         spawn_point.disable_trigger = 0;
+        spawn_point.cleared_trigger = 0;
 
         FindAttribute(SPAWN_SCORE_ATTRIBUTE, properties, spawn_point.spawn_score, FallbackMode::SET_DEFAULT);
         FindAttribute(SPAWN_LIMIT_ATTRIBUTE, properties, spawn_point.spawn_limit_total, FallbackMode::SET_DEFAULT);
@@ -313,6 +314,14 @@ namespace
         const bool found_disable = FindAttribute(DISABLE_TRIGGER_ATTRIBUTE, properties, disable_trigger, FallbackMode::SET_DEFAULT);
         if(found_disable && !disable_trigger.text.empty())
             spawn_point.disable_trigger = hash::Hash(disable_trigger.text.c_str());
+
+        mono::Event cleared_trigger;
+        const bool found_cleared = FindAttribute(CLEARED_TRIGGER_ATTRIBUTE, properties, cleared_trigger, FallbackMode::SET_DEFAULT);
+        if(found_cleared && !cleared_trigger.text.empty())
+        {
+            spawn_point.cleared_trigger = hash::Hash(cleared_trigger.text.c_str());
+            hash::HashRegisterString(cleared_trigger.text.c_str());
+        }
 
         FindAttribute(SPAWN_POINTS_ATTRIBUTE, properties, spawn_point.points, FallbackMode::SET_DEFAULT);
 

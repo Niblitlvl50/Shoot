@@ -185,6 +185,7 @@ const DefaultAttribute default_attributes[] = {
     { "transfer_duration",          Variant(0.0f) },
     { "replayable",                 Variant(false) },
     { "show_every_time",            Variant(false) },
+    { "cleared_trigger",            Variant(event_type_output_default), "Cleared Event" },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -354,6 +355,7 @@ extern const uint32_t CARGO_DESTINATION_ATTRIBUTE           = default_attributes
 extern const uint32_t TRANSFER_DURATION_ATTRIBUTE           = default_attributes[143].hash;
 extern const uint32_t REPLAYABLE_ATTRIBUTE                  = default_attributes[144].hash;
 extern const uint32_t SHOW_EVERY_TIME_ATTRIBUTE             = default_attributes[145].hash;
+extern const uint32_t CLEARED_TRIGGER_ATTRIBUTE             = default_attributes[146].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -638,7 +640,7 @@ const Component default_components[] = {
     MakeComponent(RELAY_TRIGGER_COMPONENT,      NULL_COMPONENT,             false,  "triggers",     { TRIGGER_NAME_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, TRIGGER_NAME_COMPLETED_ATTRIBUTE }),
     MakeComponent(ANIM_NOTIFY_TRIGGER_COMPONENT,NULL_COMPONENT,             false,  "triggers",     { ANIM_NOTIFY_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
 
-    MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,             false,  "spawning",     { SPAWN_SCORE_ATTRIBUTE, SPAWN_LIMIT_ATTRIBUTE, SPAWN_LIMIT_CONCURRENT_ATTRIBUTE, RADIUS_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE, SPAWN_POINTS_ATTRIBUTE }),
+    MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,             false,  "spawning",     { SPAWN_SCORE_ATTRIBUTE, SPAWN_LIMIT_ATTRIBUTE, SPAWN_LIMIT_CONCURRENT_ATTRIBUTE, RADIUS_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE, CLEARED_TRIGGER_ATTRIBUTE, SPAWN_POINTS_ATTRIBUTE }),
     MakeComponent(ENTITY_SPAWN_POINT_COMPONENT, NULL_COMPONENT,             false,  "spawning",     { ENTITY_FILE_ATTRIBUTE, RADIUS_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
     MakeComponent(DESPAWN_ENTITY_COMPONENT,     NULL_COMPONENT,             false,  "spawning",     { TRIGGER_NAME_ATTRIBUTE } ),
 
@@ -854,6 +856,6 @@ void component::SortComponentsByPriority(std::vector<Component>& components)
     const auto sort_by_prio = [](const Component& left, const Component& right) {
         return ComponentPriorityForHash(left.hash) < ComponentPriorityForHash(right.hash);
     };
-    std::sort(components.begin(), components.end(), sort_by_prio);
+    std::stable_sort(components.begin(), components.end(), sort_by_prio);
 }
 

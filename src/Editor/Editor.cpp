@@ -1,5 +1,6 @@
 
 #include "Editor.h"
+#include "EditorServer.h"
 #include "EditorConfig.h"
 #include "Camera/ICamera.h"
 
@@ -382,10 +383,14 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new mono::RiverBatchDrawer(river_system, path_system, transform_system), game::LayerId::BACKGROUND);
     AddDrawable(new mono::TextBatchDrawer(text_system, transform_system), game::LayerId::POST_GAMEOBJECTS);
     AddDrawable(new game::UISystemDrawer(ui_system, transform_system), game::LayerId::UI);
+
+    if(m_editor_config.server_port > 0)
+        m_server = std::make_unique<EditorServer>(static_cast<uint16_t>(m_editor_config.server_port));
 }
 
 int Editor::OnUnload()
 {
+    m_server = nullptr;
     RemoveDrawable(m_component_detail_visualizer.get());
 
     m_editor_config.camera_position = m_camera->GetPosition();
@@ -406,6 +411,65 @@ void Editor::PostUpdate()
 {
     if(m_world_filename != m_new_world_filename)
         LoadWorld(m_new_world_filename);
+
+    if(m_server)
+        m_server->ProcessRequests(*this);
+}
+
+const std::vector<IObjectProxyPtr>& Editor::GetProxies() const
+{
+    return m_proxies;
+}
+
+IObjectProxy* Editor::CreateEntityProxy(const std::string& name, const std::string& folder, const math::Vector& position)
+{
+    mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
+    const mono::Entity new_entity = m_entity_manager.CreateEntity(name.c_str(), {});
+
+    std::unique_ptr<ComponentProxy> proxy = std::make_unique<ComponentProxy>(new_entity.id, &m_entity_manager, transform_system, this);
+
+    AddComponentWithProperties(NAME_FOLDER_COMPONENT, {}, proxy.get());
+    AddComponentWithProperties(TRANSFORM_COMPONENT, { { POSITION_ATTRIBUTE, position } }, proxy.get());
+    proxy->SetName(name);
+    proxy->SetFolder(folder);
+
+    IObjectProxy* proxy_object = proxy.get();
+    m_proxies.push_back(std::move(proxy));
+
+    return proxy_object;
+}
+
+void Editor::RemoveComponentFromProxy(IObjectProxy* proxy_object, size_t component_index)
+{
+    std::vector<Component>& components = proxy_object->GetComponents();
+    if(component_index >= components.size())
+        return;
+
+    m_entity_manager.RemoveComponent(proxy_object->Id(), components[component_index].hash);
+    components.erase(components.begin() + component_index);
+}
+
+void Editor::RegisterTriggers(const std::vector<Attribute>& attributes)
+{
+    std::vector<std::string>& triggers = m_context.level_metadata.triggers;
+    const size_t n_triggers = triggers.size();
+
+    for(const Attribute& attribute : attributes)
+    {
+        const mono::Event* event = std::get_if<mono::Event>(&attribute.value);
+        if(event && !event->text.empty())
+            triggers.push_back(event->text);
+    }
+
+    if(triggers.size() == n_triggers)
+        return;
+
+    mono::make_unique(triggers);
+}
+
+const std::string& Editor::GetWorldFilename() const
+{
+    return m_world_filename;
 }
 
 void Editor::SwitchWorld(const std::string& new_world_filename)
@@ -460,6 +524,13 @@ void Editor::LoadWorld(const std::string& world_filename)
     m_proxies = std::move(world.loaded_proxies);
 
     m_context.level_metadata = world.leveldata.metadata;
+
+    // Triggers used by the entities but missing from the saved list would show as empty in the property panel.
+    for(const IObjectProxyPtr& proxy : m_proxies)
+    {
+        for(const Component& component : proxy->GetComponents())
+            RegisterTriggers(component.properties);
+    }
 
     m_world_filename = world_filename;
     m_context.selected_world = world_filename;
@@ -963,6 +1034,50 @@ void Editor::AddComponentToProxy(uint32_t component_hash, IObjectProxy* proxy_ob
         m_entity_manager.AddComponent(proxy_object->Id(), component->hash);
 
     component::SortComponentsByPriority(components);
+}
+
+std::vector<uint32_t> Editor::AddComponentWithProperties(
+    uint32_t component_hash, const std::vector<Attribute>& property_overrides, IObjectProxy* proxy_object)
+{
+    std::vector<Component>& components = proxy_object->GetComponents();
+
+    const std::vector<Component*> added_components = component::AddComponent(component_hash, components);
+
+    // The requested component is added last, after any dependencies.
+    Component* requested_component = added_components.back();
+    for(const Attribute& override_attribute : property_overrides)
+    {
+        for(Attribute& attribute : requested_component->properties)
+        {
+            if(attribute.id == override_attribute.id)
+                attribute.value = override_attribute.value;
+        }
+    }
+
+    std::vector<uint32_t> added_hashes;
+    for(const Component* component : added_components)
+    {
+        m_entity_manager.AddComponent(proxy_object->Id(), component->hash);
+        added_hashes.push_back(component->hash);
+    }
+
+    // Sorting moves the components around, so the added ones are looked up again after it. The sort is
+    // stable, so a new component of a kind the entity already has is still the last one of its kind.
+    component::SortComponentsByPriority(components);
+
+    for(uint32_t added_hash : added_hashes)
+    {
+        for(auto it = components.rbegin(); it != components.rend(); ++it)
+        {
+            if(it->hash == added_hash)
+            {
+                proxy_object->ComponentChanged(*it, 0);
+                break;
+            }
+        }
+    }
+
+    return added_hashes;
 }
 
 void Editor::AddComponentToSelection(uint32_t component_hash)
