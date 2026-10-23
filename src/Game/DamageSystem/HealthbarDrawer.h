@@ -39,7 +39,6 @@ namespace game
 
         mono::ISpritePtr m_boss_icon_sprite;
         mono::SpriteDrawBuffers m_sprite_buffers;
-        std::unique_ptr<mono::IElementBuffer> m_indices;
 
         struct DamageNumber
         {

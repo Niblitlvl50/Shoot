@@ -137,7 +137,6 @@ namespace game
         std::vector<math::Quad> m_sprite_bounds;
 
         mutable std::unordered_map<uint32_t, mono::SpriteDrawBuffers> m_sprite_buffers;
-        std::unique_ptr<mono::IElementBuffer> m_indices;
 
         uint32_t m_active_sprite;
     };

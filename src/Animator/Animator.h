@@ -55,6 +55,7 @@ namespace animator
         void SaveSprite();
         void SetSpeed(float new_speed);
         void TogglePlaying();
+        void SetWindSwayPreview(bool enable);
         void ToggleOffsetMode();
 
     private:

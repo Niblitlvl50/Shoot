@@ -31,10 +31,6 @@ UISystemDrawer::UISystemDrawer(const UISystem* ui_system, mono::TransformSystem*
     m_cursor_sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite("res/sprites/arrow_pointer.sprite");
     m_cursor_sprite_buffer = mono::BuildSpriteDrawBuffers(m_cursor_sprite->GetSpriteData(), "sprite_buffer-ui_system");
 
-    constexpr uint16_t indices[] = {
-        0, 1, 2, 0, 2, 3
-    };
-    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices, "ui_system_drawer");
 }
 
 void UISystemDrawer::Draw(mono::IRenderer& renderer) const
@@ -52,7 +48,7 @@ void UISystemDrawer::Draw(mono::IRenderer& renderer) const
 
             const math::Matrix transform = math::CreateMatrixWithPosition(math::LeftCenter(world_bb));
             const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
-            renderer.DrawSprite(m_item_selection_sprite.get(), &m_item_selection_sprite_buffer, m_indices.get(), 0);
+            renderer.DrawSprite(m_item_selection_sprite.get(), &m_item_selection_sprite_buffer, 0);
         }
 
         {
@@ -60,7 +56,7 @@ void UISystemDrawer::Draw(mono::IRenderer& renderer) const
 
             const math::Matrix transform = math::CreateMatrixWithPosition(math::RightCenter(world_bb));
             const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
-            renderer.DrawSprite(m_item_selection_sprite.get(), &m_item_selection_sprite_buffer, m_indices.get(), 0);
+            renderer.DrawSprite(m_item_selection_sprite.get(), &m_item_selection_sprite_buffer, 0);
         }
     }
 
@@ -70,7 +66,7 @@ void UISystemDrawer::Draw(mono::IRenderer& renderer) const
         const math::Vector& cursor_target_position = m_ui_system->GetCursorTargetPosition();
         const math::Matrix transform = math::CreateMatrixWithPositionScale(cursor_target_position, 0.5f);
         const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
-        renderer.DrawSprite(m_cursor_sprite.get(), &m_cursor_sprite_buffer, m_indices.get(), 0);
+        renderer.DrawSprite(m_cursor_sprite.get(), &m_cursor_sprite_buffer, 0);
     }
 }
 

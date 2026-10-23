@@ -30,7 +30,6 @@ namespace game
         mono::ISpritePtr m_type_sprites[N_ENTITY_TYPES];
         mono::SpriteDrawBuffers m_type_sprite_buffers[N_ENTITY_TYPES];
 
-        std::unique_ptr<mono::IElementBuffer> m_sprite_indices;
 
         mono::PrimitiveDrawBuffers m_circle_draw_buffers;
         mono::PrimitiveDrawBuffers m_circle_outline_draw_buffers;

@@ -41,7 +41,6 @@ namespace game
         std::vector<mono::TextDrawBuffers> m_verb_text_buffers;
         std::vector<float> m_verb_text_widths;
 
-        std::unique_ptr<mono::IElementBuffer> m_indices;
 
         struct BackupData
         {

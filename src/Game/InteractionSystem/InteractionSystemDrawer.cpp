@@ -94,10 +94,6 @@ InteractionSystemDrawer::InteractionSystemDrawer(
         m_verb_text_widths.push_back(text_measurement.size.x);
     }
 
-    constexpr uint16_t indices[] = {
-        0, 1, 2, 0, 2, 3
-    };
-    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices, "interaction_system");
 }
 
 void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
@@ -217,7 +213,7 @@ void InteractionSystemDrawer::Draw(mono::IRenderer& renderer) const
             renderer.DrawFilledQuad(background_quad, tweak_values::background_color);
 
             const int offset = sprite_and_buffer.sprite->GetCurrentFrameIndex() * button_buffers.vertices_per_sprite;
-            renderer.DrawSprite(button_sprite, &button_buffers, m_indices.get(), offset);
+            renderer.DrawSprite(button_sprite, &button_buffers, offset);
 
             const mono::TextDrawBuffers& text_buffers = m_verb_text_buffers[draw_data.sprite_index];
             const mono::ITexturePtr font_texture = mono::GetFontTexture(tweak_values::verb_font);

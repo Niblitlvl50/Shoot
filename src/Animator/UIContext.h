@@ -63,6 +63,9 @@ namespace animator
         std::function<void ()> toggle_playing;
         std::function<void (float update_speed)> set_speed;
 
+        bool wind_sway_preview = false;
+        std::function<void (bool enable)> set_wind_sway_preview;
+
         std::function<void (const std::string& sprite_file)> open_sprite;
     };
 }

@@ -53,10 +53,6 @@ WorldEntityTrackingDrawer::WorldEntityTrackingDrawer(
         }
     }
 
-    constexpr uint16_t indices[] = {
-        0, 1, 2, 0, 2, 3
-    };
-    m_sprite_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices, "world_entity_tracking_drawer");
 
     m_circle_draw_buffers = mono::BuildCircleDrawBuffers(math::Vector(0.25f, 0.25f), 32, mono::Color::BLACK);
     m_circle_outline_draw_buffers = mono::BuildCircleDrawBuffers(math::Vector(0.225f, 0.225f), 32, mono::Color::GRAY);
@@ -122,7 +118,7 @@ void WorldEntityTrackingDrawer::Draw(mono::IRenderer& renderer) const
 
         const uint32_t type_index = static_cast<uint32_t>(tracking_entity.type);
         if(type_index < N_ENTITY_TYPES && m_type_sprites[type_index])
-            renderer.DrawSprite(m_type_sprites[type_index].get(), &m_type_sprite_buffers[type_index], m_sprite_indices.get(), 0);
+            renderer.DrawSprite(m_type_sprites[type_index].get(), &m_type_sprite_buffers[type_index], 0);
     }
 }
 

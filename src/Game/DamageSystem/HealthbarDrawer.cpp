@@ -225,10 +225,6 @@ HealthbarDrawer::HealthbarDrawer(
     m_boss_icon_sprite = mono::RenderSystem::GetSpriteFactory()->CreateSprite("res/sprites/squid.sprite");
     m_sprite_buffers = mono::BuildSpriteDrawBuffers(m_boss_icon_sprite->GetSpriteData(), "sprite_buffer-healthbar");
 
-    constexpr uint16_t indices[] = {
-        0, 1, 2, 0, 2, 3
-    };
-    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices, "healthbar_draw_buffer");
 }
 
 void HealthbarDrawer::Update(const mono::UpdateContext& update_context)
@@ -372,7 +368,7 @@ void HealthbarDrawer::Draw(mono::IRenderer& renderer) const
     {
         const math::Matrix& world_transform = renderer.GetTransform() * math::CreateMatrixWithPosition(icon_position);
         auto transform_scope = mono::MakeTransformScope(world_transform, &renderer);
-        renderer.DrawSprite(m_boss_icon_sprite.get(), &m_sprite_buffers, m_indices.get(), 0);
+        renderer.DrawSprite(m_boss_icon_sprite.get(), &m_sprite_buffers, 0);
     }
 }
 

@@ -30,6 +30,5 @@ namespace game
         mutable mono::ISpritePtr m_cursor_sprite;
         mono::SpriteDrawBuffers m_cursor_sprite_buffer;
 
-        std::unique_ptr<mono::IElementBuffer> m_indices;
     };
 }

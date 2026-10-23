@@ -181,10 +181,6 @@ PlayerAuxiliaryDrawer::PlayerAuxiliaryDrawer(const game::CameraSystem* camera_sy
 
     m_crosshair_render_data.sprite->SetShade(mono::Color::RGBA(1.0f, 0.65f, 0.65f));
 
-    constexpr uint16_t indices[] = {
-        0, 1, 2, 0, 2, 3
-    };
-    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices, "aux_drawer");
 
     std::memset(m_ability_data, 0, sizeof(m_ability_data));
 }
@@ -343,7 +339,7 @@ void PlayerAuxiliaryDrawer::DrawAbilities(const std::vector<const game::PlayerIn
         const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
 
         const AbilityRenderData& render_data = m_ability_render_datas[ability_point.render_data_index];
-        renderer.DrawSprite(render_data.sprite.get(), &render_data.sprite_buffers, m_indices.get(), 0);
+        renderer.DrawSprite(render_data.sprite.get(), &render_data.sprite_buffers, 0);
     }
 }
 
@@ -377,7 +373,7 @@ void PlayerAuxiliaryDrawer::DrawPowerups(const std::vector<const game::PlayerInf
         if(it != m_powerup_render_datas.end())
         {
             const AbilityRenderData& render_data = it->second;
-            renderer.DrawSprite(render_data.sprite.get(), &render_data.sprite_buffers, m_indices.get(), 0);
+            renderer.DrawSprite(render_data.sprite.get(), &render_data.sprite_buffers, 0);
         }
     }
 }
@@ -397,7 +393,7 @@ void PlayerAuxiliaryDrawer::DrawCrosshair(const std::vector<const game::PlayerIn
         const math::Matrix& transform = math::CreateMatrixWithPosition(crosshair_world_position);
         const auto transform_scope = mono::MakeTransformScope(transform, &renderer);
         renderer.DrawSprite(
-            m_crosshair_render_data.sprite.get(), &m_crosshair_render_data.sprite_buffers, m_indices.get(), 0);
+            m_crosshair_render_data.sprite.get(), &m_crosshair_render_data.sprite_buffers, 0);
     }
 }
 

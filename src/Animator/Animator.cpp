@@ -152,6 +152,7 @@ Animator::Animator(
 
     m_context.set_speed                 = std::bind(&Animator::SetSpeed, this, _1);
     m_context.toggle_playing            = std::bind(&Animator::TogglePlaying, this);
+    m_context.set_wind_sway_preview     = std::bind(&Animator::SetWindSwayPreview, this, _1);
     m_context.toggle_offset_mode        = std::bind(&Animator::ToggleOffsetMode, this);
 
     m_context.open_sprite               = std::bind(&Animator::OpenSpriteFile, this, _1);
@@ -488,6 +489,14 @@ void Animator::SaveSprite()
 void Animator::SetSpeed(float new_speed)
 {
     m_event_handler->DispatchEvent(event::TimeScaleEvent(new_speed));
+}
+
+void Animator::SetWindSwayPreview(bool enable)
+{
+    if(enable)
+        m_sprite->SetProperty(mono::SpriteProperty::WIND_SWAY);
+    else
+        m_sprite->ClearProperty(mono::SpriteProperty::WIND_SWAY);
 }
 
 void Animator::TogglePlaying()

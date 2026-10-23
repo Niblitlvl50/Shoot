@@ -303,12 +303,7 @@ math::Quad UITextElement::LocalBoundingBox() const
 
 UISpriteElement::UISpriteElement()
     : m_active_sprite(0)
-{
-    constexpr uint16_t indices[] = {
-        0, 1, 2, 0, 2, 3
-    };
-    m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, 6, indices, "ui_sprite_element");
-}
+{ }
 
 UISpriteElement::UISpriteElement(const std::string& sprite_file)
     : UISpriteElement()
@@ -394,7 +389,7 @@ void UISpriteElement::DrawElement(mono::IRenderer& renderer) const
 
     const mono::SpriteDrawBuffers& buffers = m_sprite_buffers[sprite_hash];
     renderer.DrawSprite(
-        sprite, &buffers, m_indices.get(), sprite->GetCurrentFrameIndex() * buffers.vertices_per_sprite);
+        sprite, &buffers, sprite->GetCurrentFrameIndex() * buffers.vertices_per_sprite);
 }
 
 math::Quad UISpriteElement::LocalBoundingBox() const

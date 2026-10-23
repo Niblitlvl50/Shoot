@@ -62,6 +62,18 @@ namespace
                 const std::string sprite_file = "res/sprites/" + result.new_value;
                 context.open_sprite(sprite_file);
             }
+
+            ImGui::SameLine();
+            if(ImGui::Checkbox("Wind", &context.wind_sway_preview))
+                context.set_wind_sway_preview(context.wind_sway_preview);
+
+            // Saved in the sprite file, the wind checkbox is only for previewing it.
+            if(context.sprite_data)
+            {
+                ImGui::SameLine();
+                ImGui::SetNextItemWidth(120.0f);
+                ImGui::SliderFloat("Sway Start", &context.sprite_data->wind_sway_start, 0.0f, 0.95f, "%.2f");
+            }
         }
         
         ImGui::End();
