@@ -255,6 +255,7 @@ extern const uint32_t SHOCKWAVE_COMPONENT;
 extern const uint32_t BEHAVIOUR_COMPONENT;
 extern const uint32_t SPAWN_POINT_COMPONENT;
 extern const uint32_t ENTITY_SPAWN_POINT_COMPONENT;
+extern const uint32_t PREFAB_COMPONENT;
 extern const uint32_t DESPAWN_ENTITY_COMPONENT;
 extern const uint32_t SHAPE_TRIGGER_COMPONENT;
 extern const uint32_t DESTROYED_TRIGGER_COMPONENT;

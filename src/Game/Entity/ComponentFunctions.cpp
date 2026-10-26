@@ -14,6 +14,7 @@
 #include "Rendering/Lights/LightSystem.h"
 #include "TransformSystem/TransformSystem.h"
 #include "World/RegionSystem.h"
+#include "World/PrefabSystem.h"
 #include "RoadSystem/RoadSystem.h"
 #include "RiverSystem/RiverSystem.h"
 #include "World/WorldBoundsSystem.h"
@@ -614,6 +615,33 @@ namespace
         return true;
     }}
 
+namespace
+{
+    bool CreatePrefab(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::PrefabSystem* prefab_system = context->GetSystem<game::PrefabSystem>();
+        prefab_system->AllocatePrefab(entity->id);
+        return true;
+    }
+
+    bool ReleasePrefab(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::PrefabSystem* prefab_system = context->GetSystem<game::PrefabSystem>();
+        prefab_system->ReleasePrefab(entity->id);
+        return true;
+    }
+
+    bool UpdatePrefab(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        std::string entity_file;
+        FindAttribute(ENTITY_FILE_ATTRIBUTE, properties, entity_file, FallbackMode::SET_DEFAULT);
+
+        game::PrefabSystem* prefab_system = context->GetSystem<game::PrefabSystem>();
+        prefab_system->SetPrefabData(entity->id, entity_file);
+        return true;
+    }
+}
+
 void game::RegisterSharedComponents(mono::IEntityManager* entity_manager)
 {
     entity_manager->RegisterComponent(TRANSFORM_COMPONENT, CreateTransform, ReleaseTransform, UpdateTransform);
@@ -632,4 +660,5 @@ void game::RegisterSharedComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(UI_ITEM_COMPONENT, CreateUIItem, DestroyUIItem, UpdateUIItem);
     entity_manager->RegisterComponent(UI_SET_GROUP_STATE_COMPONENT, CreateUISetGroupState, DestroyUISetGroupState, UpdateUISetGroupState);
     entity_manager->RegisterComponent(REGION_COMPONENT, CreateRegion, DestroyRegion, UpdateRegion);
+    entity_manager->RegisterComponent(PREFAB_COMPONENT, CreatePrefab, ReleasePrefab, UpdatePrefab);
 }

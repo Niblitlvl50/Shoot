@@ -41,6 +41,9 @@ namespace
             if(ImGui::MenuItem("Import Entity", "Ctrl + Shift + I"))
                 context.editor_menu_callback(EditorMenuOptions::IMPORT_ENTITY);
 
+            if(ImGui::MenuItem("Place Entity (Prefab)", "Ctrl + Shift + P"))
+                context.editor_menu_callback(EditorMenuOptions::PLACE_PREFAB);
+
             if(ImGui::MenuItem("Export Entity", "Ctrl + Shift + E"))
                 context.editor_menu_callback(EditorMenuOptions::EXPORT_ENTITY);
 

@@ -279,6 +279,8 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
         m_editor->AddComponentUI();
     else if(event.key == Keycode::I && event.ctrl && event.shift)
         m_editor->EditorMenuCallback(editor::EditorMenuOptions::IMPORT_ENTITY);
+    else if(event.key == Keycode::P && event.ctrl && event.shift)
+        m_editor->EditorMenuCallback(editor::EditorMenuOptions::PLACE_PREFAB);
     else if(event.key == Keycode::E && event.ctrl && event.shift)
         m_editor->EditorMenuCallback(editor::EditorMenuOptions::EXPORT_ENTITY);
     else if(event.key == Keycode::ONE)

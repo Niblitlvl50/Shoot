@@ -19,6 +19,7 @@
 #include "RailwaySystem/RailwaySystem.h"
 #include "Train/TrainCarSystem.h"
 #include "Train/TrainZoneSystem.h"
+#include "World/PrefabSystem.h"
 #include "DamageSystem/DamageSystem.h"
 #include "DialogSystem/DialogSystem.h"
 #include "Entity/AnimationSystem.h"
@@ -69,6 +70,7 @@ void game::CreateGameSystems(
     mono::EntitySystem* entity_system = system_context.CreateSystem<mono::EntitySystem>(
         max_entities, &system_context, component::ComponentNameFromHash, AttributeNameFromHash);
     mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
+    system_context.CreateSystem<game::PrefabSystem>(entity_system, transform_system);
     mono::ParticleSystem* particle_system =
         system_context.CreateSystem<mono::ParticleSystem>(max_entities, 100, transform_system);
 

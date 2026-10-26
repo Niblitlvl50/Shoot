@@ -27,6 +27,7 @@
 #include "TriggerSystem/TriggerSystem.h"
 #include "World/RegionSystem.h"
 #include "World/WorldBoundsSystem.h"
+#include "World/PrefabSystem.h"
 #include "Weapons/WeaponTypes.h"
 
 #include "Editor.h"
@@ -66,6 +67,7 @@ int main()
             max_entities, &system_context, component::ComponentNameFromHash, AttributeNameFromHash);
 
         mono::TransformSystem* transform_system = system_context.CreateSystem<mono::TransformSystem>(max_entities);
+        system_context.CreateSystem<game::PrefabSystem>(entity_system, transform_system);
         mono::SpriteSystem* sprite_system = system_context.CreateSystem<mono::SpriteSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::TextSystem>(max_entities, transform_system);
         system_context.CreateSystem<mono::PathSystem>(max_entities, transform_system);

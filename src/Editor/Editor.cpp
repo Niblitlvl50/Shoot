@@ -349,6 +349,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     draw_funcs[LAYER_COMPONENT] = editor::DrawLayerDetails;
     draw_funcs[AREA_EMITTER_COMPONENT] = editor::DrawAreaEmitterDetails;
 
+    draw_funcs[PREFAB_COMPONENT] = editor::DrawPrefabDetails;
     draw_funcs[LOADING_ZONE_COMPONENT] = editor::DrawLoadingZoneDetails;
     draw_funcs[DROP_OFF_ZONE_COMPONENT] = editor::DrawDropOffZoneDetails;
     draw_funcs[CARGO_COMPONENT] = editor::DrawCargoDetails;
@@ -697,6 +698,14 @@ void Editor::ExportAsEntityCollection()
 
 void Editor::ImportEntity()
 {
+    m_modal_places_prefab = false;
+    m_context.modal_items = GetAllEntities();
+    m_context.show_modal_item_selection = true;
+}
+
+void Editor::PlacePrefab()
+{
+    m_modal_places_prefab = true;
     m_context.modal_items = GetAllEntities();
     m_context.show_modal_item_selection = true;
 }
@@ -1361,6 +1370,22 @@ void Editor::SelectItemCallback(int index)
     mono::TransformSystem* transform_system = m_system_context.GetSystem<mono::TransformSystem>();
 
     const std::string& selected_item = m_context.modal_items[index];
+
+    if(m_modal_places_prefab)
+    {
+        const size_t slash_pos = selected_item.find_last_of('/');
+        const size_t dot_pos = selected_item.find('.', (slash_pos == std::string::npos) ? 0 : slash_pos);
+        const size_t name_start = (slash_pos == std::string::npos) ? 0 : slash_pos + 1;
+        const std::string prefab_name = selected_item.substr(name_start, dot_pos - name_start);
+
+        IObjectProxy* proxy = CreateEntityProxy(prefab_name, "", AlignToGrid(m_camera->GetPosition()));
+        AddComponentWithProperties(PREFAB_COMPONENT, { { ENTITY_FILE_ATTRIBUTE, selected_item } }, proxy);
+
+        SetSelection({ proxy->Id() });
+        m_context.notifications.emplace_back(import_texture, "Placed Prefab...", 2.0f);
+        return;
+    }
+
     editor::World loaded_world = ::LoadWorld(selected_item.c_str(), &m_entity_manager, transform_system, this);
     if(loaded_world.loaded_proxies.empty())
         return;
@@ -1395,6 +1420,8 @@ void Editor::EditorMenuCallback(EditorMenuOptions option)
         Save();
     else if(option == EditorMenuOptions::IMPORT_ENTITY)
         ImportEntity();
+    else if(option == EditorMenuOptions::PLACE_PREFAB)
+        PlacePrefab();
     else if(option == EditorMenuOptions::EXPORT_ENTITY)
         ExportAsIndividualEntities();
     else if(option == EditorMenuOptions::EXPORT_ENTITY_COLLECTION)

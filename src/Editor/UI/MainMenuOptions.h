@@ -9,6 +9,7 @@ namespace editor
         NEW_SPRITE,
         SAVE,
         IMPORT_ENTITY,
+        PLACE_PREFAB,
         EXPORT_ENTITY,
         EXPORT_ENTITY_COLLECTION,
         DUPLICATE,

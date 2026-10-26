@@ -375,6 +375,7 @@ extern const uint32_t SHOCKWAVE_COMPONENT           = hash::Hash("shockwave");
 extern const uint32_t BEHAVIOUR_COMPONENT           = hash::Hash("entity_behaviour");
 extern const uint32_t SPAWN_POINT_COMPONENT         = hash::Hash("spawn_point");
 extern const uint32_t ENTITY_SPAWN_POINT_COMPONENT  = hash::Hash("entity_spawn_point");
+extern const uint32_t PREFAB_COMPONENT              = hash::Hash("prefab");
 extern const uint32_t DESPAWN_ENTITY_COMPONENT      = hash::Hash("despawn_entity");
 extern const uint32_t SHAPE_TRIGGER_COMPONENT       = hash::Hash("shape_trigger");
 extern const uint32_t DESTROYED_TRIGGER_COMPONENT   = hash::Hash("destroyed_trigger");
@@ -465,6 +466,8 @@ const char* component::ComponentNameFromHash(uint32_t hash)
         return "spawn_point";
     else if(hash == ENTITY_SPAWN_POINT_COMPONENT)
         return "entity_spawn_point";
+    else if(hash == PREFAB_COMPONENT)
+        return "prefab";
     else if(hash == DESPAWN_ENTITY_COMPONENT)
         return "despawn_entity";
     else if(hash == SHAPE_TRIGGER_COMPONENT)
@@ -642,6 +645,7 @@ const Component default_components[] = {
 
     MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,             false,  "spawning",     { SPAWN_SCORE_ATTRIBUTE, SPAWN_LIMIT_ATTRIBUTE, SPAWN_LIMIT_CONCURRENT_ATTRIBUTE, RADIUS_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE, CLEARED_TRIGGER_ATTRIBUTE, SPAWN_POINTS_ATTRIBUTE }),
     MakeComponent(ENTITY_SPAWN_POINT_COMPONENT, NULL_COMPONENT,             false,  "spawning",     { ENTITY_FILE_ATTRIBUTE, RADIUS_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
+    MakeComponent(PREFAB_COMPONENT,             NULL_COMPONENT,             false,  "general",      { ENTITY_FILE_ATTRIBUTE }),
     MakeComponent(DESPAWN_ENTITY_COMPONENT,     NULL_COMPONENT,             false,  "spawning",     { TRIGGER_NAME_ATTRIBUTE } ),
 
     MakeComponent(ANIMATION_COMPONENT,          SPRITE_COMPONENT,           true,   "animation",    { TRIGGER_NAME_ATTRIBUTE, ANIMATION_ATTRIBUTE }),

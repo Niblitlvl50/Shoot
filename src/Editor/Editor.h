@@ -59,6 +59,9 @@ namespace editor
         void Quit();
         void Save();
         void ImportEntity();
+
+        // Places an entity that refers to an entity file, picked from a list, instead of copying it in.
+        void PlacePrefab();
         void ExportAsIndividualEntities();
         void ExportAsEntityCollection();
 
@@ -198,5 +201,8 @@ namespace editor
         std::vector<editor::Grabber> m_grabbers;
 
         std::unique_ptr<class EditorServer> m_server;
+
+        // The entity list is shared by Import Entity and Place Entity, this says which one opened it.
+        bool m_modal_places_prefab = false;
     };
 }
