@@ -25,6 +25,7 @@ namespace game
         SHAMAN,
         SUMMONER,
         SNIPER,
+        AI_TRAIN,
     };
 
     constexpr const char* g_entity_logic_strings[] = {
@@ -46,6 +47,7 @@ namespace game
         "Shaman",
         "Summoner",
         "Sniper",
+        "AI Train",
     };
 
     inline const char* EntityLogicToString(EntityLogicType logic_type)

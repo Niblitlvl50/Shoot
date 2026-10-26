@@ -29,6 +29,7 @@
 #include "Enemies/ShamanController.h"
 #include "Enemies/SummonerController.h"
 #include "Enemies/SniperController.h"
+#include "Train/AITrainController.h"
 
 #include "World/ReactivePropLogic.h"
 
@@ -78,6 +79,7 @@ namespace
         MakeController<game::ShamanController>,
         MakeController<game::SummonerController>,
         MakeController<game::SniperController>,
+        MakeController<game::AITrainController>,
     };
 }
 

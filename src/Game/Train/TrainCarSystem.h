@@ -103,6 +103,10 @@ namespace game
 
         std::vector<uint32_t> GetCarIds() const;
         bool IsLocomotive(uint32_t car_entity_id) const;
+        float GetCouplingDistance(uint32_t entity_id) const;
+
+        // The car at the head of entity_id's chain (the one with no leader).
+        uint32_t FindChainRoot(uint32_t entity_id) const;
 
     private:
 
@@ -125,10 +129,6 @@ namespace game
         // side is +1 for the end in the car's own increasing-path-position direction, -1 for
         // the other end.
         CouplingPoint GetCouplingPoint(uint32_t entity_id, float side) const;
-        float GetCouplingDistance(uint32_t entity_id) const;
-
-        // The car at the head of entity_id's chain (the one with no leader).
-        uint32_t FindChainRoot(uint32_t entity_id) const;
 
         // Reverses the leader links from entity_id up to its chain's root, making entity_id
         // the new root.

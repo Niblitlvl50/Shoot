@@ -66,9 +66,26 @@ namespace game
         // flips it ahead of arriving. Returns false if there's no switch there.
         bool ToggleSwitchAhead(uint32_t entity_id);
 
+        // Whether a switch at the end of entity_id's current track leads on to another track, at the
+        // end it reaches going forward (increasing path position) or backward. It's the track the
+        // train would be handed onto with the switches as they are now.
+        bool HasTrackAhead(uint32_t entity_id, bool forward) const;
+
+        // The switch at the end of entity_id's current track going forward or backward, but only when
+        // the train is on that switch's trunk, the side where the switch decides which branch it takes.
+        // INVALID_ID otherwise.
+        uint32_t FindBranchingSwitchAhead(uint32_t entity_id, bool forward) const;
+
         RailwayStationComponent* AllocateStation(uint32_t entity_id);
         void ReleaseStation(uint32_t entity_id);
         void SetStationData(uint32_t entity_id, const std::string& name);
+
+        template <typename T>
+        inline void ForEachStation(T&& callable) const
+        {
+            for(const auto& station_pair : m_stations)
+                callable(station_pair.first);
+        }
 
     private:
 
@@ -76,6 +93,10 @@ namespace game
         void Update(const mono::UpdateContext& update_context) override;
 
         void TryHandOff(uint32_t train_entity_id);
+
+        // The track a train on current_track_id continues onto at the switch near endpoint_position,
+        // or INVALID_ID when there's no switch there or it leads nowhere.
+        uint32_t FindNextTrack(uint32_t current_track_id, const math::Vector& endpoint_position) const;
         uint32_t FindSwitchNearPosition(const math::Vector& position) const;
         void DrawDebugInfo() const;
 
