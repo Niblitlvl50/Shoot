@@ -114,7 +114,7 @@ namespace game
     {
     public:
 
-        using WorldStateValues = std::unordered_map<std::string, Variant>;
+        using WorldStateValues = std::unordered_map<std::string, mono::Variant>;
 
         WorldStateSystem(mono::TriggerSystem* trigger_system);
 
@@ -156,7 +156,7 @@ namespace game
 
     private:
 
-        void SetValue(const std::string& key, const Variant& value);
+        void SetValue(const std::string& key, const mono::Variant& value);
 
         void ApplySetBool(const WorldStateSetBoolComponent& component);
         void ApplySetInt(const WorldStateSetIntComponent& component);

@@ -78,7 +78,7 @@ bool editor::DrawStringProperty(const char* name, std::string& value, int imgui_
     return false;
 }
 
-bool DrawGenericProperty(const char* text, Variant& value, const editor::UIContext& ui_context)
+bool DrawGenericProperty(const char* text, mono::Variant& value, const editor::UIContext& ui_context)
 {
     struct DrawVariantsVisitor
     {

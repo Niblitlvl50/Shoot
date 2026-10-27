@@ -282,7 +282,7 @@ void DrawWorldState(bool& show_window, game::WorldStateSystem* world_state_syste
 
     for(const std::string& key : keys)
     {
-        const Variant& value = values.at(key);
+        const mono::Variant& value = values.at(key);
         if(const bool* bool_value = std::get_if<bool>(&value))
         {
             bool edited_value = *bool_value;

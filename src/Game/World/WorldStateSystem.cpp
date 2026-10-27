@@ -117,7 +117,7 @@ void WorldStateSystem::SetValues(const WorldStateValues& values)
     }
 }
 
-void WorldStateSystem::SetValue(const std::string& key, const Variant& value)
+void WorldStateSystem::SetValue(const std::string& key, const mono::Variant& value)
 {
     m_values[key] = value;
     m_changed_keys.insert(key);
