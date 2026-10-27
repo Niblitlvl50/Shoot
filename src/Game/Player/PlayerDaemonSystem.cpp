@@ -5,6 +5,7 @@
 #include "Player/PackageLogic.h"
 #include "Player/PlayerInfo.h"
 #include "Player/SaveSystem.h"
+#include "World/WorldStateSystem.h"
 #include "PlayerFamiliarLogic.h"
 #include "DamageSystem/DamageSystem.h"
 
@@ -47,13 +48,15 @@ PlayerDaemonSystem::PlayerDaemonSystem(
     mono::SystemContext* system_context,
     mono::EventHandler* event_handler,
     game::CameraSystem* camera_system,
-    game::DamageSystem* damage_system)
+    game::DamageSystem* damage_system,
+    WorldStateSystem* world_state_system)
     : m_remote_connection(remote_connection)
     , m_entity_system(entity_system)
     , m_system_context(system_context)
     , m_event_handler(event_handler)
     , m_camera_system(camera_system)
     , m_damage_system(damage_system)
+    , m_world_state_system(world_state_system)
     , m_spawn_players(false)
     , m_train_logic(false)
 {
@@ -71,6 +74,7 @@ PlayerDaemonSystem::PlayerDaemonSystem(
     //std::shuffle(m_player_config.package_entities.begin(), m_player_config.package_entities.end(), random_bit_generator);
 
     game::LoadPlayerData(System::GetUserPath(), 0, m_save_slot_0);
+    m_world_state_system->SetValues(m_save_slot_0.world_state);
 
     using namespace std::placeholders;
     const event::ControllerAddedFunc& added_func = std::bind(&PlayerDaemonSystem::OnControllerAdded, this, _1);
@@ -168,6 +172,7 @@ void PlayerDaemonSystem::Reset()
         m_camera_system->Unfollow(player_info.entity_id);
     }
 
+    m_save_slot_0.world_state = m_world_state_system->GetValues();
     game::SavePlayerData(System::GetUserPath(), 0, m_save_slot_0);
 
     m_player_spawned_callback = nullptr;

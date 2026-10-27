@@ -4,6 +4,7 @@
 #include "TriggerSystem/TriggerSystem.h"
 #include "DamageSystem/DamageSystem.h"
 #include "Entity/EntityLogicSystem.h"
+#include "World/WorldStateSystem.h"
 #include "Navigation/NavmeshData.h"
 #include "Weapons/WeaponTypes.h"
 #include "Zones/ZoneManager.h"
@@ -45,6 +46,7 @@ bool game::g_interact_physics = false;
 bool game::g_body_introspection = false;
 bool game::g_draw_triggers = false;
 bool game::g_draw_emitted_triggers = false;
+bool game::g_draw_world_state = false;
 bool game::g_draw_targets = false;
 uint32_t game::g_draw_physics_subcomponents = mono::PhysicsDebugComponents::DRAW_SHAPES;
 bool game::g_draw_physics_stats = false;
@@ -89,6 +91,7 @@ void DrawDebugMenu(game::EntityLogicSystem* logic_system, mono::EventHandler* ev
         ImGui::PopID();
         ImGui::Checkbox("Triggers",             &game::g_draw_triggers);
         ImGui::Checkbox("Emitted Triggers",     &game::g_draw_emitted_triggers);
+        ImGui::Checkbox("World State",          &game::g_draw_world_state);
         ImGui::Checkbox("Targets",              &game::g_draw_targets);
         ImGui::Checkbox("Physics",              &game::g_draw_physics);
         ImGui::SameLine();
@@ -251,6 +254,61 @@ void DrawEmittedTriggers(const T& emitted_triggers)
         const float remaining_s = std::max(emitted_triggers::show_time_s - it->age_s, 0.0f);
         ImGui::TextColored(ImVec4(1.0f, 0.85f, 0.3f, alpha), "%4.1fs  %s", remaining_s, hash::HashLookup(it->trigger_hash));
     }
+
+    ImGui::End();
+}
+
+void DrawWorldState(bool& show_window, game::WorldStateSystem* world_state_system)
+{
+    if(!world_state_system)
+        return;
+
+    ImGui::SetNextWindowSize(ImVec2(320, 0), ImGuiCond_FirstUseEver);
+    if(!ImGui::Begin("World State", &show_window))
+    {
+        ImGui::End();
+        return;
+    }
+
+    // Copied, editing a value changes the map.
+    const game::WorldStateSystem::WorldStateValues values = world_state_system->GetValues();
+    if(values.empty())
+        ImGui::TextDisabled("No world state set");
+
+    std::vector<std::string> keys;
+    for(const auto& [key, value] : values)
+        keys.push_back(key);
+    std::sort(keys.begin(), keys.end());
+
+    for(const std::string& key : keys)
+    {
+        const Variant& value = values.at(key);
+        if(const bool* bool_value = std::get_if<bool>(&value))
+        {
+            bool edited_value = *bool_value;
+            if(ImGui::Checkbox(key.c_str(), &edited_value))
+                world_state_system->SetBool(key, edited_value);
+        }
+        else if(const int* int_value = std::get_if<int>(&value))
+        {
+            int edited_value = *int_value;
+            if(ImGui::InputInt(key.c_str(), &edited_value))
+                world_state_system->SetInt(key, edited_value);
+        }
+    }
+
+    ImGui::Separator();
+
+    static char new_key[64] = {};
+    ImGui::InputText("Key", new_key, std::size(new_key));
+    if(ImGui::Button("Add Bool") && new_key[0] != '\0')
+        world_state_system->SetBool(new_key, true);
+    ImGui::SameLine();
+    if(ImGui::Button("Add Int") && new_key[0] != '\0')
+        world_state_system->SetInt(new_key, 0);
+    ImGui::SameLine();
+    if(ImGui::Button("Clear All"))
+        world_state_system->Clear();
 
     ImGui::End();
 }
@@ -650,6 +708,7 @@ DebugUpdater::DebugUpdater(
     m_trigger_system = system_context->GetSystem<mono::TriggerSystem>();
     m_damage_system = system_context->GetSystem<DamageSystem>();
     m_logic_system = system_context->GetSystem<EntityLogicSystem>();
+    m_world_state_system = system_context->GetSystem<WorldStateSystem>();
 
     const event::KeyUpEventFunc key_up_func = [this, renderer](const event::KeyUpEvent& event) {
         if(!event.ctrl)
@@ -713,6 +772,9 @@ void DebugUpdater::Draw(mono::IRenderer& renderer) const
 
     if(game::g_draw_debug_frametimes)
         DrawFrameTimes(game::g_draw_debug_frametimes, m_frame_times);
+
+    if(game::g_draw_world_state)
+        DrawWorldState(game::g_draw_world_state, m_world_state_system);
 
     if(game::g_draw_emitted_triggers && !m_emitted_triggers.empty())
         DrawEmittedTriggers(m_emitted_triggers);

@@ -207,10 +207,18 @@ namespace
                 const bool pre_selection = (proxy == context.preselected_proxy_object);
                 const bool selected = in_selection || pre_selection;
                 const bool is_locked = proxy->IsLocked();
+                const bool is_prefab = component::FindComponentFromHash(PREFAB_COMPONENT, proxy->GetComponents()) != nullptr;
 
-                const std::string proxy_name = proxy->Name() + (is_locked ? " (L)" : "");
+                std::string proxy_name = proxy->Name();
+                if(is_prefab)
+                    proxy_name += " (P)";
+                if(is_locked)
+                    proxy_name += " (L)";
 
                 ImGui::PushID(id++);
+
+                if(is_prefab)
+                    ImGui::PushStyleColor(ImGuiCol_Text, (ImVec4)ImColor(120, 190, 255));
 
                 if(ImGui::Selectable(proxy_name.c_str(), selected, ImGuiSelectableFlags_AllowDoubleClick))
                 {
@@ -218,6 +226,9 @@ namespace
                     const bool is_double_click = ImGui::IsMouseDoubleClicked(0);
                     (is_double_click) ? context.teleport_to_object_callback(entity_id) : context.select_object_callback(entity_id);
                 }
+
+                if(is_prefab)
+                    ImGui::PopStyleColor();
 
                 if(ImGui::IsItemHovered())
                     context.preselect_object_callback(proxy);

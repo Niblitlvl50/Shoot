@@ -43,7 +43,8 @@ namespace game
             mono::SystemContext* system_context,
             mono::EventHandler* event_handler,
             class CameraSystem* camera_system,
-            class DamageSystem* damage_system);
+            class DamageSystem* damage_system,
+            class WorldStateSystem* world_state_system);
         ~PlayerDaemonSystem();
 
         const char* Name() const override;
@@ -94,6 +95,7 @@ namespace game
         mono::EventHandler* m_event_handler;
         class CameraSystem* m_camera_system;
         class DamageSystem* m_damage_system;
+        class WorldStateSystem* m_world_state_system;
 
         uint32_t m_collect_weapon_exp_id;
         bool m_spawn_players;

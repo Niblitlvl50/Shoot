@@ -44,6 +44,7 @@ namespace game
         mono::IEntityManager* m_entity_manager;
         DamageSystem* m_damage_system;
         EntityLogicSystem* m_logic_system;
+        class WorldStateSystem* m_world_state_system;
 
         mono::EventToken<event::KeyUpEvent> m_keyup_token;
 

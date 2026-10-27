@@ -20,6 +20,7 @@
 #include "Train/TrainCarSystem.h"
 #include "Train/TrainZoneSystem.h"
 #include "World/PrefabSystem.h"
+#include "World/WorldStateSystem.h"
 #include "DamageSystem/DamageSystem.h"
 #include "DialogSystem/DialogSystem.h"
 #include "Entity/AnimationSystem.h"
@@ -137,5 +138,7 @@ void game::CreateGameSystems(
     game::ServerManager* server_manager = system_context.CreateSystem<game::ServerManager>(&event_handler, &game_config);
     system_context.CreateSystem<game::ClientManager>(&event_handler, &game_config);
 
-    system_context.CreateSystem<game::PlayerDaemonSystem>(server_manager, entity_system, &system_context, &event_handler, camera_system, damage_system);
+    game::WorldStateSystem* world_state_system = system_context.CreateSystem<game::WorldStateSystem>(trigger_system);
+    system_context.CreateSystem<game::PlayerDaemonSystem>(
+        server_manager, entity_system, &system_context, &event_handler, camera_system, damage_system, world_state_system);
 }

@@ -35,8 +35,26 @@ void game::SavePlayerData(const char* user_path, int slot_index, const SaveSlotD
         save_data_array.push_back(player_data_json);
     }
 
+    nlohmann::json world_state_array = nlohmann::json::array();
+    for(const auto& [key, value] : data.world_state)
+    {
+        nlohmann::json world_state_json;
+        world_state_json["key"] = key;
+        world_state_json["variant_type"] = value.index();
+
+        if(const bool* bool_value = std::get_if<bool>(&value))
+            world_state_json["variant_value"] = *bool_value;
+        else if(const int* int_value = std::get_if<int>(&value))
+            world_state_json["variant_value"] = *int_value;
+        else
+            continue;
+
+        world_state_array.push_back(world_state_json);
+    }
+
     nlohmann::json json;
     json["slots"] = save_data_array;
+    json["world_state"] = world_state_array;
     const std::string& serialized_config = json.dump(4);
 
     const std::string save_folder = user_path + std::string("saves/");
@@ -86,5 +104,24 @@ void game::LoadPlayerData(const char* user_path, int slot_index, SaveSlotData& d
         data.player_data[index].auto_aim = save_data.value("auto_aim", false);
         data.player_data[index].auto_reload = save_data.value("auto_reload", false);
         data.player_data[index].damage_multiplier = save_data.value("damage_multiplier", 1.0f);
+    }
+
+    data.world_state.clear();
+
+    const bool has_world_state = json.contains("world_state") && json["world_state"].is_array();
+    if(has_world_state)
+    {
+        for(const nlohmann::json& world_state_json : json["world_state"])
+        {
+            const std::string key = world_state_json.value("key", std::string());
+            const int variant_type = world_state_json.value("variant_type", -1);
+            if(key.empty() || !world_state_json.contains("variant_value"))
+                continue;
+
+            if(variant_type == VariantTypeIndex::BOOL)
+                data.world_state[key] = world_state_json["variant_value"].get<bool>();
+            else if(variant_type == VariantTypeIndex::INT)
+                data.world_state[key] = world_state_json["variant_value"].get<int>();
+        }
     }
 }

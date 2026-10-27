@@ -34,6 +34,7 @@
 #include "Weapons/WeaponModifierTypes.h"
 #include "World/WorldBoundsTypes.h"
 #include "World/WorldEntityTrackingSystem.h"
+#include "World/WorldStateSystem.h"
 
 #include "ImGuiImpl/ImGuiImpl.h"
 #include "imgui/imgui_internal.h"
@@ -446,6 +447,21 @@ bool editor::DrawProperty(uint32_t component_hash, Attribute& attribute, const s
     {
         return ImGui::Combo(
             attribute_name, &std::get<int>(attribute.value), game::g_ui_item_state_strings, std::size(game::g_ui_item_state_strings));
+    }
+    else if(attribute.id == WORLD_STATE_BOOL_OPERATION_ATTRIBUTE)
+    {
+        return ImGui::Combo(
+            attribute_name, &std::get<int>(attribute.value), game::g_world_state_bool_operation_strings, std::size(game::g_world_state_bool_operation_strings));
+    }
+    else if(attribute.id == WORLD_STATE_INT_OPERATION_ATTRIBUTE)
+    {
+        return ImGui::Combo(
+            attribute_name, &std::get<int>(attribute.value), game::g_world_state_int_operation_strings, std::size(game::g_world_state_int_operation_strings));
+    }
+    else if(attribute.id == WORLD_STATE_COMPARISON_ATTRIBUTE)
+    {
+        return ImGui::Combo(
+            attribute_name, &std::get<int>(attribute.value), game::g_world_state_comparison_strings, std::size(game::g_world_state_comparison_strings));
     }
     else if(attribute.id == ENTITY_TYPE_ATTRIBUTE)
     {

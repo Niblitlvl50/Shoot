@@ -18,6 +18,7 @@
 #include "RailwaySystem/RailwaySystem.h"
 #include "Train/TrainCarSystem.h"
 #include "Train/TrainZoneSystem.h"
+#include "World/WorldStateSystem.h"
 #include "GameCamera/CameraSystem.h"
 #include "GamePhysics/GamePhysicsSystem.h"
 #include "InteractionSystem/InteractionSystem.h"
@@ -1533,6 +1534,131 @@ namespace
         return true;
     }
 
+    uint32_t RegisteredTriggerHash(const mono::Event& event)
+    {
+        hash::HashRegisterString(event.text.c_str());
+        return hash::Hash(event.text.c_str());
+    }
+
+    bool CreateWorldStateSetBool(mono::Entity* entity, mono::SystemContext* context)
+    {
+        context->GetSystem<game::WorldStateSystem>()->AllocateSetBool(entity->id);
+        return true;
+    }
+
+    bool ReleaseWorldStateSetBool(mono::Entity* entity, mono::SystemContext* context)
+    {
+        context->GetSystem<game::WorldStateSystem>()->ReleaseSetBool(entity->id);
+        return true;
+    }
+
+    bool UpdateWorldStateSetBool(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        mono::Event trigger_name;
+        int operation;
+        game::WorldStateSetBoolComponent data;
+        FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::SET_DEFAULT);
+        FindAttribute(WORLD_STATE_KEY_ATTRIBUTE, properties, data.key, FallbackMode::SET_DEFAULT);
+        FindAttribute(WORLD_STATE_BOOL_OPERATION_ATTRIBUTE, properties, operation, FallbackMode::SET_DEFAULT);
+        FindAttribute(WORLD_STATE_BOOL_ATTRIBUTE, properties, data.value, FallbackMode::SET_DEFAULT);
+
+        data.operation = game::WorldStateBoolOperation(operation);
+        data.trigger_hash = RegisteredTriggerHash(trigger_name);
+
+        context->GetSystem<game::WorldStateSystem>()->SetSetBoolData(entity->id, data);
+        return true;
+    }
+
+    bool CreateWorldStateSetInt(mono::Entity* entity, mono::SystemContext* context)
+    {
+        context->GetSystem<game::WorldStateSystem>()->AllocateSetInt(entity->id);
+        return true;
+    }
+
+    bool ReleaseWorldStateSetInt(mono::Entity* entity, mono::SystemContext* context)
+    {
+        context->GetSystem<game::WorldStateSystem>()->ReleaseSetInt(entity->id);
+        return true;
+    }
+
+    bool UpdateWorldStateSetInt(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        mono::Event trigger_name;
+        int operation;
+        game::WorldStateSetIntComponent data;
+        FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::SET_DEFAULT);
+        FindAttribute(WORLD_STATE_KEY_ATTRIBUTE, properties, data.key, FallbackMode::SET_DEFAULT);
+        FindAttribute(WORLD_STATE_INT_OPERATION_ATTRIBUTE, properties, operation, FallbackMode::SET_DEFAULT);
+        FindAttribute(WORLD_STATE_INT_ATTRIBUTE, properties, data.value, FallbackMode::SET_DEFAULT);
+
+        data.operation = game::WorldStateIntOperation(operation);
+        data.trigger_hash = RegisteredTriggerHash(trigger_name);
+
+        context->GetSystem<game::WorldStateSystem>()->SetSetIntData(entity->id, data);
+        return true;
+    }
+
+    bool CreateWorldStateBoolCondition(mono::Entity* entity, mono::SystemContext* context)
+    {
+        context->GetSystem<game::WorldStateSystem>()->AllocateBoolCondition(entity->id);
+        return true;
+    }
+
+    bool ReleaseWorldStateBoolCondition(mono::Entity* entity, mono::SystemContext* context)
+    {
+        context->GetSystem<game::WorldStateSystem>()->ReleaseBoolCondition(entity->id);
+        return true;
+    }
+
+    bool UpdateWorldStateBoolCondition(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        mono::Event true_trigger;
+        mono::Event false_trigger;
+        game::WorldStateBoolConditionComponent data;
+        FindAttribute(WORLD_STATE_KEY_ATTRIBUTE, properties, data.key, FallbackMode::SET_DEFAULT);
+        FindAttribute(WORLD_STATE_BOOL_ATTRIBUTE, properties, data.value, FallbackMode::SET_DEFAULT);
+        FindAttribute(WORLD_STATE_TRUE_TRIGGER_ATTRIBUTE, properties, true_trigger, FallbackMode::SET_DEFAULT);
+        FindAttribute(WORLD_STATE_FALSE_TRIGGER_ATTRIBUTE, properties, false_trigger, FallbackMode::SET_DEFAULT);
+
+        data.true_trigger_hash = RegisteredTriggerHash(true_trigger);
+        data.false_trigger_hash = RegisteredTriggerHash(false_trigger);
+
+        context->GetSystem<game::WorldStateSystem>()->SetBoolConditionData(entity->id, data);
+        return true;
+    }
+
+    bool CreateWorldStateIntCondition(mono::Entity* entity, mono::SystemContext* context)
+    {
+        context->GetSystem<game::WorldStateSystem>()->AllocateIntCondition(entity->id);
+        return true;
+    }
+
+    bool ReleaseWorldStateIntCondition(mono::Entity* entity, mono::SystemContext* context)
+    {
+        context->GetSystem<game::WorldStateSystem>()->ReleaseIntCondition(entity->id);
+        return true;
+    }
+
+    bool UpdateWorldStateIntCondition(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        int comparison;
+        mono::Event true_trigger;
+        mono::Event false_trigger;
+        game::WorldStateIntConditionComponent data;
+        FindAttribute(WORLD_STATE_KEY_ATTRIBUTE, properties, data.key, FallbackMode::SET_DEFAULT);
+        FindAttribute(WORLD_STATE_COMPARISON_ATTRIBUTE, properties, comparison, FallbackMode::SET_DEFAULT);
+        FindAttribute(WORLD_STATE_INT_ATTRIBUTE, properties, data.value, FallbackMode::SET_DEFAULT);
+        FindAttribute(WORLD_STATE_TRUE_TRIGGER_ATTRIBUTE, properties, true_trigger, FallbackMode::SET_DEFAULT);
+        FindAttribute(WORLD_STATE_FALSE_TRIGGER_ATTRIBUTE, properties, false_trigger, FallbackMode::SET_DEFAULT);
+
+        data.comparison = game::WorldStateComparison(comparison);
+        data.true_trigger_hash = RegisteredTriggerHash(true_trigger);
+        data.false_trigger_hash = RegisteredTriggerHash(false_trigger);
+
+        context->GetSystem<game::WorldStateSystem>()->SetIntConditionData(entity->id, data);
+        return true;
+    }
+
     bool CreateCargo(mono::Entity* entity, mono::SystemContext* context)
     {
         game::TrainZoneSystem* zone_system = context->GetSystem<game::TrainZoneSystem>();
@@ -1675,6 +1801,12 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(RAILWAY_SWITCH_COMPONENT, CreateRailwaySwitch, ReleaseRailwaySwitch, UpdateRailwaySwitch);
     entity_manager->RegisterComponent(RAILWAY_STATION_COMPONENT, CreateRailwayStation, ReleaseRailwayStation, UpdateRailwayStation);
     entity_manager->RegisterComponent(CARGO_COMPONENT, CreateCargo, ReleaseCargo, UpdateCargo);
+    entity_manager->RegisterComponent(WORLD_STATE_SET_BOOL_COMPONENT, CreateWorldStateSetBool, ReleaseWorldStateSetBool, UpdateWorldStateSetBool);
+    entity_manager->RegisterComponent(WORLD_STATE_SET_INT_COMPONENT, CreateWorldStateSetInt, ReleaseWorldStateSetInt, UpdateWorldStateSetInt);
+    entity_manager->RegisterComponent(
+        WORLD_STATE_BOOL_CONDITION_COMPONENT, CreateWorldStateBoolCondition, ReleaseWorldStateBoolCondition, UpdateWorldStateBoolCondition);
+    entity_manager->RegisterComponent(
+        WORLD_STATE_INT_CONDITION_COMPONENT, CreateWorldStateIntCondition, ReleaseWorldStateIntCondition, UpdateWorldStateIntCondition);
     entity_manager->RegisterComponent(LOADING_ZONE_COMPONENT, CreateLoadingZone, ReleaseLoadingZone, UpdateLoadingZone);
     entity_manager->RegisterComponent(DROP_OFF_ZONE_COMPONENT, CreateDropOffZone, ReleaseDropOffZone, UpdateDropOffZone);
 }

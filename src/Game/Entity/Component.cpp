@@ -186,6 +186,14 @@ const DefaultAttribute default_attributes[] = {
     { "replayable",                 Variant(false) },
     { "show_every_time",            Variant(false) },
     { "cleared_trigger",            Variant(event_type_output_default), "Cleared Event" },
+    { "world_state_key",            Variant(std::string()) },
+    { "world_state_bool_operation", Variant(0) },
+    { "world_state_int_operation",  Variant(0) },
+    { "world_state_comparison",     Variant(0) },
+    { "world_state_bool",           Variant(false) },
+    { "world_state_int",            Variant(0) },
+    { "world_state_true_trigger",   Variant(event_type_output_default), "True Event" },
+    { "world_state_false_trigger",  Variant(event_type_output_default), "False Event" },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -356,6 +364,14 @@ extern const uint32_t TRANSFER_DURATION_ATTRIBUTE           = default_attributes
 extern const uint32_t REPLAYABLE_ATTRIBUTE                  = default_attributes[144].hash;
 extern const uint32_t SHOW_EVERY_TIME_ATTRIBUTE             = default_attributes[145].hash;
 extern const uint32_t CLEARED_TRIGGER_ATTRIBUTE             = default_attributes[146].hash;
+extern const uint32_t WORLD_STATE_KEY_ATTRIBUTE             = default_attributes[147].hash;
+extern const uint32_t WORLD_STATE_BOOL_OPERATION_ATTRIBUTE  = default_attributes[148].hash;
+extern const uint32_t WORLD_STATE_INT_OPERATION_ATTRIBUTE   = default_attributes[149].hash;
+extern const uint32_t WORLD_STATE_COMPARISON_ATTRIBUTE      = default_attributes[150].hash;
+extern const uint32_t WORLD_STATE_BOOL_ATTRIBUTE            = default_attributes[151].hash;
+extern const uint32_t WORLD_STATE_INT_ATTRIBUTE             = default_attributes[152].hash;
+extern const uint32_t WORLD_STATE_TRUE_TRIGGER_ATTRIBUTE    = default_attributes[153].hash;
+extern const uint32_t WORLD_STATE_FALSE_TRIGGER_ATTRIBUTE   = default_attributes[154].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -376,6 +392,10 @@ extern const uint32_t BEHAVIOUR_COMPONENT           = hash::Hash("entity_behavio
 extern const uint32_t SPAWN_POINT_COMPONENT         = hash::Hash("spawn_point");
 extern const uint32_t ENTITY_SPAWN_POINT_COMPONENT  = hash::Hash("entity_spawn_point");
 extern const uint32_t PREFAB_COMPONENT              = hash::Hash("prefab");
+extern const uint32_t WORLD_STATE_SET_BOOL_COMPONENT        = hash::Hash("world_state_set_bool");
+extern const uint32_t WORLD_STATE_SET_INT_COMPONENT         = hash::Hash("world_state_set_int");
+extern const uint32_t WORLD_STATE_BOOL_CONDITION_COMPONENT  = hash::Hash("world_state_bool_condition");
+extern const uint32_t WORLD_STATE_INT_CONDITION_COMPONENT   = hash::Hash("world_state_int_condition");
 extern const uint32_t DESPAWN_ENTITY_COMPONENT      = hash::Hash("despawn_entity");
 extern const uint32_t SHAPE_TRIGGER_COMPONENT       = hash::Hash("shape_trigger");
 extern const uint32_t DESTROYED_TRIGGER_COMPONENT   = hash::Hash("destroyed_trigger");
@@ -468,6 +488,14 @@ const char* component::ComponentNameFromHash(uint32_t hash)
         return "entity_spawn_point";
     else if(hash == PREFAB_COMPONENT)
         return "prefab";
+    else if(hash == WORLD_STATE_SET_BOOL_COMPONENT)
+        return "world_state_set_bool";
+    else if(hash == WORLD_STATE_SET_INT_COMPONENT)
+        return "world_state_set_int";
+    else if(hash == WORLD_STATE_BOOL_CONDITION_COMPONENT)
+        return "world_state_bool_condition";
+    else if(hash == WORLD_STATE_INT_CONDITION_COMPONENT)
+        return "world_state_int_condition";
     else if(hash == DESPAWN_ENTITY_COMPONENT)
         return "despawn_entity";
     else if(hash == SHAPE_TRIGGER_COMPONENT)
@@ -646,6 +674,10 @@ const Component default_components[] = {
     MakeComponent(SPAWN_POINT_COMPONENT,        NULL_COMPONENT,             false,  "spawning",     { SPAWN_SCORE_ATTRIBUTE, SPAWN_LIMIT_ATTRIBUTE, SPAWN_LIMIT_CONCURRENT_ATTRIBUTE, RADIUS_ATTRIBUTE, TIME_STAMP_ATTRIBUTE, ENABLE_TRIGGER_ATTRIBUTE, DISABLE_TRIGGER_ATTRIBUTE, CLEARED_TRIGGER_ATTRIBUTE, SPAWN_POINTS_ATTRIBUTE }),
     MakeComponent(ENTITY_SPAWN_POINT_COMPONENT, NULL_COMPONENT,             false,  "spawning",     { ENTITY_FILE_ATTRIBUTE, RADIUS_ATTRIBUTE, TRIGGER_NAME_ATTRIBUTE }),
     MakeComponent(PREFAB_COMPONENT,             NULL_COMPONENT,             false,  "general",      { ENTITY_FILE_ATTRIBUTE }),
+    MakeComponent(WORLD_STATE_SET_BOOL_COMPONENT,       NULL_COMPONENT,     true,   "logic",        { TRIGGER_NAME_ATTRIBUTE, WORLD_STATE_KEY_ATTRIBUTE, WORLD_STATE_BOOL_OPERATION_ATTRIBUTE, WORLD_STATE_BOOL_ATTRIBUTE }),
+    MakeComponent(WORLD_STATE_SET_INT_COMPONENT,        NULL_COMPONENT,     true,   "logic",        { TRIGGER_NAME_ATTRIBUTE, WORLD_STATE_KEY_ATTRIBUTE, WORLD_STATE_INT_OPERATION_ATTRIBUTE, WORLD_STATE_INT_ATTRIBUTE }),
+    MakeComponent(WORLD_STATE_BOOL_CONDITION_COMPONENT, NULL_COMPONENT,     false,  "logic",        { WORLD_STATE_KEY_ATTRIBUTE, WORLD_STATE_BOOL_ATTRIBUTE, WORLD_STATE_TRUE_TRIGGER_ATTRIBUTE, WORLD_STATE_FALSE_TRIGGER_ATTRIBUTE }),
+    MakeComponent(WORLD_STATE_INT_CONDITION_COMPONENT,  NULL_COMPONENT,     false,  "logic",        { WORLD_STATE_KEY_ATTRIBUTE, WORLD_STATE_COMPARISON_ATTRIBUTE, WORLD_STATE_INT_ATTRIBUTE, WORLD_STATE_TRUE_TRIGGER_ATTRIBUTE, WORLD_STATE_FALSE_TRIGGER_ATTRIBUTE }),
     MakeComponent(DESPAWN_ENTITY_COMPONENT,     NULL_COMPONENT,             false,  "spawning",     { TRIGGER_NAME_ATTRIBUTE } ),
 
     MakeComponent(ANIMATION_COMPONENT,          SPRITE_COMPONENT,           true,   "animation",    { TRIGGER_NAME_ATTRIBUTE, ANIMATION_ATTRIBUTE }),

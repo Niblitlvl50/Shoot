@@ -12,6 +12,7 @@ namespace game
     extern bool g_draw_rendersystem;
     extern bool g_draw_triggers;
     extern bool g_draw_emitted_triggers;
+    extern bool g_draw_world_state;
     extern bool g_draw_targets;
     extern bool g_draw_physics;
     extern bool g_interact_physics;
