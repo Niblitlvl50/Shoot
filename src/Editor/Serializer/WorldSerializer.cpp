@@ -47,7 +47,7 @@ void editor::WriteComponentEntities(
         {
             nlohmann::json component_properties;
             
-            for(const Attribute& property : component.properties)
+            for(const mono::Attribute& property : component.properties)
                 component_properties.push_back(property);
             
             nlohmann::json json_component;

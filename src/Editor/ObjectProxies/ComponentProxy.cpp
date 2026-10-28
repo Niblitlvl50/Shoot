@@ -151,14 +151,14 @@ std::vector<Grabber> ComponentProxy::GetGrabbers()
     struct ComponentAndAttribute
     {
         Component* component;
-        Attribute* attribute;
+        mono::Attribute* attribute;
     };
 
     std::vector<ComponentAndAttribute> grabber_attributes;
 
     for(Component& component : m_components)
     {
-        for(Attribute& attribute : component.properties)
+        for(mono::Attribute& attribute : component.properties)
         {
             const bool valid_attribute = std::any_of(
                 std::begin(attributes_with_grabbers),

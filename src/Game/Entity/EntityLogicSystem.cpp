@@ -159,7 +159,7 @@ std::vector<EntityDebugCategory> EntityLogicSystem::GetDebugCategories() const
     return categories;
 }
 
-IEntityLogic* EntityLogicSystem::CreateLogic(EntityLogicType type, const std::vector<Attribute>& properties, uint32_t entity_id)
+IEntityLogic* EntityLogicSystem::CreateLogic(EntityLogicType type, const std::vector<mono::Attribute>& properties, uint32_t entity_id)
 {
     IEntityLogic* logic = create_functions[static_cast<uint32_t>(type)](entity_id, m_system_context, m_event_handler);
 

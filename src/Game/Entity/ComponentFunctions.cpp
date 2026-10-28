@@ -39,7 +39,7 @@ namespace
         return true;
     }
 
-    bool UpdateTransform(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateTransform(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         math::Vector position;
         float rotation = 0.0f;
@@ -81,7 +81,7 @@ namespace
         return true;
     }
     
-    bool UpdateTag(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateTag(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         std::string tags;
         FindAttribute(TAG_ATTRIBUTE, properties, tags, FallbackMode::SET_DEFAULT);
@@ -112,7 +112,7 @@ namespace
         return true;
     }
 
-    bool UpdateLayer(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateLayer(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         int new_layer;
         float new_sort_offset;
@@ -142,7 +142,7 @@ namespace
         return true;
     }
 
-    bool UpdateSprite(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateSprite(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         std::string sprite_file;
         mono::SpriteComponents sprite_args;
@@ -191,7 +191,7 @@ namespace
         return true;
     }
 
-    bool UpdateText(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateText(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::TextComponent text_component;
 
@@ -224,7 +224,7 @@ namespace
         return true;
     }
 
-    bool UpdatePath(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdatePath(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         int path_type;
         FindAttribute(PATH_TYPE_ATTRIBUTE, properties, path_type, FallbackMode::SET_DEFAULT);
@@ -255,7 +255,7 @@ namespace
         return true;
     }
 
-    bool UpdatePathNotifier(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdatePathNotifier(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         float start_distance = 0.0f;
         float end_distance = 0.0f;
@@ -285,7 +285,7 @@ namespace
         return true;
     }
 
-    bool UpdateRoad(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateRoad(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::RoadComponent component;
         FindAttribute(WIDTH_ATTRIBUTE, properties, component.width, FallbackMode::SET_DEFAULT);
@@ -313,7 +313,7 @@ namespace
         return true;
     }
 
-    bool UpdateRiver(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateRiver(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::RiverComponent component;
         FindAttribute(WIDTH_ATTRIBUTE, properties, component.width, FallbackMode::SET_DEFAULT);
@@ -342,7 +342,7 @@ namespace
         return true;
     }
 
-    bool UpdateLight(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateLight(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::LightComponent component;
         FindAttribute(RADIUS_ATTRIBUTE, properties, component.radius, FallbackMode::SET_DEFAULT);
@@ -379,7 +379,7 @@ namespace
         return true;
     }
 
-    bool UpdateParticleSystem(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateParticleSystem(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         int pool_size;
         std::string texture_file;
@@ -418,7 +418,7 @@ namespace
         return true;
     }
 
-    bool UpdateBoxEmitter(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateBoxEmitter(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         float duration;
         float emit_rate;
@@ -480,7 +480,7 @@ namespace
         return true;
     }
     
-    bool UpdateTexturedPolygon(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateTexturedPolygon(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         std::string texture_file;
         mono::Color::RGBA color;
@@ -512,7 +512,7 @@ namespace
         return true;
     }
     
-    bool UpdateUIItem(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateUIItem(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         int ui_group;
         int ui_item_state;
@@ -564,7 +564,7 @@ namespace
         return true;
     }
     
-    bool UpdateUISetGroupState(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateUISetGroupState(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         int ui_group;
         int ui_item_state;
@@ -597,7 +597,7 @@ namespace
         return true;
     }
     
-    bool UpdateRegion(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateRegion(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         std::string text;
         std::string sub_text;
@@ -631,7 +631,7 @@ namespace
         return true;
     }
 
-    bool UpdatePrefab(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdatePrefab(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         std::string entity_file;
         FindAttribute(ENTITY_FILE_ATTRIBUTE, properties, entity_file, FallbackMode::SET_DEFAULT);

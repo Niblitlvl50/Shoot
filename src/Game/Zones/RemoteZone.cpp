@@ -94,7 +94,7 @@ void RemoteZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
         client_manager, m_sprite_system, m_damage_system, m_position_prediction_system);
 
     m_player_daemon = std::make_unique<ClientPlayerDaemon>(camera_system, m_event_handler);
-    m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
+    m_debug_input = std::make_unique<mono::ImGuiInputHandler>(*m_event_handler);
     m_console_drawer = std::make_unique<ConsoleDrawer>();
 
     AddUpdatable(new ClientReplicator(camera, client_manager));

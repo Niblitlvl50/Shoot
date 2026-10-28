@@ -89,8 +89,8 @@ namespace
                 // through SpawnEntity at all). Only the copy handed to the trigger system gets
                 // mangled - component.properties keeps the original text, since it's also what
                 // the editor holds onto for re-saving the level.
-                std::vector<Attribute> mangled_properties = component.properties;
-                for(Attribute& attribute : mangled_properties)
+                std::vector<mono::Attribute> mangled_properties = component.properties;
+                for(mono::Attribute& attribute : mangled_properties)
                 {
                     mono::Event* event = std::get_if<mono::Event>(&attribute.value);
                     if(!event)

@@ -312,7 +312,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     m_context.grid_size = m_editor_config.grid_size;
 
-    m_input_handler = std::make_unique<ImGuiInputHandler>(m_event_handler);
+    m_input_handler = std::make_unique<mono::ImGuiInputHandler>(m_event_handler);
     m_user_input_controller =
         std::make_unique<editor::UserInputController>(camera, this, &m_context, m_event_handler);
 
@@ -450,12 +450,12 @@ void Editor::RemoveComponentFromProxy(IObjectProxy* proxy_object, size_t compone
     components.erase(components.begin() + component_index);
 }
 
-void Editor::RegisterTriggers(const std::vector<Attribute>& attributes)
+void Editor::RegisterTriggers(const std::vector<mono::Attribute>& attributes)
 {
     std::vector<std::string>& triggers = m_context.level_metadata.triggers;
     const size_t n_triggers = triggers.size();
 
-    for(const Attribute& attribute : attributes)
+    for(const mono::Attribute& attribute : attributes)
     {
         const mono::Event* event = std::get_if<mono::Event>(&attribute.value);
         if(event && !event->text.empty())
@@ -613,7 +613,7 @@ void Editor::ExportAsIndividualEntities()
 
         for(const Component& component : proxy->GetComponents())
         {
-            for(const Attribute& attribute : component.properties)
+            for(const mono::Attribute& attribute : component.properties)
             {
                 const mono::Event* event = std::get_if<mono::Event>(&attribute.value);
                 if(event && !event->text.empty())
@@ -660,7 +660,7 @@ void Editor::ExportAsEntityCollection()
     {
         for(const Component& component : proxy->GetComponents())
         {
-            for(const Attribute& attribute : component.properties)
+            for(const mono::Attribute& attribute : component.properties)
             {
                 const mono::Event* event = std::get_if<mono::Event>(&attribute.value);
                 if(event && !event->text.empty())
@@ -1046,7 +1046,7 @@ void Editor::AddComponentToProxy(uint32_t component_hash, IObjectProxy* proxy_ob
 }
 
 std::vector<uint32_t> Editor::AddComponentWithProperties(
-    uint32_t component_hash, const std::vector<Attribute>& property_overrides, IObjectProxy* proxy_object)
+    uint32_t component_hash, const std::vector<mono::Attribute>& property_overrides, IObjectProxy* proxy_object)
 {
     std::vector<Component>& components = proxy_object->GetComponents();
 
@@ -1054,9 +1054,9 @@ std::vector<uint32_t> Editor::AddComponentWithProperties(
 
     // The requested component is added last, after any dependencies.
     Component* requested_component = added_components.back();
-    for(const Attribute& override_attribute : property_overrides)
+    for(const mono::Attribute& override_attribute : property_overrides)
     {
-        for(Attribute& attribute : requested_component->properties)
+        for(mono::Attribute& attribute : requested_component->properties)
         {
             if(attribute.id == override_attribute.id)
                 attribute.value = override_attribute.value;
@@ -1158,7 +1158,7 @@ void Editor::AddPathPoint(const math::Vector& world_position)
         const mono::PathType path_type = mono::PathType(path_type_int);
 
         std::vector<math::Vector>* points = nullptr;
-        for(Attribute& attr : path_component->properties)
+        for(mono::Attribute& attr : path_component->properties)
         {
             if(attr.id == PATH_POINTS_ATTRIBUTE)
             {
@@ -1289,7 +1289,7 @@ void Editor::RemovePathPoint(const math::Vector& world_position)
         const mono::PathType path_type = mono::PathType(path_type_int);
 
         std::vector<math::Vector>* points = nullptr;
-        for(Attribute& attr : path_component->properties)
+        for(mono::Attribute& attr : path_component->properties)
         {
             if(attr.id == PATH_POINTS_ATTRIBUTE)
             {

@@ -51,7 +51,7 @@ namespace
         for(const Component& component : components)
         {
             nlohmann::json json_properties = nlohmann::json::array();
-            for(const Attribute& property : component.properties)
+            for(const mono::Attribute& property : component.properties)
                 json_properties.push_back(property);
 
             nlohmann::json json_component;
@@ -195,7 +195,7 @@ namespace
         for(const Component* component : component::GetAllDefaultComponents())
         {
             nlohmann::json json_properties = nlohmann::json::array();
-            for(const Attribute& property : component->properties)
+            for(const mono::Attribute& property : component->properties)
                 json_properties.push_back(property);
 
             nlohmann::json json_component;
@@ -223,7 +223,7 @@ namespace
         return (variant_index < std::size(g_variant_type_names)) ? g_variant_type_names[variant_index] : "unknown";
     }
 
-    nlohmann::json AttributeValueToJson(const Attribute& attribute)
+    nlohmann::json AttributeValueToJson(const mono::Attribute& attribute)
     {
         const nlohmann::json json_attribute = attribute;
         return json_attribute["variant_value"];
@@ -232,14 +232,14 @@ namespace
     struct AttributeChange
     {
         Component* component;
-        Attribute* attribute;
-        Attribute new_value;
+        mono::Attribute* attribute;
+        mono::Attribute new_value;
     };
 
     // Parses json_properties against the attributes of component, using each attribute's own type so a
     // value of the wrong type is an error instead of a type change. Returns an empty string on success.
     std::string ParseProperties(
-        const Component& component, const nlohmann::json& json_properties, std::vector<Attribute>& out_attributes)
+        const Component& component, const nlohmann::json& json_properties, std::vector<mono::Attribute>& out_attributes)
     {
         const std::string component_name = component::ComponentNameFromHash(component.hash);
 
@@ -248,8 +248,8 @@ namespace
 
         for(const auto& [attribute_name, json_value] : json_properties.items())
         {
-            const Attribute* template_attribute = nullptr;
-            for(const Attribute& attribute : component.properties)
+            const mono::Attribute* template_attribute = nullptr;
+            for(const mono::Attribute& attribute : component.properties)
             {
                 if(attribute_name == mono::EntitySystem::AttributeNameLookup(attribute.id))
                 {
@@ -269,7 +269,7 @@ namespace
 
             try
             {
-                out_attributes.push_back(json_attribute.get<Attribute>());
+                out_attributes.push_back(json_attribute.get<mono::Attribute>());
             }
             catch(const std::exception&)
             {
@@ -323,14 +323,14 @@ namespace
             if(!target_component)
                 return MakeError(400, "Entity has no component '" + component_name + "' at index " + std::to_string(component_index));
 
-            std::vector<Attribute> new_values;
+            std::vector<mono::Attribute> new_values;
             const std::string parse_error = ParseProperties(*target_component, json_component.value("properties", nlohmann::json()), new_values);
             if(!parse_error.empty())
                 return MakeError(400, parse_error);
 
-            for(const Attribute& new_value : new_values)
+            for(const mono::Attribute& new_value : new_values)
             {
-                Attribute* target_attribute = nullptr;
+                mono::Attribute* target_attribute = nullptr;
                 FindAttribute(new_value.id, target_component->properties, target_attribute);
                 changes.push_back({ target_component, target_attribute, new_value });
             }
@@ -397,7 +397,7 @@ namespace
         if(already_has_component && !template_component->allow_multiple)
             return MakeError(409, "Entity already has a '" + component_name + "' and it can only have one");
 
-        std::vector<Attribute> property_overrides;
+        std::vector<mono::Attribute> property_overrides;
         if(json.contains("properties"))
         {
             const std::string parse_error = ParseProperties(*template_component, json["properties"], property_overrides);
@@ -422,7 +422,7 @@ namespace
     struct NewComponent
     {
         const Component* template_component;
-        std::vector<Attribute> properties;
+        std::vector<mono::Attribute> properties;
     };
 
     // Body: { "name": "reward_spawner", "folder": "ambush_setup", "position": { "x": 1, "y": 2 },

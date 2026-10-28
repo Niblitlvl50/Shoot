@@ -295,7 +295,7 @@ namespace
             Component& src_component = first_components[result.component_index];
             first_proxy->ComponentChanged(src_component, result.attribute_hash);
 
-            const Attribute* src_attribute;
+            const mono::Attribute* src_attribute;
             FindAttribute(result.attribute_hash, src_component.properties, src_attribute);
 
             for(IObjectProxy* proxy : context.selected_proxies)
@@ -307,7 +307,7 @@ namespace
                 if(!target_component)
                     continue;
 
-                Attribute* target_attribute;
+                mono::Attribute* target_attribute;
                 const bool found_it = FindAttribute(result.attribute_hash, target_component->properties, target_attribute);
                 if(!found_it)
                     continue;
@@ -501,7 +501,7 @@ namespace
             if(icon_it != context.ui_icons.end())
             {
                 void* texture_id = icon_it->second.imgui_image->TextureHandle();
-                const ImageCoords& icon = QuadToImageCoords(icon_it->second.uv_upper_left, icon_it->second.uv_lower_right);
+                const mono::ImageCoords& icon = mono::QuadToImageCoords(icon_it->second.uv_upper_left, icon_it->second.uv_lower_right);
                 ImGui::Image(texture_id, ImVec2(24.0f, 24.0f), icon.uv1, icon.uv2, tint);
                 ImGui::SameLine();
             }

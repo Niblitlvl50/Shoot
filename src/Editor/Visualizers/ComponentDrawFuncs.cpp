@@ -49,7 +49,7 @@ namespace
     const mono::PathSystem* g_path_system_for_debug_draw = nullptr;
 }
 
-void editor::DrawCircleShapeDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawCircleShapeDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     float radius_value = 1.0f;
     math::Vector offset;
@@ -68,7 +68,7 @@ void editor::DrawCircleShapeDetails(mono::IRenderer& renderer, const std::vector
     renderer.DrawFilledCircle(math::Vector(radius_value, radius_value), 20, color);
 }
 
-void editor::DrawBoxShapeDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawBoxShapeDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     math::Vector width_height;
     math::Vector offset;
@@ -89,7 +89,7 @@ void editor::DrawBoxShapeDetails(mono::IRenderer& renderer, const std::vector<At
     renderer.DrawQuad(box, mono::Color::BLACK, 1.0f);
 }
 
-void editor::DrawSegmentShapeDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawSegmentShapeDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     math::Vector start;
     math::Vector end;
@@ -106,7 +106,7 @@ void editor::DrawSegmentShapeDetails(mono::IRenderer& renderer, const std::vecto
     renderer.DrawLines(line, color, 10.0f);
 }
 
-void editor::DrawPolygonShapeDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawPolygonShapeDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     std::vector<math::Vector> polygon;
     const bool found_polygon = FindAttribute(POLYGON_ATTRIBUTE, component_properties, polygon, FallbackMode::REQUIRE_ATTRIBUTE);
@@ -122,7 +122,7 @@ void editor::DrawPolygonShapeDetails(mono::IRenderer& renderer, const std::vecto
         renderer.RenderText(game::FontId::PIXELETTE_SMALL, "sensor", mono::Color::BLUE, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
-void editor::DrawSpawnPointDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawSpawnPointDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     float radius = 1.0f;
     FindAttribute(RADIUS_ATTRIBUTE, component_properties, radius, FallbackMode::SET_DEFAULT);
@@ -139,21 +139,21 @@ void editor::DrawSpawnPointDetails(mono::IRenderer& renderer, const std::vector<
     }
 }
 
-void editor::DrawEntitySpawnPointDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawEntitySpawnPointDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     float radius = 1.0f;
     FindAttribute(RADIUS_ATTRIBUTE, component_properties, radius, FallbackMode::SET_DEFAULT);
     renderer.DrawFilledCircle(math::Vector(radius, radius), 16, g_spawn_point_color);
 }
 
-void editor::DrawShapeTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawShapeTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     mono::Event name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
     renderer.RenderText(game::FontId::PIXELETTE_TINY, name.text.c_str(), g_trigger_name_color, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
-void editor::DrawAreaTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawAreaTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     math::Vector width_height;
     FindAttribute(SIZE_ATTRIBUTE, component_properties, width_height, FallbackMode::SET_DEFAULT);
@@ -184,7 +184,7 @@ void editor::DrawAreaTriggerComponentDetails(mono::IRenderer& renderer, const st
 
 namespace
 {
-    void DrawTrainZone(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const mono::Color::RGBA& color, const char* label)
+    void DrawTrainZone(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const mono::Color::RGBA& color, const char* label)
     {
         math::Vector width_height;
         float transfer_duration_s;
@@ -204,12 +204,12 @@ namespace
     }
 }
 
-void editor::DrawLoadingZoneDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawLoadingZoneDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     DrawTrainZone(renderer, component_properties, mono::Color::RGBA(0.2f, 0.8f, 0.2f, 0.3f), "loading");
 }
 
-void editor::DrawDropOffZoneDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawDropOffZoneDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     std::string destination;
     FindAttribute(CARGO_DESTINATION_ATTRIBUTE, component_properties, destination, FallbackMode::SET_DEFAULT);
@@ -218,7 +218,7 @@ void editor::DrawDropOffZoneDetails(mono::IRenderer& renderer, const std::vector
     DrawTrainZone(renderer, component_properties, mono::Color::RGBA(1.0f, 0.5f, 0.0f, 0.3f), label.c_str());
 }
 
-void editor::DrawCargoDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawCargoDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     int value;
     std::string destination;
@@ -230,21 +230,21 @@ void editor::DrawCargoDetails(mono::IRenderer& renderer, const std::vector<Attri
     renderer.RenderText(game::FontId::PIXELETTE_TINY, text_buffer, g_trigger_name_color, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
-void editor::DrawDestroyedTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawDestroyedTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     mono::Event name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
     renderer.RenderText(game::FontId::PIXELETTE_TINY, name.text.c_str(), g_trigger_name_color, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
-void editor::DrawTimeTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawTimeTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     mono::Event name;
     FindAttribute(TRIGGER_NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);
     renderer.RenderText(game::FontId::PIXELETTE_TINY, name.text.c_str(), g_trigger_name_color, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
-void editor::DrawCounterTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawCounterTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     mono::Event name;
     mono::Event completed_name;
@@ -258,7 +258,7 @@ void editor::DrawCounterTriggerComponentDetails(mono::IRenderer& renderer, const
     renderer.RenderText(game::FontId::PIXELETTE_TINY, output.c_str(), g_trigger_name_color, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
-void editor::DrawRelayTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawRelayTriggerComponentDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     mono::Event name;
     mono::Event completed_name;
@@ -272,7 +272,7 @@ void editor::DrawRelayTriggerComponentDetails(mono::IRenderer& renderer, const s
     renderer.RenderText(game::FontId::PIXELETTE_TINY, output.c_str(), g_trigger_name_color, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
-void editor::DrawSetTranslationDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawSetTranslationDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     math::Vector delta_position;
     FindAttribute(POSITION_ATTRIBUTE, component_properties, delta_position, FallbackMode::SET_DEFAULT);
@@ -281,7 +281,7 @@ void editor::DrawSetTranslationDetails(mono::IRenderer& renderer, const std::vec
     renderer.DrawPoints({ delta_position }, mono::Color::CYAN, 10.0f);
 }
 
-void editor::DrawSetRotationDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawSetRotationDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     float delta_rotation;
     FindAttribute(ROTATION_ATTRIBUTE, component_properties, delta_rotation, FallbackMode::SET_DEFAULT);
@@ -291,7 +291,7 @@ void editor::DrawSetRotationDetails(mono::IRenderer& renderer, const std::vector
     renderer.DrawPoints({ arc_points.back() }, mono::Color::CYAN, 10.0f);
 }
 
-void editor::DrawLayerDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawLayerDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     float sort_offset = 0.0f;
     FindAttribute(SORT_OFFSET_ATTRIBUTE, component_properties, sort_offset, FallbackMode::SET_DEFAULT);
@@ -310,7 +310,7 @@ void editor::DrawLayerDetails(mono::IRenderer& renderer, const std::vector<Attri
     renderer.DrawLines(line, mono::Color::GREEN, 1.0f);
 }
 
-void editor::DrawAreaEmitterDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawAreaEmitterDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     math::Vector offset;
     math::Vector area_size;
@@ -324,7 +324,7 @@ void editor::DrawAreaEmitterDetails(mono::IRenderer& renderer, const std::vector
     renderer.DrawQuad(area, mono::Color::BLACK, 1.0f);
 }
 
-void editor::DrawPath(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawPath(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     std::vector<math::Vector> vertices;
     const bool found_path = FindAttribute(PATH_POINTS_ATTRIBUTE, component_properties, vertices, FallbackMode::REQUIRE_ATTRIBUTE);
@@ -392,7 +392,7 @@ void editor::DrawPath(mono::IRenderer& renderer, const std::vector<Attribute>& c
     renderer.DrawPoints({ vertices.back() }, mono::Color::RED, endpoint_size);
 }
 
-void editor::DrawPathNotifierDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawPathNotifierDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     // Notifiers tagged along this same path entity.
     if(!g_path_system_for_debug_draw)
@@ -438,14 +438,14 @@ void editor::DrawPathNotifierDetails(mono::IRenderer& renderer, const std::vecto
     }
 }
 
-void editor::DrawCameraPoint(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawCameraPoint(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     math::Vector point;
     FindAttribute(POSITION_ATTRIBUTE, component_properties, point, FallbackMode::SET_DEFAULT);
     renderer.DrawPoints({ math::ZeroVec }, mono::Color::CYAN, 10.0f);
 }
 
-void editor::DrawTeleportPlayerPoint(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawTeleportPlayerPoint(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     const float radius = 0.25f;
     renderer.DrawFilledCircle(math::Vector(radius, radius), 16, mono::Color::MakeWithAlpha(mono::Color::GRAY, 0.5f));
@@ -453,7 +453,7 @@ void editor::DrawTeleportPlayerPoint(mono::IRenderer& renderer, const std::vecto
     renderer.DrawPoints({ math::ZeroVec }, mono::Color::GOLDEN_YELLOW, 16.0f);
 }
 
-void editor::DrawShockwaveComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawShockwaveComponentDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     float radius;
     FindAttribute(RADIUS_ATTRIBUTE, component_properties, radius, FallbackMode::SET_DEFAULT);
@@ -462,7 +462,7 @@ void editor::DrawShockwaveComponentDetails(mono::IRenderer& renderer, const std:
     renderer.DrawCircle(math::ZeroVec, radius, 24, 1.0f, mono::Color::RED);
 }
 
-void editor::DrawPhysicsImpulseComponentDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawPhysicsImpulseComponentDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     //float impulse_strength;
     //FindAttribute(STRENGTH_ATTRIBUTE, component_properties, impulse_strength, FallbackMode::SET_DEFAULT);
@@ -470,7 +470,7 @@ void editor::DrawPhysicsImpulseComponentDetails(mono::IRenderer& renderer, const
     renderer.DrawLines({ math::ZeroVec, math::Vector(0.0f, 2.0f) }, mono::Color::CYAN, 1.0f);
 }
 
-void editor::DrawRailwaySwitch(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawRailwaySwitch(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     bool use_alt_branch = false;
     FindAttribute(SWITCH_USE_ALT_BRANCH_ATTRIBUTE, component_properties, use_alt_branch, FallbackMode::SET_DEFAULT);
@@ -486,7 +486,7 @@ void editor::DrawRailwaySwitch(mono::IRenderer& renderer, const std::vector<Attr
     renderer.RenderText(game::FontId::PIXELETTE_TINY, label, active_color, mono::FontCentering::HORIZONTAL_VERTICAL);
 }
 
-void editor::DrawRailwayStation(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+void editor::DrawRailwayStation(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     std::string name;
     FindAttribute(NAME_ATTRIBUTE, component_properties, name, FallbackMode::SET_DEFAULT);

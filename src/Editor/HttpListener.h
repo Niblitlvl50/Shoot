@@ -24,7 +24,7 @@ namespace editor
     using HttpHandler = std::function<HttpResponse (const HttpRequest& request)>;
 
     // Wraps cpp-httplib, which has to live in a translation unit of its own since windows.h clashes
-    // with engine names like VariantTypeIndex::BOOL. Listens on its own thread and calls the handler
+    // with engine names like mono::VariantTypeIndex::BOOL. Listens on its own thread and calls the handler
     // from there, for every GET, POST, PATCH and DELETE request.
     class HttpListener
     {

@@ -201,10 +201,10 @@ extern const uint32_t ENTRY_TAG_ATTRIBUTE;
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);
 const mono::Variant& DefaultAttributeFromHash(uint32_t hash);
-bool FindAttribute(uint32_t id, std::vector<Attribute>& attributes, Attribute*& output);
-bool FindAttribute(uint32_t id, const std::vector<Attribute>& attributes, const Attribute*& output);
-void MergeAttributes(std::vector<Attribute>& result_attributes, const std::vector<Attribute>& other_attributes);
-void UnionAttributes(std::vector<Attribute>& result_attributes, const std::vector<Attribute>& other_attributes);
+bool FindAttribute(uint32_t id, std::vector<mono::Attribute>& attributes, mono::Attribute*& output);
+bool FindAttribute(uint32_t id, const std::vector<mono::Attribute>& attributes, const mono::Attribute*& output);
+void MergeAttributes(std::vector<mono::Attribute>& result_attributes, const std::vector<mono::Attribute>& other_attributes);
+void UnionAttributes(std::vector<mono::Attribute>& result_attributes, const std::vector<mono::Attribute>& other_attributes);
 
 enum class FallbackMode
 {
@@ -213,9 +213,9 @@ enum class FallbackMode
 };
 
 template <typename T>
-inline bool FindAttribute(uint32_t id, const std::vector<Attribute>& attributes, T& value, FallbackMode fallback_mode)
+inline bool FindAttribute(uint32_t id, const std::vector<mono::Attribute>& attributes, T& value, FallbackMode fallback_mode)
 {
-    const auto find_func = [id](const Attribute& attribute) {
+    const auto find_func = [id](const mono::Attribute& attribute) {
         return id == attribute.id;
     };
 
@@ -235,9 +235,9 @@ inline bool FindAttribute(uint32_t id, const std::vector<Attribute>& attributes,
 }
 
 template <typename T>
-inline void SetAttribute(uint32_t id, std::vector<Attribute>& attributes, const T& value)
+inline void SetAttribute(uint32_t id, std::vector<mono::Attribute>& attributes, const T& value)
 {
-    const auto find_func = [id](const Attribute& attribute) {
+    const auto find_func = [id](const mono::Attribute& attribute) {
         return id == attribute.id;
     };
 
@@ -329,7 +329,7 @@ struct Component
     uint32_t depends_on;
     bool allow_multiple;
     const char* category;
-    std::vector<Attribute> properties;
+    std::vector<mono::Attribute> properties;
 };
 
 namespace component

@@ -9,7 +9,10 @@
 
 #include <memory>
 
-class ImGuiInputHandler;
+namespace mono
+{
+    class ImGuiInputHandler;
+}
 
 namespace network
 {
@@ -66,6 +69,6 @@ namespace game
 
         std::unique_ptr<class ConsoleDrawer> m_console_drawer;
         std::unique_ptr<class ClientPlayerDaemon> m_player_daemon;
-        std::unique_ptr<ImGuiInputHandler> m_debug_input;
+        std::unique_ptr<mono::ImGuiInputHandler> m_debug_input;
     };
 }

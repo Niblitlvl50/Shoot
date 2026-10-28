@@ -144,7 +144,7 @@ bool DrawGenericProperty(const char* text, mono::Variant& value, const editor::U
     return std::visit(visitor, value);
 }
 
-bool editor::DrawProperty(uint32_t component_hash, Attribute& attribute, const std::vector<Component>& all_components, UIContext& ui_context)
+bool editor::DrawProperty(uint32_t component_hash, mono::Attribute& attribute, const std::vector<Component>& all_components, UIContext& ui_context)
 {
     const std::string text = PrettifyString(AttributeNameFromHash(attribute.id));
     const char* attribute_name = text.c_str();
@@ -564,7 +564,7 @@ editor::DrawComponentsResult editor::DrawComponents(UIContext& ui_context, std::
         if(decorator && decorator->header_decorator)
             component_header_changed = decorator->header_decorator(ui_context, index, component);
 
-        for(Attribute& property : component.properties)
+        for(mono::Attribute& property : component.properties)
         {
             const bool property_changed = DrawProperty(component.hash, property, components, ui_context);
             if(property_changed)
@@ -791,7 +791,7 @@ editor::SpritePickerResult editor::DrawSpritePicker(const char* name, const std:
             constexpr float button_max_size = 64.0f;
             const float scale = (size.x > size.y) ? button_max_size / size.x : button_max_size / size.y;
 
-            const ImageCoords& image_icon = QuadToImageCoords(sprite_icon.icon.uv_upper_left, sprite_icon.icon.uv_lower_right);
+            const mono::ImageCoords& image_icon = mono::QuadToImageCoords(sprite_icon.icon.uv_upper_left, sprite_icon.icon.uv_lower_right);
             const bool sprite_selected = ImGui::ImageButton(
                 texture_id, ImVec2(size.x * scale, size.y * scale), image_icon.uv1, image_icon.uv2, 2);
             if(sprite_selected)
@@ -955,7 +955,7 @@ bool editor::DrawEventProperty(const char* name, mono::Event& event, const UICon
     if(icon_it != ui_context.ui_icons.end())
     {
         ImTextureID texture_id = icon_it->second.imgui_image->TextureHandle();
-        const ImageCoords& icon = QuadToImageCoords(icon_it->second.uv_upper_left, icon_it->second.uv_lower_right);
+        const mono::ImageCoords& icon = mono::QuadToImageCoords(icon_it->second.uv_upper_left, icon_it->second.uv_lower_right);
         ImGui::Image(texture_id, ImVec2(20.0f, 20.0f), icon.uv1, icon.uv2);
     }
 

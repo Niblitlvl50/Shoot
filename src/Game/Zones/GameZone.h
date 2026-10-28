@@ -7,7 +7,10 @@
 
 #include <memory>
 
-class ImGuiInputHandler;
+namespace mono
+{
+    class ImGuiInputHandler;
+}
 
 namespace game
 {
@@ -30,7 +33,7 @@ namespace game
         const char* m_world_file;
 
         LevelData m_leveldata;
-        std::unique_ptr<ImGuiInputHandler> m_debug_input;
+        std::unique_ptr<mono::ImGuiInputHandler> m_debug_input;
 
         class HealthbarDrawer* m_healthbar_drawer;
         class RegionDrawer* m_region_ui;

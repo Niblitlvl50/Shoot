@@ -92,8 +92,8 @@ namespace
         const int window_x = window_size.x - window_width;
 
         //const ImageCoords& delete_icon = QuadToImageCoords(context.delete_icon);
-        const ImageCoords& plus_icon = QuadToImageCoords(math::TopLeft(context.plus_icon), math::BottomRight(context.plus_icon));
-        const ImageCoords& save_icon = QuadToImageCoords(math::TopLeft(context.save_icon), math::BottomRight(context.save_icon));
+        const mono::ImageCoords& plus_icon = mono::QuadToImageCoords(math::TopLeft(context.plus_icon), math::BottomRight(context.plus_icon));
+        const mono::ImageCoords& save_icon = mono::QuadToImageCoords(math::TopLeft(context.save_icon), math::BottomRight(context.save_icon));
 
         //const ImVec4 bg_color(1.0f, 1.0f, 1.0f, 1.0f);
         const ImVec2 small_button_size(22, 22);
@@ -412,7 +412,7 @@ animator::SpritePickerResult animator::DrawSpritePicker(const char* name, const 
             constexpr float button_max_size = 64.0f;
             const float scale = (size.x > size.y) ? button_max_size / size.x : button_max_size / size.y;
 
-            const ImageCoords& image_icon = QuadToImageCoords(sprite_icon.icon.uv_upper_left, sprite_icon.icon.uv_lower_right);
+            const mono::ImageCoords& image_icon = mono::QuadToImageCoords(sprite_icon.icon.uv_upper_left, sprite_icon.icon.uv_lower_right);
             const bool sprite_selected = ImGui::ImageButton(
                 texture_id, ImVec2(size.x * scale, size.y * scale), image_icon.uv1, image_icon.uv2, 2);
             if(sprite_selected)

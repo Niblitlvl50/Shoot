@@ -180,7 +180,7 @@ void Animator::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     m_sprite_batch_drawer = new mono::SpriteBatchDrawer(m_transform_system, m_sprite_system, m_render_system);
     m_Sprite_offset_drawer = new SpriteOffsetDrawer(m_transform_system, m_sprite_data, m_entity->id, m_context.offset_mode);
-    m_input_handler = std::make_unique<ImGuiInputHandler>(*m_event_handler);
+    m_input_handler = std::make_unique<mono::ImGuiInputHandler>(*m_event_handler);
 
     using namespace std::placeholders;
     const event::KeyDownEventFunc& key_down_func        = std::bind(&Animator::OnKeyDownUp, this, _1);

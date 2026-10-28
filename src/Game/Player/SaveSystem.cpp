@@ -118,9 +118,9 @@ void game::LoadPlayerData(const char* user_path, int slot_index, SaveSlotData& d
             if(key.empty() || !world_state_json.contains("variant_value"))
                 continue;
 
-            if(variant_type == VariantTypeIndex::BOOL)
+            if(variant_type == mono::VariantTypeIndex::BOOL)
                 data.world_state[key] = world_state_json["variant_value"].get<bool>();
-            else if(variant_type == VariantTypeIndex::INT)
+            else if(variant_type == mono::VariantTypeIndex::INT)
                 data.world_state[key] = world_state_json["variant_value"].get<int>();
         }
     }

@@ -61,7 +61,7 @@ namespace
         return true;
     }
 
-    bool UpdatePhysics(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdatePhysics(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::BodyComponent body_args;
 
@@ -106,7 +106,7 @@ namespace
         return true;
     }
 
-    bool UpdateCircleShape(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateCircleShape(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         int faction = 0;
         mono::CircleComponent shape_params;
@@ -125,7 +125,7 @@ namespace
         return true;
     }
 
-    bool UpdateBoxShape(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateBoxShape(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         int faction;
         mono::BoxComponent shape_params;
@@ -144,7 +144,7 @@ namespace
         return true;
     }
 
-    bool UpdateSegmentShape(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateSegmentShape(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         int faction;
         mono::SegmentComponent shape_params;
@@ -164,7 +164,7 @@ namespace
         return true;
     }
 
-    bool UpdatePolygonShape(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdatePolygonShape(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         int faction;
         mono::PolyComponent shape_params;
@@ -196,7 +196,7 @@ namespace
         return true;
     }
 
-    bool UpdateHealth(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateHealth(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         int health;
         bool release_on_death;
@@ -230,7 +230,7 @@ namespace
         return true;
     }
 
-    bool UpdateShockwave(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateShockwave(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         uint32_t trigger = 0;
         float radius;
@@ -266,7 +266,7 @@ namespace
         return true;
     }
 
-    bool UpdateEntityLogic(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateEntityLogic(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         int logic_type_value;
         const bool found_property = FindAttribute(ENTITY_BEHAVIOUR_ATTRIBUTE, properties, logic_type_value, FallbackMode::REQUIRE_ATTRIBUTE);
@@ -294,7 +294,7 @@ namespace
         return true;
     }
 
-    bool UpdateSpawnPoint(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateSpawnPoint(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         game::SpawnSystem::SpawnPointComponent spawn_point;
         spawn_point.enable_trigger = 0;
@@ -346,7 +346,7 @@ namespace
         return true;
     }
 
-    bool UpdateEntitySpawnPoint(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateEntitySpawnPoint(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         std::string entity_file;
         float spawn_radius = 0.0f;
@@ -385,7 +385,7 @@ namespace
         return true;
     }
 
-    bool UpdateDespawnEntity(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateDespawnEntity(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event despawn_trigger_name;
         const bool found_enable = FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, despawn_trigger_name, FallbackMode::SET_DEFAULT);
@@ -412,7 +412,7 @@ namespace
         return true;
     }
     
-    bool UpdateShapeTrigger(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateShapeTrigger(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event enter_trigger_name;
         const bool found_trigger_name =
@@ -457,7 +457,7 @@ namespace
         return true;
     }
 
-    bool UpdateDestroyedTrigger(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateDestroyedTrigger(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event trigger_name;
         const bool found_trigger_name =
@@ -494,7 +494,7 @@ namespace
         return true;
     }
 
-    bool UpdateAreaTrigger(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateAreaTrigger(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event trigger_name;
         const bool found_trigger_name =
@@ -542,7 +542,7 @@ namespace
         return true;
     }
 
-    bool UpdateTimeTrigger(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateTimeTrigger(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event trigger_name;
         const bool found_trigger_name =
@@ -577,7 +577,7 @@ namespace
         return true;
     }
 
-    bool UpdateCounterTrigger(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateCounterTrigger(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event trigger_name;
         mono::Event trigger_name_completed;
@@ -619,7 +619,7 @@ namespace
         return true;
     }
 
-    bool UpdateRelayTrigger(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateRelayTrigger(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event trigger_name;
         mono::Event trigger_name_completed;
@@ -657,7 +657,7 @@ namespace
         trigger_system->ReleaseAnimNotifyTrigger(entity->id);
         return true;
     }
-    bool UpdateAnimNotifyTrigger(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateAnimNotifyTrigger(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         std::string anim_notify;
         FindAttribute(ANIM_NOTIFY_ATTRIBUTE, properties, anim_notify, FallbackMode::SET_DEFAULT);
@@ -692,7 +692,7 @@ namespace
         return true;
     }
 
-    bool UpdatePickup(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdatePickup(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         game::Pickup pickup;
         FindAttribute(PICKUP_TYPE_ATTRIBUTE, properties, (int&)pickup.type, FallbackMode::SET_DEFAULT);
@@ -704,7 +704,7 @@ namespace
         return true;
     }
 
-    bool UpdateWeaponPickup(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateWeaponPickup(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         game::Pickup pickup;
         pickup.type = game::PickupType::WEAPON_MODIFIER;
@@ -730,7 +730,7 @@ namespace
         return true;
     }
     
-    bool UpdateLootBox(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateLootBox(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         game::PickupSystem* pickup_system = context->GetSystem<game::PickupSystem>();
         pickup_system->SetLootBoxData(entity->id, 1.0f);
@@ -751,7 +751,7 @@ namespace
         return true;
     }
 
-    bool UpdateSpriteAnimation(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateSpriteAnimation(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event trigger_name;
         const bool found_trigger_name =
@@ -772,7 +772,7 @@ namespace
         return true;
     }
 
-    bool UpdateTranslationAnimation(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateTranslationAnimation(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event trigger_name;
         const bool found_trigger_name =
@@ -800,7 +800,7 @@ namespace
         return true;
     }
 
-    bool UpdateRotationAnimation(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateRotationAnimation(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event trigger_name;
         const bool found_trigger_name =
@@ -828,7 +828,7 @@ namespace
         return true;
     }
 
-    bool UpdateScaleAnimation(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateScaleAnimation(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event trigger_name;
         const bool found_trigger_name =
@@ -870,7 +870,7 @@ namespace
         return true;
     }
 
-    bool UpdateCameraZoom(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateCameraZoom(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event trigger_name;
         const bool found_trigger_name =
@@ -889,7 +889,7 @@ namespace
         return true;
     }
 
-    bool UpdateCameraPoint(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateCameraPoint(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event trigger_name;
         const bool found_trigger_name =
@@ -905,7 +905,7 @@ namespace
         return true;
     }
 
-    bool UpdateCameraTrackEntity(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateCameraTrackEntity(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event trigger_name;
         const bool found_trigger_name =
@@ -943,7 +943,7 @@ namespace
         return true;
     }
 
-    bool UpdateCameraRestore(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateCameraRestore(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event trigger_name;
         const bool found_trigger_name =
@@ -973,7 +973,7 @@ namespace
         return true;
     }
     
-    bool UpdateInteraction(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateInteraction(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event trigger_name;
         const bool found_trigger_name =
@@ -1004,7 +1004,7 @@ namespace
         return true;
     }
 
-    bool UpdateInteractionSwitch(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateInteractionSwitch(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event on_trigger_name;
         mono::Event off_trigger_name;
@@ -1054,7 +1054,7 @@ namespace
         return true;
     }
     
-    bool UpdateDialog(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateDialog(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event trigger_name;
         bool emit_once;
@@ -1091,7 +1091,7 @@ namespace
         return true;
     }
 
-    bool UpdateDialogOption(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateDialogOption(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         game::DialogOption option;
         mono::Event trigger_name;
@@ -1116,7 +1116,7 @@ namespace
         return true;
     }
 
-    bool UpdateWeaponLoadout(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateWeaponLoadout(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         std::string primary;
         std::string secondary;
@@ -1145,7 +1145,7 @@ namespace
         return true;
     }
 
-    bool UpdateSound(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateSound(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         std::string sound_file;
         mono::Event play_trigger;
@@ -1182,7 +1182,7 @@ namespace
         return true;
     }
 
-    bool UpdateTeleportPlayer(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateTeleportPlayer(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event trigger_name;
         FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::SET_DEFAULT);
@@ -1207,7 +1207,7 @@ namespace
         return true;
     }
 
-    bool UpdateEntityTracker(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateEntityTracker(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         int entity_type;
         bool start_enabled;
@@ -1246,7 +1246,7 @@ namespace
         return true;
     }
 
-    bool UpdateEntityTarget(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateEntityTarget(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         int faction;
         int priority;
@@ -1270,7 +1270,7 @@ namespace
         mission_system->ReleaseMission(entity->id);
         return true;
     }
-    bool UpdateMissionTracker(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateMissionTracker(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         std::string mission_name;
         std::string mission_description;
@@ -1320,7 +1320,7 @@ namespace
         mission_system->ReleaseMissionActivator(entity->id);
         return true;
     }
-    bool UpdateMissionActivator(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateMissionActivator(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event trigger_name;
         bool emit_once;
@@ -1346,7 +1346,7 @@ namespace
         mission_system->ReleaseMissionReward(entity->id);
         return true;
     }
-    bool UpdateMissionReward(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateMissionReward(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         int chips;
         int rubble;
@@ -1388,7 +1388,7 @@ namespace
         return true;
     }
 
-    bool UpdatePhysicsImpulse(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdatePhysicsImpulse(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         float impulse_strength = 1.0f;
         FindAttribute(STRENGTH_ATTRIBUTE, properties, impulse_strength, FallbackMode::SET_DEFAULT);
@@ -1413,7 +1413,7 @@ namespace
         return true;
     }
 
-    bool UpdatePathFollower(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdatePathFollower(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         uint32_t path_entity_reference = mono::INVALID_ID;
         float speed;
@@ -1455,7 +1455,7 @@ namespace
         return true;
     }
 
-    bool UpdateTrainCar(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateTrainCar(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         float coupling_distance;
         bool is_locomotive;
@@ -1482,7 +1482,7 @@ namespace
         return true;
     }
 
-    bool UpdateRailwaySwitch(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateRailwaySwitch(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         uint32_t trunk_track_reference = mono::INVALID_ID;
         uint32_t primary_track_reference = mono::INVALID_ID;
@@ -1524,7 +1524,7 @@ namespace
         return true;
     }
 
-    bool UpdateRailwayStation(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateRailwayStation(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         std::string name;
         FindAttribute(NAME_ATTRIBUTE, properties, name, FallbackMode::SET_DEFAULT);
@@ -1553,7 +1553,7 @@ namespace
         return true;
     }
 
-    bool UpdateWorldStateSetBool(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateWorldStateSetBool(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event trigger_name;
         int operation;
@@ -1582,7 +1582,7 @@ namespace
         return true;
     }
 
-    bool UpdateWorldStateSetInt(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateWorldStateSetInt(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event trigger_name;
         int operation;
@@ -1611,7 +1611,7 @@ namespace
         return true;
     }
 
-    bool UpdateWorldStateBoolCondition(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateWorldStateBoolCondition(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event true_trigger;
         mono::Event false_trigger;
@@ -1640,7 +1640,7 @@ namespace
         return true;
     }
 
-    bool UpdateWorldStateIntCondition(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateWorldStateIntCondition(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         int comparison;
         mono::Event true_trigger;
@@ -1672,7 +1672,7 @@ namespace
         return true;
     }
 
-    bool UpdateLevelExit(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateLevelExit(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         mono::Event trigger_name;
         std::string target_level;
@@ -1700,7 +1700,7 @@ namespace
         return true;
     }
 
-    bool UpdateCargo(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateCargo(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         std::string name;
         int value;
@@ -1729,7 +1729,7 @@ namespace
         return true;
     }
 
-    bool UpdateLoadingZone(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateLoadingZone(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         math::Vector size;
         float transfer_duration_s;
@@ -1759,7 +1759,7 @@ namespace
         return true;
     }
 
-    bool UpdateDropOffZone(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    bool UpdateDropOffZone(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
     {
         math::Vector size;
         float transfer_duration_s;

@@ -141,7 +141,7 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     SoundSystem* sound_system = m_system_context->GetSystem<SoundSystem>();
     sound_system->PlayBackgroundMusic(metadata.background_music, SoundTransition::CrossFade);
 
-    m_debug_input = std::make_unique<ImGuiInputHandler>(*m_event_handler);
+    m_debug_input = std::make_unique<mono::ImGuiInputHandler>(*m_event_handler);
 
     // Background
     AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system, PolygonDrawLayer::PRE_GAMEOBJECTS), LayerId::BACKGROUND);

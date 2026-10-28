@@ -612,7 +612,7 @@ const char* component::ComponentNameFromHash(uint32_t hash)
 Component MakeComponent(
     uint32_t hash, uint32_t depends_on, bool allow_multiple, const char* category, const std::vector<uint32_t>& properties)
 {
-    std::vector<Attribute> attributes;
+    std::vector<mono::Attribute> attributes;
     for(uint32_t property_hash : properties)
         attributes.push_back({ property_hash, DefaultAttributeFromHash(property_hash) });
 
@@ -749,9 +749,9 @@ const mono::Variant& DefaultAttributeFromHash(uint32_t hash)
     return null_attribute;
 }
 
-bool FindAttribute(uint32_t id, std::vector<Attribute>& attributes, Attribute*& output)
+bool FindAttribute(uint32_t id, std::vector<mono::Attribute>& attributes, mono::Attribute*& output)
 {
-    const auto find_func = [id](const Attribute& attribute) {
+    const auto find_func = [id](const mono::Attribute& attribute) {
         return id == attribute.id;
     };
 
@@ -763,16 +763,16 @@ bool FindAttribute(uint32_t id, std::vector<Attribute>& attributes, Attribute*& 
     return found_attribute;
 }
 
-bool FindAttribute(uint32_t id, const std::vector<Attribute>& attributes, const Attribute*& output)
+bool FindAttribute(uint32_t id, const std::vector<mono::Attribute>& attributes, const mono::Attribute*& output)
 {
-    return FindAttribute(id, const_cast<std::vector<Attribute>&>(attributes), const_cast<Attribute*&>(output));
+    return FindAttribute(id, const_cast<std::vector<mono::Attribute>&>(attributes), const_cast<mono::Attribute*&>(output));
 }
 
-void MergeAttributes(std::vector<Attribute>& result_attributes, const std::vector<Attribute>& other_attributes)
+void MergeAttributes(std::vector<mono::Attribute>& result_attributes, const std::vector<mono::Attribute>& other_attributes)
 {
-    for(const Attribute& input : other_attributes)
+    for(const mono::Attribute& input : other_attributes)
     {
-        Attribute* attribute = nullptr;
+        mono::Attribute* attribute = nullptr;
         if(FindAttribute(input.id, result_attributes, attribute))
             attribute->value = input.value;
         else
@@ -780,11 +780,11 @@ void MergeAttributes(std::vector<Attribute>& result_attributes, const std::vecto
     }
 }
 
-void UnionAttributes(std::vector<Attribute>& result_attributes, const std::vector<Attribute>& other_attributes)
+void UnionAttributes(std::vector<mono::Attribute>& result_attributes, const std::vector<mono::Attribute>& other_attributes)
 {
-    for(const Attribute& input : other_attributes)
+    for(const mono::Attribute& input : other_attributes)
     {
-        Attribute* attribute = nullptr;
+        mono::Attribute* attribute = nullptr;
         const bool found = FindAttribute(input.id, result_attributes, attribute);
         if(!found)
             result_attributes.push_back(input);
@@ -829,11 +829,11 @@ const Component* component::FindComponentFromHash(uint32_t hash, const std::vect
 void component::StripUnknownProperties(Component& component)
 {
     const Component& template_component = DefaultComponentFromHash(component.hash);
-    const std::vector<Attribute>& template_attributes = template_component.properties;
+    const std::vector<mono::Attribute>& template_attributes = template_component.properties;
 
-    const auto not_in_template = [&template_attributes](const Attribute& attribute) {
+    const auto not_in_template = [&template_attributes](const mono::Attribute& attribute) {
         const uint32_t attribute_hash = attribute.id;
-        const auto not_in = [attribute_hash](const Attribute& template_attribute) {
+        const auto not_in = [attribute_hash](const mono::Attribute& template_attribute) {
             return template_attribute.id == attribute_hash;
         };
 

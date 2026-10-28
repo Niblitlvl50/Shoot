@@ -11,7 +11,6 @@
 #include <unordered_map>
 #include <unordered_set>
 
-struct Attribute;
 
 namespace game
 {
@@ -43,7 +42,7 @@ namespace game
         void SetDebugCategory(const char* debug_category, bool activate);
         std::vector<EntityDebugCategory> GetDebugCategories() const;
 
-        IEntityLogic* CreateLogic(EntityLogicType type, const std::vector<Attribute>& properties, uint32_t entity_id);
+        IEntityLogic* CreateLogic(EntityLogicType type, const std::vector<mono::Attribute>& properties, uint32_t entity_id);
 
         template <typename T>
         void ForEach(T&& callback)

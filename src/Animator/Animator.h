@@ -73,7 +73,7 @@ namespace animator
         mono::EventToken<event::MouseWheelEvent> m_mouse_wheel_token;
         mono::EventToken<event::MultiGestureEvent> m_multi_gesture_token;
 
-        std::unique_ptr<ImGuiInputHandler> m_input_handler;
+        std::unique_ptr<mono::ImGuiInputHandler> m_input_handler;
 
         UIContext m_context;
         mono::ICamera* m_camera;

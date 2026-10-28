@@ -16,11 +16,10 @@
 #include <memory>
 #include <stack>
 
-class ImGuiInputHandler;
-
 namespace mono
 {
     class StaticBackground;
+    class ImGuiInputHandler;
 }
 
 namespace editor
@@ -102,7 +101,7 @@ namespace editor
         // entity updated with the data of everything added. Returns the hashes of the added components,
         // the requested one last, any dependencies it pulled in before it.
         std::vector<uint32_t> AddComponentWithProperties(
-            uint32_t component_hash, const std::vector<Attribute>& property_overrides, IObjectProxy* proxy_object);
+            uint32_t component_hash, const std::vector<mono::Attribute>& property_overrides, IObjectProxy* proxy_object);
         void AddComponentToSelection(uint32_t component_hash);
         void DeleteComponent(uint32_t index);
         void AddComponentUI();
@@ -166,7 +165,7 @@ namespace editor
 
         // Adds the trigger names used by event attributes to the level's trigger list, so they can be
         // picked in the property panel. Names already in the list are skipped.
-        void RegisterTriggers(const std::vector<Attribute>& attributes);
+        void RegisterTriggers(const std::vector<mono::Attribute>& attributes);
         const std::string& GetWorldFilename() const;
 
     private:
@@ -185,7 +184,7 @@ namespace editor
 
         editor::UIContext m_context;
 
-        std::unique_ptr<ImGuiInputHandler> m_input_handler;
+        std::unique_ptr<mono::ImGuiInputHandler> m_input_handler;
         std::unique_ptr<class UserInputController> m_user_input_controller;
         std::unique_ptr<class ComponentDetailVisualizer> m_component_detail_visualizer;
         class SelectionVisualizer* m_selection_visualizer; 
