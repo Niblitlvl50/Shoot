@@ -24,6 +24,7 @@
 #include "TriggerSystem/TriggerSystem.h"
 #include "Weapons/WeaponSystem.h"
 #include "WorldFile.h"
+#include "World/LevelTransitionSystem.h"
 #include "Serialize.h"
 #include "System/File.h"
 #include "nlohmann/json.hpp"
@@ -143,11 +144,13 @@ void HordeGameMode::Begin(
         [this](game::PlayerSpawnState spawn_state, uint32_t player_entity_id, const math::Vector& position) {
         OnSpawnPlayer(player_entity_id, position);
     };
-    m_player_system->SpawnPlayersAt(level_metadata.player_spawn_point, player_spawned_cb);
+    LevelTransitionSystem* level_transition_system = system_context->GetSystem<LevelTransitionSystem>();
+    const math::Vector player_spawn_point = level_transition_system->GetPlayerSpawnPoint(level_metadata.player_spawn_point);
+    m_player_system->SpawnPlayersAt(player_spawn_point, player_spawned_cb);
 
     m_spawn_package = level_metadata.spawn_package;
     m_package_spawn_position = level_metadata.use_package_spawn_position ?
-        level_metadata.package_spawn_position : level_metadata.player_spawn_point;
+        level_metadata.package_spawn_position : player_spawn_point;
 
     m_player_ui = std::make_unique<PlayerUIElement>(game::g_players, game::n_players, weapon_system, m_pickup_system, m_sprite_system);
     m_timer_screen = std::make_unique<LevelTimerUIElement>();

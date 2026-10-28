@@ -204,23 +204,6 @@ namespace
     }
 }
 
-void editor::DrawPrefabDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
-{
-    std::string entity_file;
-    FindAttribute(ENTITY_FILE_ATTRIBUTE, component_properties, entity_file, FallbackMode::SET_DEFAULT);
-
-    const mono::Color::RGBA prefab_color(0.4f, 0.8f, 1.0f, 0.8f);
-    renderer.DrawQuad(entity_bb, prefab_color, 1.0f);
-
-    const size_t slash_pos = entity_file.find_last_of('/');
-    const std::string file_name = (slash_pos == std::string::npos) ? entity_file : entity_file.substr(slash_pos + 1);
-    const std::string label = file_name.empty() ? std::string("prefab: [no file]") : ("prefab: " + file_name);
-
-    const math::Matrix text_transform = renderer.GetTransform() * math::CreateMatrixWithPosition(math::TopLeft(entity_bb));
-    const auto text_scope = mono::MakeTransformScope(text_transform, &renderer);
-    renderer.RenderText(game::FontId::PIXELETTE_TINY, label.c_str(), prefab_color, mono::FontCentering::DEFAULT_CENTER);
-}
-
 void editor::DrawLoadingZoneDetails(mono::IRenderer& renderer, const std::vector<Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     DrawTrainZone(renderer, component_properties, mono::Color::RGBA(0.2f, 0.8f, 0.2f, 0.3f), "loading");

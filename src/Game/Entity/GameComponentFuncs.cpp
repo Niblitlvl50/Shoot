@@ -26,6 +26,7 @@
 #include "Mission/MissionSystem.h"
 #include "Weapons/WeaponSystem.h"
 #include "World/TeleportSystem.h"
+#include "World/LevelTransitionSystem.h"
 #include "World/WorldEntityTrackingSystem.h"
 
 #include "Physics/PhysicsSystem.h"
@@ -1659,6 +1660,32 @@ namespace
         return true;
     }
 
+    bool CreateLevelExit(mono::Entity* entity, mono::SystemContext* context)
+    {
+        context->GetSystem<game::LevelTransitionSystem>()->AllocateLevelExit(entity->id);
+        return true;
+    }
+
+    bool ReleaseLevelExit(mono::Entity* entity, mono::SystemContext* context)
+    {
+        context->GetSystem<game::LevelTransitionSystem>()->ReleaseLevelExit(entity->id);
+        return true;
+    }
+
+    bool UpdateLevelExit(mono::Entity* entity, const std::vector<Attribute>& properties, mono::SystemContext* context)
+    {
+        mono::Event trigger_name;
+        std::string target_level;
+        std::string entry_tag;
+        FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::SET_DEFAULT);
+        FindAttribute(TARGET_LEVEL_ATTRIBUTE, properties, target_level, FallbackMode::SET_DEFAULT);
+        FindAttribute(ENTRY_TAG_ATTRIBUTE, properties, entry_tag, FallbackMode::SET_DEFAULT);
+
+        context->GetSystem<game::LevelTransitionSystem>()->SetLevelExitData(
+            entity->id, RegisteredTriggerHash(trigger_name), target_level, entry_tag);
+        return true;
+    }
+
     bool CreateCargo(mono::Entity* entity, mono::SystemContext* context)
     {
         game::TrainZoneSystem* zone_system = context->GetSystem<game::TrainZoneSystem>();
@@ -1807,6 +1834,7 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
         WORLD_STATE_BOOL_CONDITION_COMPONENT, CreateWorldStateBoolCondition, ReleaseWorldStateBoolCondition, UpdateWorldStateBoolCondition);
     entity_manager->RegisterComponent(
         WORLD_STATE_INT_CONDITION_COMPONENT, CreateWorldStateIntCondition, ReleaseWorldStateIntCondition, UpdateWorldStateIntCondition);
+    entity_manager->RegisterComponent(LEVEL_EXIT_COMPONENT, CreateLevelExit, ReleaseLevelExit, UpdateLevelExit);
     entity_manager->RegisterComponent(LOADING_ZONE_COMPONENT, CreateLoadingZone, ReleaseLoadingZone, UpdateLoadingZone);
     entity_manager->RegisterComponent(DROP_OFF_ZONE_COMPONENT, CreateDropOffZone, ReleaseDropOffZone, UpdateDropOffZone);
 }

@@ -27,6 +27,9 @@ namespace editor
     bool AddNewTexture(const char* new_texture_filename);
     const std::vector<std::string>& GetAllTextures();
 
+    bool LoadAllLevels(const char* level_config_file);
+    const std::vector<std::string>& GetAllLevels();
+
     bool LoadAllWorlds(const char* filename);
     bool AddNewWorld(const char* world_filename);
     const std::vector<std::string>& GetAllWorlds();

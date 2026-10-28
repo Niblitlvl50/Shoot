@@ -25,6 +25,7 @@ namespace
     std::vector<std::string> g_all_worlds;
 
     std::vector<std::string> g_all_weapons;
+    std::vector<std::string> g_all_levels;
 
     void WriteListFile(const char* filename, const char* key_name, const std::vector<std::string>& list)
     {
@@ -118,6 +119,25 @@ bool editor::LoadAllWeapons(const char* weapon_config_file)
 const std::vector<std::string>& editor::GetAllWeapons()
 {
     return g_all_weapons;
+}
+
+bool editor::LoadAllLevels(const char* level_config_file)
+{
+    const std::vector<byte> file_data = file::FileReadAll(level_config_file);
+    if(file_data.empty())
+        return false;
+
+    const nlohmann::json& json = nlohmann::json::parse(file_data);
+    for(const auto& json_level : json["levels"])
+        g_all_levels.push_back(json_level["name"]);
+
+    std::sort(g_all_levels.begin(), g_all_levels.end());
+    return true;
+}
+
+const std::vector<std::string>& editor::GetAllLevels()
+{
+    return g_all_levels;
 }
 
 bool editor::LoadAllEntities(const char* all_entities_file)

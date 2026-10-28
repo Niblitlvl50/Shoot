@@ -278,6 +278,7 @@ Editor::Editor(
     editor::LoadAllMusicTracks("res/configs/sound_config.json");
     editor::LoadAllSounds("res/sound/all_sounds.json");
     editor::LoadAllWeapons("res/configs/weapon_config.json");
+    editor::LoadAllLevels("res/configs/level_config.json");
     editor::LoadAllEntities("res/entities/all_entities.json");
     editor::LoadAllTextures("res/textures/all_textures.json");
     editor::LoadAllWorlds("res/worlds/all_worlds.json");
@@ -349,7 +350,6 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     draw_funcs[LAYER_COMPONENT] = editor::DrawLayerDetails;
     draw_funcs[AREA_EMITTER_COMPONENT] = editor::DrawAreaEmitterDetails;
 
-    draw_funcs[PREFAB_COMPONENT] = editor::DrawPrefabDetails;
     draw_funcs[LOADING_ZONE_COMPONENT] = editor::DrawLoadingZoneDetails;
     draw_funcs[DROP_OFF_ZONE_COMPONENT] = editor::DrawDropOffZoneDetails;
     draw_funcs[CARGO_COMPONENT] = editor::DrawCargoDetails;

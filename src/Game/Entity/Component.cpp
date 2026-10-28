@@ -194,6 +194,8 @@ const DefaultAttribute default_attributes[] = {
     { "world_state_int",            mono::Variant(0) },
     { "world_state_true_trigger",   mono::Variant(event_type_output_default), "True Event" },
     { "world_state_false_trigger",  mono::Variant(event_type_output_default), "False Event" },
+    { "target_level",               mono::Variant(std::string()), "Level name from level_config.json" },
+    { "entry_tag",                  mono::Variant(std::string()), "Players spawn at an entity with this tag in the target level" },
 };
 
 extern const uint32_t POSITION_ATTRIBUTE            = default_attributes[0].hash;
@@ -372,6 +374,8 @@ extern const uint32_t WORLD_STATE_BOOL_ATTRIBUTE            = default_attributes
 extern const uint32_t WORLD_STATE_INT_ATTRIBUTE             = default_attributes[152].hash;
 extern const uint32_t WORLD_STATE_TRUE_TRIGGER_ATTRIBUTE    = default_attributes[153].hash;
 extern const uint32_t WORLD_STATE_FALSE_TRIGGER_ATTRIBUTE   = default_attributes[154].hash;
+extern const uint32_t TARGET_LEVEL_ATTRIBUTE                = default_attributes[155].hash;
+extern const uint32_t ENTRY_TAG_ATTRIBUTE                   = default_attributes[156].hash;
 
 extern const uint32_t NULL_COMPONENT                = hash::Hash("null");
 extern const uint32_t NAME_FOLDER_COMPONENT         = hash::Hash("name_folder");
@@ -396,6 +400,7 @@ extern const uint32_t WORLD_STATE_SET_BOOL_COMPONENT        = hash::Hash("world_
 extern const uint32_t WORLD_STATE_SET_INT_COMPONENT         = hash::Hash("world_state_set_int");
 extern const uint32_t WORLD_STATE_BOOL_CONDITION_COMPONENT  = hash::Hash("world_state_bool_condition");
 extern const uint32_t WORLD_STATE_INT_CONDITION_COMPONENT   = hash::Hash("world_state_int_condition");
+extern const uint32_t LEVEL_EXIT_COMPONENT                  = hash::Hash("level_exit");
 extern const uint32_t DESPAWN_ENTITY_COMPONENT      = hash::Hash("despawn_entity");
 extern const uint32_t SHAPE_TRIGGER_COMPONENT       = hash::Hash("shape_trigger");
 extern const uint32_t DESTROYED_TRIGGER_COMPONENT   = hash::Hash("destroyed_trigger");
@@ -496,6 +501,8 @@ const char* component::ComponentNameFromHash(uint32_t hash)
         return "world_state_bool_condition";
     else if(hash == WORLD_STATE_INT_CONDITION_COMPONENT)
         return "world_state_int_condition";
+    else if(hash == LEVEL_EXIT_COMPONENT)
+        return "level_exit";
     else if(hash == DESPAWN_ENTITY_COMPONENT)
         return "despawn_entity";
     else if(hash == SHAPE_TRIGGER_COMPONENT)
@@ -678,6 +685,7 @@ const Component default_components[] = {
     MakeComponent(WORLD_STATE_SET_INT_COMPONENT,        NULL_COMPONENT,     true,   "logic",        { TRIGGER_NAME_ATTRIBUTE, WORLD_STATE_KEY_ATTRIBUTE, WORLD_STATE_INT_OPERATION_ATTRIBUTE, WORLD_STATE_INT_ATTRIBUTE }),
     MakeComponent(WORLD_STATE_BOOL_CONDITION_COMPONENT, NULL_COMPONENT,     false,  "logic",        { WORLD_STATE_KEY_ATTRIBUTE, WORLD_STATE_BOOL_ATTRIBUTE, WORLD_STATE_TRUE_TRIGGER_ATTRIBUTE, WORLD_STATE_FALSE_TRIGGER_ATTRIBUTE }),
     MakeComponent(WORLD_STATE_INT_CONDITION_COMPONENT,  NULL_COMPONENT,     false,  "logic",        { WORLD_STATE_KEY_ATTRIBUTE, WORLD_STATE_COMPARISON_ATTRIBUTE, WORLD_STATE_INT_ATTRIBUTE, WORLD_STATE_TRUE_TRIGGER_ATTRIBUTE, WORLD_STATE_FALSE_TRIGGER_ATTRIBUTE }),
+    MakeComponent(LEVEL_EXIT_COMPONENT,                 NULL_COMPONENT,     false,  "logic",        { TRIGGER_NAME_ATTRIBUTE, TARGET_LEVEL_ATTRIBUTE, ENTRY_TAG_ATTRIBUTE }),
     MakeComponent(DESPAWN_ENTITY_COMPONENT,     NULL_COMPONENT,             false,  "spawning",     { TRIGGER_NAME_ATTRIBUTE } ),
 
     MakeComponent(ANIMATION_COMPONENT,          SPRITE_COMPONENT,           true,   "animation",    { TRIGGER_NAME_ATTRIBUTE, ANIMATION_ATTRIBUTE }),

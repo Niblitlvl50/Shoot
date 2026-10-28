@@ -356,6 +356,10 @@ bool editor::DrawProperty(uint32_t component_hash, Attribute& attribute, const s
     {
         return DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), editor::GetAllEntities());
     }
+    else if(attribute.id == TARGET_LEVEL_ATTRIBUTE)
+    {
+        return DrawStringPicker(attribute_name, std::get<std::string>(attribute.value), editor::GetAllLevels());
+    }
     else if(attribute.id == BLEND_MODE_ATTRIBUTE)
     {
         const auto item_proxy = [](void* data, int idx, const char** out_text) -> bool

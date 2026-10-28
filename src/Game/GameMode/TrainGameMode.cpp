@@ -7,6 +7,7 @@
 #include "Player/PlayerDaemonSystem.h"
 #include "Player/PlayerInfo.h"
 #include "WorldFile.h"
+#include "World/LevelTransitionSystem.h"
 #include "RenderLayers.h"
 
 #include "EventHandler/EventHandler.h"
@@ -140,7 +141,8 @@ void TrainGameMode::Begin(
             m_path_follower_system->SetPathReference(player_entity_id, path_uuid, train_start_distance);
         }
     };
-    m_player_system->SpawnPlayersAt(level_metadata.player_spawn_point, player_spawned_cb);
+    LevelTransitionSystem* level_transition_system = system_context->GetSystem<LevelTransitionSystem>();
+    m_player_system->SpawnPlayersAt(level_transition_system->GetPlayerSpawnPoint(level_metadata.player_spawn_point), player_spawned_cb);
 
     m_level_completed_hash = hash::Hash(level_metadata.completed_trigger.c_str());
     m_level_completed_alt_hash = hash::Hash(level_metadata.completed_alt_trigger.c_str());

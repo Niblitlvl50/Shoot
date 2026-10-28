@@ -187,9 +187,7 @@ namespace
             ImGuiWindowFlags_NoMove |
             ImGuiWindowFlags_NoSavedSettings;
 
-        const float window_height = ImGui::GetIO().DisplaySize.y;
         ImGui::SetNextWindowPos(ImVec2(30, 40));
-        ImGui::SetNextWindowSizeConstraints(ImVec2(155, 50), ImVec2(155, window_height - 60));
 
         ImGui::Begin("Objects", nullptr, flags);
 
