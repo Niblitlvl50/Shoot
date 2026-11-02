@@ -95,6 +95,9 @@ namespace editor
         void NewEntityInternal(bool with_sprite);
         void OnDeleteObject();
 
+        // Deletes the selection right away when skip_confirmation is set, otherwise asks first.
+        void RequestDeleteSelection(bool skip_confirmation);
+
         void AddComponentToProxy(uint32_t component_hash, IObjectProxy* proxy_object);
 
         // Like AddComponentToProxy, but with property_overrides applied to the new component and the

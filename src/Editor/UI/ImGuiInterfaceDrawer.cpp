@@ -545,6 +545,39 @@ namespace
         }
     }
 
+    void DrawDeleteDialog(editor::UIContext& context)
+    {
+        constexpr const char* popup_name = "Delete Entities";
+        if(context.wants_delete)
+        {
+            ImGui::OpenPopup(popup_name);
+            context.wants_delete = false;
+        }
+
+        const ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+        ImGui::SetNextWindowPos(center, ImGuiCond_Always, ImVec2(0.5f, 0.5f));
+        if(ImGui::BeginPopupModal(popup_name, nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+        {
+            if(context.n_entities_to_delete == 1)
+                ImGui::Text("Delete the selected entity?");
+            else
+                ImGui::Text("Delete the %u selected entities?", context.n_entities_to_delete);
+            ImGui::TextDisabled("Hold shift when deleting to skip this.");
+
+            if(ImGui::Button("Delete", ImVec2(120, 0)))
+            {
+                ImGui::CloseCurrentPopup();
+                context.delete_callback();
+            }
+
+            ImGui::SameLine();
+            if(ImGui::Button("Cancel", ImVec2(120, 0)))
+                ImGui::CloseCurrentPopup();
+
+            ImGui::EndPopup();
+        }
+    }
+
     void DrawQuitDialog(editor::UIContext& context)
     {
         constexpr const char* popup_name = "Quit Application";
@@ -586,6 +619,7 @@ void ImGuiInterfaceDrawer::Draw(mono::IRenderer& renderer) const
     DrawContextMenu(m_context);
     DrawNotifications(m_context);
     DrawFileSelectionDialog(m_context);
+    DrawDeleteDialog(m_context);
     DrawQuitDialog(m_context);
 
     if(g_show_imgui_demo)

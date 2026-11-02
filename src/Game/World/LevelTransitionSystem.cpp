@@ -95,6 +95,11 @@ math::Vector LevelTransitionSystem::GetPlayerSpawnPoint(const math::Vector& defa
     return m_transform_system->GetWorldPosition(entry_entities.front());
 }
 
+const std::string& LevelTransitionSystem::GetPendingSpawnTag() const
+{
+    return m_pending_entry_tag;
+}
+
 void LevelTransitionSystem::ExitLevel(uint32_t entity_id)
 {
     if(m_exiting)
@@ -124,7 +129,7 @@ void LevelTransitionSystem::ExitLevel(uint32_t entity_id)
     const mono::ScreenFadeCallback on_fade_complete = [this](mono::ScreenFadeState state) {
         m_event_handler->DispatchEvent(event::QuitEvent());
     };
-    m_render_system->TriggerScreenFade(mono::ScreenFadeState::FADE_OUT, tweak_values::fade_out_duration_s, 0.0f, on_fade_complete);
+    m_render_system->TriggerScreenFade(mono::ScreenFadeState::FADE_OUT, tweak_values::fade_out_duration_s, 1.0f, on_fade_complete);
 }
 
 const char* LevelTransitionSystem::Name() const

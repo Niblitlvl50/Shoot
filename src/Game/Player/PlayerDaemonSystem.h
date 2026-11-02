@@ -18,6 +18,7 @@
 
 #include <vector>
 #include <unordered_map>
+#include <string>
 
 namespace game
 {
@@ -31,7 +32,7 @@ namespace game
         SPAWNED,
         RESPAWNED
     };
-    using PlayerSpawnedCallback = std::function<void (PlayerSpawnState spawn_state, uint32_t entity_id, const math::Vector& position)>;
+    using PlayerSpawnedCallback = std::function<void (PlayerSpawnState spawn_state, uint32_t entity_id, const math::Vector& position, const std::string& tag)>;
 
     class PlayerDaemonSystem : public mono::IGameSystem
     {
@@ -55,7 +56,7 @@ namespace game
 
         void SetTrainMode(bool train_mode);
 
-        void SpawnPlayersAt(const math::Vector& spawn_position, const PlayerSpawnedCallback& callback);
+        void SpawnPlayersAt(const math::Vector& spawn_position, const PlayerSpawnedCallback& callback, const std::string& tag);
         uint32_t SpawnPackageAt(const math::Vector& spawn_position);
 
         void SpawnLocalPlayer(int player_index, System::ControllerId controller_id);
@@ -101,6 +102,7 @@ namespace game
         bool m_spawn_players;
         bool m_train_logic;
         math::Vector m_player_spawn;
+        std::string m_player_spawn_tag;
         PlayerSpawnedCallback m_player_spawned_callback;
 
         PlayerConfig m_player_config;

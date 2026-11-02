@@ -71,6 +71,10 @@ namespace editor
     {
         bool wants_quit = false;
 
+        // Set to show the delete confirmation, for this many selected entities.
+        bool wants_delete = false;
+        uint32_t n_entities_to_delete = 0;
+
         float fps;
         math::Vector world_mouse_position;
         std::unordered_map<std::string, UIIcon> ui_icons;

@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include "Math/Point.h"
 #include "Events/EventFwd.h"
 #include "EventHandler/EventToken.h"
 
@@ -63,7 +64,11 @@ namespace editor
 
         editor::Grabber* m_grabber;
         bool m_box_selection;
+        
         math::Vector m_click_point;
+        math::Point m_left_mouse_down_screen_position;
+        math::Point m_right_mouse_down_screen_position;
+
         int m_tool_context_menu_count = 0;
     };
 }

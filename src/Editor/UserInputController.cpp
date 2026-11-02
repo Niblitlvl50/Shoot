@@ -165,6 +165,10 @@ mono::EventResult UserInputController::OnMouseDown(const event::MouseDownEvent& 
             }
         }
     }
+    else if(event.key == MouseButton::RIGHT)
+    {
+        m_right_mouse_down_screen_position = { event.screen_x, event.screen_y };
+    }
 
     if(!handled)
         m_camera_tool.HandleMouseDown(math::Vector(event.screen_x, event.screen_y));
@@ -199,13 +203,17 @@ mono::EventResult UserInputController::OnMouseUp(const event::MouseUpEvent& even
     }
     else if(event.key == MouseButton::RIGHT)
     {
-        // Rebuild the full context menu: tool items first, then entity items.
-        m_context->context_menu_items.resize(m_tool_context_menu_count);
-        m_editor->AppendContextMenuItems(m_context->context_menu_items);
-        
-        const math::Vector world_position = { event.world_x, event.world_y };
-        m_context->right_click_world_position = world_position;
-        m_context->show_context_menu = !m_context->context_menu_items.empty();
+        const bool is_about_the_same_position = m_right_mouse_down_screen_position == math::Point(event.screen_x, event.screen_y);
+        if(is_about_the_same_position)
+        {
+            // Rebuild the full context menu: tool items first, then entity items.
+            m_context->context_menu_items.resize(m_tool_context_menu_count);
+            m_editor->AppendContextMenuItems(m_context->context_menu_items);
+            
+            const math::Vector world_position = { event.world_x, event.world_y };
+            m_context->right_click_world_position = world_position;
+            m_context->show_context_menu = !m_context->context_menu_items.empty();
+        }
     }
 
     m_camera_tool.HandleMouseUp(math::Vector(event.screen_x, event.screen_y));
@@ -310,7 +318,7 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
     else if(event.key == Keycode::A)
         m_editor->EnableDrawAllObjects(!m_editor->DrawAllObjects());
     else if(event.key == Keycode::BACKSPACE || event.key == Keycode::DELETE)
-        m_editor->OnDeleteObject();
+        m_editor->RequestDeleteSelection(event.shift);
     else if(event.key == Keycode::ESCAPE)
         m_editor->Quit();
     else if(event.key == Keycode::LEFT || event.key == Keycode::RIGHT || event.key == Keycode::UP || event.key == Keycode::DOWN)

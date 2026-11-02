@@ -33,6 +33,7 @@ namespace game
         // Where to spawn the players, the first entity with the tag the last level was left through,
         // or default_spawn_point if there's none. Uses up the tag.
         math::Vector GetPlayerSpawnPoint(const math::Vector& default_spawn_point);
+        const std::string& GetPendingSpawnTag() const; 
 
         const char* Name() const override;
         void Reset() override;

@@ -185,10 +185,11 @@ void PlayerDaemonSystem::SetTrainMode(bool train_mode)
     m_train_logic = train_mode;
 }
 
-void PlayerDaemonSystem::SpawnPlayersAt(const math::Vector& spawn_position, const PlayerSpawnedCallback& callback)
+void PlayerDaemonSystem::SpawnPlayersAt(const math::Vector& spawn_position, const PlayerSpawnedCallback& callback, const std::string& tag)
 {
     m_spawn_players = true;
     m_player_spawn = spawn_position;
+    m_player_spawn_tag = tag;
     m_player_spawned_callback = callback;
 }
 
@@ -375,7 +376,7 @@ uint32_t PlayerDaemonSystem::SpawnPlayer(
     player_info->player_state = game::PlayerState::ALIVE;
 
     if(m_player_spawned_callback)
-        m_player_spawned_callback(game::PlayerSpawnState::SPAWNED, player_entity.id, spawn_position);
+        m_player_spawned_callback(game::PlayerSpawnState::SPAWNED, player_entity.id, spawn_position, m_player_spawn_tag);
 
     return player_entity.id;
 }
@@ -529,7 +530,7 @@ mono::EventResult PlayerDaemonSystem::OnRespawnPlayer(const RespawnPlayerEvent& 
         m_camera_system->FollowEntity(event.entity_id);
 
         if(m_player_spawned_callback)
-            m_player_spawned_callback(game::PlayerSpawnState::RESPAWNED, player_info->entity_id, spawn_point);
+            m_player_spawned_callback(game::PlayerSpawnState::RESPAWNED, player_info->entity_id, spawn_point, m_player_spawn_tag);
     }
 
     return mono::EventResult::HANDLED;

@@ -1034,6 +1034,21 @@ void Editor::OnDeleteObject()
     m_grabbers.clear();
 }
 
+void Editor::RequestDeleteSelection(bool skip_confirmation)
+{
+    if(m_selected_ids.empty())
+        return;
+
+    if(skip_confirmation)
+    {
+        OnDeleteObject();
+        return;
+    }
+
+    m_context.wants_delete = true;
+    m_context.n_entities_to_delete = m_selected_ids.size();
+}
+
 void Editor::AddComponentToProxy(uint32_t component_hash, IObjectProxy* proxy_object)
 {
     std::vector<Component>& components = proxy_object->GetComponents();

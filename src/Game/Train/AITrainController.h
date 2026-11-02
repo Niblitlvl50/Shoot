@@ -52,8 +52,8 @@ namespace game
         // value if there's none. The last station the train stopped at is ignored until it's left behind.
         float DistanceToStationAhead(uint32_t& out_station_id) const;
 
-        // Distance to the closest other train (any car not in this train's chain) on the track ahead, or a
-        // negative value if there's none.
+        // Distance to the closest other train (a car in another chain led by a locomotive) on the track
+        // ahead, or a negative value if there's none. Loose cars don't count.
         float DistanceToTrainAhead() const;
 
         // Near the end of a track that leads into a switch from its trunk, decides once per approach

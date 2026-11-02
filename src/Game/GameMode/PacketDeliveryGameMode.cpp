@@ -150,12 +150,12 @@ void PacketDeliveryGameMode::Begin(
     m_player_system = system_context->GetSystem<PlayerDaemonSystem>();
 
     const PlayerSpawnedCallback player_spawned_cb =
-        [this](game::PlayerSpawnState spawn_state, uint32_t player_entity_id, const math::Vector& position) {
+        [this](game::PlayerSpawnState spawn_state, uint32_t player_entity_id, const math::Vector& position, const std::string& tag) {
         OnSpawnPlayer(player_entity_id, position);
     };
     LevelTransitionSystem* level_transition_system = system_context->GetSystem<LevelTransitionSystem>();
     const math::Vector player_spawn_point = level_transition_system->GetPlayerSpawnPoint(level_metadata.player_spawn_point);
-    m_player_system->SpawnPlayersAt(player_spawn_point, player_spawned_cb);
+    m_player_system->SpawnPlayersAt(player_spawn_point, player_spawned_cb, "");
 
     m_spawn_package = level_metadata.spawn_package;
     m_package_spawn_position = level_metadata.use_package_spawn_position ?

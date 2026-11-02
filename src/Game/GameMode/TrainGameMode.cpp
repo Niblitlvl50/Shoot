@@ -127,13 +127,14 @@ void TrainGameMode::Begin(
     m_player_system->SetTrainMode(true);
 
     const PlayerSpawnedCallback player_spawned_cb =
-        [this, system_context](game::PlayerSpawnState spawn_state, uint32_t player_entity_id, const math::Vector& position) {
+        [this, system_context](game::PlayerSpawnState spawn_state, uint32_t player_entity_id, const math::Vector& position, const std::string& tag) {
 
         m_train_entity_id = player_entity_id;
+        const std::string spawn_tag = tag.empty() ? "player_start" : tag;
 
         float train_start_distance;
         const mono::PathSystem* path_system = system_context->GetSystem<mono::PathSystem>();
-        const uint32_t path_entity_id = path_system->FindPathFromNotifierTag("player_start", train_start_distance);
+        const uint32_t path_entity_id = path_system->FindPathFromNotifierTag(spawn_tag, train_start_distance);
         if(path_entity_id != mono::INVALID_ID)
         {
             const mono::IEntityManager* entity_manager = system_context->GetSystem<mono::IEntityManager>();
@@ -142,7 +143,8 @@ void TrainGameMode::Begin(
         }
     };
     LevelTransitionSystem* level_transition_system = system_context->GetSystem<LevelTransitionSystem>();
-    m_player_system->SpawnPlayersAt(level_transition_system->GetPlayerSpawnPoint(level_metadata.player_spawn_point), player_spawned_cb);
+    const std::string& spawn_tag = level_transition_system->GetPendingSpawnTag();
+    m_player_system->SpawnPlayersAt(level_metadata.player_spawn_point, player_spawned_cb, spawn_tag);
 
     m_level_completed_hash = hash::Hash(level_metadata.completed_trigger.c_str());
     m_level_completed_alt_hash = hash::Hash(level_metadata.completed_alt_trigger.c_str());

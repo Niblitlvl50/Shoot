@@ -281,7 +281,12 @@ float AITrainController::DistanceToTrainAhead() const
 
     for(uint32_t car_id : m_train_car_system->GetCarIds())
     {
-        if(car_id == m_entity_id || m_train_car_system->FindChainRoot(car_id) == own_chain_root)
+        if(car_id == m_entity_id)
+            continue;
+
+        // Only other trains block, loose cars without a locomotive at the front are driven through.
+        const uint32_t chain_root = m_train_car_system->FindChainRoot(car_id);
+        if(chain_root == own_chain_root || !m_train_car_system->IsLocomotive(chain_root))
             continue;
 
         const math::Vector to_car = m_transform_system->GetWorldPosition(car_id) - train_position;
