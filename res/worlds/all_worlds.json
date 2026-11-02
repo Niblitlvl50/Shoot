@@ -4,6 +4,7 @@
         "res/worlds/level0_deep_forest.components",
         "res/worlds/level0_island.components",
         "res/worlds/level0_tiny_alien_world.components",
+        "res/worlds/level0_train_east.components",
         "res/worlds/level1_tiny_arena.components",
         "res/worlds/level2_pickup_arena.components",
         "res/worlds/level3_boss_arena.components",

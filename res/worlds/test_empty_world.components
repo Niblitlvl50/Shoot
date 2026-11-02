@@ -19858,7 +19858,7 @@
                             "variant_value": {
                                 "direction": 0,
                                 "text": "spawn_ambush",
-                                "type": 0
+                                "type": 1
                             }
                         },
                         {
@@ -19920,7 +19920,7 @@
                             "variant_value": {
                                 "direction": 0,
                                 "text": "spawn_ambush",
-                                "type": 0
+                                "type": 1
                             }
                         },
                         {
@@ -19940,7 +19940,7 @@
                             "variant_value": {
                                 "direction": 1,
                                 "text": "ambush_cleared",
-                                "type": 0
+                                "type": 1
                             }
                         },
                         {
@@ -19957,6 +19957,40 @@
                                     "y": -2.7365095615386963
                                 }
                             ]
+                        }
+                    ]
+                },
+                {
+                    "hash": 907029043,
+                    "name": "world_state_set_bool",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "ambush_cleared",
+                                "type": 1
+                            }
+                        },
+                        {
+                            "id": 1351918649,
+                            "name": "world_state_key",
+                            "variant_type": 6,
+                            "variant_value": "ws_ambush_cleared"
+                        },
+                        {
+                            "id": 3250327600,
+                            "name": "world_state_bool_operation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3658186238,
+                            "name": "world_state_bool",
+                            "variant_type": 0,
+                            "variant_value": true
                         }
                     ]
                 },
@@ -20007,7 +20041,7 @@
                             "variant_value": {
                                 "direction": 0,
                                 "text": "spawn_ambush",
-                                "type": 0
+                                "type": 1
                             }
                         },
                         {
@@ -20017,7 +20051,7 @@
                             "variant_value": {
                                 "direction": 0,
                                 "text": "ambush_cleared",
-                                "type": 0
+                                "type": 1
                             }
                         },
                         {
@@ -20419,7 +20453,7 @@
                             "id": 3779456605,
                             "name": "animation",
                             "variant_type": 1,
-                            "variant_value": 1
+                            "variant_value": 0
                         },
                         {
                             "id": 1031692888,
@@ -20725,7 +20759,45 @@
                             "variant_type": 11,
                             "variant_value": {
                                 "direction": 0,
-                                "text": "ambush_cleared",
+                                "text": "spawn_reward",
+                                "type": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "hash": 1859214612,
+                    "name": "world_state_bool_condition",
+                    "properties": [
+                        {
+                            "id": 1351918649,
+                            "name": "world_state_key",
+                            "variant_type": 6,
+                            "variant_value": "ws_ambush_cleared"
+                        },
+                        {
+                            "id": 3658186238,
+                            "name": "world_state_bool",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 459301501,
+                            "name": "world_state_true_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 1,
+                                "text": "spawn_reward",
+                                "type": 1
+                            }
+                        },
+                        {
+                            "id": 2810079506,
+                            "name": "world_state_false_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 1,
+                                "text": "",
                                 "type": 0
                             }
                         }
@@ -21030,6 +21102,7 @@
             "play_sound",
             "push_button",
             "spawn_ambush",
+            "spawn_reward",
             "switch_off",
             "switch_on"
         ],

@@ -92,8 +92,8 @@
                             "variant_type": 7,
                             "variant_value": [
                                 {
-                                    "x": -24.25,
-                                    "y": 11.75
+                                    "x": -28.75,
+                                    "y": 19.875
                                 },
                                 {
                                     "x": -7.125,
@@ -27511,28 +27511,28 @@
                             "variant_type": 7,
                             "variant_value": [
                                 {
-                                    "x": 11.818351745605469,
-                                    "y": 4.690946578979492
+                                    "x": 20.125,
+                                    "y": 0.5
                                 },
                                 {
-                                    "x": 9.869205474853516,
-                                    "y": 4.755204200744629
+                                    "x": 15.375,
+                                    "y": -0.25
                                 },
                                 {
-                                    "x": 9.622884750366211,
-                                    "y": 4.755204200744629
+                                    "x": 15.0,
+                                    "y": 0.75
                                 },
                                 {
-                                    "x": 8.519798278808594,
-                                    "y": 4.765913963317871
+                                    "x": 12.625,
+                                    "y": 0.75
                                 },
                                 {
-                                    "x": 5.5639495849609375,
-                                    "y": 5.0764923095703125
+                                    "x": 10.375,
+                                    "y": 0.125
                                 },
                                 {
-                                    "x": 6.634908676147461,
-                                    "y": 2.495480537414551
+                                    "x": 10.25,
+                                    "y": -0.625
                                 },
                                 {
                                     "x": 9.968158721923828,
@@ -27549,6 +27549,30 @@
                             "name": "path_closed",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 2120958337,
+                    "name": "path_notifier",
+                    "properties": [
+                        {
+                            "id": 3166801492,
+                            "name": "path_notify_distance",
+                            "variant_type": 3,
+                            "variant_value": 4.0
+                        },
+                        {
+                            "id": 1905060786,
+                            "name": "path_notify_end_distance",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2516003219,
+                            "name": "tag",
+                            "variant_type": 6,
+                            "variant_value": "entry_from_east"
                         }
                     ]
                 },
@@ -34821,8 +34845,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 28.25,
-                                "y": -5.125
+                                "x": 34.5,
+                                "y": -8.875
                             }
                         },
                         {
@@ -34941,8 +34965,8 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 26.25,
-                                "y": -5.25
+                                "x": 33.875,
+                                "y": -9.75
                             }
                         },
                         {
@@ -35057,13 +35081,13 @@
                             "id": 3185987134,
                             "name": "text",
                             "variant_type": 6,
-                            "variant_value": "Waste Depot"
+                            "variant_value": "Eastward..."
                         },
                         {
                             "id": 3435213149,
                             "name": "sub_text",
                             "variant_type": 6,
-                            "variant_value": "Dump all your troubles here!"
+                            "variant_value": "To the east!"
                         },
                         {
                             "id": 799079693,
@@ -63676,6 +63700,211 @@
             "entity_properties": 0,
             "name": "ai_train",
             "uuid_hash": 1161735435
+        },
+        {
+            "components": [
+                {
+                    "hash": 2340204639,
+                    "name": "name_folder",
+                    "properties": [
+                        {
+                            "id": 2369371622,
+                            "name": "name",
+                            "variant_type": 6,
+                            "variant_value": "east_exit"
+                        },
+                        {
+                            "id": 3647911389,
+                            "name": "folder",
+                            "variant_type": 6,
+                            "variant_value": "exits"
+                        },
+                        {
+                            "id": 3923852156,
+                            "name": "editor_properties",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3786248987,
+                    "name": "transform",
+                    "properties": [
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 34.125,
+                                "y": -10.125
+                            }
+                        },
+                        {
+                            "id": 564937055,
+                            "name": "rotation",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2190941297,
+                            "name": "scale",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1150083244,
+                            "name": "entity_reference",
+                            "variant_type": 2,
+                            "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 2267225250,
+                    "name": "physics",
+                    "properties": [
+                        {
+                            "id": 3836179294,
+                            "name": "body_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        },
+                        {
+                            "id": 1682977822,
+                            "name": "physics_material",
+                            "variant_type": 2,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3749132497,
+                            "name": "mass",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 3447918833,
+                            "name": "inertia",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1995093780,
+                            "name": "prevent_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1839315851,
+                            "name": "use_custom_damping",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 3143743637,
+                            "name": "damping",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        }
+                    ]
+                },
+                {
+                    "hash": 3996803839,
+                    "name": "circle_shape",
+                    "properties": [
+                        {
+                            "id": 776086107,
+                            "name": "faction",
+                            "variant_type": 1,
+                            "variant_value": 8
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 2209756795,
+                            "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 3676170277,
+                    "name": "shape_trigger",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "e_exit_east",
+                                "type": 1
+                            }
+                        },
+                        {
+                            "id": 1984386624,
+                            "name": "trigger_name_exit",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "",
+                                "type": 0
+                            }
+                        },
+                        {
+                            "id": 3210410026,
+                            "name": "emit_once",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 387803662,
+                    "name": "level_exit",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "e_exit_east",
+                                "type": 1
+                            }
+                        },
+                        {
+                            "id": 330076749,
+                            "name": "target_level",
+                            "variant_type": 6,
+                            "variant_value": "level0_train_east"
+                        },
+                        {
+                            "id": 367508396,
+                            "name": "entry_tag",
+                            "variant_type": 6,
+                            "variant_value": "entry_from_west"
+                        }
+                    ]
+                }
+            ],
+            "entity_properties": 0,
+            "name": "east_exit",
+            "uuid_hash": 4162187493
         }
     ],
     "metadata": {
@@ -63739,6 +63968,7 @@
             "delivery_1_failed",
             "dialog_option_1",
             "dialog_option_2",
+            "e_exit_east",
             "level_aborted",
             "level_completed",
             "mission_1_prompt",

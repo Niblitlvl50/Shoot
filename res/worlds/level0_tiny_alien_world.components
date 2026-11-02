@@ -5889,6 +5889,16 @@
                             }
                         },
                         {
+                            "id": 1371090216,
+                            "name": "cleared_trigger",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 1,
+                                "text": "",
+                                "type": 0
+                            }
+                        },
+                        {
                             "id": 3485902406,
                             "name": "spawn_points",
                             "variant_type": 7,
@@ -6834,6 +6844,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -6984,6 +7000,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -20348,6 +20370,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -20486,6 +20514,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -20624,6 +20658,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -20762,6 +20802,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -24020,6 +24066,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -24158,6 +24210,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -24296,6 +24354,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -24434,6 +24498,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -24572,6 +24642,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -24710,6 +24786,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -29732,6 +29814,12 @@
                             "name": "sort_offset",
                             "variant_type": 3,
                             "variant_value": 0.0
+                        },
+                        {
+                            "id": 73382607,
+                            "name": "use_initial_y_position",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -30019,6 +30107,12 @@
                             "name": "fail_on_timeout",
                             "variant_type": 0,
                             "variant_value": true
+                        },
+                        {
+                            "id": 1062812710,
+                            "name": "replayable",
+                            "variant_type": 0,
+                            "variant_value": false
                         },
                         {
                             "id": 2603146703,
