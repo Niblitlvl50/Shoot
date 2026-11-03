@@ -71,7 +71,7 @@ PauseScreen::PauseScreen(
     AddChild(m_close_text);
     AddChild(m_input_layout);
 
-    m_aborted_hash = hash::Hash(aborted_hash.c_str());
+    m_aborted_hash = hash::HashRegisterString(aborted_hash.c_str());
 }
 
 void PauseScreen::ShowAt(const math::Vector& position)

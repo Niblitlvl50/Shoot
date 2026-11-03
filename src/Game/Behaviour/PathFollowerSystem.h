@@ -103,6 +103,9 @@ namespace game
 
         float GetPathLength(uint32_t entity_id) const;
 
+        // World position at a distance along a path entity's path, false if the entity has no path.
+        bool GetWorldPositionOnPath(uint32_t path_entity_id, float distance, math::Vector& out_position) const;
+
         // Hands a manually-controlled entity off onto a different track, entering it at
         // whichever end lies closest to `enter_at_world_position` (used at railway switches).
         // `entering_forward` says which way the entity was travelling when it hit the switch:

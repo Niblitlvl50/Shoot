@@ -25,6 +25,10 @@ namespace game
         static std::vector<Level> GetLevels();
         static void SwitchToLevel(const Level& level);
 
+        // Fades out the screen and then quits the running zone, the next level is the one passed to
+        // SwitchToLevel or else picked from the zone's result. Every level fades in when it starts.
+        static void ExitZone();
+
         static void Run(
             mono::ICamera* camera, ZoneCreationContext zone_context, const char* initial_zone_name = nullptr);
     };

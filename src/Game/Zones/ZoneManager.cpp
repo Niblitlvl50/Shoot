@@ -5,6 +5,10 @@
 #include "ServerGameZone.h"
 
 #include "Engine.h"
+#include "SystemContext.h"
+#include "EventHandler/EventHandler.h"
+#include "Events/QuitEvent.h"
+#include "Rendering/RenderSystem.h"
 #include "System/Hash.h"
 #include "System/Debug.h"
 #include "System/File.h"
@@ -17,6 +21,12 @@
 #include "nlohmann/json.hpp"
 
 using namespace game;
+
+namespace tweak_values
+{
+    constexpr float fade_in_duration_s = 1.5f;
+    constexpr float fade_out_duration_s = 1.0f;
+}
 
 namespace game
 {
@@ -73,6 +83,11 @@ namespace game
 
     static LevelConfig g_level_config;
     static std::string g_next_level_override;
+
+    // Set while a zone runs.
+    static mono::SystemContext* g_system_context = nullptr;
+    static mono::EventHandler* g_event_handler = nullptr;
+    static bool g_exiting_zone = false;
 }
 
 std::vector<game::Level> ZoneManager::GetLevels()
@@ -85,10 +100,35 @@ void ZoneManager::SwitchToLevel(const Level& level)
     g_next_level_override = level.name;
 }
 
+void ZoneManager::ExitZone()
+{
+    if(!g_system_context || g_exiting_zone)
+        return;
+
+    g_exiting_zone = true;
+
+    // Only one screen fade can run at a time, if one already is (a teleport for example) quit right away.
+    mono::RenderSystem* render_system = g_system_context->GetSystem<mono::RenderSystem>();
+    if(render_system->ShouldApplyScreenFadeAlpha())
+    {
+        g_event_handler->DispatchEvent(event::QuitEvent());
+        return;
+    }
+
+    const mono::ScreenFadeCallback on_fade_complete = [](mono::ScreenFadeState state) {
+        g_event_handler->DispatchEvent(event::QuitEvent());
+    };
+    render_system->TriggerScreenFade(mono::ScreenFadeState::FADE_OUT, tweak_values::fade_out_duration_s, 0.0f, on_fade_complete);
+}
+
 void ZoneManager::Run(mono::ICamera* camera, ZoneCreationContext zone_context, const char* initial_zone_name)
 {
     g_level_config = LoadLevelConfig("res/configs/level_config.json");
     mono::Engine engine(zone_context.window, camera, zone_context.system_context, zone_context.event_handler);
+
+    g_system_context = zone_context.system_context;
+    g_event_handler = zone_context.event_handler;
+    mono::RenderSystem* render_system = g_system_context->GetSystem<mono::RenderSystem>();
 
     std::string zone_name =
         (initial_zone_name != nullptr) ? initial_zone_name : g_level_config.start_level;
@@ -124,9 +164,16 @@ void ZoneManager::Run(mono::ICamera* camera, ZoneCreationContext zone_context, c
             (load_func_it != g_zone_load_func.end()) ? load_func_it->second : LoadZone<ServerGameZone>;
 
         game::IZonePtr zone = load_func(zone_context);
+
+        g_exiting_zone = false;
+        render_system->TriggerScreenFade(mono::ScreenFadeState::FADE_IN, tweak_values::fade_in_duration_s, 0.0f);
+
         const int zone_run_result = engine.Run(zone.get());
         MONO_ASSERT(zone_run_result >= 0 && zone_run_result < ZR_COUNT);
 
         zone_name = level_it->transitions[zone_run_result];
     }
+
+    g_system_context = nullptr;
+    g_event_handler = nullptr;
 }

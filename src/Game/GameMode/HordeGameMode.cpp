@@ -30,9 +30,9 @@
 #include "nlohmann/json.hpp"
 #include "World/WorldEntityTrackingSystem.h"
 #include "Zones/ZoneFlow.h"
+#include "Zones/ZoneManager.h"
 
 
-#include "Events/QuitEvent.h"
 #include "Events/PauseEvent.h"
 #include "Events/EventFuncFwd.h"
 #include "EventHandler/EventHandler.h"
@@ -42,7 +42,6 @@
 #include "EntitySystem/IEntityManager.h"
 #include "Entity/TargetSystem.h"
 #include "Pickups/LootBoxLogic.h"
-#include "Rendering/RenderSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "SystemContext.h"
 #include "TransformSystem/TransformSystem.h"
@@ -106,7 +105,6 @@ void HordeGameMode::Begin(
     m_spawn_wave_timer = m_horde_config.initial_wave_delay_s;
 
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
-    m_render_system = system_context->GetSystem<mono::RenderSystem>();
     m_trigger_system = system_context->GetSystem<mono::TriggerSystem>();
     m_sprite_system = system_context->GetSystem<mono::SpriteSystem>();
     m_entity_manager = system_context->GetSystem<mono::IEntityManager>();
@@ -281,10 +279,10 @@ void HordeGameMode::SetupEvents(const LevelMetadata& level_metadata)
     };
     m_pause_token = m_event_handler->AddListener(on_pause);
 
-    m_level_completed_hash = hash::Hash(level_metadata.completed_trigger.c_str());
-    m_level_completed_alt_hash = hash::Hash(level_metadata.completed_alt_trigger.c_str());
-    m_level_aborted_hash = hash::Hash(level_metadata.aborted_trigger.c_str());
-    m_level_failed_hash = hash::Hash(level_metadata.failed_trigger.c_str());
+    m_level_completed_hash = hash::HashRegisterString(level_metadata.completed_trigger.c_str());
+    m_level_completed_alt_hash = hash::HashRegisterString(level_metadata.completed_alt_trigger.c_str());
+    m_level_aborted_hash = hash::HashRegisterString(level_metadata.aborted_trigger.c_str());
+    m_level_failed_hash = hash::HashRegisterString(level_metadata.failed_trigger.c_str());
 
     const mono::TriggerCallback level_event_callback = [this](uint32_t trigger_id) {
         if(trigger_id == m_level_completed_hash)
@@ -404,8 +402,6 @@ void HordeGameMode::ToFadeIn()
         m_big_text_screen->Hide();
     };
     m_big_text_screen->ShowWithFadePattern(fade_pattern, callback);
-
-    m_render_system->TriggerScreenFade(mono::ScreenFadeState::FADE_IN, tweak_values::fade_duration_s, 0.0f);
 }
 
 void HordeGameMode::FadeIn(const mono::UpdateContext& update_context)
@@ -480,16 +476,15 @@ void HordeGameMode::ExitPaused()
 
 void HordeGameMode::ToFadeOut()
 {
-    m_render_system->TriggerScreenFade(mono::ScreenFadeState::FADE_OUT, tweak_values::fade_duration_s, 0.0f);
-
     const std::vector<BigTextScreen::FadePattern> fade_pattern = {
         { BigTextScreen::FadeState::FADE_OUT, tweak_values::fade_duration_s },
     };
     const auto callback = [this]() {
-        m_event_handler->DispatchEvent(event::QuitEvent());
         m_big_text_screen->Hide();
     };
     m_big_text_screen->ShowWithFadePattern(fade_pattern, callback);
+
+    ZoneManager::ExitZone();
 }
 void HordeGameMode::FadeOut(const mono::UpdateContext& update_context)
 { }

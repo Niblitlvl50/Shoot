@@ -41,7 +41,6 @@ namespace game
         mono::InputSystem* m_input_system;
         mono::EventHandler* m_event_handler;
         mono::TriggerSystem* m_trigger_system;
-        mono::RenderSystem* m_render_system;
         class PathFollowerSystem* m_path_follower_system;
         class PlayerDaemonSystem* m_player_system;
         class CameraSystem* m_camera_system;

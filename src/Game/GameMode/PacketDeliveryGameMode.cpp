@@ -6,6 +6,7 @@
 #include "Hud/PlayerUIElement.h"
 #include "Player/PlayerAuxiliaryDrawer.h"
 #include "Zones/ZoneFlow.h"
+#include "Zones/ZoneManager.h"
 #include "Entity/TargetSystem.h"
 #include "Events/GameEvents.h"
 #include "Events/GameEventFuncFwd.h"
@@ -22,14 +23,12 @@
 #include "Weapons/WeaponSystem.h"
 
 #include "Physics/PhysicsSystem.h"
-#include "Rendering/RenderSystem.h"
 #include "Rendering/Sprite/SpriteSystem.h"
 #include "Rendering/Sprite/Sprite.h"
 #include "TransformSystem/TransformSystem.h"
 
 #include "Camera/ICamera.h"
 #include "EntitySystem/IEntityManager.h"
-#include "Events/QuitEvent.h"
 #include "Events/PauseEvent.h"
 #include "Events/EventFuncFwd.h"
 #include "EventHandler/EventHandler.h"
@@ -89,7 +88,6 @@ void PacketDeliveryGameMode::Begin(
     const LevelMetadata& level_metadata)
 {
     m_event_handler = event_handler;
-    m_render_system = system_context->GetSystem<mono::RenderSystem>();
     m_trigger_system = system_context->GetSystem<mono::TriggerSystem>();
     m_entity_manager = system_context->GetSystem<mono::IEntityManager>();
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
@@ -123,10 +121,10 @@ void PacketDeliveryGameMode::Begin(
     };
     m_pause_token = m_event_handler->AddListener(on_pause);
 
-    m_level_completed_hash = hash::Hash(level_metadata.completed_trigger.c_str());
-    m_level_completed_alt_hash = hash::Hash(level_metadata.completed_alt_trigger.c_str());
-    m_level_aborted_hash = hash::Hash(level_metadata.aborted_trigger.c_str());
-    m_level_failed_hash = hash::Hash(level_metadata.failed_trigger.c_str());
+    m_level_completed_hash = hash::HashRegisterString(level_metadata.completed_trigger.c_str());
+    m_level_completed_alt_hash = hash::HashRegisterString(level_metadata.completed_alt_trigger.c_str());
+    m_level_aborted_hash = hash::HashRegisterString(level_metadata.aborted_trigger.c_str());
+    m_level_failed_hash = hash::HashRegisterString(level_metadata.failed_trigger.c_str());
 
     const mono::TriggerCallback level_event_callback = [this](uint32_t trigger_id) {
         if(trigger_id == m_level_completed_hash)
@@ -321,8 +319,6 @@ void PacketDeliveryGameMode::ToFadeIn()
         m_big_text_screen->Hide();
     };
     m_big_text_screen->ShowWithFadePattern(fade_pattern, callback);
-
-    m_render_system->TriggerScreenFade(mono::ScreenFadeState::FADE_IN, 1.0f, 0.0f);
 }
 void PacketDeliveryGameMode::FadeIn(const mono::UpdateContext& update_context)
 { }
@@ -388,12 +384,11 @@ void PacketDeliveryGameMode::ToFadeOut()
         { BigTextScreen::FadeState::FADE_OUT, tweak_values::fade_duration_s },
     };
     const auto callback = [this]() {
-        m_event_handler->DispatchEvent(event::QuitEvent());
         m_big_text_screen->Hide();
     };
     m_big_text_screen->ShowWithFadePattern(fade_pattern, callback);
 
-    m_render_system->TriggerScreenFade(mono::ScreenFadeState::FADE_OUT, tweak_values::fade_duration_s, 0.0f);
+    ZoneManager::ExitZone();
 }
 void PacketDeliveryGameMode::FadeOut(const mono::UpdateContext& update_context)
 { }

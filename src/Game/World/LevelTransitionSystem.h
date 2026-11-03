@@ -11,8 +11,8 @@
 
 namespace game
 {
-    // Moves the players to another level when a level_exit's trigger fires. The screen fades out
-    // and the zone quits, the next level is picked by name instead of from the level's transitions.
+    // Moves the players to another level when a level_exit's trigger fires. The zone manager fades
+    // out and quits the zone, the next level is picked by name instead of from the level's transitions.
     // The exit's entry tag survives the switch, and players spawn at an entity with the same tag
     // (from its tag component) in the next level.
     class LevelTransitionSystem : public mono::IGameSystem
@@ -21,10 +21,8 @@ namespace game
 
         LevelTransitionSystem(
             mono::TriggerSystem* trigger_system,
-            mono::RenderSystem* render_system,
             mono::TransformSystem* transform_system,
-            mono::IEntityManager* entity_manager,
-            mono::EventHandler* event_handler);
+            mono::IEntityManager* entity_manager);
 
         void AllocateLevelExit(uint32_t entity_id);
         void ReleaseLevelExit(uint32_t entity_id);
@@ -44,10 +42,8 @@ namespace game
         void ExitLevel(uint32_t entity_id);
 
         mono::TriggerSystem* m_trigger_system;
-        mono::RenderSystem* m_render_system;
         mono::TransformSystem* m_transform_system;
         mono::IEntityManager* m_entity_manager;
-        mono::EventHandler* m_event_handler;
 
         struct LevelExit
         {

@@ -15,7 +15,6 @@
 #include "Events/MouseEvent.h"
 #include "Events/PauseEvent.h"
 #include "Events/PlayerEvents.h"
-#include "Events/QuitEvent.h"
 #include "EntitySystem/IEntityManager.h"
 #include "EventHandler/EventHandler.h"
 #include "Physics/PhysicsDebugDrawer.h"
@@ -171,7 +170,7 @@ void DrawDebugMenu(game::EntityLogicSystem* logic_system, mono::EventHandler* ev
         if(selected_index != uint32_t(-1))
         {
             game::ZoneManager::SwitchToLevel(levels[selected_index]);
-            event_handler->DispatchEvent(event::QuitEvent());
+            game::ZoneManager::ExitZone();
         }
     }
 

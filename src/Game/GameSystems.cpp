@@ -119,8 +119,7 @@ void game::CreateGameSystems(
     system_context.CreateSystem<game::ShopSystem>();
     system_context.CreateSystem<game::NavigationSystem>();
     system_context.CreateSystem<game::TeleportSystem>(camera_system, trigger_system, render_system, transform_system);
-    system_context.CreateSystem<game::LevelTransitionSystem>(
-        trigger_system, render_system, transform_system, entity_system, &event_handler);
+    system_context.CreateSystem<game::LevelTransitionSystem>(trigger_system, transform_system, entity_system);
     system_context.CreateSystem<game::WorldEntityTrackingSystem>(trigger_system);
     game::TargetSystem* target_system =
         system_context.CreateSystem<game::TargetSystem>(transform_system, physics_system, damage_system);

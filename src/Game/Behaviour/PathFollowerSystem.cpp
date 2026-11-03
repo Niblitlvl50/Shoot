@@ -211,6 +211,20 @@ float PathFollowerSystem::GetPathLength(uint32_t entity_id) const
     return (it != m_components.end()) ? it->second.behaviour.GetPathLength() : 0.0f;
 }
 
+bool PathFollowerSystem::GetWorldPositionOnPath(uint32_t path_entity_id, float distance, math::Vector& out_position) const
+{
+    const mono::IPathPtr path = BakePath(path_entity_id);
+    if(!path)
+        return false;
+
+    const mono::PositionResult position_result = path->GetPositionByLength(distance);
+    if(!position_result.valid_position)
+        return false;
+
+    out_position = position_result.path_position;
+    return true;
+}
+
 bool PathFollowerSystem::SwitchToPathEntity(
     uint32_t entity_id, uint32_t new_path_entity_id, const math::Vector& enter_at_world_position, bool entering_forward)
 {

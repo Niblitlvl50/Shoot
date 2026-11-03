@@ -275,3 +275,12 @@ void AnimationSystem::Update(const mono::UpdateContext& update_context)
     
     mono::remove_if(m_transform_anims_to_process, process_transform_anims_func);
 }
+
+void AnimationSystem::Reset()
+{
+    m_transform_anims_to_process.clear();
+    m_sprite_anims_to_process.clear();
+
+    //MONO_ASSERT(m_transform_anims_to_process.empty());
+    //MONO_ASSERT(m_sprite_anims_to_process.empty());
+}

@@ -1,6 +1,7 @@
 
 #include "TrainGameMode.h"
 #include "Zones/ZoneFlow.h"
+#include "Zones/ZoneManager.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "Behaviour/PathFollowerSystem.h"
 #include "GameCamera/CameraSystem.h"
@@ -61,16 +62,13 @@ void TrainGameMode::Begin(
     m_input_system = system_context->GetSystem<mono::InputSystem>();
     m_trigger_system = system_context->GetSystem<mono::TriggerSystem>();
     m_path_follower_system = system_context->GetSystem<game::PathFollowerSystem>();
-    m_render_system = system_context->GetSystem<mono::RenderSystem>();
+    m_camera_system = system_context->GetSystem<game::CameraSystem>();
 
     mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
     mono::IEntityManager* entity_manager = system_context->GetSystem<mono::IEntityManager>();
     game::UISystem* ui_system = system_context->GetSystem<game::UISystem>();
 
     m_event_handler = event_handler;
-
-    renderer->SetScreenFadeAlpha(0.0f);
-    m_render_system->TriggerScreenFade(mono::ScreenFadeState::FADE_IN, tweak_values::fade_duration_s, 0.0f);
 
     m_big_text_screen = std::make_unique<BigTextScreen>(
         level_metadata.level_name.c_str(),
@@ -98,8 +96,6 @@ void TrainGameMode::Begin(
     m_train_hud = std::make_unique<TrainHudElement>();
     zone->AddUpdatableDrawable(m_train_hud.get(), LayerId::UI);
 
-    // Pause - the screen's Quit fires the level's aborted trigger, which fades out and quits below.
-    m_camera_system = system_context->GetSystem<game::CameraSystem>();
     m_pause_screen = std::make_unique<PauseScreen>(
         level_metadata.aborted_trigger,
         transform_system,
@@ -112,6 +108,7 @@ void TrainGameMode::Begin(
     m_pause_screen->Hide();
     zone->AddUpdatableDrawable(m_pause_screen.get(), LayerId::UI);
 
+    // Pause - the screen's Quit fires the level's aborted trigger, which fades out and quits below.
     const event::PauseEventFunc on_pause = [this](const event::PauseEvent& pause_event) {
         if(pause_event.pause)
             m_pause_screen->ShowAt(m_camera_system->GetActiveCamera()->GetTargetPosition());
@@ -132,6 +129,8 @@ void TrainGameMode::Begin(
         m_train_entity_id = player_entity_id;
         const std::string spawn_tag = tag.empty() ? "player_start" : tag;
 
+        math::Vector train_start_position = position;
+
         float train_start_distance;
         const mono::PathSystem* path_system = system_context->GetSystem<mono::PathSystem>();
         const uint32_t path_entity_id = path_system->FindPathFromNotifierTag(spawn_tag, train_start_distance);
@@ -140,16 +139,21 @@ void TrainGameMode::Begin(
             const mono::IEntityManager* entity_manager = system_context->GetSystem<mono::IEntityManager>();
             const uint32_t path_uuid = entity_manager->GetEntityUuid(path_entity_id);
             m_path_follower_system->SetPathReference(player_entity_id, path_uuid, train_start_distance);
+            m_path_follower_system->GetWorldPositionOnPath(path_entity_id, train_start_distance, train_start_position);
         }
+
+        // The train is moved onto the path later, start the camera where it ends up instead of panning there.
+        if(spawn_state == game::PlayerSpawnState::SPAWNED)
+            m_camera_system->GetActiveCamera()->SetPosition(train_start_position);
     };
     LevelTransitionSystem* level_transition_system = system_context->GetSystem<LevelTransitionSystem>();
     const std::string& spawn_tag = level_transition_system->GetPendingSpawnTag();
     m_player_system->SpawnPlayersAt(level_metadata.player_spawn_point, player_spawned_cb, spawn_tag);
 
-    m_level_completed_hash = hash::Hash(level_metadata.completed_trigger.c_str());
-    m_level_completed_alt_hash = hash::Hash(level_metadata.completed_alt_trigger.c_str());
-    m_level_aborted_hash = hash::Hash(level_metadata.aborted_trigger.c_str());
-    m_level_failed_hash = hash::Hash(level_metadata.failed_trigger.c_str());
+    m_level_completed_hash = hash::HashRegisterString(level_metadata.completed_trigger.c_str());
+    m_level_completed_alt_hash = hash::HashRegisterString(level_metadata.completed_alt_trigger.c_str());
+    m_level_aborted_hash = hash::HashRegisterString(level_metadata.aborted_trigger.c_str());
+    m_level_failed_hash = hash::HashRegisterString(level_metadata.failed_trigger.c_str());
 
     const mono::TriggerCallback level_hash_callback = [this](uint32_t trigger_id) {
         if(trigger_id == m_level_completed_hash)
@@ -225,8 +229,5 @@ void TrainGameMode::TriggerFadeOutAndQuit(int zone_result)
     m_game_mode_result = zone_result;
     m_pause_screen->Hide();
 
-    const mono::ScreenFadeCallback on_fade_complete = [this](mono::ScreenFadeState state) {
-        m_event_handler->DispatchEvent(event::QuitEvent());
-    };
-    m_render_system->TriggerScreenFade(mono::ScreenFadeState::FADE_OUT, tweak_values::fade_duration_s, 0.0f, on_fade_complete);
+    ZoneManager::ExitZone();
 }

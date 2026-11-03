@@ -172,6 +172,11 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     AddDrawable(new game::UISystemDrawer(ui_system, transform_system), LayerId::UI_OVERLAY);
     AddDrawable(new mono::ScreenFadeDrawer(render_system), LayerId::UI_OVERLAY);
 
+    // The fade drawer sets the alpha after the renderer has used it, for the next frame. A new renderer
+    // starts out fully bright, so the first frame needs the alpha up front.
+    if(render_system->ShouldApplyScreenFadeAlpha())
+        renderer->SetScreenFadeAlpha(render_system->GetFadeAlpha());
+
     AddDrawable(new WorldEntityTrackingDrawer(entity_tracking_system, transform_system), LayerId::UI);
     m_dialog_ui = new game::DialogSystemDrawer(dialog_system);
     AddUpdatableDrawable(m_dialog_ui, LayerId::UI);

@@ -83,7 +83,6 @@ namespace game
         mono::EventHandler* m_event_handler;
         mono::TriggerSystem* m_trigger_system;
 
-        mono::RenderSystem* m_render_system;
         mono::TransformSystem* m_transform_system;
         mono::SpriteSystem* m_sprite_system;
         mono::IEntityManager* m_entity_manager;

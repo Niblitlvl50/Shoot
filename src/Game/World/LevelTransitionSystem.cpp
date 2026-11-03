@@ -4,9 +4,6 @@
 
 #include "EntitySystem/Entity.h"
 #include "EntitySystem/IEntityManager.h"
-#include "EventHandler/EventHandler.h"
-#include "Events/QuitEvent.h"
-#include "Rendering/RenderSystem.h"
 #include "TransformSystem/TransformSystem.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "System/Hash.h"
@@ -14,24 +11,15 @@
 
 #include <algorithm>
 
-namespace tweak_values
-{
-    constexpr float fade_out_duration_s = 1.0f;
-}
-
 using namespace game;
 
 LevelTransitionSystem::LevelTransitionSystem(
     mono::TriggerSystem* trigger_system,
-    mono::RenderSystem* render_system,
     mono::TransformSystem* transform_system,
-    mono::IEntityManager* entity_manager,
-    mono::EventHandler* event_handler)
+    mono::IEntityManager* entity_manager)
     : m_trigger_system(trigger_system)
-    , m_render_system(render_system)
     , m_transform_system(transform_system)
     , m_entity_manager(entity_manager)
-    , m_event_handler(event_handler)
     , m_exiting(false)
 { }
 
@@ -125,11 +113,7 @@ void LevelTransitionSystem::ExitLevel(uint32_t entity_id)
     m_exiting = true;
     m_pending_entry_tag = level_exit.entry_tag;
     ZoneManager::SwitchToLevel(*level_it);
-
-    const mono::ScreenFadeCallback on_fade_complete = [this](mono::ScreenFadeState state) {
-        m_event_handler->DispatchEvent(event::QuitEvent());
-    };
-    m_render_system->TriggerScreenFade(mono::ScreenFadeState::FADE_OUT, tweak_values::fade_out_duration_s, 1.0f, on_fade_complete);
+    ZoneManager::ExitZone();
 }
 
 const char* LevelTransitionSystem::Name() const

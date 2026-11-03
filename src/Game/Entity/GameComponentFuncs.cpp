@@ -42,6 +42,11 @@
 
 namespace
 {
+    uint32_t RegisteredTriggerHash(const mono::Event& event)
+    {
+        return hash::HashRegisterString(event.text.c_str());
+    }
+
     bool CreatePhysics(mono::Entity* entity, mono::SystemContext* context)
     {
         mono::BodyComponent body_params;
@@ -240,7 +245,7 @@ namespace
         mono::Event trigger_name;
         const bool found_enable = FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::SET_DEFAULT);
         if(found_enable)
-            trigger = hash::Hash(trigger_name.text.c_str());
+            trigger = RegisteredTriggerHash(trigger_name);
 
         FindAttribute(RADIUS_ATTRIBUTE, properties, radius, FallbackMode::SET_DEFAULT);
         FindAttribute(MAGNITUDE_INTERVAL_ATTRIBUTE, properties, magnitude, FallbackMode::SET_DEFAULT);
@@ -310,19 +315,18 @@ namespace
         mono::Event enable_trigger;
         const bool found_enable = FindAttribute(ENABLE_TRIGGER_ATTRIBUTE, properties, enable_trigger, FallbackMode::SET_DEFAULT);
         if(found_enable && !enable_trigger.text.empty())
-            spawn_point.enable_trigger = hash::Hash(enable_trigger.text.c_str());
+            spawn_point.enable_trigger = RegisteredTriggerHash(enable_trigger);
 
         mono::Event disable_trigger;
         const bool found_disable = FindAttribute(DISABLE_TRIGGER_ATTRIBUTE, properties, disable_trigger, FallbackMode::SET_DEFAULT);
         if(found_disable && !disable_trigger.text.empty())
-            spawn_point.disable_trigger = hash::Hash(disable_trigger.text.c_str());
+            spawn_point.disable_trigger = RegisteredTriggerHash(disable_trigger);
 
         mono::Event cleared_trigger;
         const bool found_cleared = FindAttribute(CLEARED_TRIGGER_ATTRIBUTE, properties, cleared_trigger, FallbackMode::SET_DEFAULT);
         if(found_cleared && !cleared_trigger.text.empty())
         {
-            spawn_point.cleared_trigger = hash::Hash(cleared_trigger.text.c_str());
-            hash::HashRegisterString(cleared_trigger.text.c_str());
+            spawn_point.cleared_trigger = RegisteredTriggerHash(cleared_trigger);
         }
 
         FindAttribute(SPAWN_POINTS_ATTRIBUTE, properties, spawn_point.points, FallbackMode::SET_DEFAULT);
@@ -364,7 +368,7 @@ namespace
         mono::Event spawn_trigger_name;
         const bool found_enable = FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, spawn_trigger_name, FallbackMode::SET_DEFAULT);
         if(found_enable)
-            spawn_trigger = hash::Hash(spawn_trigger_name.text.c_str());
+            spawn_trigger = RegisteredTriggerHash(spawn_trigger_name);
 
         game::SpawnSystem* spawn_system = context->GetSystem<game::SpawnSystem>();
         spawn_system->SetEntitySpawnPointData(entity->id, entity_file, spawn_radius, spawn_trigger);
@@ -392,7 +396,7 @@ namespace
         if(!found_enable)
             return false;
     
-        const uint32_t despawn_trigger = hash::Hash(despawn_trigger_name.text.c_str());
+        const uint32_t despawn_trigger = RegisteredTriggerHash(despawn_trigger_name);
         game::SpawnSystem* spawn_system = context->GetSystem<game::SpawnSystem>();
         spawn_system->SetDespawnTriggerData(entity->id, despawn_trigger);
         return true;
@@ -431,14 +435,12 @@ namespace
         bool emit_once;
         FindAttribute(EMIT_ONCE_ATTRIBUTE, properties, emit_once, FallbackMode::SET_DEFAULT);
 
-        const uint32_t enter_trigger_hash = hash::Hash(enter_trigger_name.text.c_str());
-        const uint32_t exit_trigger_hash = hash::Hash(exit_trigger_name.text.c_str());
+        const uint32_t enter_trigger_hash = RegisteredTriggerHash(enter_trigger_name);
+        const uint32_t exit_trigger_hash = RegisteredTriggerHash(exit_trigger_name);
 
         mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
         trigger_system->AddShapeTrigger(entity->id, enter_trigger_hash, exit_trigger_hash, emit_once);
 
-        hash::HashRegisterString(enter_trigger_name.text.c_str());
-        hash::HashRegisterString(exit_trigger_name.text.c_str());
 
         return true;
     }
@@ -472,10 +474,9 @@ namespace
         int trigger_type;
         FindAttribute(DESTROYED_TRIGGER_TYPE_ATTRIBUTE, properties, trigger_type, FallbackMode::SET_DEFAULT);
 
-        const uint32_t trigger_hash = hash::Hash(trigger_name.text.c_str());
+        const uint32_t trigger_hash = RegisteredTriggerHash(trigger_name);
         game::EntityLifetimeTriggerSystem* trigger_system = context->GetSystem<game::EntityLifetimeTriggerSystem>();
         trigger_system->AddDestroyedTrigger(entity->id, trigger_hash, game::DestroyedTriggerType(trigger_type));
-        hash::HashRegisterString(trigger_name.text.c_str());
 
         return true;
     }
@@ -518,12 +519,11 @@ namespace
         const math::Matrix& world_transform = transform_system->GetWorld(entity->id);
         const math::Quad world_bb = math::Transformed(world_transform, math::Quad(-half_width_height, half_width_height));
 
-        const uint32_t trigger_hash = hash::Hash(trigger_name.text.c_str());
+        const uint32_t trigger_hash = RegisteredTriggerHash(trigger_name);
 
         mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
         trigger_system->AddAreaEntityTrigger(
             entity->id, trigger_hash, world_bb, faction, mono::AreaTriggerOperation(operation), n_entities);
-        hash::HashRegisterString(trigger_name.text.c_str());
 
         return true;
     }
@@ -555,10 +555,9 @@ namespace
         FindAttribute(TIME_STAMP_ATTRIBUTE, properties, timeout_ms, FallbackMode::SET_DEFAULT);
         FindAttribute(REPEATING_ATTRIBUTE, properties, repeating, FallbackMode::SET_DEFAULT);
 
-        const uint32_t trigger_hash = hash::Hash(trigger_name.text.c_str());
+        const uint32_t trigger_hash = RegisteredTriggerHash(trigger_name);
         mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
         trigger_system->AddTimeTrigger(entity->id, trigger_hash, timeout_ms, repeating);
-        hash::HashRegisterString(trigger_name.text.c_str());
 
         return true;
     }
@@ -593,14 +592,12 @@ namespace
         FindAttribute(COUNT_ATTRIBUTE, properties, count, FallbackMode::SET_DEFAULT);
         FindAttribute(RESET_ON_COMPLETED_ATTRIBUTE, properties, reset_on_completed, FallbackMode::SET_DEFAULT);
 
-        const uint32_t trigger_hash = hash::Hash(trigger_name.text.c_str());
-        const uint32_t completed_trigger_hash = hash::Hash(trigger_name_completed.text.c_str());
+        const uint32_t trigger_hash = RegisteredTriggerHash(trigger_name);
+        const uint32_t completed_trigger_hash = RegisteredTriggerHash(trigger_name_completed);
 
         mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
         trigger_system->AddCounterTrigger(entity->id, trigger_hash, completed_trigger_hash, count, reset_on_completed);
 
-        hash::HashRegisterString(trigger_name.text.c_str());
-        hash::HashRegisterString(trigger_name_completed.text.c_str());
 
         return true;
     }
@@ -633,14 +630,12 @@ namespace
         int delay_ms;
         FindAttribute(TIME_STAMP_ATTRIBUTE, properties, delay_ms, FallbackMode::SET_DEFAULT);
 
-        const uint32_t trigger_hash = hash::Hash(trigger_name.text.c_str());
-        const uint32_t completed_trigger_hash = hash::Hash(trigger_name_completed.text.c_str());
+        const uint32_t trigger_hash = RegisteredTriggerHash(trigger_name);
+        const uint32_t completed_trigger_hash = RegisteredTriggerHash(trigger_name_completed);
 
         mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
         trigger_system->AddRelayTrigger(entity->id, trigger_hash, completed_trigger_hash, delay_ms);
 
-        hash::HashRegisterString(trigger_name.text.c_str());
-        hash::HashRegisterString(trigger_name_completed.text.c_str());
 
         return true;
     }
@@ -670,7 +665,7 @@ namespace
             return false;
 
         const uint32_t anim_notify_hash = hash::Hash(anim_notify.c_str());
-        const uint32_t trigger_hash = hash::Hash(trigger_name.text.c_str());
+        const uint32_t trigger_hash = RegisteredTriggerHash(trigger_name);
 
         mono::TriggerSystem* trigger_system = context->GetSystem<mono::TriggerSystem>();
         trigger_system->AddAnimNotifyTrigger(entity->id, anim_notify_hash, trigger_hash);
@@ -767,7 +762,7 @@ namespace
         FindAttribute(ANIMATION_ATTRIBUTE, properties, animation_index, FallbackMode::SET_DEFAULT);
 
         game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
-        animation_system->AddSpriteAnimation(entity->id, hash::Hash(trigger_name.text.c_str()), animation_index);
+        animation_system->AddSpriteAnimation(entity->id, RegisteredTriggerHash(trigger_name), animation_index);
 
         return true;
     }
@@ -795,7 +790,7 @@ namespace
 
         game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
         animation_system->AddTranslationComponent(
-            entity->id, hash::Hash(trigger_name.text.c_str()), duration, math::ease_functions[ease_func_index], math::ease_functions[ease_func_index], game::AnimationMode(animation_mode), translation);
+            entity->id, RegisteredTriggerHash(trigger_name), duration, math::ease_functions[ease_func_index], math::ease_functions[ease_func_index], game::AnimationMode(animation_mode), translation);
 
         return true;
     }
@@ -823,7 +818,7 @@ namespace
 
         game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
         animation_system->AddRotationComponent(
-            entity->id, hash::Hash(trigger_name.text.c_str()), duration, math::ease_functions[ease_func_index], game::AnimationMode(animation_mode), rotation);
+            entity->id, RegisteredTriggerHash(trigger_name), duration, math::ease_functions[ease_func_index], game::AnimationMode(animation_mode), rotation);
 
         return true;
     }
@@ -851,7 +846,7 @@ namespace
 
         game::AnimationSystem* animation_system = context->GetSystem<game::AnimationSystem>();
         animation_system->AddScaleComponent(
-            entity->id, hash::Hash(trigger_name.text.c_str()), duration, math::ease_functions[ease_func_index], game::AnimationMode(animation_mode), 1.0f, scale_delta);
+            entity->id, RegisteredTriggerHash(trigger_name), duration, math::ease_functions[ease_func_index], game::AnimationMode(animation_mode), 1.0f, scale_delta);
 
         return true;
     }
@@ -885,7 +880,7 @@ namespace
         FindAttribute(ZOOM_LEVEL_ATTRIBUTE, properties, zoom_value, FallbackMode::SET_DEFAULT);
 
         game::CameraSystem* camera_system = context->GetSystem<game::CameraSystem>();
-        camera_system->AddCameraAnimationComponent(entity->id, hash::Hash(trigger_name.text.c_str()), zoom_value);
+        camera_system->AddCameraAnimationComponent(entity->id, RegisteredTriggerHash(trigger_name), zoom_value);
         return true;
     }
 
@@ -901,7 +896,7 @@ namespace
         }
 
         game::CameraSystem* camera_system = context->GetSystem<game::CameraSystem>();
-        camera_system->AddCameraAnimationComponent(entity->id, hash::Hash(trigger_name.text.c_str()));
+        camera_system->AddCameraAnimationComponent(entity->id, RegisteredTriggerHash(trigger_name));
         return true;
     }
 
@@ -925,7 +920,7 @@ namespace
         const uint32_t referenced_entity_id = entity_manager->GetEntityIdFromUuid(entity_reference);
 
         game::CameraSystem* camera_system = context->GetSystem<game::CameraSystem>();
-        camera_system->AddCameraAnimationComponent(entity->id, hash::Hash(trigger_name.text.c_str()), referenced_entity_id);
+        camera_system->AddCameraAnimationComponent(entity->id, RegisteredTriggerHash(trigger_name), referenced_entity_id);
         return true;
     }
 
@@ -955,7 +950,7 @@ namespace
         }
 
         game::CameraSystem* camera_system = context->GetSystem<game::CameraSystem>();
-        camera_system->AddRestoreComponent(entity->id, hash::Hash(trigger_name.text.c_str()));
+        camera_system->AddRestoreComponent(entity->id, RegisteredTriggerHash(trigger_name));
         return true;
     }
 
@@ -995,11 +990,10 @@ namespace
         game::InteractionSystem* interaction_system = context->GetSystem<game::InteractionSystem>();
         interaction_system->AddComponent(
             entity->id,
-            hash::Hash(trigger_name.text.c_str()),
+            RegisteredTriggerHash(trigger_name),
             interaction_type,
             draw_name,
             interaction_sound);
-        hash::HashRegisterString(trigger_name.text.c_str());
 
         return true;
     }
@@ -1028,14 +1022,12 @@ namespace
         game::InteractionSystem* interaction_system = context->GetSystem<game::InteractionSystem>();
         interaction_system->AddComponent(
             entity->id,
-            hash::Hash(on_trigger_name.text.c_str()),
-            hash::Hash(off_trigger_name.text.c_str()),
+            RegisteredTriggerHash(on_trigger_name),
+            RegisteredTriggerHash(off_trigger_name),
             interaction_type,
             draw_name,
             interaction_sound);
 
-        hash::HashRegisterString(on_trigger_name.text.c_str());
-        hash::HashRegisterString(off_trigger_name.text.c_str());
 
         return true;
     }
@@ -1072,7 +1064,7 @@ namespace
         dialog.sprite_file = sprite_path;
 
         game::DialogSystem* dialog_system = context->GetSystem<game::DialogSystem>();
-        dialog_system->SetComponentData(entity->id, hash::Hash(trigger_name.text.c_str()), emit_once, dialog);
+        dialog_system->SetComponentData(entity->id, RegisteredTriggerHash(trigger_name), emit_once, dialog);
 
         return true;
     }
@@ -1098,8 +1090,7 @@ namespace
         FindAttribute(TEXT_ATTRIBUTE, properties, option.text, FallbackMode::SET_DEFAULT);
         FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::SET_DEFAULT);
 
-        option.trigger_hash = hash::Hash(trigger_name.text.c_str());
-        hash::HashRegisterString(trigger_name.text.c_str());
+        option.trigger_hash = RegisteredTriggerHash(trigger_name);
 
         game::DialogSystem* dialog_system = context->GetSystem<game::DialogSystem>();
         dialog_system->SetOptionData(entity->id, option);
@@ -1162,8 +1153,8 @@ namespace
             entity->id,
             sound_file,
             game::SoundInstancePlayParameter(parameters),
-            hash::Hash(play_trigger.text.c_str()),
-            hash::Hash(stop_trigger.text.c_str()));
+            RegisteredTriggerHash(play_trigger),
+            RegisteredTriggerHash(stop_trigger));
         return true;
     }
 
@@ -1188,7 +1179,7 @@ namespace
         FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::SET_DEFAULT);
 
         game::TeleportSystem* teleport_system = context->GetSystem<game::TeleportSystem>();
-        teleport_system->UpdateTeleportPlayer(entity->id, hash::Hash(trigger_name.text.c_str()));
+        teleport_system->UpdateTeleportPlayer(entity->id, RegisteredTriggerHash(trigger_name));
 
         return true;
     }
@@ -1218,16 +1209,14 @@ namespace
         FindAttribute(ENABLE_TRIGGER_ATTRIBUTE, properties, enable_trigger, FallbackMode::SET_DEFAULT);
         FindAttribute(DISABLE_TRIGGER_ATTRIBUTE, properties, disable_trigger, FallbackMode::SET_DEFAULT);
 
-        hash::HashRegisterString(enable_trigger.text.c_str());
-        hash::HashRegisterString(disable_trigger.text.c_str());
 
         game::WorldEntityTrackingSystem* tracking_system = context->GetSystem<game::WorldEntityTrackingSystem>();
         tracking_system->UpdateEntityTracker(
             entity->id,
             game::EntityType(entity_type),
             start_enabled,
-            hash::Hash(enable_trigger.text.c_str()),
-            hash::Hash(disable_trigger.text.c_str()));
+            RegisteredTriggerHash(enable_trigger),
+            RegisteredTriggerHash(disable_trigger));
 
         return true;
     }
@@ -1301,9 +1290,9 @@ namespace
             time_s,
             fail_on_timeout,
             replayable,
-            hash::Hash(trigger_name.text.c_str()),
-            hash::Hash(completed_trigger_name.text.c_str()),
-            hash::Hash(failed_trigger_name.text.c_str()));
+            RegisteredTriggerHash(trigger_name),
+            RegisteredTriggerHash(completed_trigger_name),
+            RegisteredTriggerHash(failed_trigger_name));
 
         return true;
     }
@@ -1329,7 +1318,7 @@ namespace
 
         game::MissionSystem* mission_system = context->GetSystem<game::MissionSystem>();
         mission_system->SetMissionActivatorData(
-            entity->id, hash::Hash(trigger_name.text.c_str()), emit_once);
+            entity->id, RegisteredTriggerHash(trigger_name), emit_once);
 
         return true;
     }
@@ -1503,9 +1492,9 @@ namespace
         game::RailwaySystem* railway_system = context->GetSystem<game::RailwaySystem>();
         railway_system->SetSwitchData(
             entity->id, trunk_track_reference, primary_track_reference, alt_track_reference, use_alt_branch,
-            hash::Hash(trigger_name.text.c_str()),
-            hash::Hash(primary_trigger_name.text.c_str()),
-            hash::Hash(alt_trigger_name.text.c_str()));
+            RegisteredTriggerHash(trigger_name),
+            RegisteredTriggerHash(primary_trigger_name),
+            RegisteredTriggerHash(alt_trigger_name));
 
         return true;
     }
@@ -1533,12 +1522,6 @@ namespace
         railway_system->SetStationData(entity->id, name);
 
         return true;
-    }
-
-    uint32_t RegisteredTriggerHash(const mono::Event& event)
-    {
-        hash::HashRegisterString(event.text.c_str());
-        return hash::Hash(event.text.c_str());
     }
 
     bool CreateWorldStateSetBool(mono::Entity* entity, mono::SystemContext* context)
@@ -1737,10 +1720,9 @@ namespace
         FindAttribute(SIZE_ATTRIBUTE, properties, size, FallbackMode::SET_DEFAULT);
         FindAttribute(TRANSFER_DURATION_ATTRIBUTE, properties, transfer_duration_s, FallbackMode::SET_DEFAULT);
         FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::SET_DEFAULT);
-        hash::HashRegisterString(trigger_name.text.c_str());
 
         game::TrainZoneSystem* zone_system = context->GetSystem<game::TrainZoneSystem>();
-        zone_system->SetLoadingZoneData(entity->id, size, transfer_duration_s, hash::Hash(trigger_name.text.c_str()));
+        zone_system->SetLoadingZoneData(entity->id, size, transfer_duration_s, RegisteredTriggerHash(trigger_name));
 
         return true;
     }
@@ -1769,10 +1751,9 @@ namespace
         FindAttribute(TRANSFER_DURATION_ATTRIBUTE, properties, transfer_duration_s, FallbackMode::SET_DEFAULT);
         FindAttribute(CARGO_DESTINATION_ATTRIBUTE, properties, destination, FallbackMode::SET_DEFAULT);
         FindAttribute(TRIGGER_NAME_ATTRIBUTE, properties, trigger_name, FallbackMode::SET_DEFAULT);
-        hash::HashRegisterString(trigger_name.text.c_str());
 
         game::TrainZoneSystem* zone_system = context->GetSystem<game::TrainZoneSystem>();
-        zone_system->SetDropOffZoneData(entity->id, size, transfer_duration_s, destination, hash::Hash(trigger_name.text.c_str()));
+        zone_system->SetDropOffZoneData(entity->id, size, transfer_duration_s, destination, RegisteredTriggerHash(trigger_name));
 
         return true;
     }

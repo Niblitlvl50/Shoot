@@ -1,12 +1,12 @@
 
 #include "StartMenuGameMode.h"
 #include "Zones/ZoneFlow.h"
+#include "Zones/ZoneManager.h"
 #include "TriggerSystem/TriggerSystem.h"
 #include "UI/UISystem.h"
 #include "WorldFile.h"
 
 #include "EventHandler/EventHandler.h"
-#include "Events/QuitEvent.h"
 #include "Input/InputSystem.h"
 #include "SystemContext.h"
 
@@ -27,10 +27,10 @@ void StartMenuGameMode::Begin(
     m_ui_system = system_context->GetSystem<game::UISystem>();
     m_event_handler = event_handler;
 
-    m_level_completed_hash = hash::Hash(level_metadata.completed_trigger.c_str());
-    m_level_completed_alt_hash = hash::Hash(level_metadata.completed_alt_trigger.c_str());
-    m_level_aborted_hash = hash::Hash(level_metadata.aborted_trigger.c_str());
-    m_level_failed_hash = hash::Hash(level_metadata.failed_trigger.c_str());
+    m_level_completed_hash = hash::HashRegisterString(level_metadata.completed_trigger.c_str());
+    m_level_completed_alt_hash = hash::HashRegisterString(level_metadata.completed_alt_trigger.c_str());
+    m_level_aborted_hash = hash::HashRegisterString(level_metadata.aborted_trigger.c_str());
+    m_level_failed_hash = hash::HashRegisterString(level_metadata.failed_trigger.c_str());
 
     const mono::TriggerCallback level_hash_callback = [this](uint32_t trigger_id) {
         if(trigger_id == m_level_completed_hash)
@@ -76,25 +76,25 @@ void StartMenuGameMode::Update(const mono::UpdateContext& update_context)
 void StartMenuGameMode::Completed()
 {
     m_game_mode_result = game::ZoneResult::ZR_COMPLETED;
-    m_event_handler->DispatchEvent(event::QuitEvent());
+    ZoneManager::ExitZone();
 }
 
 void StartMenuGameMode::CompletedAlt()
 {
     m_game_mode_result = game::ZoneResult::ZR_COMPLETED_ALT;
-    m_event_handler->DispatchEvent(event::QuitEvent());
+    ZoneManager::ExitZone();
 }
 
 void StartMenuGameMode::GameOver()
 {
     m_game_mode_result = game::ZoneResult::ZR_GAME_OVER;
-    m_event_handler->DispatchEvent(event::QuitEvent());
+    ZoneManager::ExitZone();
 }
 
 void StartMenuGameMode::Aborted()
 {
     m_game_mode_result = game::ZoneResult::ZR_ABORTED;
-    m_event_handler->DispatchEvent(event::QuitEvent());
+    ZoneManager::ExitZone();
 }
 
 mono::InputResult StartMenuGameMode::ButtonDown(const event::ControllerButtonDownEvent& event)
