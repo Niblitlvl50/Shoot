@@ -89,7 +89,6 @@ bool AnimationSystem::IsAnimationContainerAllocated(uint32_t entity_id)
     AnimationContainer& allocated_container = m_animation_containers[container_id];
     allocated_container.sprite_components.push_back(allocated_component);
 
-    m_animation_containers[container_id].sprite_components.push_back(allocated_component);
     return allocated_component;
 }
 
