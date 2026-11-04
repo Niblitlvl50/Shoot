@@ -916,14 +916,14 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": -6.5,
-                                "y": -2.375
+                                "y": -1.875
                             }
                         },
                         {
                             "id": 564937055,
                             "name": "rotation",
                             "variant_type": 3,
-                            "variant_value": 0.0
+                            "variant_value": -1.5707963705062866
                         },
                         {
                             "id": 2190941297,
@@ -936,6 +936,62 @@
                             "name": "entity_reference",
                             "variant_type": 2,
                             "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "switch_indicator.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 4
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -983,8 +1039,8 @@
                             "variant_type": 11,
                             "variant_value": {
                                 "direction": 1,
-                                "text": "",
-                                "type": 0
+                                "text": "e_switch_set_primary",
+                                "type": 1
                             }
                         },
                         {
@@ -993,9 +1049,53 @@
                             "variant_type": 11,
                             "variant_value": {
                                 "direction": 1,
-                                "text": "",
-                                "type": 0
+                                "text": "e_switch_set_alternative",
+                                "type": 1
                             }
+                        }
+                    ]
+                },
+                {
+                    "hash": 1052622306,
+                    "name": "set_animation",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "e_switch_set_primary",
+                                "type": 1
+                            }
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        }
+                    ]
+                },
+                {
+                    "hash": 1052622306,
+                    "name": "set_animation",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "e_switch_set_alternative",
+                                "type": 1
+                            }
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
                         }
                     ]
                 }
@@ -19809,15 +19909,15 @@
                             "name": "position",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 3.75,
-                                "y": -2.25
+                                "x": 3.5,
+                                "y": -1.875
                             }
                         },
                         {
                             "id": 564937055,
                             "name": "rotation",
                             "variant_type": 3,
-                            "variant_value": 0.0
+                            "variant_value": -1.5707963705062866
                         },
                         {
                             "id": 2190941297,
@@ -19830,6 +19930,62 @@
                             "name": "entity_reference",
                             "variant_type": 2,
                             "variant_value": 4294967295
+                        }
+                    ]
+                },
+                {
+                    "hash": 2179094556,
+                    "name": "sprite",
+                    "properties": [
+                        {
+                            "id": 910774975,
+                            "name": "sprite_file",
+                            "variant_type": 6,
+                            "variant_value": "switch_indicator.sprite"
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        },
+                        {
+                            "id": 1031692888,
+                            "name": "color",
+                            "variant_type": 5,
+                            "variant_value": {
+                                "alpha": 1.0,
+                                "blue": 1.0,
+                                "green": 1.0,
+                                "red": 1.0
+                            }
+                        },
+                        {
+                            "id": 1160474912,
+                            "name": "sprite_properties",
+                            "variant_type": 2,
+                            "variant_value": 4
+                        },
+                        {
+                            "id": 4153965,
+                            "name": "shadow_offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
+                        {
+                            "id": 429836675,
+                            "name": "shadow_size",
+                            "variant_type": 3,
+                            "variant_value": 1.0
+                        },
+                        {
+                            "id": 1015133031,
+                            "name": "random_start_frame",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 },
@@ -19877,8 +20033,8 @@
                             "variant_type": 11,
                             "variant_value": {
                                 "direction": 1,
-                                "text": "",
-                                "type": 0
+                                "text": "e_switch_set_primary",
+                                "type": 1
                             }
                         },
                         {
@@ -19887,9 +20043,53 @@
                             "variant_type": 11,
                             "variant_value": {
                                 "direction": 1,
-                                "text": "",
-                                "type": 0
+                                "text": "e_switch_set_alternative",
+                                "type": 1
                             }
+                        }
+                    ]
+                },
+                {
+                    "hash": 1052622306,
+                    "name": "set_animation",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "e_switch_set_primary",
+                                "type": 1
+                            }
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 1
+                        }
+                    ]
+                },
+                {
+                    "hash": 1052622306,
+                    "name": "set_animation",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "e_switch_set_alternative",
+                                "type": 1
+                            }
+                        },
+                        {
+                            "id": 3779456605,
+                            "name": "animation",
+                            "variant_type": 1,
+                            "variant_value": 0
                         }
                     ]
                 }
@@ -22232,6 +22432,8 @@
         },
         "spawn_package": true,
         "triggers": [
+            "e_switch_set_alternative",
+            "e_switch_set_primary",
             "exit_level_south",
             "exit_level_west"
         ],
