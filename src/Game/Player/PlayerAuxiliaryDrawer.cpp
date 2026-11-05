@@ -253,12 +253,15 @@ void PlayerAuxiliaryDrawer::DrawLasers(const std::vector<const game::PlayerInfo*
             12);
     }
 
-    renderer.DrawPoints(
-        m_aimline_targets_render_data.vertices.get(),
-        m_aimline_targets_render_data.colors.get(),
-        12.0f,
-        0,
-        players.size());
+    if(!aim_target_points.empty())
+    {
+        renderer.DrawPoints(
+            m_aimline_targets_render_data.vertices.get(),
+            m_aimline_targets_render_data.colors.get(),
+            12.0f,
+            0,
+            players.size());
+        }
 }
 
 void PlayerAuxiliaryDrawer::DrawStaminaBar(const std::vector<const game::PlayerInfo*>& players, mono::IRenderer& renderer) const
