@@ -39,6 +39,9 @@ namespace game
 
     struct PersistentPlayerData
     {
+        // Player persistence between levels
+        float throttle;
+
         // Player Progression
         int chips;
         int rubble;

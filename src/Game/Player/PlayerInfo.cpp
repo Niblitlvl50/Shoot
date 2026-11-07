@@ -41,6 +41,8 @@ namespace
 
         player_info.last_used_input = mono::InputContextType::None;
 
+        player_info.persistent_data.throttle = 0.0f;
+
         player_info.persistent_data.chips = 0;
         player_info.persistent_data.rubble = 0;
         player_info.persistent_data.experience = 0;

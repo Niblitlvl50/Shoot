@@ -14,6 +14,9 @@ void game::SavePlayerData(const char* user_path, int slot_index, const SaveSlotD
     {
         const PersistentPlayerData& player_data = data.player_data[index];
         nlohmann::json player_data_json;
+
+        player_data_json["throttle"] = player_data.throttle;
+
         player_data_json["chips"] = player_data.chips;
         player_data_json["rubble"] = player_data.rubble;
         player_data_json["experience"] = player_data.experience;
@@ -84,6 +87,9 @@ void game::LoadPlayerData(const char* user_path, int slot_index, SaveSlotData& d
     for(uint32_t index = 0; index < save_data_array.size(); ++index)
     {
         const nlohmann::json& save_data = save_data_array[index];
+
+        data.player_data[index].throttle = save_data.value("throttle", 0.0f);
+
 
         data.player_data[index].chips = save_data.value("chips", 0);
         data.player_data[index].rubble = save_data.value("rubble", 0);

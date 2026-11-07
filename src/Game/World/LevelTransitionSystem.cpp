@@ -65,27 +65,24 @@ void LevelTransitionSystem::SetLevelExitData(
     }
 }
 
-math::Vector LevelTransitionSystem::GetPlayerSpawnPoint(const math::Vector& default_spawn_point)
+math::Vector LevelTransitionSystem::GetPlayerSpawnPoint(const math::Vector& default_spawn_point) const
 {
-    const std::string entry_tag = m_pending_entry_tag;
-    m_pending_entry_tag.clear();
-
-    if(entry_tag.empty())
+    if(m_entry_tag.empty())
         return default_spawn_point;
 
-    const std::vector<uint32_t> entry_entities = m_entity_manager->CollectEntitiesWithTag(hash::Hash(entry_tag.c_str()));
+    const std::vector<uint32_t> entry_entities = m_entity_manager->CollectEntitiesWithTag(hash::Hash(m_entry_tag.c_str()));
     if(entry_entities.empty())
     {
-        System::Log("LevelTransitionSystem|No entity with tag '%s', using the level's spawn point.", entry_tag.c_str());
+        System::Log("LevelTransitionSystem|No entity with tag '%s', using the level's spawn point.", m_entry_tag.c_str());
         return default_spawn_point;
     }
 
     return m_transform_system->GetWorldPosition(entry_entities.front());
 }
 
-const std::string& LevelTransitionSystem::GetPendingSpawnTag() const
+const std::string& LevelTransitionSystem::GetEntryTag() const
 {
-    return m_pending_entry_tag;
+    return m_entry_tag;
 }
 
 void LevelTransitionSystem::ExitLevel(uint32_t entity_id)
@@ -124,6 +121,10 @@ const char* LevelTransitionSystem::Name() const
 void LevelTransitionSystem::Reset()
 {
     m_exiting = false;
+
+    // Reset runs when a level unloads, so the next level only sees a tag if this one was left through an exit.
+    m_entry_tag = m_pending_entry_tag;
+    m_pending_entry_tag.clear();
 }
 
 void LevelTransitionSystem::Update(const mono::UpdateContext& update_context)

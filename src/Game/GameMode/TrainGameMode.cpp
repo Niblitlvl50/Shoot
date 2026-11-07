@@ -147,7 +147,7 @@ void TrainGameMode::Begin(
             m_camera_system->GetActiveCamera()->SetPosition(train_start_position);
     };
     LevelTransitionSystem* level_transition_system = system_context->GetSystem<LevelTransitionSystem>();
-    const std::string& spawn_tag = level_transition_system->GetPendingSpawnTag();
+    const std::string& spawn_tag = level_transition_system->GetEntryTag();
     m_player_system->SpawnPlayersAt(level_metadata.player_spawn_point, player_spawned_cb, spawn_tag);
 
     m_level_completed_hash = hash::HashRegisterString(level_metadata.completed_trigger.c_str());

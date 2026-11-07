@@ -83,6 +83,7 @@ namespace game
 
     static LevelConfig g_level_config;
     static std::string g_next_level_override;
+    static LevelEntryInfo g_level_entry_info;
 
     // Set while a zone runs.
     static mono::SystemContext* g_system_context = nullptr;
@@ -98,6 +99,11 @@ std::vector<game::Level> ZoneManager::GetLevels()
 void ZoneManager::SwitchToLevel(const Level& level)
 {
     g_next_level_override = level.name;
+}
+
+const LevelEntryInfo& ZoneManager::GetLevelEntryInfo()
+{
+    return g_level_entry_info;
 }
 
 void ZoneManager::ExitZone()
@@ -133,12 +139,15 @@ void ZoneManager::Run(mono::ICamera* camera, ZoneCreationContext zone_context, c
     std::string zone_name =
         (initial_zone_name != nullptr) ? initial_zone_name : g_level_config.start_level;
 
+    LevelEntryInfo next_entry_info;
+
     while(true)
     {
         if(!g_next_level_override.empty())
         {
             zone_name = g_next_level_override;
             g_next_level_override.clear();
+            next_entry_info.entry = LevelEntry::LEVEL_SWITCH;
         }
 
         if(zone_name == QUIT_NAME)
@@ -158,6 +167,7 @@ void ZoneManager::Run(mono::ICamera* camera, ZoneCreationContext zone_context, c
         MONO_ASSERT(level_it != g_level_config.levels.end());
 
         zone_context.zone_filename = level_it->filename.c_str();
+        g_level_entry_info = next_entry_info;
 
         const auto load_func_it = g_zone_load_func.find(zone_name);
         const LoadFunction load_func =
@@ -172,8 +182,11 @@ void ZoneManager::Run(mono::ICamera* camera, ZoneCreationContext zone_context, c
         MONO_ASSERT(zone_run_result >= 0 && zone_run_result < ZR_COUNT);
 
         zone_name = level_it->transitions[zone_run_result];
+        next_entry_info.entry = LevelEntry::ZONE_RESULT;
+        next_entry_info.previous_level = level_it->name;
     }
 
+    g_level_entry_info = LevelEntryInfo();
     g_system_context = nullptr;
     g_event_handler = nullptr;
 }

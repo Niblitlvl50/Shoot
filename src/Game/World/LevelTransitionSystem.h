@@ -28,10 +28,12 @@ namespace game
         void ReleaseLevelExit(uint32_t entity_id);
         void SetLevelExitData(uint32_t entity_id, uint32_t trigger_hash, const std::string& target_level, const std::string& entry_tag);
 
-        // Where to spawn the players, the first entity with the tag the last level was left through,
-        // or default_spawn_point if there's none. Uses up the tag.
-        math::Vector GetPlayerSpawnPoint(const math::Vector& default_spawn_point);
-        const std::string& GetPendingSpawnTag() const; 
+        // Where to spawn the players, the first entity with the running level's entry tag, or
+        // default_spawn_point if there's none.
+        math::Vector GetPlayerSpawnPoint(const math::Vector& default_spawn_point) const;
+
+        // The entry tag of the level_exit the running level was entered through, empty if it wasn't.
+        const std::string& GetEntryTag() const;
 
         const char* Name() const override;
         void Reset() override;
@@ -56,7 +58,8 @@ namespace game
 
         bool m_exiting;
 
-        // Kept between levels.
+        // Set when a level is left, becomes the entry tag when the next level loads.
         std::string m_pending_entry_tag;
+        std::string m_entry_tag;
     };
 }

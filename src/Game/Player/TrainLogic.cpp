@@ -54,6 +54,7 @@
 #include "DamageSystem/Shockwave.h"
 
 #include "HookshotLogic.h"
+#include "Zones/ZoneManager.h"
 
 #include <cmath>
 
@@ -129,6 +130,13 @@ TrainLogic::TrainLogic(
     , m_picked_up_id(mono::INVALID_ID)
     , m_pickup_constraint(nullptr)
 {
+    const LevelEntryInfo& level_entry = ZoneManager::GetLevelEntryInfo();
+    if(level_entry.entry == LevelEntry::LEVEL_SWITCH)
+    {
+        // Apply the previous throttle value. For when switching worlds.
+        m_throttle = m_player_info->persistent_data.throttle;
+    }
+
     m_transform_system = system_context->GetSystem<mono::TransformSystem>();
     m_input_system = system_context->GetSystem<mono::InputSystem>();
     m_physics_system = system_context->GetSystem<mono::PhysicsSystem>();
@@ -267,6 +275,7 @@ void TrainLogic::UpdatePlayerInfo(uint32_t timestamp)
     m_player_info->aim_direction = math::VectorFromAngle(m_aim_direction);
     m_player_info->aim_crosshair_screen_position = m_aim_screen_position;
 
+    m_player_info->persistent_data.throttle = m_throttle;
     m_player_info->persistent_data.laser_sight = false;
 
     m_player_info->cooldown_id = 0;
