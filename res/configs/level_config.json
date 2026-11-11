@@ -111,8 +111,8 @@
             }
         },
         {
-            "name": "level0_island",
-            "filename": "res/worlds/level0_island.components",
+            "name": "level0_train_west",
+            "filename": "res/worlds/level0_train_west.components",
             "transitions": {
                 "gameover": "screen_gameover",
                 "completed": "screen_end",
@@ -171,5 +171,5 @@
             }
         }
     ],
-    "start_level": "level0_island"
+    "start_level": "level0_train_west"
 }
