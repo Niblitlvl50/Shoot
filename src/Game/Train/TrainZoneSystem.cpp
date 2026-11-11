@@ -161,6 +161,14 @@ const char* TrainZoneSystem::Name() const
 
 void TrainZoneSystem::Update(const mono::UpdateContext& update_context)
 {
+    // Cargo that's in a car without going through a loading zone, carried over from the last level, is
+    // hidden like loaded cargo.
+    for(auto& [cargo_entity_id, cargo] : m_cargo)
+    {
+        if(!cargo.loaded && m_train_car_system->FindCarCarrying(cargo_entity_id) != mono::INVALID_ID)
+            HideCargo(cargo_entity_id, cargo);
+    }
+
     if(m_loading_zones.empty() && m_drop_off_zones.empty())
         return;
 

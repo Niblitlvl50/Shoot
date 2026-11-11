@@ -37,6 +37,7 @@ namespace editor
     void DrawShockwaveComponentDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id);
     void DrawLoadingZoneDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id);
     void DrawDropOffZoneDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id);
+    void DrawWanderDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id);
     void DrawCargoDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id);
 
     void DrawPhysicsImpulseComponentDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id);

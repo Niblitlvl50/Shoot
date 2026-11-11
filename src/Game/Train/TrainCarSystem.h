@@ -8,6 +8,7 @@
 #include "System/Audio.h"
 
 #include <cstdint>
+#include <string>
 #include <unordered_map>
 #include <vector>
 
@@ -43,6 +44,9 @@ namespace game
         // Counts down after this car is decoupled; while positive, it won't be considered
         // for auto-coupling, so it doesn't immediately re-attach to whatever it just left.
         float decouple_cooldown_s = 0.0f;
+
+        // A car placed without a path looks for one under it, once.
+        bool searched_for_path = false;
 
         // The loaded entities, load is the sum of their amounts (0 to TRAIN_CAR_CAPACITY).
         std::vector<TrainCargo> cargo;
@@ -108,9 +112,21 @@ namespace game
         // The car at the head of entity_id's chain (the one with no leader).
         uint32_t FindChainRoot(uint32_t entity_id) const;
 
+        // Remembers the cars coupled to the locomotive and the cargo in them, call it before the level
+        // unloads. The next level gets them, after that they're dropped. Cars and cargo are spawned again
+        // from the entity file they were spawned from, so only those spawned from a file (a prefab placed
+        // in a level for example) come along. The file must hold just the one entity.
+        void StoreCarriedCars(uint32_t locomotive_entity_id);
+
+        // Spawns the cars stored in the last level, coupled one after the other behind the locomotive on
+        // the path, starting at locomotive_position and going back along it, with their cargo loaded.
+        // Returns them front to back.
+        std::vector<uint32_t> SpawnCarriedCars(uint32_t locomotive_entity_id, uint32_t path_entity_uuid, float locomotive_position);
+
     private:
 
         const char* Name() const override;
+        void Reset() override;
         void Update(const mono::UpdateContext& update_context) override;
         void Sync() override;
 
@@ -136,6 +152,22 @@ namespace game
 
         mono::SystemContext* m_system_context;
         std::unordered_map<uint32_t, TrainCarComponent> m_cars;
+
+        struct CarriedCargo
+        {
+            std::string entity_file;
+            int amount;
+        };
+
+        struct CarriedCar
+        {
+            std::string entity_file;
+            std::vector<CarriedCargo> cargo;
+        };
+
+        // Stored in the running level, moved to m_carried_cars when it unloads.
+        std::vector<CarriedCar> m_pending_carried_cars;
+        std::vector<CarriedCar> m_carried_cars;
 
         audio::ISoundPtr m_couple_sound;
         audio::ISoundPtr m_decouple_sound;

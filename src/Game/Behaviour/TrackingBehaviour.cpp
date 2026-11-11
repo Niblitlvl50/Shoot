@@ -120,7 +120,7 @@ bool TrackingBehaviour::UpdatePath(const math::Vector& tracking_position)
     {
         m_path = mono::CreatePath(find_path_result.nav_points);
         const mono::LengthResult result = m_path->GetLengthFromPosition(position);
-        m_current_position = result.valid_length;
+        m_current_position = result.valid_length ? result.path_length : 0.0f;
         return true;
     }
 
@@ -130,6 +130,11 @@ bool TrackingBehaviour::UpdatePath(const math::Vector& tracking_position)
 const math::Vector& TrackingBehaviour::GetTrackingPosition() const
 {
     return m_tracking_position;
+}
+
+math::Vector TrackingBehaviour::GetPathEndPoint() const
+{
+    return m_path ? m_path->GetEndPoint() : m_entity_body->GetPosition();
 }
 
 TrackingDebugData TrackingBehaviour::GetDebugData() const

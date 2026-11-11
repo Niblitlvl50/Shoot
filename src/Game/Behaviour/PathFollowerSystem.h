@@ -89,6 +89,12 @@ namespace game
         float GetDirection(uint32_t entity_id) const;
 
         uint32_t GetCurrentPathEntity(uint32_t entity_id) const;
+
+        // True if the entity is on a path, or has been given one that isn't resolved yet.
+        bool HasPathReference(uint32_t entity_id) const;
+
+        // The path entity closest to world_position, INVALID_ID if none is within max_distance.
+        uint32_t FindClosestPathEntity(const math::Vector& world_position, float max_distance) const;
         bool IsAtPathStart(uint32_t entity_id) const;
         bool IsAtPathEnd(uint32_t entity_id) const;
         const std::vector<math::Vector>* GetPathPoints(uint32_t entity_id) const;

@@ -352,6 +352,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     draw_funcs[LOADING_ZONE_COMPONENT] = editor::DrawLoadingZoneDetails;
     draw_funcs[DROP_OFF_ZONE_COMPONENT] = editor::DrawDropOffZoneDetails;
+    draw_funcs[WANDER_COMPONENT] = editor::DrawWanderDetails;
     draw_funcs[CARGO_COMPONENT] = editor::DrawCargoDetails;
     draw_funcs[PATH_COMPONENT] = editor::DrawPath;
     draw_funcs[PATH_NOTIFIER_COMPONENT] = editor::DrawPathNotifierDetails;

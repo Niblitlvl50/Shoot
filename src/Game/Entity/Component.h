@@ -197,6 +197,9 @@ extern const uint32_t WORLD_STATE_TRUE_TRIGGER_ATTRIBUTE;
 extern const uint32_t WORLD_STATE_FALSE_TRIGGER_ATTRIBUTE;
 extern const uint32_t TARGET_LEVEL_ATTRIBUTE;
 extern const uint32_t ENTRY_TAG_ATTRIBUTE;
+extern const uint32_t PAUSE_INTERVAL_ATTRIBUTE;
+extern const uint32_t APPROACH_DISTANCE_ATTRIBUTE;
+extern const uint32_t MOVE_SPEED_ATTRIBUTE;
 
 const char* AttributeNameFromHash(uint32_t hash);
 const char* AttributeTooltipFromHash(uint32_t hash);
@@ -271,6 +274,7 @@ extern const uint32_t WORLD_STATE_SET_INT_COMPONENT;
 extern const uint32_t WORLD_STATE_BOOL_CONDITION_COMPONENT;
 extern const uint32_t WORLD_STATE_INT_CONDITION_COMPONENT;
 extern const uint32_t LEVEL_EXIT_COMPONENT;
+extern const uint32_t WANDER_COMPONENT;
 extern const uint32_t DESPAWN_ENTITY_COMPONENT;
 extern const uint32_t SHAPE_TRIGGER_COMPONENT;
 extern const uint32_t DESTROYED_TRIGGER_COMPONENT;

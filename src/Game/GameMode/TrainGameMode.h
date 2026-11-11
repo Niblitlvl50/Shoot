@@ -44,6 +44,7 @@ namespace game
         class PathFollowerSystem* m_path_follower_system;
         class PlayerDaemonSystem* m_player_system;
         class CameraSystem* m_camera_system;
+        class TrainCarSystem* m_train_car_system;
 
         std::unique_ptr<class BigTextScreen> m_big_text_screen;
         std::unique_ptr<class TrainHudElement> m_train_hud;

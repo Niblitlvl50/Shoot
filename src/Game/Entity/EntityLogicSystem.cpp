@@ -134,6 +134,11 @@ void EntityLogicSystem::ReleaseLogic(uint32_t entity_id)
     m_logics.Release(entity_id);
 }
 
+bool EntityLogicSystem::HasLogic(uint32_t entity_id) const
+{
+    return m_logics.IsActive(entity_id);
+}
+
 void EntityLogicSystem::SetDebugCategory(const char* debug_category, bool activate)
 {
     const uint32_t hashed_debug_category = hash::Hash(debug_category);

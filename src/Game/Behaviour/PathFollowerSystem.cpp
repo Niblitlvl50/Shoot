@@ -167,6 +167,45 @@ uint32_t PathFollowerSystem::GetCurrentPathEntity(uint32_t entity_id) const
     return (it != m_components.end()) ? it->second.current_path_entity_id : mono::INVALID_ID;
 }
 
+bool PathFollowerSystem::HasPathReference(uint32_t entity_id) const
+{
+    const auto it = m_components.find(entity_id);
+    if(it == m_components.end())
+        return false;
+
+    return it->second.current_path_entity_id != mono::INVALID_ID || it->second.pending_path_entity_reference != mono::INVALID_ID;
+}
+
+uint32_t PathFollowerSystem::FindClosestPathEntity(const math::Vector& world_position, float max_distance) const
+{
+    uint32_t closest_path_entity_id = mono::INVALID_ID;
+    float closest_distance = max_distance;
+
+    const mono::PathSystem* path_system = m_system_context->GetSystem<mono::PathSystem>();
+    path_system->ForEach([&](const mono::PathComponent& path_component, uint32_t path_entity_id) {
+        const mono::IPathPtr path = BakePath(path_entity_id);
+        if(!path)
+            return;
+
+        const mono::LengthResult length_result = path->GetLengthFromPosition(world_position);
+        if(!length_result.valid_length)
+            return;
+
+        const mono::PositionResult position_result = path->GetPositionByLength(length_result.path_length);
+        if(!position_result.valid_position)
+            return;
+
+        const float distance = math::DistanceBetween(position_result.path_position, world_position);
+        if(distance < closest_distance)
+        {
+            closest_distance = distance;
+            closest_path_entity_id = path_entity_id;
+        }
+    });
+
+    return closest_path_entity_id;
+}
+
 bool PathFollowerSystem::IsAtPathStart(uint32_t entity_id) const
 {
     const auto it = m_components.find(entity_id);

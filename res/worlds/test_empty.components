@@ -10,7 +10,7 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "ai_train"
+                            "variant_value": "train"
                         },
                         {
                             "id": 3647911389,
@@ -67,7 +67,7 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "skull_red_eyes.sprite"
+                            "variant_value": "cardboard_box_small.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -81,8 +81,8 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.44999998807907104,
-                                "green": 0.5,
+                                "blue": 1.0,
+                                "green": 1.0,
                                 "red": 1.0
                             }
                         },
@@ -221,7 +221,7 @@
                             "id": 776086107,
                             "name": "faction",
                             "variant_type": 1,
-                            "variant_value": 4
+                            "variant_value": 0
                         },
                         {
                             "id": 597743964,
@@ -245,7 +245,7 @@
                             "id": 2209756795,
                             "name": "sensor",
                             "variant_type": 0,
-                            "variant_value": true
+                            "variant_value": false
                         }
                     ]
                 },
@@ -281,7 +281,7 @@
                             "id": 1022278742,
                             "name": "path_speed",
                             "variant_type": 3,
-                            "variant_value": 2.5
+                            "variant_value": 3.0
                         },
                         {
                             "id": 348705738,
@@ -325,21 +325,27 @@
                     ]
                 },
                 {
-                    "hash": 522866682,
-                    "name": "entity_behaviour",
+                    "hash": 845187144,
+                    "name": "target",
                     "properties": [
                         {
-                            "id": 2951636756,
-                            "name": "behaviour",
+                            "id": 1147998091,
+                            "name": "target_faction",
                             "variant_type": 1,
-                            "variant_value": 18
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 2498028297,
+                            "name": "priority",
+                            "variant_type": 1,
+                            "variant_value": 0
                         }
                     ]
                 }
             ],
             "entity_properties": 0,
-            "name": "ai_train",
-            "uuid_hash": 1161735435
+            "name": "train",
+            "uuid_hash": 2794102120
         }
     ],
     "metadata": {

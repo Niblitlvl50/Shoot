@@ -9,6 +9,7 @@
 #include "Debug/GameDebugVariables.h"
 #include "Debug/IDebugDrawer.h"
 #include "Rendering/Color.h"
+#include "System/System.h"
 
 #include <algorithm>
 #include <cmath>
@@ -27,6 +28,9 @@ namespace tweak_values
     // Grace period after decoupling before a car becomes eligible for auto-coupling again,
     // so it doesn't immediately re-attach to whatever it just detached from.
     constexpr float decouple_cooldown_s = 2.0f;
+
+    // How far from a path a car placed without one may be and still be put on it.
+    constexpr float path_snap_distance = 0.5f;
 }
 
 namespace
@@ -261,9 +265,118 @@ void TrainCarSystem::Decouple(uint32_t leader_entity_id)
         m_decouple_sound->Play();
 }
 
+void TrainCarSystem::StoreCarriedCars(uint32_t locomotive_entity_id)
+{
+    m_pending_carried_cars.clear();
+
+    const auto find_follower = [this](uint32_t leader_entity_id) {
+        for(const auto& entity_car_pair : m_cars)
+        {
+            if(entity_car_pair.second.leader_entity_id == leader_entity_id)
+                return entity_car_pair.first;
+        }
+        return mono::INVALID_ID;
+    };
+
+    std::vector<uint32_t> chain;
+
+    // The locomotive can have a chain at each end, they all go behind it in the next level.
+    for(const auto& entity_car_pair : m_cars)
+    {
+        if(entity_car_pair.second.leader_entity_id != locomotive_entity_id)
+            continue;
+
+        uint32_t current = entity_car_pair.first;
+        for(size_t step = 0; step < m_cars.size() && current != mono::INVALID_ID; ++step)
+        {
+            chain.push_back(current);
+            current = find_follower(current);
+        }
+    }
+
+    const mono::IEntityManager* entity_manager = m_system_context->GetSystem<mono::IEntityManager>();
+
+    for(uint32_t car_entity_id : chain)
+    {
+        CarriedCar carried_car;
+        carried_car.entity_file = entity_manager->GetEntityFile(car_entity_id);
+        if(carried_car.entity_file.empty())
+        {
+            System::Log("TrainCarSystem|Car %u wasn't spawned from an entity file, it's left behind.", car_entity_id);
+            continue;
+        }
+
+        for(const TrainCargo& cargo : m_cars.at(car_entity_id).cargo)
+        {
+            const std::string& cargo_entity_file = entity_manager->GetEntityFile(cargo.entity_id);
+            if(cargo_entity_file.empty())
+            {
+                System::Log("TrainCarSystem|Cargo %u wasn't spawned from an entity file, it's left behind.", cargo.entity_id);
+                continue;
+            }
+
+            carried_car.cargo.push_back({ cargo_entity_file, cargo.amount });
+        }
+
+        m_pending_carried_cars.push_back(carried_car);
+    }
+}
+
+std::vector<uint32_t> TrainCarSystem::SpawnCarriedCars(uint32_t locomotive_entity_id, uint32_t path_entity_uuid, float locomotive_position)
+{
+    const std::vector<CarriedCar> carried_cars = std::move(m_carried_cars);
+    m_carried_cars.clear();
+
+    mono::IEntityManager* entity_manager = m_system_context->GetSystem<mono::IEntityManager>();
+    game::PathFollowerSystem* path_follower_system = m_system_context->GetSystem<game::PathFollowerSystem>();
+
+    std::vector<uint32_t> spawned_cars;
+
+    uint32_t leader_entity_id = locomotive_entity_id;
+    float position = locomotive_position;
+
+    for(const CarriedCar& carried_car : carried_cars)
+    {
+        const mono::Entity entity = entity_manager->SpawnEntity(carried_car.entity_file.c_str());
+
+        const auto it = m_cars.find(entity.id);
+        if(it == m_cars.end())
+        {
+            System::Log("TrainCarSystem|'%s' isn't a train car.", carried_car.entity_file.c_str());
+            entity_manager->ReleaseEntity(entity.id);
+            continue;
+        }
+
+        TrainCarComponent& car = it->second;
+        car.leader_entity_id = leader_entity_id;
+
+        position -= (GetCouplingDistance(leader_entity_id) + car.coupling_distance) * 0.5f;
+        path_follower_system->SetPathReference(entity.id, path_entity_uuid, position);
+
+        // The cargo zone system hides cargo that's in a car.
+        for(const CarriedCargo& carried_cargo : carried_car.cargo)
+        {
+            const mono::Entity cargo_entity = entity_manager->SpawnEntity(carried_cargo.entity_file.c_str());
+            if(!Load(entity.id, cargo_entity.id, carried_cargo.amount))
+                entity_manager->ReleaseEntity(cargo_entity.id);
+        }
+
+        spawned_cars.push_back(entity.id);
+        leader_entity_id = entity.id;
+    }
+
+    return spawned_cars;
+}
+
 const char* TrainCarSystem::Name() const
 {
     return "traincarsystem";
+}
+
+void TrainCarSystem::Reset()
+{
+    m_carried_cars = std::move(m_pending_carried_cars);
+    m_pending_carried_cars.clear();
 }
 
 float TrainCarSystem::GetCouplingDistance(uint32_t entity_id) const
@@ -348,10 +461,28 @@ void TrainCarSystem::Sync()
     mono::IEntityManager* entity_manager = m_system_context->GetSystem<mono::IEntityManager>();
     game::PathFollowerSystem* path_follower_system = m_system_context->GetSystem<game::PathFollowerSystem>();
 
-    for(const auto& entity_car_pair : m_cars)
+    mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
+
+    for(auto& entity_car_pair : m_cars)
     {
         const uint32_t car_entity_id = entity_car_pair.first;
-        const TrainCarComponent& car = entity_car_pair.second;
+        TrainCarComponent& car = entity_car_pair.second;
+
+        // A car placed without a path, from an entity file or a prefab, goes on the path it's placed on.
+        if(!car.searched_for_path)
+        {
+            car.searched_for_path = true;
+            if(!path_follower_system->HasPathReference(car_entity_id))
+            {
+                const math::Vector car_position = transform_system->GetWorldPosition(car_entity_id);
+                const uint32_t path_entity_id = path_follower_system->FindClosestPathEntity(car_position, tweak_values::path_snap_distance);
+                if(path_entity_id != mono::INVALID_ID)
+                {
+                    path_follower_system->SetPathReferenceAtCurrentPosition(car_entity_id, entity_manager->GetEntityUuid(path_entity_id));
+                    continue;
+                }
+            }
+        }
 
         // A car already on a track stays on it. Only one that was placed without a path
         // is put on its leader's track, at the point nearest to where it already is.

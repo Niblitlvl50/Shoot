@@ -14,6 +14,7 @@
 #include "Entity/AnimationSystem.h"
 #include "Entity/TargetSystem.h"
 #include "Entity/EntityLifetimeTriggerSystem.h"
+#include "Npc/WanderController.h"
 #include "Behaviour/PathFollowerSystem.h"
 #include "RailwaySystem/RailwaySystem.h"
 #include "Train/TrainCarSystem.h"
@@ -1669,6 +1670,36 @@ namespace
         return true;
     }
 
+    bool CreateWander(mono::Entity* entity, mono::SystemContext* context)
+    {
+        return true;
+    }
+
+    bool ReleaseWander(mono::Entity* entity, mono::SystemContext* context)
+    {
+        game::EntityLogicSystem* logic_system = context->GetSystem<game::EntityLogicSystem>();
+        if(logic_system->HasLogic(entity->id))
+            logic_system->ReleaseLogic(entity->id);
+        return true;
+    }
+
+    bool UpdateWander(mono::Entity* entity, const std::vector<mono::Attribute>& properties, mono::SystemContext* context)
+    {
+        game::WanderSettings settings;
+        FindAttribute(ENTITY_REFERENCE_ATTRIBUTE, properties, settings.path_entity_uuid, FallbackMode::SET_DEFAULT);
+        FindAttribute(PAUSE_INTERVAL_ATTRIBUTE, properties, settings.pause_interval, FallbackMode::SET_DEFAULT);
+        FindAttribute(APPROACH_DISTANCE_ATTRIBUTE, properties, settings.approach_distance, FallbackMode::SET_DEFAULT);
+        FindAttribute(MOVE_SPEED_ATTRIBUTE, properties, settings.speed, FallbackMode::SET_DEFAULT);
+
+        // The logic is the component, it's made again with the new settings.
+        game::EntityLogicSystem* logic_system = context->GetSystem<game::EntityLogicSystem>();
+        if(logic_system->HasLogic(entity->id))
+            logic_system->ReleaseLogic(entity->id);
+
+        logic_system->AddLogic(entity->id, new game::WanderController(entity->id, settings, context));
+        return true;
+    }
+
     bool CreateCargo(mono::Entity* entity, mono::SystemContext* context)
     {
         game::TrainZoneSystem* zone_system = context->GetSystem<game::TrainZoneSystem>();
@@ -1816,6 +1847,7 @@ void game::RegisterGameComponents(mono::IEntityManager* entity_manager)
     entity_manager->RegisterComponent(
         WORLD_STATE_INT_CONDITION_COMPONENT, CreateWorldStateIntCondition, ReleaseWorldStateIntCondition, UpdateWorldStateIntCondition);
     entity_manager->RegisterComponent(LEVEL_EXIT_COMPONENT, CreateLevelExit, ReleaseLevelExit, UpdateLevelExit);
+    entity_manager->RegisterComponent(WANDER_COMPONENT, CreateWander, ReleaseWander, UpdateWander);
     entity_manager->RegisterComponent(LOADING_ZONE_COMPONENT, CreateLoadingZone, ReleaseLoadingZone, UpdateLoadingZone);
     entity_manager->RegisterComponent(DROP_OFF_ZONE_COMPONENT, CreateDropOffZone, ReleaseDropOffZone, UpdateDropOffZone);
 }

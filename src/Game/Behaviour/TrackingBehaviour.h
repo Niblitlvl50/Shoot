@@ -53,6 +53,9 @@ namespace game
         void SetAvoidanceOffset(const math::Vector& offset);
         bool UpdatePath(const math::Vector& tracking_position);
         const math::Vector& GetTrackingPosition() const;
+
+        // Where the current path ends, the navmesh node closest to the tracking position.
+        math::Vector GetPathEndPoint() const;
         TrackingDebugData GetDebugData() const;
 
         TrackingResult Run(const mono::UpdateContext& update_context);

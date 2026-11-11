@@ -218,6 +218,15 @@ void editor::DrawDropOffZoneDetails(mono::IRenderer& renderer, const std::vector
     DrawTrainZone(renderer, component_properties, mono::Color::RGBA(1.0f, 0.5f, 0.0f, 0.3f), label.c_str());
 }
 
+void editor::DrawWanderDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
+{
+    float approach_distance;
+    FindAttribute(APPROACH_DISTANCE_ATTRIBUTE, component_properties, approach_distance, FallbackMode::SET_DEFAULT);
+
+    if(approach_distance > 0.0f)
+        renderer.DrawCircle(math::ZeroVec, approach_distance, 32, 1.0f, mono::Color::MAGENTA);
+}
+
 void editor::DrawCargoDetails(mono::IRenderer& renderer, const std::vector<mono::Attribute>& component_properties, const math::Quad& entity_bb, uint32_t entity_id)
 {
     int value;

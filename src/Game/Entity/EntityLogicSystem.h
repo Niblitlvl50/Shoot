@@ -38,6 +38,7 @@ namespace game
 
         void AddLogic(uint32_t entity_id, IEntityLogic* entity_logic);
         void ReleaseLogic(uint32_t entity_id);
+        bool HasLogic(uint32_t entity_id) const;
 
         void SetDebugCategory(const char* debug_category, bool activate);
         std::vector<EntityDebugCategory> GetDebugCategories() const;

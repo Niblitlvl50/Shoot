@@ -7,6 +7,7 @@
 #include "GameCamera/CameraSystem.h"
 #include "Player/PlayerDaemonSystem.h"
 #include "Player/PlayerInfo.h"
+#include "Train/TrainCarSystem.h"
 #include "WorldFile.h"
 #include "World/LevelTransitionSystem.h"
 #include "RenderLayers.h"
@@ -63,6 +64,7 @@ void TrainGameMode::Begin(
     m_trigger_system = system_context->GetSystem<mono::TriggerSystem>();
     m_path_follower_system = system_context->GetSystem<game::PathFollowerSystem>();
     m_camera_system = system_context->GetSystem<game::CameraSystem>();
+    m_train_car_system = system_context->GetSystem<game::TrainCarSystem>();
 
     mono::TransformSystem* transform_system = system_context->GetSystem<mono::TransformSystem>();
     mono::IEntityManager* entity_manager = system_context->GetSystem<mono::IEntityManager>();
@@ -140,6 +142,9 @@ void TrainGameMode::Begin(
             const uint32_t path_uuid = entity_manager->GetEntityUuid(path_entity_id);
             m_path_follower_system->SetPathReference(player_entity_id, path_uuid, train_start_distance);
             m_path_follower_system->GetWorldPositionOnPath(path_entity_id, train_start_distance, train_start_position);
+
+            if(spawn_state == game::PlayerSpawnState::SPAWNED)
+                m_train_car_system->SpawnCarriedCars(player_entity_id, path_uuid, train_start_distance);
         }
 
         // The train is moved onto the path later, start the camera where it ends up instead of panning there.
@@ -173,6 +178,10 @@ void TrainGameMode::Begin(
 
 int TrainGameMode::End(mono::IZone* zone)
 {
+    // The cars coupled to the train come along to the next level, unless it's game over.
+    if(m_train_entity_id != mono::INVALID_ID && m_game_mode_result != game::ZoneResult::ZR_GAME_OVER)
+        m_train_car_system->StoreCarriedCars(m_train_entity_id);
+
     zone->RemoveUpdatableDrawable(m_big_text_screen.get());
     zone->RemoveUpdatableDrawable(m_train_hud.get());
     zone->RemoveUpdatableDrawable(m_pause_screen.get());

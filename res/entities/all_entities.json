@@ -15,6 +15,7 @@
         "res/entities/bullet_plasma_crimson.entity",
         "res/entities/bullet_rocket.entity",
         "res/entities/cardboard_box.entity",
+        "res/entities/coal_cargo.entity",
         "res/entities/demon_minion.entity",
         "res/entities/effect_shockwave.entity",
         "res/entities/explosion_caco.entity",

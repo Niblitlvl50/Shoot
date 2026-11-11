@@ -164,9 +164,48 @@
                     ]
                 },
                 {
-                    "hash": 3162460140,
-                    "name": "train_car",
+                    "hash": 1184964777,
+                    "name": "path_follower",
                     "properties": [
+                        {
+                            "id": 1245535177,
+                            "name": "manual_control",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 1325154825,
+                            "name": "path_loop",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1044248952,
+                            "name": "ping_pong",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 575458410,
+                            "name": "apply_rotation",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1022278742,
+                            "name": "path_speed",
+                            "variant_type": 3,
+                            "variant_value": 10.0
+                        },
+                        {
+                            "id": 348705738,
+                            "name": "offset",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 0.0,
+                                "y": 0.0
+                            }
+                        },
                         {
                             "id": 1150083244,
                             "name": "entity_reference",
@@ -174,10 +213,28 @@
                             "variant_value": 4294967295
                         },
                         {
+                            "id": 854313242,
+                            "name": "path_start_tag",
+                            "variant_type": 6,
+                            "variant_value": ""
+                        }
+                    ]
+                },
+                {
+                    "hash": 3162460140,
+                    "name": "train_car",
+                    "properties": [
+                        {
                             "id": 406321172,
                             "name": "coupling_distance",
                             "variant_type": 3,
-                            "variant_value": 1.5
+                            "variant_value": 0.5
+                        },
+                        {
+                            "id": 3332427671,
+                            "name": "is_locomotive",
+                            "variant_type": 0,
+                            "variant_value": false
                         }
                     ]
                 }
