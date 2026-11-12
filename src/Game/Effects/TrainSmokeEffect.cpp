@@ -75,7 +75,7 @@ void TrainSmokeEffect::UpdateSmoke(const mono::UpdateContext& update_context)
         const math::Vector& parent_position = m_transform_system->GetWorldPosition(m_parent_entity_id);
         m_transform_system->SetTransform(
             spawned_entity.id,
-            math::CreateMatrixWithPositionRotationScale(parent_position + math::Vector(0.0f, 0.3f), rotation, math::Vector(0.5f, 0.5f)));
+            math::CreateMatrixWithPositionRotationScale(parent_position + math::Vector(0.0f, 0.3f), rotation, math::Vector(0.3f, 0.3f)));
 
         m_animation_system->AddTranslationComponent(
             spawned_entity.id,
