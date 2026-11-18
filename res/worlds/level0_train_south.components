@@ -36,7 +36,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": -1.875,
-                                "y": -0.125
+                                "y": -24.125
                             }
                         },
                         {
@@ -21488,6 +21488,33 @@
         "completed_alt_trigger": "",
         "completed_trigger": "",
         "failed_trigger": "",
+        "ground_paint": {
+            "blend_layers": true,
+            "edge_roughness": 0.30000001192092896,
+            "position": {
+                "x": -20.0,
+                "y": -10.0
+            },
+            "size": {
+                "x": 40.0,
+                "y": 20.0
+            },
+            "texels_per_meter": 4.0,
+            "texture_scales": [
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "textures": [
+                "",
+                "res/textures/background/grass/grass_02.png",
+                "res/textures/background/grass/grass_03.png",
+                "res/textures/background/grass/grass_04.png",
+                "res/textures/background/grass/grass_05.png"
+            ]
+        },
         "level_description": "",
         "level_game_mode": "train_mode",
         "level_name": "South Mountain Range",
