@@ -87,6 +87,8 @@ namespace game
         bool m_loop = false;
         bool m_apply_rotation = false;
         bool m_paused = false;
+        float FacingDirection() const;
+
         bool m_manual_control = false;
         float m_throttle = 0.0f;
         math::Vector m_move_velocity;

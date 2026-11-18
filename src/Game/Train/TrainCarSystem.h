@@ -132,6 +132,9 @@ namespace game
 
         void TryAutoCouple();
 
+        // A car turned to point left would have its side view upside down, it's flipped back up.
+        void UpdateSpriteFlip();
+
         // remove_release_callback is false when called from the cargo entity's own release callback.
         bool RemoveCargo(uint32_t car_entity_id, uint32_t cargo_entity_id, bool remove_release_callback);
         void DrawDebugInfo() const;

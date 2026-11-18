@@ -108,7 +108,7 @@ void PathBehaviour::TeleportToPosition(float position)
 
         if(m_apply_rotation)
         {
-            const math::Vector tangent = m_path->GetTangentByLength(m_current_position) * m_direction;
+            const math::Vector tangent = m_path->GetTangentByLength(m_current_position) * FacingDirection();
             m_rotation = math::AngleFromVector(tangent);
             m_rotation_velocity = 0.0f;
             m_entity_body->SetAngle(m_rotation);
@@ -208,8 +208,8 @@ PathResult PathBehaviour::Run(float delta_s)
             {
                 constexpr float rotation_halflife = 0.15f;
 
-                const math::Vector tangent = m_path->GetTangentByLength(m_current_position) * m_direction;
-                const float target_angle = math::AngleFromVector(tangent);
+                const math::Vector tangent = m_path->GetTangentByLength(m_current_position) * FacingDirection();
+                const float target_angle = math::AngleFromVector(tangent) + math::PI_2(); // Rotate 90 degrees to face along the path
 
                 // Unwrap the target relative to the current rotation so the spring always
                 // takes the shortest way around, instead of potentially spinning the long way.
@@ -232,6 +232,12 @@ PathResult PathBehaviour::Run(float delta_s)
     //m_entity_body->ApplyLocalImpulse(mass_adjusted_impulse, math::ZeroVec);
 
     return result;
+}
+
+float PathBehaviour::FacingDirection() const
+{
+    // A manually driven entity, a train, backs up when reversing rather than turning around.
+    return m_manual_control ? 1.0f : m_direction;
 }
 
 void PathBehaviour::SetApplyRotation(bool apply_rotation)

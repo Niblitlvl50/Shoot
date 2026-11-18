@@ -9,6 +9,9 @@
 #include "Debug/GameDebugVariables.h"
 #include "Debug/IDebugDrawer.h"
 #include "Rendering/Color.h"
+#include "Rendering/Sprite/Sprite.h"
+#include "Rendering/Sprite/SpriteSystem.h"
+#include "Rendering/Sprite/SpriteProperties.h"
 #include "System/System.h"
 
 #include <algorithm>
@@ -552,6 +555,30 @@ void TrainCarSystem::TryAutoCouple()
     }
 }
 
+void TrainCarSystem::UpdateSpriteFlip()
+{
+    // How far past straight up or down it has to turn before flipping, so it doesn't flicker on a vertical track.
+    constexpr float flip_margin = 0.1f;
+
+    const mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
+    mono::SpriteSystem* sprite_system = m_system_context->GetSystem<mono::SpriteSystem>();
+
+    for(const auto& entity_car_pair : m_cars)
+    {
+        const uint32_t car_entity_id = entity_car_pair.first;
+        if(!sprite_system->IsAllocated(car_entity_id))
+            continue;
+
+        mono::Sprite* sprite = sprite_system->GetSprite(car_entity_id);
+        const math::Matrix& transform = transform_system->GetWorld(car_entity_id);
+        const float sprite_x_axis = transform.data[0];
+        if(sprite_x_axis < -flip_margin)
+            sprite->SetProperty(mono::SpriteProperty::FLIP_VERTICAL);
+        else if(sprite_x_axis > flip_margin)
+            sprite->ClearProperty(mono::SpriteProperty::FLIP_VERTICAL);
+    }
+}
+
 void TrainCarSystem::Update(const mono::UpdateContext& update_context)
 {
     if(m_cars.empty())
@@ -564,6 +591,7 @@ void TrainCarSystem::Update(const mono::UpdateContext& update_context)
     }
 
     TryAutoCouple();
+    UpdateSpriteFlip();
 
     const mono::TransformSystem* transform_system = m_system_context->GetSystem<mono::TransformSystem>();
     game::PathFollowerSystem* path_follower_system = m_system_context->GetSystem<game::PathFollowerSystem>();
