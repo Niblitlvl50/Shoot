@@ -57,7 +57,7 @@
             "h": 27,
             "name": "small_fire_idle_5",
             "w": 16,
-            "x": 164,
+            "x": 204,
             "y": 421
         },
         {
@@ -71,22 +71,22 @@
             "h": 22,
             "name": "small_fire_idle_7",
             "w": 16,
-            "x": 1647,
+            "x": 1667,
             "y": 478
         },
         {
             "h": 24,
             "name": "small_fire_idle_8",
             "w": 16,
-            "x": 1355,
+            "x": 1295,
             "y": 451
         },
         {
             "h": 8,
             "name": "small_fire_put_out_1",
             "w": 16,
-            "x": 988,
-            "y": 576
+            "x": 1429,
+            "y": 577
         }
     ],
     "frames_offsets": [

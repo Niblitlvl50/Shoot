@@ -16,21 +16,21 @@
             "h": 24,
             "name": "beating_heart_idle_1",
             "w": 16,
-            "x": 1315,
+            "x": 1335,
             "y": 451
         },
         {
             "h": 24,
             "name": "beating_heart_idle_2",
             "w": 16,
-            "x": 1335,
+            "x": 1315,
             "y": 451
         },
         {
             "h": 24,
             "name": "beating_heart_idle_3",
             "w": 16,
-            "x": 1295,
+            "x": 1355,
             "y": 451
         }
     ],

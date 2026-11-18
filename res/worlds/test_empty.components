@@ -67,7 +67,7 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "cardboard_box_small.sprite"
+                            "variant_value": "scrappy_train.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -228,7 +228,7 @@
                             "name": "size",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.20000000298023224,
+                                "x": 0.5,
                                 "y": 0.20000000298023224
                             }
                         },
@@ -275,13 +275,13 @@
                             "id": 575458410,
                             "name": "apply_rotation",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         },
                         {
                             "id": 1022278742,
                             "name": "path_speed",
                             "variant_type": 3,
-                            "variant_value": 3.0
+                            "variant_value": 2.0
                         },
                         {
                             "id": 348705738,

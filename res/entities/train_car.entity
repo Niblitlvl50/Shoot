@@ -67,7 +67,7 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "cardboard_box_small.sprite"
+                            "variant_value": "scrappy_car.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -81,8 +81,8 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.0,
-                                "green": 0.0,
+                                "blue": 1.0,
+                                "green": 1.0,
                                 "red": 1.0
                             }
                         },
@@ -189,7 +189,7 @@
                             "id": 575458410,
                             "name": "apply_rotation",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         },
                         {
                             "id": 1022278742,
@@ -203,7 +203,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.0
+                                "y": 0.10000000149011612
                             }
                         },
                         {

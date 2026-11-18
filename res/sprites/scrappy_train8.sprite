@@ -1,0 +1,176 @@
+{
+    "animations": [
+        {
+            "frame_duration": 100,
+            "frames": [
+                0
+            ],
+            "loop": true,
+            "name": "east"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                1
+            ],
+            "loop": true,
+            "name": "north"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                2
+            ],
+            "loop": true,
+            "name": "north_east"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                3
+            ],
+            "loop": true,
+            "name": "north_west"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                4
+            ],
+            "loop": true,
+            "name": "south"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                5
+            ],
+            "loop": true,
+            "name": "south_east"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                6
+            ],
+            "loop": true,
+            "name": "south_west"
+        },
+        {
+            "frame_duration": 100,
+            "frames": [
+                7
+            ],
+            "loop": true,
+            "name": "west"
+        }
+    ],
+    "frames": [
+        {
+            "h": 18,
+            "name": "scrappy_train8_east_1",
+            "w": 22,
+            "x": 497,
+            "y": 503
+        },
+        {
+            "h": 21,
+            "name": "scrappy_train8_north_1",
+            "w": 17,
+            "x": 392,
+            "y": 479
+        },
+        {
+            "h": 20,
+            "name": "scrappy_train8_north_east_1",
+            "w": 22,
+            "x": 1005,
+            "y": 479
+        },
+        {
+            "h": 20,
+            "name": "scrappy_train8_north_west_1",
+            "w": 22,
+            "x": 1031,
+            "y": 479
+        },
+        {
+            "h": 21,
+            "name": "scrappy_train8_south_1",
+            "w": 17,
+            "x": 657,
+            "y": 479
+        },
+        {
+            "h": 21,
+            "name": "scrappy_train8_south_east_1",
+            "w": 20,
+            "x": 151,
+            "y": 479
+        },
+        {
+            "h": 21,
+            "name": "scrappy_train8_south_west_1",
+            "w": 20,
+            "x": 103,
+            "y": 479
+        },
+        {
+            "h": 18,
+            "name": "scrappy_train8_west_1",
+            "w": 22,
+            "x": 575,
+            "y": 503
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+    ],
+    "source_folder": "res/images/vehicles/scrappy_train8/",
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}

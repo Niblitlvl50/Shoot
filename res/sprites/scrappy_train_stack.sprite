@@ -1,0 +1,205 @@
+{
+    "animations": [
+        {
+            "frame_duration": 100,
+            "frames": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13
+            ],
+            "loop": true,
+            "name": "stack"
+        }
+    ],
+    "frames": [
+        {
+            "h": 9,
+            "name": "scrappy_train_stack_stack_1",
+            "w": 9,
+            "x": 1005,
+            "y": 577
+        },
+        {
+            "h": 9,
+            "name": "scrappy_train_stack_stack_2",
+            "w": 13,
+            "x": 1566,
+            "y": 576
+        },
+        {
+            "h": 9,
+            "name": "scrappy_train_stack_stack_3",
+            "w": 13,
+            "x": 1617,
+            "y": 576
+        },
+        {
+            "h": 9,
+            "name": "scrappy_train_stack_stack_4",
+            "w": 15,
+            "x": 277,
+            "y": 567
+        },
+        {
+            "h": 7,
+            "name": "scrappy_train_stack_stack_5",
+            "w": 15,
+            "x": 1167,
+            "y": 578
+        },
+        {
+            "h": 7,
+            "name": "scrappy_train_stack_stack_6",
+            "w": 15,
+            "x": 1148,
+            "y": 578
+        },
+        {
+            "h": 7,
+            "name": "scrappy_train_stack_stack_7",
+            "w": 15,
+            "x": 1129,
+            "y": 578
+        },
+        {
+            "h": 7,
+            "name": "scrappy_train_stack_stack_8",
+            "w": 8,
+            "x": 597,
+            "y": 578
+        },
+        {
+            "h": 7,
+            "name": "scrappy_train_stack_stack_9",
+            "w": 8,
+            "x": 1735,
+            "y": 578
+        },
+        {
+            "h": 9,
+            "name": "scrappy_train_stack_stack_10",
+            "w": 9,
+            "x": 1057,
+            "y": 577
+        },
+        {
+            "h": 3,
+            "name": "scrappy_train_stack_stack_11",
+            "w": 3,
+            "x": 1495,
+            "y": 589
+        },
+        {
+            "h": 3,
+            "name": "scrappy_train_stack_stack_12",
+            "w": 3,
+            "x": 1488,
+            "y": 589
+        },
+        {
+            "h": 3,
+            "name": "scrappy_train_stack_stack_13",
+            "w": 3,
+            "x": 1502,
+            "y": 589
+        },
+        {
+            "h": 3,
+            "name": "scrappy_train_stack_stack_14",
+            "w": 3,
+            "x": 1509,
+            "y": 589
+        }
+    ],
+    "frames_offsets": [
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        },
+        {
+            "x": 0.0,
+            "y": 0.0
+        }
+    ],
+    "notifies": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+    ],
+    "source_folder": "res/images/vehicles/scrappy_train/",
+    "texture": "res/sprite_atlas.png",
+    "texture_size": {
+        "h": 1024,
+        "w": 2048
+    }
+}

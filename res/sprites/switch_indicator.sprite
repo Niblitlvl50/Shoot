@@ -22,15 +22,15 @@
             "h": 8,
             "name": "switch_indicator_alternative_1",
             "w": 8,
-            "x": 1506,
-            "y": 576
+            "x": 135,
+            "y": 578
         },
         {
             "h": 8,
             "name": "switch_indicator_straight_1",
             "w": 8,
-            "x": 1494,
-            "y": 576
+            "x": 394,
+            "y": 578
         }
     ],
     "frames_offsets": [

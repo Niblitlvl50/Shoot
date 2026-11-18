@@ -15,7 +15,7 @@
     "frames": [
         {
             "h": 182,
-            "name": "",
+            "name": "tree_large_yellow_1",
             "w": 101,
             "x": 150,
             "y": 2
@@ -26,6 +26,9 @@
             "x": 0.0,
             "y": 0.0
         }
+    ],
+    "notifies": [
+        ""
     ],
     "source_folder": "res/images/vegetation/",
     "texture": "res/sprite_atlas.png",

@@ -67,7 +67,7 @@
                             "id": 910774975,
                             "name": "sprite_file",
                             "variant_type": 6,
-                            "variant_value": "skull_red_eyes.sprite"
+                            "variant_value": "scrappy_train.sprite"
                         },
                         {
                             "id": 3779456605,
@@ -81,9 +81,9 @@
                             "variant_type": 5,
                             "variant_value": {
                                 "alpha": 1.0,
-                                "blue": 0.44999998807907104,
-                                "green": 0.5,
-                                "red": 1.0
+                                "blue": 1.0,
+                                "green": 0.48442912101745605,
+                                "red": 0.2696078419685364
                             }
                         },
                         {
@@ -221,14 +221,14 @@
                             "id": 776086107,
                             "name": "faction",
                             "variant_type": 1,
-                            "variant_value": 4
+                            "variant_value": 2
                         },
                         {
                             "id": 597743964,
                             "name": "size",
                             "variant_type": 4,
                             "variant_value": {
-                                "x": 0.20000000298023224,
+                                "x": 0.4000000059604645,
                                 "y": 0.20000000298023224
                             }
                         },
@@ -275,7 +275,7 @@
                             "id": 575458410,
                             "name": "apply_rotation",
                             "variant_type": 0,
-                            "variant_value": false
+                            "variant_value": true
                         },
                         {
                             "id": 1022278742,
@@ -289,7 +289,7 @@
                             "variant_type": 4,
                             "variant_value": {
                                 "x": 0.0,
-                                "y": 0.0
+                                "y": 0.10000000149011612
                             }
                         },
                         {

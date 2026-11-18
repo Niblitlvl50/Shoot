@@ -14,8 +14,8 @@
             "h": 7,
             "name": "powerup_vampiric_icon",
             "w": 7,
-            "x": 636,
-            "y": 577
+            "x": 240,
+            "y": 584
         }
     ],
     "frames_offsets": [
