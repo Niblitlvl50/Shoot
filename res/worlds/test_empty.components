@@ -379,6 +379,33 @@
         "completed_alt_trigger": "",
         "completed_trigger": "",
         "failed_trigger": "",
+        "ground_paint": {
+            "blend_layers": true,
+            "edge_roughness": 0.0,
+            "position": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "size": {
+                "x": 20.0,
+                "y": 10.0
+            },
+            "texels_per_meter": 4.0,
+            "texture_scales": [
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "textures": [
+                "res/textures/background/grass/grass_01.png",
+                "res/textures/background/grass/grass_02.png",
+                "res/textures/background/grass/grass_03.png",
+                "res/textures/background/grass/grass_04.png",
+                "res/textures/background/grass/grass_05.png"
+            ]
+        },
         "level_description": "",
         "level_game_mode": "package_delivery_mode",
         "level_name": "empty",

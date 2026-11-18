@@ -83,6 +83,14 @@ namespace editor
         // User tools
         int active_tool_index = 0;
 
+        struct GroundPaintBrush
+        {
+            // 1 to 4, the painted layers.
+            int layer = 1;
+            float radius = 1.0f;
+            float strength = 0.3f;
+        } ground_paint_brush;
+
         // Level metadata
         bool draw_level_metadata = true;
         game::LevelMetadata level_metadata;

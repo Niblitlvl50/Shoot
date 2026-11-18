@@ -12,6 +12,8 @@
 
 #include "UI/ImGuiInterfaceDrawer.h"
 
+#include <algorithm>
+#include <iterator>
 #include <limits>
 
 namespace
@@ -41,6 +43,7 @@ UserInputController::UserInputController(
     , m_rotate_tool(editor)
     , m_measure_tool(editor)
     , m_palette_tool(editor)
+    , m_ground_paint_tool(editor, context)
     , m_active_tool(nullptr)
     , m_grabber(nullptr)
     , m_box_selection(false)
@@ -67,6 +70,7 @@ UserInputController::UserInputController(
     g_tools[ToolsMenuOptions::ROTATE_TOOL]      = { &m_rotate_tool, Notification(editor::wrench_texture, "Rotate tool", 2.0f), { } };
     g_tools[ToolsMenuOptions::MEASURE_TOOL]     = { &m_measure_tool, Notification(editor::wrench_texture, "Measure tool", 2.0f), { } };
     g_tools[ToolsMenuOptions::PALETTE_TOOL]     = { &m_palette_tool, Notification(editor::wrench_texture, "Palette Tool", 2.0f), { } };
+    g_tools[ToolsMenuOptions::GROUND_PAINT_TOOL] = { &m_ground_paint_tool, Notification(editor::wrench_texture, "Ground Paint Tool", 2.0f), { } };
 
     SelectTool(ToolsMenuOptions::TRANSLATE_TOOL);
 }
@@ -119,7 +123,16 @@ mono::EventResult UserInputController::OnMouseDown(const event::MouseDownEvent& 
 {
     bool handled = false;
 
-    if(event.key == MouseButton::LEFT)
+    const bool is_painting_ground = (m_active_tool == &m_ground_paint_tool);
+
+    if(event.key == MouseButton::LEFT && is_painting_ground)
+    {
+        // Painting doesn't select anything or move grabbers.
+        m_active_tool->UpdateModifierState(event.ctrl, event.shift, event.alt);
+        m_active_tool->HandleMouseDown(math::Vector(event.world_x, event.world_y), std::numeric_limits<uint32_t>::max());
+        handled = true;
+    }
+    else if(event.key == MouseButton::LEFT)
     {
         const math::Vector world_position = { event.world_x, event.world_y };
 
@@ -272,6 +285,23 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
 {
     m_active_tool->UpdateModifierState(event.ctrl, event.shift, event.alt);
 
+    // Q, W, E and R picks the layer to paint with the ground paint tool.
+    const bool is_painting_ground = (m_active_tool == &m_ground_paint_tool);
+    if(is_painting_ground && !event.ctrl)
+    {
+        constexpr Keycode layer_keys[] = { Keycode::Q, Keycode::W, Keycode::E, Keycode::R };
+        const Keycode* key_it = std::find(std::begin(layer_keys), std::end(layer_keys), event.key);
+        if(key_it != std::end(layer_keys))
+        {
+            const int paint_layer = int(std::distance(std::begin(layer_keys), key_it)) + 1;
+            m_context->ground_paint_brush.layer = paint_layer;
+
+            const std::string text = "Paint layer " + std::to_string(paint_layer);
+            m_context->notifications.emplace_back(editor::wrench_texture, text.c_str(), 1.0f);
+            return mono::EventResult::PASS_ON;
+        }
+    }
+
     if(event.key == Keycode::D && event.ctrl)
         m_editor->EditorMenuCallback(editor::EditorMenuOptions::DUPLICATE);
     else if(event.key == Keycode::N && event.ctrl)
@@ -297,6 +327,8 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
         SelectTool(ToolsMenuOptions::ROTATE_TOOL);
     else if(event.key == Keycode::THREE)
         SelectTool(ToolsMenuOptions::PALETTE_TOOL);
+    else if(event.key == Keycode::FOUR)
+        SelectTool(ToolsMenuOptions::GROUND_PAINT_TOOL);
     else if(event.key == Keycode::M)
         SelectTool(ToolsMenuOptions::MEASURE_TOOL);
     else if(event.key == Keycode::N)

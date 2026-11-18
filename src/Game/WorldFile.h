@@ -14,6 +14,27 @@ struct Component;
 
 namespace game
 {
+    constexpr int GROUND_PAINT_LAYERS = 5;
+
+    // Ground painted in the editor, drawn before the world bounds polygons. The paint itself is a
+    // png next to the world file, see GroundPaintFilename.
+    struct GroundPaintSettings
+    {
+        // The base layer first, then the four painted ones.
+        std::string textures[GROUND_PAINT_LAYERS];
+        float texture_scales[GROUND_PAINT_LAYERS] = { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
+
+        // The painted area, lower left corner and size in meters.
+        math::Vector position;
+        math::Vector size;
+
+        float texels_per_meter = 4.0f;
+        float edge_roughness = 0.3f;
+
+        // Smooth blends between the layers instead of crisp edges.
+        bool blend_layers = false;
+    };
+
     struct LevelMetadata
     {
         std::string level_name;
@@ -47,6 +68,8 @@ namespace game
         std::string completed_alt_trigger;
         std::string aborted_trigger;
         std::string failed_trigger;
+
+        GroundPaintSettings ground_paint;
     };
 
     struct LevelData

@@ -15533,67 +15533,6 @@
                     ]
                 },
                 {
-                    "hash": 1805184399,
-                    "name": "health",
-                    "properties": [
-                        {
-                            "id": 1805184399,
-                            "name": "health",
-                            "variant_type": 1,
-                            "variant_value": 500
-                        },
-                        {
-                            "id": 2554044311,
-                            "name": "release_on_death",
-                            "variant_type": 0,
-                            "variant_value": false
-                        },
-                        {
-                            "id": 1989672395,
-                            "name": "boss_health",
-                            "variant_type": 0,
-                            "variant_value": false
-                        }
-                    ]
-                },
-                {
-                    "hash": 1796759480,
-                    "name": "shockwave",
-                    "properties": [
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 11,
-                            "variant_value": {
-                                "direction": 0,
-                                "text": "do_shockwave",
-                                "type": 1
-                            }
-                        },
-                        {
-                            "id": 230313139,
-                            "name": "radius",
-                            "variant_type": 3,
-                            "variant_value": 3.0
-                        },
-                        {
-                            "id": 1291939675,
-                            "name": "magnitude_interval",
-                            "variant_type": 8,
-                            "variant_value": {
-                                "max": 20.0,
-                                "min": 10.0
-                            }
-                        },
-                        {
-                            "id": 1805184399,
-                            "name": "health",
-                            "variant_type": 1,
-                            "variant_value": 10
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -15727,6 +15666,67 @@
                             "name": "sensor",
                             "variant_type": 0,
                             "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 1805184399,
+                    "name": "health",
+                    "properties": [
+                        {
+                            "id": 1805184399,
+                            "name": "health",
+                            "variant_type": 1,
+                            "variant_value": 500
+                        },
+                        {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": false
+                        },
+                        {
+                            "id": 1989672395,
+                            "name": "boss_health",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 1796759480,
+                    "name": "shockwave",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "do_shockwave",
+                                "type": 1
+                            }
+                        },
+                        {
+                            "id": 230313139,
+                            "name": "radius",
+                            "variant_type": 3,
+                            "variant_value": 3.0
+                        },
+                        {
+                            "id": 1291939675,
+                            "name": "magnitude_interval",
+                            "variant_type": 8,
+                            "variant_value": {
+                                "max": 20.0,
+                                "min": 10.0
+                            }
+                        },
+                        {
+                            "id": 1805184399,
+                            "name": "health",
+                            "variant_type": 1,
+                            "variant_value": 10
                         }
                     ]
                 },
@@ -15865,30 +15865,6 @@
                     ]
                 },
                 {
-                    "hash": 1805184399,
-                    "name": "health",
-                    "properties": [
-                        {
-                            "id": 1805184399,
-                            "name": "health",
-                            "variant_type": 1,
-                            "variant_value": 1000
-                        },
-                        {
-                            "id": 2554044311,
-                            "name": "release_on_death",
-                            "variant_type": 0,
-                            "variant_value": true
-                        },
-                        {
-                            "id": 1989672395,
-                            "name": "boss_health",
-                            "variant_type": 0,
-                            "variant_value": true
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -16024,6 +16000,30 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 1805184399,
+                    "name": "health",
+                    "properties": [
+                        {
+                            "id": 1805184399,
+                            "name": "health",
+                            "variant_type": 1,
+                            "variant_value": 1000
+                        },
+                        {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 1989672395,
+                            "name": "boss_health",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -16086,30 +16086,6 @@
                             "name": "entity_reference",
                             "variant_type": 2,
                             "variant_value": 4294967295
-                        }
-                    ]
-                },
-                {
-                    "hash": 1805184399,
-                    "name": "health",
-                    "properties": [
-                        {
-                            "id": 1805184399,
-                            "name": "health",
-                            "variant_type": 1,
-                            "variant_value": 100000
-                        },
-                        {
-                            "id": 2554044311,
-                            "name": "release_on_death",
-                            "variant_type": 0,
-                            "variant_value": true
-                        },
-                        {
-                            "id": 1989672395,
-                            "name": "boss_health",
-                            "variant_type": 0,
-                            "variant_value": false
                         }
                     ]
                 },
@@ -16295,6 +16271,30 @@
                         {
                             "id": 2209756795,
                             "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 1805184399,
+                    "name": "health",
+                    "properties": [
+                        {
+                            "id": 1805184399,
+                            "name": "health",
+                            "variant_type": 1,
+                            "variant_value": 100000
+                        },
+                        {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 1989672395,
+                            "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
                         }
@@ -16501,49 +16501,6 @@
                     ]
                 },
                 {
-                    "hash": 1338470111,
-                    "name": "set_translation",
-                    "properties": [
-                        {
-                            "id": 1743751533,
-                            "name": "animation_mode",
-                            "variant_type": 1,
-                            "variant_value": 16
-                        },
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 11,
-                            "variant_value": {
-                                "direction": 0,
-                                "text": "",
-                                "type": 0
-                            }
-                        },
-                        {
-                            "id": 799079693,
-                            "name": "duration",
-                            "variant_type": 3,
-                            "variant_value": 100.0
-                        },
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 30.0,
-                                "y": -1.0
-                            }
-                        },
-                        {
-                            "id": 1453830135,
-                            "name": "easing_func",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        }
-                    ]
-                },
-                {
                     "hash": 2771478017,
                     "name": "textured_polygon",
                     "properties": [
@@ -16592,6 +16549,49 @@
                                     "y": -1.5
                                 }
                             ]
+                        }
+                    ]
+                },
+                {
+                    "hash": 1338470111,
+                    "name": "set_translation",
+                    "properties": [
+                        {
+                            "id": 1743751533,
+                            "name": "animation_mode",
+                            "variant_type": 1,
+                            "variant_value": 16
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "",
+                                "type": 0
+                            }
+                        },
+                        {
+                            "id": 799079693,
+                            "name": "duration",
+                            "variant_type": 3,
+                            "variant_value": 100.0
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 30.0,
+                                "y": -1.0
+                            }
+                        },
+                        {
+                            "id": 1453830135,
+                            "name": "easing_func",
+                            "variant_type": 1,
+                            "variant_value": 0
                         }
                     ]
                 }
@@ -16660,49 +16660,6 @@
                     ]
                 },
                 {
-                    "hash": 1338470111,
-                    "name": "set_translation",
-                    "properties": [
-                        {
-                            "id": 1743751533,
-                            "name": "animation_mode",
-                            "variant_type": 1,
-                            "variant_value": 16
-                        },
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 11,
-                            "variant_value": {
-                                "direction": 0,
-                                "text": "",
-                                "type": 0
-                            }
-                        },
-                        {
-                            "id": 799079693,
-                            "name": "duration",
-                            "variant_type": 3,
-                            "variant_value": 120.0
-                        },
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": 30.0,
-                                "y": 1.0
-                            }
-                        },
-                        {
-                            "id": 1453830135,
-                            "name": "easing_func",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        }
-                    ]
-                },
-                {
                     "hash": 2771478017,
                     "name": "textured_polygon",
                     "properties": [
@@ -16751,6 +16708,49 @@
                                     "y": -1.5
                                 }
                             ]
+                        }
+                    ]
+                },
+                {
+                    "hash": 1338470111,
+                    "name": "set_translation",
+                    "properties": [
+                        {
+                            "id": 1743751533,
+                            "name": "animation_mode",
+                            "variant_type": 1,
+                            "variant_value": 16
+                        },
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "",
+                                "type": 0
+                            }
+                        },
+                        {
+                            "id": 799079693,
+                            "name": "duration",
+                            "variant_type": 3,
+                            "variant_value": 120.0
+                        },
+                        {
+                            "id": 2471448074,
+                            "name": "position",
+                            "variant_type": 4,
+                            "variant_value": {
+                                "x": 30.0,
+                                "y": 1.0
+                            }
+                        },
+                        {
+                            "id": 1453830135,
+                            "name": "easing_func",
+                            "variant_type": 1,
+                            "variant_value": 0
                         }
                     ]
                 }
@@ -17045,18 +17045,6 @@
                     ]
                 },
                 {
-                    "hash": 447767614,
-                    "name": "weapon_pickup",
-                    "properties": [
-                        {
-                            "id": 3617358384,
-                            "name": "weapon_modifier_type",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -17190,6 +17178,18 @@
                             "name": "sensor",
                             "variant_type": 0,
                             "variant_value": true
+                        }
+                    ]
+                },
+                {
+                    "hash": 447767614,
+                    "name": "weapon_pickup",
+                    "properties": [
+                        {
+                            "id": 3617358384,
+                            "name": "weapon_modifier_type",
+                            "variant_type": 1,
+                            "variant_value": 0
                         }
                     ]
                 }
@@ -18094,18 +18094,6 @@
                     ]
                 },
                 {
-                    "hash": 447767614,
-                    "name": "weapon_pickup",
-                    "properties": [
-                        {
-                            "id": 3617358384,
-                            "name": "weapon_modifier_type",
-                            "variant_type": 1,
-                            "variant_value": 3
-                        }
-                    ]
-                },
-                {
                     "hash": 2179094556,
                     "name": "sprite",
                     "properties": [
@@ -18241,6 +18229,18 @@
                             "variant_value": true
                         }
                     ]
+                },
+                {
+                    "hash": 447767614,
+                    "name": "weapon_pickup",
+                    "properties": [
+                        {
+                            "id": 3617358384,
+                            "name": "weapon_modifier_type",
+                            "variant_type": 1,
+                            "variant_value": 3
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -18303,18 +18303,6 @@
                             "name": "entity_reference",
                             "variant_type": 2,
                             "variant_value": 4294967295
-                        }
-                    ]
-                },
-                {
-                    "hash": 447767614,
-                    "name": "weapon_pickup",
-                    "properties": [
-                        {
-                            "id": 3617358384,
-                            "name": "weapon_modifier_type",
-                            "variant_type": 1,
-                            "variant_value": 2
                         }
                     ]
                 },
@@ -18454,6 +18442,18 @@
                             "variant_value": true
                         }
                     ]
+                },
+                {
+                    "hash": 447767614,
+                    "name": "weapon_pickup",
+                    "properties": [
+                        {
+                            "id": 3617358384,
+                            "name": "weapon_modifier_type",
+                            "variant_type": 1,
+                            "variant_value": 2
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -18516,30 +18516,6 @@
                             "name": "entity_reference",
                             "variant_type": 2,
                             "variant_value": 4294967295
-                        }
-                    ]
-                },
-                {
-                    "hash": 1805184399,
-                    "name": "health",
-                    "properties": [
-                        {
-                            "id": 1805184399,
-                            "name": "health",
-                            "variant_type": 1,
-                            "variant_value": 100
-                        },
-                        {
-                            "id": 2554044311,
-                            "name": "release_on_death",
-                            "variant_type": 0,
-                            "variant_value": true
-                        },
-                        {
-                            "id": 1989672395,
-                            "name": "boss_health",
-                            "variant_type": 0,
-                            "variant_value": false
                         }
                     ]
                 },
@@ -18725,6 +18701,30 @@
                         {
                             "id": 2209756795,
                             "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 1805184399,
+                    "name": "health",
+                    "properties": [
+                        {
+                            "id": 1805184399,
+                            "name": "health",
+                            "variant_type": 1,
+                            "variant_value": 100
+                        },
+                        {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 1989672395,
+                            "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
                         }
@@ -19961,40 +19961,6 @@
                     ]
                 },
                 {
-                    "hash": 907029043,
-                    "name": "world_state_set_bool",
-                    "properties": [
-                        {
-                            "id": 2603146703,
-                            "name": "trigger_name",
-                            "variant_type": 11,
-                            "variant_value": {
-                                "direction": 0,
-                                "text": "ambush_cleared",
-                                "type": 1
-                            }
-                        },
-                        {
-                            "id": 1351918649,
-                            "name": "world_state_key",
-                            "variant_type": 6,
-                            "variant_value": "ws_ambush_cleared"
-                        },
-                        {
-                            "id": 3250327600,
-                            "name": "world_state_bool_operation",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 3658186238,
-                            "name": "world_state_bool",
-                            "variant_type": 0,
-                            "variant_value": true
-                        }
-                    ]
-                },
-                {
                     "hash": 1411079002,
                     "name": "mission_tracker",
                     "properties": [
@@ -20089,6 +20055,40 @@
                             "variant_value": 25
                         }
                     ]
+                },
+                {
+                    "hash": 907029043,
+                    "name": "world_state_set_bool",
+                    "properties": [
+                        {
+                            "id": 2603146703,
+                            "name": "trigger_name",
+                            "variant_type": 11,
+                            "variant_value": {
+                                "direction": 0,
+                                "text": "ambush_cleared",
+                                "type": 1
+                            }
+                        },
+                        {
+                            "id": 1351918649,
+                            "name": "world_state_key",
+                            "variant_type": 6,
+                            "variant_value": "ws_ambush_cleared"
+                        },
+                        {
+                            "id": 3250327600,
+                            "name": "world_state_bool_operation",
+                            "variant_type": 1,
+                            "variant_value": 0
+                        },
+                        {
+                            "id": 3658186238,
+                            "name": "world_state_bool",
+                            "variant_type": 0,
+                            "variant_value": true
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
@@ -20151,30 +20151,6 @@
                             "name": "entity_reference",
                             "variant_type": 2,
                             "variant_value": 4294967295
-                        }
-                    ]
-                },
-                {
-                    "hash": 1805184399,
-                    "name": "health",
-                    "properties": [
-                        {
-                            "id": 1805184399,
-                            "name": "health",
-                            "variant_type": 1,
-                            "variant_value": 100
-                        },
-                        {
-                            "id": 2554044311,
-                            "name": "release_on_death",
-                            "variant_type": 0,
-                            "variant_value": true
-                        },
-                        {
-                            "id": 1989672395,
-                            "name": "boss_health",
-                            "variant_type": 0,
-                            "variant_value": false
                         }
                     ]
                 },
@@ -20316,6 +20292,30 @@
                     ]
                 },
                 {
+                    "hash": 1805184399,
+                    "name": "health",
+                    "properties": [
+                        {
+                            "id": 1805184399,
+                            "name": "health",
+                            "variant_type": 1,
+                            "variant_value": 100
+                        },
+                        {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 1989672395,
+                            "name": "boss_health",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
                     "hash": 2406412294,
                     "name": "weapon_loadout",
                     "properties": [
@@ -20412,30 +20412,6 @@
                             "name": "entity_reference",
                             "variant_type": 2,
                             "variant_value": 4294967295
-                        }
-                    ]
-                },
-                {
-                    "hash": 1805184399,
-                    "name": "health",
-                    "properties": [
-                        {
-                            "id": 1805184399,
-                            "name": "health",
-                            "variant_type": 1,
-                            "variant_value": 200
-                        },
-                        {
-                            "id": 2554044311,
-                            "name": "release_on_death",
-                            "variant_type": 0,
-                            "variant_value": true
-                        },
-                        {
-                            "id": 1989672395,
-                            "name": "boss_health",
-                            "variant_type": 0,
-                            "variant_value": false
                         }
                     ]
                 },
@@ -20571,6 +20547,30 @@
                         {
                             "id": 2209756795,
                             "name": "sensor",
+                            "variant_type": 0,
+                            "variant_value": false
+                        }
+                    ]
+                },
+                {
+                    "hash": 1805184399,
+                    "name": "health",
+                    "properties": [
+                        {
+                            "id": 1805184399,
+                            "name": "health",
+                            "variant_type": 1,
+                            "variant_value": 200
+                        },
+                        {
+                            "id": 2554044311,
+                            "name": "release_on_death",
+                            "variant_type": 0,
+                            "variant_value": true
+                        },
+                        {
+                            "id": 1989672395,
+                            "name": "boss_health",
                             "variant_type": 0,
                             "variant_value": false
                         }
@@ -21068,6 +21068,32 @@
         "completed_alt_trigger": "",
         "completed_trigger": "level_completed",
         "failed_trigger": "level_gameover",
+        "ground_paint": {
+            "edge_roughness": 0.30000001192092896,
+            "position": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "size": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "texels_per_meter": 4.0,
+            "texture_scales": [
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "textures": [
+                "",
+                "",
+                "",
+                "",
+                ""
+            ]
+        },
         "level_description": "",
         "level_game_mode": "package_delivery_mode",
         "level_name": "Empty",

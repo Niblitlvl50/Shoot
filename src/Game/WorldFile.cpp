@@ -56,6 +56,28 @@ namespace
             level_data.metadata.completed_alt_trigger = json_metadata.value("completed_alt_trigger", "");
             level_data.metadata.aborted_trigger = json_metadata.value("aborted_trigger", "");
             level_data.metadata.failed_trigger = json_metadata.value("failed_trigger", "");
+
+            if(json_metadata.contains("ground_paint"))
+            {
+                const nlohmann::json& json_ground_paint = json_metadata["ground_paint"];
+                game::GroundPaintSettings& ground_paint = level_data.metadata.ground_paint;
+
+                const std::vector<std::string> textures = json_ground_paint.value("textures", std::vector<std::string>());
+                const std::vector<float> texture_scales = json_ground_paint.value("texture_scales", std::vector<float>());
+                for(int index = 0; index < game::GROUND_PAINT_LAYERS; ++index)
+                {
+                    if(index < int(textures.size()))
+                        ground_paint.textures[index] = textures[index];
+                    if(index < int(texture_scales.size()))
+                        ground_paint.texture_scales[index] = texture_scales[index];
+                }
+
+                ground_paint.position = json_ground_paint.value("position", math::ZeroVec);
+                ground_paint.size = json_ground_paint.value("size", math::ZeroVec);
+                ground_paint.texels_per_meter = json_ground_paint.value("texels_per_meter", 4.0f);
+                ground_paint.edge_roughness = json_ground_paint.value("edge_roughness", 0.3f);
+                ground_paint.blend_layers = json_ground_paint.value("blend_layers", false);
+            }
         }
 
         const std::vector<mono::EntityData>& loaded_entity_data = json["entities"];

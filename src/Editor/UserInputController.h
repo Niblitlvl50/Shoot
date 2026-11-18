@@ -12,6 +12,7 @@
 #include "Tools/CameraTool.h"
 #include "Tools/MeasureTool.h"
 #include "Tools/PaletteTool.h"
+#include "Tools/GroundPaintTool.h"
 
 namespace editor
 {
@@ -59,6 +60,7 @@ namespace editor
         editor::RotateTool m_rotate_tool;
         editor::MeasureTool m_measure_tool;
         editor::PaletteTool m_palette_tool;
+        editor::GroundPaintTool m_ground_paint_tool;
 
         editor::ITool* m_active_tool;
 

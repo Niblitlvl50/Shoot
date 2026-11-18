@@ -22,6 +22,11 @@ namespace mono
     class ImGuiInputHandler;
 }
 
+namespace game
+{
+    class GroundPaintData;
+}
+
 namespace editor
 {
     constexpr uint32_t NO_SELECTION = std::numeric_limits<uint32_t>::max();
@@ -170,6 +175,7 @@ namespace editor
         // picked in the property panel. Names already in the list are skipped.
         void RegisterTriggers(const std::vector<mono::Attribute>& attributes);
         const std::string& GetWorldFilename() const;
+        game::GroundPaintData* GetGroundPaintData();
 
     private:
 
@@ -203,6 +209,7 @@ namespace editor
         std::vector<editor::Grabber> m_grabbers;
 
         std::unique_ptr<class EditorServer> m_server;
+        std::shared_ptr<game::GroundPaintData> m_ground_paint_data;
 
         // The entity list is shared by Import Entity and Place Entity, this says which one opened it.
         bool m_modal_places_prefab = false;

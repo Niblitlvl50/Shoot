@@ -93,6 +93,17 @@ void editor::WriteComponentEntities(
     json_metadata["aborted_trigger"] = level_metadata.aborted_trigger;
     json_metadata["failed_trigger"] = level_metadata.failed_trigger;
 
+    const game::GroundPaintSettings& ground_paint = level_metadata.ground_paint;
+    nlohmann::json json_ground_paint;
+    json_ground_paint["textures"] = std::vector<std::string>(std::begin(ground_paint.textures), std::end(ground_paint.textures));
+    json_ground_paint["texture_scales"] = std::vector<float>(std::begin(ground_paint.texture_scales), std::end(ground_paint.texture_scales));
+    json_ground_paint["position"] = ground_paint.position;
+    json_ground_paint["size"] = ground_paint.size;
+    json_ground_paint["texels_per_meter"] = ground_paint.texels_per_meter;
+    json_ground_paint["edge_roughness"] = ground_paint.edge_roughness;
+    json_ground_paint["blend_layers"] = ground_paint.blend_layers;
+    json_metadata["ground_paint"] = json_ground_paint;
+
     nlohmann::json json;
     json["metadata"] = json_metadata;
     json["entities"] = json_entities;

@@ -22,6 +22,7 @@ namespace editor
         ROTATE_TOOL,
         PALETTE_TOOL,
         MEASURE_TOOL,
+        GROUND_PAINT_TOOL,
         N_TOOLS
     };
 }

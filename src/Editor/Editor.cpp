@@ -31,6 +31,7 @@
 #include "TransformSystem/TransformSystem.h"
 #include "Paths/PathSystem.h"
 #include "Paths/PathTypes.h"
+#include "World/GroundPaint.h"
 #include "World/WorldBoundsDrawer.h"
 #include "World/WorldBoundsSystem.h"
 #include "UI/UISystem.h"
@@ -213,6 +214,7 @@ Editor::Editor(
     , m_editor_config(editor_config)
     , m_preselected_id(NO_SELECTION)
     , m_pick_target(nullptr)
+    , m_ground_paint_data(std::make_shared<game::GroundPaintData>())
 {
     m_mode_stack.push(EditorMode::DEFAULT);
 
@@ -368,6 +370,7 @@ void Editor::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
 
     AddUpdatable(new SyncPoint(m_entity_manager, m_context));
 
+    AddDrawable(new game::GroundPaintDrawer(m_context.level_metadata.ground_paint, m_ground_paint_data), game::LayerId::BACKGROUND);
     AddDrawable(new GridVisualizer(m_context.draw_grid), game::LayerId::BACKGROUND);
     AddDrawable(new GrabberVisualizer(m_grabbers), game::LayerId::UI_DEBUG);
     AddDrawable(m_selection_visualizer, game::LayerId::UI);
@@ -474,6 +477,11 @@ const std::string& Editor::GetWorldFilename() const
     return m_world_filename;
 }
 
+game::GroundPaintData* Editor::GetGroundPaintData()
+{
+    return m_ground_paint_data.get();
+}
+
 void Editor::SwitchWorld(const std::string& new_world_filename)
 {
     m_new_world_filename = new_world_filename;
@@ -526,6 +534,7 @@ void Editor::LoadWorld(const std::string& world_filename)
     m_proxies = std::move(world.loaded_proxies);
 
     m_context.level_metadata = world.leveldata.metadata;
+    m_ground_paint_data->Load(game::GroundPaintFilename(world_filename), m_context.level_metadata.ground_paint);
 
     // Triggers used by the entities but missing from the saved list would show as empty in the property panel.
     for(const IObjectProxyPtr& proxy : m_proxies)
@@ -589,6 +598,8 @@ void Editor::Save()
 
     std::sort(m_context.level_metadata.triggers.begin(), m_context.level_metadata.triggers.end());
     SaveWorld(m_world_filename.c_str(), proxies, m_context.level_metadata);
+    if(game::IsGroundPaintEnabled(m_context.level_metadata.ground_paint))
+        m_ground_paint_data->Save(game::GroundPaintFilename(m_world_filename));
     m_context.notifications.emplace_back(save_texture, "Saved...", 2.0f);
 }
 

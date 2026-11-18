@@ -69,6 +69,7 @@
 #include "SpawnSystem/SpawnSystemDrawer.h"
 #include "Weapons/WeaponSystem.h"
 #include "World/WorldBoundsSystem.h"
+#include "World/GroundPaint.h"
 #include "World/WorldBoundsDrawer.h"
 #include "World/RegionDrawer.h"
 #include "World/RegionSystem.h"
@@ -144,6 +145,10 @@ void GameZone::OnLoad(mono::ICamera* camera, mono::IRenderer* renderer)
     m_debug_input = std::make_unique<mono::ImGuiInputHandler>(*m_event_handler);
 
     // Background
+    std::shared_ptr<game::GroundPaintData> ground_paint_data = std::make_shared<game::GroundPaintData>();
+    if(game::IsGroundPaintEnabled(metadata.ground_paint))
+        ground_paint_data->Load(game::GroundPaintFilename(m_world_file), metadata.ground_paint);
+    AddDrawable(new game::GroundPaintDrawer(metadata.ground_paint, ground_paint_data), LayerId::BACKGROUND);
     AddDrawable(new game::WorldBoundsDrawer(transform_system, world_bounds_system, PolygonDrawLayer::PRE_GAMEOBJECTS), LayerId::BACKGROUND);
     AddDrawable(new mono::RoadBatchDrawer(road_system, path_system, transform_system), LayerId::BACKGROUND);
     AddDrawable(new mono::RiverBatchDrawer(river_system, path_system, transform_system), LayerId::BACKGROUND);

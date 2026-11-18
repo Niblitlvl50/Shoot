@@ -70,6 +70,9 @@ namespace
             if(ImGui::MenuItem("Palette", "3", context.active_tool_index == 2))
                 context.tools_menu_callback(ToolsMenuOptions::PALETTE_TOOL);
 
+            if(ImGui::MenuItem("Ground Paint", "4", context.active_tool_index == ToolsMenuOptions::GROUND_PAINT_TOOL))
+                context.tools_menu_callback(ToolsMenuOptions::GROUND_PAINT_TOOL);
+
             ImGui::EndMenu();
         }
 
@@ -422,6 +425,38 @@ namespace
                 const bool failed_changed = editor::DrawEventProperty("Failed", failed_event, context);
                 if(failed_changed)
                     context.level_metadata.failed_trigger = failed_event.text;
+
+                ImGui::EndTabItem();
+            }
+
+            if(ImGui::BeginTabItem("Ground"))
+            {
+                game::GroundPaintSettings& ground_paint = context.level_metadata.ground_paint;
+
+                ImGui::TextDisabled("Area");
+                ImGui::InputFloat2("Position", &ground_paint.position.x);
+                ImGui::InputFloat2("Size", &ground_paint.size.x);
+                ImGui::InputFloat("Texels per Meter", &ground_paint.texels_per_meter);
+                ImGui::SliderFloat("Edge Roughness", &ground_paint.edge_roughness, 0.0f, 1.0f);
+                ImGui::Checkbox("Blend Layers", &ground_paint.blend_layers);
+                ImGui::Spacing();
+
+                ImGui::TextDisabled("Layers");
+                for(int index = 0; index < game::GROUND_PAINT_LAYERS; ++index)
+                {
+                    ImGui::PushID(index);
+                    const char* layer_name = (index == 0) ? "Base" : "Layer";
+                    ImGui::Text("%s %d", layer_name, index);
+                    editor::DrawStringPicker("Texture", ground_paint.textures[index], editor::GetAllTextures());
+                    ImGui::InputFloat("Scale", &ground_paint.texture_scales[index]);
+                    ImGui::PopID();
+                }
+                ImGui::Spacing();
+
+                ImGui::TextDisabled("Brush, paint tool is 4, q w e r picks the layer, alt erases");
+                ImGui::SliderInt("Paint Layer", &context.ground_paint_brush.layer, 1, game::GROUND_PAINT_LAYERS - 1);
+                ImGui::SliderFloat("Radius", &context.ground_paint_brush.radius, 0.1f, 5.0f);
+                ImGui::SliderFloat("Strength", &context.ground_paint_brush.strength, 0.01f, 1.0f);
 
                 ImGui::EndTabItem();
             }
