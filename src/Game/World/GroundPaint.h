@@ -38,6 +38,9 @@ namespace game
         // Paints layer 1 to 4, layer 0 erases back to the base layer. Strength is 0 to 1.
         void Paint(const math::Vector& world_position, float radius, float strength, int layer);
 
+        // The layer with the most weight at the position, 0 is the base layer. Outside the area it's the base.
+        int StrongestLayer(const math::Vector& world_position) const;
+
         int Width() const;
         int Height() const;
         const std::vector<uint8_t>& Pixels() const;

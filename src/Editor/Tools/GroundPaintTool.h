@@ -10,8 +10,8 @@ namespace editor
     class Editor;
     struct UIContext;
 
-    // Paints the ground layers into the splat map. Left mouse paints the selected layer, holding alt
-    // erases back to the base layer.
+    // Paints the ground layers into the splat map. Left mouse paints the selected layer, holding shift
+    // erases back to the base layer and holding alt picks the layer under the mouse.
     class GroundPaintTool : public ITool
     {
     public:
@@ -28,6 +28,9 @@ namespace editor
         void HandleMousePosition(const math::Vector& world_pos) override;
         void UpdateModifierState(bool ctrl, bool shift, bool alt) override;
 
+        // Layer 1 to 4, shows a notification with the layer's texture.
+        void SelectLayer(int layer);
+
     private:
 
         void PaintAt(const math::Vector& world_pos);
@@ -36,6 +39,7 @@ namespace editor
         UIContext* m_context;
         bool m_painting;
         bool m_erase;
+        bool m_pick;
         math::Vector m_brush_position;
 
         class Visualizer;

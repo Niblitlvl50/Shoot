@@ -9,6 +9,8 @@
 #include "Rendering/IDrawable.h"
 #include "Rendering/IRenderer.h"
 
+#include <string>
+
 using namespace editor;
 
 class GroundPaintTool::Visualizer : public mono::IDrawable
@@ -46,6 +48,7 @@ GroundPaintTool::GroundPaintTool(Editor* editor, UIContext* context)
     , m_context(context)
     , m_painting(false)
     , m_erase(false)
+    , m_pick(false)
     , m_visualizer(std::make_unique<Visualizer>(m_brush_position, m_erase, context))
 { }
 
@@ -73,6 +76,16 @@ void GroundPaintTool::HandleContextMenu(int menu_index)
 
 void GroundPaintTool::HandleMouseDown(const math::Vector& world_pos, uint32_t entity_id)
 {
+    if(m_pick)
+    {
+        const int picked_layer = m_editor->GetGroundPaintData()->StrongestLayer(world_pos);
+        if(picked_layer == 0)
+            m_context->notifications.emplace_back(editor::wrench_texture, "Base layer, erase with shift to paint it", 1.0f);
+        else
+            SelectLayer(picked_layer);
+        return;
+    }
+
     m_painting = true;
     PaintAt(world_pos);
 }
@@ -91,7 +104,23 @@ void GroundPaintTool::HandleMousePosition(const math::Vector& world_pos)
 
 void GroundPaintTool::UpdateModifierState(bool ctrl, bool shift, bool alt)
 {
-    m_erase = alt;
+    m_erase = shift;
+    m_pick = alt;
+}
+
+void GroundPaintTool::SelectLayer(int layer)
+{
+    m_context->ground_paint_brush.layer = layer;
+
+    // Just the file name of the texture, without folders and extension.
+    const std::string& texture_file = m_context->level_metadata.ground_paint.textures[layer];
+    const size_t name_start = texture_file.find_last_of("/\\") + 1;
+    const size_t extension_start = texture_file.find_last_of('.');
+    const size_t name_end = (extension_start != std::string::npos && extension_start > name_start) ? extension_start : texture_file.size();
+    const std::string texture_name = texture_file.empty() ? "no texture" : texture_file.substr(name_start, name_end - name_start);
+
+    const std::string text = "Layer " + std::to_string(layer) + ": " + texture_name;
+    m_context->notifications.emplace_back(editor::wrench_texture, text.c_str(), 1.0f);
 }
 
 void GroundPaintTool::PaintAt(const math::Vector& world_pos)

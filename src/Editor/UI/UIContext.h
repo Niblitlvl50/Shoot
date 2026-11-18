@@ -87,7 +87,7 @@ namespace editor
         {
             // 1 to 4, the painted layers.
             int layer = 1;
-            float radius = 1.0f;
+            float radius = 0.5f;
             float strength = 0.3f;
         } ground_paint_brush;
 

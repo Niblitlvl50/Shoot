@@ -186,6 +186,34 @@ void GroundPaintData::Paint(const math::Vector& world_position, float radius, fl
     m_dirty = true;
 }
 
+int GroundPaintData::StrongestLayer(const math::Vector& world_position) const
+{
+    if(m_pixels.empty())
+        return 0;
+
+    const math::Vector texel = (world_position - m_position) * m_texels_per_meter;
+    const int x = int(std::floor(texel.x));
+    const int y = int(std::floor(texel.y));
+    if(x < 0 || x >= m_width || y < 0 || y >= m_height)
+        return 0;
+
+    const uint8_t* weights = &m_pixels[(y * m_width + x) * 4];
+    const int painted_weight = weights[0] + weights[1] + weights[2] + weights[3];
+
+    int strongest_layer = 0;
+    int strongest_weight = std::max(0, 255 - painted_weight);
+    for(int channel = 0; channel < 4; ++channel)
+    {
+        if(weights[channel] > strongest_weight)
+        {
+            strongest_weight = weights[channel];
+            strongest_layer = channel + 1;
+        }
+    }
+
+    return strongest_layer;
+}
+
 int GroundPaintData::Width() const
 {
     return m_width;

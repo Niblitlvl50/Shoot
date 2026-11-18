@@ -453,7 +453,7 @@ namespace
                 }
                 ImGui::Spacing();
 
-                ImGui::TextDisabled("Brush, paint tool is 4, q w e r picks the layer, alt erases");
+                ImGui::TextDisabled("Brush, paint tool is 4, q w e r or alt click picks the layer, shift erases");
                 ImGui::SliderInt("Paint Layer", &context.ground_paint_brush.layer, 1, game::GROUND_PAINT_LAYERS - 1);
                 ImGui::SliderFloat("Radius", &context.ground_paint_brush.radius, 0.1f, 5.0f);
                 ImGui::SliderFloat("Strength", &context.ground_paint_brush.strength, 0.01f, 1.0f);
