@@ -24565,7 +24565,7 @@
         }
     ],
     "metadata": {
-        "aborted_trigger": "",
+        "aborted_trigger": "level_aborted",
         "ambient_shade": {
             "alpha": 1.0,
             "blue": 0.3839869201183319,
@@ -24593,8 +24593,35 @@
             "y": 7.5
         },
         "completed_alt_trigger": "",
-        "completed_trigger": "",
+        "completed_trigger": "level_completed",
         "failed_trigger": "",
+        "ground_paint": {
+            "blend_layers": false,
+            "edge_roughness": 0.30000001192092896,
+            "position": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "size": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "texels_per_meter": 4.0,
+            "texture_scales": [
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "textures": [
+                "",
+                "",
+                "",
+                "",
+                ""
+            ]
+        },
         "level_description": "Lush and Green",
         "level_game_mode": "train_mode",
         "level_name": "Eastern Lands",
@@ -24621,6 +24648,8 @@
             "e_switch_set_primary",
             "exit_level_south",
             "exit_level_west",
+            "level_aborted",
+            "level_completed",
             "m_coal_delivery"
         ],
         "use_custom_package_spawn_position": false

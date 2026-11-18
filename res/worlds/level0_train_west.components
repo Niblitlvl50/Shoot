@@ -75464,6 +75464,33 @@
         "completed_alt_trigger": "",
         "completed_trigger": "level_completed",
         "failed_trigger": "",
+        "ground_paint": {
+            "blend_layers": false,
+            "edge_roughness": 0.30000001192092896,
+            "position": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "size": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "texels_per_meter": 4.0,
+            "texture_scales": [
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "textures": [
+                "",
+                "",
+                "",
+                "",
+                ""
+            ]
+        },
         "level_description": "Welsh Country",
         "level_game_mode": "train_mode",
         "level_name": "Train Level",
