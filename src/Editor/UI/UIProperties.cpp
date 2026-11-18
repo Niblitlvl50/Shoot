@@ -233,6 +233,8 @@ bool editor::DrawProperty(uint32_t component_hash, mono::Attribute& attribute, c
             mono::SpriteProperty::SHADOW,
             mono::SpriteProperty::FLIP_HORIZONTAL,
             mono::SpriteProperty::FLIP_VERTICAL,
+            mono::SpriteProperty::STACKED,
+            mono::SpriteProperty::DIRECTIONAL,
             //mono::SpriteProperty::FLASH,
         };
 
