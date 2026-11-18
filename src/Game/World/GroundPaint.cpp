@@ -45,7 +45,7 @@ std::string game::GroundPaintFilename(const std::string& world_filename)
 
 bool game::IsGroundPaintEnabled(const GroundPaintSettings& settings)
 {
-    return !settings.textures[0].empty() && settings.size.x > 0.0f && settings.size.y > 0.0f && settings.texels_per_meter > 0.0f;
+    return settings.size.x > 0.0f && settings.size.y > 0.0f && settings.texels_per_meter > 0.0f;
 }
 
 void GroundPaintData::Load(const std::string& filename, const GroundPaintSettings& settings)
@@ -226,7 +226,10 @@ void GroundPaintDrawer::Draw(mono::IRenderer& renderer) const
         m_textures[index] = m_texture_names[index].empty() ? nullptr : texture_factory->CreateTexture(m_texture_names[index].c_str());
     }
 
-    if(!m_textures[0])
+    const bool has_any_texture = std::any_of(std::begin(m_textures), std::end(m_textures), [](const mono::ITexturePtr& texture) {
+        return texture != nullptr;
+    });
+    if(!has_any_texture)
         return;
 
     const bool splat_size_changed =
@@ -264,7 +267,7 @@ void GroundPaintDrawer::Draw(mono::IRenderer& renderer) const
         m_indices = mono::CreateElementBuffer(mono::BufferType::STATIC, std::size(indices), indices, "ground_paint_drawer");
     }
 
-    // A layer without a texture shows the base layer.
+    // A layer without a texture shows the base layer, or nothing if the base has none either.
     mono::GroundPaintDrawParams params;
     params.splat_map = m_splat_texture.get();
     params.splat_rect = quad;

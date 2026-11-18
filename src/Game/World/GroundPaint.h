@@ -18,7 +18,7 @@ namespace game
     // res/worlds/level.components gives res/worlds/level.splat.png
     std::string GroundPaintFilename(const std::string& world_filename);
 
-    // A base texture and a size to paint on.
+    // A size to paint on.
     bool IsGroundPaintEnabled(const GroundPaintSettings& settings);
 
     // The splat map, RGBA weights of the four painted layers over the painted area. Rows go from

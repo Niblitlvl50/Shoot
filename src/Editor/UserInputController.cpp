@@ -296,7 +296,14 @@ mono::EventResult UserInputController::OnKeyDown(const event::KeyDownEvent& even
             const int paint_layer = int(std::distance(std::begin(layer_keys), key_it)) + 1;
             m_context->ground_paint_brush.layer = paint_layer;
 
-            const std::string text = "Paint layer " + std::to_string(paint_layer);
+            // Just the file name of the texture, without folders and extension.
+            const std::string& texture_file = m_context->level_metadata.ground_paint.textures[paint_layer];
+            const size_t name_start = texture_file.find_last_of("/\\") + 1;
+            const size_t extension_start = texture_file.find_last_of('.');
+            const size_t name_end = (extension_start != std::string::npos && extension_start > name_start) ? extension_start : texture_file.size();
+            const std::string texture_name = texture_file.empty() ? "no texture" : texture_file.substr(name_start, name_end - name_start);
+
+            const std::string text = "Layer " + std::to_string(paint_layer) + ": " + texture_name;
             m_context->notifications.emplace_back(editor::wrench_texture, text.c_str(), 1.0f);
             return mono::EventResult::PASS_ON;
         }

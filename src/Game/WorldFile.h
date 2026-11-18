@@ -20,7 +20,7 @@ namespace game
     // png next to the world file, see GroundPaintFilename.
     struct GroundPaintSettings
     {
-        // The base layer first, then the four painted ones.
+        // The base layer first, then the four painted ones. Without a base texture only the paint shows.
         std::string textures[GROUND_PAINT_LAYERS];
         float texture_scales[GROUND_PAINT_LAYERS] = { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
 
