@@ -17570,6 +17570,30 @@
                             "variant_value": false
                         }
                     ]
+                },
+                {
+                    "hash": 2120958337,
+                    "name": "path_notifier",
+                    "properties": [
+                        {
+                            "id": 3166801492,
+                            "name": "path_notify_distance",
+                            "variant_type": 3,
+                            "variant_value": 12.0
+                        },
+                        {
+                            "id": 1905060786,
+                            "name": "path_notify_end_distance",
+                            "variant_type": 3,
+                            "variant_value": 0.0
+                        },
+                        {
+                            "id": 2516003219,
+                            "name": "tag",
+                            "variant_type": 6,
+                            "variant_value": "player_start"
+                        }
+                    ]
                 }
             ],
             "entity_properties": 0,
