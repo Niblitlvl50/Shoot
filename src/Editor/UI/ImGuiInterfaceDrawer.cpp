@@ -438,7 +438,8 @@ namespace
                 ImGui::InputFloat2("Size", &ground_paint.size.x);
                 ImGui::InputFloat("Texels per Meter", &ground_paint.texels_per_meter);
                 ImGui::SliderFloat("Edge Roughness", &ground_paint.edge_roughness, 0.0f, 1.0f);
-                ImGui::Checkbox("Blend Layers", &ground_paint.blend_layers);
+                constexpr const char* blend_modes[] = { "Crisp", "Smooth", "Dither" };
+                ImGui::Combo("Blend Mode", &ground_paint.blend_mode, blend_modes, int(std::size(blend_modes)));
                 ImGui::Spacing();
 
                 ImGui::TextDisabled("Layers");
@@ -453,9 +454,15 @@ namespace
                 }
                 ImGui::Spacing();
 
-                ImGui::TextDisabled("Brush, paint tool is 4, q w e r or alt click picks the layer, shift erases");
+                ImGui::TextDisabled("Brush");
+                ImGui::TextDisabled("Paint tool is 4");
+                ImGui::TextDisabled("Q W E R or Alt click picks the layer");
+                ImGui::TextDisabled("Shift Erases");
+
+                ImGui::Spacing();
+
                 ImGui::SliderInt("Paint Layer", &context.ground_paint_brush.layer, 1, game::GROUND_PAINT_LAYERS - 1);
-                ImGui::SliderFloat("Radius", &context.ground_paint_brush.radius, 0.1f, 5.0f);
+                ImGui::SliderFloat("Radius", &context.ground_paint_brush.radius, 0.1f, 1.0f);
                 ImGui::SliderFloat("Strength", &context.ground_paint_brush.strength, 0.01f, 1.0f);
 
                 ImGui::EndTabItem();

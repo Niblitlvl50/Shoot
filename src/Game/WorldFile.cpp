@@ -76,7 +76,9 @@ namespace
                 ground_paint.size = json_ground_paint.value("size", math::ZeroVec);
                 ground_paint.texels_per_meter = json_ground_paint.value("texels_per_meter", 4.0f);
                 ground_paint.edge_roughness = json_ground_paint.value("edge_roughness", 0.3f);
-                ground_paint.blend_layers = json_ground_paint.value("blend_layers", false);
+                // Older worlds have a bool for smooth blending.
+                const bool blend_layers = json_ground_paint.value("blend_layers", false);
+                ground_paint.blend_mode = json_ground_paint.value("blend_mode", blend_layers ? 1 : 0);
             }
         }
 

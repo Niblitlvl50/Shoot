@@ -300,7 +300,7 @@ void GroundPaintDrawer::Draw(mono::IRenderer& renderer) const
     params.splat_map = m_splat_texture.get();
     params.splat_rect = quad;
     params.edge_roughness = m_settings.edge_roughness;
-    params.blend_layers = m_settings.blend_layers;
+    params.blend_mode = static_cast<mono::GroundPaintBlendMode>(m_settings.blend_mode);
     for(int index = 0; index < GROUND_PAINT_LAYERS; ++index)
     {
         const bool has_texture = (m_textures[index] != nullptr);

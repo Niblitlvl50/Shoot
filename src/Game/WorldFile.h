@@ -31,8 +31,8 @@ namespace game
         float texels_per_meter = 4.0f;
         float edge_roughness = 0.3f;
 
-        // Smooth blends between the layers instead of crisp edges.
-        bool blend_layers = false;
+        // 0 is crisp edges, 1 smooth blends and 2 dithered, see mono::GroundPaintBlendMode.
+        int blend_mode = 0;
     };
 
     struct LevelMetadata

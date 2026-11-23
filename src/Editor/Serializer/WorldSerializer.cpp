@@ -101,7 +101,7 @@ void editor::WriteComponentEntities(
     json_ground_paint["size"] = ground_paint.size;
     json_ground_paint["texels_per_meter"] = ground_paint.texels_per_meter;
     json_ground_paint["edge_roughness"] = ground_paint.edge_roughness;
-    json_ground_paint["blend_layers"] = ground_paint.blend_layers;
+    json_ground_paint["blend_mode"] = ground_paint.blend_mode;
     json_metadata["ground_paint"] = json_ground_paint;
 
     nlohmann::json json;

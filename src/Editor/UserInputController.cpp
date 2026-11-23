@@ -262,7 +262,9 @@ mono::EventResult UserInputController::OnMouseMove(const event::MouseMotionEvent
             m_camera_tool.HandleMousePosition(screen_position);
     }
 
-    IObjectProxy* proxy = m_editor->FindProxyObject(world_position);
+    // Nothing is preselected while painting the ground.
+    const bool is_painting_ground = (m_active_tool == &m_ground_paint_tool);
+    IObjectProxy* proxy = is_painting_ground ? nullptr : m_editor->FindProxyObject(world_position);
     m_editor->PreselectProxyObject(proxy);
 
     m_context->world_mouse_position = world_position;
