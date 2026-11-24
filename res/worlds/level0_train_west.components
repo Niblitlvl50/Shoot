@@ -75465,7 +75465,7 @@
         "completed_trigger": "level_completed",
         "failed_trigger": "",
         "ground_paint": {
-            "blend_layers": false,
+            "blend_mode": 0,
             "edge_roughness": 0.30000001192092896,
             "position": {
                 "x": 0.0,

@@ -790,134 +790,6 @@
                             "id": 2369371622,
                             "name": "name",
                             "variant_type": 6,
-                            "variant_value": "background"
-                        },
-                        {
-                            "id": 3647911389,
-                            "name": "folder",
-                            "variant_type": 6,
-                            "variant_value": ""
-                        },
-                        {
-                            "id": 3923852156,
-                            "name": "editor_properties",
-                            "variant_type": 2,
-                            "variant_value": 1
-                        }
-                    ]
-                },
-                {
-                    "hash": 3786248987,
-                    "name": "transform",
-                    "properties": [
-                        {
-                            "id": 2471448074,
-                            "name": "position",
-                            "variant_type": 4,
-                            "variant_value": {
-                                "x": -0.125,
-                                "y": -0.125
-                            }
-                        },
-                        {
-                            "id": 564937055,
-                            "name": "rotation",
-                            "variant_type": 3,
-                            "variant_value": 0.0
-                        },
-                        {
-                            "id": 2190941297,
-                            "name": "scale",
-                            "variant_type": 3,
-                            "variant_value": 1.0
-                        },
-                        {
-                            "id": 1150083244,
-                            "name": "entity_reference",
-                            "variant_type": 2,
-                            "variant_value": 4294967295
-                        }
-                    ]
-                },
-                {
-                    "hash": 2771478017,
-                    "name": "textured_polygon",
-                    "properties": [
-                        {
-                            "id": 1013213428,
-                            "name": "texture",
-                            "variant_type": 6,
-                            "variant_value": "res/textures/background/grass/grass_04.png"
-                        },
-                        {
-                            "id": 1031692888,
-                            "name": "color",
-                            "variant_type": 5,
-                            "variant_value": {
-                                "alpha": 1.0,
-                                "blue": 1.0,
-                                "green": 1.0,
-                                "red": 1.0
-                            }
-                        },
-                        {
-                            "id": 3148264498,
-                            "name": "polygon_draw_layer",
-                            "variant_type": 1,
-                            "variant_value": 0
-                        },
-                        {
-                            "id": 85768329,
-                            "name": "polygon",
-                            "variant_type": 7,
-                            "variant_value": [
-                                {
-                                    "x": -7.90632438659668,
-                                    "y": 5.458629608154297
-                                },
-                                {
-                                    "x": 0.5286102294921875,
-                                    "y": 8.59058952331543
-                                },
-                                {
-                                    "x": 7.041660308837891,
-                                    "y": 7.024608612060547
-                                },
-                                {
-                                    "x": 10.031257629394531,
-                                    "y": -0.20025253295898438
-                                },
-                                {
-                                    "x": 4.763874053955078,
-                                    "y": -6.179445266723633
-                                },
-                                {
-                                    "x": -5.984439849853516,
-                                    "y": -4.862598419189453
-                                },
-                                {
-                                    "x": -9.187580108642578,
-                                    "y": -0.09347915649414063
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
-            "entity_properties": 0,
-            "name": "background",
-            "uuid_hash": 767648323
-        },
-        {
-            "components": [
-                {
-                    "hash": 2340204639,
-                    "name": "name_folder",
-                    "properties": [
-                        {
-                            "id": 2369371622,
-                            "name": "name",
-                            "variant_type": 6,
                             "variant_value": "wooden_pole_skulls_1"
                         },
                         {
@@ -21069,14 +20941,15 @@
         "completed_trigger": "level_completed",
         "failed_trigger": "level_gameover",
         "ground_paint": {
-            "edge_roughness": 0.30000001192092896,
+            "blend_mode": 1,
+            "edge_roughness": 0.49300000071525574,
             "position": {
-                "x": 0.0,
-                "y": 0.0
+                "x": -10.0,
+                "y": -10.0
             },
             "size": {
-                "x": 0.0,
-                "y": 0.0
+                "x": 20.0,
+                "y": 20.0
             },
             "texels_per_meter": 4.0,
             "texture_scales": [
@@ -21088,10 +20961,10 @@
             ],
             "textures": [
                 "",
-                "",
-                "",
-                "",
-                ""
+                "res/textures/background/grass_set_1/grass_01.png",
+                "res/textures/background/grass_set_1/grass_02.png",
+                "res/textures/background/grass_set_1/grass_04.png",
+                "res/textures/background/ground4.png"
             ]
         },
         "level_description": "",
